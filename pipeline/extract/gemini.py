@@ -207,7 +207,9 @@ def _default_client() -> ExtractionClient:  # pragma: no cover - requires the li
 
     class _GeminiClient:
         def generate(self, prompt: str) -> ExtractionResponse:
-            response = model.generate_content(prompt)
+            response = model.generate_content(
+                prompt, request_options={"timeout": config.REQUEST_TIMEOUT_S}
+            )
             usage = getattr(response, "usage_metadata", None)
             return ExtractionResponse(
                 text=response.text,
