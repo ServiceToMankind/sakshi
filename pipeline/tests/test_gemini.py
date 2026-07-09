@@ -96,15 +96,22 @@ def test_extract_empty_docs_returns_empty() -> None:
     assert result.records == [] and result.documents == 0
 
 
-def test_cost_log_written_even_when_extraction_raises(tmp_path: Path) -> None:
-    client = _FakeClient([RuntimeError("boom")] * 7)  # exceeds MAX_RETRIES
+def test_failing_doc_is_skipped_not_fatal(tmp_path: Path) -> None:
+    client = _FakeClient([RuntimeError("boom")] * 20)  # every call fails
     cost_log = tmp_path / "cost.json"
-    raised = False
-    try:
-        gemini.extract(
-            [_DOC], client=client, cost_log_path=cost_log, sleep=lambda _s: None, jitter=lambda: 0.0
-        )
-    except RuntimeError:
-        raised = True
-    assert raised
-    assert cost_log.exists()  # spend recorded despite the mid-run failure
+    result = gemini.extract(
+        [_DOC, _DOC],
+        client=client,
+        cost_log_path=cost_log,
+        sleep=lambda _s: None,
+        jitter=lambda: 0.0,
+    )
+    assert result.records == [] and result.failed == 2 and result.aborted is False
+    assert cost_log.exists()  # spend/attempts recorded even though both docs failed
+
+
+def test_circuit_breaker_aborts_on_sustained_failures() -> None:
+    client = _FakeClient([RuntimeError("boom")] * 50)
+    result = gemini.extract([_DOC] * 10, client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert result.aborted is True
+    assert result.failed == config.EXTRACT_MAX_CONSECUTIVE_FAILURES  # stopped early

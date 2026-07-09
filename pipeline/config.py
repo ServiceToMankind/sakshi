@@ -37,6 +37,10 @@ TOP_PENDING_COUNT: Final[int] = 10
 CONFIDENCE_REVIEW_THRESHOLD: Final[float] = 0.8
 REVIEW_QUEUE_ISSUE_THRESHOLD: Final[int] = 20
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
+# Per-document Gemini retries (fail fast, then skip the doc) and a circuit breaker
+# so sustained provider errors (503 overload) abort extraction instead of hanging.
+EXTRACT_MAX_RETRIES: Final[int] = 2
+EXTRACT_MAX_CONSECUTIVE_FAILURES: Final[int] = 5
 
 # --- Gemini model + cost estimation ------------------------------------------
 # A resilient ALIAS to the current flash-class model. Concrete versions (2.0,

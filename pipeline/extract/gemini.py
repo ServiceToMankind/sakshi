@@ -72,6 +72,8 @@ class ExtractionResult:
     output_tokens: int = 0
     documents: int = 0
     truncated: bool = False
+    failed: int = 0
+    aborted: bool = False
 
     @property
     def estimated_usd(self) -> float:
@@ -152,18 +154,30 @@ def extract(
     jitter_fn = jitter if jitter is not None else (lambda: random.uniform(0.0, 0.5))
     schema_text = _load_schema_text()
 
+    consecutive_failures = 0
     try:
         for doc in docs:
             if result.input_tokens + result.output_tokens >= cap:
                 result.truncated = True
                 break
-            response = _call_with_backoff(
-                active,
-                build_prompt(doc, schema_text),
-                sleep=sleep,
-                jitter=jitter_fn,
-                max_retries=config.MAX_RETRIES,
-            )
+            try:
+                response = _call_with_backoff(
+                    active,
+                    build_prompt(doc, schema_text),
+                    sleep=sleep,
+                    jitter=jitter_fn,
+                    max_retries=config.EXTRACT_MAX_RETRIES,
+                )
+            except Exception:
+                # One document's persistent failure never aborts the whole run; skip
+                # it. But circuit-break if the provider is sustainedly failing.
+                result.failed += 1
+                consecutive_failures += 1
+                if consecutive_failures >= config.EXTRACT_MAX_CONSECUTIVE_FAILURES:
+                    result.aborted = True
+                    break
+                continue
+            consecutive_failures = 0
             result.input_tokens += response.input_tokens
             result.output_tokens += response.output_tokens
             record = _parse(response.text, doc)
@@ -184,7 +198,10 @@ def _write_cost_log(result: ExtractionResult, path: Path) -> None:
         "input_tokens": result.input_tokens,
         "output_tokens": result.output_tokens,
         "estimated_usd": result.estimated_usd,
+        "records": len(result.records),
+        "failed": result.failed,
         "truncated": result.truncated,
+        "aborted": result.aborted,
     }
     path.write_text(json.dumps(entry, indent=2), encoding="utf-8")
 
@@ -195,6 +212,7 @@ def _default_client() -> ExtractionClient:  # pragma: no cover - requires the li
 
     # Imported dynamically as Any: the SDK is untyped and only present at runtime.
     genai: Any = importlib.import_module("google.generativeai")
+    g_retry: Any = importlib.import_module("google.api_core.retry")
 
     api_key = config.gemini_api_key()
     if not api_key:
@@ -207,8 +225,14 @@ def _default_client() -> ExtractionClient:  # pragma: no cover - requires the li
 
     class _GeminiClient:
         def generate(self, prompt: str) -> ExtractionResponse:
+            # Bound BOTH the per-call timeout AND the SDK's internal retry deadline,
+            # so a 503-overloaded model fails in seconds rather than blocking 600s.
             response = model.generate_content(
-                prompt, request_options={"timeout": config.REQUEST_TIMEOUT_S}
+                prompt,
+                request_options={
+                    "timeout": config.REQUEST_TIMEOUT_S,
+                    "retry": g_retry.Retry(deadline=config.REQUEST_TIMEOUT_S),
+                },
             )
             usage = getattr(response, "usage_metadata", None)
             return ExtractionResponse(

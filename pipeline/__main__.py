@@ -237,7 +237,13 @@ def run(
         )
         extractions = result.records
         report.estimated_usd = result.estimated_usd
-        _log(report, f"extracted {len(extractions)} candidates; est ${result.estimated_usd:.6f}")
+        detail = f"{result.failed} failed" + (
+            ", ABORTED (provider overload)" if result.aborted else ""
+        )
+        _log(
+            report,
+            f"extracted {len(extractions)} candidates ({detail}); est ${result.estimated_usd:.6f}",
+        )
 
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)
