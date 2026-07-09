@@ -90,7 +90,7 @@ files = ["pipeline", "scripts"]
 # Third-party libraries without shipped type stubs.
 [[tool.mypy.overrides]]
 module = [
-    "google.generativeai.*",
+    "google.*",
     "rapidfuzz.*",
     "presidio_analyzer.*",
     "jsonschema.*",
@@ -112,18 +112,9 @@ pythonpath = ["."]
 [tool.coverage.run]
 branch = true
 source = ["pipeline"]
-# Omit tests and the data-acquisition modules that are still documented stubs
-# (fetch/extract/dedupe/shard). They join the coverage gate as they are
-# implemented in the pipeline phase; the safety + validation layer is covered now.
-omit = [
-    "pipeline/tests/*",
-    "pipeline/__main__.py",
-    "pipeline/dedupe.py",
-    "pipeline/shard.py",
-    "pipeline/extract/*",
-    "pipeline/sources/ecourts.py",
-    "pipeline/sources/rss_media.py",
-]
+# The acquisition pipeline is implemented and measured. Only the test package
+# is omitted; genuinely network-only lines carry `# pragma: no cover`.
+omit = ["pipeline/tests/*"]
 
 [tool.coverage.report]
 show_missing = true

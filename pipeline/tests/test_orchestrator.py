@@ -1,0 +1,106 @@
+"""End-to-end tests for the pipeline orchestrator (offline)."""
+
+from __future__ import annotations
+
+import io
+import json
+from pathlib import Path
+
+from pipeline import __main__ as orchestrator
+from pipeline.extract.gemini import ExtractionResponse
+from pipeline.fixtures import fixture_raw_documents
+
+
+class _FakeGemini:
+    def __init__(self, payload: str) -> None:
+        self._payload = payload
+
+    def generate(self, prompt: str) -> ExtractionResponse:
+        return ExtractionResponse(text=self._payload, input_tokens=100, output_tokens=50)
+
+
+def test_dry_run_end_to_end(tmp_path: Path) -> None:
+    out = io.StringIO()
+    report = orchestrator.run(
+        dry_run=True,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=out,
+    )
+    assert report.published == 1 and report.new == 1 and report.review == 0
+
+    text = out.getvalue()
+    assert "ONE RECORD'S JOURNEY" in text
+    assert "DRY-RUN RESULT" in text
+
+    records = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    assert records[0]["id"] == "SKS-2026-TG-000001"
+    assert len(records[0]["sources"]) == 2  # court + media unioned
+    assert "victim" not in records[0]
+
+    env = (tmp_path / "logs" / "run_summary.env").read_text()
+    assert "NEW=1" in env and "REVIEW=0" in env
+
+
+def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None:
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "cnr": "C-1",
+            "fir_ref": {"station": "TESTVILLE PS", "number": "12/2026"},
+            "incident_reported_date": "2026-06-14",
+            "offence_sections": ["BNS 64"],
+            "confidence": 0.94,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 1
+    records = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    assert len(records[0]["sources"]) == 2  # both fixture docs cited
+
+
+def test_main_dry_run_returns_zero(capsys: object) -> None:
+    assert orchestrator.main(["--dry-run", "--run-date", "2026-07-09"]) == 0
+    captured = capsys.readouterr()  # type: ignore[attr-defined]
+    assert "Dry-run wrote to:" in captured.out
+
+
+def test_low_confidence_routes_to_sanitized_review(tmp_path: Path) -> None:
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "cnr": "C-1",
+            "confidence": 0.4,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.review >= 1
+
+    review_files = list((tmp_path / "_review").glob("review-*.json"))
+    assert review_files
+    entries = json.loads(review_files[0].read_text())
+    assert entries[0]["reason"] == "low_confidence"
+    assert "victim" not in entries[0]["record"]  # review records are sanitized too

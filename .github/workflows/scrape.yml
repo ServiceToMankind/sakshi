@@ -13,8 +13,13 @@ on:
   # 30 0 UTC == 06:00 IST. One run per day.
   schedule:
     - cron: '30 0 * * *'
-  # Allow a maintainer to trigger a run by hand.
+  # Allow a maintainer to trigger a run by hand, optionally as an offline dry-run.
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Offline dry-run on TESTVILLE fixtures (no network, no Gemini, no commit)."
+        type: boolean
+        default: false
 
 # Least privilege: the job needs to commit data/ and open failure issues.
 permissions:
@@ -57,7 +62,12 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          python -m pipeline
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            echo "Running OFFLINE dry-run (fixtures only; no network, no Gemini)."
+            python -m pipeline --dry-run
+          else
+            python -m pipeline
+          fi
 
       # Read counters emitted by the pipeline so the commit message and the
       # review-queue check are accurate. Missing file => zeros (safe default).
@@ -78,7 +88,7 @@ jobs:
       # hand-edit data/, so a clean diff simply means "no change today".
       # NOTE: no Claude/AI co-author trailer — org policy forbids it.
       - name: Commit regenerated data
-        if: success()
+        if: success() && github.event.inputs.dry_run != 'true'
         run: |
           git config user.name  "sakshi-bot"
           git config user.email "actions@users.noreply.github.com"

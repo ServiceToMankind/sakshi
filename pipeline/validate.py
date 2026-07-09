@@ -27,7 +27,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from pipeline.shard import SUMMARY_MAX_BYTES
+from pipeline.config import SUMMARY_MAX_BYTES
 
 __all__ = [
     "check_summary_size",
@@ -40,9 +40,6 @@ __all__ = [
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _SCHEMA_PATH = _REPO_ROOT / "schemas" / "case.schema.json"
 _DEFAULT_DATA_DIR = _REPO_ROOT / "data"
-
-# Directory names under data/ that are never published and never validated here.
-_EXCLUDED_DIRS = frozenset({"_review"})
 
 
 def load_schema(path: Path = _SCHEMA_PATH) -> dict[str, Any]:
@@ -63,13 +60,11 @@ def validate_record(record: dict[str, Any], schema: dict[str, Any]) -> None:
 def iter_shard_files(data_dir: Path) -> Iterator[Path]:
     """Yield every published ``data/{YYYY}/{STATE}.json`` shard.
 
-    Only nested year-directory shards are shards; top-level files
-    (summary.json, index.json) and the ``_review`` quarantine are skipped.
+    Only ``{YYYY}/*.json`` shards count; top-level files (summary.json,
+    index.json), the ``_review`` quarantine, and any ``logs/`` are skipped by
+    matching the 4-digit year directory pattern.
     """
-    for path in sorted(data_dir.glob("*/*.json")):
-        if path.parent.name in _EXCLUDED_DIRS:
-            continue
-        yield path
+    yield from sorted(data_dir.glob("[0-9][0-9][0-9][0-9]/*.json"))
 
 
 def validate_all_shards(data_dir: Path, schema: dict[str, Any] | None = None) -> list[str]:

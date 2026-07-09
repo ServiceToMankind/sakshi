@@ -63,7 +63,7 @@ immediate danger, contact the police on **112**.
    └─────────┘   honest User-Agent · ETag/Last-Modified · backoff
                         │
                         ▼
-   ┌────────────────┐   Gemini (gemini-2.0-flash class), response_schema-
+   ┌────────────────┐   Gemini (gemini-2.5-flash), response_schema-
    │ GEMINI EXTRACT │   constrained JSON over ALREADY-PUBLIC text only.
    └────────────────┘   victim := null enforced · confidence required
                         │

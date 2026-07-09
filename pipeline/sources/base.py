@@ -34,6 +34,6 @@ class RawDocument:
 class Source(Protocol):
     """Interface every source module implements."""
 
-    def fetch(self) -> list[RawDocument]:
+    async def fetch(self) -> list[RawDocument]:
         """Retrieve documents from this source, honouring per-host politeness."""
         ...

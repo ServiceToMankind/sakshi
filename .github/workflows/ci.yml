@@ -79,6 +79,11 @@ jobs:
       - name: PII guard
         run: python scripts/pii_guard.py data/
 
+      # Prove the whole pipeline runs offline on TESTVILLE fixtures — no network,
+      # no Gemini key — before any real scrape is ever trusted.
+      - name: Pipeline dry-run (offline)
+        run: python -m pipeline --dry-run
+
   frontend:
     name: Frontend checks
     runs-on: ubuntu-latest

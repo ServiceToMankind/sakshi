@@ -4,6 +4,12 @@
 .env.*
 # ...but the documented, secret-free template MUST stay tracked.
 !.env.example
+# Pasted credential files placed at the repo root for local reference only.
+# These hold real keys and must NEVER be committed or pushed.
+GEMINI_API_KEY
+*.key
+*.pem
+secrets.txt
 
 # --- Python ---
 __pycache__/
