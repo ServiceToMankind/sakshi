@@ -1,74 +1,88 @@
-// Sakshi — frontend entry point (Phase-4 scaffold STUB).
-//
-// Responsibilities once fully implemented:
-//   1. Load data/summary.json (the only payload the landing page needs).
-//   2. Wire the router (state -> district drill-down, shareable filter URLs).
-//   3. Render charts (count-up totals, status donut, SVG state tile-grid, trend).
-//   4. Initialise animations (IntersectionObserver reveals, View Transitions),
-//      always respecting prefers-reduced-motion.
-//   5. Initialise i18n (en/hi) and the theme toggle.
-//
-// This stub only loads summary data and logs a plan. No real UI yet.
+// Frontend entry point: styles, i18n, theme + language toggles, the router, the
+// footer's last-updated stamp, and the service worker. The router owns rendering.
 
+import '../styles/main.css';
+
+import { initI18n, setLocale, currentLocale, supportedLocales } from './i18n/index.js';
 import { initRouter } from './router.js';
-import { initFilters } from './filters.js';
-import { initReveals } from './animations.js';
-import { initI18n } from './i18n/index.js';
-// Chart helpers are imported lazily where rendered; referenced here for the plan.
-// import { countUp, renderStatusDonut, renderTrend, renderStateGrid } from './charts.js';
+import { loadSummary } from './data.js';
+import { formatDate } from './format.js';
 
-// Base is injected by Vite (see vite.config.js `base`). Data lives at repo-root
-// /data, which is served as a sibling of the built site on GitHub Pages.
-const SUMMARY_URL = `${import.meta.env.BASE_URL}data/summary.json`;
-
-async function loadSummary() {
+function safeGet(key) {
   try {
-    const res = await fetch(SUMMARY_URL, { cache: 'no-cache' });
-    if (!res.ok) throw new Error(`summary.json -> HTTP ${res.status}`);
-    return await res.json();
-  } catch (err) {
-    // TODO: fall back to service-worker-cached summary for offline glance.
-    console.warn('[sakshi] could not load summary.json:', err);
+    return localStorage.getItem(key);
+  } catch {
     return null;
   }
 }
+function safeSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* non-fatal */
+  }
+}
 
-function initThemeToggle() {
+function initTheme() {
+  const stored = safeGet('sakshi.theme');
+  if (stored === 'dark' || stored === 'light') document.documentElement.dataset.theme = stored;
   const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
-  btn.addEventListener('click', () => {
+  btn?.addEventListener('click', () => {
     const root = document.documentElement;
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    const isDark =
+      root.dataset.theme === 'dark' ||
+      (!root.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+    const next = isDark ? 'light' : 'dark';
     root.dataset.theme = next;
-    // TODO: persist preference to localStorage.
+    safeSet('sakshi.theme', next);
+    window.dispatchEvent(new CustomEvent('sakshi:theme', { detail: next }));
   });
 }
 
-function updateLastUpdated(summary) {
-  const el = document.getElementById('last-updated');
-  if (!el || !summary?.generated_at) return;
-  el.dateTime = summary.generated_at;
-  el.textContent = new Date(summary.generated_at).toLocaleDateString();
+function updateLangLabel() {
+  const btn = document.getElementById('lang-toggle');
+  if (btn) btn.textContent = currentLocale() === 'en' ? 'हिंदी' : 'EN';
+}
+
+function initLangToggle() {
+  const btn = document.getElementById('lang-toggle');
+  btn?.addEventListener('click', async () => {
+    const locales = supportedLocales();
+    const next = locales[(locales.indexOf(currentLocale()) + 1) % locales.length];
+    await setLocale(next);
+    updateLangLabel();
+  });
+  updateLangLabel();
+}
+
+async function initFooter() {
+  const node = document.getElementById('last-updated');
+  if (!node) return;
+  try {
+    const summary = await loadSummary();
+    if (summary?.generated_at) {
+      node.dateTime = summary.generated_at;
+      node.textContent = formatDate(summary.generated_at);
+    }
+  } catch {
+    /* leave the placeholder dash */
+  }
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator) || !import.meta.env.PROD) return;
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
+  });
 }
 
 async function main() {
-  console.info('[sakshi] booting frontend scaffold');
-
-  initThemeToggle();
+  initTheme();
   await initI18n();
-  initReveals();
-  initFilters();
+  initLangToggle();
   initRouter();
-
-  const summary = await loadSummary();
-  if (summary) {
-    updateLastUpdated(summary);
-    console.info('[sakshi] summary loaded:', {
-      total: summary.total_cases,
-      states: summary.state_counts && Object.keys(summary.state_counts).length,
-    });
-    // TODO: render totals count-up, status donut, state tile-grid, trend line.
-  }
+  initFooter();
+  registerServiceWorker();
 }
 
 main();

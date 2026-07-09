@@ -7,117 +7,113 @@
     <title>Sakshi — Because the record must not forget.</title>
     <meta
       name="description"
-      content="A civic-accountability record of publicly reported sexual-assault cases across India, aggregated from public judicial records and credible media. Not a crime statistic."
+      content="A civic-accountability record of publicly reported sexual-assault cases across India, compiled from public judicial records and credible media. Not a crime statistic."
     />
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Sakshi — Because the record must not forget." />
     <meta
       property="og:description"
       content="A civic-accountability record of publicly reported sexual-assault cases across India."
     />
-    <meta property="og:image" content="/og-image.png" />
-
-    <!-- Twitter -->
+    <meta property="og:image" content="og-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sakshi — Because the record must not forget." />
-    <meta
-      name="twitter:description"
-      content="A civic-accountability record of publicly reported sexual-assault cases across India."
-    />
-    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image" content="og-image.png" />
 
-    <meta name="theme-color" content="#1b1d21" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <link rel="stylesheet" href="/styles/main.css" />
+    <meta name="theme-color" content="#f6f5f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="manifest.webmanifest" />
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#app" data-i18n="skip_to_content">Skip to content</a>
 
     <header class="site-header" role="banner">
-      <div class="site-header__brand">
-        <span class="site-header__mark" aria-hidden="true">साक्षी</span>
-        <span class="site-header__name">Sakshi</span>
-      </div>
+      <a class="brand" href="#/">
+        <span class="brand__mark">साक्षी</span>
+        <span class="brand__name">Sakshi</span>
+      </a>
 
-      <nav class="helplines" aria-label="Emergency helplines">
-        <span class="helpline"><span class="helpline__label">Women's Helpline</span> 181</span>
-        <span class="helpline"><span class="helpline__label">Police</span> 112</span>
-        <span class="helpline"><span class="helpline__label">Cyber Crime</span> 1930</span>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#/" data-nav="landing" data-i18n="nav_home">Overview</a>
+        <a href="#/explore" data-nav="explore" data-i18n="nav_explore">Explore</a>
       </nav>
 
-      <button
-        type="button"
-        class="theme-toggle"
-        id="theme-toggle"
-        aria-label="Toggle light and dark theme"
-      >
-        <span aria-hidden="true">◐</span>
-      </button>
+      <nav class="helplines" aria-label="Emergency helplines">
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_women">Women's Helpline</span>
+          181</span
+        >
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_police">Police</span> 112</span
+        >
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_cyber">Cyber Crime</span> 1930</span
+        >
+      </nav>
+
+      <div class="site-header__actions">
+        <button type="button" class="icon-btn" id="lang-toggle" title="Switch language">EN</button>
+        <button
+          type="button"
+          class="icon-btn"
+          id="theme-toggle"
+          data-i18n-attr="theme_toggle"
+          aria-label="Toggle light and dark theme"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
     </header>
 
-    <main id="main" class="site-main">
-      <!-- Presumption-of-innocence banner (persistent across case views). -->
-      <p class="presumption-banner" role="note" data-i18n="presumption_banner">
-        An accused person is presumed innocent until proven guilty. Status shown reflects public
-        court records as of the last update.
-      </p>
-
-      <!-- Landing sections. Mount points only — populated by src/main.js from data/summary.json. -->
-      <section id="totals" class="section" aria-label="Total cases" data-mount="totals">
-        <div class="skeleton skeleton--stat" aria-hidden="true"></div>
-      </section>
-
-      <section
-        id="status-donut"
-        class="section"
-        aria-label="Cases by status"
-        data-mount="status-donut"
-      >
-        <div class="skeleton skeleton--chart" aria-hidden="true"></div>
-      </section>
-
-      <section id="state-grid" class="section" aria-label="Cases by state" data-mount="state-grid">
-        <div class="skeleton skeleton--grid" aria-hidden="true"></div>
-      </section>
-
-      <section id="trend" class="section" aria-label="24-month trend" data-mount="trend">
-        <div class="skeleton skeleton--chart" aria-hidden="true"></div>
-      </section>
+    <main id="app" class="site-main" tabindex="-1">
+      <div class="view view--loading" aria-busy="true">
+        <span class="skeleton skeleton--stat"></span>
+        <span class="skeleton skeleton--chart"></span>
+      </div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
       <nav class="helplines helplines--footer" aria-label="Emergency helplines">
-        <span class="helpline"><span class="helpline__label">Women's Helpline</span> 181</span>
-        <span class="helpline"><span class="helpline__label">Police</span> 112</span>
-        <span class="helpline"><span class="helpline__label">Cyber Crime</span> 1930</span>
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_women">Women's Helpline</span>
+          181</span
+        >
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_police">Police</span> 112</span
+        >
+        <span class="helpline"
+          ><span class="helpline__label" data-i18n="helpline_cyber">Cyber Crime</span> 1930</span
+        >
         <a class="helpline" href="https://ncwapps.nic.in" rel="noopener noreferrer" target="_blank"
-          >NCW complaint portal</a
+          ><span data-i18n="helpline_ncw">NCW complaint portal</span></a
         >
       </nav>
 
       <p class="disclaimer" data-i18n="disclaimer">
-        Sakshi is a civic-accountability record of <strong>publicly reported</strong> cases,
-        compiled from public judicial records and credible media. It is not a substitute for
-        official crime statistics such as NCRB data; reporting rates vary across regions and time.
+        Sakshi is a civic-accountability record of publicly reported cases, compiled from public
+        judicial records and credible media. It is not a substitute for official crime statistics
+        such as NCRB data; reporting rates vary across regions and time.
       </p>
 
       <p class="footer-meta">
-        <span>Last updated: <time id="last-updated" datetime="">—</time></span>
+        <span
+          ><span data-i18n="last_updated">Last updated</span>:
+          <time id="last-updated" datetime="">—</time></span
+        >
         <span aria-hidden="true">·</span>
-        <a href="https://github.com/ServiceToMankind/sakshi/blob/main/TAKEDOWN.md"
+        <a
+          href="https://github.com/ServiceToMankind/sakshi/blob/main/TAKEDOWN.md"
+          data-i18n="footer_takedown"
           >Takedown &amp; corrections</a
         >
         <span aria-hidden="true">·</span>
-        <span>Code MIT · Data ODbL v1.0</span>
+        <span data-i18n="footer_license">Code MIT · Data ODbL v1.0</span>
         <span aria-hidden="true">·</span>
         <span
-          >A
-          <a href="https://stmorg.in" rel="noopener noreferrer" target="_blank"
-            >Service to Mankind</a
-          >
-          initiative</span
+          ><span data-i18n="footer_attribution">A Service to Mankind initiative</span> —
+          <a href="https://stmorg.in" rel="noopener noreferrer" target="_blank">stmorg.in</a></span
         >
       </p>
     </footer>

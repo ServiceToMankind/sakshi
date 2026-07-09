@@ -19,7 +19,13 @@ export default [
         IntersectionObserver: 'readonly',
         localStorage: 'readonly',
         setTimeout: 'readonly',
+        clearTimeout: 'readonly',
         requestAnimationFrame: 'readonly',
+        getComputedStyle: 'readonly',
+        performance: 'readonly',
+        matchMedia: 'readonly',
+        CustomEvent: 'readonly',
+        Intl: 'readonly',
       },
     },
     rules: {

@@ -1,56 +1,87 @@
-// Sakshi — internationalisation loader (Phase-4 scaffold STUB).
-//
-// Ships English and Hindi. The active locale is chosen from the URL (?lang=),
-// then localStorage, then the browser language, defaulting to English.
-// Strings are applied to any element carrying a [data-i18n] key.
+// i18n: English is the complete base. Other locales are PARTIAL overrides that
+// fall back to English key-by-key. In dev, any element rendered from a fallback
+// (i.e. an untranslated key) is flagged via [data-i18n-missing] so gaps are
+// visible while developing — never in production.
 
-/** @type {Record<string, Record<string, string>>} */
-const cache = {};
+import en from './en.json';
+import hi from './hi.json';
 
+const LOCALES = { en, hi };
 const SUPPORTED = ['en', 'hi'];
-const DEFAULT_LOCALE = 'en';
+const DEV = import.meta.env.DEV;
+
+let base = {}; // full English
+let overrides = {}; // partial active-locale strings
+let locale = 'en';
+
+function safeGet(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+function safeSet(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    /* storage may be unavailable; non-fatal */
+  }
+}
 
 function detectLocale() {
   const fromUrl = new URLSearchParams(window.location.search).get('lang');
-  const fromStore = window.localStorage?.getItem('sakshi.lang');
-  const fromNav = navigator.language?.slice(0, 2);
-  const candidate = fromUrl || fromStore || fromNav || DEFAULT_LOCALE;
-  return SUPPORTED.includes(candidate) ? candidate : DEFAULT_LOCALE;
+  const candidate = fromUrl || safeGet('sakshi.lang') || navigator.language?.slice(0, 2) || 'en';
+  return SUPPORTED.includes(candidate) ? candidate : 'en';
 }
 
-/**
- * @param {string} locale
- * @returns {Promise<Record<string, string>>}
- */
-async function loadMessages(locale) {
-  if (cache[locale]) return cache[locale];
-  const mod = await import(`./${locale}.json`);
-  cache[locale] = mod.default ?? mod;
-  return cache[locale];
+function messagesFor(loc) {
+  return LOCALES[loc] || {};
 }
 
-/**
- * Apply loaded messages to [data-i18n] elements.
- * @param {Record<string, string>} messages
- */
-function apply(messages) {
-  document.querySelectorAll('[data-i18n]').forEach((el) => {
-    const key = el.getAttribute('data-i18n');
-    if (key && messages[key]) el.textContent = messages[key];
+export function t(key) {
+  if (locale !== 'en' && key in overrides) return overrides[key];
+  return base[key] ?? key;
+}
+
+export function isUntranslated(key) {
+  return locale !== 'en' && !(key in overrides);
+}
+
+export function currentLocale() {
+  return locale;
+}
+
+export function supportedLocales() {
+  return [...SUPPORTED];
+}
+
+/** Apply all [data-i18n] keys under `root`, flagging untranslated ones in dev. */
+export function applyI18n(root = document) {
+  root.querySelectorAll('[data-i18n]').forEach((node) => {
+    const key = node.getAttribute('data-i18n');
+    if (!key) return;
+    node.textContent = t(key);
+    if (DEV && isUntranslated(key)) node.setAttribute('data-i18n-missing', '');
+    else node.removeAttribute('data-i18n-missing');
   });
 }
 
-/**
- * Initialise i18n for the current document.
- * @returns {Promise<string>} the active locale
- */
-export async function initI18n() {
-  const locale = detectLocale();
+export function initI18n() {
+  locale = detectLocale();
+  base = LOCALES.en;
+  overrides = locale === 'en' ? {} : messagesFor(locale);
   document.documentElement.lang = locale;
-  try {
-    apply(await loadMessages(locale));
-  } catch (err) {
-    console.warn('[sakshi] i18n load failed, keeping HTML defaults:', err);
-  }
+  applyI18n();
   return locale;
+}
+
+export function setLocale(next) {
+  if (!SUPPORTED.includes(next) || next === locale) return;
+  safeSet('sakshi.lang', next);
+  locale = next;
+  overrides = next === 'en' ? {} : messagesFor(next);
+  document.documentElement.lang = next;
+  applyI18n();
+  window.dispatchEvent(new CustomEvent('sakshi:locale', { detail: next }));
 }

@@ -1,42 +1,36 @@
-// Sakshi — motion helpers (Phase-4 scaffold STUB).
-//
-// Restrained, memorial-grade motion: staggered reveals as sections enter the
-// viewport, and View Transitions between routes. Everything is gated behind
-// prefers-reduced-motion — when the user asks for reduced motion, content
-// appears immediately with no tween.
+// Motion helpers. All motion is gated on prefers-reduced-motion: when the user
+// asks for reduced motion, revealed content is shown immediately with no
+// transition, and callers skip smooth scrolling / view transitions.
 
-const prefersReducedMotion = () =>
-  window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
-
-/**
- * Reveal elements marked with [data-reveal] as they scroll into view.
- */
-export function initReveals() {
-  const targets = document.querySelectorAll('[data-reveal]');
-  if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
-    targets.forEach((el) => el.classList.add('is-revealed'));
-    return;
-  }
-  const io = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-revealed');
-        obs.unobserve(entry.target);
-      });
-    },
-    { rootMargin: '0px 0px -10% 0px', threshold: 0.1 },
-  );
-  targets.forEach((el) => io.observe(el));
+export function prefersReducedMotion() {
+  return Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches);
 }
 
-/**
- * Run a route/view swap inside a View Transition when supported.
- * @param {() => void | Promise<void>} update  DOM mutation to animate
- */
-export function withViewTransition(update) {
-  if (prefersReducedMotion() || !document.startViewTransition) {
-    return Promise.resolve(update());
+let observer = null;
+
+function ensureObserver() {
+  if (observer || typeof IntersectionObserver === 'undefined') return observer;
+  observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.05 },
+  );
+  return observer;
+}
+
+/** Reveal `.reveal` elements under `root` on scroll (or immediately if reduced). */
+export function revealOnScroll(root = document) {
+  const targets = root.querySelectorAll('.reveal:not(.is-visible)');
+  const obs = ensureObserver();
+  if (prefersReducedMotion() || !obs) {
+    targets.forEach((node) => node.classList.add('is-visible'));
+    return;
   }
-  return document.startViewTransition(update).finished;
+  targets.forEach((node) => obs.observe(node));
 }

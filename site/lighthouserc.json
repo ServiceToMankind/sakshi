@@ -1,10 +1,13 @@
 {
   "//": "Lighthouse CI config. Run with `npm run lighthouse` after `npm run build`.",
-  "//assertions": "Targets are Lighthouse >= 0.95 across the board (Phase-5 launch gate). Held at 'warn' until the Phase-4 frontend is built out; tighten to 'error' before first public deploy (see LAUNCH_REVIEW.md).",
+  "//assertions": "Targets are Lighthouse >= 0.95 across the board (Phase-5 launch gate). Held at 'warn' until final launch polish; tighten to 'error' before the first public deploy (see LAUNCH_REVIEW.md).",
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
-      "numberOfRuns": 1
+      "numberOfRuns": 1,
+      "settings": {
+        "chromeFlags": "--no-sandbox --headless=new"
+      }
     },
     "assert": {
       "assertions": {
@@ -15,7 +18,8 @@
       }
     },
     "upload": {
-      "target": "temporary-public-storage"
+      "target": "filesystem",
+      "outputDir": "./.lighthouseci"
     }
   }
 }

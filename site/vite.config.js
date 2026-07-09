@@ -2,12 +2,14 @@ import { defineConfig } from 'vite';
 
 // Sakshi frontend build configuration.
 //
-// GitHub Pages project pages are served from https://<user>.github.io/<repo>/,
-// so the base path must match the repository name. For this repository the
-// site lives under /sakshi/. If you fork or rename, update `base` accordingly.
-// For a user/organization page (served from the domain root) set base to '/'.
+// RELATIVE base so the same build works at BOTH mount points without rebuilding:
+//   - GitHub project pages:  https://servicetomankind.github.io/sakshi/
+//   - Custom domain (root):  https://sakshi.stmorg.in/
+// A hardcoded '/sakshi/' base 404s every asset on the custom domain root; './'
+// resolves assets relative to index.html, which is correct in both places. The
+// app is hash-routed, so no path ever diverges from the document root.
 export default defineConfig({
-  base: '/sakshi/',
+  base: './',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
