@@ -181,3 +181,64 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
     )
     cnrs = {r["cnr"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
     assert cnrs == {"CASE-A", "CASE-B"}
+
+
+def test_in_scope_helper() -> None:
+    record = {"state": "TG", "incident_reported_date": "2026-07-01"}
+    assert orchestrator._in_scope(record, frozenset({"TG"}), 30, "2026-07-10")
+    assert not orchestrator._in_scope(record, frozenset({"DL"}), None, "2026-07-10")
+    old = {"state": "TG", "incident_reported_date": "2020-01-01"}
+    assert not orchestrator._in_scope(old, None, 30, "2026-07-10")  # outside lookback
+    assert orchestrator._in_scope(record, None, None, "2026-07-10")  # unbounded
+
+
+def _tg_payload() -> str:
+    return json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-SCOPE",
+            "confidence": 0.9,
+        }
+    )
+
+
+def test_scope_filters_out_of_state_and_writes_report(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("LAUNCH_STATES", "DL")  # the candidate is TG -> filtered out
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(_tg_payload()),
+    )
+    assert report.published == 0
+    assert "DL" in report.scope
+    assert (tmp_path / "logs" / "run_report.md").exists()
+
+
+def test_in_scope_publishes_with_report_stats(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("LAUNCH_STATES", "TG")
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(_tg_payload()),
+    )
+    assert report.published == 1
+    assert report.state_counts.get("TG") == 1
+    assert "eCourts" in report.source_counts
+    report_md = (tmp_path / "logs" / "run_report.md").read_text()
+    assert "Data review: 2026-07-10" in report_md and "By state" in report_md

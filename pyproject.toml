@@ -19,6 +19,7 @@ dependencies = [
     "rapidfuzz>=3.9",         # fuzzy dedup on district/date/sections/court
     "jsonschema>=4.22",       # draft-2020-12 record validation
     "python-dotenv>=1.0",     # load GEMINI_API_KEY from .env (never committed)
+    "pyyaml>=6.0",            # sources.yml (per-source kill switch)
     # NER for the sanitize.py PII gate is OPTIONAL and pluggable. The regex gate is
     # always on; for named-entity stripping install one of the following extras:
     #   spaCy         -> pip install "spacy>=3.7" && python -m spacy download en_core_web_sm
@@ -94,6 +95,7 @@ module = [
     "rapidfuzz.*",
     "presidio_analyzer.*",
     "jsonschema.*",
+    "yaml.*",
 ]
 ignore_missing_imports = true
 
