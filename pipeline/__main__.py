@@ -38,7 +38,7 @@ from pipeline.sources.base import RawDocument, Source
 from pipeline.sources.ecourts import EcourtsSource
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.rss_media import RssMediaSource
-from pipeline.validate import load_schema, project_to_schema
+from pipeline.validate import iter_shard_files, load_schema, project_to_schema
 
 
 @dataclass
@@ -93,6 +93,20 @@ def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -
     (review_dir / f"review-{run_date}.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
+
+
+def _load_existing_published(data_dir: Path) -> list[dict[str, Any]]:
+    """Load already-published records so a run regenerates the FULL tree.
+
+    The committed shards are the canonical store. Without this, a daily run that
+    only fetched new documents would republish just those and ``_clear_stale_shards``
+    would delete all prior cases. Existing records re-enter dedupe so new documents
+    merge into them and history is preserved.
+    """
+    records: list[dict[str, Any]] = []
+    for shard in iter_shard_files(data_dir):
+        records.extend(json.loads(shard.read_text(encoding="utf-8")))
+    return records
 
 
 def _assert_no_pii(data_dir: Path) -> None:
@@ -171,7 +185,10 @@ def run(
     # shard OR the review queue.
     case_schema = load_schema()
     sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in extractions]
-    published, review = dedupe(sanitized)
+    # Fold in already-published records so the run regenerates the whole tree and
+    # new documents merge into existing cases rather than replacing history.
+    existing = _load_existing_published(data_dir)
+    published, review = dedupe(existing + sanitized)
     _log(report, f"deduped: {len(published)} published, {len(review)} to review")
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)

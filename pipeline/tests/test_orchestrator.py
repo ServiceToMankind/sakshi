@@ -142,3 +142,42 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
     )
     with pytest.raises(RuntimeError, match="pii_guard blocked"):
         orchestrator._assert_no_pii(tmp_path)
+
+
+def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
+    doc = fixture_raw_documents()[:1]
+
+    def _payload(cnr: str) -> str:
+        return json.dumps(
+            {
+                "category": "pocso",
+                "state": "TG",
+                "district": "TESTVILLE",
+                "status": "FIR_FILED",
+                "minor_involved": True,
+                "cnr": cnr,
+                "confidence": 0.9,
+            }
+        )
+
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(_payload("CASE-A")),
+    )
+    # A second run that fetches only CASE-B must NOT wipe CASE-A from the tree.
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(_payload("CASE-B")),
+    )
+    cnrs = {r["cnr"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
+    assert cnrs == {"CASE-A", "CASE-B"}

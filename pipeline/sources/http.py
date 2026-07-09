@@ -48,7 +48,9 @@ def _retry_after_date_seconds(value: str) -> float | None:
     if when.tzinfo is None:
         when = when.replace(tzinfo=UTC)
     delta = (when - datetime.now(UTC)).total_seconds()
-    return max(delta, 0.0)
+    # An already-elapsed date is no useful directive: fall back to exponential backoff
+    # (returning 0 here would retry immediately, defeating the point of a 429/5xx wait).
+    return delta if delta > 0 else None
 
 
 @dataclass

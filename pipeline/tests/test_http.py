@@ -177,6 +177,6 @@ def test_backoff_honors_retry_after_http_date() -> None:
     future = httpx.Response(503, headers={"Retry-After": "Wed, 21 Oct 2099 07:28:00 GMT"})
     assert PoliteClient._backoff_seconds(1, future) == 60.0  # capped at BACKOFF_MAX_S
     past = httpx.Response(503, headers={"Retry-After": "Wed, 21 Oct 2009 07:28:00 GMT"})
-    assert PoliteClient._backoff_seconds(1, past) == 0.0  # already elapsed
+    assert PoliteClient._backoff_seconds(1, past) == 1.0  # elapsed -> exponential fallback
     malformed = httpx.Response(503, headers={"Retry-After": "soon-ish"})
     assert PoliteClient._backoff_seconds(1, malformed) == 1.0  # exponential fallback
