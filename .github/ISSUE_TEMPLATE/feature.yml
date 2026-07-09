@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest an improvement to the software or website.
+title: "feat: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Suggest an improvement to the pipeline, tooling, or site. Please keep
+        the project's tone in mind: restrained, dignified, memorial-grade — a
+        civic-accountability record, not a marketing product.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you file
+      options:
+        - label: This is a feature idea, not a bug or a data correction.
+          required: true
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What need or gap does this address? Who benefits?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe what you would like to see.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: checkboxes
+    id: guardrails
+    attributes:
+      label: Guardrail awareness
+      options:
+        - label: >-
+            My proposal does not weaken the Phase 0 guardrails (victim PII is
+            never ingested, presumption of innocence, sanitize/pii_guard,
+            additionalProperties:false) and does not add a frontend framework
+            to the static site.
+          required: true

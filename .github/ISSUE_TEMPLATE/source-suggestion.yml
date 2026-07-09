@@ -1,0 +1,74 @@
+name: Source suggestion
+description: Suggest a new data source for the pipeline to aggregate.
+title: "source: "
+labels: ["source-suggestion", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Sakshi aggregates from **official/structured** records first (eCourts &
+        NJDG, High Court judgment portals, Indian Kanoon per ToS, NCRB, PIB /
+        police press releases) and, secondarily, from **RSS of established
+        media outlets**. We do **not** scrape social media.
+  - type: input
+    id: source-name
+    attributes:
+      label: Source name
+      placeholder: e.g. Telangana High Court judgment portal
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Source URL
+      placeholder: https://...
+    validations:
+      required: true
+  - type: dropdown
+    id: source-type
+    attributes:
+      label: Official or media?
+      options:
+        - Official / structured (court, government, NCRB, PIB, police)
+        - Established media (RSS)
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: rss-url
+    attributes:
+      label: RSS/feed or API endpoint
+      description: If this is a media source or exposes a structured feed/API, link it here.
+      placeholder: https://.../rss
+    validations:
+      required: false
+  - type: textarea
+    id: robots-tos
+    attributes:
+      label: robots.txt / Terms of Service note
+      description: >-
+        What do the site's robots.txt and ToS permit? Link them. Sakshi
+        respects robots.txt, rate-limits to <= 1 request / 2s per host, and
+        identifies itself honestly. Sources that forbid automated access will
+        not be added.
+    validations:
+      required: true
+  - type: textarea
+    id: credibility
+    attributes:
+      label: Why is this source credible?
+      description: >-
+        Explain the provenance and reliability — who publishes it, editorial
+        standards, whether records are primary (court orders) or secondary
+        (reporting).
+    validations:
+      required: true
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Confirmations
+      options:
+        - label: This is not a social-media source.
+          required: true
+        - label: To the best of my knowledge, automated access is permitted by the source's robots.txt and ToS.
+          required: true

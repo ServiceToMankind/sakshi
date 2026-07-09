@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sakshi.example/schemas/extraction.schema.json",
+  "title": "Sakshi Gemini Extraction Response",
+  "description": "The response_schema that constrains Gemini's extraction output BEFORE sanitize.py runs. It is STRUCTURALLY INCAPABLE of holding victim identity: there are simply no fields for victim, survivor, name, age, address, family, school, workplace, photo, contact, email, or geo. additionalProperties:false at every level forbids any such field from appearing. Gemini summarizes ALREADY-PUBLIC text only and must never generate factual claims; every emitted field must trace to a source excerpt. The 'victim' field is a required constant that MUST be null. This schema mirrors only the non-PII fields of the published record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["victim", "state", "district", "category", "status", "minor_involved", "sources", "confidence"],
+  "properties": {
+    "victim": {
+      "type": "null",
+      "const": null,
+      "description": "MUST be null. Present solely to force the model to emit an explicit null. Victim identity is never ingested (BNS s.72; POCSO s.23). The post-extraction sanitizer additionally strips any PII-shaped field."
+    },
+    "cnr": {
+      "type": "string",
+      "description": "Court Case Number (CNR) when present in the public text."
+    },
+    "fir_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "station": {
+          "type": "string",
+          "description": "Police station name."
+        },
+        "number": {
+          "type": "string",
+          "description": "FIR number as recorded."
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "description": "2-letter Indian state/UT code."
+    },
+    "district": {
+      "type": "string",
+      "description": "District within the state."
+    },
+    "incident_reported_date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "Date the case was publicly reported/registered. ISO YYYY-MM-DD."
+    },
+    "offence_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Statutory sections cited (e.g. \"BNS 64\", \"POCSO 6\")."
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "sexual_assault",
+        "rape",
+        "pocso",
+        "acid_attack",
+        "harassment",
+        "other"
+      ],
+      "description": "Offence category."
+    },
+    "minor_involved": {
+      "type": "boolean",
+      "description": "Whether a minor is involved. The ONLY age-related fact permitted; no actual age may be emitted."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "FIR_FILED",
+        "CHARGESHEETED",
+        "UNDER_TRIAL",
+        "CONVICTED",
+        "ACQUITTED",
+        "APPEAL_PENDING",
+        "CLOSED",
+        "QUASHED",
+        "UNKNOWN"
+      ],
+      "description": "Judicial status inferred strictly from the public source text."
+    },
+    "court": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Court name."
+        },
+        "next_hearing": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Next hearing date if stated, else null. ISO YYYY-MM-DD."
+        }
+      }
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 400,
+      "description": "One-paragraph neutral, non-graphic summary. Must contain NO victim details."
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Model's extraction confidence 0..1. Values below 0.8 are quarantined for human review."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "publisher", "retrieved"],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Public URL of the source."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher or court."
+          },
+          "retrieved": {
+            "type": "string",
+            "format": "date",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "description": "Date the source was retrieved. ISO YYYY-MM-DD."
+          }
+        }
+      },
+      "description": "Citable public sources backing the extracted fields."
+    }
+  }
+}

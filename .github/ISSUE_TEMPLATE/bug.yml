@@ -1,0 +1,87 @@
+name: Bug report (code or site)
+description: Report a defect in the Sakshi pipeline, tooling, or website.
+title: "bug: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thank you for helping keep the record accurate. This form is for
+        defects in the **software** — the data pipeline, schemas, tooling, or
+        the website.
+
+        - To correct or remove a **data record**, use the "Data correction /
+          removal" form instead.
+
+        - For anything involving **victim-identifying information** or a
+          suspected PII leak, do **not** file a public issue — follow
+          `SECURITY.md` to report it privately.
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Before you file
+      options:
+        - label: This is a code or site bug, not a data correction or a request for personal help.
+          required: true
+        - label: This report contains no victim-identifying information of any kind.
+          required: true
+        - label: I searched existing issues and this is not a duplicate.
+          required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Website / frontend
+        - Data pipeline (fetch / extract / sanitize / dedupe)
+        - Schemas / validation
+        - Build / CI / tooling
+        - Documentation
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: A clear, concise description of the defect.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Numbered steps. Include the command run or the page/URL involved.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser + version, OS, and/or Python version and commit SHA.
+      placeholder: |
+        - Browser: Firefox 128
+        - OS: Ubuntu 24.04
+        - Commit: abc1234
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: >-
+        Paste relevant logs or attach screenshots. Redact anything that could
+        identify a victim before pasting.
+      render: shell
+    validations:
+      required: false

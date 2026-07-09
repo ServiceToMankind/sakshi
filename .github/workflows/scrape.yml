@@ -1,0 +1,122 @@
+# Sakshi — daily aggregation pipeline.
+#
+# Fetches public judicial records and credible media, extracts and sanitizes
+# (victim identity is NEVER ingested), deduplicates case-anchored records,
+# validates + shards, and commits the regenerated data/ tree.
+#
+# This workflow only ever handles ALREADY-PUBLIC text. The sanitize + pii_guard
+# gates in the pipeline are the enforcement; this file wires them into CI.
+
+name: scrape
+
+on:
+  # 30 0 UTC == 06:00 IST. One run per day.
+  schedule:
+    - cron: '30 0 * * *'
+  # Allow a maintainer to trigger a run by hand.
+  workflow_dispatch:
+
+# Least privilege: the job needs to commit data/ and open failure issues.
+permissions:
+  contents: write
+  issues: write
+
+# Never let two pipeline runs overlap — data/ is regenerated idempotently and a
+# concurrent run could race the commit. Do not cancel an in-flight daily run.
+concurrency:
+  group: sakshi-pipeline
+  cancel-in-progress: false
+
+jobs:
+  pipeline:
+    name: Daily data update
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e '.'
+
+      # Run the full pipeline: fetch -> extract -> sanitize -> dedupe ->
+      # validate & shard -> pii_guard final assertion. The module writes
+      # regenerated shards under data/, a PII-scrubbed run log to
+      # logs/run.log, and a small step-summary file the later steps read.
+      - name: Run pipeline
+        id: run
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python -m pipeline
+
+      # Read counters emitted by the pipeline so the commit message and the
+      # review-queue check are accurate. Missing file => zeros (safe default).
+      - name: Read run counters
+        id: counts
+        if: always()
+        run: |
+          NEW=0; UPDATED=0; REVIEW=0
+          if [ -f logs/run_summary.env ]; then
+            # run_summary.env contains NEW=, UPDATED=, REVIEW= (integers only).
+            . logs/run_summary.env
+          fi
+          echo "new=${NEW}" >> "$GITHUB_OUTPUT"
+          echo "updated=${UPDATED}" >> "$GITHUB_OUTPUT"
+          echo "review=${REVIEW}" >> "$GITHUB_OUTPUT"
+
+      # Commit the regenerated data/ tree, if anything changed. Humans never
+      # hand-edit data/, so a clean diff simply means "no change today".
+      # NOTE: no Claude/AI co-author trailer — org policy forbids it.
+      - name: Commit regenerated data
+        if: success()
+        run: |
+          git config user.name  "sakshi-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "data: daily update $(date +%F) (+${{ steps.counts.outputs.new }} new, ~${{ steps.counts.outputs.updated }} updated)"
+            git push
+          fi
+
+      # Retain PII-scrubbed run logs for 14 days for operational debugging.
+      # The pipeline guarantees these logs never contain victim identity or
+      # any PII-shaped value (sanitize gate runs before anything is logged).
+      - name: Upload run logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-logs-${{ github.run_id }}
+          path: logs/
+          retention-days: 14
+          if-no-files-found: warn
+
+      # Open a tracking issue if the pipeline failed OR the human-review queue
+      # exceeded the threshold (> 20 quarantined records). Uses the gh CLI so
+      # we avoid a third-party dependency for a one-line API call.
+      - name: Open issue on failure or large review queue
+        if: always() && (failure() || fromJSON(steps.counts.outputs.review) > 20)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE="$(date +%F)"
+          if [ "${{ job.status }}" = "failure" ]; then
+            TITLE="Pipeline run failed — ${DATE}"
+            BODY="The daily pipeline failed on ${DATE}. Review the run logs artifact and the [run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+          else
+            TITLE="Review queue over threshold — ${DATE}"
+            BODY="The review queue holds ${{ steps.counts.outputs.review }} records (threshold 20) on ${DATE}. These are quarantined in data/_review/ and excluded from Pages until a human confirms them."
+          fi
+          gh issue create --title "$TITLE" --body "$BODY" --label "pipeline" || \
+            echo "Could not open issue (label may be missing); continuing."

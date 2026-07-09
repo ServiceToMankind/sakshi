@@ -1,0 +1,267 @@
+/* Sakshi — base styles (Phase-4 scaffold).
+   Restrained, memorial-grade palette. Light + dark via custom properties.
+   Minimal but real; full component styling arrives with the components. */
+
+:root {
+  /* Restrained, ink-on-paper light theme. */
+  --bg: #f6f5f2;
+  --surface: #ffffff;
+  --text: #1b1d21;
+  --text-muted: #565a63;
+  --border: #e0ddd6;
+  --accent: #6b4f3a; /* muted sepia — dignified, non-alarming */
+  --banner-bg: #f0ece3;
+  --skeleton-base: #e8e5df;
+  --skeleton-shine: #f2f0ec;
+  --focus: #1b6ca8;
+
+  --maxw: 72rem;
+  --radius: 6px;
+  --gap: 1.25rem;
+  --reveal-distance: 12px;
+}
+
+:root[data-theme='dark'],
+@media (prefers-color-scheme: dark) {
+  /* Fallback handled below; explicit selector wins for the toggle. */
+}
+
+:root[data-theme='dark'] {
+  --bg: #16171a;
+  --surface: #1f2125;
+  --text: #e8e6e1;
+  --text-muted: #a2a5ac;
+  --border: #33363c;
+  --accent: #c8a98a;
+  --banner-bg: #23242a;
+  --skeleton-base: #26282d;
+  --skeleton-shine: #303239;
+  --focus: #6fb3e0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #16171a;
+    --surface: #1f2125;
+    --text: #e8e6e1;
+    --text-muted: #a2a5ac;
+    --border: #33363c;
+    --accent: #c8a98a;
+    --banner-bg: #23242a;
+    --skeleton-base: #26282d;
+    --skeleton-shine: #303239;
+    --focus: #6fb3e0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Georgia, 'Times New Roman', 'Noto Serif', serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Accessibility helpers. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--surface);
+  color: var(--text);
+  padding: 0.5rem 1rem;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Header. */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap);
+  padding: 0.85rem 1.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+.site-header__brand {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.site-header__mark {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+.site-header__name {
+  letter-spacing: 0.02em;
+}
+
+.helplines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-left: auto;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.helpline {
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+.helpline__label {
+  color: var(--text-muted);
+  opacity: 0.75;
+  margin-right: 0.25rem;
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  width: 2.25rem;
+  height: 2.25rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* Main + sections. */
+.site-main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.presumption-banner {
+  background: var(--banner-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0 0 1.75rem;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Footer. */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  padding: 1.5rem 1.25rem 2.5rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+.helplines--footer {
+  margin-left: 0;
+  margin-bottom: 0.85rem;
+}
+.disclaimer {
+  max-width: var(--maxw);
+  margin: 0 0 0.75rem;
+}
+.footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.footer-meta a,
+.disclaimer a {
+  color: var(--accent);
+}
+
+/* Skeleton loaders. */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--skeleton-base);
+  border-radius: var(--radius);
+}
+.skeleton--stat {
+  height: 4rem;
+}
+.skeleton--chart {
+  height: 16rem;
+}
+.skeleton--grid {
+  height: 20rem;
+}
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--skeleton-shine),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: skeleton-sweep 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton-sweep {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Reveal-on-scroll (staggered by JS setting a delay). */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Honour reduced-motion: no sweeps, no reveal tweens, instant content. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+  .skeleton::after {
+    display: none;
+  }
+}

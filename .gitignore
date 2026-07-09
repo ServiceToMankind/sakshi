@@ -1,0 +1,33 @@
+# --- Secrets ---
+# Never commit real credentials. See .env.example for the documented template.
+.env
+.env.*
+# ...but the documented, secret-free template MUST stay tracked.
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# --- Node / frontend build ---
+node_modules/
+site/dist/
+
+# --- OS / editor cruft ---
+.DS_Store
+*.log
+
+# --- Human review queue ---
+# Quarantined records awaiting human review (confidence < 0.8 or ambiguous
+# dedup). Excluded from GitHub Pages and never auto-published.
+data/_review/
+
+# NOTE: data/ itself is intentionally NOT ignored. The daily GitHub Action
+# regenerates and commits the data/ tree. Humans never hand-edit data/.

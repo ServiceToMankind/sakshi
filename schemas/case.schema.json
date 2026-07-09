@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sakshi.example/schemas/case.schema.json",
+  "title": "Sakshi Case Record",
+  "description": "The single source of truth for a published case record. This is a civic-accountability record of a PUBLICLY REPORTED case, not a crime-rate statistic and not legal advice. Victim identity is NEVER ingested: by design there is no field capable of holding a victim/survivor name, age (beyond the boolean minor_involved), address, family, school, workplace, photo, contact, or any re-identifying detail. Dedup and matching are case-anchored (FIR/CNR/station/district/date/court), never on identity. additionalProperties:false at every object level makes forbidden fields impossible.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "state",
+    "district",
+    "category",
+    "status",
+    "minor_involved",
+    "sources",
+    "confidence",
+    "last_verified"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Deterministically assigned, never reused. SKS-{4-digit year}-{2-letter STATE code}-{6-digit zero-padded serial}.",
+      "pattern": "^SKS-\\d{4}-[A-Z]{2}-\\d{6}$"
+    },
+    "cnr": {
+      "type": "string",
+      "description": "Court Case Number (CNR) from eCourts/NJDG when available. Used for exact-match dedup."
+    },
+    "fir_ref": {
+      "type": "object",
+      "description": "First Information Report reference. Used for case-anchored dedup, never for identity.",
+      "additionalProperties": false,
+      "properties": {
+        "station": {
+          "type": "string",
+          "description": "Police station name."
+        },
+        "number": {
+          "type": "string",
+          "description": "FIR number as recorded (e.g. \"112/2026\")."
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "description": "2-letter Indian state/UT code (e.g. TG, AP, MH, DL, KA, TN, UP, WB).",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "district": {
+      "type": "string",
+      "description": "District within the state."
+    },
+    "incident_reported_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the case was publicly reported/registered. ISO YYYY-MM-DD.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "offence_sections": {
+      "type": "array",
+      "description": "Statutory sections cited (e.g. \"BNS 64\", \"POCSO 6\").",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string",
+      "description": "Offence category.",
+      "enum": [
+        "sexual_assault",
+        "rape",
+        "pocso",
+        "acid_attack",
+        "harassment",
+        "other"
+      ]
+    },
+    "minor_involved": {
+      "type": "boolean",
+      "description": "Whether a minor is involved. This is the ONLY age-related fact stored; no actual age is ever recorded (POCSO Act s.23)."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current judicial status per public court records. Presumption of innocence applies; ACQUITTED and QUASHED are rendered with equal prominence.",
+      "enum": [
+        "FIR_FILED",
+        "CHARGESHEETED",
+        "UNDER_TRIAL",
+        "CONVICTED",
+        "ACQUITTED",
+        "APPEAL_PENDING",
+        "CLOSED",
+        "QUASHED",
+        "UNKNOWN"
+      ]
+    },
+    "status_history": {
+      "type": "array",
+      "description": "Chronological status changes. Each entry cites a source by integer index into sources[].",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "date", "source"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "FIR_FILED",
+              "CHARGESHEETED",
+              "UNDER_TRIAL",
+              "CONVICTED",
+              "ACQUITTED",
+              "APPEAL_PENDING",
+              "CLOSED",
+              "QUASHED",
+              "UNKNOWN"
+            ]
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "ISO YYYY-MM-DD.",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "source": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Zero-based index into this record's sources[] array."
+          }
+        }
+      }
+    },
+    "accused": {
+      "type": "array",
+      "description": "Accused persons. An accused is presumed innocent until proven guilty. Names are stored ONLY when present in an official court record.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "name_public_court_record", "status"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Stable neutral label (e.g. \"Accused #1\")."
+          },
+          "name_public_court_record": {
+            "type": ["string", "null"],
+            "description": "Accused name ONLY when it appears in an official court record (judgment/order/cause list). null for media-sourced cases; the UI then shows \"Withheld (media-sourced, not yet in court record)\"."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "FIR_FILED",
+              "CHARGESHEETED",
+              "UNDER_TRIAL",
+              "CONVICTED",
+              "ACQUITTED",
+              "APPEAL_PENDING",
+              "CLOSED",
+              "QUASHED",
+              "UNKNOWN"
+            ]
+          }
+        }
+      }
+    },
+    "court": {
+      "type": "object",
+      "description": "Court handling the case.",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Court name (e.g. \"Special POCSO Court, Hyderabad\")."
+        },
+        "next_hearing": {
+          "type": ["string", "null"],
+          "format": "date",
+          "description": "Next hearing date if scheduled, else null. ISO YYYY-MM-DD."
+        }
+      }
+    },
+    "pending_days": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Days the case has been pending, for accountability surfacing."
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 400,
+      "description": "One-paragraph neutral, non-graphic summary. Contains NO victim details."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Citable public sources. Nothing without a citable public source is published.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["url", "publisher", "retrieved"],
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Public URL of the source."
+          },
+          "publisher": {
+            "type": "string",
+            "description": "Publisher or court (e.g. \"eCourts\", \"The Hindu\")."
+          },
+          "retrieved": {
+            "type": "string",
+            "format": "date",
+            "description": "Date the source was retrieved. ISO YYYY-MM-DD.",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Extraction confidence 0..1. Records below 0.8 are quarantined to data/_review/ and never auto-published."
+    },
+    "last_verified": {
+      "type": "string",
+      "format": "date",
+      "description": "Date this record was last verified against sources. ISO YYYY-MM-DD.",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    }
+  },
+  "examples": [
+    {
+      "id": "SKS-2026-TG-000123",
+      "cnr": "TSHC01-004321-2026",
+      "fir_ref": { "station": "TESTVILLE PS", "number": "000/2026" },
+      "state": "TG",
+      "district": "TESTVILLE",
+      "incident_reported_date": "2026-06-14",
+      "offence_sections": ["BNS 64", "POCSO 6"],
+      "category": "sexual_assault",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "status_history": [
+        { "status": "FIR_FILED", "date": "2026-06-15", "source": 0 }
+      ],
+      "accused": [
+        {
+          "label": "Accused #1",
+          "name_public_court_record": null,
+          "status": "UNDER_TRIAL"
+        }
+      ],
+      "court": {
+        "name": "Special POCSO Court, TESTVILLE",
+        "next_hearing": "2026-08-02"
+      },
+      "pending_days": 25,
+      "summary": "Illustrative synthetic record. Neutral, non-graphic summary with no victim details.",
+      "sources": [
+        {
+          "url": "https://example.invalid/illustrative",
+          "publisher": "eCourts",
+          "retrieved": "2026-07-09"
+        }
+      ],
+      "confidence": 0.94,
+      "last_verified": "2026-07-09"
+    }
+  ]
+}

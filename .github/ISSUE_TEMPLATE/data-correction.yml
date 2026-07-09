@@ -1,0 +1,91 @@
+name: Data correction / removal
+description: Correct or request removal of a published case record.
+title: "data: correction to "
+labels: ["data-correction", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Use this form to correct a factual error in a published record, to
+        update a judicial status, or to request removal.
+
+        **Removal policy.** Records for cases that ended in **acquittal** or
+        were **quashed** may be removed on request. Other removals are
+        considered case by case; see `TAKEDOWN.md`.
+
+        **Absolute rule.** Never include victim-identifying information. Sakshi
+        never ingests victim names, ages (beyond "minor"), addresses, family
+        members, schools, workplaces, photos, or any re-identifying detail.
+        Anything you submit here is public.
+  - type: checkboxes
+    id: pii-affirmation
+    attributes:
+      label: PII affirmation (required)
+      options:
+        - label: >-
+            I affirm this request contains NO victim-identifying information
+            (no names, addresses, ages beyond "minor", family/school/workplace
+            details, photos, contact details, or IDs).
+          required: true
+  - type: input
+    id: record-id
+    attributes:
+      label: Sakshi record ID
+      description: The SKS-... id shown on the case detail page, if you have it.
+      placeholder: SKS-2026-TG-000123
+    validations:
+      required: false
+  - type: input
+    id: cnr-fir
+    attributes:
+      label: CNR or FIR reference
+      description: >-
+        If you do not have the SKS id, give the court case number (CNR) or the
+        FIR reference (station + number) so we can locate the record.
+      placeholder: "CNR: TSHC01-004321-2026  —  or FIR: Begumpet PS 112/2026"
+    validations:
+      required: false
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Type of request
+      options:
+        - Correct a factual error
+        - Update judicial status
+        - Removal — acquittal
+        - Removal — quashed
+        - Removal — other (explain below)
+    validations:
+      required: true
+  - type: textarea
+    id: whats-wrong
+    attributes:
+      label: What is wrong
+      description: Describe the specific field or fact that is incorrect or should be removed.
+    validations:
+      required: true
+  - type: textarea
+    id: correct-value
+    attributes:
+      label: Correct value
+      description: >-
+        What the record should say instead. For a removal request, state the
+        basis (e.g. acquitted on <date> by <court>).
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Public source URL
+      description: >-
+        A citable public source supporting the correction — an official court
+        record/order (preferred) or an established media report. Nothing is
+        changed without a source.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: >-
+        An accused person is presumed innocent until proven guilty. Statuses
+        reflect public court records as of the last update.

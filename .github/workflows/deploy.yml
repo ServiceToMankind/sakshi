@@ -1,0 +1,82 @@
+# Sakshi — build and deploy the static site to GitHub Pages.
+#
+# Builds the Vite app in site/ to site/dist, copies the published data/ tree
+# alongside it, and deploys the result to GitHub Pages on push to main.
+# Only sanitized, validated, human-cleared data reaches this point — the
+# data/_review/ quarantine is never copied into the artifact.
+
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  # Allow a manual redeploy without a new commit.
+  workflow_dispatch:
+
+# Pages deployment needs id-token (OIDC) + pages write; everything else read.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one concurrent Pages deployment. Do not cancel an in-progress deploy —
+# let it finish so the live site is never left half-published.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No committed lockfile yet, so use `npm install` (not `npm ci`).
+      - name: Install dependencies
+        working-directory: site
+        run: npm install --no-audit --no-fund
+
+      # Produce the optimized static bundle in site/dist.
+      - name: Build (Vite)
+        working-directory: site
+        run: npm run build
+
+      # Ship the data shards next to the app so the frontend can fetch
+      # data/summary.json, data/index.json, and data/{year}/{STATE}.json.
+      # Exclude the review quarantine — it must never be published.
+      - name: Copy published data alongside the build
+        run: |
+          mkdir -p site/dist/data
+          rsync -a --exclude '_review' data/ site/dist/data/
+
+      # Configure Pages (writes the correct base path into the environment).
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Sakshi — Because the record must not forget.</title>
+    <meta
+      name="description"
+      content="A civic-accountability record of publicly reported sexual-assault cases across India, aggregated from public judicial records and credible media. Not a crime statistic."
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Sakshi — Because the record must not forget." />
+    <meta
+      property="og:description"
+      content="A civic-accountability record of publicly reported sexual-assault cases across India."
+    />
+    <meta property="og:image" content="/og-image.png" />
+    <!-- TODO: replace /og-image.png with a real 1200x630 OG image before launch. -->
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sakshi — Because the record must not forget." />
+    <meta
+      name="twitter:description"
+      content="A civic-accountability record of publicly reported sexual-assault cases across India."
+    />
+    <meta name="twitter:image" content="/og-image.png" />
+
+    <meta name="theme-color" content="#1b1d21" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header" role="banner">
+      <div class="site-header__brand">
+        <span class="site-header__mark" aria-hidden="true">साक्षी</span>
+        <span class="site-header__name">Sakshi</span>
+      </div>
+
+      <nav class="helplines" aria-label="Emergency helplines">
+        <span class="helpline"><span class="helpline__label">Women's Helpline</span> 181</span>
+        <span class="helpline"><span class="helpline__label">Police</span> 112</span>
+        <span class="helpline"><span class="helpline__label">Cyber Crime</span> 1930</span>
+      </nav>
+
+      <button
+        type="button"
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Toggle light and dark theme"
+      >
+        <span aria-hidden="true">◐</span>
+      </button>
+    </header>
+
+    <main id="main" class="site-main">
+      <!-- Presumption-of-innocence banner (persistent across case views). -->
+      <p class="presumption-banner" role="note" data-i18n="presumption_banner">
+        An accused person is presumed innocent until proven guilty. Status shown reflects public
+        court records as of the last update.
+      </p>
+
+      <!-- Landing sections. Mount points only — populated by src/main.js from data/summary.json. -->
+      <section id="totals" class="section" aria-label="Total cases" data-mount="totals">
+        <div class="skeleton skeleton--stat" aria-hidden="true"></div>
+      </section>
+
+      <section id="status-donut" class="section" aria-label="Cases by status" data-mount="status-donut">
+        <div class="skeleton skeleton--chart" aria-hidden="true"></div>
+      </section>
+
+      <section id="state-grid" class="section" aria-label="Cases by state" data-mount="state-grid">
+        <div class="skeleton skeleton--grid" aria-hidden="true"></div>
+      </section>
+
+      <section id="trend" class="section" aria-label="24-month trend" data-mount="trend">
+        <div class="skeleton skeleton--chart" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <nav class="helplines helplines--footer" aria-label="Emergency helplines">
+        <span class="helpline"><span class="helpline__label">Women's Helpline</span> 181</span>
+        <span class="helpline"><span class="helpline__label">Police</span> 112</span>
+        <span class="helpline"><span class="helpline__label">Cyber Crime</span> 1930</span>
+        <a class="helpline" href="https://ncwapps.nic.in" rel="noopener noreferrer" target="_blank"
+          >NCW complaint portal</a
+        >
+      </nav>
+
+      <p class="disclaimer" data-i18n="disclaimer">
+        Sakshi is a civic-accountability record of <strong>publicly reported</strong> cases. It is
+        not a crime-rate statistic (reporting rates vary), not legal advice, and not a substitute
+        for official NCRB data.
+      </p>
+
+      <p class="footer-meta">
+        <span>Last updated: <time id="last-updated" datetime="">—</time></span>
+        <span aria-hidden="true">·</span>
+        <a href="https://github.com/sakshi-project/sakshi/blob/main/TAKEDOWN.md">Takedown &amp; corrections</a>
+        <span aria-hidden="true">·</span>
+        <span>Code MIT · Data ODbL v1.0</span>
+      </p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "sakshi-site",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sakshi — static public-accountability dashboard (Phase-4 frontend scaffold).",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src",
+    "format:check": "prettier --check \"src/**/*.{js,json}\" \"styles/**/*.css\" index.html",
+    "format": "prettier --write \"src/**/*.{js,json}\" \"styles/**/*.css\" index.html",
+    "lighthouse": "lhci autorun"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@lhci/cli": "^0.14.0",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "vite": "^6.0.7"
+  }
+}

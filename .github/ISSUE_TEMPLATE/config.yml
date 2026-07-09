@@ -1,0 +1,29 @@
+# Sakshi issue-tracker configuration
+# This tracker is for the software and the public data record ONLY.
+# It is NOT a channel for personal help, emergencies, or reporting a crime.
+blank_issues_enabled: false
+contact_links:
+  - name: In danger now? Police emergency — 112
+    url: https://ncw.nic.in/
+    about: >-
+      If you or someone else is in immediate danger, call 112. This issue
+      tracker is not monitored for emergencies and must never be used to
+      report a crime or seek help.
+  - name: National Women's Helpline — 181
+    url: https://ncwapps.nic.in/
+    about: >-
+      For support, counselling, or assistance, call 181 (24x7). Please do not
+      open an issue here for personal help.
+  - name: Cyber Crime helpline — 1930
+    url: https://cybercrime.gov.in/
+    about: Report online/financial cyber crime by calling 1930 or via the portal.
+  - name: NCW complaint portal
+    url: https://ncwapps.nic.in/
+    about: >-
+      File a formal complaint with the National Commission for Women. This is
+      the correct place for personal complaints — not this issue tracker.
+  - name: Report a security vulnerability
+    url: https://github.com/sakshi-project/sakshi/security/policy
+    about: >-
+      Do NOT open a public issue for security problems. Follow SECURITY.md to
+      report vulnerabilities (including any suspected PII exposure) privately.

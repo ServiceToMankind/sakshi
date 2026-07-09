@@ -1,0 +1,28 @@
+Sakshi — Data License (Open Database License v1.0)
+==================================================
+
+The database contents of this repository — everything under the `data/`
+directory — are licensed under the Open Database License (ODbL) v1.0.
+
+(The project's CODE is licensed separately under the MIT License; see LICENSE.)
+
+The canonical, full text of the ODbL v1.0 is published at:
+
+    https://opendatacommons.org/licenses/odbl/1-0/
+
+By using the database contents you agree to the terms of that license. In brief,
+and without overriding the canonical text above, the ODbL v1.0 permits you to
+share, create from, and adapt the database provided that you:
+
+  * Attribute — credit "The Sakshi Project" and link back to this repository;
+  * Share-Alike — keep the database (or any adapted database) open under the
+    ODbL; and
+  * Keep Open — if you publicly use an adapted version, offer that adapted
+    database under the ODbL as well.
+
+Individual factual records are drawn from public sources, each cited in the
+record's own `sources[]`. This dataset is a civic-accountability index of
+PUBLICLY REPORTED cases. It is not a crime-rate statistic (reporting rates
+vary), not legal advice, and not a substitute for official NCRB data.
+
+See TAKEDOWN.md for corrections and removal requests.
