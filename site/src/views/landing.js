@@ -28,9 +28,9 @@ function noticeView(key) {
 function emptyGenesis() {
   return el('div', { class: 'view view--empty' }, [
     el('div', { class: 'empty empty--genesis reveal' }, [
-      el('p', { class: 'empty__title' }, t('app_title')),
-      el('p', { class: 'empty__text' }, t('landing_lead')),
-      el('p', { class: 'muted', 'data-i18n': 'no_results' }, t('no_results')),
+      el('p', { class: 'lead__tagline', 'data-i18n': 'tagline' }, t('tagline')),
+      el('p', { class: 'empty__title', 'data-i18n': 'genesis_title' }, t('genesis_title')),
+      el('p', { class: 'empty__text', 'data-i18n': 'genesis_text' }, t('genesis_text')),
     ]),
   ]);
 }

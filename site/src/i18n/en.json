@@ -37,6 +37,8 @@
   "results_count": "cases",
   "no_results": "No cases match these filters.",
   "no_results_hint": "Try clearing a filter or widening the year.",
+  "genesis_title": "The record is being prepared.",
+  "genesis_text": "No cases have been published yet. Sakshi is live and awaiting its first daily update — published cases will appear here, each cited to its public source.",
   "select_state": "Select a state to see its cases.",
   "case_back": "Back to results",
   "case_status_timeline": "Status timeline",

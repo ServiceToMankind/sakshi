@@ -8,10 +8,11 @@
 name: deploy
 
 on:
-  # Pages deployment is deferred to Phase 5 (after LAUNCH_REVIEW.md). Until then this
-  # runs ONLY on manual dispatch, so a push never publishes the site prematurely or
-  # fails against a Pages site that is intentionally not yet enabled. Phase 5 restores
-  # the `push: branches: [main]` trigger.
+  # Deploy the static site to GitHub Pages on push to main, and on manual dispatch.
+  # The published tree ships ONLY the genesis (empty) data/ until the daily pipeline
+  # runs; synthetic dev data lives in git-ignored site/public/data and never deploys.
+  push:
+    branches: [main]
   workflow_dispatch:
 
 # Pages deployment needs id-token (OIDC) + pages write; everything else read.
