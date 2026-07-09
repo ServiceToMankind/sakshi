@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sakshi.example/schemas/case.schema.json",
+  "$id": "https://raw.githubusercontent.com/ServiceToMankind/sakshi/main/schemas/case.schema.json",
   "title": "Sakshi Case Record",
-  "description": "The single source of truth for a published case record. This is a civic-accountability record of a PUBLICLY REPORTED case, not a crime-rate statistic and not legal advice. Victim identity is NEVER ingested: by design there is no field capable of holding a victim/survivor name, age (beyond the boolean minor_involved), address, family, school, workplace, photo, contact, or any re-identifying detail. Dedup and matching are case-anchored (FIR/CNR/station/district/date/court), never on identity. additionalProperties:false at every object level makes forbidden fields impossible.",
+  "description": "The single source of truth for a published case record. This is a civic-accountability record of a PUBLICLY REPORTED case, not a substitute for official crime statistics. Victim identity is NEVER ingested: by design there is no field capable of holding a victim/survivor name, age (beyond the boolean minor_involved), address, family, school, workplace, photo, contact, or any re-identifying detail. Dedup and matching are case-anchored (FIR/CNR/station/district/date/court), never on identity. additionalProperties:false at every object level makes forbidden fields impossible.",
   "type": "object",
   "additionalProperties": false,
   "required": [

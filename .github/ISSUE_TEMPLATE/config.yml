@@ -23,7 +23,7 @@ contact_links:
       File a formal complaint with the National Commission for Women. This is
       the correct place for personal complaints — not this issue tracker.
   - name: Report a security vulnerability
-    url: https://github.com/sakshi-project/sakshi/security/policy
+    url: https://github.com/ServiceToMankind/sakshi/security/policy
     about: >-
       Do NOT open a public issue for security problems. Follow SECURITY.md to
       report vulnerabilities (including any suspected PII exposure) privately.

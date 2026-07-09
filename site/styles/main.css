@@ -219,12 +219,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--skeleton-shine),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, var(--skeleton-shine), transparent);
   transform: translateX(-100%);
   animation: skeleton-sweep 1.4s ease-in-out infinite;
 }

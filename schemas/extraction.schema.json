@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://sakshi.example/schemas/extraction.schema.json",
+  "$id": "https://raw.githubusercontent.com/ServiceToMankind/sakshi/main/schemas/extraction.schema.json",
   "title": "Sakshi Gemini Extraction Response",
   "description": "The response_schema that constrains Gemini's extraction output BEFORE sanitize.py runs. It is STRUCTURALLY INCAPABLE of holding victim identity: there are simply no fields for victim, survivor, name, age, address, family, school, workplace, photo, contact, email, or geo. additionalProperties:false at every level forbids any such field from appearing. Gemini summarizes ALREADY-PUBLIC text only and must never generate factual claims; every emitted field must trace to a source excerpt. The 'victim' field is a required constant that MUST be null. This schema mirrors only the non-PII fields of the published record.",
   "type": "object",

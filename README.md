@@ -2,9 +2,10 @@
 
 **Because the record must not forget.**
 
-<!-- Badges (placeholders — wire up once CI and Pages are live) -->
-[![CI](https://img.shields.io/badge/CI-pending-lightgrey)](#)
-[![Pages](https://img.shields.io/badge/GitHub%20Pages-pending-lightgrey)](#)
+*A Service to Mankind initiative — [stmorg.in](https://stmorg.in)*
+
+[![CI](https://github.com/ServiceToMankind/sakshi/actions/workflows/ci.yml/badge.svg)](https://github.com/ServiceToMankind/sakshi/actions/workflows/ci.yml)
+[![Deploy](https://github.com/ServiceToMankind/sakshi/actions/workflows/deploy.yml/badge.svg)](https://github.com/ServiceToMankind/sakshi/actions/workflows/deploy.yml)
 [![Code License: MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 [![Data License: ODbL v1.0](https://img.shields.io/badge/data-ODbL%20v1.0-green)](LICENSE-DATA)
 
@@ -22,13 +23,12 @@ jurisdiction by jurisdiction — irrespective of anyone's identity, community, o
 
 ---
 
-## What this is, and what it is not
+## What this is
 
-- This is a civic-accountability record of **publicly reported cases**.
-- It is **NOT** a crime-rate statistic. Reporting rates vary widely across regions and
-  time; counts here reflect what was reported and recorded in public sources, nothing more.
-- It is **NOT** legal advice.
-- It is **NOT** a substitute for official NCRB data.
+Sakshi is a civic-accountability record of **publicly reported cases**, compiled from public
+judicial records and credible media. Counts reflect what was reported and recorded in public
+sources. It is not a substitute for official crime statistics such as NCRB data — reporting
+rates vary across regions and over time.
 
 An accused person is presumed innocent until proven guilty. Any status shown reflects
 public court records as of the last update. Acquittals and quashed cases are shown with
@@ -140,7 +140,7 @@ auto-published.
 
 ```bash
 # 1. Clone
-git clone https://github.com/<org>/sakshi.git
+git clone https://github.com/ServiceToMankind/sakshi.git
 cd sakshi
 
 # 2. Create a Python 3.12 environment
@@ -169,7 +169,7 @@ npm run dev
 `make check` runs ruff, mypy `--strict`, pytest (>=85% pipeline coverage, 100% on
 `sanitize` / `pii_guard`), jsonschema validation of all shards, `pii_guard`, the
 `summary.json` size assertion, eslint, and prettier. Lighthouse CI runs on the
-built site via `make lighthouse` (and in the deploy pipeline before launch).
+built site via `make lighthouse` (and in the deploy pipeline).
 
 ---
 
@@ -213,15 +213,10 @@ idempotently on each run, so re-runs are safe.
 
 ---
 
-## Licensing
+## License
 
-This project is dual-licensed:
-
-- **Code** is licensed under the **MIT License** — see [LICENSE](LICENSE).
-- **Data** (everything under `data/`) is licensed under the **Open Database License
-  (ODbL) v1.0** — see [LICENSE-DATA](LICENSE-DATA).
-
-Please respect both. If you reuse the data, ODbL's attribution and share-alike terms apply.
+- **Code** — MIT License. See [LICENSE](LICENSE).
+- **Data** (everything under `data/`) — Open Database License (ODbL) v1.0. See [LICENSE-DATA](LICENSE-DATA).
 
 ---
 

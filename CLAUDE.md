@@ -75,7 +75,7 @@ Never propose a commit until `make check` passes locally. It runs:
 `ruff` · `mypy --strict` · `pytest` (>=85% pipeline coverage, **100% on
 sanitize/pii_guard**) · `jsonschema` validation of all shards · `pii_guard` ·
 summary-size assertion · `eslint` · `prettier`. (Lighthouse CI runs on the built
-site via `make lighthouse` and in the deploy pipeline before launch.)
+site via `make lighthouse` and in the deploy pipeline.)
 
 `ci.yml` enforces the same on every PR. Do not disable, skip, or `# noqa` your way
 past a gate to make it green.
@@ -166,7 +166,7 @@ Pages) for human review — never auto-published.
 - Adding a Claude co-author trailer to commits.
 - Deduplicating on victim identity instead of case anchors (CNR/FIR/court).
 - Treating this record as a crime-rate statistic — it is a record of PUBLICLY REPORTED
-  cases, not NCRB data, not legal advice.
+  cases, not a substitute for official NCRB crime statistics.
 
 ---
 

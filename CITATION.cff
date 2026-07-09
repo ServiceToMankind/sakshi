@@ -6,13 +6,13 @@ abstract: >-
   public-accountability platform tracking publicly reported sexual-assault
   cases across India, aggregated daily from public judicial records and
   credible media onto a fast, filterable dashboard. It is a civic-accountability
-  record of publicly reported cases — not a crime-rate statistic, not legal
-  advice, and not a substitute for official NCRB data.
+  record of publicly reported cases and is not a substitute for official crime
+  statistics such as NCRB data.
 type: software
 date-released: "2026-07-09"
 license: MIT
-url: "https://github.com/the-sakshi-project/sakshi"
-repository-code: "https://github.com/the-sakshi-project/sakshi"
+url: "https://github.com/ServiceToMankind/sakshi"
+repository-code: "https://github.com/ServiceToMankind/sakshi"
 keywords:
   - civic-tech
   - india
@@ -20,13 +20,13 @@ keywords:
   - accountability
   - github-pages
 authors:
-  - name: "The Sakshi Project"
-    email: "anjan.turlapati@gmail.com"
-    website: "https://github.com/the-sakshi-project/sakshi"
+  - name: "Service to Mankind"
+    email: "contact@stmorg.in"
+    website: "https://github.com/ServiceToMankind/sakshi"
 # Note on the dataset:
 # The source code is licensed under the MIT License (see the `license` field).
 # The dataset — everything under the `data/` directory — is a database made
 # available under the Open Database License (ODbL) v1.0
 # (https://opendatacommons.org/licenses/odbl/1-0/). When citing or reusing the
-# data specifically, please attribute The Sakshi Project and comply with the
+# data specifically, please attribute Service to Mankind and comply with the
 # ODbL share-alike and keep-open terms. See LICENSE for details.

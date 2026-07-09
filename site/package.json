@@ -3,8 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Sakshi — static public-accountability dashboard (Phase-4 frontend scaffold).",
+  "description": "Sakshi — static public-accountability dashboard.",
   "license": "MIT",
+  "author": "Service to Mankind (https://stmorg.in)",
+  "homepage": "https://github.com/ServiceToMankind/sakshi#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ServiceToMankind/sakshi.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

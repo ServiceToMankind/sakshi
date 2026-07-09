@@ -40,7 +40,7 @@ Sakshi is **Python 3.12**, fully typed, with a static (no-framework) frontend.
 ### Clone
 
 ```bash
-git clone https://github.com/<org>/sakshi.git
+git clone https://github.com/ServiceToMankind/sakshi.git
 cd sakshi
 ```
 
@@ -98,8 +98,9 @@ make check
 
 `make check` runs: `ruff` + `mypy --strict` + `pytest` (>=85% pipeline coverage,
 **100% on `sanitize.py` and `pii_guard.py`**) + JSON Schema validation of all
-shards + `pii_guard` + the `summary.json` size assertion + `eslint` + `prettier`
-+ Lighthouse CI on the built site. CI enforces all of this on every PR.
+shards + `pii_guard` + the `summary.json` size assertion + `eslint` + `prettier`.
+Lighthouse CI runs on the built site via `make lighthouse` and in the deploy
+pipeline. CI enforces all of this on every PR.
 
 ---
 
@@ -400,6 +401,6 @@ If you or someone you know needs help:
 
 ---
 
-This is a civic-accountability record of publicly reported cases. It is **not** a
-crime-rate statistic, **not** legal advice, and **not** a substitute for official
-NCRB data. Contribute with the care the subject demands.
+This is a civic-accountability record of publicly reported cases, compiled from public
+judicial records and credible media. It is not a substitute for official crime statistics
+such as NCRB data. Contribute with the care the subject demands.

@@ -13,7 +13,7 @@ vulnerability and what you can expect from us in return.
 **Do not open a public GitHub issue, pull request, or discussion for a security
 vulnerability.** Public disclosure before a fix puts people at risk.
 
-Instead, email **anjan.turlapati@gmail.com** with the details. Please use a
+Instead, email **contact@stmorg.in** with the details. Please use a
 subject line beginning with `SECURITY:`.
 
 If you wish to encrypt your report, say so in a first, contentless email and we
@@ -98,7 +98,7 @@ victim-identifying data; you give us a reasonable time to remediate before any
 public disclosure; and you do not exploit the issue beyond proof of concept.
 
 If you are uncertain whether an action is authorized, ask us first at
-**anjan.turlapati@gmail.com**. We would rather answer a question than see a
+**contact@stmorg.in**. We would rather answer a question than see a
 person put at risk.
 
 ---

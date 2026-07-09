@@ -78,7 +78,7 @@ Choose whichever is easier for you:
   **data-correction** template in this repository. The template prompts you for
   the fields we need.
 * **Email (preferred for removals or anything sensitive):**
-  **anjan.turlapati@gmail.com**.
+  **contact@stmorg.in**.
 
 You do not need a GitHub account to email us. You do not need to be a lawyer,
 and you do not need to explain more than you are comfortable sharing.
@@ -121,7 +121,7 @@ If you are not satisfied with our response, or we have not replied within the
 timelines above:
 
 1. Reply to your original email or issue asking for escalation, or write again
-   to **anjan.turlapati@gmail.com** with "ESCALATION" in the subject line.
+   to **contact@stmorg.in** with "ESCALATION" in the subject line.
 2. For a security or PII concern, follow [SECURITY.md](./SECURITY.md) directly.
 3. You retain every legal remedy otherwise available to you; nothing in this
    document limits your rights.

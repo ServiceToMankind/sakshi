@@ -9,7 +9,7 @@ description = "Sakshi — data pipeline for an open, static public-accountabilit
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
-authors = [{ name = "Sakshi contributors" }]
+authors = [{ name = "Service to Mankind", email = "contact@stmorg.in" }]
 keywords = ["civic-tech", "india", "open-data", "accountability", "github-pages"]
 
 # Runtime dependencies for the fetch -> extract -> sanitize -> dedupe -> shard pipeline.
@@ -38,8 +38,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/sakshi-project/sakshi"
-Repository = "https://github.com/sakshi-project/sakshi"
+Homepage = "https://github.com/ServiceToMankind/sakshi"
+Repository = "https://github.com/ServiceToMankind/sakshi"
 
 [tool.setuptools.packages.find]
 include = ["pipeline*"]

@@ -1,23 +1,6 @@
-Sakshi — Dual License
-=====================
+MIT License
 
-This project is released under two licenses, one for code and one for data.
-
-  * CODE — everything in this repository EXCEPT the `data/` directory — is
-    licensed under the MIT License, reproduced in full below.
-
-  * DATA — everything under the `data/` directory — is licensed under the
-    Open Database License (ODbL) v1.0. See the "Database Contents" section at
-    the end of this file.
-
-Please cite the project when you use it. See CITATION.cff.
-
-
--------------------------------------------------------------------------------
-MIT License (applies to CODE)
--------------------------------------------------------------------------------
-
-Copyright (c) 2026 The Sakshi Project
+Copyright (c) 2026 Service to Mankind (stmorg.in)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -36,26 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
--------------------------------------------------------------------------------
-Database Contents — Open Database License (ODbL) v1.0 (applies to DATA)
--------------------------------------------------------------------------------
-
-The contents of the `data/` directory constitute a database made available
-under the Open Database License (ODbL) v1.0.
-
-The canonical, full text of the ODbL v1.0 is published at:
-
-    https://opendatacommons.org/licenses/odbl/1-0/
-
-By using the database contents you agree to the terms of that license. In
-brief, and without overriding the canonical text above, the ODbL v1.0 permits
-you to share, create from, and adapt the database provided that you attribute
-The Sakshi Project, keep the database (or any adapted database) open under the
-same terms, and, if you publicly use an adapted version, offer that adapted
-database under the ODbL as well.
-
-The data records a civic-accountability index of PUBLICLY REPORTED cases. It
-is not a crime-rate statistic, not legal advice, and not a substitute for
-official NCRB data. Every record carries its own public sources.
