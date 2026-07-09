@@ -39,9 +39,10 @@ REVIEW_QUEUE_ISSUE_THRESHOLD: Final[int] = 20
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 
 # --- Gemini model + cost estimation ------------------------------------------
-# The flash-class model used for extraction. Centralized here so it is trivial to
-# bump when a version is retired (gemini-2.0-flash was retired, hence 2.5).
-GEMINI_MODEL: Final[str] = "gemini-2.5-flash"
+# A resilient ALIAS to the current flash-class model. Concrete versions (2.0,
+# 2.5) get retired without notice and then 404 mid-run; the alias always resolves
+# to the current model, so the pipeline does not break on rotation.
+GEMINI_MODEL: Final[str] = "gemini-flash-latest"
 # Approximate USD per 1M tokens for GEMINI_MODEL; used only for the per-run cost
 # estimate. Keep current with published pricing.
 GEMINI_INPUT_USD_PER_MTOK: Final[float] = 0.30
