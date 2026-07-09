@@ -16,6 +16,7 @@ DATA_DIR: Final[Path] = REPO_ROOT / "data"
 REVIEW_DIR: Final[Path] = DATA_DIR / "_review"
 LOGS_DIR: Final[Path] = REPO_ROOT / "logs"
 SCHEMA_DIR: Final[Path] = REPO_ROOT / "schemas"
+SOURCES_CONFIG_PATH: Final[Path] = REPO_ROOT / "sources.yml"
 
 # --- Scraping politeness (Phase 0.3 — non-negotiable) ------------------------
 DEFAULT_USER_AGENT: Final[str] = "sakshi-bot/1.0 (+https://github.com/ServiceToMankind/sakshi)"
@@ -61,6 +62,29 @@ def daily_token_cap() -> int:
     """Per-run-day Gemini token budget; new extraction calls stop once reached."""
     raw = os.environ.get("GEMINI_DAILY_TOKEN_CAP")
     return int(raw) if raw else DEFAULT_DAILY_TOKEN_CAP
+
+
+# --- Supervised-launch controls ----------------------------------------------
+# LAUNCH_MODE is flipped by a human via a repo variable. "staged" (default) sends
+# every run's data/ to a review PR; "auto" commits + deploys directly.
+def launch_mode() -> str:
+    return os.environ.get("LAUNCH_MODE", "staged").strip().lower() or "staged"
+
+
+def launch_states() -> frozenset[str] | None:
+    """Restrict a run to these 2-letter state codes, or None for all states."""
+    raw = os.environ.get("LAUNCH_STATES", "").strip()
+    states = frozenset(s.strip().upper() for s in raw.split(",") if s.strip())
+    return states or None
+
+
+def launch_lookback_days() -> int | None:
+    """Only keep cases reported within this many days, or None for no window."""
+    raw = os.environ.get("LAUNCH_LOOKBACK_DAYS", "").strip()
+    try:
+        return int(raw) if raw else None
+    except ValueError:
+        return None
 
 
 def estimate_cost_usd(input_tokens: int, output_tokens: int) -> float:

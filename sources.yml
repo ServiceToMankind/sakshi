@@ -1,0 +1,40 @@
+# Enabled data sources — the per-source kill switch.
+#
+# To disable a misbehaving source, set `enabled: false` and commit this file.
+# No code change, no redeploy. Order here does NOT imply priority; the dedupe
+# merge policy (official/court records beat media) decides authority.
+#
+# Types:
+#   ecourts : NJDG-style JSON endpoints (official). Live bulk access needs a
+#             session token; supply resolved URLs in `endpoints` or the
+#             ECOURTS_ENDPOINTS env var. Empty endpoints => this source yields
+#             nothing (safe: no fabrication).
+#   rss     : an established outlet's public RSS/Atom feed (media). Names of the
+#             accused are never taken from media alone.
+
+sources:
+  - id: ecourts-njdg
+    type: ecourts
+    enabled: true
+    publisher: eCourts
+    endpoints: []
+
+  - id: the-hindu
+    type: rss
+    enabled: true
+    publisher: The Hindu
+    url: "https://www.thehindu.com/news/national/feeder/default.rss"
+
+  - id: indian-express
+    type: rss
+    enabled: true
+    publisher: The Indian Express
+    url: "https://indianexpress.com/section/india/feed/"
+
+  # Example of a disabled source (kill switch off). Enable and set a real feed URL
+  # after a source-suggestion review.
+  - id: pti
+    type: rss
+    enabled: false
+    publisher: PTI
+    url: ""

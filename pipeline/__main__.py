@@ -6,13 +6,12 @@ from a source or the model is trusted directly.
 
 Usage::
 
-    python -m pipeline                 # real run against configured sources
+    python -m pipeline                 # real run against the sources in sources.yml
     python -m pipeline --dry-run       # offline: fixtures only, no network/Gemini
 
-``--dry-run`` proves the whole flow works with synthetic TESTVILLE fixtures,
-writing to a throwaway directory and printing a transcript, one record's full
-journey (raw -> extracted -> sanitized -> deduped -> sharded), and an illustrative
-Gemini cost estimate. CI uses it to gate the pipeline without a network or key.
+Scope is bounded by ``LAUNCH_STATES`` / ``LAUNCH_LOOKBACK_DAYS`` (env), so a
+supervised first run can be limited to a readable window. ``--dry-run`` proves
+the whole flow works with synthetic TESTVILLE fixtures without a network or key.
 """
 
 from __future__ import annotations
@@ -22,6 +21,7 @@ import asyncio
 import json
 import sys
 import tempfile
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
@@ -34,22 +34,27 @@ from pipeline.dedupe import dedupe
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
-from pipeline.sources.base import RawDocument, Source
-from pipeline.sources.ecourts import EcourtsSource
+from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
-from pipeline.sources.rss_media import RssMediaSource
+from pipeline.sources.registry import build_sources
 from pipeline.validate import iter_shard_files, load_schema, project_to_schema
 
 
 @dataclass
 class RunReport:
-    """Everything a caller (or the CI transcript) needs to know about a run."""
+    """Everything a caller (or the review PR) needs to know about a run."""
 
     new: int = 0
     updated: int = 0
     review: int = 0
     published: int = 0
+    fetched: int = 0
+    extracted: int = 0
     estimated_usd: float = 0.0
+    scope: str = ""
+    state_counts: dict[str, int] = field(default_factory=dict)
+    source_counts: dict[str, int] = field(default_factory=dict)
+    review_reasons: dict[str, int] = field(default_factory=dict)
     logs: list[str] = field(default_factory=list)
 
 
@@ -58,19 +63,18 @@ def _log(report: RunReport, message: str) -> None:
     report.logs.append(sanitize_string(message))
 
 
-async def _fetch_all(client: PoliteClient) -> list[RawDocument]:
-    """Fetch from every configured source with one polite client."""
-    sources: list[Source] = [EcourtsSource(client), RssMediaSource(client)]
+async def _fetch_all(client: PoliteClient, fetched_at: str) -> list[RawDocument]:
+    """Fetch from every ENABLED source (sources.yml) with one polite client."""
     docs: list[RawDocument] = []
-    for source in sources:
+    for source in build_sources(client, fetched_at=fetched_at):
         docs.extend(await source.fetch())
     return docs
 
 
-def _fetch_documents() -> list[RawDocument]:  # pragma: no cover - real network I/O
+def _fetch_documents(fetched_at: str) -> list[RawDocument]:  # pragma: no cover - network I/O
     async def _go() -> list[RawDocument]:
         async with PoliteClient() as client:
-            return await _fetch_all(client)
+            return await _fetch_all(client, fetched_at)
 
     return asyncio.run(_go())
 
@@ -80,6 +84,29 @@ def _illustrative_cost(docs: list[RawDocument]) -> float:
     input_tokens = sum(len(doc.text) for doc in docs) // 4 + 400 * len(docs)
     output_tokens = 200 * len(docs)
     return config.estimate_cost_usd(input_tokens, output_tokens)
+
+
+def _in_scope(
+    record: dict[str, Any], states: frozenset[str] | None, lookback: int | None, run_date: str
+) -> bool:
+    """True if the record is within the configured state set and lookback window."""
+    if states is not None and str(record.get("state", "")).upper() not in states:
+        return False
+    if lookback is not None:
+        try:
+            reported = date.fromisoformat(str(record.get("incident_reported_date")))
+            run_day = date.fromisoformat(run_date)
+        except (ValueError, TypeError):
+            return False
+        if reported > run_day or (run_day - reported).days > lookback:
+            return False
+    return True
+
+
+def _scope_label(states: frozenset[str] | None, lookback: int | None) -> str:
+    where = ",".join(sorted(states)) if states else "all states"
+    window = f"last {lookback}d" if lookback is not None else "no window"
+    return f"{where}; {window}"
 
 
 def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
@@ -98,8 +125,8 @@ def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -
 def _load_existing_published(data_dir: Path) -> list[dict[str, Any]]:
     """Load already-published records so a run regenerates the FULL tree.
 
-    The committed shards are the canonical store. Without this, a daily run that
-    only fetched new documents would republish just those and ``_clear_stale_shards``
+    The committed shards are the canonical store. Without this, a run that only
+    fetched new documents would republish just those and ``_clear_stale_shards``
     would delete all prior cases. Existing records re-enter dedupe so new documents
     merge into them and history is preserved.
     """
@@ -118,13 +145,42 @@ def _assert_no_pii(data_dir: Path) -> None:
         )
 
 
+def _render_report(report: RunReport, run_date: str) -> str:
+    def table(title: str, counts: dict[str, int]) -> str:
+        if not counts:
+            return f"### {title}\n\n_none_\n"
+        rows = "\n".join(f"| {k or '—'} | {v} |" for k, v in counts.items())
+        return f"### {title}\n\n| key | count |\n|---|---|\n{rows}\n"
+
+    return (
+        f"# Data review: {run_date}\n\n"
+        f"**Mode:** {config.launch_mode()} · **Scope:** {report.scope}\n\n"
+        "| metric | value |\n|---|---|\n"
+        f"| Fetched documents | {report.fetched} |\n"
+        f"| Extracted candidates | {report.extracted} |\n"
+        f"| **Published (whole tree)** | {report.published} |\n"
+        f"| New this run | {report.new} |\n"
+        f"| Updated | {report.updated} |\n"
+        f"| Review queue | {report.review} |\n"
+        f"| Est. Gemini cost | ${report.estimated_usd:.4f} |\n\n"
+        f"{table('By state', report.state_counts)}\n"
+        f"{table('By source', report.source_counts)}\n"
+        f"{table('Review queue (reasons)', report.review_reasons)}\n"
+        "> Every record is cited to a public source; accused names appear only from "
+        "court records. Review the `data/` diff and `data/_review/` before merging. "
+        "Nothing publishes until a human merges this PR.\n"
+    )
+
+
 def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     logs_dir.mkdir(parents=True, exist_ok=True)
     (logs_dir / "run.log").write_text("\n".join(report.logs) + "\n", encoding="utf-8")
     (logs_dir / "run_summary.env").write_text(
-        f"NEW={report.new}\nUPDATED={report.updated}\nREVIEW={report.review}\n",
+        f"NEW={report.new}\nUPDATED={report.updated}\nREVIEW={report.review}\n"
+        f"PUBLISHED={report.published}\nCOST={report.estimated_usd:.6f}\n",
         encoding="utf-8",
     )
+    (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
 
 
 def _print_journey(
@@ -164,6 +220,9 @@ def run(
 ) -> RunReport:
     """Execute one pipeline run and return a :class:`RunReport`."""
     report = RunReport()
+    states = config.launch_states()
+    lookback = config.launch_lookback_days()
+    report.scope = _scope_label(states, lookback)
 
     if dry_run:
         raw_docs = fixtures.fixture_raw_documents()
@@ -171,7 +230,7 @@ def run(
         report.estimated_usd = _illustrative_cost(raw_docs)
         _log(report, f"dry-run: {len(extractions)} fixture extractions (no network, no Gemini)")
     else:
-        raw_docs = docs if docs is not None else _fetch_documents()
+        raw_docs = docs if docs is not None else _fetch_documents(run_date)
         _log(report, f"fetched {len(raw_docs)} documents")
         result = extract(
             raw_docs, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
@@ -180,29 +239,46 @@ def run(
         report.estimated_usd = result.estimated_usd
         _log(report, f"extracted {len(extractions)} candidates; est ${result.estimated_usd:.6f}")
 
+    report.fetched = len(raw_docs)
+    report.extracted = len(extractions)
+
     # LAST GATE BEFORE DISK: sanitize every candidate, then project onto the schema
     # allow-list so no unknown (possibly PII-bearing) key can survive to a published
     # shard OR the review queue.
     case_schema = load_schema()
     sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in extractions]
+
+    # Bound this run to the configured states + lookback window.
+    in_scope = [r for r in sanitized if _in_scope(r, states, lookback, run_date)]
+    if len(in_scope) != len(sanitized):
+        _log(report, f"scope: {len(in_scope)}/{len(sanitized)} in scope ({report.scope})")
+
     # Fold in already-published records so the run regenerates the whole tree and
     # new documents merge into existing cases rather than replacing history.
     existing = _load_existing_published(data_dir)
-    published, review = dedupe(existing + sanitized)
+    published, review = dedupe(existing + in_scope)
     _log(report, f"deduped: {len(published)} published, {len(review)} to review")
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)
     _write_review(review, data_dir, run_date)
 
     # Independent final assertion over EVERY file just written (shards + review
-    # queue). A hit fails the run before any commit — the guard is not deferred to
-    # a post-push CI job.
+    # queue). A hit fails the run before any commit — not deferred to post-push CI.
     _assert_no_pii(data_dir)
 
     report.new = write_result.new
     report.updated = write_result.updated
     report.review = len(review)
     report.published = write_result.published
+    report.state_counts = dict(sorted(Counter(str(r.get("state", "")) for r in published).items()))
+    report.source_counts = dict(
+        sorted(
+            Counter(
+                str(s.get("publisher", "")) for r in published for s in r.get("sources", [])
+            ).items()
+        )
+    )
+    report.review_reasons = dict(sorted(Counter(item["reason"] for item in review).items()))
     _write_logs(report, logs_dir, run_date)
 
     if dry_run:
