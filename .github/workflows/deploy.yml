@@ -8,9 +8,10 @@
 name: deploy
 
 on:
-  push:
-    branches: [main]
-  # Allow a manual redeploy without a new commit.
+  # Pages deployment is deferred to Phase 5 (after LAUNCH_REVIEW.md). Until then this
+  # runs ONLY on manual dispatch, so a push never publishes the site prematurely or
+  # fails against a Pages site that is intentionally not yet enabled. Phase 5 restores
+  # the `push: branches: [main]` trigger.
   workflow_dispatch:
 
 # Pages deployment needs id-token (OIDC) + pages write; everything else read.
