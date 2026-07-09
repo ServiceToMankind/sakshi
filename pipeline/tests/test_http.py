@@ -156,3 +156,27 @@ def test_no_robots_check_when_disabled_and_context_manager() -> None:
             return response.status_code
 
     assert _run(go()) == 200
+
+
+def test_robots_fetch_counts_toward_first_request_throttle() -> None:
+    sleeps = _Sleeps()
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/robots.txt":
+            return httpx.Response(200, text="User-agent: *\nAllow: /")
+        return httpx.Response(200, text="ok")
+
+    client = PoliteClient(
+        httpx.AsyncClient(transport=httpx.MockTransport(handler)), sleep=sleeps, clock=_Clock()
+    )
+    _run(client.get("https://example.invalid/first"))
+    assert sleeps.calls  # even the FIRST content request waited after the robots fetch
+
+
+def test_backoff_honors_retry_after_http_date() -> None:
+    future = httpx.Response(503, headers={"Retry-After": "Wed, 21 Oct 2099 07:28:00 GMT"})
+    assert PoliteClient._backoff_seconds(1, future) == 60.0  # capped at BACKOFF_MAX_S
+    past = httpx.Response(503, headers={"Retry-After": "Wed, 21 Oct 2009 07:28:00 GMT"})
+    assert PoliteClient._backoff_seconds(1, past) == 0.0  # already elapsed
+    malformed = httpx.Response(503, headers={"Retry-After": "soon-ish"})
+    assert PoliteClient._backoff_seconds(1, malformed) == 1.0  # exponential fallback

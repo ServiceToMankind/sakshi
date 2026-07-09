@@ -27,6 +27,8 @@ from datetime import date
 from pathlib import Path
 from typing import Any, TextIO
 
+from scripts.pii_guard import iter_json_files, scan_json_file
+
 from pipeline import config, fixtures
 from pipeline.dedupe import dedupe
 from pipeline.extract.gemini import ExtractionClient, extract
@@ -36,6 +38,7 @@ from pipeline.sources.base import RawDocument, Source
 from pipeline.sources.ecourts import EcourtsSource
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.rss_media import RssMediaSource
+from pipeline.validate import load_schema, project_to_schema
 
 
 @dataclass
@@ -90,6 +93,15 @@ def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -
     (review_dir / f"review-{run_date}.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
     )
+
+
+def _assert_no_pii(data_dir: Path) -> None:
+    """Run scripts/pii_guard over the written tree; raise on any finding."""
+    findings = [f for json_file in iter_json_files([data_dir]) for f in scan_json_file(json_file)]
+    if findings:
+        raise RuntimeError(
+            f"pii_guard blocked the write: {len(findings)} finding(s); first: {findings[0]}"
+        )
 
 
 def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
@@ -154,13 +166,21 @@ def run(
         report.estimated_usd = result.estimated_usd
         _log(report, f"extracted {len(extractions)} candidates; est ${result.estimated_usd:.6f}")
 
-    # LAST GATE BEFORE DISK: sanitize every candidate.
-    sanitized = [sanitize_record(record) for record in extractions]
+    # LAST GATE BEFORE DISK: sanitize every candidate, then project onto the schema
+    # allow-list so no unknown (possibly PII-bearing) key can survive to a published
+    # shard OR the review queue.
+    case_schema = load_schema()
+    sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in extractions]
     published, review = dedupe(sanitized)
     _log(report, f"deduped: {len(published)} published, {len(review)} to review")
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)
     _write_review(review, data_dir, run_date)
+
+    # Independent final assertion over EVERY file just written (shards + review
+    # queue). A hit fails the run before any commit — the guard is not deferred to
+    # a post-push CI job.
+    _assert_no_pii(data_dir)
 
     report.new = write_result.new
     report.updated = write_result.updated

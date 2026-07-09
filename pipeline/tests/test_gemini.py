@@ -94,3 +94,17 @@ def test_extract_retries_on_error_then_succeeds() -> None:
 def test_extract_empty_docs_returns_empty() -> None:
     result = gemini.extract([], client=_FakeClient([]))
     assert result.records == [] and result.documents == 0
+
+
+def test_cost_log_written_even_when_extraction_raises(tmp_path: Path) -> None:
+    client = _FakeClient([RuntimeError("boom")] * 7)  # exceeds MAX_RETRIES
+    cost_log = tmp_path / "cost.json"
+    raised = False
+    try:
+        gemini.extract(
+            [_DOC], client=client, cost_log_path=cost_log, sleep=lambda _s: None, jitter=lambda: 0.0
+        )
+    except RuntimeError:
+        raised = True
+    assert raised
+    assert cost_log.exists()  # spend recorded despite the mid-run failure

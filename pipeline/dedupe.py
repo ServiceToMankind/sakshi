@@ -18,6 +18,7 @@ confidence threshold, and ambiguous fuzzy matches, are routed to ``data/_review/
 
 from __future__ import annotations
 
+import re
 from datetime import date
 from functools import reduce
 from typing import Any
@@ -26,7 +27,14 @@ from rapidfuzz import fuzz
 
 from pipeline import config
 
-__all__ = ["dedupe", "is_court_record", "is_same_case", "match_strength", "merge_records"]
+__all__ = [
+    "dedupe",
+    "exact_anchor_keys",
+    "is_court_record",
+    "is_same_case",
+    "match_strength",
+    "merge_records",
+]
 
 # Publishers we treat as official/authoritative (case-insensitive substring match).
 OFFICIAL_PUBLISHERS: frozenset[str] = frozenset(
@@ -59,8 +67,21 @@ def is_court_record(record: dict[str, Any]) -> bool:
     return False
 
 
-def _exact_keys(record: dict[str, Any]) -> set[str]:
-    """All available exact anchors (CNR and/or FIR). Overlap on any one is a match."""
+def _fir_year(number: str, incident_date: Any) -> str:
+    """Best-effort FIR year: the /YYYY suffix if present, else the incident year."""
+    match = re.search(r"/(\d{4})\b", str(number))
+    if match:
+        return match.group(1)
+    reported = str(incident_date or "")
+    return reported[:4] if len(reported) >= 4 and reported[:4].isdigit() else ""
+
+
+def exact_anchor_keys(record: dict[str, Any]) -> set[str]:
+    """All exact case anchors (CNR and/or year-qualified FIR). Shared by dedupe + shard.
+
+    The FIR key carries a year so a same-numbered FIR at the same station in a
+    different year is a distinct case, not a false merge.
+    """
     keys: set[str] = set()
     cnr = record.get("cnr")
     if cnr:
@@ -69,7 +90,9 @@ def _exact_keys(record: dict[str, Any]) -> set[str]:
     station = str(fir.get("station", "")).strip().lower()
     number = str(fir.get("number", "")).strip()
     if station and number:
-        keys.add(f"fir:{station}|{number}")
+        keys.add(
+            f"fir:{station}|{number}|{_fir_year(number, record.get('incident_reported_date'))}"
+        )
     return keys
 
 
@@ -80,11 +103,20 @@ def _parse_date(value: Any) -> date | None:
         return None
 
 
+def _anchor_types(keys: set[str]) -> set[str]:
+    return {key.split(":", 1)[0] for key in keys}
+
+
 def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
     """Return 'exact', 'strong', 'weak', or 'none' for the a/b pairing."""
-    keys_a, keys_b = _exact_keys(a), _exact_keys(b)
-    if keys_a and keys_b:
-        return "exact" if keys_a & keys_b else "none"
+    keys_a, keys_b = exact_anchor_keys(a), exact_anchor_keys(b)
+    if keys_a & keys_b:
+        return "exact"
+    # Only decide "distinct" when they share an anchor TYPE (cnr vs cnr, fir vs fir)
+    # yet the values differ. If the anchor types are disjoint (one CNR-only, the
+    # other FIR-only), fall through to the fuzzy signals so the same case can match.
+    if _anchor_types(keys_a) & _anchor_types(keys_b):
+        return "none"
 
     district_a = str(a.get("district", "")).strip().lower()
     district_b = str(b.get("district", "")).strip().lower()
@@ -173,8 +205,14 @@ def _union_status_history(
     seen: set[tuple[str, str, int]] = set()
     for record, remap in ((primary, remap_p), (secondary, remap_s)):
         for entry in record.get("status_history", []):
-            new_source = remap.get(int(entry.get("source", 0)), 0)
-            new_entry = {"status": entry["status"], "date": entry["date"], "source": new_source}
+            old_source = int(entry.get("source", 0))
+            if old_source not in remap:
+                continue  # out-of-range source index: drop, never misattribute to sources[0]
+            new_entry = {
+                "status": entry["status"],
+                "date": entry["date"],
+                "source": remap[old_source],
+            }
             key = (new_entry["status"], new_entry["date"], new_entry["source"])
             if key not in seen:
                 seen.add(key)

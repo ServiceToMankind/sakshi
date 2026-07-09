@@ -6,6 +6,8 @@ import io
 import json
 from pathlib import Path
 
+import pytest
+
 from pipeline import __main__ as orchestrator
 from pipeline.extract.gemini import ExtractionResponse
 from pipeline.fixtures import fixture_raw_documents
@@ -104,3 +106,39 @@ def test_low_confidence_routes_to_sanitized_review(tmp_path: Path) -> None:
     entries = json.loads(review_files[0].read_text())
     assert entries[0]["reason"] == "low_confidence"
     assert "victim" not in entries[0]["record"]  # review records are sanitized too
+
+
+def test_review_records_are_projected_to_schema(tmp_path: Path) -> None:
+    # A model-emitted key that is neither forbidden nor value-PII must still be
+    # dropped by the schema allow-list before it can reach the review queue.
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "cnr": "C-1",
+            "confidence": 0.4,
+            "reporter": "Ms A, the survivor's mother, 4th Cross Rd",
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    entries = json.loads(next((tmp_path / "_review").glob("review-*.json")).read_text())
+    assert "reporter" not in entries[0]["record"]
+
+
+def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
+    (tmp_path / "2026").mkdir(parents=True)
+    (tmp_path / "2026" / "TG.json").write_text(
+        json.dumps([{"victim_name": "SHOULD NOT PERSIST"}]), encoding="utf-8"
+    )
+    with pytest.raises(RuntimeError, match="pii_guard blocked"):
+        orchestrator._assert_no_pii(tmp_path)

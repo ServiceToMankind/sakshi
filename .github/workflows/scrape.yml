@@ -87,6 +87,14 @@ jobs:
       # Commit the regenerated data/ tree, if anything changed. Humans never
       # hand-edit data/, so a clean diff simply means "no change today".
       # NOTE: no Claude/AI co-author trailer — org policy forbids it.
+      # Independent gate BEFORE anything is committed or pushed. The pipeline also
+      # runs pii_guard internally; this is the belt-and-suspenders CI-visible check.
+      - name: Validate + PII guard before commit
+        if: success() && github.event.inputs.dry_run != 'true'
+        run: |
+          python -m pipeline.validate --all
+          python scripts/pii_guard.py data/
+
       - name: Commit regenerated data
         if: success() && github.event.inputs.dry_run != 'true'
         run: |

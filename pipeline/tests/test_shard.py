@@ -110,3 +110,46 @@ def test_stale_shard_removed(tmp_path: Path) -> None:
     write_shards([_record(cnr="C-2", state="AP")], tmp_path, run_date="2026-07-09")
     assert not (tmp_path / "2026" / "TG.json").exists()
     assert (tmp_path / "2026" / "AP.json").exists()
+
+
+def test_id_reused_when_cnr_discovered_later(tmp_path: Path) -> None:
+    # Run 1: media-only record, keyed on FIR.
+    write_shards(
+        [_record(fir_ref={"station": "X PS", "number": "9/2026"})], tmp_path, run_date="2026-07-09"
+    )
+    first = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
+    # Run 2: the same case now also carries a CNR -> must reuse the FIR-era id.
+    result = write_shards(
+        [_record(fir_ref={"station": "X PS", "number": "9/2026"}, cnr="TSHC01-000009-2026")],
+        tmp_path,
+        run_date="2026-07-10",
+    )
+    second = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
+    assert first == second and result.updated == 1 and result.new == 0
+
+
+def test_distinct_courts_get_distinct_ids(tmp_path: Path) -> None:
+    r1 = _record(court={"name": "Court A", "next_hearing": None})
+    r2 = _record(court={"name": "Court B", "next_hearing": None})
+    write_shards([r1, r2], tmp_path, run_date="2026-07-09")
+    ids = {r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
+    assert len(ids) == 2  # anon key includes court -> no collision
+
+
+def test_duplicate_explicit_ids_raise(tmp_path: Path) -> None:
+    with pytest.raises(ValueError, match="duplicate ids"):
+        write_shards(
+            [
+                _record(cnr="C-1", id="SKS-2026-TG-000001"),
+                _record(cnr="C-2", id="SKS-2026-TG-000001"),
+            ],
+            tmp_path,
+            run_date="2026-07-09",
+        )
+
+
+def test_read_existing_raises_on_corrupt_shard(tmp_path: Path) -> None:
+    write_shards([_record(cnr="C-1")], tmp_path, run_date="2026-07-09")
+    (tmp_path / "2026" / "TG.json").write_text("{corrupt", encoding="utf-8")
+    with pytest.raises(ValueError, match="cannot read existing shard"):
+        write_shards([_record(cnr="C-2")], tmp_path, run_date="2026-07-09")

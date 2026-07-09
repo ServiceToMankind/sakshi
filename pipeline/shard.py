@@ -2,14 +2,19 @@
 
 Regenerates the ``data/`` tree from the given records: assigns deterministic,
 never-reused IDs, validates every record against ``schemas/case.schema.json``,
-and writes per-year/state shards plus ``summary.json`` and ``index.json``. Writes
-are atomic (temp -> rename) and the run is validated in full before anything is
-renamed into place, so a re-run is always safe.
+and writes per-year/state shards plus ``summary.json`` and ``index.json``.
 
-IDs are stable across runs: the currently-committed shards act as the canonical
-store. A record already carrying a valid ID keeps it; otherwise a case that was
-seen in a previous run reuses its old ID, and only genuinely new cases mint a new
-serial. ``scripts/pii_guard`` runs as the final assertion after this stage.
+Safety of a re-run:
+- Every gate (unique IDs, schema validation, summary size budget) runs BEFORE any
+  file is touched.
+- All output is staged to ``.tmp`` files and only then renamed into place, so a
+  mid-write error never leaves a half-updated tree.
+- Stale shards are removed only after every rename has succeeded.
+
+IDs are stable across runs: the committed shards are the canonical store. A record
+already carrying a valid ID keeps it; a case seen in a previous run (matched on
+ANY of its anchors — CNR or year-qualified FIR) reuses its old ID; only genuinely
+new cases mint a new serial. ``scripts/pii_guard`` runs as the final assertion.
 """
 
 from __future__ import annotations
@@ -23,15 +28,10 @@ from pathlib import Path
 from typing import Any
 
 from pipeline import config
+from pipeline.dedupe import exact_anchor_keys
 from pipeline.validate import iter_shard_files, load_schema, validate_record
 
-__all__ = [
-    "SHARD_SPLIT_BYTES",
-    "SUMMARY_MAX_BYTES",
-    "WriteResult",
-    "stable_case_key",
-    "write_shards",
-]
+__all__ = ["SHARD_SPLIT_BYTES", "SUMMARY_MAX_BYTES", "WriteResult", "write_shards"]
 
 SUMMARY_MAX_BYTES = config.SUMMARY_MAX_BYTES
 SHARD_SPLIT_BYTES = config.SHARD_SPLIT_BYTES
@@ -50,21 +50,22 @@ class WriteResult:
     shards: list[str] = field(default_factory=list)
 
 
-def stable_case_key(record: dict[str, Any]) -> str:
-    """A stable identity key for a case, used to keep IDs constant across runs."""
-    cnr = record.get("cnr")
-    if cnr:
-        return f"cnr:{str(cnr).strip().upper()}"
-    fir = record.get("fir_ref") or {}
-    station = str(fir.get("station", "")).strip().lower()
-    number = str(fir.get("number", "")).strip()
-    if station and number:
-        return f"fir:{station}|{number}"
+def _anchor_keys(record: dict[str, Any]) -> list[str]:
+    """Every stable identity anchor for a case (for cross-run ID reuse).
+
+    Exact anchors (CNR / year-qualified FIR) when available; otherwise an
+    anonymous key that INCLUDES the court name so two distinct courts never
+    collapse to one ID.
+    """
+    keys = sorted(exact_anchor_keys(record))
+    if keys:
+        return keys
+    court = str((record.get("court") or {}).get("name", "")).strip().lower()
     sections = ",".join(sorted(record.get("offence_sections") or []))
-    return (
+    return [
         f"anon:{record.get('state', '')}|{record.get('district', '')}"
-        f"|{record.get('incident_reported_date', '')}|{sections}"
-    )
+        f"|{record.get('incident_reported_date', '')}|{sections}|{court}"
+    ]
 
 
 def _year(record: dict[str, Any], run_date: str) -> str:
@@ -83,7 +84,11 @@ def _pending_days(record: dict[str, Any], run_day: date) -> int | None:
 
 
 def _read_existing(data_dir: Path) -> tuple[dict[str, str], dict[tuple[str, str], int], set[str]]:
-    """Return (case_key -> id, (year,state) -> max serial, set of all ids) from disk."""
+    """Return (anchor-key -> id, (year,state) -> max serial, all ids) from disk.
+
+    An unreadable or corrupt existing shard is a HARD error — silently skipping it
+    would risk re-minting an ID it already holds or dropping its cases.
+    """
     key_to_id: dict[str, str] = {}
     max_serial: dict[tuple[str, str], int] = {}
     all_ids: set[str] = set()
@@ -92,14 +97,15 @@ def _read_existing(data_dir: Path) -> tuple[dict[str, str], dict[tuple[str, str]
     for shard in iter_shard_files(data_dir):
         try:
             records = json.loads(shard.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
+        except (OSError, json.JSONDecodeError) as exc:
+            raise ValueError(f"cannot read existing shard {shard}: {exc}") from exc
         for record in records:
             record_id = record.get("id", "")
             if not _ID_RE.match(record_id):
                 continue
             all_ids.add(record_id)
-            key_to_id.setdefault(stable_case_key(record), record_id)
+            for key in _anchor_keys(record):
+                key_to_id.setdefault(key, record_id)
             year, state, serial = record_id[4:8], record_id[9:11], int(record_id[12:])
             slot = (year, state)
             max_serial[slot] = max(max_serial.get(slot, 0), serial)
@@ -117,19 +123,22 @@ def _assign_ids(
     for record in records:
         record = dict(record)
         year, state = _year(record, run_date), str(record["state"])
-        case_key = stable_case_key(record)
         current = record.get("id", "")
         if _ID_RE.match(current):
             record_id = current
-        elif case_key in key_to_id:
-            record_id = key_to_id[case_key]
         else:
-            slot = (year, state)
-            serial = max_serial.get(slot, 0) + 1
-            max_serial[slot] = serial
-            record_id = f"SKS-{year}-{state}-{serial:06d}"
+            anchors = _anchor_keys(record)
+            reused = next((key_to_id[key] for key in anchors if key in key_to_id), None)
+            if reused is not None:
+                record_id = reused
+            else:
+                slot = (year, state)
+                serial = max_serial.get(slot, 0) + 1
+                max_serial[slot] = serial
+                record_id = f"SKS-{year}-{state}-{serial:06d}"
+                for key in anchors:
+                    key_to_id.setdefault(key, record_id)
         record["id"] = record_id
-        key_to_id.setdefault(case_key, record_id)
         if record_id in existing_ids:
             updated += 1
         else:
@@ -142,6 +151,13 @@ def _assign_ids(
             record["pending_days"] = pending
         finalized.append(record)
     return finalized, new, updated
+
+
+def _assert_unique_ids(records: list[dict[str, Any]]) -> None:
+    ids = [str(r["id"]) for r in records]
+    if len(set(ids)) != len(ids):
+        dupes = sorted({rid for rid in ids if ids.count(rid) > 1})
+        raise ValueError(f"duplicate ids assigned to distinct cases: {dupes}")
 
 
 def _validate_all(records: list[dict[str, Any]]) -> None:
@@ -157,7 +173,6 @@ def _validate_all(records: list[dict[str, Any]]) -> None:
 
 
 def _sort_key(record: dict[str, Any]) -> str:
-    # Date descending -> invert by using a value that sorts reversed; caller reverses.
     return str(record.get("incident_reported_date", ""))
 
 
@@ -174,13 +189,6 @@ def _chunk_by_size(records: list[dict[str, Any]]) -> list[list[dict[str, Any]]]:
 
 def _dumps(value: Any) -> str:
     return json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True)
-
-
-def _atomic_write(path: Path, text: str) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(path.suffix + ".tmp")
-    tmp.write_text(text, encoding="utf-8")
-    tmp.replace(path)
 
 
 def _clear_stale_shards(data_dir: Path, keep: set[Path]) -> None:
@@ -237,24 +245,23 @@ def write_shards(
     """Write the full ``data/`` tree from ``records`` atomically and idempotently."""
     run_date = run_date or date.today().isoformat()
     finalized, new, updated = _assign_ids(records, data_dir, run_date)
+
+    # --- All gates run BEFORE any file is written. ---
+    _assert_unique_ids(finalized)
     _validate_all(finalized)
 
-    # Group by (year, state).
     groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for record in finalized:
         groups.setdefault((_year(record, run_date), str(record["state"])), []).append(record)
 
-    written: set[Path] = set()
+    files: list[tuple[Path, str]] = []
     manifest: list[dict[str, Any]] = []
     for (year, state), group in sorted(groups.items()):
         group.sort(key=_sort_key, reverse=True)
-        chunks = _chunk_by_size(group)
-        for index, chunk in enumerate(chunks):
+        for index, chunk in enumerate(_chunk_by_size(group)):
             name = f"{state}.json" if index == 0 else f"{state}-p{index + 1}.json"
-            path = data_dir / year / name
             text = _dumps(chunk)
-            _atomic_write(path, text)
-            written.add(path)
+            files.append((data_dir / year / name, text))
             manifest.append(
                 {
                     "path": f"{year}/{name}",
@@ -265,20 +272,27 @@ def write_shards(
                 }
             )
 
-    _clear_stale_shards(data_dir, written)
-
-    summary = _build_summary(finalized, run_date)
-    summary_text = _dumps(summary)
-    if len(summary_text.encode("utf-8")) > SUMMARY_MAX_BYTES:
-        raise ValueError(
-            f"summary.json is {len(summary_text.encode('utf-8'))} bytes "
-            f"(budget {SUMMARY_MAX_BYTES})"
-        )
-    _atomic_write(data_dir / "summary.json", summary_text)
+    summary_text = _dumps(_build_summary(finalized, run_date))
+    summary_bytes = len(summary_text.encode("utf-8"))
+    if summary_bytes > SUMMARY_MAX_BYTES:
+        raise ValueError(f"summary.json is {summary_bytes} bytes (budget {SUMMARY_MAX_BYTES})")
+    files.append((data_dir / "summary.json", summary_text))
 
     manifest.sort(key=lambda entry: entry["path"])
     index_doc = {"generated_at": f"{run_date}T00:00:00Z", "shards": manifest}
-    _atomic_write(data_dir / "index.json", _dumps(index_doc))
+    files.append((data_dir / "index.json", _dumps(index_doc)))
+
+    # --- Stage every file as .tmp, then rename all into place. ---
+    staged: list[tuple[Path, Path]] = []
+    for path, text in files:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(path.suffix + ".tmp")
+        tmp.write_text(text, encoding="utf-8")
+        staged.append((tmp, path))
+    for tmp, path in staged:
+        tmp.replace(path)
+
+    _clear_stale_shards(data_dir, {data_dir / entry["path"] for entry in manifest})
 
     return WriteResult(
         published=len(finalized),

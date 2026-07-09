@@ -18,6 +18,8 @@ import asyncio
 import time
 from collections.abc import Awaitable, Callable
 from dataclasses import dataclass
+from datetime import UTC, datetime
+from email.utils import parsedate_to_datetime
 from types import TracebackType
 from typing import Protocol
 from urllib.parse import urlsplit
@@ -35,6 +37,18 @@ class HttpGetter(Protocol):
     """The async GET surface sources depend on (satisfied by :class:`PoliteClient`)."""
 
     async def get(self, url: str) -> httpx.Response | None: ...
+
+
+def _retry_after_date_seconds(value: str) -> float | None:
+    """Seconds until the HTTP-date form of Retry-After, or None if unparseable."""
+    try:
+        when = parsedate_to_datetime(value)
+    except (TypeError, ValueError):
+        return None
+    if when.tzinfo is None:
+        when = when.replace(tzinfo=UTC)
+    delta = (when - datetime.now(UTC)).total_seconds()
+    return max(delta, 0.0)
 
 
 @dataclass
@@ -135,7 +149,11 @@ class PoliteClient:
         try:
             response = await self._client.get(robots_url)
         except httpx.HTTPError:
+            self._last_request[parts.netloc] = self._clock()
             return None
+        # The robots fetch is itself a request to the host — record it so the first
+        # content request still honors the >=2s inter-request interval.
+        self._last_request[parts.netloc] = self._clock()
         if response.status_code != 200:
             return None
         parser = RobotFileParser()
@@ -163,9 +181,13 @@ class PoliteClient:
 
     @staticmethod
     def _backoff_seconds(attempt: int, response: httpx.Response) -> float:
-        retry_after = response.headers.get("Retry-After", "")
+        retry_after = response.headers.get("Retry-After", "").strip()
         if retry_after.isdigit():
             return min(float(retry_after), config.BACKOFF_MAX_S)
+        if retry_after:
+            seconds = _retry_after_date_seconds(retry_after)
+            if seconds is not None:
+                return min(seconds, config.BACKOFF_MAX_S)
         return min(config.BACKOFF_BASE_S * 2.0 ** (attempt - 1), config.BACKOFF_MAX_S)
 
     def _store_validators(self, url: str, response: httpx.Response) -> None:

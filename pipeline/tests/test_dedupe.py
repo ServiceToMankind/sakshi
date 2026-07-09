@@ -100,3 +100,37 @@ def test_merge_unions_sources_and_remaps_status_history() -> None:
     # The media status-history entry must point at u-media's NEW index (1), not 0.
     fir_entries = [h for h in merged["status_history"] if h["status"] == "FIR_FILED"]
     assert fir_entries and merged["sources"][fir_entries[0]["source"]]["url"] == "u-media"
+
+
+def test_fir_year_distinguishes_same_number_across_years() -> None:
+    a = _record(fir_ref={"station": "X PS", "number": "45"}, incident_reported_date="2020-01-01")
+    b = _record(fir_ref={"station": "X PS", "number": "45"}, incident_reported_date="2023-01-01")
+    assert match_strength(a, b) == "none"  # same station+number, different year -> distinct
+    published, _ = dedupe([a, b])
+    assert len(published) == 2
+
+
+def test_cnr_only_and_fir_only_merge_via_fuzzy() -> None:
+    a = _record(cnr="C-1", court={"name": "Special POCSO Court, TESTVILLE", "next_hearing": None})
+    b = _record(
+        fir_ref={"station": "TESTVILLE PS", "number": "9/2026"},
+        court={"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
+    )
+    # Disjoint anchor types (CNR-only vs FIR-only) fall through to fuzzy signals.
+    assert match_strength(a, b) == "strong"
+    published, _ = dedupe([a, b])
+    assert len(published) == 1
+
+
+def test_merge_drops_out_of_range_status_source() -> None:
+    a = _record(cnr="C-1", status="UNDER_TRIAL")
+    b = _record(
+        cnr="C-1",
+        status="FIR_FILED",
+        sources=[{"url": "u2", "publisher": "eCourts", "retrieved": "2026-07-09"}],
+        status_history=[{"status": "FIR_FILED", "date": "2026-06-15", "source": 5}],  # bad index
+    )
+    merged = merge_records(a, b)
+    history = merged.get("status_history", [])
+    assert all(h["source"] < len(merged["sources"]) for h in history)
+    assert not any(h["status"] == "FIR_FILED" for h in history)  # dropped, not misattributed

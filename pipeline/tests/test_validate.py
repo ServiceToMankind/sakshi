@@ -115,3 +115,19 @@ def test_main_reports_failures_returns_one(tmp_path: Path) -> None:
     _write(tmp_path / "2026" / "AP.json", [{"id": "bad"}])
     _write(tmp_path / "summary.json", " " * (SUMMARY_MAX_BYTES + 1))
     assert validate.main(["--all", "--data-dir", str(tmp_path)]) == 1
+
+
+def test_project_to_schema_drops_unknown_keys() -> None:
+    schema = validate.load_schema()
+    dirty = {
+        "state": "TG",
+        "district": "TESTVILLE",
+        "reporter": "Ms A, the survivor's mother, 4th Cross Rd",  # unknown -> must be dropped
+        "sources": [
+            {"url": "u", "publisher": "eCourts", "retrieved": "2026-07-09", "leak": "x"},
+        ],
+    }
+    clean = validate.project_to_schema(dirty, schema)
+    assert "reporter" not in clean
+    assert "leak" not in clean["sources"][0]  # nested unknown key dropped too
+    assert clean["state"] == "TG" and clean["district"] == "TESTVILLE"

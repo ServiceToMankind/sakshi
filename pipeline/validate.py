@@ -33,9 +33,29 @@ __all__ = [
     "check_summary_size",
     "iter_shard_files",
     "load_schema",
+    "project_to_schema",
     "validate_all_shards",
     "validate_record",
 ]
+
+
+def project_to_schema(value: Any, schema: dict[str, Any]) -> Any:
+    """Recursively drop any key not declared in ``schema`` (an allow-list projection).
+
+    A structural backstop to sanitize: even a model-emitted key that is not in the
+    forbidden list and whose value matches no PII pattern cannot reach disk if the
+    schema does not declare it. Applied against the case schema before disk.
+    """
+    if isinstance(value, dict) and (schema.get("type") == "object" or "properties" in schema):
+        props: dict[str, Any] = schema.get("properties", {})
+        return {
+            key: project_to_schema(sub, props[key]) for key, sub in value.items() if key in props
+        }
+    if isinstance(value, list) and (schema.get("type") == "array" or "items" in schema):
+        item_schema: dict[str, Any] = schema.get("items", {})
+        return [project_to_schema(item, item_schema) for item in value]
+    return value
+
 
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 _SCHEMA_PATH = _REPO_ROOT / "schemas" / "case.schema.json"

@@ -152,25 +152,27 @@ def extract(
     jitter_fn = jitter if jitter is not None else (lambda: random.uniform(0.0, 0.5))
     schema_text = _load_schema_text()
 
-    for doc in docs:
-        if result.input_tokens + result.output_tokens >= cap:
-            result.truncated = True
-            break
-        response = _call_with_backoff(
-            active,
-            build_prompt(doc, schema_text),
-            sleep=sleep,
-            jitter=jitter_fn,
-            max_retries=config.MAX_RETRIES,
-        )
-        result.input_tokens += response.input_tokens
-        result.output_tokens += response.output_tokens
-        record = _parse(response.text, doc)
-        if record is not None:
-            result.records.append(record)
-
-    if cost_log_path is not None:
-        _write_cost_log(result, cost_log_path)
+    try:
+        for doc in docs:
+            if result.input_tokens + result.output_tokens >= cap:
+                result.truncated = True
+                break
+            response = _call_with_backoff(
+                active,
+                build_prompt(doc, schema_text),
+                sleep=sleep,
+                jitter=jitter_fn,
+                max_retries=config.MAX_RETRIES,
+            )
+            result.input_tokens += response.input_tokens
+            result.output_tokens += response.output_tokens
+            record = _parse(response.text, doc)
+            if record is not None:
+                result.records.append(record)
+    finally:
+        # Record spend even if a call raises mid-run — money already spent is logged.
+        if cost_log_path is not None:
+            _write_cost_log(result, cost_log_path)
     return result
 
 
