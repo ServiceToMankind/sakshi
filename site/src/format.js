@@ -101,8 +101,17 @@ export function isActiveStatus(status) {
 
 export function formatDate(iso) {
   if (!iso) return '—';
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return iso;
+  const s = String(iso);
+  // Minor cases store reduced-precision dates (POCSO s.23): render them at their
+  // true precision rather than fabricating a day/month via Date parsing.
+  if (/^\d{4}$/.test(s)) return s; // year only
+  if (/^\d{4}-\d{2}$/.test(s)) {
+    const ym = new Date(`${s}-01T00:00:00Z`);
+    if (Number.isNaN(ym.getTime())) return s;
+    return ym.toLocaleDateString(undefined, { year: 'numeric', month: 'short', timeZone: 'UTC' });
+  }
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return s;
   return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
