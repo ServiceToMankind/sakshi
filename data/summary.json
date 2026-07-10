@@ -1,8 +1,105 @@
 {
-  "total": 0,
-  "status_counts": {},
+  "generated_at": "2026-07-10T00:00:00Z",
+  "monthly_trend": [
+    {
+      "count": 0,
+      "month": "2024-08"
+    },
+    {
+      "count": 0,
+      "month": "2024-09"
+    },
+    {
+      "count": 0,
+      "month": "2024-10"
+    },
+    {
+      "count": 0,
+      "month": "2024-11"
+    },
+    {
+      "count": 0,
+      "month": "2024-12"
+    },
+    {
+      "count": 0,
+      "month": "2025-01"
+    },
+    {
+      "count": 0,
+      "month": "2025-02"
+    },
+    {
+      "count": 0,
+      "month": "2025-03"
+    },
+    {
+      "count": 0,
+      "month": "2025-04"
+    },
+    {
+      "count": 0,
+      "month": "2025-05"
+    },
+    {
+      "count": 0,
+      "month": "2025-06"
+    },
+    {
+      "count": 0,
+      "month": "2025-07"
+    },
+    {
+      "count": 0,
+      "month": "2025-08"
+    },
+    {
+      "count": 0,
+      "month": "2025-09"
+    },
+    {
+      "count": 0,
+      "month": "2025-10"
+    },
+    {
+      "count": 0,
+      "month": "2025-11"
+    },
+    {
+      "count": 0,
+      "month": "2025-12"
+    },
+    {
+      "count": 0,
+      "month": "2026-01"
+    },
+    {
+      "count": 0,
+      "month": "2026-02"
+    },
+    {
+      "count": 0,
+      "month": "2026-03"
+    },
+    {
+      "count": 0,
+      "month": "2026-04"
+    },
+    {
+      "count": 0,
+      "month": "2026-05"
+    },
+    {
+      "count": 0,
+      "month": "2026-06"
+    },
+    {
+      "count": 0,
+      "month": "2026-07"
+    }
+  ],
   "state_counts": {},
-  "monthly_trend": [],
+  "status_counts": {},
   "top_longest_pending": [],
-  "generated_at": "2026-07-09T00:00:00Z"
+  "total": 0
 }
