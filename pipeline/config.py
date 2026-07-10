@@ -42,13 +42,17 @@ DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 EXTRACT_MAX_RETRIES: Final[int] = 2
 EXTRACT_MAX_CONSECUTIVE_FAILURES: Final[int] = 5
 
-# --- Gemini model + cost estimation ------------------------------------------
-# A resilient ALIAS to the current flash-class model. Concrete versions (2.0,
-# 2.5) get retired without notice and then 404 mid-run; the alias always resolves
-# to the current model, so the pipeline does not break on rotation.
-GEMINI_MODEL: Final[str] = "gemini-flash-latest"
-# Approximate USD per 1M tokens for GEMINI_MODEL; used only for the per-run cost
-# estimate. Keep current with published pricing.
+# --- Gemini model chain + cost estimation ------------------------------------
+# PINNED model ids, NOT a `-latest` alias. An alias silently repoints to whatever
+# Google promotes and, for a daily unattended job, turns an external model swap
+# into a surprise mid-run failure. Pinned ids make a model change a reviewed
+# config commit. The list is an ORDERED FALLBACK CHAIN: on sustained provider
+# failure (circuit-break) of model N, extraction fails over to model N+1 before
+# aborting the run. Every model gets the same schema-constrained prompt and the
+# same downstream sanitize gate — the guardrails are model-agnostic by design.
+DEFAULT_GEMINI_MODELS: Final[tuple[str, ...]] = ("gemini-2.5-flash", "gemini-2.5-flash-lite")
+# Approximate USD per 1M tokens at flash-class rates; used only for the per-run
+# cost ESTIMATE (the chain's primary model). Keep current with published pricing.
 GEMINI_INPUT_USD_PER_MTOK: Final[float] = 0.30
 GEMINI_OUTPUT_USD_PER_MTOK: Final[float] = 2.50
 
@@ -67,6 +71,36 @@ def daily_token_cap() -> int:
     """Per-run-day Gemini token budget; new extraction calls stop once reached."""
     raw = os.environ.get("GEMINI_DAILY_TOKEN_CAP")
     return int(raw) if raw else DEFAULT_DAILY_TOKEN_CAP
+
+
+def _models_from_sources_yml() -> list[str]:
+    """Read the ordered model chain from sources.yml `extraction.models`, if present."""
+    try:
+        import yaml  # lazy: keep this module import-safe and dependency-light
+
+        data = yaml.safe_load(SOURCES_CONFIG_PATH.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    if not isinstance(data, dict):
+        return []
+    models = (data.get("extraction") or {}).get("models") or []
+    return [str(m).strip() for m in models if isinstance(m, str) and m.strip()]
+
+
+def gemini_models() -> list[str]:
+    """The ordered Gemini fallback chain (pinned ids), primary first.
+
+    Resolution order (first non-empty wins): the ``GEMINI_MODELS`` env/repo
+    variable (comma-separated), then ``sources.yml`` ``extraction.models``, then
+    :data:`DEFAULT_GEMINI_MODELS`. Config-driven so a model swap never needs a
+    code change.
+    """
+    raw = os.environ.get("GEMINI_MODELS", "").strip()
+    if raw:
+        env_models = [m.strip() for m in raw.split(",") if m.strip()]
+        if env_models:
+            return env_models
+    return _models_from_sources_yml() or list(DEFAULT_GEMINI_MODELS)
 
 
 # --- Supervised-launch controls ----------------------------------------------
@@ -93,7 +127,7 @@ def launch_lookback_days() -> int | None:
 
 
 def estimate_cost_usd(input_tokens: int, output_tokens: int) -> float:
-    """Estimate USD cost for a token spend at the configured gemini-2.0-flash rates."""
+    """Estimate USD cost for a token spend at the configured flash-class rates."""
     return round(
         input_tokens / 1_000_000 * GEMINI_INPUT_USD_PER_MTOK
         + output_tokens / 1_000_000 * GEMINI_OUTPUT_USD_PER_MTOK,

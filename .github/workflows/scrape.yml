@@ -52,6 +52,9 @@ jobs:
       LAUNCH_MODE: ${{ vars.LAUNCH_MODE || 'staged' }}
       LAUNCH_STATES: ${{ github.event.inputs.states || vars.LAUNCH_STATES || '' }}
       LAUNCH_LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || vars.LAUNCH_LOOKBACK_DAYS || '' }}
+      # Optional ops override of the pinned model chain (comma-separated). Empty =>
+      # the pinned chain in sources.yml (extraction.models). No code change needed.
+      GEMINI_MODELS: ${{ vars.GEMINI_MODELS || '' }}
 
     steps:
       - name: Check out repository

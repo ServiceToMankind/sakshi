@@ -72,7 +72,7 @@ def test_extract_accumulates_tokens_and_writes_cost_log(tmp_path: Path) -> None:
     assert result.input_tokens == 200 and result.output_tokens == 100
     assert result.estimated_usd > 0
     logged = json.loads(cost_log.read_text())
-    assert logged["documents"] == 2 and logged["model"] == config.GEMINI_MODEL
+    assert logged["documents"] == 2 and logged["models"] == config.gemini_models()
 
 
 def test_extract_stops_at_token_cap() -> None:
@@ -114,4 +114,29 @@ def test_circuit_breaker_aborts_on_sustained_failures() -> None:
     client = _FakeClient([RuntimeError("boom")] * 50)
     result = gemini.extract([_DOC] * 10, client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
     assert result.aborted is True
+    assert result.failovers == 0  # single-model chain, nowhere to fail over
     assert result.failed == config.EXTRACT_MAX_CONSECUTIVE_FAILURES  # stopped early
+
+
+def test_failover_to_next_model_when_primary_circuit_breaks() -> None:
+    n = config.EXTRACT_MAX_CONSECUTIVE_FAILURES
+    primary = _FakeClient([RuntimeError("503 overload")] * 50)  # always fails
+    fallback = _FakeClient([_resp(_VALID_JSON)] * 50)  # healthy
+    result = gemini.extract(
+        [_DOC] * 10, clients=[primary, fallback], sleep=lambda _s: None, jitter=lambda: 0.0
+    )
+    assert result.aborted is False  # fallback rescued the run
+    assert result.failovers == 1
+    assert result.failed == n  # the primary's circuit-break window
+    assert len(result.records) == 10 - n  # remaining docs extracted on the fallback
+
+
+def test_all_models_exhausted_stays_aborted() -> None:
+    n = config.EXTRACT_MAX_CONSECUTIVE_FAILURES
+    a = _FakeClient([RuntimeError("boom")] * 50)
+    b = _FakeClient([RuntimeError("boom")] * 50)
+    result = gemini.extract([_DOC] * 20, clients=[a, b], sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert result.aborted is True  # both models broke
+    assert result.failovers == 1
+    assert result.failed == 2 * n  # one circuit-break window per model
+    assert result.records == []
