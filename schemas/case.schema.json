@@ -52,9 +52,8 @@
     },
     "incident_reported_date": {
       "type": "string",
-      "format": "date",
-      "description": "Date the case was publicly reported/registered. ISO YYYY-MM-DD.",
-      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      "description": "Date the case was publicly reported/registered. Full ISO YYYY-MM-DD for non-minor cases; truncated to YYYY (year only) when minor_involved is true (POCSO s.23). The conditional below enforces the right granularity per case.",
+      "pattern": "^\\d{4}(-\\d{2}-\\d{2})?$"
     },
     "offence_sections": {
       "type": "array",
@@ -118,9 +117,8 @@
           },
           "date": {
             "type": "string",
-            "format": "date",
-            "description": "ISO YYYY-MM-DD.",
-            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            "description": "Full ISO YYYY-MM-DD for non-minor cases; truncated to YYYY-MM when minor_involved is true (day precision is not stored for a minor). Enforced by the conditional below.",
+            "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"
           },
           "source": {
             "type": "integer",
@@ -180,14 +178,14 @@
       }
     },
     "pending_days": {
-      "type": "integer",
+      "type": ["integer", "null"],
       "minimum": 0,
-      "description": "Days the case has been pending, for accountability surfacing."
+      "description": "Days the case has been pending, for accountability surfacing. MUST be null when minor_involved is true (a day-precise derivation is not stored for a minor)."
     },
     "summary": {
       "type": "string",
       "maxLength": 400,
-      "description": "One-paragraph neutral, non-graphic summary. Contains NO victim details."
+      "description": "One-paragraph neutral, non-graphic summary. Contains NO victim details. When minor_involved is true this is REPLACED by a fixed POCSO-s.23 template (enforced by the conditional below); the model-written narrative is never published for a minor case."
     },
     "sources": {
       "type": "array",
@@ -206,6 +204,11 @@
           "publisher": {
             "type": "string",
             "description": "Publisher or court (e.g. \"eCourts\", \"The Hindu\")."
+          },
+          "source_type": {
+            "type": "string",
+            "description": "Provenance class, assigned deterministically from the source. A record whose ONLY sources are live_blog is capped below the publish threshold and quarantined for human confirmation (a rolling live-updates page is not durable provenance for a permanent public claim).",
+            "enum": ["court", "news_article", "live_blog", "press_release"]
           },
           "retrieved": {
             "type": "string",
@@ -229,6 +232,36 @@
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     }
   },
+  "allOf": [
+    {
+      "description": "Phase 0 / POCSO s.23: a minor case is stored at the reduced granularity produced by pipeline.sanitize.project_minor_record. This is the SECOND independent layer (the first is the sanitizer) — a non-projected minor record fails validation and never ships. All referenced properties already exist above, so additionalProperties:false is unaffected.",
+      "if": {
+        "required": ["minor_involved"],
+        "properties": { "minor_involved": { "const": true } }
+      },
+      "then": {
+        "properties": {
+          "incident_reported_date": { "pattern": "^\\d{4}$" },
+          "pending_days": { "type": "null" },
+          "summary": {
+            "const": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status."
+          },
+          "court": { "properties": { "next_hearing": { "const": null } } },
+          "status_history": {
+            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}$" } } }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "incident_reported_date": { "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "status_history": {
+            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}-\\d{2}$" } } }
+          }
+        }
+      }
+    }
+  ],
   "examples": [
     {
       "id": "SKS-2026-TG-000123",
@@ -236,13 +269,13 @@
       "fir_ref": { "station": "TESTVILLE PS", "number": "000/2026" },
       "state": "TG",
       "district": "TESTVILLE",
-      "incident_reported_date": "2026-06-14",
+      "incident_reported_date": "2026",
       "offence_sections": ["BNS 64", "POCSO 6"],
       "category": "sexual_assault",
       "minor_involved": true,
       "status": "UNDER_TRIAL",
       "status_history": [
-        { "status": "FIR_FILED", "date": "2026-06-15", "source": 0 }
+        { "status": "FIR_FILED", "date": "2026-06", "source": 0 }
       ],
       "accused": [
         {
@@ -253,14 +286,15 @@
       ],
       "court": {
         "name": "Special POCSO Court, TESTVILLE",
-        "next_hearing": "2026-08-02"
+        "next_hearing": null
       },
-      "pending_days": 25,
-      "summary": "Illustrative synthetic record. Neutral, non-graphic summary with no victim details.",
+      "pending_days": null,
+      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
       "sources": [
         {
           "url": "https://example.invalid/illustrative",
           "publisher": "eCourts",
+          "source_type": "court",
           "retrieved": "2026-07-09"
         }
       ],

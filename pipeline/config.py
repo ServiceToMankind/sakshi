@@ -36,6 +36,10 @@ TOP_PENDING_COUNT: Final[int] = 10
 # Records below this confidence are quarantined to data/_review/ (never published).
 CONFIDENCE_REVIEW_THRESHOLD: Final[float] = 0.8
 REVIEW_QUEUE_ISSUE_THRESHOLD: Final[int] = 20
+# A record whose ONLY provenance is a rolling live-blog is capped just below the
+# publish threshold so it auto-quarantines for human confirmation (issue #7): a
+# mutable, URL-decaying live-updates page is not enough to make a permanent claim.
+LIVE_BLOG_CONFIDENCE_CAP: Final[float] = 0.79
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 # Per-document Gemini retries (fail fast, then skip the doc) and a circuit breaker
 # so sustained provider errors (503 overload) abort extraction instead of hanging.

@@ -50,9 +50,53 @@ def test_parse_forces_victim_null_and_attaches_source() -> None:
     assert record is not None
     assert record["victim"] is None
     assert record["sources"] == [
-        {"url": _DOC.url, "publisher": _DOC.publisher, "retrieved": _DOC.fetched_at}
+        {
+            "url": _DOC.url,
+            "publisher": _DOC.publisher,
+            "source_type": "court",  # eCourts publisher classified as a court record
+            "retrieved": _DOC.fetched_at,
+        }
     ]
     assert record["confidence"] == 0.0  # defaulted when absent
+
+
+def test_parse_stamps_source_type_and_caps_live_blog_confidence() -> None:
+    """A sole live-blog source is typed live_blog and capped below the publish gate."""
+    doc = RawDocument(
+        url="https://example.invalid/today-live-updates-x",
+        publisher="The Example Herald",
+        fetched_at="2026-07-09",
+        text="A TESTVILLE case.",
+    )
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "X",
+            "status": "UNKNOWN",
+            "confidence": 0.95,
+        }
+    )
+    record = gemini._parse(payload, doc)
+    assert record is not None
+    assert record["sources"][0]["source_type"] == "live_blog"
+    assert record["confidence"] == config.LIVE_BLOG_CONFIDENCE_CAP  # 0.95 capped to 0.79
+
+
+def test_parse_news_article_keeps_confidence_and_type() -> None:
+    doc = RawDocument(
+        url="https://example.invalid/india/some-report",
+        publisher="The Example Herald",
+        fetched_at="2026-07-09",
+        text="A TESTVILLE case.",
+    )
+    payload = json.dumps(
+        {"category": "rape", "state": "DL", "district": "X", "status": "UNKNOWN", "confidence": 0.9}
+    )
+    record = gemini._parse(payload, doc)
+    assert record is not None
+    assert record["sources"][0]["source_type"] == "news_article"
+    assert record["confidence"] == 0.9
 
 
 def test_parse_rejects_malformed_and_incomplete() -> None:

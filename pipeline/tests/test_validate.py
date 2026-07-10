@@ -14,6 +14,7 @@ import pytest
 from jsonschema import ValidationError
 
 from pipeline import validate
+from pipeline.sanitize import MINOR_SUMMARY_TEMPLATE
 from pipeline.shard import SUMMARY_MAX_BYTES
 
 
@@ -115,6 +116,73 @@ def test_main_reports_failures_returns_one(tmp_path: Path) -> None:
     _write(tmp_path / "2026" / "AP.json", [{"id": "bad"}])
     _write(tmp_path / "summary.json", " " * (SUMMARY_MAX_BYTES + 1))
     assert validate.main(["--all", "--data-dir", str(tmp_path)]) == 1
+
+
+# --- minor conditional subschema (issue #7) ----------------------------------
+
+
+def _minor_projected_record() -> dict[str, Any]:
+    """A minor record at the exact granularity sanitize.project_minor_record emits."""
+    return {
+        "id": "SKS-2026-TG-000001",
+        "state": "TG",
+        "district": "TESTVILLE",
+        "category": "pocso",
+        "status": "UNDER_TRIAL",
+        "minor_involved": True,
+        "incident_reported_date": "2026",
+        "pending_days": None,
+        "summary": MINOR_SUMMARY_TEMPLATE,
+        "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
+        "status_history": [{"status": "FIR_FILED", "date": "2026-06", "source": 0}],
+        "sources": [
+            {"url": "https://example.invalid/x", "publisher": "eCourts", "retrieved": "2026-07-09"}
+        ],
+        "confidence": 0.9,
+        "last_verified": "2026-07-09",
+    }
+
+
+def test_projected_minor_record_validates() -> None:
+    schema = validate.load_schema()
+    validate.validate_record(_minor_projected_record(), schema)  # does not raise
+
+
+def test_unprojected_minor_record_is_rejected() -> None:
+    """A minor record still carrying a full date / integer pending_days / narrative fails."""
+    schema = validate.load_schema()
+    bad = _minor_projected_record()
+    bad["incident_reported_date"] = "2026-07-05"
+    bad["pending_days"] = 5
+    bad["summary"] = "Police rescued a 17-year-old."
+    bad["court"]["next_hearing"] = "2026-08-02"
+    with pytest.raises(ValidationError):
+        validate.validate_record(bad, schema)
+
+
+def test_non_minor_requires_full_precision_dates() -> None:
+    """The else-branch keeps non-minor cases at full YYYY-MM-DD precision."""
+    schema = validate.load_schema()
+    rec = _minor_projected_record()
+    rec["minor_involved"] = False
+    rec["pending_days"] = 5
+    rec["summary"] = "A neutral non-graphic summary."
+    # A year-only date is invalid for a non-minor case.
+    with pytest.raises(ValidationError):
+        validate.validate_record(rec, schema)
+
+
+def test_schema_summary_const_matches_template() -> None:
+    """The schema's minor summary const cannot drift from the sanitizer's template."""
+    schema = validate.load_schema()
+    then = schema["allOf"][0]["then"]["properties"]
+    assert then["summary"]["const"] == MINOR_SUMMARY_TEMPLATE
+
+
+def test_schema_examples_all_validate() -> None:
+    schema = validate.load_schema()
+    for example in schema.get("examples", []):
+        validate.validate_record(example, schema)
 
 
 def test_project_to_schema_drops_unknown_keys() -> None:

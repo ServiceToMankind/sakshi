@@ -26,6 +26,8 @@ from typing import Any
 from rapidfuzz import fuzz
 
 from pipeline import config
+from pipeline.pii_constants import FREE_TEXT_FIELD_NAMES, matched_age_patterns
+from pipeline.provenance import is_official_publisher
 
 __all__ = [
     "dedupe",
@@ -35,11 +37,6 @@ __all__ = [
     "match_strength",
     "merge_records",
 ]
-
-# Publishers we treat as official/authoritative (case-insensitive substring match).
-OFFICIAL_PUBLISHERS: frozenset[str] = frozenset(
-    {"ecourts", "njdg", "high court", "supreme court", "indian kanoon", "district court"}
-)
 
 # Progression order; a higher rank is "further along" and wins on conflict.
 STATUS_RANK: dict[str, int] = {
@@ -60,11 +57,23 @@ FUZZY_DATE_WINDOW_DAYS = 3
 
 def is_court_record(record: dict[str, Any]) -> bool:
     """True if any source publisher is an official/court publisher."""
-    for source in record.get("sources", []):
-        publisher = str(source.get("publisher", "")).lower()
-        if any(official in publisher for official in OFFICIAL_PUBLISHERS):
-            return True
-    return False
+    return any(
+        is_official_publisher(str(source.get("publisher", "")))
+        for source in record.get("sources", [])
+    )
+
+
+def _has_age_detail(record: dict[str, Any]) -> bool:
+    """True if a narrative free-text field still carries an age expression (issue #7).
+
+    Minor records are already age-free (the sanitizer's projection replaced their
+    summary); this catches a NON-minor record whose summary states an age, routing
+    it to human review instead of a public shard.
+    """
+    return any(
+        isinstance(record.get(field), str) and bool(matched_age_patterns(record[field]))
+        for field in FREE_TEXT_FIELD_NAMES
+    )
 
 
 def _fir_year(number: str, incident_date: Any) -> str:
@@ -297,7 +306,10 @@ def dedupe(
     review: list[dict[str, Any]] = []
     kept: list[dict[str, Any]] = []
     for record in records:
-        if float(record.get("confidence", 0)) < config.CONFIDENCE_REVIEW_THRESHOLD:
+        if _has_age_detail(record):
+            # A residual age in free text never auto-publishes; a human confirms it.
+            review.append(_review_entry(record, "age_detail_present"))
+        elif float(record.get("confidence", 0)) < config.CONFIDENCE_REVIEW_THRESHOLD:
             review.append(_review_entry(record, "low_confidence"))
         else:
             kept.append(record)
