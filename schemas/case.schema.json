@@ -64,7 +64,7 @@
     },
     "category": {
       "type": "string",
-      "description": "Offence category.",
+      "description": "Sexual-offence category. This record tracks SEXUAL offences only; \"other\" means an OTHER SEXUAL offence (e.g. stalking, voyeurism, disrobing under BNS Chapter V) — never a non-sexual crime. Non-sexual cases are rejected at extraction (in_scope=false) and, as a second layer, quarantined at dedupe when offence_sections carry no qualifying BNS/POCSO/IPC sexual-offence section.",
       "enum": [
         "sexual_assault",
         "rape",

@@ -18,7 +18,13 @@ _DOC = RawDocument(
 )
 
 _VALID_JSON = json.dumps(
-    {"category": "pocso", "state": "TG", "district": "TESTVILLE", "status": "UNDER_TRIAL"}
+    {
+        "category": "pocso",
+        "state": "TG",
+        "district": "TESTVILLE",
+        "status": "UNDER_TRIAL",
+        "in_scope": True,
+    }
 )
 
 
@@ -97,6 +103,32 @@ def test_parse_news_article_keeps_confidence_and_type() -> None:
     assert record is not None
     assert record["sources"][0]["source_type"] == "news_article"
     assert record["confidence"] == 0.9
+
+
+def test_extract_rejects_out_of_scope_offence() -> None:
+    """Layer (a): a non-sexual case (in_scope=false) is dropped, counted, not returned."""
+    cheque = json.dumps(
+        {
+            "category": "other",
+            "state": "DL",
+            "district": "TESTVILLE",
+            "status": "CONVICTED",
+            "offence_sections": ["NI Act 138"],
+            "in_scope": False,
+        }
+    )
+    client = _FakeClient([_resp(cheque)])
+    result = gemini.extract([_DOC], client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert result.records == []
+    assert result.rejected_out_of_scope == 1
+
+
+def test_extract_strips_in_scope_from_kept_records() -> None:
+    """in_scope is an extraction-only signal; it must not ride into the record."""
+    client = _FakeClient([_resp(_VALID_JSON)])
+    result = gemini.extract([_DOC], client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert len(result.records) == 1
+    assert "in_scope" not in result.records[0]
 
 
 def test_parse_rejects_malformed_and_incomplete() -> None:

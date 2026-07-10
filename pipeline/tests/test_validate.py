@@ -185,6 +185,18 @@ def test_schema_examples_all_validate() -> None:
         validate.validate_record(example, schema)
 
 
+def test_has_qualifying_offence_section() -> None:
+    """POCSO/BNS-Ch.V/IPC sexual sections qualify; non-sexual and empty do not."""
+    assert validate.has_qualifying_offence_section(["BNS 64"])  # rape
+    assert validate.has_qualifying_offence_section(["POCSO 6"])
+    assert validate.has_qualifying_offence_section(["BNS 78"])  # stalking (Ch. V)
+    assert validate.has_qualifying_offence_section(["IPC 302", "IPC 376"])  # any qualifying
+    assert not validate.has_qualifying_offence_section(["NI Act 138"])  # cheque bounce
+    assert not validate.has_qualifying_offence_section(["IPC 420"])  # cheating
+    assert not validate.has_qualifying_offence_section(["BNS 103"])  # murder, not Ch. V sexual
+    assert not validate.has_qualifying_offence_section([])
+
+
 def test_project_to_schema_drops_unknown_keys() -> None:
     schema = validate.load_schema()
     dirty = {

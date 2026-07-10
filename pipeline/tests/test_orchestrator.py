@@ -56,6 +56,7 @@ def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None
             "fir_ref": {"station": "TESTVILLE PS", "number": "12/2026"},
             "incident_reported_date": "2026-06-14",
             "offence_sections": ["BNS 64"],
+            "in_scope": True,
             "confidence": 0.94,
         }
     )
@@ -87,6 +88,7 @@ def test_low_confidence_routes_to_sanitized_review(tmp_path: Path) -> None:
             "district": "TESTVILLE",
             "status": "FIR_FILED",
             "cnr": "C-1",
+            "in_scope": True,
             "confidence": 0.4,
         }
     )
@@ -119,6 +121,7 @@ def test_review_records_are_projected_to_schema(tmp_path: Path) -> None:
             "status": "FIR_FILED",
             "cnr": "C-1",
             "confidence": 0.4,
+            "in_scope": True,
             "reporter": "Ms A, the survivor's mother, 4th Cross Rd",
         }
     )
@@ -156,6 +159,7 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
                 "status": "FIR_FILED",
                 "minor_involved": True,
                 "cnr": cnr,
+                "in_scope": True,
                 "confidence": 0.9,
             }
         )
@@ -201,6 +205,7 @@ def _tg_payload() -> str:
             "status": "FIR_FILED",
             "minor_involved": True,
             "cnr": "C-SCOPE",
+            "in_scope": True,
             "confidence": 0.9,
         }
     )

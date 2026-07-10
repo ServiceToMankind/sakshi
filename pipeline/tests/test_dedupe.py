@@ -143,6 +143,26 @@ def test_projected_minor_summary_is_not_quarantined() -> None:
     assert len(published) == 1 and review == []
 
 
+def test_out_of_scope_offence_is_quarantined() -> None:
+    """Layer (b): sections present but wholly non-sexual (cheque bounce) -> scope_review."""
+    rec = _record(
+        cnr="C-1",
+        category="other",
+        minor_involved=False,
+        offence_sections=["NI Act 138"],
+        summary="Synthetic: a cheque-bounce conviction, no sexual component.",
+    )
+    published, review = dedupe([rec])
+    assert published == []
+    assert review[0]["reason"] == "scope_review"
+
+
+def test_qualifying_sexual_offence_still_publishes() -> None:
+    rec = _record(cnr="C-2", offence_sections=["BNS 64"])
+    published, review = dedupe([rec])
+    assert len(published) == 1 and review == []
+
+
 def test_merge_drops_out_of_range_status_source() -> None:
     a = _record(cnr="C-1", status="UNDER_TRIAL")
     b = _record(

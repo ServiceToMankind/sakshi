@@ -5,12 +5,16 @@
   "description": "The response_schema that constrains Gemini's extraction output BEFORE sanitize.py runs. It is STRUCTURALLY INCAPABLE of holding victim identity: there are simply no fields for victim, survivor, name, age, address, family, school, workplace, photo, contact, email, or geo. additionalProperties:false at every level forbids any such field from appearing. Gemini summarizes ALREADY-PUBLIC text only and must never generate factual claims; every emitted field must trace to a source excerpt. The 'victim' field is a required constant that MUST be null. This schema mirrors only the non-PII fields of the published record.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["victim", "state", "district", "category", "status", "minor_involved", "sources", "confidence"],
+  "required": ["victim", "in_scope", "state", "district", "category", "status", "minor_involved", "sources", "confidence"],
   "properties": {
     "victim": {
       "type": "null",
       "const": null,
       "description": "MUST be null. Present solely to force the model to emit an explicit null. Victim identity is never ingested (BNS s.72; POCSO s.23). The post-extraction sanitizer additionally strips any PII-shaped field."
+    },
+    "in_scope": {
+      "type": "boolean",
+      "description": "TRUE only if the text describes a SEXUAL offence (rape, POCSO, sexual assault/harassment, acid attack, stalking, voyeurism, disrobing — BNS Ch. V ss.63-79 / POCSO / IPC 354,375-377,509), justified by offence_sections. FALSE for any non-sexual crime (cheque bounce, theft, murder, fraud, ...). A false value is dropped pre-sanitize and never categorized."
     },
     "cnr": {
       "type": "string",
@@ -60,7 +64,7 @@
         "harassment",
         "other"
       ],
-      "description": "Offence category."
+      "description": "Sexual-offence category. \"other\" means an OTHER SEXUAL offence only (e.g. stalking, voyeurism, disrobing under BNS Ch. V) — never a non-sexual crime. Non-sexual cases are rejected via in_scope=false, not categorized."
     },
     "minor_involved": {
       "type": "boolean",

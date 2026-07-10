@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from collections.abc import Iterator
 from pathlib import Path
@@ -31,12 +32,42 @@ from pipeline.config import SUMMARY_MAX_BYTES
 
 __all__ = [
     "check_summary_size",
+    "has_qualifying_offence_section",
     "iter_shard_files",
     "load_schema",
     "project_to_schema",
     "validate_all_shards",
     "validate_record",
 ]
+
+# Qualifying sexual-offence statutes. A record's cited offence_sections must
+# reference at least one of these for it to be in scope; otherwise it is
+# quarantined (the deterministic second layer behind the model's in_scope flag).
+_BNS_SEXUAL_SECTIONS = frozenset(range(63, 80))  # BNS 2023 Chapter V, ss.63-79
+_IPC_SEXUAL_SECTIONS = frozenset({354, 375, 376, 377, 509})
+_SECTION_NUMBER_RE = re.compile(r"(\d{1,3})")
+
+
+def has_qualifying_offence_section(sections: list[str]) -> bool:
+    """True if any offence-section string references a sexual-offence statute.
+
+    POCSO anywhere qualifies; BNS 63-79 (Chapter V) and IPC 354/375-377/509 qualify.
+    A wholly non-sexual section set (e.g. ["NI Act 138"] for a cheque bounce) does
+    not, and a record with such sections is quarantined rather than published.
+    """
+    for section in sections:
+        text = str(section).upper()
+        if "POCSO" in text:
+            return True
+        match = _SECTION_NUMBER_RE.search(text)
+        if not match:
+            continue
+        number = int(match.group(1))
+        if "BNS" in text and number in _BNS_SEXUAL_SECTIONS:
+            return True
+        if "IPC" in text and number in _IPC_SEXUAL_SECTIONS:
+            return True
+    return False
 
 
 def project_to_schema(value: Any, schema: dict[str, Any]) -> Any:

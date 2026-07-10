@@ -28,6 +28,7 @@ from rapidfuzz import fuzz
 from pipeline import config
 from pipeline.pii_constants import FREE_TEXT_FIELD_NAMES, matched_age_patterns
 from pipeline.provenance import is_official_publisher
+from pipeline.validate import has_qualifying_offence_section
 
 __all__ = [
     "dedupe",
@@ -74,6 +75,18 @@ def _has_age_detail(record: dict[str, Any]) -> bool:
         isinstance(record.get(field), str) and bool(matched_age_patterns(record[field]))
         for field in FREE_TEXT_FIELD_NAMES
     )
+
+
+def _is_out_of_scope_offence(record: dict[str, Any]) -> bool:
+    """True if cited offence_sections are present but reference no sexual-offence statute.
+
+    The deterministic second layer behind the extractor's in_scope flag: a record
+    whose sections are wholly non-sexual (e.g. a cheque-bounce NI Act 138) is
+    quarantined for human review, never published. Empty/absent sections are left
+    to the extraction-time in_scope gate.
+    """
+    sections = record.get("offence_sections") or []
+    return bool(sections) and not has_qualifying_offence_section(sections)
 
 
 def _fir_year(number: str, incident_date: Any) -> str:
@@ -309,6 +322,9 @@ def dedupe(
         if _has_age_detail(record):
             # A residual age in free text never auto-publishes; a human confirms it.
             review.append(_review_entry(record, "age_detail_present"))
+        elif _is_out_of_scope_offence(record):
+            # Cited sections carry no sexual-offence statute: not ours to publish.
+            review.append(_review_entry(record, "scope_review"))
         elif float(record.get("confidence", 0)) < config.CONFIDENCE_REVIEW_THRESHOLD:
             review.append(_review_entry(record, "low_confidence"))
         else:
