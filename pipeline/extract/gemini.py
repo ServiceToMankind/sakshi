@@ -89,6 +89,9 @@ class ExtractionResult:
     # "extracted" | "out_of_scope" | "not_a_case" | "failed". Docs never reached
     # (budget/cap) are absent, so they are retried next run.
     doc_outcomes: dict[str, str] = field(default_factory=dict)
+    # Distinct provider-error snippets (type + truncated message), so an aborted run
+    # is diagnosable — e.g. 429 RESOURCE_EXHAUSTED (quota) vs 503 UNAVAILABLE (capacity).
+    error_samples: list[str] = field(default_factory=list)
 
     @property
     def estimated_usd(self) -> float:
@@ -108,6 +111,13 @@ def _load_schema_text() -> str:
 def build_prompt(doc: RawDocument, schema_text: str) -> str:
     """Build the schema-constrained extraction prompt for one document."""
     return _PROMPT_TEMPLATE.format(schema=schema_text, text=doc.text)
+
+
+def _record_error(result: ExtractionResult, exc: Exception) -> None:
+    """Capture a distinct provider-error snippet (type + truncated message), capped."""
+    sample = f"{type(exc).__name__}: {str(exc)[:160]}"
+    if sample not in result.error_samples and len(result.error_samples) < 5:
+        result.error_samples.append(sample)
 
 
 def _parse(text: str, doc: RawDocument) -> dict[str, Any] | None:
@@ -208,11 +218,12 @@ def _run_model(
                 jitter=jitter,
                 max_retries=config.EXTRACT_MAX_RETRIES,
             )
-        except Exception:
+        except Exception as exc:
             # One document's persistent failure never aborts the whole run; skip
             # it. But circuit-break if the provider is sustainedly failing.
             result.failed += 1
             result.doc_outcomes[doc.url] = "failed"
+            _record_error(result, exc)
             consecutive_failures += 1
             if consecutive_failures >= config.EXTRACT_MAX_CONSECUTIVE_FAILURES:
                 result.aborted = True
@@ -315,6 +326,7 @@ def _write_cost_log(result: ExtractionResult, path: Path) -> None:
         "truncated": result.truncated,
         "truncated_reason": result.truncated_reason,
         "aborted": result.aborted,
+        "error_samples": result.error_samples,
     }
     path.write_text(json.dumps(entry, indent=2), encoding="utf-8")
 

@@ -228,6 +228,54 @@ def test_withhold_unsourced_accused_names() -> None:
     assert validate.withhold_unsourced_accused_names({"state": "TG"}) == {"state": "TG"}
 
 
+_HASH = "a" * 64
+
+
+def _ledger(entry_key: str = _HASH, **entry_over: Any) -> dict[str, Any]:
+    entry = {
+        "outcome": "published",
+        "attempts": 1,
+        "first_seen": "2026-07-10",
+        "last_seen": "2026-07-10",
+    }
+    entry.update(entry_over)
+    return {"version": 1, "documents": {entry_key: entry}}
+
+
+def test_validate_ledger_accepts_clean(tmp_path: Path) -> None:
+    p = tmp_path / "processed.json"
+    p.write_text(json.dumps(_ledger()), encoding="utf-8")
+    assert validate.validate_ledger(p) == []
+
+
+def test_validate_ledger_flags_url_key_bad_outcome_and_malformed(tmp_path: Path) -> None:
+    url_key = tmp_path / "urlkey.json"
+    url_key.write_text(json.dumps(_ledger(entry_key="https://x.com/a")), encoding="utf-8")
+    assert validate.validate_ledger(url_key)  # non-hash key rejected
+
+    bad_outcome = tmp_path / "bad.json"
+    bad_outcome.write_text(json.dumps(_ledger(outcome="nope")), encoding="utf-8")
+    assert validate.validate_ledger(bad_outcome)
+
+    url_value = tmp_path / "urlval.json"
+    url_value.write_text(json.dumps(_ledger(url="http://x.in/a")), encoding="utf-8")
+    assert validate.validate_ledger(url_value)  # extra URL-shaped value rejected
+
+    malformed = tmp_path / "malformed.json"
+    malformed.write_text("{not json", encoding="utf-8")
+    assert validate.validate_ledger(malformed)
+
+
+def test_validate_main_ledger_mode(tmp_path: Path) -> None:
+    good = tmp_path / "good.json"
+    good.write_text(json.dumps(_ledger()), encoding="utf-8")
+    assert validate.main(["--ledger", str(good)]) == 0
+
+    bad = tmp_path / "bad.json"
+    bad.write_text(json.dumps(_ledger(entry_key="not-a-hash")), encoding="utf-8")
+    assert validate.main(["--ledger", str(bad)]) == 1
+
+
 def test_project_to_schema_drops_unknown_keys() -> None:
     schema = validate.load_schema()
     dirty = {

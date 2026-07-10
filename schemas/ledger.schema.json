@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ServiceToMankind/sakshi/main/schemas/ledger.schema.json",
+  "title": "Sakshi Processed-Document Ledger",
+  "description": "The committed processed-document ledger (data/_meta/processed.json). Operational metadata ONLY: each key is a sha256 hash of a source URL (never the URL itself) and each value carries an outcome + first/last-seen dates + attempt count. additionalProperties:false + the hash keypattern make it structurally incapable of holding a URL or any PII.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "documents"],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 1
+    },
+    "documents": {
+      "type": "object",
+      "description": "Map of sha256(url) -> per-document ledger entry. Only 64-hex keys are permitted.",
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[a-f0-9]{64}$": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["outcome", "attempts", "first_seen", "last_seen"],
+          "properties": {
+            "outcome": {
+              "type": "string",
+              "enum": [
+                "published",
+                "rejected",
+                "out_of_scope",
+                "not_a_case",
+                "failed",
+                "failed_permanent"
+              ]
+            },
+            "attempts": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "first_seen": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "last_seen": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -309,6 +309,8 @@ def run(
             report,
             f"extracted {len(extractions)} candidates ({detail}); est ${result.estimated_usd:.6f}",
         )
+        for sample in result.error_samples:
+            _log(report, f"provider error: {sample}")
 
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)

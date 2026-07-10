@@ -127,6 +127,28 @@ runs on its own, **data-review PRs merge only through the normal reviewed path**
 (required checks green + human review). Admin bypass is for emergencies only and
 every use must be noted in the PR.
 
+### The processed-document ledger on `main`
+
+`data/_meta/processed.json` is the processed-document ledger — **operational
+metadata only** (a `sha256(url)` per document + outcome + dates; never a URL,
+never PII). Committing it to `main` each run lets coverage accounting work across
+runs independently of when data-review PRs are merged.
+
+- **Enable it** by setting the repo **variable** `LEDGER_TO_MAIN=true`. Off by
+  default, the ledger simply rides along in the review branch instead.
+- The push targets protected `main`, so the token's account must be able to
+  **bypass main branch protection** — either `SCRAPE_BOT_TOKEN` belongs to an
+  account with the admin role (already in the ruleset bypass list) or that account
+  is added to the ruleset's bypass list. The fallback `GITHUB_TOKEN`
+  (`github-actions[bot]`) is *not* an admin and will be blocked.
+- **Fencing (enforced by the workflow, not convention):** (a) the ledger is
+  validated against `schemas/ledger.schema.json` — `sha256` keys, an outcome enum,
+  ISO dates, `additionalProperties:false` — and scanned for URL-shaped strings;
+  (b) `pii_guard` runs over `data/_meta/`; (c) the commit uses the **Contents API**,
+  which writes exactly one path, so it is structurally incapable of touching
+  anything but `data/_meta/processed.json`. The reviewed data PR excludes
+  `data/_meta` when this is on.
+
 ---
 
 ## 2. The data lifecycle

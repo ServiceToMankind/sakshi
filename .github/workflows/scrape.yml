@@ -113,6 +113,35 @@ jobs:
           python -m pipeline.validate --all
           python scripts/pii_guard.py data/
 
+      # Commit ONLY the processed-document ledger to main, as operational metadata,
+      # SEPARATE from any reviewed data. Opt-in via the LEDGER_TO_MAIN repo variable
+      # (the push needs a token whose account can bypass main protection — see
+      # CONTRIBUTING §Operations). Fenced three ways:
+      #   (a) schema + no-URL validation of the ledger,
+      #   (b) pii_guard over data/_meta,
+      #   (c) the Contents API commits exactly ONE path, so it is structurally
+      #       incapable of touching anything but data/_meta/processed.json.
+      - name: Commit ledger to main
+        if: success() && env.DRY_RUN != 'true' && vars.LEDGER_TO_MAIN == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          LEDGER=data/_meta/processed.json
+          test -f "$LEDGER" || { echo "no ledger to commit"; exit 0; }
+          python -m pipeline.validate --ledger "$LEDGER"     # (a) schema + no URL
+          python scripts/pii_guard.py data/_meta/            # (b) PII gate
+          REPO="${{ github.repository }}"
+          REMOTE="$(gh api "repos/$REPO/contents/$LEDGER?ref=main" --jq .content 2>/dev/null | base64 -d 2>/dev/null || true)"
+          if [ "$REMOTE" = "$(cat "$LEDGER")" ]; then
+            echo "ledger unchanged on main."; exit 0
+          fi
+          SHA="$(gh api "repos/$REPO/contents/$LEDGER?ref=main" --jq .sha 2>/dev/null || true)"
+          gh api -X PUT "repos/$REPO/contents/$LEDGER" \
+            -f message="chore(meta): ledger update $(date +%F) run ${{ github.run_number }}" \
+            -f content="$(base64 -w0 "$LEDGER")" \
+            -f branch=main ${SHA:+-f sha="$SHA"} >/dev/null    # (c) one path only
+          echo "ledger committed to main."
+
       # STAGED: push data/ to a review branch and open/update the PR. No publish.
       - name: Stage data for review
         if: success() && env.DRY_RUN != 'true' && env.LAUNCH_MODE != 'auto'
@@ -124,6 +153,11 @@ jobs:
           DATE="$(date +%F)"; BRANCH="data-staging"
           git checkout -B "$BRANCH"
           git add data/
+          # When the ledger is committed to main separately, keep it OUT of the
+          # review PR so the PR shows only reviewable case data.
+          if [ "${{ vars.LEDGER_TO_MAIN }}" = "true" ]; then
+            git reset -q -- data/_meta 2>/dev/null || true
+          fi
           if git diff --cached --quiet; then
             echo "No data changes to stage — nothing to review."
             exit 0
