@@ -135,12 +135,18 @@ never PII). Committing it to `main` each run lets coverage accounting work acros
 runs independently of when data-review PRs are merged.
 
 - **Enable it** by setting the repo **variable** `LEDGER_TO_MAIN=true`. Off by
-  default, the ledger simply rides along in the review branch instead.
-- The push targets protected `main`, so the token's account must be able to
-  **bypass main branch protection** — either `SCRAPE_BOT_TOKEN` belongs to an
-  account with the admin role (already in the ruleset bypass list) or that account
-  is added to the ruleset's bypass list. The fallback `GITHUB_TOKEN`
-  (`github-actions[bot]`) is *not* an admin and will be blocked.
+  default, the ledger simply rides along in the review branch instead. Do NOT turn
+  it on until the push can succeed (below), or every run will fail on the push.
+- The push targets protected `main`, so the pushing actor must **bypass main
+  branch protection**. The fallback `GITHUB_TOKEN` (`github-actions[bot]`) **cannot**
+  be granted bypass — GitHub rejects adding the built-in Actions integration to a
+  ruleset's bypass list (HTTP 422). So `SCRAPE_BOT_TOKEN` must be either
+  **(a) a PAT for an account with the admin role** (already in the ruleset bypass
+  list via `RepositoryRole` admin), or **(b) a GitHub App installed on this repo**,
+  whose app id is then added to the ruleset bypass (`main-protection`, id 18731087)
+  with `bypass_mode: always` — a **push** bypass only; the `pull_request` +
+  `required_status_checks` rules stay enforced for everyone else.
+  Record the bypass grant (who/app, why, scope, date) in the PR that flips the var.
 - **Fencing (enforced by the workflow, not convention):** (a) the ledger is
   validated against `schemas/ledger.schema.json` — `sha256` keys, an outcome enum,
   ISO dates, `additionalProperties:false` — and scanned for URL-shaped strings;
