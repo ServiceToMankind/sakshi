@@ -237,9 +237,11 @@ def run(
         )
         extractions = result.records
         report.estimated_usd = result.estimated_usd
-        detail = f"{result.failed} failed" + (
-            ", ABORTED (provider overload)" if result.aborted else ""
-        )
+        detail = f"{result.failed} failed"
+        if result.failovers:
+            detail += f", {result.failovers} model failover(s)"
+        if result.aborted:
+            detail += ", ABORTED (all models exhausted / provider overload)"
         _log(
             report,
             f"extracted {len(extractions)} candidates ({detail}); est ${result.estimated_usd:.6f}",
@@ -304,7 +306,7 @@ def run(
         )
         out.write(
             f"Gemini: 0 live calls (fixtures). Illustrative cost estimate for these "
-            f"documents at {config.GEMINI_MODEL} rates: ${report.estimated_usd:.6f}\n"
+            f"documents at {config.gemini_models()[0]} rates: ${report.estimated_usd:.6f}\n"
         )
     return report
 

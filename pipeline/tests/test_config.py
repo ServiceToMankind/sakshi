@@ -32,3 +32,24 @@ def test_launch_lookback_days(monkeypatch: pytest.MonkeyPatch) -> None:
 
 def test_estimate_cost() -> None:
     assert config.estimate_cost_usd(1_000_000, 0) == config.GEMINI_INPUT_USD_PER_MTOK
+
+
+def test_gemini_models_env_override(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("GEMINI_MODELS", " gemini-x , gemini-y ,")
+    assert config.gemini_models() == ["gemini-x", "gemini-y"]
+
+
+def test_gemini_models_reads_sources_yml(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("GEMINI_MODELS", raising=False)
+    # sources.yml (repo root) pins the real chain; empty env falls through to it.
+    models = config.gemini_models()
+    assert models and all(m.startswith("gemini-") for m in models)
+    assert "-latest" not in " ".join(models)  # pinned ids, never an alias
+
+
+def test_gemini_models_default_when_no_config(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: object
+) -> None:
+    monkeypatch.delenv("GEMINI_MODELS", raising=False)
+    monkeypatch.setattr(config, "SOURCES_CONFIG_PATH", config.REPO_ROOT / "no-such-file.yml")
+    assert config.gemini_models() == list(config.DEFAULT_GEMINI_MODELS)

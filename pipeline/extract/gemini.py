@@ -74,6 +74,7 @@ class ExtractionResult:
     truncated: bool = False
     failed: int = 0
     aborted: bool = False
+    failovers: int = 0
 
     @property
     def estimated_usd(self) -> float:
@@ -131,10 +132,69 @@ def _call_with_backoff(
             sleep(backoff + jitter())
 
 
+def _resolve_clients(
+    client: ExtractionClient | None, clients: list[ExtractionClient] | None
+) -> list[ExtractionClient]:
+    """The ordered client chain: explicit list, single injected client, or the real chain."""
+    if clients is not None:
+        return list(clients)
+    if client is not None:
+        return [client]
+    return [_default_client(model) for model in config.gemini_models()]
+
+
+def _run_model(
+    active: ExtractionClient,
+    docs: list[RawDocument],
+    result: ExtractionResult,
+    *,
+    cap: int,
+    schema_text: str,
+    sleep: Callable[[float], None],
+    jitter: Callable[[], float],
+) -> list[RawDocument]:
+    """Run one model over ``docs``, mutating ``result``.
+
+    Returns the documents still unprocessed. That is ``[]`` when the queue drains
+    (or the token cap is hit); when the provider circuit-breaks, it is the slice
+    AFTER the break so the caller can fail over to the next model.
+    """
+    consecutive_failures = 0
+    for i, doc in enumerate(docs):
+        if result.input_tokens + result.output_tokens >= cap:
+            result.truncated = True
+            return []
+        try:
+            response = _call_with_backoff(
+                active,
+                build_prompt(doc, schema_text),
+                sleep=sleep,
+                jitter=jitter,
+                max_retries=config.EXTRACT_MAX_RETRIES,
+            )
+        except Exception:
+            # One document's persistent failure never aborts the whole run; skip
+            # it. But circuit-break if the provider is sustainedly failing.
+            result.failed += 1
+            consecutive_failures += 1
+            if consecutive_failures >= config.EXTRACT_MAX_CONSECUTIVE_FAILURES:
+                result.aborted = True
+                return docs[i + 1 :]
+            continue
+        consecutive_failures = 0
+        result.input_tokens += response.input_tokens
+        result.output_tokens += response.output_tokens
+        record = _parse(response.text, doc)
+        if record is not None:
+            result.records.append(record)
+    return []
+
+
 def extract(
     docs: list[RawDocument],
     *,
     client: ExtractionClient | None = None,
+    clients: list[ExtractionClient] | None = None,
     token_cap: int | None = None,
     sleep: Callable[[float], None] = time.sleep,
     jitter: Callable[[], float] | None = None,
@@ -142,47 +202,42 @@ def extract(
 ) -> ExtractionResult:
     """Extract pre-sanitize candidates from already-public documents.
 
-    Returns an :class:`ExtractionResult`; callers MUST still run each record
-    through :func:`pipeline.sanitize.sanitize_record` before anything touches disk.
+    Uses an ordered model fallback chain (:func:`pipeline.config.gemini_models`):
+    if one model circuit-breaks under sustained provider failure, extraction fails
+    over to the next model for the remaining documents before giving up. Returns
+    an :class:`ExtractionResult`; callers MUST still run each record through
+    :func:`pipeline.sanitize.sanitize_record` before anything touches disk.
     """
     result = ExtractionResult(documents=len(docs))
     if not docs:
         return result
 
-    active = client if client is not None else _default_client()
+    chain = _resolve_clients(client, clients)
     cap = token_cap if token_cap is not None else config.daily_token_cap()
     jitter_fn = jitter if jitter is not None else (lambda: random.uniform(0.0, 0.5))
     schema_text = _load_schema_text()
 
-    consecutive_failures = 0
+    remaining = list(docs)
     try:
-        for doc in docs:
-            if result.input_tokens + result.output_tokens >= cap:
-                result.truncated = True
-                break
-            try:
-                response = _call_with_backoff(
-                    active,
-                    build_prompt(doc, schema_text),
-                    sleep=sleep,
-                    jitter=jitter_fn,
-                    max_retries=config.EXTRACT_MAX_RETRIES,
-                )
-            except Exception:
-                # One document's persistent failure never aborts the whole run; skip
-                # it. But circuit-break if the provider is sustainedly failing.
-                result.failed += 1
-                consecutive_failures += 1
-                if consecutive_failures >= config.EXTRACT_MAX_CONSECUTIVE_FAILURES:
-                    result.aborted = True
-                    break
+        for idx, active in enumerate(chain):
+            remaining = _run_model(
+                active,
+                remaining,
+                result,
+                cap=cap,
+                schema_text=schema_text,
+                sleep=sleep,
+                jitter=jitter_fn,
+            )
+            if not result.aborted:
+                break  # queue drained or token cap hit — done
+            if idx + 1 < len(chain):
+                # This model circuit-broke; fail over to the next one for the
+                # still-unprocessed documents before aborting the whole run.
+                result.aborted = False
+                result.failovers += 1
                 continue
-            consecutive_failures = 0
-            result.input_tokens += response.input_tokens
-            result.output_tokens += response.output_tokens
-            record = _parse(response.text, doc)
-            if record is not None:
-                result.records.append(record)
+            break  # last model in the chain also broke — stay aborted
     finally:
         # Record spend even if a call raises mid-run — money already spent is logged.
         if cost_log_path is not None:
@@ -193,21 +248,22 @@ def extract(
 def _write_cost_log(result: ExtractionResult, path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     entry = {
-        "model": config.GEMINI_MODEL,
+        "models": config.gemini_models(),
         "documents": result.documents,
         "input_tokens": result.input_tokens,
         "output_tokens": result.output_tokens,
         "estimated_usd": result.estimated_usd,
         "records": len(result.records),
         "failed": result.failed,
+        "failovers": result.failovers,
         "truncated": result.truncated,
         "aborted": result.aborted,
     }
     path.write_text(json.dumps(entry, indent=2), encoding="utf-8")
 
 
-def _default_client() -> ExtractionClient:  # pragma: no cover - requires the live SDK + key
-    """Build the real Gemini client (lazy import so tests never need the SDK)."""
+def _default_client(model_id: str) -> ExtractionClient:  # pragma: no cover - live SDK + key
+    """Build the real Gemini client for one pinned model (lazy import; tests skip it)."""
     import importlib
 
     # Imported dynamically as Any: the SDK is untyped and only present at runtime.
@@ -219,7 +275,7 @@ def _default_client() -> ExtractionClient:  # pragma: no cover - requires the li
         raise RuntimeError("GEMINI_API_KEY is not set; cannot run live extraction.")
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(
-        config.GEMINI_MODEL,
+        model_id,
         generation_config={"response_mime_type": "application/json"},
     )
 

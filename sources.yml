@@ -38,3 +38,15 @@ sources:
     enabled: false
     publisher: PTI
     url: ""
+
+# Extraction model chain (ordered fallback). PINNED ids — never a `-latest` alias,
+# which repoints silently and turns an external model swap into a surprise mid-run
+# failure for a daily unattended job. On sustained provider failure (circuit-break)
+# of one model, extraction fails over to the next before aborting the run. Every
+# model gets the same schema-constrained prompt and the same sanitize gate, so the
+# Phase 0 guardrails hold regardless of which model answered. Swapping a model is a
+# reviewed commit here (or via the GEMINI_MODELS repo variable) — not a code change.
+extraction:
+  models:
+    - gemini-2.5-flash
+    - gemini-2.5-flash-lite
