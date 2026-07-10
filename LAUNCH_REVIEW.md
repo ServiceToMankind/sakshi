@@ -136,19 +136,21 @@ _Two-state (TG, DL), 30-day scope, `staged` mode. Every run finished inside its
 job window (the wall-clock budget truncates gracefully under provider load — never
 a job kill)._
 
-| run | sources | fetched | extracted | rejected (scope) | published | review | cost |
+| run | sources | fetched | extracted | published | review | cost | note |
 |---|---|---|---|---|---|---|---|
-| `29099657465` | national RSS | 260 | 16 | n/a (pre-gate) | 0 | 1 (live-blog → quarantined) | $0.087 |
-| `29104649205` | crime/city RSS | 520 | 0 | **1** | 0 | 0 | $0.045 |
+| `29099657465` | national RSS | 260 | 16 | 0 | 1 | $0.087 | truncated; live-blog quarantined |
+| `29104649205` | crime/city RSS | 520 | 0 | 0 | 0 | $0.045 | truncated; 1 out-of-scope rejected |
+| `29110062044` | crime/city RSS | 520 | 0 | 0 | 0 | $0.000 | **aborted** (quota/free-tier, pre-billing-fix) |
+| `29112065032` | crime/city RSS | 520 | 6 | 0 | 0 | $0.413 | **full coverage** (billing fixed); 0 in TG/DL·30d |
 
-Both runs truncated at the 40-min budget under transient Gemini-flash degradation,
-so each processed only a subset of documents. Observed live: the source-provenance
-gate quarantined a live-blog record (run 1), and the **out-of-scope offence gate
-rejected a non-sexual case** (run 2, `rejected_out_of_scope=1`). **Zero
-court-sourced records** so far — eCourts is CAPTCHA-gated and Indian Kanoon is
-disabled, so court records await an operator credential (§J). Whether the TG/DL
-30-day window yields a publishable news_article case is not yet established: no run
-has completed the full document set under a healthy provider.
+The billing fix restored the key: run `29112065032` processed the **entire** 520-doc
+set (not truncated, not aborted) at `serviceTier: standard`, extracting 6 real
+sexual-offence cases — **none in the TG/DL 30-day window** → 0 published. Only
+13/520 calls hit transient `503`/`504` blips (captured in `error_samples`), handled
+by the resilience without aborting. This is **full-coverage empty run #1** toward
+the launch-eligibility target. **Zero court-sourced records** — eCourts is
+CAPTCHA-gated and Indian Kanoon is disabled, so court records await an operator
+credential (§J).
 
 ---
 

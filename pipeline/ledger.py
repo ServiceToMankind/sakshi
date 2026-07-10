@@ -11,12 +11,20 @@ dates — never the URL itself, never any PII. It lives under ``data/`` so
 for manual review, not to the committed ledger.
 
 Outcomes:
-  - ``published`` / ``rejected`` / ``out_of_scope`` / ``not_a_case`` : SETTLED —
-    a successful extraction call classified the document; re-processing it would
-    only repeat the result, so it is skipped from now on.
+  - ``published`` / ``out_of_scope`` / ``not_a_case`` : SETTLED — a successful
+    extraction call classified the document; re-processing it would only repeat the
+    result, so it is skipped from now on.
+  - ``out_of_window`` : the document IS a sexual-offence case but falls outside the
+    current launch window (LAUNCH_STATES / LAUNCH_LOOKBACK_DAYS). Terminal for
+    coverage accounting, and skipped — but ONLY meaningful under a FIXED window.
+    **If you widen LAUNCH_STATES or LAUNCH_LOOKBACK_DAYS, delete
+    data/_meta/processed.json so these documents are re-examined.**
   - ``failed`` : the extraction call errored (provider). Retried on later runs up
     to :data:`config.EXTRACT_MAX_DOC_ATTEMPTS` times.
   - ``failed_permanent`` : exhausted its retries. Skipped; its URL is logged once.
+
+A document quarantined to the review queue is NEVER settled here (it has no ledger
+entry), so it re-surfaces every run until a human resolves it — "delay, not loss".
 """
 
 from __future__ import annotations
@@ -32,7 +40,7 @@ __all__ = ["LEDGER_RELPATH", "Ledger", "load_ledger", "save_ledger"]
 
 LEDGER_RELPATH = Path("_meta") / "processed.json"
 
-_SETTLED = frozenset({"published", "rejected", "out_of_scope", "not_a_case"})
+_SETTLED = frozenset({"published", "rejected", "out_of_scope", "not_a_case", "out_of_window"})
 
 
 def _hash(url: str) -> str:

@@ -148,6 +148,10 @@ runs independently of when data-review PRs are merged.
   which writes exactly one path, so it is structurally incapable of touching
   anything but `data/_meta/processed.json`. The reviewed data PR excludes
   `data/_meta` when this is on.
+- **Widening the launch window resets coverage:** a sexual-offence case outside the
+  current `LAUNCH_STATES`/`LAUNCH_LOOKBACK_DAYS` is settled `out_of_window` (skipped
+  from now on under that fixed window). If you later widen the states or lookback,
+  **delete `data/_meta/processed.json`** so those documents are re-examined.
 
 ---
 

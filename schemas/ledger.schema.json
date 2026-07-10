@@ -27,6 +27,7 @@
                 "published",
                 "rejected",
                 "out_of_scope",
+                "out_of_window",
                 "not_a_case",
                 "failed",
                 "failed_permanent"
