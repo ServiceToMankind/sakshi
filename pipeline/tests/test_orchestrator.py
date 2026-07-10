@@ -296,6 +296,58 @@ def test_quarantined_doc_is_not_settled_and_resurfaces(tmp_path: Path) -> None:
     assert r2.review >= 1  # it re-surfaced for human review
 
 
+def test_scope_filtered_doc_is_settled_out_of_window(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A sexual-offence case outside the launch window settles (out_of_window) + is skipped."""
+    monkeypatch.setenv("LAUNCH_STATES", "DL")  # a TG case is filtered out
+    doc = [
+        RawDocument(
+            url="https://example.invalid/tgcase",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "cnr": "C-1",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    logs = tmp_path / "logs"
+    r1 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r1.published == 0  # TG is outside LAUNCH_STATES=DL
+
+    class _Poison:
+        def generate(self, prompt: str) -> ExtractionResponse:
+            raise AssertionError("out_of_window doc must not be re-extracted (same window)")
+
+    r2 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-11",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_Poison(),
+    )
+    assert r2.skipped_settled == 1  # settled as out_of_window under the fixed window
+
+
 def test_in_scope_helper() -> None:
     record = {"state": "TG", "incident_reported_date": "2026-07-01"}
     assert orchestrator._in_scope(record, frozenset({"TG"}), 30, "2026-07-10")

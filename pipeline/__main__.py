@@ -149,29 +149,38 @@ def _update_ledger(
     ledger: Ledger,
     doc_outcomes: dict[str, str],
     published: list[dict[str, Any]],
+    review: list[dict[str, Any]],
     run_date: str,
     report: RunReport,
     data_dir: Path,
 ) -> None:
-    """Record each processed document's TERMINAL outcome and persist the ledger.
+    """Record each processed document's outcome and persist the ledger.
 
-    Only definitively-terminal outcomes settle (skip forever): a ``published``
-    record (persisted in the committed tree), a non-sexual ``out_of_scope`` case,
-    and ``not_a_case`` text — none of these changes on re-extraction. An
-    ``extracted`` record that did NOT publish this run is either quarantined for
-    human review (the ephemeral ``data/_review`` queue) or dropped by the
-    *widenable* launch scope window (state/lookback); NEITHER is settled, so it is
-    re-examined next run and can never silently vanish — "delay, not loss".
-    A ``failed`` document is retried until its budget is spent, then parked.
+    An ``extracted`` document resolves to one of three fates:
+    - its URL reached a ``published`` record (directly or via source-union) -> settle;
+    - it is quarantined to the review queue -> NOT settled (``continue``), so it
+      re-surfaces every run until a human resolves it ("delay, not loss");
+    - it was dropped by the launch scope window (state/lookback) -> ``out_of_window``,
+      terminal for coverage accounting under the CURRENT window. (Widening
+      LAUNCH_STATES/LOOKBACK later requires deleting data/_meta/processed.json.)
+    ``out_of_scope``/``not_a_case``/``failed`` come straight from extraction.
     """
     published_urls = {
         str(source.get("url", "")) for record in published for source in record.get("sources", [])
     }
+    review_urls = {
+        str(source.get("url", ""))
+        for item in review
+        for source in item["record"].get("sources", [])
+    }
     for url, outcome in doc_outcomes.items():
         if outcome == "extracted":
-            if url not in published_urls:
-                continue  # quarantined-to-review or scope-filtered: leave UNSETTLED
-            outcome = "published"
+            if url in published_urls:
+                outcome = "published"
+            elif url in review_urls:
+                continue  # quarantined for human review: NOT settled, re-surface
+            else:
+                outcome = "out_of_window"  # scope-filtered (state/lookback)
         if ledger.record(url, outcome, run_date) == "failed_permanent":
             _log(report, f"failed_permanent after retries (manual review): {url}")
     save_ledger(data_dir, ledger)
@@ -346,7 +355,7 @@ def run(
     # not re-extracted; a failing one is retried until its budget is spent, then
     # parked as failed_permanent with its URL logged once for manual review.
     if ledger is not None:
-        _update_ledger(ledger, doc_outcomes, published, run_date, report, data_dir)
+        _update_ledger(ledger, doc_outcomes, published, review, run_date, report, data_dir)
 
     # Independent final assertion over EVERY file just written (shards + review
     # queue). A hit fails the run before any commit — not deferred to post-push CI.
