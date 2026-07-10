@@ -86,6 +86,52 @@ PII_VALUE_PATTERNS: Final[dict[str, re.Pattern[str]]] = {
     "pan": re.compile(r"\b[A-Z]{5}\d{4}[A-Z]\b"),
 }
 
+# --- Age-expression patterns (issue #7) --------------------------------------
+# A concrete age is a re-identifying detail. For a MINOR it is forbidden outright
+# (POCSO s.23) and removed structurally by the minor-record projection in
+# ``pipeline.sanitize``; for a NON-minor record these patterns are defence in
+# depth: any record whose free text still matches after sanitisation is
+# QUARANTINED to data/_review (never a public shard), and ``scripts.pii_guard``
+# asserts no published shard contains one. Kept SEPARATE from PII_VALUE_PATTERNS
+# because the policy differs: PII values are always redacted in place; ages route
+# a whole record to human review instead.
+AGE_EXPRESSION_PATTERNS: Final[dict[str, re.Pattern[str]]] = {
+    "numeric_years_old": re.compile(
+        r"\b\d{1,2}\s*[-\u2013]?\s*(?:year|yr)s?[\s\-\u2013]*old\b", re.I
+    ),
+    "aged_number": re.compile(r"\bage[d]?\s+\d{1,2}\b", re.I),
+    "descriptor_number": re.compile(
+        r"\b(?:minor|girl|boy|child|student|victim|woman|man|male|female)\s+"
+        r"(?:aged\s+)?\d{1,2}\b",
+        re.I,
+    ),
+    "school_class": re.compile(r"\bclass\s+(?:[IVX]{1,4}|\d{1,2})\b", re.I),
+    "ordinal_standard": re.compile(
+        r"\b\d{1,2}(?:st|nd|rd|th)\s+(?:standard|std|grade|class)\b", re.I
+    ),
+    "teenager_word": re.compile(r"\b(?:teenage[rd]?|adolescent)\b", re.I),
+    "spelled_years_old": re.compile(
+        r"\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|"
+        r"fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty)[\s\-]"
+        r"(?:year|yr)s?[\s\-\u2013]*old\b",
+        re.I,
+    ),
+}
+
+# The fixed neutral text substituted for a minor case's free-text summary. Defined
+# here (the single source of truth) so both ``pipeline.sanitize`` (which writes it)
+# and ``schemas/case.schema.json`` (which asserts it, via a test) cannot drift.
+MINOR_SUMMARY_TEMPLATE: Final[str] = (
+    "Case involving a minor. Details withheld under POCSO s.23. "
+    "See cited sources and judicial status."
+)
+
+# Narrative free-text field name(s) — the only place model-written prose (and thus
+# a stray age) can hide after projection. Age-expression scanning targets THESE,
+# not structural/citation fields (url, id, publisher) whose slugs may legitimately
+# carry numbers ("...-18-year-old-...") that are the source's wording, not our claim.
+FREE_TEXT_FIELD_NAMES: Final[frozenset[str]] = frozenset({"summary"})
+
 
 def is_forbidden_key(key: str) -> bool:
     """Return True if ``key`` is a forbidden field name or contains a forbidden substring.
@@ -104,3 +150,16 @@ def matched_value_patterns(value: str) -> list[str]:
     Empty list means the string is clean.
     """
     return [name for name, pattern in PII_VALUE_PATTERNS.items() if pattern.search(value)]
+
+
+def matched_age_patterns(value: str) -> list[str]:
+    """Return the names of every age-expression pattern that matches ``value``.
+
+    Empty list means the string carries no detectable age/school-class detail.
+    """
+    return [name for name, pattern in AGE_EXPRESSION_PATTERNS.items() if pattern.search(value)]
+
+
+def is_free_text_key(key: str) -> bool:
+    """True if ``key`` names a narrative free-text field that should be age-scanned."""
+    return key in FREE_TEXT_FIELD_NAMES

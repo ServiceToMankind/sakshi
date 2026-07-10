@@ -29,6 +29,7 @@ from pathlib import Path
 from typing import Any, Protocol
 
 from pipeline import config
+from pipeline.provenance import classify_source_type
 from pipeline.sources.base import RawDocument
 
 __all__ = ["ExtractionClient", "ExtractionResponse", "ExtractionResult", "build_prompt", "extract"]
@@ -108,8 +109,20 @@ def _parse(text: str, doc: RawDocument) -> dict[str, Any] | None:
     if not (obj.get("state") and obj.get("district") and obj.get("status")):
         return None
     obj["victim"] = None  # forced; the sanitizer drops the key before disk
-    obj["sources"] = [{"url": doc.url, "publisher": doc.publisher, "retrieved": doc.fetched_at}]
+    source_type = classify_source_type(doc.url, doc.publisher)
+    obj["sources"] = [
+        {
+            "url": doc.url,
+            "publisher": doc.publisher,
+            "source_type": source_type,
+            "retrieved": doc.fetched_at,
+        }
+    ]
     obj.setdefault("confidence", 0.0)
+    if source_type == "live_blog":
+        # Sole live-blog provenance: cap below the publish threshold so dedupe
+        # quarantines it for human confirmation rather than auto-publishing.
+        obj["confidence"] = min(float(obj.get("confidence", 0.0)), config.LIVE_BLOG_CONFIDENCE_CAP)
     return obj
 
 

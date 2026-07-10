@@ -252,21 +252,25 @@ def run(
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)
 
-    # LAST GATE BEFORE DISK: sanitize every candidate, then project onto the schema
-    # allow-list so no unknown (possibly PII-bearing) key can survive to a published
-    # shard OR the review queue.
-    case_schema = load_schema()
-    sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in extractions]
+    # Bound this run to the configured states + lookback window FIRST, on the raw
+    # extraction. The minor-record projection (in sanitize) truncates
+    # incident_reported_date to a year, which a lookback window could not parse — so
+    # scoping must read the full date before sanitisation. Only state + date (both
+    # non-PII) are read here; nothing is written.
+    in_scope = [r for r in extractions if _in_scope(r, states, lookback, run_date)]
+    if len(in_scope) != len(extractions):
+        _log(report, f"scope: {len(in_scope)}/{len(extractions)} in scope ({report.scope})")
 
-    # Bound this run to the configured states + lookback window.
-    in_scope = [r for r in sanitized if _in_scope(r, states, lookback, run_date)]
-    if len(in_scope) != len(sanitized):
-        _log(report, f"scope: {len(in_scope)}/{len(sanitized)} in scope ({report.scope})")
+    # LAST GATE BEFORE DISK: sanitize every in-scope candidate (drop forbidden keys,
+    # redact PII values, structurally project minor records), then project onto the
+    # schema allow-list so no unknown key can survive to a shard OR the review queue.
+    case_schema = load_schema()
+    sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in in_scope]
 
     # Fold in already-published records so the run regenerates the whole tree and
     # new documents merge into existing cases rather than replacing history.
     existing = _load_existing_published(data_dir)
-    published, review = dedupe(existing + in_scope)
+    published, review = dedupe(existing + sanitized)
     _log(report, f"deduped: {len(published)} published, {len(review)} to review")
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)
@@ -296,7 +300,7 @@ def run(
         _print_journey(
             out,
             raw_docs,
-            extractions[0] if extractions else {},
+            in_scope[0] if in_scope else {},
             sanitized[0] if sanitized else {},
             published[0] if published else {},
             sharded,

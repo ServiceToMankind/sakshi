@@ -11,6 +11,10 @@ What it flags:
      substring ("victim"/"survivor"), case-insensitively.
   2. Any string VALUE matching a canonical PII value-pattern (Aadhaar, Indian
      mobile, email, PAN).
+  3. In PUBLISHED shards only (not the human-reviewed data/_review quarantine),
+     any free-text VALUE matching an age-expression pattern (issue #7) — the final
+     assertion that the minor-record projection + non-minor age quarantine worked
+     and no concrete age reached a public record.
 
 Usage:
     pii_guard.py [PATH ...]        Scan the given JSON files/dirs
@@ -38,6 +42,8 @@ if str(_REPO_ROOT) not in sys.path:  # pragma: no cover - import-time path shim
 
 from pipeline.pii_constants import (  # noqa: E402
     is_forbidden_key,
+    is_free_text_key,
+    matched_age_patterns,
     matched_value_patterns,
 )
 
@@ -61,24 +67,44 @@ def _pattern_reason(pattern_name: str) -> str:
     return f"value matches {pattern_name} pattern"
 
 
-def scan_value(value: Any, path: str) -> Iterator[Finding]:
+def _age_reason(pattern_name: str) -> str:
+    """Human-readable reason string for a matched age-expression pattern."""
+    return f"value matches age-expression pattern ({pattern_name})"
+
+
+def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Finding]:
     """Recursively yield findings for keys and string values under ``value``.
 
-    ``path`` is a JSON-pointer-ish breadcrumb used for human-readable output.
+    ``path`` is a JSON-pointer-ish breadcrumb used for human-readable output. When
+    ``scan_ages`` is True, free-text values are additionally checked for
+    age-expression patterns (applied to published shards, not the review queue).
     """
     if isinstance(value, dict):
         for key, child in value.items():
             child_path = f"{path}.{key}" if path else key
             if is_forbidden_key(str(key)):
                 yield Finding(path or "<root>", child_path, f"forbidden field name '{key}'")
-            yield from scan_value(child, child_path)
+            yield from scan_value(child, child_path, scan_ages=scan_ages)
     elif isinstance(value, list):
         for idx, item in enumerate(value):
-            yield from scan_value(item, f"{path}[{idx}]")
+            yield from scan_value(item, f"{path}[{idx}]", scan_ages=scan_ages)
     elif isinstance(value, str):
         loc = path or "<root>"
         for pattern_name in matched_value_patterns(value):
             yield Finding(loc, loc, _pattern_reason(pattern_name))
+        if scan_ages and is_free_text_key(path.rsplit(".", 1)[-1]):
+            for pattern_name in matched_age_patterns(value):
+                yield Finding(loc, loc, _age_reason(pattern_name))
+
+
+def _scans_ages(file_path: Path) -> bool:
+    """Age-scan every file EXCEPT the data/_review quarantine.
+
+    ``_review`` holds low-confidence and age-flagged NON-minor records pending
+    human confirmation; it is excluded from the published site, so a concrete age
+    there is the quarantine working, not a leak. Published shards must be age-free.
+    """
+    return "_review" not in file_path.parts
 
 
 def scan_json_file(file_path: Path) -> list[Finding]:
@@ -87,7 +113,10 @@ def scan_json_file(file_path: Path) -> list[Finding]:
         data = json.loads(file_path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as exc:
         return [Finding(str(file_path), "<file>", f"could not read/parse JSON: {exc}")]
-    return [Finding(str(file_path), f.path, f.reason) for f in scan_value(data, "")]
+    scan_ages = _scans_ages(file_path)
+    return [
+        Finding(str(file_path), f.path, f.reason) for f in scan_value(data, "", scan_ages=scan_ages)
+    ]
 
 
 def scan_diff_text(diff_text: str) -> list[Finding]:

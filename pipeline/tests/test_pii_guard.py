@@ -36,6 +36,57 @@ def test_scan_value_flags_forbidden_key_and_pii_value() -> None:
     assert any("email pattern" in r for r in reasons)
 
 
+def test_scan_value_flags_age_in_summary_when_enabled() -> None:
+    """With age scanning on, a concrete age in the free-text summary is reported."""
+    data = {"summary": "Police rescued a 17-year-old.", "district": "TESTVILLE"}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert any("age-expression pattern" in r for r in reasons)
+
+
+def test_scan_value_age_scan_ignores_non_free_text_fields() -> None:
+    """An age-shaped slug in a URL (not a free-text field) is NOT flagged."""
+    data = {
+        "summary": "A neutral summary before the Special POCSO Court, TESTVILLE.",
+        "sources": [{"url": "https://example.invalid/a-17-year-old-case"}],
+    }
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert not any("age-expression" in r for r in reasons)
+
+
+def test_scan_value_no_age_findings_when_disabled() -> None:
+    """With age scanning off, even an age in the summary is not flagged."""
+    data = {"summary": "Police rescued a 17-year-old."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=False)]
+    assert not any("age-expression" in r for r in reasons)
+
+
+def test_scans_ages_public_shard_yes_review_no() -> None:
+    """Published shards are age-scanned; the _review quarantine is not."""
+    assert pii_guard._scans_ages(Path("data/2026/TG.json")) is True
+    assert pii_guard._scans_ages(Path("data/_review/review-2026-07-10.json")) is False
+
+
+def test_scan_json_file_age_in_public_shard_is_flagged(tmp_path: Path) -> None:
+    (tmp_path / "2026").mkdir()
+    shard = _write_json(
+        tmp_path / "2026" / "TG.json",
+        [{"summary": "Police rescued a 17-year-old.", "district": "TESTVILLE"}],
+    )
+    findings = pii_guard.scan_json_file(shard)
+    assert any("age-expression" in f.reason for f in findings)
+
+
+def test_scan_json_file_age_in_review_is_not_flagged(tmp_path: Path) -> None:
+    """The quarantine may hold an age-flagged non-minor record pending confirmation."""
+    (tmp_path / "_review").mkdir()
+    quarantined = _write_json(
+        tmp_path / "_review" / "review-x.json",
+        [{"summary": "Police rescued a 17-year-old."}],
+    )
+    findings = pii_guard.scan_json_file(quarantined)
+    assert not any("age-expression" in f.reason for f in findings)
+
+
 def test_scan_json_file_clean_and_parse_error(tmp_path: Path) -> None:
     """A clean file yields no findings; unparseable JSON yields a read/parse finding."""
     clean = _write_json(tmp_path / "clean.json", {"district": "TESTVILLE"})

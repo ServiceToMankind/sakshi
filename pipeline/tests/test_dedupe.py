@@ -122,6 +122,27 @@ def test_cnr_only_and_fir_only_merge_via_fuzzy() -> None:
     assert len(published) == 1
 
 
+def test_age_bearing_record_is_quarantined() -> None:
+    """A non-minor record whose summary states an age routes to review, not a shard."""
+    rec = _record(
+        cnr="C-1",
+        minor_involved=False,
+        summary="Police rescued a 17-year-old; the accused was arrested.",
+    )
+    published, review = dedupe([rec])
+    assert published == []
+    assert review[0]["reason"] == "age_detail_present"
+
+
+def test_projected_minor_summary_is_not_quarantined() -> None:
+    """The fixed minor template carries no age token, so a projected minor publishes."""
+    from pipeline.sanitize import MINOR_SUMMARY_TEMPLATE
+
+    rec = _record(cnr="C-2", minor_involved=True, summary=MINOR_SUMMARY_TEMPLATE)
+    published, review = dedupe([rec])
+    assert len(published) == 1 and review == []
+
+
 def test_merge_drops_out_of_range_status_source() -> None:
     a = _record(cnr="C-1", status="UNDER_TRIAL")
     b = _record(
