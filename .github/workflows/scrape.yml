@@ -131,14 +131,18 @@ jobs:
           git commit -m "data: staged review $DATE (+${{ steps.counts.outputs.new }} new, ~${{ steps.counts.outputs.updated }} updated)"
           git push -f origin "$BRANCH"
           TITLE="Data review: $DATE"
-          if gh pr view "$BRANCH" --json number >/dev/null 2>&1; then
-            gh pr edit "$BRANCH" --title "$TITLE" --body-file logs/run_report.md
+          # Only an OPEN PR should be edited. `gh pr view` also matches a MERGED PR
+          # for this branch, which would silently edit the old (merged) PR and never
+          # open a fresh review PR after the first is merged.
+          OPEN_PR="$(gh pr list --head "$BRANCH" --state open --json number --jq '.[0].number')"
+          if [ -n "$OPEN_PR" ]; then
+            gh pr edit "$OPEN_PR" --title "$TITLE" --body-file logs/run_report.md
           else
             gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file logs/run_report.md \
               --label data-review 2>/dev/null \
             || gh pr create --base main --head "$BRANCH" --title "$TITLE" --body-file logs/run_report.md
           fi
-          gh pr view "$BRANCH" --json url --jq .url
+          gh pr list --head "$BRANCH" --state open --json url --jq '.[0].url'
 
       # AUTO (post-launch only): commit straight to main; deploy follows.
       - name: Commit and publish
