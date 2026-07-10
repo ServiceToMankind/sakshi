@@ -11,6 +11,7 @@ import pytest
 from pipeline import __main__ as orchestrator
 from pipeline.extract.gemini import ExtractionResponse
 from pipeline.fixtures import fixture_raw_documents
+from pipeline.sources.base import RawDocument
 
 
 class _FakeGemini:
@@ -148,7 +149,16 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
 
 
 def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
-    doc = fixture_raw_documents()[:1]
+    def _doc(slug: str) -> list[RawDocument]:
+        # Distinct URLs so the processed-document ledger does not skip run 2's doc.
+        return [
+            RawDocument(
+                url=f"https://example.invalid/{slug}",
+                publisher="eCourts",
+                fetched_at="2026-07-09",
+                text="A TESTVILLE case.",
+            )
+        ]
 
     def _payload(cnr: str) -> str:
         return json.dumps(
@@ -170,7 +180,7 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
         logs_dir=tmp_path / "logs",
         run_date="2026-07-09",
         out=io.StringIO(),
-        docs=doc,
+        docs=_doc("a"),
         extract_client=_FakeGemini(_payload("CASE-A")),
     )
     # A second run that fetches only CASE-B must NOT wipe CASE-A from the tree.
@@ -180,11 +190,110 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
         logs_dir=tmp_path / "logs",
         run_date="2026-07-10",
         out=io.StringIO(),
-        docs=doc,
+        docs=_doc("b"),
         extract_client=_FakeGemini(_payload("CASE-B")),
     )
     cnrs = {r["cnr"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
     assert cnrs == {"CASE-A", "CASE-B"}
+
+
+def test_ledger_skips_settled_documents_across_runs(tmp_path: Path) -> None:
+    """A document settled in run 1 is not re-extracted in run 2 (budget goes to the tail)."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/settled",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-1",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    logs = tmp_path / "logs"
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert (tmp_path / "_meta" / "processed.json").exists()
+
+    # Run 2: same doc. A poisoned client raises if called; the ledger must skip the
+    # settled document so it is never invoked.
+    class _Poison:
+        def generate(self, prompt: str) -> ExtractionResponse:
+            raise AssertionError("settled document must not be re-extracted")
+
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_Poison(),
+    )
+    assert report.published == 1  # CASE-1 preserved from run 1, not re-extracted
+
+
+def test_quarantined_doc_is_not_settled_and_resurfaces(tmp_path: Path) -> None:
+    """A doc quarantined to the (ephemeral) review queue must be re-examined next run."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/q",
+            publisher="The Example Herald",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "cnr": "C-1",
+            "in_scope": True,
+            "confidence": 0.4,  # below the publish threshold -> quarantined, not settled
+        }
+    )
+    logs = tmp_path / "logs"
+    r1 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r1.published == 0 and r1.review >= 1
+    # Run 2: the quarantined doc is NOT settled, so it is re-processed and re-surfaced
+    # (never silently lost from the ephemeral review queue).
+    r2 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r2.skipped_settled == 0  # the quarantined doc was NOT skipped
+    assert r2.review >= 1  # it re-surfaced for human review
 
 
 def test_in_scope_helper() -> None:
