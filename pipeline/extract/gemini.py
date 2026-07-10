@@ -85,6 +85,10 @@ class ExtractionResult:
     aborted: bool = False
     failovers: int = 0
     rejected_out_of_scope: int = 0
+    # Per-document outcome for the processed-document ledger, keyed by doc URL:
+    # "extracted" | "out_of_scope" | "not_a_case" | "failed". Docs never reached
+    # (budget/cap) are absent, so they are retried next run.
+    doc_outcomes: dict[str, str] = field(default_factory=dict)
 
     @property
     def estimated_usd(self) -> float:
@@ -208,6 +212,7 @@ def _run_model(
             # One document's persistent failure never aborts the whole run; skip
             # it. But circuit-break if the provider is sustainedly failing.
             result.failed += 1
+            result.doc_outcomes[doc.url] = "failed"
             consecutive_failures += 1
             if consecutive_failures >= config.EXTRACT_MAX_CONSECUTIVE_FAILURES:
                 result.aborted = True
@@ -218,13 +223,16 @@ def _run_model(
         result.output_tokens += response.output_tokens
         record = _parse(response.text, doc)
         if record is None:
+            result.doc_outcomes[doc.url] = "not_a_case"
             continue
         # Layer (a) scope gate: the model must affirm a SEXUAL offence via in_scope.
         # A non-sexual case (cheque bounce, theft, ...) is dropped pre-sanitize, not
         # forced into a category. Missing/false => rejected (fail-safe).
         if record.pop("in_scope", False) is not True:
             result.rejected_out_of_scope += 1
+            result.doc_outcomes[doc.url] = "out_of_scope"
             continue
+        result.doc_outcomes[doc.url] = "extracted"
         result.records.append(record)
     return []
 

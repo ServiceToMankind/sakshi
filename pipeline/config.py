@@ -56,6 +56,10 @@ EXTRACT_CALL_TIMEOUT_S: Final[float] = 20.0
 # unbounded, silently burned the whole 60-min scrape job. Sized to leave headroom
 # under that job for fetch + staging + commit.
 EXTRACT_WALLCLOCK_BUDGET_S: Final[float] = 2400.0  # 40 minutes
+# How many runs a document whose extraction call keeps FAILING is retried before
+# it is parked as failed_permanent in the processed-document ledger (its URL is
+# then logged once for manual review). Bounds wasted retries on a dead URL.
+EXTRACT_MAX_DOC_ATTEMPTS: Final[int] = 3
 
 # --- Gemini model chain + cost estimation ------------------------------------
 # PINNED model ids, NOT a `-latest` alias. An alias silently repoints to whatever

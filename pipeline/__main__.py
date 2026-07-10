@@ -32,6 +32,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 from pipeline import config, fixtures
 from pipeline.dedupe import dedupe
 from pipeline.extract.gemini import ExtractionClient, extract
+from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
@@ -49,6 +50,8 @@ class RunReport:
     review: int = 0
     published: int = 0
     fetched: int = 0
+    processed: int = 0
+    skipped_settled: int = 0
     extracted: int = 0
     rejected_out_of_scope: int = 0
     estimated_usd: float = 0.0
@@ -137,6 +140,38 @@ def _load_existing_published(data_dir: Path) -> list[dict[str, Any]]:
     return records
 
 
+def _update_ledger(
+    ledger: Ledger,
+    doc_outcomes: dict[str, str],
+    published: list[dict[str, Any]],
+    run_date: str,
+    report: RunReport,
+    data_dir: Path,
+) -> None:
+    """Record each processed document's TERMINAL outcome and persist the ledger.
+
+    Only definitively-terminal outcomes settle (skip forever): a ``published``
+    record (persisted in the committed tree), a non-sexual ``out_of_scope`` case,
+    and ``not_a_case`` text — none of these changes on re-extraction. An
+    ``extracted`` record that did NOT publish this run is either quarantined for
+    human review (the ephemeral ``data/_review`` queue) or dropped by the
+    *widenable* launch scope window (state/lookback); NEITHER is settled, so it is
+    re-examined next run and can never silently vanish — "delay, not loss".
+    A ``failed`` document is retried until its budget is spent, then parked.
+    """
+    published_urls = {
+        str(source.get("url", "")) for record in published for source in record.get("sources", [])
+    }
+    for url, outcome in doc_outcomes.items():
+        if outcome == "extracted":
+            if url not in published_urls:
+                continue  # quarantined-to-review or scope-filtered: leave UNSETTLED
+            outcome = "published"
+        if ledger.record(url, outcome, run_date) == "failed_permanent":
+            _log(report, f"failed_permanent after retries (manual review): {url}")
+    save_ledger(data_dir, ledger)
+
+
 def _assert_no_pii(data_dir: Path) -> None:
     """Run scripts/pii_guard over the written tree; raise on any finding."""
     findings = [f for json_file in iter_json_files([data_dir]) for f in scan_json_file(json_file)]
@@ -158,6 +193,8 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"**Mode:** {config.launch_mode()} · **Scope:** {report.scope}\n\n"
         "| metric | value |\n|---|---|\n"
         f"| Fetched documents | {report.fetched} |\n"
+        f"| Processed this run | {report.processed} |\n"
+        f"| Skipped (already settled) | {report.skipped_settled} |\n"
         f"| Extracted candidates | {report.extracted} |\n"
         f"| Rejected (out of scope) | {report.rejected_out_of_scope} |\n"
         f"| **Published (whole tree)** | {report.published} |\n"
@@ -227,6 +264,8 @@ def run(
     lookback = config.launch_lookback_days()
     report.scope = _scope_label(states, lookback)
 
+    ledger: Ledger | None = None
+    doc_outcomes: dict[str, str] = {}
     if dry_run:
         raw_docs = fixtures.fixture_raw_documents()
         extractions = fixtures.fixture_extractions()
@@ -234,10 +273,21 @@ def run(
         _log(report, f"dry-run: {len(extractions)} fixture extractions (no network, no Gemini)")
     else:
         raw_docs = docs if docs is not None else _fetch_documents(run_date)
-        _log(report, f"fetched {len(raw_docs)} documents")
-        result = extract(
-            raw_docs, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
+        # Skip documents already settled in prior runs so the budget goes to the
+        # backlog TAIL — turns provider degradation into delay, not lost coverage.
+        ledger = load_ledger(data_dir)
+        to_process = [d for d in raw_docs if ledger.should_process(d.url)]
+        report.processed = len(to_process)
+        report.skipped_settled = len(raw_docs) - len(to_process)
+        _log(
+            report,
+            f"fetched {len(raw_docs)} documents ({report.processed} to process, "
+            f"{report.skipped_settled} already settled)",
         )
+        result = extract(
+            to_process, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
+        )
+        doc_outcomes = result.doc_outcomes
         extractions = result.records
         report.estimated_usd = result.estimated_usd
         report.rejected_out_of_scope = result.rejected_out_of_scope
@@ -281,6 +331,12 @@ def run(
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)
     _write_review(review, data_dir, run_date)
+
+    # Update the processed-document ledger (real runs only): a settled document is
+    # not re-extracted; a failing one is retried until its budget is spent, then
+    # parked as failed_permanent with its URL logged once for manual review.
+    if ledger is not None:
+        _update_ledger(ledger, doc_outcomes, published, run_date, report, data_dir)
 
     # Independent final assertion over EVERY file just written (shards + review
     # queue). A hit fails the run before any commit — not deferred to post-push CI.

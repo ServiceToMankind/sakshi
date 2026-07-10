@@ -131,6 +131,39 @@ def test_extract_strips_in_scope_from_kept_records() -> None:
     assert "in_scope" not in result.records[0]
 
 
+def test_extract_records_per_doc_outcomes() -> None:
+    """The ledger relies on doc_outcomes: extracted / out_of_scope / not_a_case."""
+    oos = json.dumps(
+        {
+            "category": "other",
+            "state": "DL",
+            "district": "X",
+            "status": "CONVICTED",
+            "offence_sections": ["NI Act 138"],
+            "in_scope": False,
+        }
+    )
+    doc_a = RawDocument(url="https://x/a", publisher="eCourts", fetched_at="2026-07-09", text="t")
+    doc_b = RawDocument(url="https://x/b", publisher="eCourts", fetched_at="2026-07-09", text="t")
+    doc_c = RawDocument(url="https://x/c", publisher="eCourts", fetched_at="2026-07-09", text="t")
+    client = _FakeClient([_resp(_VALID_JSON), _resp(oos), _resp('{"category": null}')])
+    result = gemini.extract(
+        [doc_a, doc_b, doc_c], client=client, sleep=lambda _s: None, jitter=lambda: 0.0
+    )
+    assert result.doc_outcomes == {
+        "https://x/a": "extracted",
+        "https://x/b": "out_of_scope",
+        "https://x/c": "not_a_case",
+    }
+
+
+def test_extract_records_failed_doc_outcome() -> None:
+    doc = RawDocument(url="https://x/a", publisher="eCourts", fetched_at="2026-07-09", text="t")
+    client = _FakeClient([RuntimeError("boom")] * 5)  # all attempts fail
+    result = gemini.extract([doc], client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert result.doc_outcomes == {"https://x/a": "failed"}
+
+
 def test_parse_rejects_malformed_and_incomplete() -> None:
     assert gemini._parse("{bad", _DOC) is None
     assert gemini._parse('"a string"', _DOC) is None
