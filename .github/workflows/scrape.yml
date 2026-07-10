@@ -12,10 +12,11 @@
 name: scrape
 
 on:
-  # The daily cron is intentionally DISABLED until the first staged review PR has
-  # been human-reviewed and merged (Phase 5 hold point). Re-enable by uncommenting.
-  # schedule:
-  #   - cron: '30 0 * * *'   # 30 0 UTC == 06:00 IST
+  # One STAGED run daily at 06:00 IST (00:30 UTC). LAUNCH_MODE stays 'staged', so
+  # each run only opens/updates the data-review PR — nothing publishes without a
+  # human merge. Counts toward the 2/day cap alongside manual workflow_dispatch.
+  schedule:
+    - cron: '30 0 * * *'   # 00:30 UTC == 06:00 IST
   workflow_dispatch:
     inputs:
       dry_run:
