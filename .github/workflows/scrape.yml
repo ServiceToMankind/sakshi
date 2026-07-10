@@ -91,9 +91,10 @@ jobs:
         run: |
           mkdir -p data/_meta
           REPO="${{ github.repository }}"
-          CONTENT="$(gh api "repos/$REPO/contents/data/_meta/processed.json?ref=ledger-state" --jq .content 2>/dev/null || true)"
-          if [ -n "$CONTENT" ]; then
-            echo "$CONTENT" | base64 -d > data/_meta/processed.json
+          # `.content // empty` yields "" (not the literal "null") when the branch/file
+          # is absent, so a first run cleanly starts fresh.
+          RAW="$(gh api "repos/$REPO/contents/data/_meta/processed.json?ref=ledger-state" --jq '.content // empty' 2>/dev/null || true)"
+          if [ -n "$RAW" ] && echo "$RAW" | base64 -d > data/_meta/processed.json 2>/dev/null; then
             echo "restored ledger from ledger-state."
           else
             echo '{"version":1,"documents":{}}' > data/_meta/processed.json
@@ -155,11 +156,11 @@ jobs:
             gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/ledger-state" -f sha="$MAIN_SHA" >/dev/null
             echo "created ledger-state branch."
           fi
-          REMOTE="$(gh api "repos/$REPO/contents/$LEDGER?ref=ledger-state" --jq .content 2>/dev/null | base64 -d 2>/dev/null || true)"
-          if [ "$REMOTE" = "$(cat "$LEDGER")" ]; then
+          REMOTE="$(gh api "repos/$REPO/contents/$LEDGER?ref=ledger-state" --jq '.content // empty' 2>/dev/null | base64 -d 2>/dev/null || true)"
+          if [ -n "$REMOTE" ] && [ "$REMOTE" = "$(cat "$LEDGER")" ]; then
             echo "ledger unchanged."; exit 0
           fi
-          SHA="$(gh api "repos/$REPO/contents/$LEDGER?ref=ledger-state" --jq .sha 2>/dev/null || true)"
+          SHA="$(gh api "repos/$REPO/contents/$LEDGER?ref=ledger-state" --jq '.sha // empty' 2>/dev/null || true)"
           gh api -X PUT "repos/$REPO/contents/$LEDGER" \
             -f message="chore(ledger): update $(date +%F) run ${{ github.run_number }}" \
             -f content="$(base64 -w0 "$LEDGER")" \
