@@ -4,35 +4,83 @@
 # No code change, no redeploy. Order here does NOT imply priority; the dedupe
 # merge policy (official/court records beat media) decides authority.
 #
+# COURT-SOURCE ACCESSIBILITY (issue: wire court sources; assessed 2026-07-10).
+# Court records are the backbone (CNRs for dedup, judicial status, the ONLY
+# permitted source for accused names). What is and is NOT legitimately accessible
+# WITHOUT circumventing any CAPTCHA (a hard, inviolable rule):
+#   - eCourts "case status" search (services.ecourts.gov.in): CAPTCHA-gated.
+#     UNAVAILABLE for automation. We NEVER solve or bypass a CAPTCHA. This source
+#     therefore consumes only OPERATOR-RESOLVED endpoint URLs (official eCourts API
+#     access, or manually exported JSON) supplied via `endpoints` / ECOURTS_ENDPOINTS.
+#     Empty endpoints => it yields nothing (safe: no fabrication).
+#   - NJDG (njdg.ecourts.gov.in): publishes AGGREGATE STATISTICS (pendency/disposal),
+#     not case-level records with offence detail. Not usable as a per-case source.
+#   - High Court judgment portals (Delhi HC, Telangana HC): publish judgments/orders,
+#     but search is often CAPTCHA-gated and outputs are PDFs. Add as an `ecourts`
+#     endpoint source ONLY when a robots-permitted, non-CAPTCHA listing URL is provided.
+#   - Indian Kanoon (api.indiankanoon.org): a court-record MIRROR with a DOCUMENTED
+#     API. Legitimate via its API + ToS, but PAID and token-gated. Wired below but
+#     DISABLED pending an operator decision (cost + ToS) and INDIANKANOON_API_TOKEN.
+#
 # Types:
-#   ecourts : NJDG-style JSON endpoints (official). Live bulk access needs a
-#             session token; supply resolved URLs in `endpoints` or the
-#             ECOURTS_ENDPOINTS env var. Empty endpoints => this source yields
-#             nothing (safe: no fabrication).
-#   rss     : an established outlet's public RSS/Atom feed (media). Names of the
-#             accused are never taken from media alone.
+#   ecourts      : NJDG-style JSON endpoints (official). Live bulk access needs a
+#                  session token; supply resolved URLs in `endpoints` or the
+#                  ECOURTS_ENDPOINTS env var. Empty endpoints => yields nothing.
+#   indiankanoon : Indian Kanoon documented API (court-record mirror). Needs
+#                  INDIANKANOON_API_TOKEN; without it, yields nothing.
+#   rss          : an established outlet's public RSS/Atom feed (media). Names of
+#                  the accused are never taken from media alone. Prefer crime/city
+#                  section feeds over national breaking-news / live-blog feeds
+#                  (those decay and mutate; provenance is capped at intake).
 
 sources:
   - id: ecourts-njdg
     type: ecourts
     enabled: true
     publisher: eCourts
+    # Operator-resolved endpoints only (direct case-search is CAPTCHA-gated). Empty
+    # => nothing. Populate via ECOURTS_ENDPOINTS or here once official API access or
+    # a manually exported NJDG/HC judgment JSON is available for DL + TG.
     endpoints: []
 
-  - id: the-hindu
+  - id: indian-kanoon
+    type: indiankanoon
+    enabled: false # opt-in: set true after provisioning INDIANKANOON_API_TOKEN + accepting ToS
+    publisher: Indian Kanoon
+    # Court-record mirror. When enabled + token set, queries DL+TG sexual-offence
+    # judgments in the lookback window. Without the token it yields nothing.
+    queries:
+      - "rape OR POCSO OR 'sexual assault' doctypes:delhi"
+      - "rape OR POCSO OR 'sexual assault' doctypes:telangana"
+
+  # Media — crime/city section feeds for DL + TG (deprioritized live-blogs). A city
+  # section feed carries far fewer rolling "live updates" pages than a national feed.
+  - id: the-hindu-delhi
     type: rss
     enabled: true
     publisher: The Hindu
-    url: "https://www.thehindu.com/news/national/feeder/default.rss"
+    url: "https://www.thehindu.com/news/cities/Delhi/feeder/default.rss"
 
-  - id: indian-express
+  - id: the-hindu-hyderabad
+    type: rss
+    enabled: true
+    publisher: The Hindu
+    url: "https://www.thehindu.com/news/cities/Hyderabad/feeder/default.rss"
+
+  - id: indian-express-delhi
     type: rss
     enabled: true
     publisher: The Indian Express
-    url: "https://indianexpress.com/section/india/feed/"
+    url: "https://indianexpress.com/section/cities/delhi/feed/"
 
-  # Example of a disabled source (kill switch off). Enable and set a real feed URL
-  # after a source-suggestion review.
+  - id: indian-express-hyderabad
+    type: rss
+    enabled: true
+    publisher: The Indian Express
+    url: "https://indianexpress.com/section/cities/hyderabad/feed/"
+
+  # Disabled example (kill switch off). Enable and set a real feed URL after a
+  # source-suggestion review.
   - id: pti
     type: rss
     enabled: false

@@ -61,6 +61,29 @@ def test_robots_disallow_returns_none() -> None:
     assert _run(client.get("https://example.invalid/blocked")) is None
 
 
+def test_post_sends_auth_header_and_body() -> None:
+    seen: dict[str, Any] = {}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/robots.txt":
+            return httpx.Response(200, text="User-agent: *\nAllow: /")
+        seen["auth"] = request.headers.get("Authorization")
+        seen["body"] = request.content.decode()
+        return httpx.Response(200, text='{"docs": []}')
+
+    client = _client(handler)
+    response = _run(
+        client.post(
+            "https://api.example.invalid/search/",
+            data={"formInput": "rape"},
+            headers={"Authorization": "Token abc"},
+        )
+    )
+    assert response is not None and response.status_code == 200
+    assert seen["auth"] == "Token abc" and "formInput=rape" in seen["body"]
+    _run(client.aclose())
+
+
 def test_robots_missing_defaults_to_allow() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         if request.url.path == "/robots.txt":

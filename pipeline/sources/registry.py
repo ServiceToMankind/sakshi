@@ -15,7 +15,8 @@ import yaml
 from pipeline import config
 from pipeline.sources.base import Source
 from pipeline.sources.ecourts import EcourtsSource
-from pipeline.sources.http import HttpGetter
+from pipeline.sources.http import HttpClient
+from pipeline.sources.indiankanoon import IndianKanoonSource
 from pipeline.sources.rss_media import Feed, RssMediaSource
 
 __all__ = ["build_sources", "load_source_configs"]
@@ -31,7 +32,7 @@ def load_source_configs(path: Path = config.SOURCES_CONFIG_PATH) -> list[dict[st
 
 
 def build_sources(
-    client: HttpGetter,
+    client: HttpClient,
     fetched_at: str | None = None,
     configs: list[dict[str, Any]] | None = None,
 ) -> list[Source]:
@@ -50,6 +51,18 @@ def build_sources(
                     client,
                     endpoints=endpoints or None,
                     publisher=publisher or "eCourts",
+                    fetched_at=fetched_at,
+                )
+            )
+        elif kind == "indiankanoon":
+            queries = tuple(str(q) for q in (cfg.get("queries") or []) if str(q).strip())
+            if not queries:
+                continue
+            sources.append(
+                IndianKanoonSource(
+                    client,
+                    queries=queries,
+                    publisher=publisher or "Indian Kanoon",
                     fetched_at=fetched_at,
                 )
             )

@@ -39,6 +39,22 @@ class HttpGetter(Protocol):
     async def get(self, url: str) -> httpx.Response | None: ...
 
 
+class HttpPoster(Protocol):
+    """The async POST surface (for token-authenticated APIs like Indian Kanoon)."""
+
+    async def post(
+        self,
+        url: str,
+        *,
+        data: dict[str, str] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> httpx.Response | None: ...
+
+
+class HttpClient(HttpGetter, HttpPoster, Protocol):
+    """A client that can both GET and POST politely (satisfied by :class:`PoliteClient`)."""
+
+
 def _retry_after_date_seconds(value: str) -> float | None:
     """Seconds until the HTTP-date form of Retry-After, or None if unparseable."""
     try:
@@ -132,6 +148,35 @@ class PoliteClient:
                 await self._sleep(self._backoff_seconds(attempt, response))
                 continue
             self._store_validators(url, response)
+            return response
+
+    async def post(
+        self,
+        url: str,
+        *,
+        data: dict[str, str] | None = None,
+        headers: dict[str, str] | None = None,
+    ) -> httpx.Response | None:
+        """POST ``url`` politely (same throttle + backoff as :meth:`get`).
+
+        Returns None if robots.txt disallows the URL. Raises
+        ``httpx.HTTPStatusError`` if retries are exhausted on 429/5xx. Used for
+        token-authenticated JSON APIs; ``headers`` carries the Authorization token.
+        """
+        if not await self._allowed(url):
+            return None
+
+        host = self._host(url)
+        attempt = 0
+        while True:
+            await self._throttle(host)
+            response = await self._client.post(url, data=data or {}, headers=headers or {})
+            if response.status_code == 429 or 500 <= response.status_code < 600:
+                attempt += 1
+                if attempt > self._max_retries:
+                    response.raise_for_status()
+                await self._sleep(self._backoff_seconds(attempt, response))
+                continue
             return response
 
     async def _allowed(self, url: str) -> bool:
