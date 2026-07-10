@@ -38,11 +38,15 @@ signed off.
   (age scan). Verified live: a real minor/live-blog record was projected AND
   quarantined, never published.
 
-## C. Accused names only from court records
+## C. Accused names only from court records (PR #15)
 
 - Media-sourced records carry `name_public_court_record: null`; names are unioned
-  only from official court sources in `dedupe.merge_records`.
+  only from official court sources in `dedupe.merge_records`. As a deterministic,
+  model-independent backstop, `validate.withhold_unsourced_accused_names` nulls any
+  accused name on a record lacking BOTH a court name and a case anchor (CNR/FIR) —
+  so a bare index entry or media item can never publish a name.
 - **Evidence:** the first published-candidate record (media) had `accused: null`;
+  `test_validate.py::test_withhold_unsourced_accused_names`;
   `test_dedupe.py::test_merge_unions_sources_and_remaps_status_history`.
 
 ## D. Case-anchored deduplication (never identity)
@@ -91,13 +95,29 @@ signed off.
   run artifact. Nothing reaches the live site without a human merge.
 - **Evidence:** review PR #4; `scrape.yml`.
 
-## J. Court-source accessibility (PR #11)
+## J. Court-source accessibility (PR #11, #15)
 
 - Direct eCourts case-search is **CAPTCHA-gated → unavailable** (we never bypass a
   CAPTCHA); consumed only via operator-resolved endpoints. NJDG is stats-only.
-  Indian Kanoon (documented API, court-record mirror) is wired but **disabled**
-  pending an operator token + ToS decision. RSS intake moved to DL+TG crime/city
-  section feeds. **Evidence:** `sources.yml` accessibility note; `test_indiankanoon.py`.
+  Indian Kanoon (documented API, court-record mirror) is **fully wired** — per-run
+  cost budget, and the provenance ruling that its *docsource* (the court) confers
+  court-grade while an IK-indexed news item stays media-grade — but **disabled**
+  pending an operator token + ToS decision. Accused names publish only with a court
+  name **and** a case anchor (`validate.withhold_unsourced_accused_names`). RSS
+  intake moved to DL+TG crime/city section feeds. **Evidence:** `sources.yml`,
+  `test_indiankanoon.py`, `test_provenance.py`, `test_validate.py`.
+
+## K. Coverage under provider degradation (PR #13)
+
+- A committed, PII-safe processed-document ledger (`data/_meta/processed.json`,
+  keyed by `sha256(url)`) lets a truncated run skip already-settled documents so its
+  next 40-min budget goes to the backlog tail — "delay, not loss". Only terminal
+  outcomes (`published`/`out_of_scope`/`not_a_case`) settle; a quarantined or
+  scope-filtered document is never settled and re-surfaces next run. Failing docs
+  retry 3 runs, then park as `failed_permanent` with the URL logged for review.
+- **Evidence:** `test_ledger.py`, `test_orchestrator.py` (settled-skip +
+  quarantine-re-surface). Hardened by a 14-agent adversarial review that caught and
+  fixed three high-severity data-loss paths in the first cut.
 
 ---
 
@@ -130,17 +150,26 @@ has completed the full document set under a healthy provider.
 2. **eCourts endpoints**: supply official-API / manually-resolved DL+TG endpoints
    (or a robots-permitted High Court judgment listing) — direct search stays off
    (CAPTCHA).
-3. **CI approval friction**: the staged-run PR's CI parks as "Action required"
-   because the `github-actions[bot]` token can't self-trigger workflows. Switch the
-   scrape job to push/open the PR with a **PAT or GitHub App token** so CI runs
-   automatically.
+3. **CI approval friction — wired (PR #14), awaits secret**: the scrape job now
+   pushes/opens the staged PR with `SCRAPE_BOT_TOKEN` (fine-grained PAT / App token)
+   so its CI runs automatically; it falls back to `GITHUB_TOKEN` (today's manual
+   approval) until the secret is set. Provision it per CONTRIBUTING.md §Operations.
 4. **Human review of every staged record** remains mandatory. Do not enable the
    schedule or `LAUNCH_MODE=auto` until this review is signed off.
+
+## Launch-eligibility target (not yet met)
+
+Per the pre-launch plan, `auto` is gated on either **≥1 published** court-sourced or
+news_article record in the TG/DL·30-day window, **or three consecutive
+full-coverage runs** (the ledger shows the whole fetch set settled) proving the
+window is genuinely empty. No run has yet completed full coverage under a healthy
+provider; the ledger now makes spaced runs converge on that answer.
 
 ## Sign-off
 
 - [ ] Phase 0 guardrails (A–B) reviewed against code + tests.
 - [ ] Accused-name, dedup, confidence, provenance, scope gates (C–G) reviewed.
 - [ ] Resilience + staged mechanism (H–I) reviewed.
-- [ ] Court-source plan (J) + operator decisions accepted.
+- [ ] Court-source plan (J) + coverage ledger (K) + operator decisions accepted.
+- [ ] Launch-eligibility target met (≥1 published, or 3 full-coverage empty runs).
 - [ ] At least one full staged review PR inspected record-by-record.
