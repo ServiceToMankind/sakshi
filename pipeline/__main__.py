@@ -38,7 +38,12 @@ from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.registry import build_sources
-from pipeline.validate import iter_shard_files, load_schema, project_to_schema
+from pipeline.validate import (
+    iter_shard_files,
+    load_schema,
+    project_to_schema,
+    withhold_unsourced_accused_names,
+)
 
 
 @dataclass
@@ -321,7 +326,10 @@ def run(
     # redact PII values, structurally project minor records), then project onto the
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
     case_schema = load_schema()
-    sanitized = [project_to_schema(sanitize_record(record), case_schema) for record in in_scope]
+    sanitized = [
+        withhold_unsourced_accused_names(project_to_schema(sanitize_record(record), case_schema))
+        for record in in_scope
+    ]
 
     # Fold in already-published records so the run regenerates the whole tree and
     # new documents merge into existing cases rather than replacing history.

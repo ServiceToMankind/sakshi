@@ -28,7 +28,18 @@ def test_plain_news_article_is_the_default() -> None:
 
 def test_is_official_publisher() -> None:
     assert is_official_publisher("eCourts")
+    assert is_official_publisher("XYZ Sessions Court")  # DL/TG district & sessions courts
     assert not is_official_publisher("The Example Herald")
+
+
+def test_indian_kanoon_is_not_a_blanket_court_authority() -> None:
+    """IK is a MIRROR: the docsource (a court) confers court-grade, not the IK name."""
+    assert not is_official_publisher("Indian Kanoon")
+    assert (
+        classify_source_type("https://indiankanoon.org/doc/1/", "Indian Kanoon") == "news_article"
+    )
+    assert classify_source_type("https://indiankanoon.org/doc/1/", "Delhi High Court") == "court"
+    assert classify_source_type("https://indiankanoon.org/doc/1/", "XYZ Sessions Court") == "court"
 
 
 def test_every_classification_is_a_known_source_type() -> None:

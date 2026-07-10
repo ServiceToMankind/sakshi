@@ -197,6 +197,37 @@ def test_has_qualifying_offence_section() -> None:
     assert not validate.has_qualifying_offence_section([])
 
 
+def test_withhold_unsourced_accused_names() -> None:
+    """An accused name stands only with court name + a case anchor; else it is withheld."""
+    named = {
+        "label": "Accused #1",
+        "name_public_court_record": "A. Realname",
+        "status": "CONVICTED",
+    }
+    corroborated = {"court": {"name": "Delhi HC"}, "cnr": "C-1", "accused": [dict(named)]}
+    kept = validate.withhold_unsourced_accused_names(corroborated)
+    assert kept["accused"][0]["name_public_court_record"] == "A. Realname"
+
+    # Court name present but no case anchor -> withheld.
+    no_anchor = {"court": {"name": "Delhi HC"}, "accused": [dict(named)]}
+    assert (
+        validate.withhold_unsourced_accused_names(no_anchor)["accused"][0][
+            "name_public_court_record"
+        ]
+        is None
+    )
+
+    # No court context at all (e.g. a media / bare-index record) -> withheld.
+    media = {"fir_ref": {}, "accused": [dict(named)]}
+    assert (
+        validate.withhold_unsourced_accused_names(media)["accused"][0]["name_public_court_record"]
+        is None
+    )
+
+    # No accused list -> record returned unchanged.
+    assert validate.withhold_unsourced_accused_names({"state": "TG"}) == {"state": "TG"}
+
+
 def test_project_to_schema_drops_unknown_keys() -> None:
     schema = validate.load_schema()
     dirty = {
