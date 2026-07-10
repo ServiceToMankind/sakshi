@@ -22,8 +22,22 @@ __all__ = [
 ]
 
 # Publishers treated as official/court authorities (case-insensitive substring).
+# NOTE: "indian kanoon" is deliberately NOT here — it is a MIRROR, not an authority.
+# A record from Indian Kanoon is court-grade only when its underlying docsource is an
+# actual court (the IndianKanoonSource sets the publisher to that court name); an
+# IK-indexed news item stays media-grade. The court markers below cover DL + TG
+# High Courts, district and sessions courts.
 OFFICIAL_PUBLISHERS: Final[frozenset[str]] = frozenset(
-    {"ecourts", "njdg", "high court", "supreme court", "indian kanoon", "district court"}
+    {
+        "ecourts",
+        "njdg",
+        "high court",
+        "supreme court",
+        "district court",
+        "sessions court",
+        "sessions judge",
+        "tribunal",
+    }
 )
 
 # The closed set of provenance classes (mirrors case.schema.json sources.source_type).

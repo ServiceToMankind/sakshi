@@ -40,6 +40,10 @@ REVIEW_QUEUE_ISSUE_THRESHOLD: Final[int] = 20
 # publish threshold so it auto-quarantines for human confirmation (issue #7): a
 # mutable, URL-decaying live-updates page is not enough to make a permanent claim.
 LIVE_BLOG_CONFIDENCE_CAP: Final[float] = 0.79
+# Indian Kanoon bills PER DOCUMENT, so a per-run fetch budget is the cost control
+# (the shared PoliteClient additionally honours 2s/host + 429 Retry-After). Keep
+# conservative; raise only with an eye on the bill.
+IK_MAX_DOCS_PER_RUN: Final[int] = 100
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 # Per-document Gemini retries (fail fast, then skip the doc) and a circuit breaker
 # so sustained provider errors (503 overload) abort extraction instead of hanging.

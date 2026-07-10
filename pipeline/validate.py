@@ -38,7 +38,32 @@ __all__ = [
     "project_to_schema",
     "validate_all_shards",
     "validate_record",
+    "withhold_unsourced_accused_names",
 ]
+
+
+def withhold_unsourced_accused_names(record: dict[str, Any]) -> dict[str, Any]:
+    """Null accused[].name_public_court_record unless the record is court-corroborated.
+
+    An accused name publishes ONLY when the record carries BOTH a court name and a
+    case anchor (CNR or FIR number) — the marks of an actual judgment/order, not a
+    media item or a bare index entry (e.g. an Indian Kanoon news hit). Otherwise the
+    name is withheld, per the presumption of innocence and the accused-name policy.
+    Deterministic; independent of what the model returned.
+    """
+    accused = record.get("accused")
+    if not isinstance(accused, list) or not accused:
+        return record
+    court_name = (record.get("court") or {}).get("name")
+    case_anchor = record.get("cnr") or (record.get("fir_ref") or {}).get("number")
+    if court_name and case_anchor:
+        return record  # corroborated: names may stand
+    guarded = dict(record)
+    guarded["accused"] = [
+        {**a, "name_public_court_record": None} if isinstance(a, dict) else a for a in accused
+    ]
+    return guarded
+
 
 # Qualifying sexual-offence statutes. A record's cited offence_sections must
 # reference at least one of these for it to be in scope; otherwise it is

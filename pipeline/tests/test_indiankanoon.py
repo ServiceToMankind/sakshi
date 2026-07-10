@@ -57,16 +57,22 @@ def test_render_doc_text_omits_empty_fields() -> None:
     assert "Title: T" in text and "Court: Delhi HC" in text and "Excerpt" not in text
 
 
-def test_parse_search_response_builds_doc_urls_and_skips_untitled() -> None:
-    docs = parse_search_response(_SEARCH_JSON, "Indian Kanoon", "2026-07-10")
+def test_parse_search_response_uses_docsource_as_publisher() -> None:
+    docs = parse_search_response(_SEARCH_JSON, "2026-07-10")
     assert len(docs) == 1  # the tid-less hit is dropped
     assert docs[0].url == "https://indiankanoon.org/doc/12345/"
-    assert docs[0].publisher == "Indian Kanoon"
-    assert "Delhi High Court" in docs[0].text
+    # The docsource (the court) becomes the publisher -> classifies as court-grade.
+    assert docs[0].publisher == "Delhi High Court"
+
+
+def test_parse_search_response_missing_docsource_falls_back_to_media_grade() -> None:
+    payload = json.dumps({"docs": [{"tid": 7, "title": "X", "headline": "y"}]})
+    docs = parse_search_response(payload, "2026-07-10")
+    assert docs[0].publisher == "Indian Kanoon"  # no docsource -> media-grade fallback
 
 
 def test_parse_search_response_malformed_is_empty() -> None:
-    assert parse_search_response("{bad", "Indian Kanoon", "2026-07-10") == []
+    assert parse_search_response("{bad", "2026-07-10") == []
 
 
 def test_fetch_without_token_yields_nothing(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -98,3 +104,20 @@ def test_fetch_skips_non_200() -> None:
         poster, queries=("rape doctypes:delhi",), fetched_at="2026-07-10", token="t"
     )
     assert _run(source.fetch()) == []
+
+
+def test_fetch_respects_per_run_doc_budget(monkeypatch: pytest.MonkeyPatch) -> None:
+    """The per-document billing budget caps how many docs a run collects."""
+    from pipeline import config
+
+    monkeypatch.setattr(config, "IK_MAX_DOCS_PER_RUN", 1)
+    poster = _FakePoster(_SEARCH_JSON)  # 1 usable doc per query
+    source = IndianKanoonSource(
+        poster,
+        queries=("q1", "q2", "q3"),
+        fetched_at="2026-07-10",
+        token="t",
+    )
+    docs = _run(source.fetch())
+    assert len(docs) == 1  # budget of 1 -> stops after the first query's doc
+    assert len(poster.calls) == 1  # never queried again once the budget was met

@@ -22,6 +22,7 @@ import json
 import os
 from datetime import date
 
+from pipeline import config
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import HttpPoster
 
@@ -33,6 +34,16 @@ _SEARCH_URL = "https://api.indiankanoon.org/search/"
 def _api_token() -> str | None:
     token = os.environ.get("INDIANKANOON_API_TOKEN", "").strip()
     return token or None
+
+
+def _doc_publisher(docsource: str, fallback: str) -> str:
+    """The docsource IS the provenance authority.
+
+    A judgment's docsource is its court (e.g. "Delhi High Court"), which downstream
+    classifies as source_type=court; anything else (an indexed news item, or a
+    missing docsource) stays media-grade so accused names are withheld.
+    """
+    return docsource.strip() or fallback
 
 
 def render_doc_text(doc: dict[str, object]) -> str:
@@ -51,11 +62,15 @@ def render_doc_text(doc: dict[str, object]) -> str:
     return ". ".join(parts)
 
 
-def parse_search_response(payload: str, publisher: str, fetched_at: str) -> list[RawDocument]:
+def parse_search_response(
+    payload: str, fetched_at: str, *, fallback_publisher: str = "Indian Kanoon"
+) -> list[RawDocument]:
     """Parse an Indian Kanoon ``/search/`` JSON payload into RawDocuments.
 
-    Expects an object with a ``"docs"`` list (each with ``tid`` + metadata).
-    Malformed JSON, or a hit without an id, is skipped rather than raising.
+    Expects an object with a ``"docs"`` list (each with ``tid`` + metadata). Each
+    document's publisher is its ``docsource`` (the court), so a judgment classifies
+    as court-grade and an indexed news item stays media-grade. Malformed JSON, or a
+    hit without an id, is skipped rather than raising.
     """
     try:
         data = json.loads(payload)
@@ -74,7 +89,7 @@ def parse_search_response(payload: str, publisher: str, fetched_at: str) -> list
         docs.append(
             RawDocument(
                 url=f"https://indiankanoon.org/doc/{tid}/",
-                publisher=publisher,
+                publisher=_doc_publisher(str(hit.get("docsource", "")), fallback_publisher),
                 fetched_at=fetched_at,
                 text=text,
             )
@@ -101,16 +116,26 @@ class IndianKanoonSource:
         self._token = token if token is not None else _api_token()
 
     async def fetch(self) -> list[RawDocument]:
-        """Query each configured search string. No token => fetch nothing (safe)."""
+        """Query each search string, capped at the per-run doc budget (cost control).
+
+        No token => fetch nothing (safe). Indian Kanoon bills per document, so the
+        run stops once ``config.IK_MAX_DOCS_PER_RUN`` documents are collected.
+        """
         if not self._token:
             return []
         headers = {"Authorization": f"Token {self._token}"}
         docs: list[RawDocument] = []
         for query in self._queries:
+            if len(docs) >= config.IK_MAX_DOCS_PER_RUN:
+                break
             response = await self._client.post(
                 _SEARCH_URL, data={"formInput": query, "pagenum": "0"}, headers=headers
             )
             if response is None or response.status_code != 200:
                 continue
-            docs.extend(parse_search_response(response.text, self._publisher, self._fetched_at))
-        return docs
+            docs.extend(
+                parse_search_response(
+                    response.text, self._fetched_at, fallback_publisher=self._publisher
+                )
+            )
+        return docs[: config.IK_MAX_DOCS_PER_RUN]
