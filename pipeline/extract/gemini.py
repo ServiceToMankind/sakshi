@@ -72,6 +72,7 @@ class ExtractionResult:
     output_tokens: int = 0
     documents: int = 0
     truncated: bool = False
+    truncated_reason: str | None = None  # "token_cap" | "time_budget" when truncated
     failed: int = 0
     aborted: bool = False
     failovers: int = 0
@@ -149,6 +150,8 @@ def _run_model(
     result: ExtractionResult,
     *,
     cap: int,
+    deadline: float,
+    clock: Callable[[], float],
     schema_text: str,
     sleep: Callable[[float], None],
     jitter: Callable[[], float],
@@ -156,13 +159,21 @@ def _run_model(
     """Run one model over ``docs``, mutating ``result``.
 
     Returns the documents still unprocessed. That is ``[]`` when the queue drains
-    (or the token cap is hit); when the provider circuit-breaks, it is the slice
-    AFTER the break so the caller can fail over to the next model.
+    (or a hard limit — token cap or wall-clock budget — is hit); when the provider
+    circuit-breaks, it is the slice AFTER the break so the caller can fail over to
+    the next model.
     """
     consecutive_failures = 0
     for i, doc in enumerate(docs):
         if result.input_tokens + result.output_tokens >= cap:
             result.truncated = True
+            result.truncated_reason = "token_cap"
+            return []
+        if clock() >= deadline:
+            # Out of wall-clock budget: stop issuing calls on every model and
+            # stage what we have. A time-out is global, not a per-model failure.
+            result.truncated = True
+            result.truncated_reason = "time_budget"
             return []
         try:
             response = _call_with_backoff(
@@ -196,16 +207,20 @@ def extract(
     client: ExtractionClient | None = None,
     clients: list[ExtractionClient] | None = None,
     token_cap: int | None = None,
+    budget_s: float | None = None,
     sleep: Callable[[float], None] = time.sleep,
     jitter: Callable[[], float] | None = None,
+    clock: Callable[[], float] = time.monotonic,
     cost_log_path: Path | None = None,
 ) -> ExtractionResult:
     """Extract pre-sanitize candidates from already-public documents.
 
-    Uses an ordered model fallback chain (:func:`pipeline.config.gemini_models`):
+    Bounded three ways so an unattended run always finishes inside its job window:
+    a token cap, a hard wall-clock budget (:data:`config.EXTRACT_WALLCLOCK_BUDGET_S`),
+    and an ordered model fallback chain (:func:`pipeline.config.gemini_models`) —
     if one model circuit-breaks under sustained provider failure, extraction fails
-    over to the next model for the remaining documents before giving up. Returns
-    an :class:`ExtractionResult`; callers MUST still run each record through
+    over to the next for the remaining documents before giving up. Returns an
+    :class:`ExtractionResult`; callers MUST still run each record through
     :func:`pipeline.sanitize.sanitize_record` before anything touches disk.
     """
     result = ExtractionResult(documents=len(docs))
@@ -214,6 +229,8 @@ def extract(
 
     chain = _resolve_clients(client, clients)
     cap = token_cap if token_cap is not None else config.daily_token_cap()
+    budget = budget_s if budget_s is not None else config.EXTRACT_WALLCLOCK_BUDGET_S
+    deadline = clock() + budget
     jitter_fn = jitter if jitter is not None else (lambda: random.uniform(0.0, 0.5))
     schema_text = _load_schema_text()
 
@@ -225,6 +242,8 @@ def extract(
                 remaining,
                 result,
                 cap=cap,
+                deadline=deadline,
+                clock=clock,
                 schema_text=schema_text,
                 sleep=sleep,
                 jitter=jitter_fn,
@@ -257,6 +276,7 @@ def _write_cost_log(result: ExtractionResult, path: Path) -> None:
         "failed": result.failed,
         "failovers": result.failovers,
         "truncated": result.truncated,
+        "truncated_reason": result.truncated_reason,
         "aborted": result.aborted,
     }
     path.write_text(json.dumps(entry, indent=2), encoding="utf-8")
@@ -286,8 +306,8 @@ def _default_client(model_id: str) -> ExtractionClient:  # pragma: no cover - li
             response = model.generate_content(
                 prompt,
                 request_options={
-                    "timeout": config.REQUEST_TIMEOUT_S,
-                    "retry": g_retry.Retry(deadline=config.REQUEST_TIMEOUT_S),
+                    "timeout": config.EXTRACT_CALL_TIMEOUT_S,
+                    "retry": g_retry.Retry(deadline=config.EXTRACT_CALL_TIMEOUT_S),
                 },
             )
             usage = getattr(response, "usage_metadata", None)

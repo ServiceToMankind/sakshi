@@ -41,6 +41,17 @@ DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 # so sustained provider errors (503 overload) abort extraction instead of hanging.
 EXTRACT_MAX_RETRIES: Final[int] = 2
 EXTRACT_MAX_CONSECUTIVE_FAILURES: Final[int] = 5
+# Per Gemini call: a tight timeout AND a matching SDK retry deadline, so one flaky
+# document cannot stack a 30s SDK retry on top of our retries into ~90s of dead
+# wall time. Separate from REQUEST_TIMEOUT_S (which bounds source fetches).
+EXTRACT_CALL_TIMEOUT_S: Final[float] = 20.0
+# Hard wall-clock ceiling on a single extraction pass. Once exceeded, no new call
+# is issued and the run stages whatever it already has (truncated). This
+# GUARANTEES the job finishes inside its runner timeout even when the provider is
+# intermittently slow and per-call retries stack up — the failure mode that,
+# unbounded, silently burned the whole 60-min scrape job. Sized to leave headroom
+# under that job for fetch + staging + commit.
+EXTRACT_WALLCLOCK_BUDGET_S: Final[float] = 2400.0  # 40 minutes
 
 # --- Gemini model chain + cost estimation ------------------------------------
 # PINNED model ids, NOT a `-latest` alias. An alias silently repoints to whatever
