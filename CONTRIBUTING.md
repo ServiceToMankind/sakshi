@@ -104,6 +104,31 @@ pipeline. CI enforces all of this on every PR.
 
 ---
 
+## Operations — repo secrets & the scrape job
+
+The scheduled scrape (`.github/workflows/scrape.yml`) reads these **repository
+secrets**. Each is optional; the job degrades safely when one is absent.
+
+| Secret | Purpose | Scope | Owner | Expiry |
+|---|---|---|---|---|
+| `GEMINI_API_KEY` | Extraction (Gemini over already-public text). | Gemini API only. | Maintainers (org). | Rotate on suspicion; no fixed expiry. |
+| `SCRAPE_BOT_TOKEN` | Push `data-staging` + open/update the review PR **as a real actor** so the PR's CI runs automatically. | A fine-grained PAT (or GitHub App token) with **Contents: read/write** + **Pull requests: read/write** on this repo only. Nothing else. | A maintainer or a dedicated `sakshi-bot` machine account. | ≤90 days; rotate before expiry and update the secret. |
+| `INDIANKANOON_API_TOKEN` | Enable the Indian Kanoon court-record source. | Indian Kanoon API only (paid; accept their ToS first). | Maintainer who accepted the ToS. | Per Indian Kanoon; rotate on suspicion. |
+
+**Why `SCRAPE_BOT_TOKEN` exists:** a push made with the default `GITHUB_TOKEN`
+cannot trigger another workflow (GitHub's recursion guard), so the staged-review
+PR's checks park as *"Action required"* and must be approved by hand every run.
+Pushing/opening the PR with a real-actor token makes that CI run automatically.
+Until the secret is set, the workflow falls back to `GITHUB_TOKEN` and a maintainer
+approves the staged PR's CI manually.
+
+**Merge discipline for data PRs:** once `SCRAPE_BOT_TOKEN` is set and staged-PR CI
+runs on its own, **data-review PRs merge only through the normal reviewed path**
+(required checks green + human review). Admin bypass is for emergencies only and
+every use must be noted in the PR.
+
+---
+
 ## 2. The data lifecycle
 
 Data flows in one direction, from public sources to published shards. Every
