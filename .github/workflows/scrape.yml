@@ -59,6 +59,15 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
+        with:
+          # Persist SCRAPE_BOT_TOKEN (a PAT / GitHub App token) as the git credential
+          # so the push to data-staging is attributed to a real actor and the
+          # staged-review PR's CI runs automatically. A push made with the default
+          # GITHUB_TOKEN cannot trigger another workflow (GitHub's recursion guard),
+          # which is why that PR's checks otherwise park as "Action required".
+          # Falls back to GITHUB_TOKEN until the secret is provisioned (current
+          # behaviour: CI needs one manual approval per staged run).
+          token: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v6
@@ -108,7 +117,7 @@ jobs:
       - name: Stage data for review
         if: success() && env.DRY_RUN != 'true' && env.LAUNCH_MODE != 'auto'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           git config user.name  "sakshi-bot"
           git config user.email "actions@users.noreply.github.com"
