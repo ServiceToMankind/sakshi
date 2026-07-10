@@ -37,12 +37,19 @@ __all__ = ["ExtractionClient", "ExtractionResponse", "ExtractionResult", "build_
 _SCHEMA_PATH = config.SCHEMA_DIR / "extraction.schema.json"
 
 _PROMPT_TEMPLATE = """You extract structured facts from a single piece of ALREADY-PUBLIC \
-Indian court-record or news text about a reported sexual-offence case.
+Indian court-record or news text about a reported SEXUAL-offence case.
 
 Hard rules:
 - Do NOT invent, infer, or embellish. Only report what the text states.
 - "victim" MUST be null. Never output any victim, survivor, complainant, address,
   family, school, workplace, photo, phone, email, or age (beyond minor true/false).
+- SCOPE — sexual offences ONLY: this record covers rape, POCSO, sexual assault,
+  sexual harassment, acid attack, stalking, voyeurism, and disrobing (BNS Chapter V
+  sections 63-79 / POCSO / IPC 354, 375-377, 509). The "other" category means
+  "other SEXUAL offence" ONLY, NEVER a non-sexual crime. Set "in_scope": true ONLY
+  when the text describes a sexual offence, and justify it with offence_sections.
+  If the case has no sexual component (e.g. cheque bounce, theft, murder, fraud,
+  defamation), set "in_scope": false — do NOT force it into a category.
 - If the text is not about a specific reported case, output {{"category": null}}.
 - Output ONLY a single JSON object matching this schema (no prose, no code fences):
 
@@ -77,6 +84,7 @@ class ExtractionResult:
     failed: int = 0
     aborted: bool = False
     failovers: int = 0
+    rejected_out_of_scope: int = 0
 
     @property
     def estimated_usd(self) -> float:
@@ -209,8 +217,15 @@ def _run_model(
         result.input_tokens += response.input_tokens
         result.output_tokens += response.output_tokens
         record = _parse(response.text, doc)
-        if record is not None:
-            result.records.append(record)
+        if record is None:
+            continue
+        # Layer (a) scope gate: the model must affirm a SEXUAL offence via in_scope.
+        # A non-sexual case (cheque bounce, theft, ...) is dropped pre-sanitize, not
+        # forced into a category. Missing/false => rejected (fail-safe).
+        if record.pop("in_scope", False) is not True:
+            result.rejected_out_of_scope += 1
+            continue
+        result.records.append(record)
     return []
 
 
@@ -288,6 +303,7 @@ def _write_cost_log(result: ExtractionResult, path: Path) -> None:
         "records": len(result.records),
         "failed": result.failed,
         "failovers": result.failovers,
+        "rejected_out_of_scope": result.rejected_out_of_scope,
         "truncated": result.truncated,
         "truncated_reason": result.truncated_reason,
         "aborted": result.aborted,

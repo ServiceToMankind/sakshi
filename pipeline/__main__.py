@@ -50,6 +50,7 @@ class RunReport:
     published: int = 0
     fetched: int = 0
     extracted: int = 0
+    rejected_out_of_scope: int = 0
     estimated_usd: float = 0.0
     scope: str = ""
     state_counts: dict[str, int] = field(default_factory=dict)
@@ -158,6 +159,7 @@ def _render_report(report: RunReport, run_date: str) -> str:
         "| metric | value |\n|---|---|\n"
         f"| Fetched documents | {report.fetched} |\n"
         f"| Extracted candidates | {report.extracted} |\n"
+        f"| Rejected (out of scope) | {report.rejected_out_of_scope} |\n"
         f"| **Published (whole tree)** | {report.published} |\n"
         f"| New this run | {report.new} |\n"
         f"| Updated | {report.updated} |\n"
@@ -177,7 +179,8 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     (logs_dir / "run.log").write_text("\n".join(report.logs) + "\n", encoding="utf-8")
     (logs_dir / "run_summary.env").write_text(
         f"NEW={report.new}\nUPDATED={report.updated}\nREVIEW={report.review}\n"
-        f"PUBLISHED={report.published}\nCOST={report.estimated_usd:.6f}\n",
+        f"PUBLISHED={report.published}\nREJECTED={report.rejected_out_of_scope}\n"
+        f"COST={report.estimated_usd:.6f}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -237,7 +240,10 @@ def run(
         )
         extractions = result.records
         report.estimated_usd = result.estimated_usd
+        report.rejected_out_of_scope = result.rejected_out_of_scope
         detail = f"{result.failed} failed"
+        if result.rejected_out_of_scope:
+            detail += f", {result.rejected_out_of_scope} out-of-scope rejected"
         if result.failovers:
             detail += f", {result.failovers} model failover(s)"
         if result.truncated:
