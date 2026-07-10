@@ -240,6 +240,8 @@ def run(
         detail = f"{result.failed} failed"
         if result.failovers:
             detail += f", {result.failovers} model failover(s)"
+        if result.truncated:
+            detail += f", TRUNCATED ({result.truncated_reason})"
         if result.aborted:
             detail += ", ABORTED (all models exhausted / provider overload)"
         _log(

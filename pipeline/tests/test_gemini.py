@@ -78,8 +78,21 @@ def test_extract_accumulates_tokens_and_writes_cost_log(tmp_path: Path) -> None:
 def test_extract_stops_at_token_cap() -> None:
     client = _FakeClient([_resp(_VALID_JSON), _resp(_VALID_JSON)])
     result = gemini.extract([_DOC, _DOC], client=client, token_cap=100, sleep=lambda _s: None)
-    assert result.truncated is True
+    assert result.truncated is True and result.truncated_reason == "token_cap"
     assert len(result.records) == 1  # second doc never issued
+
+
+def test_extract_stops_at_wallclock_budget() -> None:
+    client = _FakeClient([_resp(_VALID_JSON)] * 5)
+    # clock: call 1 sets the deadline (t=0 + budget 50 = 50); the first doc's
+    # check sees t=0 (proceeds); the second doc's check sees t=100 (>= 50, stop).
+    times = iter([0.0, 0.0, 100.0])
+    result = gemini.extract(
+        [_DOC] * 5, client=client, budget_s=50.0, clock=lambda: next(times), sleep=lambda _s: None
+    )
+    assert result.truncated is True and result.truncated_reason == "time_budget"
+    assert len(result.records) == 1  # only the first doc was issued before the budget ran out
+    assert result.aborted is False  # a time-out is not a provider abort
 
 
 def test_extract_retries_on_error_then_succeeds() -> None:
