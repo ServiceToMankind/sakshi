@@ -115,13 +115,15 @@ signed off.
   outcomes (`published`/`out_of_scope`/`not_a_case`) settle; a quarantined or
   scope-filtered document is never settled and re-surfaces next run. Failing docs
   retry 3 runs, then park as `failed_permanent` with the URL logged for review.
-- **Committed to `main` as operational metadata** (opt-in `LEDGER_TO_MAIN=true`), in
-  a commit separate from any reviewed data, so cross-run coverage accounting works
-  regardless of PR-merge timing. Fenced three independent ways: (a) validated
+- **Persisted on a dedicated unprotected `ledger-state` branch** (restored before
+  each run, persisted after), so cross-run coverage accounting works regardless of
+  PR-merge timing without touching protected `main` (`github-actions[bot]` cannot be
+  granted ruleset bypass — GitHub 422). Fenced three independent ways: (a) validated
   against `schemas/ledger.schema.json` (sha256 keys, outcome enum, ISO dates,
   `additionalProperties:false`) + a no-URL scan; (b) `pii_guard` over `data/_meta/`;
-  (c) the commit uses the Contents API — structurally one path only. Provider errors
-  are now captured per run (`error_samples`) so an abort is diagnosable
+  (c) the Contents API writes exactly one path. A scope-filtered case settles
+  `out_of_window` (terminal for coverage); quarantined docs never settle. Provider
+  errors are captured per run (`error_samples`) so an abort is diagnosable
   (429 RESOURCE_EXHAUSTED vs 503 UNAVAILABLE).
 - **Evidence:** `test_ledger.py`, `test_orchestrator.py` (settled-skip +
   quarantine-re-surface), `test_validate.py::test_validate_ledger_*`. Hardened by a
