@@ -115,9 +115,18 @@ signed off.
   outcomes (`published`/`out_of_scope`/`not_a_case`) settle; a quarantined or
   scope-filtered document is never settled and re-surfaces next run. Failing docs
   retry 3 runs, then park as `failed_permanent` with the URL logged for review.
+- **Committed to `main` as operational metadata** (opt-in `LEDGER_TO_MAIN=true`), in
+  a commit separate from any reviewed data, so cross-run coverage accounting works
+  regardless of PR-merge timing. Fenced three independent ways: (a) validated
+  against `schemas/ledger.schema.json` (sha256 keys, outcome enum, ISO dates,
+  `additionalProperties:false`) + a no-URL scan; (b) `pii_guard` over `data/_meta/`;
+  (c) the commit uses the Contents API — structurally one path only. Provider errors
+  are now captured per run (`error_samples`) so an abort is diagnosable
+  (429 RESOURCE_EXHAUSTED vs 503 UNAVAILABLE).
 - **Evidence:** `test_ledger.py`, `test_orchestrator.py` (settled-skip +
-  quarantine-re-surface). Hardened by a 14-agent adversarial review that caught and
-  fixed three high-severity data-loss paths in the first cut.
+  quarantine-re-surface), `test_validate.py::test_validate_ledger_*`. Hardened by a
+  14-agent adversarial review that caught and fixed three high-severity data-loss
+  paths in the first cut.
 
 ---
 

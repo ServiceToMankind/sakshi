@@ -37,9 +37,52 @@ __all__ = [
     "load_schema",
     "project_to_schema",
     "validate_all_shards",
+    "validate_ledger",
     "validate_record",
     "withhold_unsourced_accused_names",
 ]
+
+_LEDGER_SCHEMA_REL = Path("schemas") / "ledger.schema.json"
+# A string is "URL-shaped" if it looks like a link or a bare domain. The committed
+# ledger must never contain one (only sha256 keys, an outcome enum, and dates).
+_URL_SHAPED_RE = re.compile(r"https?://|www\.|\b[\w-]+\.(?:com|in|org|net|gov|io)\b", re.IGNORECASE)
+
+
+def _iter_strings(value: Any) -> Iterator[str]:
+    """Yield every string (dict keys and all values) within a JSON structure."""
+    if isinstance(value, dict):
+        for key, sub in value.items():
+            yield str(key)
+            yield from _iter_strings(sub)
+    elif isinstance(value, list):
+        for item in value:
+            yield from _iter_strings(item)
+    elif isinstance(value, str):
+        yield value
+
+
+def validate_ledger(path: Path) -> list[str]:
+    """Validate the processed-document ledger: schema shape + no URL-shaped strings.
+
+    The committed ledger (``data/_meta/processed.json``) is operational metadata
+    ONLY. This asserts it against ``schemas/ledger.schema.json`` (sha256 keys, an
+    outcome enum, ISO dates, ``additionalProperties:false``) and, belt-and-suspenders,
+    that no key or value is URL-shaped. Returns error strings (empty = clean).
+    """
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{path}: could not read/parse ledger: {exc}"]
+    schema = json.loads((_REPO_ROOT / _LEDGER_SCHEMA_REL).read_text(encoding="utf-8"))
+    errors = [
+        f"{path}: schema: {e.message}" for e in Draft202012Validator(schema).iter_errors(data)
+    ]
+    errors.extend(
+        f"{path}: URL-shaped string in ledger: {s[:60]!r}"
+        for s in _iter_strings(data)
+        if _URL_SHAPED_RE.search(s)
+    )
+    return errors
 
 
 def withhold_unsourced_accused_names(record: dict[str, Any]) -> dict[str, Any]:
@@ -192,12 +235,29 @@ def _build_parser() -> argparse.ArgumentParser:
         default=_DEFAULT_DATA_DIR,
         help="Data directory to validate (default: ./data).",
     )
+    parser.add_argument(
+        "--ledger",
+        type=Path,
+        default=None,
+        metavar="PATH",
+        help="Validate ONLY the processed-document ledger at PATH (schema + no URLs).",
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     """Run validation. Returns 0 when clean, 1 when any problem is reported."""
     args = _build_parser().parse_args(argv)
+
+    if args.ledger is not None:
+        errors = validate_ledger(args.ledger)
+        if errors:
+            print("Ledger validation FAILED:", file=sys.stderr)
+            for error in errors:
+                print(f"  {error}", file=sys.stderr)
+            return 1
+        print("Ledger validation clean: schema conforms and no URL-shaped strings.")
+        return 0
 
     errors = validate_all_shards(args.data_dir)
     size_error = check_summary_size(args.data_dir / "summary.json")

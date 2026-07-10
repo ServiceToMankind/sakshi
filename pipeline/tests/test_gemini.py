@@ -164,6 +164,14 @@ def test_extract_records_failed_doc_outcome() -> None:
     assert result.doc_outcomes == {"https://x/a": "failed"}
 
 
+def test_extract_captures_provider_error_samples() -> None:
+    """A failing run records the error type so aborts are diagnosable (429 vs 503)."""
+    doc = RawDocument(url="https://x/a", publisher="eCourts", fetched_at="2026-07-09", text="t")
+    client = _FakeClient([RuntimeError("429 RESOURCE_EXHAUSTED: quota")] * 5)
+    result = gemini.extract([doc], client=client, sleep=lambda _s: None, jitter=lambda: 0.0)
+    assert result.error_samples == ["RuntimeError: 429 RESOURCE_EXHAUSTED: quota"]
+
+
 def test_parse_rejects_malformed_and_incomplete() -> None:
     assert gemini._parse("{bad", _DOC) is None
     assert gemini._parse('"a string"', _DOC) is None
