@@ -227,6 +227,35 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
+      # Daily heartbeat: ONE comment per run on the ops-log issue (vars.OPS_ISSUE),
+      # empty runs included. A missing comment on a cron day is itself the alert
+      # (the cron did not fire). Fixed format; no PII (counts + a run URL only).
+      - name: Post ops heartbeat
+        if: always() && env.DRY_RUN != 'true' && vars.OPS_ISSUE != ''
+        env:
+          GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; REJECTED=0; COST=0
+          FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
+          [ -f logs/run_summary.env ] && . logs/run_summary.env
+          LEDGER="$(jq '.documents | length' data/_meta/processed.json 2>/dev/null || echo 0)"
+          STATUS="ok"; ERRS=""
+          if [ -f logs/gemini_cost.json ]; then
+            TRUNC="$(jq -r '.truncated_reason // empty' logs/gemini_cost.json)"
+            [ -n "$TRUNC" ] && STATUS="truncated:$TRUNC"
+            [ "$(jq -r '.aborted' logs/gemini_cost.json)" = "true" ] && STATUS="aborted"
+            ERRS="$(jq -r '(.error_samples // []) | join(" | ")' logs/gemini_cost.json | cut -c1-200)"
+          fi
+          [ "${{ job.status }}" = "failure" ] && STATUS="RUN FAILED"
+          INSCOPE=$((PUBLISHED + REVIEW))
+          URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger **%s** settled\n- extract: %s extracted · %s in-scope · **%s** published · %s quarantined · %s out-of-scope\n- cost: $%s · status: **%s**%s' \
+            "$(date +%F)" "$URL" "${{ github.event_name }}" \
+            "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" \
+            "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$REVIEW" "$REJECTED" \
+            "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
+          gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
+
       - name: Open issue on failure or large review queue
         if: always() && (failure() || fromJSON(steps.counts.outputs.review || '0') > 20)
         env:
