@@ -231,6 +231,8 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     (logs_dir / "run_summary.env").write_text(
         f"NEW={report.new}\nUPDATED={report.updated}\nREVIEW={report.review}\n"
         f"PUBLISHED={report.published}\nREJECTED={report.rejected_out_of_scope}\n"
+        f"FETCHED={report.fetched}\nPROCESSED={report.processed}\n"
+        f"SKIPPED={report.skipped_settled}\nEXTRACTED={report.extracted}\n"
         f"COST={report.estimated_usd:.6f}\n",
         encoding="utf-8",
     )

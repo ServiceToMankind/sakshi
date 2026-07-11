@@ -44,6 +44,9 @@ def test_dry_run_end_to_end(tmp_path: Path) -> None:
 
     env = (tmp_path / "logs" / "run_summary.env").read_text()
     assert "NEW=1" in env and "REVIEW=0" in env
+    # Heartbeat fields present for the ops-log comment.
+    for key in ("FETCHED=", "PROCESSED=", "SKIPPED=", "EXTRACTED=", "COST="):
+        assert key in env
 
 
 def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None:

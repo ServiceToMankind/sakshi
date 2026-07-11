@@ -152,6 +152,21 @@ and an unprotected side-branch avoids needing to.
   from now on under that fixed window). If you later widen the states or lookback,
   **delete the `ledger-state` branch** so those documents are re-examined.
 
+### Daily review procedure (rehearsal + cron period)
+
+Every scrape run posts one **heartbeat** comment to the pinned ops-log issue
+(number in the `OPS_ISSUE` repo variable) — cron and manual, empty or not.
+
+- **Review the heartbeat daily.** It carries date, run link, docs
+  (fetched/processed/skipped-settled/ledger settled), extract counts
+  (extracted/in-scope/published/quarantined/out-of-scope), cost, and status
+  (`ok`/`truncated`/`aborted`/`RUN FAILED`) with any provider `error_samples`.
+  No PII — counts and a run URL only.
+- **A cron day with no comment is itself the alert** — the run did not fire.
+- **Review the data-review PR whenever one exists.** The standing orders (empty
+  days, a publishable record, a guardrail failure, provider aborts) and the
+  launch-eligibility definition live in that pinned issue.
+
 ---
 
 ## 2. The data lifecycle
