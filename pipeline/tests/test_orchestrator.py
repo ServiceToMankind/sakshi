@@ -22,6 +22,17 @@ class _FakeGemini:
         return ExtractionResponse(text=self._payload, input_tokens=100, output_tokens=50)
 
 
+@pytest.fixture(autouse=True)
+def _default_scope(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Real runs are ALWAYS explicitly scoped (the hard scope gate refuses otherwise).
+
+    Default every orchestrator test to all-states, no window so the gate passes and
+    date-less payloads stay in scope; scope-specific tests override LAUNCH_STATES /
+    LAUNCH_LOOKBACK_DAYS via their own monkeypatch, which wins.
+    """
+    monkeypatch.setenv("LAUNCH_STATES", "ALL")
+
+
 def test_dry_run_end_to_end(tmp_path: Path) -> None:
     out = io.StringIO()
     report = orchestrator.run(
@@ -32,6 +43,7 @@ def test_dry_run_end_to_end(tmp_path: Path) -> None:
         out=out,
     )
     assert report.published == 1 and report.new == 1 and report.review == 0
+    assert report.needs_review == 0  # the fixture case is auto-eligible (non-minor)
 
     text = out.getvalue()
     assert "ONE RECORD'S JOURNEY" in text
@@ -170,7 +182,7 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
                 "state": "TG",
                 "district": "TESTVILLE",
                 "status": "FIR_FILED",
-                "minor_involved": True,
+                "minor_involved": False,
                 "cnr": cnr,
                 "in_scope": True,
                 "confidence": 0.9,
@@ -216,7 +228,7 @@ def test_ledger_skips_settled_documents_across_runs(tmp_path: Path) -> None:
             "state": "TG",
             "district": "TESTVILLE",
             "status": "FIR_FILED",
-            "minor_involved": True,
+            "minor_involved": False,
             "cnr": "C-1",
             "in_scope": True,
             "confidence": 0.9,
@@ -610,6 +622,164 @@ def test_staged_enrichment_of_on_main_case_survives_source_rolloff(
     assert len(records[0]["sources"]) == 2  # D1 + D2 both retained
 
 
+def test_minor_is_held_not_published(tmp_path: Path) -> None:
+    """A minor's case passes dedupe but is HELD by the graduated gate — never on site."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/minor",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": True,
+            "cnr": "C-MINOR",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.needs_review == 1
+    assert not (tmp_path / "2026" / "TG.json").exists()  # NOT on the public site
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert queue[0]["record"]["cnr"] == "C-MINOR" and "minor_involved" in queue[0]["reasons"]
+    assert (
+        "minor_involved" not in queue[0]["record"] or queue[0]["record"]["minor_involved"] is True
+    )
+
+
+def test_named_accused_is_held_not_published(tmp_path: Path) -> None:
+    """A court-sourced record naming an accused is held for review (presumption of innocence)."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/named",
+            publisher="Delhi High Court",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "CONVICTED",
+            "minor_involved": False,
+            "cnr": "C-NAMED",
+            "court": {"name": "Delhi High Court"},
+            "in_scope": True,
+            "confidence": 0.95,
+            "accused": [
+                {
+                    "label": "Accused #1",
+                    "name_public_court_record": "A. Person",
+                    "status": "CONVICTED",
+                }
+            ],
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.needs_review == 1
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert "named_accused" in queue[0]["reasons"]
+
+
+def test_needs_review_hold_persists_via_carryover(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A held record whose source rolls off the feed persists in the needs-review queue."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/held",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": True,
+            "cnr": "C-HELD",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    logs = tmp_path / "logs"
+    r1 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r1.needs_review == 1
+    # Archive the staging tree (incl. _needs_review) into STAGED_DIR; the source doc
+    # rolls off the feed (no docs). The hold must persist, not vanish.
+    staged = tmp_path / "staged"
+    (staged / "_needs_review").mkdir(parents=True)
+    (staged / "_needs_review" / "queue.json").write_text(
+        (tmp_path / "_needs_review" / "queue.json").read_text()
+    )
+    monkeypatch.setenv("STAGED_DIR", str(staged))
+    r2 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(payload),
+    )
+    assert r2.needs_review == 1  # carried over, never re-fetched
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert queue[0]["record"]["cnr"] == "C-HELD"
+
+
+def test_run_refuses_when_scope_unconfigured(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A real run with LAUNCH_STATES unset refuses — never silently unscoped."""
+    monkeypatch.delenv("LAUNCH_STATES", raising=False)
+    with pytest.raises(RuntimeError, match="scope unresolved"):
+        orchestrator.run(
+            dry_run=False,
+            data_dir=tmp_path,
+            logs_dir=tmp_path / "logs",
+            run_date="2026-07-09",
+            out=io.StringIO(),
+            docs=[],
+            extract_client=_FakeGemini("{}"),
+        )
+
+
 def test_quarantined_doc_is_not_settled_and_resurfaces(tmp_path: Path) -> None:
     """A doc quarantined to the (ephemeral) review queue must be re-examined next run."""
     doc = [
@@ -725,7 +895,7 @@ def _tg_payload() -> str:
             "state": "TG",
             "district": "TESTVILLE",
             "status": "FIR_FILED",
-            "minor_involved": True,
+            "minor_involved": False,
             "cnr": "C-SCOPE",
             "in_scope": True,
             "confidence": 0.9,
@@ -768,4 +938,4 @@ def test_in_scope_publishes_with_report_stats(
     assert report.state_counts.get("TG") == 1
     assert "eCourts" in report.source_counts
     report_md = (tmp_path / "logs" / "run_report.md").read_text()
-    assert "Data review: 2026-07-10" in report_md and "By state" in report_md
+    assert "Data review: 2026-07-10" in report_md and "Auto-eligible by state" in report_md

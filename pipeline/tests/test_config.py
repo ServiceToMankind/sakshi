@@ -19,6 +19,20 @@ def test_launch_states(monkeypatch: pytest.MonkeyPatch) -> None:
     assert config.launch_states() is None
     monkeypatch.setenv("LAUNCH_STATES", "tg, dl ,")
     assert config.launch_states() == frozenset({"TG", "DL"})
+    # ALL is an explicit "all states" (no filter), case-insensitive.
+    monkeypatch.setenv("LAUNCH_STATES", "all")
+    assert config.launch_states() is None
+
+
+def test_scope_is_configured(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("LAUNCH_STATES", raising=False)
+    assert config.scope_is_configured() is False  # unset -> never silently unscoped
+    monkeypatch.setenv("LAUNCH_STATES", "   ")
+    assert config.scope_is_configured() is False  # blank -> still unresolved
+    monkeypatch.setenv("LAUNCH_STATES", "ALL")
+    assert config.scope_is_configured() is True  # explicit all-states
+    monkeypatch.setenv("LAUNCH_STATES", "TG,DL")
+    assert config.scope_is_configured() is True
 
 
 def test_launch_lookback_days(monkeypatch: pytest.MonkeyPatch) -> None:

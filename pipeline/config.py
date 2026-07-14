@@ -36,6 +36,11 @@ TOP_PENDING_COUNT: Final[int] = 10
 # Records below this confidence are quarantined to data/_review/ (never published).
 CONFIDENCE_REVIEW_THRESHOLD: Final[float] = 0.8
 REVIEW_QUEUE_ISSUE_THRESHOLD: Final[int] = 20
+# Graduated auto-publish gate: a record at/above the review threshold still only
+# AUTO-publishes (no human first) when it also clears this higher bar AND is a
+# non-minor, unnamed-accused, durably-sourced case. The 0.80..0.84 band, minors,
+# named accused, and live-blog-only records are held in the needs-review queue.
+AUTO_PUBLISH_CONFIDENCE: Final[float] = 0.85
 # A record whose ONLY provenance is a rolling live-blog is capped just below the
 # publish threshold so it auto-quarantines for human confirmation (issue #7): a
 # mutable, URL-decaying live-updates page is not enough to make a permanent claim.
@@ -134,10 +139,27 @@ def launch_mode() -> str:
 
 
 def launch_states() -> frozenset[str] | None:
-    """Restrict a run to these 2-letter state codes, or None for all states."""
+    """Restrict a run to these 2-letter state codes, or None for all states.
+
+    The literal ``ALL`` is an EXPLICIT "all states" (no filter) — distinct from an
+    unset variable, which :func:`scope_is_configured` refuses so a run can never be
+    silently unscoped (the cron-without-inputs failure that once ran unscoped).
+    """
     raw = os.environ.get("LAUNCH_STATES", "").strip()
+    if raw.upper() == "ALL":
+        return None
     states = frozenset(s.strip().upper() for s in raw.split(",") if s.strip())
     return states or None
+
+
+def scope_is_configured() -> bool:
+    """True iff the launch scope was EXPLICITLY set — never silently unscoped.
+
+    LAUNCH_STATES must be present, either ``ALL`` (all states, intentional) or a
+    comma list. An empty/absent value means the run was never scoped and MUST refuse
+    to run (a bare cron with no inputs once defaulted to all-states-all-time).
+    """
+    return bool(os.environ.get("LAUNCH_STATES", "").strip())
 
 
 def launch_lookback_days() -> int | None:
