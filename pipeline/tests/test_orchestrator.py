@@ -1248,3 +1248,48 @@ def test_in_scope_publishes_with_report_stats(
     assert "eCourts" in report.source_counts
     report_md = (tmp_path / "logs" / "run_report.md").read_text()
     assert "Data review: 2026-07-10" in report_md and "Auto-eligible by state" in report_md
+
+
+def test_offence_relevant_docs_extracted_first(tmp_path: Path) -> None:
+    """A truncation-bounded run reaches likely-case docs first (relevance ordering)."""
+    docs = [
+        RawDocument(
+            url="https://ex.invalid/weather",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="City weather update: light rain expected.",
+        ),
+        RawDocument(
+            url="https://ex.invalid/traffic",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="Traffic diversions near the metro station.",
+        ),
+        RawDocument(
+            url="https://ex.invalid/case",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A man was arrested on rape charges under BNS 64.",
+        ),
+    ]
+    seen_order: list[str] = []
+
+    class _RecordingGemini:
+        def generate(self, prompt: str) -> ExtractionResponse:
+            # The article body is embedded in the prompt; capture which doc came first.
+            for tag in ("weather", "traffic", "rape charges"):
+                if tag in prompt:
+                    seen_order.append(tag)
+                    break
+            return ExtractionResponse(text="{}", input_tokens=10, output_tokens=5)
+
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=docs,
+        extract_client=_RecordingGemini(),
+    )
+    assert seen_order[0] == "rape charges"  # the likely-case doc is extracted first

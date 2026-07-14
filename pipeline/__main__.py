@@ -99,6 +99,40 @@ def _illustrative_cost(docs: list[RawDocument]) -> float:
     return config.estimate_cost_usd(input_tokens, output_tokens)
 
 
+# Substrings that flag a document as a LIKELY sexual-offence case, used only to
+# ORDER extraction (relevant first) so a truncated run reaches cases before its
+# wall-clock budget runs out. Generous by design — a false positive only reorders,
+# and the extractor's in_scope gate + deterministic offence-section check decide
+# what is actually a case. Not a filter: nothing is dropped from coverage.
+_OFFENCE_HINTS: tuple[str, ...] = (
+    "rape",
+    "gangrape",
+    "gang rape",
+    "sexual",
+    "molest",
+    "pocso",
+    "outrage",
+    "modesty",
+    "stalk",
+    "voyeur",
+    "unnatural offence",
+    "assault",
+    "abuse",
+    "harass",
+    "376",
+    "375",
+    "377",
+    "354",
+    "509",
+)
+
+
+def _looks_offence_relevant(doc: RawDocument) -> bool:
+    """True if a document's text hints at a sexual offence (for extraction ORDERING)."""
+    text = doc.text.lower()
+    return any(hint in text for hint in _OFFENCE_HINTS)
+
+
 def _in_scope(
     record: dict[str, Any], states: frozenset[str] | None, lookback: int | None, run_date: str
 ) -> bool:
@@ -468,6 +502,12 @@ def run(
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
         to_process = [d for d in raw_docs if ledger.should_process(d.url)]
+        # Extract likely sexual-offence documents FIRST. Fetched feeds are mostly
+        # non-crime city news, so a wall-clock-bounded run that truncates would
+        # otherwise spend its whole budget on irrelevant docs and reach no cases. This
+        # only REORDERS (no doc is dropped); the ledger processes the tail on later
+        # runs. A stable sort keeps feed order within each group.
+        to_process.sort(key=lambda d: 0 if _looks_offence_relevant(d) else 1)
         report.processed = len(to_process)
         report.skipped_settled = len(raw_docs) - len(to_process)
         _log(
