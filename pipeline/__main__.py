@@ -134,6 +134,20 @@ def _looks_offence_relevant(doc: RawDocument) -> bool:
     return any(hint in text for hint in _OFFENCE_HINTS)
 
 
+def _drop_null_top_level(record: dict[str, Any]) -> dict[str, Any]:
+    """Drop TOP-LEVEL keys whose value is null.
+
+    The model emits e.g. ``court: null`` for a missing optional object, but the schema
+    allows such optional fields to be ABSENT, not null — so a kept null fails
+    validation and (before this) crashed or quarantined an otherwise-clean record. A
+    required field that is null is also dropped, so it fails the schema's ``required``
+    check and routes to review rather than publishing malformed. Nested nulls (e.g. an
+    accused's withheld ``name_public_court_record``) are preserved — only the top
+    level is pruned.
+    """
+    return {key: value for key, value in record.items() if value is not None}
+
+
 def _in_scope(
     record: dict[str, Any], states: frozenset[str] | None, lookback: int | None, run_date: str
 ) -> bool:
@@ -575,8 +589,10 @@ def run(
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
     case_schema = load_schema()
     sanitized = [
-        withhold_unsourced_accused_names(
-            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+        _drop_null_top_level(
+            withhold_unsourced_accused_names(
+                project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+            )
         )
         for record in in_scope
     ]
