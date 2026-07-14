@@ -69,6 +69,31 @@ def test_existing_id_is_preserved_and_new_serial_continues(tmp_path: Path) -> No
     assert ids == ["SKS-2026-TG-000005", "SKS-2026-TG-000006"]
 
 
+def test_carryover_id_reserves_serial_against_fresh_mint(tmp_path: Path) -> None:
+    # Staging carryover: a record minted in a prior run (id present) is NOT yet on
+    # main (empty data_dir), passed in-memory alongside a brand-new case in the same
+    # (year,state) slot. The new case must NOT re-mint the carried-over serial.
+    write_shards(
+        [_record(cnr="C-1", id="SKS-2026-TG-000001"), _record(cnr="C-2")],
+        tmp_path,
+        run_date="2026-07-09",
+    )
+    ids = sorted(r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text()))
+    assert ids == ["SKS-2026-TG-000001", "SKS-2026-TG-000002"]
+    # Order-independence: the fresh case appearing BEFORE the carried-over id (whose
+    # serial the fresh mint would otherwise claim) must still not collide, because the
+    # pre-scan reserves every retained serial before any mint runs.
+    fresh_dir = tmp_path / "empty_main"
+    result2 = write_shards(
+        [_record(cnr="C-4"), _record(cnr="C-3", id="SKS-2026-TG-000001")],
+        fresh_dir,
+        run_date="2026-07-10",
+    )
+    assert result2.published == 2
+    ids2 = sorted(r["id"] for r in json.loads((fresh_dir / "2026" / "TG.json").read_text()))
+    assert ids2 == ["SKS-2026-TG-000001", "SKS-2026-TG-000002"]
+
+
 def test_summary_contents(tmp_path: Path) -> None:
     write_shards(
         [_record(cnr="C-1", status="UNDER_TRIAL"), _record(cnr="C-2", status="CONVICTED")],

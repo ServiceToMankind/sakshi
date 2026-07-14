@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import os
 import sys
 import tempfile
 from collections import Counter
@@ -30,7 +31,7 @@ from typing import Any, TextIO
 from scripts.pii_guard import iter_json_files, scan_json_file
 
 from pipeline import config, fixtures
-from pipeline.dedupe import dedupe
+from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.sanitize import sanitize_record, sanitize_string
@@ -145,10 +146,33 @@ def _load_existing_published(data_dir: Path) -> list[dict[str, Any]]:
     return records
 
 
+def _record_urls(records: list[dict[str, Any]]) -> set[str]:
+    return {str(s.get("url", "")) for r in records for s in r.get("sources", [])}
+
+
+def _load_staged_carryover() -> list[dict[str, Any]]:
+    """Prior STAGED (not-yet-on-main) records, restored so they persist regardless of
+    re-fetch or re-extraction.
+
+    The scrape workflow archives the data-staging branch's shards into ``STAGED_DIR``
+    before the run; folding them back into dedupe means a force-pushed staging branch
+    can never destroy the only copy — even if the source doc rolled off the feed or
+    its re-extraction failed. Absent ``STAGED_DIR`` (auto mode, tests) => none.
+    """
+    staged_dir = os.environ.get("STAGED_DIR", "").strip()
+    if not staged_dir or not Path(staged_dir).exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for shard in iter_shard_files(Path(staged_dir)):
+        records.extend(json.loads(shard.read_text(encoding="utf-8")))
+    return records
+
+
 def _update_ledger(
     ledger: Ledger,
     doc_outcomes: dict[str, str],
     published: list[dict[str, Any]],
+    existing_urls: set[str],
     review: list[dict[str, Any]],
     run_date: str,
     report: RunReport,
@@ -156,29 +180,45 @@ def _update_ledger(
 ) -> None:
     """Record each processed document's outcome and persist the ledger.
 
-    An ``extracted`` document resolves to one of three fates:
-    - its URL reached a ``published`` record (directly or via source-union) -> settle;
-    - it is quarantined to the review queue -> NOT settled (``continue``), so it
-      re-surfaces every run until a human resolves it ("delay, not loss");
+    An ``extracted`` document resolves to one of four fates:
+    - its URL is among the records ALREADY ON ``main`` (``existing_urls``) -> settle
+      ``published`` (confirmed on disk; a merged review PR, or a landed auto-commit);
+    - it published to THIS run's tree but is NOT yet on main -> ``staged_pending``,
+      NOT settled, so it re-surfaces every run until the record reaches main. This is
+      what stops a force-pushed staging branch from destroying the only copy;
+    - it is quarantined to the review queue -> NOT settled (``continue``), re-surfaces;
     - it was dropped by the launch scope window (state/lookback) -> ``out_of_window``,
       terminal for coverage accounting under the CURRENT window. (Widening
-      LAUNCH_STATES/LOOKBACK later requires deleting data/_meta/processed.json.)
+      LAUNCH_STATES/LOOKBACK later requires deleting the ledger-state branch.)
     ``out_of_scope``/``not_a_case``/``failed`` come straight from extraction.
     """
-    published_urls = {
-        str(source.get("url", "")) for record in published for source in record.get("sources", [])
-    }
+    published_urls = _record_urls(published)
     review_urls = {
         str(source.get("url", ""))
         for item in review
         for source in item["record"].get("sources", [])
     }
     for url, outcome in doc_outcomes.items():
+        # The ledger KEY stays the RAW doc url (injective — no PII-collapse collision).
+        # But records store SANITISED source urls, so membership must be tested in the
+        # sanitised space: a PII-shaped url (a redacted digit run) still matches its own
+        # stored record. Without this, a quarantined review doc whose url is PII-shaped
+        # falls through to out_of_window, settles, and is silently lost (never a shard,
+        # never re-surfaced — the carryover restores year shards only, not _review).
+        canon = sanitize_string(url)
+        # A transient re-extraction FAILURE must never discard a staged record — keep
+        # it pending (its copy persists via staged_carryover) and retry indefinitely.
+        if outcome == "failed" and ledger.is_pending(url):
+            continue
         if outcome == "extracted":
-            if url in published_urls:
-                outcome = "published"
-            elif url in review_urls:
+            if canon in existing_urls:
+                outcome = "published"  # confirmed on main
+            elif canon in published_urls:
+                outcome = "staged_pending"  # staged this run, not yet on main
+            elif canon in review_urls:
                 continue  # quarantined for human review: NOT settled, re-surface
+            elif ledger.is_pending(url):
+                outcome = "staged_pending"  # defense: never downgrade a pending record
             else:
                 outcome = "out_of_window"  # scope-filtered (state/lookback)
         if ledger.record(url, outcome, run_date) == "failed_permanent":
@@ -282,6 +322,9 @@ def run(
 
     ledger: Ledger | None = None
     doc_outcomes: dict[str, str] = {}
+    existing: list[dict[str, Any]] = []
+    existing_urls: set[str] = set()
+    staged_carryover: list[dict[str, Any]] = []
     if dry_run:
         raw_docs = fixtures.fixture_raw_documents()
         extractions = fixtures.fixture_extractions()
@@ -292,6 +335,14 @@ def run(
         # Skip documents already settled in prior runs so the budget goes to the
         # backlog TAIL — turns provider degradation into delay, not lost coverage.
         ledger = load_ledger(data_dir)
+        existing = _load_existing_published(data_dir)  # records already on main (the base)
+        existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
+        # Prior staged records persist even if their source rolled off the feed or
+        # fails re-extraction — so a force-pushed staging branch never loses them.
+        staged_carryover = _load_staged_carryover()
+        # A staged_pending record that has since reached main settles now, so it is
+        # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
+        ledger.confirm_published(existing_urls, run_date)
         to_process = [d for d in raw_docs if ledger.should_process(d.url)]
         report.processed = len(to_process)
         report.skipped_settled = len(raw_docs) - len(to_process)
@@ -303,7 +354,7 @@ def run(
         result = extract(
             to_process, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
         )
-        doc_outcomes = result.doc_outcomes
+        doc_outcomes = dict(result.doc_outcomes)
         extractions = result.records
         report.estimated_usd = result.estimated_usd
         report.rejected_out_of_scope = result.rejected_out_of_scope
@@ -327,11 +378,16 @@ def run(
     report.extracted = len(extractions)
 
     # Bound this run to the configured states + lookback window FIRST, on the raw
-    # extraction. The minor-record projection (in sanitize) truncates
-    # incident_reported_date to a year, which a lookback window could not parse — so
-    # scoping must read the full date before sanitisation. Only state + date (both
-    # non-PII) are read here; nothing is written.
-    in_scope = [r for r in extractions if _in_scope(r, states, lookback, run_date)]
+    # extraction. Only state + date (both non-PII) are read here; nothing is written.
+    # A record already STAGED (pending on the review branch, not yet on main) is kept
+    # in scope regardless — otherwise a rolling lookback / narrowed states could drop
+    # its only copy from the regenerated tree before a human merges it.
+    def _is_staged(record: dict[str, Any]) -> bool:
+        return ledger is not None and any(
+            ledger.is_pending(str(s.get("url", ""))) for s in record.get("sources", [])
+        )
+
+    in_scope = [r for r in extractions if _in_scope(r, states, lookback, run_date) or _is_staged(r)]
     if len(in_scope) != len(extractions):
         _log(report, f"scope: {len(in_scope)}/{len(extractions)} in scope ({report.scope})")
 
@@ -344,20 +400,37 @@ def run(
         for record in in_scope
     ]
 
-    # Fold in already-published records so the run regenerates the whole tree and
-    # new documents merge into existing cases rather than replacing history.
-    existing = _load_existing_published(data_dir)
-    published, review = dedupe(existing + sanitized)
+    # Fold in records already on main AND prior staged records (both loaded above),
+    # so the whole tree regenerates and no staged record is lost by a force-push.
+    # The staging branch is a SUPERSET of main (main + staged). A carryover record
+    # already on main is MERGED into the main copy by id (not dropped): a prior staged
+    # run may have ENRICHED an on-main case — a further-along status, an extra source —
+    # and that update must survive even if its source doc has since rolled off the feed.
+    # Merging by id also collapses each case to ONE input, so on-main records are not
+    # double-fed into dedupe (which would spam the review queue with weak-anchor
+    # self-matches). Carryover cases with a new id (staged-only) are folded in as-is.
+    base_by_id = {str(r.get("id", "")): r for r in existing if r.get("id")}
+    staged_only: list[dict[str, Any]] = []
+    for carried in staged_carryover:
+        cid = str(carried.get("id", ""))
+        if cid and cid in base_by_id:
+            base_by_id[cid] = merge_records(base_by_id[cid], carried)
+        else:
+            staged_only.append(carried)
+    base = list(base_by_id.values()) + [r for r in existing if not r.get("id")]
+    published, review = dedupe(base + staged_only + sanitized)
     _log(report, f"deduped: {len(published)} published, {len(review)} to review")
 
     write_result: WriteResult = write_shards(published, data_dir, run_date=run_date)
     _write_review(review, data_dir, run_date)
 
-    # Update the processed-document ledger (real runs only): a settled document is
-    # not re-extracted; a failing one is retried until its budget is spent, then
-    # parked as failed_permanent with its URL logged once for manual review.
+    # Update the processed-document ledger (real runs only). A record is settled
+    # "published" only once it is on main; until then it is staged_pending and
+    # re-surfaces each run — a force-pushed staging branch can never lose it.
     if ledger is not None:
-        _update_ledger(ledger, doc_outcomes, published, review, run_date, report, data_dir)
+        _update_ledger(
+            ledger, doc_outcomes, published, existing_urls, review, run_date, report, data_dir
+        )
 
     # Independent final assertion over EVERY file just written (shards + review
     # queue). A hit fails the run before any commit — not deferred to post-push CI.

@@ -33,6 +33,27 @@ def test_failed_retries_then_parks_permanent() -> None:
     assert not led.should_process("https://x/a")  # parked, skipped from now on
 
 
+def test_staged_pending_resurfaces_until_confirmed_on_main() -> None:
+    """A staged-but-not-yet-on-main record is NEVER settled — it re-surfaces."""
+    led = Ledger()
+    led.record("https://x/a", "staged_pending", "2026-07-09")
+    assert led.should_process("https://x/a")  # not terminal -> re-processed next run
+    # It stays pending across many runs (the 4-day scenario) with no loss.
+    for _ in range(4):
+        led.record("https://x/a", "staged_pending", "2026-07-10")
+        assert led.should_process("https://x/a")
+    # Once the record reaches main, confirm_published settles it and it stops.
+    assert led.confirm_published({"https://x/a"}, "2026-07-11") == 1
+    assert not led.should_process("https://x/a")
+
+
+def test_confirm_published_ignores_non_pending_and_unknown() -> None:
+    led = Ledger()
+    led.record("https://x/a", "not_a_case", "2026-07-09")  # settled, not pending
+    assert led.confirm_published({"https://x/a", "https://x/unknown"}, "2026-07-10") == 0
+    assert not led.should_process("https://x/a")  # still settled
+
+
 def test_stores_only_hashes_not_urls_or_pii() -> None:
     led = Ledger()
     led.record("https://secret.example/a-17-year-old-victim", "published", "2026-07-09")

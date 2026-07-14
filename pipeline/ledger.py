@@ -11,6 +11,12 @@ dates — never the URL itself, never any PII. It lives under ``data/`` so
 for manual review, not to the committed ledger.
 
 Outcomes:
+  - ``staged_pending`` : the document extracted to a record that was published to
+    THIS run's tree but is not yet confirmed on ``main`` (staged review not merged,
+    or an auto-commit that has not landed). NOT terminal — it re-surfaces every run
+    so a force-pushed staging branch can never destroy the only copy. It settles
+    ``published`` only once the record's URL is seen among the records loaded from
+    ``main`` (i.e. the human merged the review PR, or the auto-commit succeeded).
   - ``published`` / ``out_of_scope`` / ``not_a_case`` : SETTLED — a successful
     extraction call classified the document; re-processing it would only repeat the
     result, so it is skipped from now on.
@@ -54,13 +60,42 @@ class Ledger:
         self._docs: dict[str, dict[str, Any]] = documents or {}
 
     def should_process(self, url: str) -> bool:
-        """True if ``url`` is new, or failed but still within its retry budget."""
+        """True if ``url`` needs (re)processing.
+
+        New docs, ``failed`` docs within their retry budget, and any NON-terminal
+        outcome (notably ``staged_pending`` — extracted but not yet confirmed on
+        main) are re-processed. Only settled outcomes and ``failed_permanent`` skip.
+        """
         entry = self._docs.get(_hash(url))
         if entry is None:
             return True
-        if entry.get("outcome") == "failed":
+        outcome = entry.get("outcome")
+        if outcome in _SETTLED or outcome == "failed_permanent":
+            return False
+        if outcome == "failed":
             return int(entry.get("attempts", 0)) < config.EXTRACT_MAX_DOC_ATTEMPTS
-        return False  # settled or failed_permanent
+        return True  # staged_pending (or any not-yet-terminal state) -> re-surface
+
+    def is_pending(self, url: str) -> bool:
+        """True if ``url`` is currently ``staged_pending`` (published but not on main)."""
+        entry = self._docs.get(_hash(url))
+        return entry is not None and entry.get("outcome") == "staged_pending"
+
+    def confirm_published(self, urls: set[str], run_date: str) -> int:
+        """Promote ``staged_pending`` entries whose URL is now on main to ``published``.
+
+        Called at run start with the URLs of records loaded from main, so a record
+        that reached main (a merged review PR, or a landed auto-commit) settles and
+        stops re-surfacing. Returns how many were promoted.
+        """
+        promoted = 0
+        for url in urls:
+            entry = self._docs.get(_hash(url))
+            if entry is not None and entry.get("outcome") == "staged_pending":
+                entry["outcome"] = "published"
+                entry["last_seen"] = run_date
+                promoted += 1
+        return promoted
 
     def record(self, url: str, outcome: str, run_date: str) -> str:
         """Record ``outcome`` for ``url``. Returns the resulting stored outcome.

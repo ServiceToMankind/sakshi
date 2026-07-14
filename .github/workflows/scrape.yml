@@ -101,6 +101,25 @@ jobs:
             echo "no ledger-state yet; starting fresh."
           fi
 
+      # Restore the PRIOR staged (not-yet-on-main) records from data-staging into a
+      # side dir, so the pipeline folds them back into the tree even if their source
+      # rolled off the feed or fails re-extraction — a force-push can never lose them.
+      # Staged mode only (auto mode commits straight to main).
+      - name: Restore staged carryover from data-staging
+        if: env.DRY_RUN != 'true' && env.LAUNCH_MODE != 'auto'
+        run: |
+          STAGED="${RUNNER_TEMP}/staged"
+          mkdir -p "$STAGED"
+          if git ls-remote --exit-code --heads origin data-staging >/dev/null 2>&1; then
+            git fetch --depth=1 origin data-staging
+            git archive origin/data-staging data/ 2>/dev/null | tar -x -C "$STAGED" 2>/dev/null || true
+            echo "staged carryover: $(find "$STAGED" -name '*.json' 2>/dev/null | wc -l) file(s)"
+          else
+            echo "no data-staging branch yet; no carryover."
+          fi
+          # The pipeline reads STAGED_DIR (its year-dir shards) as carryover records.
+          echo "STAGED_DIR=$STAGED/data" >> "$GITHUB_ENV"
+
       # Fetch -> extract -> sanitize -> project -> scope -> dedupe -> validate &
       # shard -> pii_guard. Writes data/ + logs/run_report.md (the PR body).
       - name: Run pipeline
@@ -238,7 +257,11 @@ jobs:
           NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; REJECTED=0; COST=0
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
-          LEDGER="$(jq '.documents | length' data/_meta/processed.json 2>/dev/null || echo 0)"
+          LG=data/_meta/processed.json
+          LEDGER_TOTAL="$(jq '.documents | length' "$LG" 2>/dev/null || echo 0)"
+          # Only terminal (settled) outcomes count as "settled" — not staged_pending/failed.
+          LEDGER="$(jq '[.documents[]|select(.outcome|IN("published","rejected","out_of_scope","out_of_window","not_a_case"))]|length' "$LG" 2>/dev/null || echo 0)"
+          PENDING="$(jq '[.documents[]|select(.outcome=="staged_pending")]|length' "$LG" 2>/dev/null || echo 0)"
           STATUS="ok"; ERRS=""
           if [ -f logs/gemini_cost.json ]; then
             TRUNC="$(jq -r '.truncated_reason // empty' logs/gemini_cost.json)"
@@ -248,10 +271,11 @@ jobs:
           fi
           [ "${{ job.status }}" = "failure" ] && STATUS="RUN FAILED"
           INSCOPE=$((PUBLISHED + REVIEW))
+          SCOPE="states=${LAUNCH_STATES:-<UNSET!>} · lookback=${LAUNCH_LOOKBACK_DAYS:-<none>}d"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger **%s** settled\n- extract: %s extracted · %s in-scope · **%s** published · %s quarantined · %s out-of-scope\n- cost: $%s · status: **%s**%s' \
-            "$(date +%F)" "$URL" "${{ github.event_name }}" \
-            "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" \
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** published · %s quarantined · %s out-of-scope\n- cost: $%s · status: **%s**%s' \
+            "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
+            "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" "$PENDING" "$LEDGER_TOTAL" \
             "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$REVIEW" "$REJECTED" \
             "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
