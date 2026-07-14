@@ -5,9 +5,65 @@
 > item is not yet met, it says so. Real data ships only after a human merges a
 > staged review PR.
 
-**Status:** supervised / staged. `LAUNCH_MODE=staged`, cron disabled, scope limited
-to **TG + DL, 30-day** lookback. No auto-publish, no schedule, until this review is
-signed off.
+**Status:** supervised / staged. `LAUNCH_MODE=staged`, **daily cron enabled**
+(06:00 IST), scope **ALL states, no incident-age window** (`LAUNCH_STATES=ALL`,
+`LAUNCH_LOOKBACK_DAYS` unset). Graduated auto-publish gate live. Nothing publishes
+without a human merge. Unattended `auto` still blocked pending `SCRAPE_BOT_TOKEN`
+(see §Standing operations).
+
+---
+
+## Launch night — 2026-07-14 (real first run)
+
+The site is **live** at https://sakshi.stmorg.in/ and the pipeline runs end-to-end on
+real data. Guardrail summary of what shipped this session:
+
+- **Record-loss fix (PR #27).** A published record settles `published` only once it is
+  confirmed on `main`; until then it is `staged_pending` and re-surfaces every run, so a
+  force-pushed staging branch can never destroy the only copy. Three adversarial review
+  rounds. Fixed the 4-day loss of 3 records.
+- **Graduated auto-publish gate (PR #28).** A record AUTO-publishes only if non-minor
+  **and** no accused named **and** durably sourced (court/news_article/press_release)
+  **and** confidence ≥ 0.85 **and** no POCSO→non-minor mismatch. Everything else —
+  minors, named accused, live-blog-only, the 0.80–0.84 band — is **held** in
+  `data/_needs_review/queue.json` (never on the public site, carried over so never lost,
+  re-split each run so a court update can promote it). Three adversarial review rounds
+  caught 15+ real defects (incl. a minor's day-precise detail auto-publishing, id-fusion
+  between distinct cases) — all fixed with regression tests. Minor determination fails
+  **closed**: absent/None/POCSO ⇒ treated as minor (projected + held).
+- **Deploy guardrail (PR #28).** The Pages deploy excludes `_needs_review` + `_meta`;
+  held records (incl. named accused) are **not web-reachable** — verified
+  `GET /data/_needs_review/queue.json` → 404.
+- **Scope guard (PR #28).** A run refuses to start unless `LAUNCH_STATES` explicitly
+  resolves (never silently unscoped). The heartbeat shows scope, auto-published, held,
+  and needs-review queue depth (⚠ > 25) every day on ops issue #24.
+
+### First real-run outcome (record-by-record on PR #30)
+Fetched **520** media documents; extracted real sexual-offence cases; **every extracted
+case is a minor** (POCSO/child), so the gate **correctly held all of them** — **0
+auto-published**, 7–9 held for human review. No adult (auto-eligible) case was present in
+the processed window. `pii_guard` + schema validation clean throughout. The public site
+therefore shows 0 individual cases: this is the guardrails working, not a failure —
+minors are never auto-published (POCSO s.23). The held cases await the operator's review
+and promotion in PR #30.
+
+### Known follow-ups
+- **Issue #29** — id reuse via serial-HWM regression (edge case; not triggered by the
+  media-only launch).
+- Age-based review-queue warning (> 7 days) — needs a `first_seen` per held record;
+  depth-based (> 25) already ships.
+- Court sources (eCourts / Indian Kanoon) remain unwired (CAPTCHA / paid token); all
+  current data is media-sourced, so accused names are always withheld.
+
+## Standing operations & enabling unattended auto
+
+The daily cron runs **staged**: it opens/updates the data-review PR; a human merge
+publishes. **Unattended `auto` is blocked because `github-actions[bot]` cannot bypass the
+`main-protection` ruleset** (PR + `Python checks (3.12)` + `Frontend checks` required).
+To enable it: provision an **admin PAT / GitHub-App token as the `SCRAPE_BOT_TOKEN`
+secret** (the workflow already prefers it), then set `LAUNCH_MODE=auto`; the next cron
+will auto-commit ONLY the graduated-gate auto-eligible class and deploy. Until then, the
+staged-PR → human-merge model is the safe standing operation.
 
 ---
 
