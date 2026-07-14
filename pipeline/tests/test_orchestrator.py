@@ -1372,3 +1372,42 @@ def test_schema_invalid_record_routes_to_review_not_crash(tmp_path: Path) -> Non
         for e in json.loads(f.read_text())
     ]
     assert "schema_invalid" in reasons
+
+
+def test_null_court_adult_record_publishes(tmp_path: Path) -> None:
+    """A model-emitted null optional field (court) is dropped, not left to fail the schema."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/car",
+            publisher="The Indian Express",
+            fetched_at="2026-07-14",
+            text="A woman was sexually assaulted; an accused was arrested under IPC 354.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "sexual_assault",
+            "state": "DL",
+            "district": "South West Delhi",
+            "status": "UNKNOWN",
+            "minor_involved": False,
+            "court": None,
+            "cnr": None,
+            "offence_sections": ["IPC 354"],
+            "incident_reported_date": "2026-07-14",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-14",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 1 and report.needs_review == 0 and report.review == 0
+    rec = json.loads((tmp_path / "2026" / "DL.json").read_text())[0]
+    assert "court" not in rec  # null dropped, not kept
