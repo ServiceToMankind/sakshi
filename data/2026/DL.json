@@ -1,0 +1,30 @@
+[
+  {
+    "category": "rape",
+    "confidence": 0.9,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "district": "Delhi",
+    "id": "SKS-2026-DL-000001",
+    "last_verified": "2026-07-14",
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 375",
+      "IPC 354",
+      "IPC 509"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-14",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-high-court-flags-emerging-trend-of-rape-allegations-in-matrimonial-disputes/article71210001.ece"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "The Delhi High Court, with Justice Girish Kathpalia, stayed trial proceedings concerning an FIR. This FIR alleged cruelty, rape, sexual harassment, and criminal intimidation against two brothers-in-law in a matrimonial dispute, with the court noting an 'emerging trend' of such allegations."
+  }
+]

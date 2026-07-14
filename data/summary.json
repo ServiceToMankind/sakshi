@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-10T00:00:00Z",
+  "generated_at": "2026-07-14T00:00:00Z",
   "monthly_trend": [
     {
       "count": 0,
@@ -98,8 +98,12 @@
       "month": "2026-07"
     }
   ],
-  "state_counts": {},
-  "status_counts": {},
+  "state_counts": {
+    "DL": 1
+  },
+  "status_counts": {
+    "UNDER_TRIAL": 1
+  },
   "top_longest_pending": [],
-  "total": 0
+  "total": 1
 }
