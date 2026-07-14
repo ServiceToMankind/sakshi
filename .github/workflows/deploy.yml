@@ -54,11 +54,16 @@ jobs:
 
       # Ship the data shards next to the app so the frontend can fetch
       # data/summary.json, data/index.json, and data/{year}/{STATE}.json.
-      # Exclude the review quarantine — it must never be published.
+      # Exclude EVERY quarantine/hold and operational metadata — these must NEVER be
+      # publicly fetchable: _review (below-threshold), _needs_review (held by the
+      # graduated gate: minors, named accused, live-blog-only), _meta (the ledger).
+      # A held record is not indexed, but an un-excluded file would still be reachable
+      # by URL — that would publish an unproven accused name without human review.
       - name: Copy published data alongside the build
         run: |
           mkdir -p site/dist/data
-          rsync -a --exclude '_review' data/ site/dist/data/
+          rsync -a --exclude '_review' --exclude '_needs_review' --exclude '_meta' \
+            data/ site/dist/data/
 
       # Configure Pages (writes the correct base path into the environment).
       - name: Configure Pages
