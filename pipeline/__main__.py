@@ -302,13 +302,19 @@ def _update_ledger(
         # it pending (its copy persists via staged_carryover) and retry indefinitely.
         if outcome == "failed" and ledger.is_pending(url):
             continue
+        # A doc quarantined/held THIS run must NEVER settle — checked FIRST, before the
+        # published/existing classification. The sanitised URL space is non-injective,
+        # so a review doc whose canon collides with an on-main published record would
+        # otherwise settle "published" and be lost (carryover restores shards + the
+        # held queue, never _review). Erring toward re-surfacing (a rare colliding
+        # published doc merely re-processes) is the safe direction.
+        if outcome == "extracted" and canon in held_urls:
+            continue
         if outcome == "extracted":
             if canon in existing_urls:
                 outcome = "published"  # confirmed on main
             elif canon in published_urls:
                 outcome = "staged_pending"  # staged this run, not yet on main
-            elif canon in held_urls:
-                continue  # quarantined/held for human review: NOT settled, re-surface
             elif ledger.is_pending(url):
                 outcome = "staged_pending"  # defense: never downgrade a pending record
             else:

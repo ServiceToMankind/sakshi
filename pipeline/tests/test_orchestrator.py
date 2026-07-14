@@ -994,6 +994,84 @@ def test_held_record_persists_in_auto_mode_without_staged_dir(
     )
 
 
+def test_review_doc_not_settled_by_collision_with_published(tmp_path: Path) -> None:
+    """A quarantined review doc whose sanitised url collides with an on-main published
+    record must still re-surface, not settle 'published' and vanish."""
+    logs = tmp_path / "logs"
+    # Run 1: publish case A from a PII-shaped url (sanitises to .../[redacted]/).
+    a_doc = [
+        RawDocument(
+            url="https://indiankanoon.org/doc/9876543210/",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="x",
+        )
+    ]
+    a_payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": False,
+            "cnr": "CNR-A",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=a_doc,
+        extract_client=_FakeGemini(a_payload),
+    )
+    # Run 2: a DISTINCT low-confidence case B from a different PII-shaped url that
+    # sanitises to the SAME .../[redacted]/ string -> quarantined to _review.
+    b_doc = [
+        RawDocument(
+            url="https://indiankanoon.org/doc/9123456780/",
+            publisher="The Hindu",
+            fetched_at="2026-07-10",
+            text="x",
+        )
+    ]
+    b_payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "CNR-B",
+            "in_scope": True,
+            "confidence": 0.5,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=b_doc,
+        extract_client=_FakeGemini(b_payload),
+    )
+    # Run 3: B must NOT have been settled by the canon collision — it re-surfaces.
+    r3 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-11",
+        out=io.StringIO(),
+        docs=b_doc,
+        extract_client=_FakeGemini(b_payload),
+    )
+    assert r3.skipped_settled == 0 and r3.review >= 1
+
+
 def test_run_refuses_when_scope_unconfigured(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
