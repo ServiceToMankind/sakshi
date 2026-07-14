@@ -72,6 +72,7 @@ def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None
             "fir_ref": {"station": "TESTVILLE PS", "number": "12/2026"},
             "incident_reported_date": "2026-06-14",
             "offence_sections": ["BNS 64"],
+            "minor_involved": False,
             "in_scope": True,
             "confidence": 0.94,
         }
@@ -781,6 +782,7 @@ def test_pocso_non_minor_is_held_not_published(tmp_path: Path) -> None:
             "status": "UNDER_TRIAL",
             "minor_involved": False,  # model false-negative on a POCSO case
             "offence_sections": ["POCSO 6"],
+            "incident_reported_date": "2026-06-14",
             "cnr": "C-MISMATCH",
             "in_scope": True,
             "confidence": 0.95,
@@ -796,9 +798,12 @@ def test_pocso_non_minor_is_held_not_published(tmp_path: Path) -> None:
         extract_client=_FakeGemini(payload),
     )
     assert report.published == 0 and report.needs_review == 1
-    assert not (tmp_path / "2026" / "TG.json").exists()
-    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
-    assert "pocso_minor_mismatch" in queue[0]["reasons"]
+    assert not (tmp_path / "2026" / "TG.json").exists()  # never on the public site
+    rec = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())[0]["record"]
+    # A POCSO signal forces minor treatment: the record is held AND age-projected, so
+    # no day-precise date reaches even the committed queue (POCSO s.23).
+    assert rec["minor_involved"] is True
+    assert rec["incident_reported_date"] == "2026"
 
 
 def test_non_bool_minor_is_projected_and_held(tmp_path: Path) -> None:
@@ -854,10 +859,13 @@ def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.Monk
             extract_client=_FakeGemini(payload),
         )
 
+    # Run 1: a MEDIA report (news_article) auto-publishes CNR-A as ...000001. Media so
+    # run 2's COURT order becomes dedupe-primary (court beats media) and would DROP the
+    # id but for the id-preserving merge fill — the real fusion path.
     a_doc = [
         RawDocument(
             url="https://ex.invalid/a",
-            publisher="Delhi High Court",
+            publisher="The Hindu",
             fetched_at="2026-07-09",
             text="x",
         )
@@ -870,12 +878,10 @@ def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.Monk
             "status": "UNDER_TRIAL",
             "minor_involved": False,
             "cnr": "CNR-A",
-            "court": {"name": "Delhi High Court"},
             "in_scope": True,
-            "confidence": 0.95,
+            "confidence": 0.90,
         }
     )
-    # Run 1: CNR-A auto-publishes as ...000001.
     _run("2026-07-09", a_doc, a_clean)
     first_id = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
 

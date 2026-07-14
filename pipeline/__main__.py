@@ -33,7 +33,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 from pipeline import config, fixtures
 from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
-from pipeline.gates import auto_publish_eligible
+from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
@@ -154,7 +154,14 @@ def _write_needs_review(items: list[tuple[dict[str, Any], list[str]]], data_dir:
         path.unlink(missing_ok=True)
         return
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = [{"reasons": reasons, "record": sanitize_record(record)} for record, reasons in items]
+    # Coerce minor BEFORE sanitize at this single write choke point, so EVERY held
+    # record — fresh or carried over — is age-projected when its minor status is a
+    # non-bool, absent, or POCSO-implied minor. A carryover held record bypasses the
+    # fresh-extraction coercion, so without this it could keep day-precise detail.
+    payload = [
+        {"reasons": reasons, "record": sanitize_record(_coerce_minor(record))}
+        for record, reasons in items
+    ]
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
@@ -177,17 +184,26 @@ def _record_urls(records: list[dict[str, Any]]) -> set[str]:
 
 
 def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
-    """Normalise ``minor_involved`` to a STRICT bool before the last gate.
+    """Normalise ``minor_involved`` to a STRICT bool before the last gate — fail CLOSED.
 
     The sanitizer's minor projection triggers on ``is True`` (strict identity), the
     graduated gate holds on truthiness, and the dedupe merge coerces with ``or`` —
-    three notions that diverge for a truthy non-bool value (e.g. 1 or "true"). A
-    record whose minor flag is such a value would be HELD by the gate but NOT
-    age-projected, landing day-precise minor detail in the committed queue. Coercing
-    once here, before sanitize, makes all three agree and fail safe.
+    three notions that diverge for a truthy non-bool value (e.g. 1 or "true"). Coercing
+    once here, before sanitize, makes all three agree.
+
+    Two fail-CLOSED rules, because getting "minor" wrong is a POCSO s.23 offence, not a
+    bug: (1) an ABSENT/None flag becomes ``True`` — an unknown minor status is treated
+    as a minor (projected + held), never published as non-minor; (2) any POCSO signal
+    forces ``True`` — POCSO applies only to minors, so a POCSO case the model flagged
+    non-minor is projected and held, not shipped with day-precise detail. Only an
+    explicit, present, falsy, non-POCSO value is treated as non-minor.
     """
     record = dict(record)
-    record["minor_involved"] = bool(record.get("minor_involved"))
+    minor = record.get("minor_involved")
+    if minor is None or has_pocso_signal(record):
+        record["minor_involved"] = True
+    else:
+        record["minor_involved"] = bool(minor)
     return record
 
 
@@ -434,11 +450,14 @@ def run(
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
-        # Held (needs-review) records re-enter too, from the STAGED archive AND the
-        # committed queue on main (data_dir) — the latter is the ONLY carryover path in
-        # auto mode (no STAGED_DIR), without which a held record whose source rolls off
-        # would be dropped when the queue is regenerated.
-        staged_carryover = _load_staged_carryover() + _load_needs_review_queue(data_dir)
+        # Held (needs-review) records re-enter too. In STAGED mode the archive
+        # (_load_staged_carryover, a superset of main) already restores the held queue;
+        # in AUTO mode there is no archive, so the committed queue on main (data_dir) is
+        # the only carryover path. Load exactly ONE source — loading both in staged mode
+        # would double-feed each held record and spam _review with self-matches.
+        staged_carryover = _load_staged_carryover()
+        if not os.environ.get("STAGED_DIR", "").strip():
+            staged_carryover += _load_needs_review_queue(data_dir)
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
