@@ -1293,3 +1293,82 @@ def test_offence_relevant_docs_extracted_first(tmp_path: Path) -> None:
         extract_client=_RecordingGemini(),
     )
     assert seen_order[0] == "rape charges"  # the likely-case doc is extracted first
+
+
+def test_null_date_defaults_to_source_retrieved_and_publishes(tmp_path: Path) -> None:
+    """A record with no model date falls back to the source article date (publishable)."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/nodate",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="An adult woman reported a rape; FIR filed.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-NODATE",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )  # NO incident_reported_date
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 1  # did not crash; published with the fallback date
+    rec = json.loads((tmp_path / "2026" / "DL.json").read_text())[0]
+    assert rec["incident_reported_date"] == "2026-07-09"  # source-retrieved date
+
+
+def test_schema_invalid_record_routes_to_review_not_crash(tmp_path: Path) -> None:
+    """A record that still fails the schema is quarantined, not allowed to abort the run."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/bad",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A case with a malformed status.",
+        )
+    ]
+    # status is not in the allowed enum -> schema-invalid after projection.
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "NOT_A_REAL_STATUS",
+            "minor_involved": False,
+            "cnr": "C-BAD",
+            "incident_reported_date": "2026-07-01",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0  # not crashed
+    assert not (tmp_path / "2026" / "DL.json").exists()
+    reasons = [
+        e["reason"]
+        for f in (tmp_path / "_review").glob("review-*.json")
+        for e in json.loads(f.read_text())
+    ]
+    assert "schema_invalid" in reasons

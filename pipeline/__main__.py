@@ -44,6 +44,7 @@ from pipeline.validate import (
     iter_shard_files,
     load_schema,
     project_to_schema,
+    validate_record,
     withhold_unsourced_accused_names,
 )
 
@@ -541,6 +542,20 @@ def run(
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)
 
+    # A record with no model-extracted date falls back to the date the source was
+    # retrieved — which IS the field's meaning ("date the case was publicly
+    # reported/registered"): for a media item that is its publication date. Without
+    # this a null date fails the schema's required string type and aborts the whole
+    # write. Court records normally carry a real order/FIR date and are untouched.
+    for _record in extractions:
+        if not _record.get("incident_reported_date"):
+            _retrieved = next(
+                (str(s.get("retrieved")) for s in _record.get("sources", []) if s.get("retrieved")),
+                None,
+            )
+            if _retrieved:
+                _record["incident_reported_date"] = _retrieved
+
     # Bound this run to the configured states + lookback window FIRST, on the raw
     # extraction. Only state + date (both non-PII) are read here; nothing is written.
     # A record already STAGED (pending on the review branch, not yet on main) is kept
@@ -565,6 +580,26 @@ def run(
         )
         for record in in_scope
     ]
+    # Route any freshly-extracted record that STILL fails the schema (a required field
+    # the model could not supply, an out-of-enum value) to human review, rather than
+    # letting one malformed record abort the entire write in write_shards. Existing and
+    # carryover records were validated when written, so only fresh records are checked.
+    invalid: list[dict[str, Any]] = []
+    valid_sanitized: list[dict[str, Any]] = []
+    for record in sanitized:
+        # id + last_verified are assigned later (write_shards), so probe with
+        # placeholders to validate every OTHER field (date, status/category enums,
+        # minor date granularity). A record that still fails is quarantined, so one
+        # malformed record can never abort write_shards' validation of the whole batch.
+        probe = {**record, "id": "SKS-2026-XX-000000", "last_verified": run_date}
+        try:
+            validate_record(probe, case_schema)
+        except Exception:  # jsonschema.ValidationError — quarantine, never crash
+            invalid.append(record)
+        else:
+            valid_sanitized.append(record)
+    if invalid:
+        _log(report, f"schema_invalid: {len(invalid)} record(s) routed to review")
 
     # Fold in records already on main AND prior staged records (both loaded above),
     # so the whole tree regenerates and no staged record is lost by a force-push.
@@ -584,7 +619,9 @@ def run(
         else:
             staged_only.append(carried)
     base = list(base_by_id.values()) + [r for r in existing if not r.get("id")]
-    published, review = dedupe(base + staged_only + sanitized)
+    published, review = dedupe(base + staged_only + valid_sanitized)
+    # Schema-invalid records are quarantined alongside dedupe's review queue.
+    review = review + [{"reason": "schema_invalid", "record": r} for r in invalid]
 
     # GRADUATED auto-publish gate: split the published set into what may ship
     # unattended (auto_eligible) and what a human must promote first (needs_review:
