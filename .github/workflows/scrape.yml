@@ -160,8 +160,12 @@ jobs:
       #   (b) pii_guard over data/_meta,
       #   (c) the Contents API writes exactly ONE path, structurally incapable of
       #       touching anything but data/_meta/processed.json.
+      # Ledger persistence is an OPTIMISATION (skip already-settled docs next run), not
+      # data. continue-on-error so a persist hiccup can NEVER block the data staging
+      # below — a missing persist just means the next run re-examines those docs.
       - name: Persist ledger to ledger-state
         if: success() && env.DRY_RUN != 'true'
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
@@ -180,10 +184,16 @@ jobs:
             echo "ledger unchanged."; exit 0
           fi
           SHA="$(gh api "repos/$REPO/contents/$LEDGER?ref=ledger-state" --jq '.sha // empty' 2>/dev/null || true)"
-          gh api -X PUT "repos/$REPO/contents/$LEDGER" \
-            -f message="chore(ledger): update $(date +%F) run ${{ github.run_number }}" \
-            -f content="$(base64 -w0 "$LEDGER")" \
-            -f branch=ledger-state ${SHA:+-f sha="$SHA"} >/dev/null   # (c) one path only
+          # Build the Contents API payload in a FILE. The ledger grows unboundedly, so
+          # passing base64 on the command line hits ARG_MAX ("Argument list too long");
+          # jq --rawfile reads it from a file and --input sends the JSON from a file.
+          base64 -w0 "$LEDGER" > "$RUNNER_TEMP/ledger.b64"
+          jq -n --rawfile c "$RUNNER_TEMP/ledger.b64" \
+            --arg m "chore(ledger): update $(date +%F) run ${{ github.run_number }}" \
+            --arg b ledger-state --arg s "${SHA:-}" \
+            '{message:$m, content:($c|rtrimstr("\n")), branch:$b}
+             + (if $s == "" then {} else {sha:$s} end)' > "$RUNNER_TEMP/ledger_payload.json"
+          gh api -X PUT "repos/$REPO/contents/$LEDGER" --input "$RUNNER_TEMP/ledger_payload.json" >/dev/null
           echo "ledger persisted to ledger-state."
 
       # STAGED: push data/ to a review branch and open/update the PR. No publish.
