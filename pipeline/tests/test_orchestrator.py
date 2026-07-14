@@ -64,7 +64,7 @@ def test_dry_run_end_to_end(tmp_path: Path) -> None:
 def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None:
     payload = json.dumps(
         {
-            "category": "pocso",
+            "category": "rape",
             "state": "TG",
             "district": "TESTVILLE",
             "status": "UNDER_TRIAL",
@@ -178,7 +178,7 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
     def _payload(cnr: str) -> str:
         return json.dumps(
             {
-                "category": "pocso",
+                "category": "rape",
                 "state": "TG",
                 "district": "TESTVILLE",
                 "status": "FIR_FILED",
@@ -224,7 +224,7 @@ def test_ledger_skips_settled_documents_across_runs(tmp_path: Path) -> None:
     ]
     payload = json.dumps(
         {
-            "category": "pocso",
+            "category": "rape",
             "state": "TG",
             "district": "TESTVILLE",
             "status": "FIR_FILED",
@@ -763,6 +763,231 @@ def test_needs_review_hold_persists_via_carryover(
     assert queue[0]["record"]["cnr"] == "C-HELD"
 
 
+def test_pocso_non_minor_is_held_not_published(tmp_path: Path) -> None:
+    """A POCSO case the model flags non-minor is HELD (POCSO implies a minor)."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/pocsomismatch",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": False,  # model false-negative on a POCSO case
+            "offence_sections": ["POCSO 6"],
+            "cnr": "C-MISMATCH",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.needs_review == 1
+    assert not (tmp_path / "2026" / "TG.json").exists()
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert "pocso_minor_mismatch" in queue[0]["reasons"]
+
+
+def test_non_bool_minor_is_projected_and_held(tmp_path: Path) -> None:
+    """A truthy non-bool minor flag is coerced, so it is BOTH held AND age-projected."""
+    doc = [
+        RawDocument(
+            url="https://example.invalid/truthy",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="A TESTVILLE case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": "true",  # truthy non-bool
+            "incident_reported_date": "2026-06-14",
+            "cnr": "C-TRUTHY",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.needs_review == 1
+    rec = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())[0]["record"]
+    assert rec["minor_involved"] is True  # coerced to a strict bool
+    assert rec["incident_reported_date"] == "2026"  # age-projected to year only (POCSO s.23)
+
+
+def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """A published record that becomes held keeps its id reserved — no id is re-minted."""
+    logs = tmp_path / "logs"
+
+    def _run(rd: str, docs: list[RawDocument], payload: str) -> object:
+        return orchestrator.run(
+            dry_run=False,
+            data_dir=tmp_path,
+            logs_dir=logs,
+            run_date=rd,
+            out=io.StringIO(),
+            docs=docs,
+            extract_client=_FakeGemini(payload),
+        )
+
+    a_doc = [
+        RawDocument(
+            url="https://ex.invalid/a",
+            publisher="Delhi High Court",
+            fetched_at="2026-07-09",
+            text="x",
+        )
+    ]
+    a_clean = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": False,
+            "cnr": "CNR-A",
+            "court": {"name": "Delhi High Court"},
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    # Run 1: CNR-A auto-publishes as ...000001.
+    _run("2026-07-09", a_doc, a_clean)
+    first_id = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
+
+    # Run 2: a NEW court order (distinct url, same case) NAMES an accused -> CNR-A
+    # becomes held; archive staging. A distinct url so the ledger does not skip it.
+    a_doc2 = [
+        RawDocument(
+            url="https://ex.invalid/a2",
+            publisher="Delhi High Court",
+            fetched_at="2026-07-10",
+            text="x",
+        )
+    ]
+    a_named = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "CONVICTED",
+            "minor_involved": False,
+            "cnr": "CNR-A",
+            "court": {"name": "Delhi High Court"},
+            "in_scope": True,
+            "confidence": 0.95,
+            "accused": [
+                {"label": "Accused #1", "name_public_court_record": "P", "status": "CONVICTED"}
+            ],
+        }
+    )
+    _run("2026-07-10", a_doc2, a_named)
+    staged = tmp_path / "staged"
+    staged.mkdir()
+    import shutil
+
+    shutil.copytree(tmp_path / "_needs_review", staged / "_needs_review")
+    if (tmp_path / "2026").exists():
+        shutil.copytree(tmp_path / "2026", staged / "2026")
+    monkeypatch.setenv("STAGED_DIR", str(staged))
+
+    # Run 3: an unrelated NEW case must NOT get CNR-A's freed id.
+    c_doc = [
+        RawDocument(
+            url="https://ex.invalid/c", publisher="eCourts", fetched_at="2026-07-11", text="x"
+        )
+    ]
+    c_payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "CNR-C",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    _run("2026-07-11", c_doc, c_payload)
+    c_id = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
+    assert c_id != first_id  # the held record's id was reserved, not fused
+
+
+def test_held_record_persists_in_auto_mode_without_staged_dir(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """In auto mode (no STAGED_DIR) a held record persists via the committed queue."""
+    monkeypatch.delenv("STAGED_DIR", raising=False)
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/held", publisher="eCourts", fetched_at="2026-07-09", text="x"
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": True,
+            "cnr": "C-HELD",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    logs = tmp_path / "logs"
+    r1 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r1.needs_review == 1
+    # Run 2: source rolled off (no docs); the committed queue on data_dir must persist it.
+    r2 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(payload),
+    )
+    assert r2.needs_review == 1
+    assert (
+        json.loads((tmp_path / "_needs_review" / "queue.json").read_text())[0]["record"]["cnr"]
+        == "C-HELD"
+    )
+
+
 def test_run_refuses_when_scope_unconfigured(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -891,7 +1116,7 @@ def test_in_scope_helper() -> None:
 def _tg_payload() -> str:
     return json.dumps(
         {
-            "category": "pocso",
+            "category": "rape",
             "state": "TG",
             "district": "TESTVILLE",
             "status": "FIR_FILED",

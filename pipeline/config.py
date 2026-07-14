@@ -153,13 +153,17 @@ def launch_states() -> frozenset[str] | None:
 
 
 def scope_is_configured() -> bool:
-    """True iff the launch scope was EXPLICITLY set — never silently unscoped.
+    """True iff the launch scope RESOLVES to an explicit selection — never silently
+    unscoped.
 
-    LAUNCH_STATES must be present, either ``ALL`` (all states, intentional) or a
-    comma list. An empty/absent value means the run was never scoped and MUST refuse
-    to run (a bare cron with no inputs once defaulted to all-states-all-time).
+    LAUNCH_STATES must be ``ALL`` (all states, intentional) or resolve to a non-empty
+    state set. A bare truthiness check is NOT enough: a malformed value like ``","`` or
+    ``"  "`` is truthy but ``launch_states()`` parses it to the empty set -> ``None``
+    (all states), which would silently run all-states-all-time. Aligning with the real
+    resolution makes such a value trigger the hard scope gate's refusal instead.
     """
-    return bool(os.environ.get("LAUNCH_STATES", "").strip())
+    raw = os.environ.get("LAUNCH_STATES", "").strip()
+    return raw.upper() == "ALL" or launch_states() is not None
 
 
 def launch_lookback_days() -> int | None:

@@ -176,6 +176,40 @@ def _record_urls(records: list[dict[str, Any]]) -> set[str]:
     return {str(s.get("url", "")) for r in records for s in r.get("sources", [])}
 
 
+def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
+    """Normalise ``minor_involved`` to a STRICT bool before the last gate.
+
+    The sanitizer's minor projection triggers on ``is True`` (strict identity), the
+    graduated gate holds on truthiness, and the dedupe merge coerces with ``or`` —
+    three notions that diverge for a truthy non-bool value (e.g. 1 or "true"). A
+    record whose minor flag is such a value would be HELD by the gate but NOT
+    age-projected, landing day-precise minor detail in the committed queue. Coercing
+    once here, before sanitize, makes all three agree and fail safe.
+    """
+    record = dict(record)
+    record["minor_involved"] = bool(record.get("minor_involved"))
+    return record
+
+
+def _load_needs_review_queue(base_dir: Path) -> list[dict[str, Any]]:
+    """Load HELD records from a committed ``_needs_review/queue.json`` under ``base_dir``.
+
+    Held records must re-enter dedupe every run so they persist and can be promoted —
+    in AUTO mode there is no STAGED_DIR, so the queue on main (``data_dir``) is the
+    only carryover path; without this a held record whose source rolls off the feed
+    would be dropped when the queue is regenerated.
+    """
+    queue = base_dir / NEEDS_REVIEW_RELPATH
+    if not queue.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for item in json.loads(queue.read_text(encoding="utf-8")):
+        record = item.get("record") if isinstance(item, dict) else None
+        if isinstance(record, dict):
+            records.append(record)
+    return records
+
+
 def _load_staged_carryover() -> list[dict[str, Any]]:
     """Prior STAGED (not-yet-on-main) records, restored so they persist regardless of
     re-fetch or re-extraction.
@@ -400,7 +434,11 @@ def run(
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
-        staged_carryover = _load_staged_carryover()
+        # Held (needs-review) records re-enter too, from the STAGED archive AND the
+        # committed queue on main (data_dir) — the latter is the ONLY carryover path in
+        # auto mode (no STAGED_DIR), without which a held record whose source rolls off
+        # would be dropped when the queue is regenerated.
+        staged_carryover = _load_staged_carryover() + _load_needs_review_queue(data_dir)
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
@@ -457,7 +495,9 @@ def run(
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
     case_schema = load_schema()
     sanitized = [
-        withhold_unsourced_accused_names(project_to_schema(sanitize_record(record), case_schema))
+        withhold_unsourced_accused_names(
+            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+        )
         for record in in_scope
     ]
 
@@ -503,7 +543,11 @@ def run(
         f"{len(review)} quarantined",
     )
 
-    write_result: WriteResult = write_shards(auto_eligible, data_dir, run_date=run_date)
+    # Reserve the held records' ids so a fresh auto-eligible mint can never collide
+    # with an off-shard held id and fuse two distinct cases.
+    write_result: WriteResult = write_shards(
+        auto_eligible, data_dir, run_date=run_date, reserve=needs_review_records
+    )
     _write_needs_review(needs_review_items, data_dir)
     _write_review(review, data_dir, run_date)
 

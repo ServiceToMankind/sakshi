@@ -89,6 +89,26 @@ def test_press_release_is_durable() -> None:
     assert ok is True
 
 
+def test_pocso_category_non_minor_is_held() -> None:
+    # POCSO applies only to minors, so a POCSO signal flagged non-minor is suspect.
+    ok, reasons = auto_publish_eligible(_record(category="pocso", minor_involved=False))
+    assert ok is False and "pocso_minor_mismatch" in reasons
+
+
+def test_pocso_offence_section_non_minor_is_held() -> None:
+    ok, reasons = auto_publish_eligible(
+        _record(offence_sections=["BNS 64", "POCSO 6"], minor_involved=False)
+    )
+    assert ok is False and "pocso_minor_mismatch" in reasons
+
+
+def test_non_pocso_non_minor_is_eligible() -> None:
+    ok, reasons = auto_publish_eligible(
+        _record(category="rape", offence_sections=["BNS 64"], minor_involved=False)
+    )
+    assert ok is True and reasons == []
+
+
 def test_multiple_reasons_accumulate() -> None:
     rec = _record(
         minor_involved=True,

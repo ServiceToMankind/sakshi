@@ -29,11 +29,23 @@ from typing import Any
 
 from pipeline import config
 
-__all__ = ["DURABLE_SOURCE_TYPES", "auto_publish_eligible"]
+__all__ = ["DURABLE_SOURCE_TYPES", "auto_publish_eligible", "has_pocso_signal"]
 
 # Provenance classes durable enough to anchor a permanent public claim unattended.
 # (live_blog is intentionally excluded — see module docstring.)
 DURABLE_SOURCE_TYPES = frozenset({"court", "news_article", "press_release"})
+
+
+def has_pocso_signal(record: dict[str, Any]) -> bool:
+    """True if the record's category or any offence section references POCSO.
+
+    POCSO applies ONLY to minors, so a POCSO signal is a deterministic minor
+    indicator independent of the model's ``minor_involved`` boolean — the second
+    layer behind that single, model-supplied flag.
+    """
+    if str(record.get("category", "")).strip().lower() == "pocso":
+        return True
+    return any("POCSO" in str(section).upper() for section in record.get("offence_sections") or [])
 
 
 def auto_publish_eligible(record: dict[str, Any]) -> tuple[bool, list[str]]:
@@ -45,8 +57,16 @@ def auto_publish_eligible(record: dict[str, Any]) -> tuple[bool, list[str]]:
     auto mode it decides what ships to main vs the needs-review queue.
     """
     reasons: list[str] = []
-    if record.get("minor_involved"):
+    minor = bool(record.get("minor_involved"))
+    if minor:
         reasons.append("minor_involved")
+    # POCSO implies a minor. If the case carries a POCSO signal but is flagged
+    # non-minor, the model's minor determination is suspect — HOLD it rather than
+    # auto-publish a possible minor's re-identifying detail (the record is only
+    # age-projected when minor_involved is True, so a false negative would ship
+    # day-precise dates). A human resolves the mismatch.
+    if not minor and has_pocso_signal(record):
+        reasons.append("pocso_minor_mismatch")
     if any(a.get("name_public_court_record") for a in record.get("accused", []) or []):
         reasons.append("named_accused")
     sources = record.get("sources", []) or []

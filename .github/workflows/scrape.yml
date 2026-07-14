@@ -254,9 +254,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
-          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; REJECTED=0; COST=0
+          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; NEEDS_REVIEW=0; REJECTED=0; COST=0
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
+          # Depth of the persistent needs-review (held) queue, straight from the file.
+          QUEUE="$(jq 'length' data/_needs_review/queue.json 2>/dev/null || echo 0)"
           LG=data/_meta/processed.json
           LEDGER_TOTAL="$(jq '.documents | length' "$LG" 2>/dev/null || echo 0)"
           # Only terminal (settled) outcomes count as "settled" — not staged_pending/failed.
@@ -270,13 +272,16 @@ jobs:
             ERRS="$(jq -r '(.error_samples // []) | join(" | ")' logs/gemini_cost.json | cut -c1-200)"
           fi
           [ "${{ job.status }}" = "failure" ] && STATUS="RUN FAILED"
-          INSCOPE=$((PUBLISHED + REVIEW))
+          INSCOPE=$((PUBLISHED + NEEDS_REVIEW + REVIEW))
           SCOPE="states=${LAUNCH_STATES:-<UNSET!>} · lookback=${LAUNCH_LOOKBACK_DAYS:-<none>}d"
+          # Flag a growing human-review backlog (held records awaiting promotion).
+          QNOTE=""; [ "${QUEUE:-0}" -gt 25 ] && QNOTE=" ⚠️ over 25"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** published · %s quarantined · %s out-of-scope\n- cost: $%s · status: **%s**%s' \
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope\n- needs-review queue: **%s**%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
             "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" "$PENDING" "$LEDGER_TOTAL" \
-            "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$REVIEW" "$REJECTED" \
+            "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$NEEDS_REVIEW" "$REVIEW" "$REJECTED" \
+            "$QUEUE" "$QNOTE" \
             "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
 

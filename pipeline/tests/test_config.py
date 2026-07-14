@@ -29,6 +29,12 @@ def test_scope_is_configured(monkeypatch: pytest.MonkeyPatch) -> None:
     assert config.scope_is_configured() is False  # unset -> never silently unscoped
     monkeypatch.setenv("LAUNCH_STATES", "   ")
     assert config.scope_is_configured() is False  # blank -> still unresolved
+    # Malformed comma/whitespace-only values resolve to no states -> must be refused,
+    # not silently treated as all-states.
+    monkeypatch.setenv("LAUNCH_STATES", ",")
+    assert config.scope_is_configured() is False
+    monkeypatch.setenv("LAUNCH_STATES", " , ,")
+    assert config.scope_is_configured() is False
     monkeypatch.setenv("LAUNCH_STATES", "ALL")
     assert config.scope_is_configured() is True  # explicit all-states
     monkeypatch.setenv("LAUNCH_STATES", "TG,DL")
