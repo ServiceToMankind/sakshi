@@ -117,8 +117,11 @@ def _seed_from_carryover(
     key_to_id: dict[str, str],
     max_serial: dict[tuple[str, str], int],
     existing_ids: set[str],
+    *,
+    seed_anchors: bool = True,
 ) -> None:
-    """Reserve serials/anchors for input records that already carry a valid id.
+    """Reserve serials (and, for carryover, anchors) for input records that carry a
+    valid id.
 
     Staged carryover records were minted in a prior run and are NOT yet on main, so
     ``_read_existing`` (which reads the main checkout only) cannot see their serials.
@@ -126,23 +129,41 @@ def _seed_from_carryover(
     serial can never collide with a carried-over id regardless of list order. Without
     this, a new case in the same (year,state) slot as an unmerged staged record mints
     a duplicate serial and ``_assert_unique_ids`` crashes the run.
+
+    ``seed_anchors=False`` (used for the off-shard held/``reserve`` records) reserves
+    only the serial + id, NOT the anchor keys: seeding a held record's anchors would
+    let a DISTINCT new case with a colliding weak anchor (e.g. an empty-district
+    fallback key) reuse that held record's id — the very fusion we are preventing.
     """
     for record in records:
         record_id = record.get("id", "")
         if not _ID_RE.match(record_id):
             continue
         existing_ids.add(record_id)
-        for key in _anchor_keys(record):
-            key_to_id.setdefault(key, record_id)
+        if seed_anchors:
+            for key in _anchor_keys(record):
+                key_to_id.setdefault(key, record_id)
         slot = (record_id[4:8], record_id[9:11])
         max_serial[slot] = max(max_serial.get(slot, 0), int(record_id[12:]))
 
 
 def _assign_ids(
-    records: list[dict[str, Any]], data_dir: Path, run_date: str
+    records: list[dict[str, Any]],
+    data_dir: Path,
+    run_date: str,
+    reserve: list[dict[str, Any]] | None = None,
 ) -> tuple[list[dict[str, Any]], int, int]:
-    """Assign IDs, last_verified, and pending_days. Returns (records, new, updated)."""
+    """Assign IDs, last_verified, and pending_days. Returns (records, new, updated).
+
+    ``reserve`` records are NOT sharded, but their ids/serials/anchors are reserved so
+    a newly minted serial can never collide with one — used to reserve the held
+    (needs-review) records' ids, which live off-shard yet must never be re-minted for a
+    distinct new case (id fusion). Reserve seeding does not affect the new/updated
+    count (only ``records`` are counted).
+    """
     key_to_id, max_serial, existing_ids = _read_existing(data_dir)
+    if reserve:
+        _seed_from_carryover(reserve, key_to_id, max_serial, existing_ids, seed_anchors=False)
     _seed_from_carryover(records, key_to_id, max_serial, existing_ids)
     run_day = date.fromisoformat(run_date)
     new = updated = 0
@@ -267,11 +288,20 @@ def _recent_months(run_date: str, count: int) -> list[str]:
 
 
 def write_shards(
-    records: list[dict[str, Any]], data_dir: Path, *, run_date: str | None = None
+    records: list[dict[str, Any]],
+    data_dir: Path,
+    *,
+    run_date: str | None = None,
+    reserve: list[dict[str, Any]] | None = None,
 ) -> WriteResult:
-    """Write the full ``data/`` tree from ``records`` atomically and idempotently."""
+    """Write the full ``data/`` tree from ``records`` atomically and idempotently.
+
+    ``reserve`` records are not written but their ids/serials are reserved so a minted
+    serial cannot collide with one — pass the held (needs-review) records so their
+    off-shard ids are never re-minted for a distinct new case.
+    """
     run_date = run_date or date.today().isoformat()
-    finalized, new, updated = _assign_ids(records, data_dir, run_date)
+    finalized, new, updated = _assign_ids(records, data_dir, run_date, reserve=reserve)
 
     # --- All gates run BEFORE any file is written. ---
     _assert_unique_ids(finalized)

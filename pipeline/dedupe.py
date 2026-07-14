@@ -294,8 +294,12 @@ def merge_records(a: dict[str, Any], b: dict[str, Any]) -> dict[str, Any]:
     if accused:
         merged["accused"] = accused
 
-    # Fill any anchor/detail the primary lacks from the secondary.
-    for field in ("cnr", "fir_ref", "court", "incident_reported_date", "summary", "category"):
+    # Fill any anchor/detail the primary lacks from the secondary. "id" is included
+    # FIRST and deliberately: when a court doc (no id yet) merges into and becomes
+    # primary over an already-published record (secondary, which carries the canonical
+    # id), the case must KEEP that id — otherwise it is re-minted later and its freed
+    # public serial can be reused for a distinct case (id fusion / reuse).
+    for field in ("id", "cnr", "fir_ref", "court", "incident_reported_date", "summary", "category"):
         if not merged.get(field) and secondary.get(field):
             merged[field] = secondary[field]
 

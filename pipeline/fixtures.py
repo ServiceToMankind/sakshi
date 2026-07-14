@@ -26,9 +26,9 @@ def fixture_raw_documents() -> list[RawDocument]:
             publisher="eCourts",
             fetched_at="2026-07-09",
             text=(
-                "In the Special POCSO Court, TESTVILLE. Case CNR TSHC01-000001-2026, "
-                "arising from FIR 000/2026 registered at TESTVILLE PS. Offences under "
-                "BNS 64 and POCSO 6. Accused #1 present; matter is under trial. "
+                "In the Sessions Court, TESTVILLE. Case CNR TSHC01-000001-2026, "
+                "arising from FIR 000/2026 registered at TESTVILLE PS. Offence under "
+                "BNS 64. Accused #1 present; matter is under trial. "
                 "Next hearing listed for 2026-08-02."
             ),
         ),
@@ -38,7 +38,7 @@ def fixture_raw_documents() -> list[RawDocument]:
             fetched_at="2026-07-09",
             text=(
                 "A case registered at TESTVILLE PS under FIR 000/2026, relating to an "
-                "offence under BNS 64, is under trial at the Special POCSO Court in "
+                "offence under BNS 64, is under trial at the Sessions Court in "
                 "TESTVILLE district."
             ),
         ),
@@ -60,22 +60,23 @@ def fixture_extractions() -> list[dict[str, Any]]:
             "state": "TG",
             "district": "TESTVILLE",
             "incident_reported_date": "2026-06-14",
-            "offence_sections": ["BNS 64", "POCSO 6"],
-            "category": "pocso",
-            "minor_involved": True,
+            "offence_sections": ["BNS 64"],
+            "category": "rape",
+            "minor_involved": False,
             "status": "UNDER_TRIAL",
             "status_history": [{"status": "FIR_FILED", "date": "2026-06-15", "source": 0}],
             "accused": [
                 {"label": "Accused #1", "name_public_court_record": None, "status": "UNDER_TRIAL"}
             ],
-            "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": "2026-08-02"},
+            "court": {"name": "Sessions Court, TESTVILLE", "next_hearing": "2026-08-02"},
             "summary": (
-                "Illustrative synthetic case pending before the Special POCSO Court, TESTVILLE."
+                "Illustrative synthetic case pending before the Sessions Court, TESTVILLE."
             ),
             "sources": [
                 {
                     "url": "https://example.invalid/testville/court/order-1",
                     "publisher": "eCourts",
+                    "source_type": "court",
                     "retrieved": "2026-07-09",
                 }
             ],
@@ -89,21 +90,22 @@ def fixture_extractions() -> list[dict[str, Any]]:
             "district": "TESTVILLE",
             "incident_reported_date": "2026-06-14",
             "offence_sections": ["BNS 64"],
-            "category": "pocso",
-            "minor_involved": True,
+            "category": "rape",
+            "minor_involved": False,
             "status": "FIR_FILED",
             "accused": [
                 {"label": "Accused #1", "name_public_court_record": None, "status": "FIR_FILED"}
             ],
-            "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
+            "court": {"name": "Sessions Court, TESTVILLE", "next_hearing": None},
             "summary": "Synthetic media report of a case under trial in TESTVILLE district.",
             "sources": [
                 {
                     "url": "https://example.invalid/testville/news/report-1",
                     "publisher": "The Example Herald",
+                    "source_type": "news_article",
                     "retrieved": "2026-07-09",
                 }
             ],
-            "confidence": 0.86,
+            "confidence": 0.94,
         },
     ]
