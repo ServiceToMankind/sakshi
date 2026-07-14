@@ -112,11 +112,38 @@ def _read_existing(data_dir: Path) -> tuple[dict[str, str], dict[tuple[str, str]
     return key_to_id, max_serial, all_ids
 
 
+def _seed_from_carryover(
+    records: list[dict[str, Any]],
+    key_to_id: dict[str, str],
+    max_serial: dict[tuple[str, str], int],
+    existing_ids: set[str],
+) -> None:
+    """Reserve serials/anchors for input records that already carry a valid id.
+
+    Staged carryover records were minted in a prior run and are NOT yet on main, so
+    ``_read_existing`` (which reads the main checkout only) cannot see their serials.
+    Pre-scan them here BEFORE the mint loop — order-independently, so a newly minted
+    serial can never collide with a carried-over id regardless of list order. Without
+    this, a new case in the same (year,state) slot as an unmerged staged record mints
+    a duplicate serial and ``_assert_unique_ids`` crashes the run.
+    """
+    for record in records:
+        record_id = record.get("id", "")
+        if not _ID_RE.match(record_id):
+            continue
+        existing_ids.add(record_id)
+        for key in _anchor_keys(record):
+            key_to_id.setdefault(key, record_id)
+        slot = (record_id[4:8], record_id[9:11])
+        max_serial[slot] = max(max_serial.get(slot, 0), int(record_id[12:]))
+
+
 def _assign_ids(
     records: list[dict[str, Any]], data_dir: Path, run_date: str
 ) -> tuple[list[dict[str, Any]], int, int]:
     """Assign IDs, last_verified, and pending_days. Returns (records, new, updated)."""
     key_to_id, max_serial, existing_ids = _read_existing(data_dir)
+    _seed_from_carryover(records, key_to_id, max_serial, existing_ids)
     run_day = date.fromisoformat(run_date)
     new = updated = 0
     finalized: list[dict[str, Any]] = []
