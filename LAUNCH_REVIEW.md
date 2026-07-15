@@ -235,6 +235,27 @@ candidate against its cited source BEFORE publish and stamps `verified`.
     verifier flip — even if its source has rolled off the feed and it cannot be
     re-verified this run (record-loss guardrail). Only genuinely fresh cases face the
     verified-gate.
+  - **Carryover never lost:** the verifier runs only on fresh candidates, so a
+    carried-over held record can never earn `verified`. It is therefore HELD (kept in
+    the review queue), never swept to the `_review` quarantine — only a *purely-fresh*
+    candidate the verifier declines is quarantined. Human approval is honoured in
+    verifier-live mode exactly as in the supervised phase.
+- **Hardened by a 3-lens adversarial review** (PII-leak, record-loss, verifier-logic)
+  which found and fixed: a minor's model-written `verification_note` reaching the shard
+  un-scanned (stripped now; canonical fix tracked in issue #44); the verifier flip
+  sweeping the entire held queue into `_review` (permanent loss); dead approval logic
+  under the verifier; `verified` lost across a dedupe merge; the corroborating source's
+  empty date quarantining verified records; truthy-coerced `verified`; an unbounded
+  per-call cost; and non-http `second_source` URLs. All with regression tests.
+- **OPEN OPERATOR DECISION — require corroboration for unattended publish?** The
+  verifier is designed to attach a grounded second source. Today a *single-source*
+  fresh verified record still auto-publishes (per the "verified + gates → publish"
+  spec). A stronger anti-fabrication / anti-injection posture is to HOLD any fresh
+  verified record with `< 2` independent sources for human review (no record is lost —
+  it just waits). This trades auto-publish reach (nil when grounding is unavailable)
+  for stronger corroboration. Not enforced yet; decide before flipping to auto. The
+  source text is already fenced as untrusted data in the verifier prompt, and non-http
+  corroborating URLs are rejected at ingestion.
 - **Fail-safety & cost:** every error path (unparseable verdict, provider exception,
   missing source text, budget exhausted) leaves a record `verified:false`
   (quarantined) — fail-closed. Runs only on in-scope candidates (a handful/day) under
