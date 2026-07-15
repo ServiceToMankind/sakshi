@@ -5,11 +5,12 @@
 > item is not yet met, it says so. Real data ships only after a human merges a
 > staged review PR.
 
-**Status:** supervised / staged. `LAUNCH_MODE=staged`, **daily cron enabled**
-(06:00 IST), scope **ALL states, no incident-age window** (`LAUNCH_STATES=ALL`,
-`LAUNCH_LOOKBACK_DAYS` unset). Graduated auto-publish gate live. Nothing publishes
-without a human merge. Unattended `auto` still blocked pending `SCRAPE_BOT_TOKEN`
-(see §Standing operations).
+**Status:** 🟢 LIVE with 4 operator-approved records. Supervised / staged:
+`LAUNCH_MODE=staged`, **`PUBLISH_APPROVED_ONLY=true`** (only records on the approval
+allowlist publish), **daily cron enabled** (06:00 IST), scope **ALL states, no
+incident-age window** (`LAUNCH_STATES=ALL`, `LAUNCH_LOOKBACK_DAYS` unset), flash model.
+Nothing publishes without an explicit operator approval. Unattended `auto` still
+blocked pending `SCRAPE_BOT_TOKEN` (see §Standing operations).
 
 ---
 
@@ -38,14 +39,26 @@ real data. Guardrail summary of what shipped this session:
   resolves (never silently unscoped). The heartbeat shows scope, auto-published, held,
   and needs-review queue depth (⚠ > 25) every day on ops issue #24.
 
-### First real-run outcome (record-by-record on PR #30)
-Fetched **520** media documents; extracted real sexual-offence cases; **every extracted
-case is a minor** (POCSO/child), so the gate **correctly held all of them** — **0
-auto-published**, 7–9 held for human review. No adult (auto-eligible) case was present in
-the processed window. `pii_guard` + schema validation clean throughout. The public site
-therefore shows 0 individual cases: this is the guardrails working, not a failure —
-minors are never auto-published (POCSO s.23). The held cases await the operator's review
-and promotion in PR #30.
+### First real records LIVE (2026-07-15)
+Fetched **520** media documents; extracted real sexual-offence cases — the available
+city-media is dominated by **minor/POCSO** cases, which the gate correctly holds
+(minors are never auto-published, POCSO s.23). The operator reviewed the held queue and
+**approved 4 cases** (DL/HR/TG/UP); they are now **live** at https://sakshi.stmorg.in,
+each projected to the non-identifying minimal shape (state/district/**year**/offence/
+status + POCSO template, no name/age/address). `pii_guard` + schema validation clean.
+
+Publication mechanics (this launch):
+- **Approval allowlist** (`data/_needs_review/approved.json`, by raw source URL): a
+  held record whose URL is approved is published, still projected — approval never
+  un-projects. Same-article duplicates are merged only within the approved set.
+- **`PUBLISH_APPROVED_ONLY=true`** (supervised): during the launch, even an
+  auto-publish-eligible (adult) record is HELD unless approved, so nothing reaches the
+  site without an explicit operator approval. A fresh run auto-cleared 3 unreviewed
+  adult cases (one with mismatched sections — a likely misclassification); this flag
+  holds them. Set it `false` to resume normal auto-publish of the safe class.
+- Both went through three adversarial review rounds; the promotion path re-runs the
+  full last gate (coerce-minor → sanitize/project → withhold names) on every promoted
+  record.
 
 ### Known follow-ups
 - **Issue #29** — id reuse via serial-HWM regression (edge case; not triggered by the
