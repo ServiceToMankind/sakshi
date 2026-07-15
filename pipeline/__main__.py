@@ -702,17 +702,20 @@ def run(
     # over so it is never lost). In staged mode both ride the review PR — the labels
     # tell the human which would auto-publish; in auto mode only auto_eligible lands.
     approved = _load_approved(data_dir)
+    approved_only = config.publish_approved_only()
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
     to_promote: list[dict[str, Any]] = []
     for record in published:
         ok, _reasons = auto_publish_eligible(record)
-        if ok:
-            auto_eligible.append(record)
-        elif _is_approved(record, approved):
+        if _is_approved(record, approved):
             to_promote.append(record)
+        elif ok and not approved_only:
+            auto_eligible.append(record)
         else:
-            needs_review_items.append((record, _reasons))
+            # Supervised phase: even an auto-eligible record is held until approved, so
+            # nothing publishes without an explicit operator approval.
+            needs_review_items.append((record, _reasons or ["awaiting_approval"]))
     # Publish human-approved held records: merge same-article duplicates within the
     # approved set, then re-run the FULL last gate (coerce minor -> sanitize/project ->
     # withhold unsourced accused names) so a promoted minor is re-projected to the

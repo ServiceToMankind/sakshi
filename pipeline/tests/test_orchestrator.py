@@ -1495,3 +1495,71 @@ def test_non_approved_minor_stays_held(tmp_path: Path) -> None:
     )
     assert report.published == 0 and report.needs_review == 1
     assert not (tmp_path / "2026" / "TG.json").exists()
+
+
+def test_approved_only_holds_unapproved_auto_eligible(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Supervised phase: an auto-eligible (adult) record NOT approved is held, not published."""
+    monkeypatch.setenv("PUBLISH_APPROVED_ONLY", "true")
+    _write_approved(tmp_path, ["https://ex.invalid/approved-one"])
+    docs = [
+        RawDocument(
+            url="https://ex.invalid/adult-unapproved",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="An adult sexual assault case.",
+        ),
+        RawDocument(
+            url="https://ex.invalid/approved-one",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor case.",
+        ),
+    ]
+
+    class _Multi:
+        def __init__(self) -> None:
+            self.n = 0
+
+        def generate(self, prompt: str) -> ExtractionResponse:
+            # adult (auto-eligible) first, then a minor at the approved url
+            if "adult sexual assault" in prompt:
+                p = {
+                    "category": "rape",
+                    "state": "DL",
+                    "district": "Delhi",
+                    "status": "FIR_FILED",
+                    "minor_involved": False,
+                    "cnr": "C-ADULT",
+                    "incident_reported_date": "2026-07-01",
+                    "in_scope": True,
+                    "confidence": 0.95,
+                }
+            else:
+                p = {
+                    "category": "pocso",
+                    "state": "TG",
+                    "district": "TESTVILLE",
+                    "status": "FIR_FILED",
+                    "minor_involved": True,
+                    "cnr": "C-MIN",
+                    "incident_reported_date": "2026-06-14",
+                    "in_scope": True,
+                    "confidence": 0.95,
+                }
+            return ExtractionResponse(text=json.dumps(p), input_tokens=10, output_tokens=5)
+
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=docs,
+        extract_client=_Multi(),
+    )
+    # Only the approved minor publishes; the unapproved adult is held.
+    assert report.published == 1 and report.needs_review == 1
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["cnr"] == "C-MIN"
