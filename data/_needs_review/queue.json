@@ -1,7 +1,7 @@
 [
   {
     "reasons": [
-      "awaiting_approval"
+      "unverified_held"
     ],
     "record": {
       "category": "rape",
@@ -38,7 +38,7 @@
   },
   {
     "reasons": [
-      "awaiting_approval"
+      "unverified_held"
     ],
     "record": {
       "category": "other",
@@ -69,7 +69,7 @@
   },
   {
     "reasons": [
-      "awaiting_approval"
+      "unverified_held"
     ],
     "record": {
       "category": "rape",
@@ -99,7 +99,7 @@
   },
   {
     "reasons": [
-      "minor_involved"
+      "unverified_held"
     ],
     "record": {
       "state": "TG",
@@ -124,7 +124,6 @@
   },
   {
     "reasons": [
-      "minor_involved",
       "confidence_below_auto"
     ],
     "record": {
