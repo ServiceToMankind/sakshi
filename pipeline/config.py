@@ -138,6 +138,17 @@ def launch_mode() -> str:
     return os.environ.get("LAUNCH_MODE", "staged").strip().lower() or "staged"
 
 
+def publish_approved_only() -> bool:
+    """Supervised-phase control: publish ONLY human-approved records.
+
+    When true, an auto-publish-eligible record that is NOT on the approval allowlist is
+    HELD for review instead of published, so nothing reaches the public site during the
+    supervised launch without an explicit operator approval. Default false (the
+    graduated gate's normal auto-publish of the safe class).
+    """
+    return os.environ.get("PUBLISH_APPROVED_ONLY", "").strip().lower() in {"1", "true", "yes"}
+
+
 def launch_states() -> frozenset[str] | None:
     """Restrict a run to these 2-letter state codes, or None for all states.
 
