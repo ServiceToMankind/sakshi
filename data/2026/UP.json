@@ -1,19 +1,21 @@
 [
   {
     "category": "rape",
-    "confidence": 0.9,
+    "confidence": 0.95,
     "district": "Ghaziabad",
     "id": "SKS-2026-UP-000001",
     "incident_reported_date": "2026",
     "last_verified": "2026-07-15",
     "minor_involved": true,
     "offence_sections": [
+      "BNS 63",
+      "POCSO 6",
       "IPC 376"
     ],
     "sources": [
       {
         "publisher": "The Indian Express",
-        "retrieved": "2026-07-14",
+        "retrieved": "2026-07-15",
         "source_type": "news_article",
         "url": "https://indianexpress.com/article/cities/delhi/7-year-old-gangraped-killed-falls-through-shaft-from-3rd-floor-to-basement-of-upcoming-mall-in-ghaziabad-10782648/"
       }

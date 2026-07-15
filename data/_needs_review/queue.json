@@ -32,7 +32,8 @@
       ],
       "state": "DL",
       "status": "UNDER_TRIAL",
-      "summary": "The Delhi High Court noted an 'emerging trend' of rape allegations in matrimonial disputes while staying trial proceedings in an FIR against two brothers-in-law accused of cruelty, rape, sexual harassment, and criminal intimidation."
+      "summary": "The Delhi High Court noted an 'emerging trend' of rape allegations in matrimonial disputes while staying trial proceedings in an FIR against two brothers-in-law accused of cruelty, rape, sexual harassment, and criminal intimidation.",
+      "title": "Rape case — Central Delhi (2026)"
     }
   },
   {
@@ -62,7 +63,8 @@
       ],
       "state": "DL",
       "status": "FIR_FILED",
-      "summary": "A YouTuber in Delhi was arrested after allegedly hitting girls on a scooter. The incident was reportedly done for views and captured on camera. The victim's father filed a complaint leading to the arrest."
+      "summary": "A YouTuber in Delhi was arrested after allegedly hitting girls on a scooter. The incident was reportedly done for views and captured on camera. The victim's father filed a complaint leading to the arrest.",
+      "title": "Sexual offence case — Delhi (2026)"
     }
   },
   {
@@ -91,7 +93,8 @@
       ],
       "state": "DL",
       "status": "UNDER_TRIAL",
-      "summary": "The Delhi High Court has noted an 'emerging trend' of rape allegations surfacing in matrimonial disputes. Justice Girish Kathpalia made these observations while halting trial proceedings in an FIR that accused two brothers-in-law of a woman of cruelty, rape, sexual harassment, and criminal intimidation."
+      "summary": "The Delhi High Court has noted an 'emerging trend' of rape allegations surfacing in matrimonial disputes. Justice Girish Kathpalia made these observations while halting trial proceedings in an FIR that accused two brothers-in-law of a woman of cruelty, rape, sexual harassment, and criminal intimidation.",
+      "title": "Rape case — Delhi (2026)"
     }
   },
   {
@@ -106,7 +109,7 @@
       "category": "other",
       "minor_involved": true,
       "status": "FIR_FILED",
-      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
+      "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
       "confidence": 0.9,
       "sources": [
         {
@@ -115,7 +118,8 @@
           "source_type": "news_article",
           "retrieved": "2026-07-14"
         }
-      ]
+      ],
+      "title": "Sexual offence case involving a minor — Hyderabad (2026)"
     }
   },
   {
@@ -141,8 +145,91 @@
       "offence_sections": [
         "IPC 354"
       ],
-      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
-      "incident_reported_date": "2026"
+      "summary": "The case status is not yet known in East Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+      "incident_reported_date": "2026",
+      "title": "Sexual assault case involving a minor — East Delhi (2026)"
+    }
+  },
+  {
+    "reasons": [
+      "minor_involved"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Jagtial",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.thehindu.com/news/national/telangana/five-sentenced-to-life-imprisonment-in-minor-girls-rape-case-in-jagtial/article71226758.ece",
+          "publisher": "The Hindu",
+          "source_type": "news_article",
+          "retrieved": "2026-07-15"
+        }
+      ],
+      "incident_reported_date": "2026",
+      "title": "Child sexual offence case involving a minor — Jagtial (2026)",
+      "summary": "The accused was convicted in Jagtial, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "minor_involved"
+    ],
+    "record": {
+      "state": "TS",
+      "district": "Kothagudem",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://www.thehindu.com/news/national/telangana/three-accused-accomplice-in-minor-girls-rape-case-arrested-in-kothagudem/article71226352.ece",
+          "publisher": "The Hindu",
+          "source_type": "news_article",
+          "retrieved": "2026-07-15"
+        }
+      ],
+      "incident_reported_date": "2026",
+      "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
+      "summary": "An FIR has been filed in Kothagudem, TS. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "minor_involved"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Ghaziabad",
+      "offence_sections": [
+        "IPC 375",
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://indianexpress.com/article/cities/delhi/ghaziabad-toddler-minor-rape-pocso-bns-case-accused-labourer-arrested-10771767/",
+          "publisher": "The Indian Express",
+          "source_type": "news_article",
+          "retrieved": "2026-07-15"
+        }
+      ],
+      "incident_reported_date": "2026",
+      "title": "Child sexual offence case involving a minor — Ghaziabad (2026)",
+      "summary": "An FIR has been filed in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]

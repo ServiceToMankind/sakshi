@@ -1,0 +1,54 @@
+[
+  {
+    "id": "SKS-2026-UP-000001",
+    "title": "Rape case involving a minor — Ghaziabad (2026)",
+    "summary": "The case status is not yet known in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "UP",
+    "district": "Ghaziabad",
+    "category": "rape",
+    "status": "UNKNOWN",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Indian Express",
+    "verified": false
+  },
+  {
+    "id": "SKS-2026-TG-000001",
+    "title": "Sexual assault case involving a minor — Hyderabad (2026)",
+    "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Hyderabad",
+    "category": "sexual_assault",
+    "status": "FIR_FILED",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Indian Express",
+    "verified": false
+  },
+  {
+    "id": "SKS-2026-HR-000001",
+    "title": "Sexual assault case involving a minor — Gurgaon (2026)",
+    "summary": "The case is under trial in Gurgaon, HR. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "HR",
+    "district": "Gurgaon",
+    "category": "sexual_assault",
+    "status": "UNDER_TRIAL",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Indian Express",
+    "verified": false
+  },
+  {
+    "id": "SKS-2026-DL-000003",
+    "title": "Rape case involving a minor — Delhi (2026)",
+    "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "DL",
+    "district": "Delhi",
+    "category": "rape",
+    "status": "UNDER_TRIAL",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Indian Express",
+    "verified": false
+  }
+]
