@@ -25,6 +25,7 @@ import tempfile
 from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date
+from functools import reduce
 from pathlib import Path
 from typing import Any, TextIO
 
@@ -254,6 +255,61 @@ def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
     else:
         record["minor_involved"] = bool(minor)
     return record
+
+
+# Human-approved held records are promoted to publish. Approval is by source URL, in a
+# committed allowlist a human edits (or a reviewed-PR adds to) — the SAME "human merge
+# publishes them" gate the graduated design calls for. A promoted minor record stays
+# minimal/projected (approval never un-projects it); only its already-safe form ships.
+APPROVED_RELPATH = Path("_needs_review") / "approved.json"
+
+
+def _load_approved(base_dir: Path) -> set[str]:
+    """Load the set of human-approved RAW source URLs.
+
+    Matched RAW (not through sanitize_string): sanitisation is non-injective — two
+    distinct URLs with a PII-shaped digit run collapse to one '[redacted]' string, so
+    matching in that space could promote a NON-approved minor. A record whose stored
+    URL was PII-redacted simply will not match a raw approved URL and stays held (safe);
+    the operator uses the real article URL.
+    """
+    path = base_dir / APPROVED_RELPATH
+    if not path.exists():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    urls = data.get("approved_source_urls", []) if isinstance(data, dict) else data
+    if not isinstance(urls, list):
+        return set()
+    return {str(url).strip() for url in urls if str(url).strip()}
+
+
+def _is_approved(record: dict[str, Any], approved: set[str]) -> bool:
+    return any(
+        str(source.get("url", "")).strip() in approved for source in record.get("sources", [])
+    )
+
+
+def _dedup_approved_by_url(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Merge approved records that share a source URL (same article => same case).
+
+    Scoped to the OPERATOR-APPROVED set only, so it cannot fuse distinct cases in the
+    general pipeline (a multi-case roundup article would be handled at review); the
+    operator approved these specific URLs as one case each.
+    """
+    groups: list[tuple[set[str], list[dict[str, Any]]]] = []
+    for record in records:
+        urls = {str(s.get("url", "")).strip() for s in record.get("sources", []) if s.get("url")}
+        for group_urls, members in groups:
+            if group_urls & urls:
+                group_urls.update(urls)
+                members.append(record)
+                break
+        else:
+            groups.append((set(urls), [record]))
+    return [reduce(merge_records, members) for _, members in groups]
 
 
 def _load_needs_review_queue(base_dir: Path) -> list[dict[str, Any]]:
@@ -645,20 +701,37 @@ def run(
     # is sharded onto the public site; needs_review is held in its own queue (carried
     # over so it is never lost). In staged mode both ride the review PR — the labels
     # tell the human which would auto-publish; in auto mode only auto_eligible lands.
+    approved = _load_approved(data_dir)
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
+    to_promote: list[dict[str, Any]] = []
     for record in published:
-        ok, reasons = auto_publish_eligible(record)
+        ok, _reasons = auto_publish_eligible(record)
         if ok:
             auto_eligible.append(record)
+        elif _is_approved(record, approved):
+            to_promote.append(record)
         else:
-            needs_review_items.append((record, reasons))
+            needs_review_items.append((record, _reasons))
+    # Publish human-approved held records: merge same-article duplicates within the
+    # approved set, then re-run the FULL last gate (coerce minor -> sanitize/project ->
+    # withhold unsourced accused names) so a promoted minor is re-projected to the
+    # minimal non-identifying shape and no unsourced name ships — approval never
+    # weakens a guardrail; it only allows the already-safe form onto the site.
+    promoted_records = [
+        withhold_unsourced_accused_names(
+            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+        )
+        for record in _dedup_approved_by_url(to_promote)
+    ]
+    auto_eligible.extend(promoted_records)
+    promoted = len(promoted_records)
     needs_review_records = [record for record, _ in needs_review_items]
     _log(
         report,
         f"deduped: {len(published)} published "
-        f"({len(auto_eligible)} auto-eligible, {len(needs_review_items)} held for review), "
-        f"{len(review)} quarantined",
+        f"({len(auto_eligible)} auto-eligible incl. {promoted} human-approved, "
+        f"{len(needs_review_items)} held for review), {len(review)} quarantined",
     )
 
     # Reserve the held records' ids so a fresh auto-eligible mint can never collide

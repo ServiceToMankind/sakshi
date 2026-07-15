@@ -1411,3 +1411,87 @@ def test_null_court_adult_record_publishes(tmp_path: Path) -> None:
     assert report.published == 1 and report.needs_review == 0 and report.review == 0
     rec = json.loads((tmp_path / "2026" / "DL.json").read_text())[0]
     assert "court" not in rec  # null dropped, not kept
+
+
+def _write_approved(data_dir: Path, urls: list[str]) -> None:
+    (data_dir / "_needs_review").mkdir(parents=True, exist_ok=True)
+    (data_dir / "_needs_review" / "approved.json").write_text(
+        json.dumps({"approved_source_urls": urls}), encoding="utf-8"
+    )
+
+
+def test_approved_minor_is_promoted_and_stays_projected(tmp_path: Path) -> None:
+    """A human-approved held minor record publishes, still projected to minimal fields."""
+    _write_approved(tmp_path, ["https://ex.invalid/approved"])
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/approved",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor sexual assault case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-APP",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 1 and report.needs_review == 0
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["minor_involved"] is True
+    assert rec["incident_reported_date"] == "2026"  # STILL projected (year only)
+    assert "Details withheld under POCSO" in rec["summary"]  # STILL the projected template
+
+
+def test_non_approved_minor_stays_held(tmp_path: Path) -> None:
+    """A minor NOT on the approved list stays held, never published."""
+    _write_approved(tmp_path, ["https://ex.invalid/other"])
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/notapproved",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-NO",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 0 and report.needs_review == 1
+    assert not (tmp_path / "2026" / "TG.json").exists()
