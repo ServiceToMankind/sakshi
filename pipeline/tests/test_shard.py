@@ -18,6 +18,7 @@ def test_summary_budget_constant_is_50kb() -> None:
 
 def _record(**overrides: Any) -> dict[str, Any]:
     base: dict[str, Any] = {
+        "title": "Sexual assault case — TESTVILLE (2026)",
         "state": "TG",
         "district": "TESTVILLE",
         "category": "sexual_assault",

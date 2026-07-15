@@ -100,10 +100,15 @@
         }
       }
     },
+    "title": {
+      "type": "string",
+      "maxLength": 90,
+      "description": "Short plain-English factual title (<=90 chars), active voice, no sensationalism or legal boilerplate. e.g. 'Delhi HC stays trial in matrimonial-dispute rape FIR'. Omit for a minor case (its title is generated deterministically after extraction). Must contain NO victim details."
+    },
     "summary": {
       "type": "string",
       "maxLength": 400,
-      "description": "One-paragraph neutral, non-graphic summary. Must contain NO victim details."
+      "description": "Plain-English neutral summary in SIMPLE declarative English: <=2 sentences, active voice, NO legalese (say 'the court paused the trial while it reviews the FIR', not 'stayed proceedings concerning an FIR alleging'), do not define anything by section number alone. Must contain NO victim details."
     },
     "confidence": {
       "type": "number",
