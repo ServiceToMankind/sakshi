@@ -1,0 +1,9 @@
+{
+  "_comment": "Human-approved held records to publish. Approval is by source URL; a promoted minor record stays projected/minimal. Reviewed and approved by the operator on 2026-07-14. The wife-burning/murder article (…-ablaze-…-10440845) is intentionally EXCLUDED as out of scope.",
+  "approved_source_urls": [
+    "https://indianexpress.com/article/cities/delhi/7-year-old-gangraped-killed-falls-through-shaft-from-3rd-floor-to-basement-of-upcoming-mall-in-ghaziabad-10782648/",
+    "https://indianexpress.com/article/cities/delhi/gurgaon-child-sexual-assault-case-parents-challenge-sit-probe-in-court-10782114/",
+    "https://indianexpress.com/article/cities/hyderabad/supervisor-of-hyderabad-welfare-home-arrested-for-sexually-assaulting-boys-under-his-care-10307360/",
+    "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/"
+  ]
+}

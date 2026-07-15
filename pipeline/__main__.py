@@ -256,6 +256,35 @@ def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
     return record
 
 
+# Human-approved held records are promoted to publish. Approval is by source URL, in a
+# committed allowlist a human edits (or a reviewed-PR adds to) — the SAME "human merge
+# publishes them" gate the graduated design calls for. A promoted minor record stays
+# minimal/projected (approval never un-projects it); only its already-safe form ships.
+APPROVED_RELPATH = Path("_needs_review") / "approved.json"
+
+
+def _load_approved(base_dir: Path) -> set[str]:
+    """Load the set of human-approved source URLs (sanitised for matching)."""
+    path = base_dir / APPROVED_RELPATH
+    if not path.exists():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    urls = data.get("approved_source_urls", []) if isinstance(data, dict) else data
+    if not isinstance(urls, list):
+        return set()
+    return {sanitize_string(str(url).strip()) for url in urls if str(url).strip()}
+
+
+def _is_approved(record: dict[str, Any], approved: set[str]) -> bool:
+    return any(
+        sanitize_string(str(source.get("url", ""))) in approved
+        for source in record.get("sources", [])
+    )
+
+
 def _load_needs_review_queue(base_dir: Path) -> list[dict[str, Any]]:
     """Load HELD records from a committed ``_needs_review/queue.json`` under ``base_dir``.
 
@@ -645,20 +674,26 @@ def run(
     # is sharded onto the public site; needs_review is held in its own queue (carried
     # over so it is never lost). In staged mode both ride the review PR — the labels
     # tell the human which would auto-publish; in auto mode only auto_eligible lands.
+    approved = _load_approved(data_dir)
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
+    promoted = 0
     for record in published:
         ok, reasons = auto_publish_eligible(record)
         if ok:
             auto_eligible.append(record)
+        elif _is_approved(record, approved):
+            # Human-approved: publish the (already projected/minimal) held record.
+            auto_eligible.append(record)
+            promoted += 1
         else:
             needs_review_items.append((record, reasons))
     needs_review_records = [record for record, _ in needs_review_items]
     _log(
         report,
         f"deduped: {len(published)} published "
-        f"({len(auto_eligible)} auto-eligible, {len(needs_review_items)} held for review), "
-        f"{len(review)} quarantined",
+        f"({len(auto_eligible)} auto-eligible incl. {promoted} human-approved, "
+        f"{len(needs_review_items)} held for review), {len(review)} quarantined",
     )
 
     # Reserve the held records' ids so a fresh auto-eligible mint can never collide
