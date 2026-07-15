@@ -131,6 +131,65 @@ def gemini_models() -> list[str]:
     return _models_from_sources_yml() or list(DEFAULT_GEMINI_MODELS)
 
 
+# --- Verification stage (guardrail L) -----------------------------------------
+# A STRONGER model with web-search grounding re-checks each in-scope candidate
+# BEFORE publish: confirms the source supports every field, re-checks scope, and
+# corroborates. It can only demote/correct/approve — it NEVER overrides the
+# deterministic gates (sanitize, minor projection, pii_guard, schema).
+DEFAULT_VERIFY_MODEL: Final[str] = "gemini-2.5-pro"
+# gemini-2.5-pro rates (approx USD per 1M tokens) — verifier cost estimate only.
+VERIFY_INPUT_USD_PER_MTOK: Final[float] = 1.25
+VERIFY_OUTPUT_USD_PER_MTOK: Final[float] = 10.0
+# Per-run USD cap: the verifier runs only on in-scope candidates (a handful/day);
+# once spend reaches this, remaining candidates are quarantined "unverified" rather
+# than published, so a runaway can never blow the bill.
+DEFAULT_VERIFY_MAX_USD: Final[float] = 0.50
+# Max chars of source text passed to the verifier (keeps the prompt + cost bounded).
+VERIFY_SOURCE_TEXT_CHARS: Final[int] = 12000
+# Per-verification call timeout (pro + grounding is slower than flash extraction).
+VERIFY_CALL_TIMEOUT_S: Final[float] = 60.0
+
+
+def verification_enabled() -> bool:
+    """True if the verification stage runs (opt-in; the auto-flip turns it on)."""
+    return os.environ.get("VERIFY_ENABLED", "").strip().lower() in {"1", "true", "yes"}
+
+
+def verification_model() -> str:
+    """The pinned verifier model id (env VERIFY_MODEL > sources.yml > default)."""
+    raw = os.environ.get("VERIFY_MODEL", "").strip()
+    if raw:
+        return raw
+    try:
+        import yaml
+
+        data = yaml.safe_load(SOURCES_CONFIG_PATH.read_text(encoding="utf-8"))
+        model = (data.get("verification") or {}).get("model") if isinstance(data, dict) else None
+        if isinstance(model, str) and model.strip():
+            return model.strip()
+    except (OSError, ValueError):
+        pass
+    return DEFAULT_VERIFY_MODEL
+
+
+def verify_max_usd() -> float:
+    """Per-run USD budget cap for the verifier (env VERIFY_MAX_USD > default)."""
+    raw = os.environ.get("VERIFY_MAX_USD", "").strip()
+    try:
+        return float(raw) if raw else DEFAULT_VERIFY_MAX_USD
+    except ValueError:
+        return DEFAULT_VERIFY_MAX_USD
+
+
+def estimate_verify_cost_usd(input_tokens: int, output_tokens: int) -> float:
+    """Estimate USD for a verifier token spend at gemini-2.5-pro rates."""
+    return round(
+        input_tokens / 1_000_000 * VERIFY_INPUT_USD_PER_MTOK
+        + output_tokens / 1_000_000 * VERIFY_OUTPUT_USD_PER_MTOK,
+        6,
+    )
+
+
 # --- Supervised-launch controls ----------------------------------------------
 # LAUNCH_MODE is flipped by a human via a repo variable. "staged" (default) sends
 # every run's data/ to a review PR; "auto" commits + deploys directly.

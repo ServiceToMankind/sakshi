@@ -237,6 +237,15 @@
       "format": "date",
       "description": "Date this record was last verified against sources. ISO YYYY-MM-DD.",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "verified": {
+      "type": "boolean",
+      "description": "True if the grounding verifier (guardrail L) confirmed every field against the source and re-checked scope. Absent/false means not verified (auto mode publishes only verified records)."
+    },
+    "verification_note": {
+      "type": "string",
+      "maxLength": 300,
+      "description": "Short verifier note (corroboration found, or the reason it demoted/corrected). Contains NO victim details."
     }
   },
   "allOf": [
