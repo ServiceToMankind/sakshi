@@ -101,14 +101,16 @@
   "state_counts": {
     "DL": 1,
     "HR": 1,
-    "TG": 1,
-    "UP": 1
+    "TG": 2,
+    "TS": 1,
+    "UP": 2
   },
   "status_counts": {
-    "FIR_FILED": 1,
+    "CONVICTED": 1,
+    "FIR_FILED": 3,
     "UNDER_TRIAL": 2,
     "UNKNOWN": 1
   },
   "top_longest_pending": [],
-  "total": 4
+  "total": 7
 }

@@ -1,5 +1,18 @@
 [
   {
+    "id": "SKS-2026-UP-000002",
+    "title": "Child sexual offence case involving a minor — Ghaziabad (2026)",
+    "summary": "An FIR has been filed in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "UP",
+    "district": "Ghaziabad",
+    "category": "pocso",
+    "status": "FIR_FILED",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Indian Express",
+    "verified": false
+  },
+  {
     "id": "SKS-2026-UP-000001",
     "title": "Rape case involving a minor — Ghaziabad (2026)",
     "summary": "The case status is not yet known in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
@@ -10,6 +23,32 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
+    "verified": false
+  },
+  {
+    "id": "SKS-2026-TS-000001",
+    "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
+    "summary": "An FIR has been filed in Kothagudem, TS. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TS",
+    "district": "Kothagudem",
+    "category": "pocso",
+    "status": "FIR_FILED",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Hindu",
+    "verified": false
+  },
+  {
+    "id": "SKS-2026-TG-000002",
+    "title": "Child sexual offence case involving a minor — Jagtial (2026)",
+    "summary": "The accused was convicted in Jagtial, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Jagtial",
+    "category": "pocso",
+    "status": "CONVICTED",
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Hindu",
     "verified": false
   },
   {

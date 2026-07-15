@@ -24,5 +24,31 @@
     "status": "UNKNOWN",
     "summary": "The case status is not yet known in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape case involving a minor — Ghaziabad (2026)"
+  },
+  {
+    "category": "pocso",
+    "confidence": 1.0,
+    "district": "Ghaziabad",
+    "id": "SKS-2026-UP-000002",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-15",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO Act",
+      "IPC 375",
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-15",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/delhi/ghaziabad-toddler-minor-rape-pocso-bns-case-accused-labourer-arrested-10771767/"
+      }
+    ],
+    "state": "UP",
+    "status": "FIR_FILED",
+    "summary": "An FIR has been filed in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Ghaziabad (2026)"
   }
 ]

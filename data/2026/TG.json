@@ -24,5 +24,29 @@
     "status": "FIR_FILED",
     "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Sexual assault case involving a minor — Hyderabad (2026)"
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "district": "Jagtial",
+    "id": "SKS-2026-TG-000002",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-15",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-15",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/telangana/five-sentenced-to-life-imprisonment-in-minor-girls-rape-case-in-jagtial/article71226758.ece"
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "The accused was convicted in Jagtial, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Jagtial (2026)"
   }
 ]
