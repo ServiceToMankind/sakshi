@@ -31,7 +31,7 @@ from typing import Any, TextIO
 
 from scripts.pii_guard import iter_json_files, scan_json_file
 
-from pipeline import config, fixtures
+from pipeline import config, fixtures, verify
 from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
@@ -59,6 +59,9 @@ class RunReport:
     review: int = 0
     published: int = 0
     needs_review: int = 0
+    verified: int = 0
+    verify_demoted: int = 0
+    verify_usd: float = 0.0
     fetched: int = 0
     processed: int = 0
     skipped_settled: int = 0
@@ -190,6 +193,39 @@ def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -
 # the public site); under data/ so pii_guard scans it and the review PR shows it.
 NEEDS_REVIEW_RELPATH = Path("_needs_review") / "queue.json"
 
+# The landing feed: the latest published records, so the site's home view needs no
+# shard-walking. Regenerated every run from the published (auto-eligible) set.
+RECENT_RELPATH = Path("recent.json")
+RECENT_FEED_SIZE = 50
+
+
+def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
+    """Write data/recent.json — the latest published records for the landing feed."""
+    ordered = sorted(
+        records,
+        key=lambda r: (str(r.get("incident_reported_date", "")), str(r.get("id", ""))),
+        reverse=True,
+    )
+    feed = [
+        {
+            "id": record.get("id"),
+            "title": record.get("title"),
+            "summary": record.get("summary"),
+            "state": record.get("state"),
+            "district": record.get("district"),
+            "category": record.get("category"),
+            "status": record.get("status"),
+            "incident_reported_date": record.get("incident_reported_date"),
+            "minor_involved": bool(record.get("minor_involved")),
+            "publisher": (record.get("sources") or [{}])[0].get("publisher", ""),
+            "verified": bool(record.get("verified")),
+        }
+        for record in ordered[:RECENT_FEED_SIZE]
+    ]
+    (data_dir / RECENT_RELPATH).write_text(
+        json.dumps(feed, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+
 
 def _write_needs_review(items: list[tuple[dict[str, Any], list[str]]], data_dir: Path) -> None:
     """Write (or clear) the needs-review queue from the CURRENT held set.
@@ -290,6 +326,21 @@ def _is_approved(record: dict[str, Any], approved: set[str]) -> bool:
     return any(
         str(source.get("url", "")).strip() in approved for source in record.get("sources", [])
     )
+
+
+def _verified_hold_reasons(record: dict[str, Any]) -> list[str]:
+    """Reasons a VERIFIED, FRESH record is still held for a human (verifier-live mode).
+
+    Exactly the graduated auto-publish gate MINUS ``minor_involved``: a verified minor's
+    title/summary are deterministic and non-identifying, so it publishes. Every OTHER
+    hold still applies — crucially ``pocso_minor_mismatch`` (a POCSO signal on a record
+    flagged non-minor is a suspect determination that would ship day-precise dates), plus
+    ``named_accused`` (defamation liability), ``live_blog_only``, and sub-threshold
+    ``confidence``. Delegating to :func:`auto_publish_eligible` keeps the two in lockstep
+    so this can never silently drift from the canonical gate.
+    """
+    _eligible, reasons = auto_publish_eligible(record)
+    return [reason for reason in reasons if reason != "minor_involved"]
 
 
 def _dedup_approved_by_url(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -523,6 +574,7 @@ def run(
     out: TextIO,
     docs: list[RawDocument] | None = None,
     extract_client: ExtractionClient | None = None,
+    verify_client: verify.VerificationClient | None = None,
 ) -> RunReport:
     """Execute one pipeline run and return a :class:`RunReport`."""
     report = RunReport()
@@ -640,6 +692,28 @@ def run(
     if len(in_scope) != len(extractions):
         _log(report, f"scope: {len(in_scope)}/{len(extractions)} in scope ({report.scope})")
 
+    # VERIFICATION STAGE (guardrail L): a stronger, web-grounded model re-checks each
+    # in-scope candidate against its source BEFORE it can publish, stamping `verified`.
+    # Runs on raw (pre-sanitize) records so corrections are sanitised afterwards. Opt-in
+    # (VERIFY_ENABLED) — the auto-flip turns it on; never runs in dry-run.
+    if config.verification_enabled() and not dry_run and in_scope:
+        source_text_by_url = {doc.url: doc.text for doc in raw_docs}
+        client = verify_client or verify.default_verify_client(config.verification_model())
+        vresult = verify.verify_records(
+            in_scope, source_text_by_url, client, cost_log_path=logs_dir / "verify_cost.json"
+        )
+        in_scope = vresult.records
+        report.verified = vresult.verified_count
+        report.verify_demoted = vresult.demoted_count
+        report.verify_usd = vresult.estimated_usd
+        _log(
+            report,
+            f"verified {vresult.verified_count}, demoted {vresult.demoted_count} "
+            f"(skipped {vresult.skipped_budget} over budget); est ${vresult.estimated_usd:.4f}",
+        )
+        for sample in vresult.error_samples:
+            _log(report, f"verifier error: {sample}")
+
     # LAST GATE BEFORE DISK: sanitize every in-scope candidate (drop forbidden keys,
     # redact PII values, structurally project minor records), then project onto the
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
@@ -703,18 +777,48 @@ def run(
     # tell the human which would auto-publish; in auto mode only auto_eligible lands.
     approved = _load_approved(data_dir)
     approved_only = config.publish_approved_only()
+    verified_mode = config.verification_enabled()
+    # Records already published on main were vetted before this run (human-approved in
+    # the supervised phase, or verified in a prior auto run). They are GRANDFATHERED:
+    # turning the verifier on must never unpublish an already-live record just because
+    # its source doc has rolled off the feed and it cannot be re-verified this run.
+    # Only genuinely FRESH cases (an id not already on the site) face the verified-gate.
+    already_published_ids = {str(r.get("id", "")) for r in existing if r.get("id")}
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
     to_promote: list[dict[str, Any]] = []
     for record in published:
+        if verified_mode:
+            # A dedupe merge can flip minor_involved AFTER the per-candidate sanitize
+            # pass, so re-run the FULL last gate here: coerce -> sanitize/project ->
+            # withhold unsourced names. This re-projects any merged minor to the minimal
+            # non-identifying shape BEFORE the publish decision (idempotent otherwise).
+            safe = withhold_unsourced_accused_names(
+                project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+            )
+            grandfathered = str(safe.get("id", "")) in already_published_ids
+            if grandfathered:
+                # Already vetted and live — re-projected for safety, but never demoted:
+                # the verifier flip must not unpublish a record already on the site.
+                auto_eligible.append(safe)
+                continue
+            # A FRESH record must be VERIFIED to publish; otherwise it is quarantined
+            # with the verifier's note. A verified minor DOES publish — its title/summary
+            # are deterministic and non-identifying.
+            if not safe.get("verified"):
+                review.append({"reason": "unverified", "record": safe})
+                continue
+            holds = _verified_hold_reasons(safe)
+            (needs_review_items.append((safe, holds)) if holds else auto_eligible.append(safe))
+            continue
+        # Supervised phase (no verifier): graduated gate + approval allowlist. Even an
+        # auto-eligible record is held until approved, so nothing publishes unapproved.
         ok, _reasons = auto_publish_eligible(record)
         if _is_approved(record, approved):
             to_promote.append(record)
         elif ok and not approved_only:
             auto_eligible.append(record)
         else:
-            # Supervised phase: even an auto-eligible record is held until approved, so
-            # nothing publishes without an explicit operator approval.
             needs_review_items.append((record, _reasons or ["awaiting_approval"]))
     # Publish human-approved held records: merge same-article duplicates within the
     # approved set, then re-run the FULL last gate (coerce minor -> sanitize/project ->
@@ -742,6 +846,7 @@ def run(
     write_result: WriteResult = write_shards(
         auto_eligible, data_dir, run_date=run_date, reserve=needs_review_records
     )
+    _write_recent(auto_eligible, data_dir)
     _write_needs_review(needs_review_items, data_dir)
     _write_review(review, data_dir, run_date)
 

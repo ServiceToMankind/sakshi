@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 
 from pipeline import __main__ as orchestrator
+from pipeline import verify as verify_mod
 from pipeline.extract.gemini import ExtractionResponse
 from pipeline.fixtures import fixture_raw_documents
 from pipeline.sources.base import RawDocument
@@ -1564,3 +1565,278 @@ def test_approved_only_holds_unapproved_auto_eligible(
     assert report.published == 1 and report.needs_review == 1
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["cnr"] == "C-MIN"
+
+
+class _FakeVerifier:
+    def __init__(self, verified: bool, note: str = "corroborated") -> None:
+        self._v = verified
+        self._note = note
+
+    def verify(self, prompt: str) -> verify_mod.VerificationResponse:
+        return verify_mod.VerificationResponse(
+            json.dumps({"verified": self._v, "verification_note": self._note}), 50, 10
+        )
+
+
+def _run_verified(
+    tmp_path: Path,
+    docs: list[RawDocument],
+    payload: str,
+    verified: bool,
+    monkeypatch: pytest.MonkeyPatch,
+) -> orchestrator.RunReport:
+    monkeypatch.setenv("VERIFY_ENABLED", "true")
+    return orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=docs,
+        extract_client=_FakeGemini(payload),
+        verify_client=_FakeVerifier(verified),
+    )
+
+
+def test_verified_mode_publishes_verified_minor(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """With the verifier live, a VERIFIED minor publishes (deterministic content)."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/v",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor sexual assault case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": True,
+            "cnr": "C-V",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = _run_verified(tmp_path, doc, payload, True, monkeypatch)
+    assert report.published == 1 and report.needs_review == 0 and report.verified == 1
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["minor_involved"] is True and rec["verified"] is True
+    assert "involving a minor" in rec["title"]  # still deterministic + projected
+
+
+def test_verified_mode_quarantines_unverified(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """An UNVERIFIED record is quarantined to review, never published."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/u",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A commentary piece.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-U",
+            "incident_reported_date": "2026-07-01",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = _run_verified(tmp_path, doc, payload, False, monkeypatch)
+    assert report.published == 0 and report.review >= 1
+    assert not (tmp_path / "2026" / "DL.json").exists()
+
+
+def test_verified_mode_holds_named_accused(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """A VERIFIED record naming a (court) accused is held for a human (defamation)."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/n",
+            publisher="Delhi High Court",
+            fetched_at="2026-07-09",
+            text="A court judgment naming the accused.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "CONVICTED",
+            "minor_involved": False,
+            "cnr": "C-N",
+            "court": {"name": "Delhi High Court"},
+            "incident_reported_date": "2026-07-01",
+            "in_scope": True,
+            "confidence": 0.95,
+            "accused": [
+                {
+                    "label": "Accused #1",
+                    "name_public_court_record": "A. Person",
+                    "status": "CONVICTED",
+                }
+            ],
+        }
+    )
+    report = _run_verified(tmp_path, doc, payload, True, monkeypatch)
+    assert report.published == 0 and report.needs_review == 1
+    reasons = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())[0]["reasons"]
+    assert "named_accused" in reasons
+
+
+def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    """data/recent.json holds the published feed records."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/r",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-R",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    _run_verified(tmp_path, doc, payload, True, monkeypatch)
+    feed = json.loads((tmp_path / "recent.json").read_text())
+    assert len(feed) == 1
+    assert set(feed[0]) == {
+        "id",
+        "title",
+        "summary",
+        "state",
+        "district",
+        "category",
+        "status",
+        "incident_reported_date",
+        "minor_involved",
+        "publisher",
+        "verified",
+    }
+    assert feed[0]["publisher"] == "The Hindu" and feed[0]["verified"] is True
+
+
+def test_verified_mode_grandfathers_legacy_live_record(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A record already on the site with NO `verified` field (published BEFORE the
+    verifier existed) must NOT be unpublished when the verifier is turned on — even
+    though its source has rolled off the feed and it cannot be re-verified this run.
+    This is the record-loss guardrail: the verifier flip never yanks a live record.
+    """
+    doc1 = [
+        RawDocument(
+            url="https://ex.invalid/legacy",
+            publisher="The Hindu",
+            fetched_at="2026-06-01",
+            text="A minor case.",
+        )
+    ]
+    payload1 = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-LEGACY",
+            "incident_reported_date": "2026-05-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    _run_verified(tmp_path, doc1, payload1, True, monkeypatch)
+    shard = tmp_path / "2026" / "TG.json"
+    recs = json.loads(shard.read_text())
+    legacy_id = recs[0]["id"]
+    # Strip the verifier stamp to simulate a record published before verify.py existed.
+    for rec in recs:
+        rec.pop("verified", None)
+        rec.pop("verification_note", None)
+    shard.write_text(json.dumps(recs), encoding="utf-8")
+
+    # A LATER run fetches a DIFFERENT case; the legacy record has no source this run.
+    doc2 = [
+        RawDocument(
+            url="https://ex.invalid/fresh",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="Another minor case.",
+        )
+    ]
+    payload2 = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-FRESH",
+            "incident_reported_date": "2026-06-20",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    _run_verified(tmp_path, doc2, payload2, True, monkeypatch)
+    ids = {r["id"] for r in json.loads(shard.read_text())}
+    assert legacy_id in ids  # grandfathered — never unpublished by the verifier flip
+    assert len(ids) == 2  # the fresh verified case published alongside it
+
+
+def test_verified_mode_coerces_pocso_nonminor_to_projected_minor(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A VERIFIED record carrying a POCSO signal but flagged minor_involved=false is
+    fail-closed coerced to a PROJECTED minor (year-only date, deterministic title) —
+    never shipped as a non-minor with day-precise, re-identifying detail.
+    """
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/pm",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A POCSO case the model mislabelled non-minor.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",  # POCSO signal => minor, regardless of the flag
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,  # model says non-minor; coercion overrides
+            "cnr": "C-PM",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = _run_verified(tmp_path, doc, payload, True, monkeypatch)
+    assert report.published == 1
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["minor_involved"] is True  # fail-closed coerced
+    assert rec["incident_reported_date"] == "2026"  # projected to year granularity only
+    assert "involving a minor" in rec["title"]  # deterministic, non-identifying title
