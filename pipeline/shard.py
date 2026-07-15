@@ -42,12 +42,16 @@ _ACTIVE_STATUSES = frozenset({"FIR_FILED", "CHARGESHEETED", "UNDER_TRIAL", "APPE
 
 @dataclass
 class WriteResult:
-    """Outcome of a shard write: counts and the shard paths written."""
+    """Outcome of a shard write: counts, the shard paths, and the finalized records."""
 
     published: int = 0
     new: int = 0
     updated: int = 0
     shards: list[str] = field(default_factory=list)
+    # The records AS WRITTEN — with their assigned ids / last_verified / pending_days.
+    # Callers that need the canonical published form (e.g. the recent-feed writer) must
+    # use this, NOT the pre-write input, whose freshly-minted records have no id yet.
+    records: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _anchor_keys(record: dict[str, Any]) -> list[str]:
@@ -356,4 +360,5 @@ def write_shards(
         new=new,
         updated=updated,
         shards=[entry["path"] for entry in manifest],
+        records=finalized,
     )

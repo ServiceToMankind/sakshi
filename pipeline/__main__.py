@@ -917,7 +917,10 @@ def run(
     write_result: WriteResult = write_shards(
         auto_eligible, data_dir, run_date=run_date, reserve=needs_review_records
     )
-    _write_recent(auto_eligible, data_dir)
+    # Feed the recent list the FINALIZED records (write_result.records) — they carry the
+    # assigned ids. auto_eligible's freshly-minted records have no id yet, which would
+    # ship id=null to recent.json and break the feed's case links.
+    _write_recent(write_result.records, data_dir)
     _write_needs_review(needs_review_items, data_dir)
     _write_review(review, data_dir, run_date)
 

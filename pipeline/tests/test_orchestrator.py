@@ -30,7 +30,21 @@ def _default_scope(monkeypatch: pytest.MonkeyPatch) -> None:
     Default every orchestrator test to all-states, no window so the gate passes and
     date-less payloads stay in scope; scope-specific tests override LAUNCH_STATES /
     LAUNCH_LOOKBACK_DAYS via their own monkeypatch, which wins.
+
+    Also make the tests HERMETIC: the pipeline reads several runtime env vars, and the
+    suite runs inside the scrape workflow's job (which sets PUBLISH_APPROVED_ONLY, etc.).
+    Clear them so a test asserting `published == 1` is not silently held to 0 by ambient
+    config leaking in from the environment. Individual tests set what they need.
     """
+    for var in (
+        "PUBLISH_APPROVED_ONLY",
+        "VERIFY_ENABLED",
+        "VERIFY_MAX_USD",
+        "LAUNCH_MODE",
+        "LAUNCH_LOOKBACK_DAYS",
+        "GEMINI_MODELS",
+    ):
+        monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("LAUNCH_STATES", "ALL")
 
 
@@ -1737,6 +1751,10 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         "verified",
     }
     assert feed[0]["publisher"] == "The Hindu" and feed[0]["verified"] is True
+    # A FRESHLY-MINTED record must carry its assigned id in the feed (not null) — else
+    # the landing feed's case links break. Must match the id written to the shard.
+    shard_id = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
+    assert feed[0]["id"] == shard_id and shard_id is not None
 
 
 def test_verified_mode_grandfathers_legacy_live_record(
