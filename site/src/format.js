@@ -31,6 +31,13 @@ export const CATEGORY_LABELS = {
   other: 'Other',
 };
 
+// Whitelist http(s) for any URL rendered as an outbound href. Source URLs are
+// pipeline-controlled, but this is defence in depth so a stray javascript:/data:
+// scheme can never become a clickable link. Returns '#' for anything else.
+export function safeHttpUrl(url) {
+  return typeof url === 'string' && /^https?:\/\//i.test(url.trim()) ? url : '#';
+}
+
 // Ordered status list for legends/stepper.
 export const STATUS_ORDER = [
   'FIR_FILED',

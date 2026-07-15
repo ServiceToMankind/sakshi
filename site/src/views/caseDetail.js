@@ -6,7 +6,7 @@
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
 import { loadCase } from '../data.js';
-import { formatDate, stateName } from '../format.js';
+import { formatDate, stateName, safeHttpUrl } from '../format.js';
 import { statusBadge, minorBadge } from './parts.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
@@ -77,7 +77,12 @@ function sourcesSection(record) {
       el('li', { class: 'source' }, [
         el(
           'a',
-          { href: s.url, target: '_blank', rel: 'noopener noreferrer', class: 'source__link' },
+          {
+            href: safeHttpUrl(s.url),
+            target: '_blank',
+            rel: 'noopener noreferrer',
+            class: 'source__link',
+          },
           s.publisher || s.url,
         ),
         el('span', { class: 'source__meta' }, formatDate(s.retrieved)),
