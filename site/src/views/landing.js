@@ -8,7 +8,15 @@ import { el, clear } from '../dom.js';
 import { t, applyI18n } from '../i18n/index.js';
 import { loadSummary, loadRecent } from '../data.js';
 import { renderDonut, renderTrend, renderStateGrid, statusLegend } from '../charts.js';
-import { ACTIVE_STATUSES, hoursSince, stateName, statusLabel, formatNumber } from '../format.js';
+import {
+  ACTIVE_STATUSES,
+  CLOSED_STATUSES,
+  hoursSince,
+  stateName,
+  statusLabel,
+  categoryLabel,
+  formatNumber,
+} from '../format.js';
 import { recentCard } from './parts.js';
 
 function notice(kind, key) {
@@ -95,8 +103,11 @@ function feedSelect(name, labelKey, options, onChange) {
 /** A self-contained, client-side filtered feed. Order (newest-first) is preserved. */
 function recentFeed(records) {
   const filters = { q: '', state: '', status: '', category: '' };
-  const list = el('ul', { class: 'feed', 'aria-live': 'polite' });
-  const count = el('p', { class: 'muted feed__count' });
+  // aria-live sits on the short count summary, NOT the list: announcing the whole
+  // re-rendered card list on every debounced keystroke is noise; the count (and the
+  // no-results <li role="status">) convey the change concisely.
+  const list = el('ul', { class: 'feed' });
+  const count = el('p', { class: 'muted feed__count', 'aria-live': 'polite' });
 
   const allOpt = { value: '', label: t('filter_all') };
   const stateOpts = [
@@ -117,8 +128,8 @@ function recentFeed(records) {
     allOpt,
     ...uniqueSorted(
       records.map((r) => r.category),
-      (c) => c,
-    ).map((c) => ({ value: c, label: c })),
+      categoryLabel,
+    ).map((c) => ({ value: c, label: categoryLabel(c) })),
   ];
 
   const draw = () => {
@@ -291,7 +302,12 @@ export async function renderLanding() {
     (n, [s, c]) => n + (ACTIVE_STATUSES.has(s) ? c : 0),
     0,
   );
-  const closedTotal = total - activeTotal;
+  // Closed = explicitly CONVICTED/ACQUITTED/QUASHED/CLOSED. UNKNOWN is neither
+  // active nor closed, so it is excluded from both (not silently counted "closed").
+  const closedTotal = Object.entries(statusCounts).reduce(
+    (n, [s, c]) => n + (CLOSED_STATUSES.has(s) ? c : 0),
+    0,
+  );
   const stale = hoursSince(summary.generated_at) > 48;
 
   const charts = chartsSection(statusCounts, stateCounts, monthly);
@@ -299,7 +315,9 @@ export async function renderLanding() {
   const node = el('div', { class: 'view view--landing' }, [
     stale ? notice('stale', 'stale_notice') : null,
     el('section', { class: 'lead reveal' }, [
-      el('p', { class: 'lead__tagline', 'data-i18n': 'tagline' }, t('tagline')),
+      // The page's single h1 (was a <p>): the record is the page, so the tagline
+      // is its heading — fixes the missing-h1 / skipped-heading-level a11y issue.
+      el('h1', { class: 'lead__tagline', 'data-i18n': 'tagline' }, t('tagline')),
       el('p', { class: 'lead__text', 'data-i18n': 'landing_lead' }, t('landing_lead')),
     ]),
     statStrip(total, activeTotal, closedTotal),
@@ -307,10 +325,17 @@ export async function renderLanding() {
     el('section', { class: 'charts-wrap reveal' }, [charts.details]),
   ]);
 
-  // If the charts panel is open at mount (desktop), draw once the node is laid out.
-  requestAnimationFrame(() => {
-    if (node.isConnected && charts.isOpen()) charts.drawCharts();
-  });
+  // If the charts panel is open at mount (desktop), draw once the node is laid
+  // out. The router mounts inside document.startViewTransition, which defers the
+  // mount past the first frame — so retry (bounded) until the node is connected,
+  // otherwise the desktop donut/trend canvases stay blank at their default size.
+  let tries = 0;
+  const drawWhenReady = () => {
+    if (!charts.isOpen()) return;
+    if (node.isConnected) charts.drawCharts();
+    else if (tries++ < 30) requestAnimationFrame(drawWhenReady);
+  };
+  requestAnimationFrame(drawWhenReady);
 
   return node;
 }
