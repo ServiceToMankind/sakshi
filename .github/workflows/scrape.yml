@@ -53,6 +53,9 @@ jobs:
       LAUNCH_MODE: ${{ vars.LAUNCH_MODE || 'staged' }}
       LAUNCH_STATES: ${{ github.event.inputs.states || vars.LAUNCH_STATES || '' }}
       LAUNCH_LOOKBACK_DAYS: ${{ github.event.inputs.lookback_days || vars.LAUNCH_LOOKBACK_DAYS || '' }}
+      # Supervised phase: when 'true', hold even auto-eligible records unless they are
+      # on the approval allowlist, so nothing publishes without an explicit approval.
+      PUBLISH_APPROVED_ONLY: ${{ vars.PUBLISH_APPROVED_ONLY || '' }}
       # Optional ops override of the pinned model chain (comma-separated). Empty =>
       # the pinned chain in sources.yml (extraction.models). No code change needed.
       GEMINI_MODELS: ${{ vars.GEMINI_MODELS || '' }}
