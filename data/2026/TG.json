@@ -1,0 +1,27 @@
+[
+  {
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "district": "Hyderabad",
+    "id": "SKS-2026-TG-000001",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-15",
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64",
+      "POCSO Act",
+      "IPC 354"
+    ],
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-15",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/hyderabad/supervisor-of-hyderabad-welfare-home-arrested-for-sexually-assaulting-boys-under-his-care-10307360/"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status."
+  }
+]

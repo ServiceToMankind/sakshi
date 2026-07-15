@@ -1,0 +1,148 @@
+[
+  {
+    "reasons": [
+      "awaiting_approval"
+    ],
+    "record": {
+      "category": "rape",
+      "confidence": 0.9,
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "district": "Central Delhi",
+      "id": "SKS-2026-DL-000001",
+      "incident_reported_date": "2026-07-15",
+      "last_verified": "2026-07-15",
+      "minor_involved": false,
+      "offence_sections": [
+        "IPC 376",
+        "IPC 509",
+        "IPC 354 A",
+        "IPC 498A"
+      ],
+      "pending_days": 0,
+      "sources": [
+        {
+          "publisher": "The Hindu",
+          "retrieved": "2026-07-15",
+          "source_type": "news_article",
+          "url": "https://www.thehindu.com/news/cities/Delhi/delhi-high-court-flags-emerging-trend-of-rape-allegations-in-matrimonial-disputes/article71210001.ece"
+        }
+      ],
+      "state": "DL",
+      "status": "UNDER_TRIAL",
+      "summary": "The Delhi High Court noted an 'emerging trend' of rape allegations in matrimonial disputes while staying trial proceedings in an FIR against two brothers-in-law accused of cruelty, rape, sexual harassment, and criminal intimidation."
+    }
+  },
+  {
+    "reasons": [
+      "awaiting_approval"
+    ],
+    "record": {
+      "category": "other",
+      "confidence": 0.9,
+      "district": "Delhi",
+      "id": "SKS-2026-DL-000002",
+      "incident_reported_date": "2026-07-15",
+      "last_verified": "2026-07-15",
+      "minor_involved": false,
+      "offence_sections": [
+        "BNS 66",
+        "BNS 68"
+      ],
+      "pending_days": 0,
+      "sources": [
+        {
+          "publisher": "The Indian Express",
+          "retrieved": "2026-07-15",
+          "source_type": "news_article",
+          "url": "https://indianexpress.com/article/cities/delhi/delhi-youtuber-gurman-singh-arrested-road-safety-wala-pocso-case-10768501/"
+        }
+      ],
+      "state": "DL",
+      "status": "FIR_FILED",
+      "summary": "A YouTuber in Delhi was arrested after allegedly hitting girls on a scooter. The incident was reportedly done for views and captured on camera. The victim's father filed a complaint leading to the arrest."
+    }
+  },
+  {
+    "reasons": [
+      "awaiting_approval"
+    ],
+    "record": {
+      "category": "rape",
+      "confidence": 0.85,
+      "district": "Delhi",
+      "id": "SKS-2026-DL-000004",
+      "incident_reported_date": "2026-07-15",
+      "last_verified": "2026-07-15",
+      "minor_involved": false,
+      "offence_sections": [
+        "IPC 376"
+      ],
+      "pending_days": 0,
+      "sources": [
+        {
+          "publisher": "The Hindu",
+          "retrieved": "2026-07-15",
+          "source_type": "news_article",
+          "url": "https://www.thehindu.com/news/cities/Delhi/delhi-high-court-flags-emerging-trend-of-rape-allegations-in-matrimonial-disputes/article71210001.ece"
+        }
+      ],
+      "state": "DL",
+      "status": "UNDER_TRIAL",
+      "summary": "The Delhi High Court has noted an 'emerging trend' of rape allegations surfacing in matrimonial disputes. Justice Girish Kathpalia made these observations while halting trial proceedings in an FIR that accused two brothers-in-law of a woman of cruelty, rape, sexual harassment, and criminal intimidation."
+    }
+  },
+  {
+    "reasons": [
+      "minor_involved"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Hyderabad",
+      "incident_reported_date": "2026",
+      "offence_sections": [],
+      "category": "other",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://indianexpress.com/article/cities/hyderabad/hyderabad-man-arrested-for-setting-wife-ablaze-in-front-of-2-children-10440845/",
+          "publisher": "The Indian Express",
+          "source_type": "news_article",
+          "retrieved": "2026-07-14"
+        }
+      ]
+    }
+  },
+  {
+    "reasons": [
+      "minor_involved",
+      "confidence_below_auto"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "East Delhi",
+      "category": "sexual_assault",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "sources": [
+        {
+          "url": "https://indianexpress.com/article/cities/delhi/mayur-vihar-phase-3-clash-housing-society-teen-icu-assault-10785334/",
+          "publisher": "The Indian Express",
+          "source_type": "news_article",
+          "retrieved": "2026-07-15"
+        }
+      ],
+      "confidence": 0.8,
+      "offence_sections": [
+        "IPC 354"
+      ],
+      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
+      "incident_reported_date": "2026"
+    }
+  }
+]

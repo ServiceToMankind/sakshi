@@ -1,0 +1,29 @@
+[
+  {
+    "category": "rape",
+    "confidence": 0.9,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "district": "Delhi",
+    "id": "SKS-2026-DL-000003",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-15",
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 375"
+    ],
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-14",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status."
+  }
+]
