@@ -45,14 +45,9 @@ def test_distinct_cases_stay_separate() -> None:
     assert len(published) == 2
 
 
-_URL_B = [{"url": "https://example.invalid/y", "publisher": "The Hindu", "retrieved": "2026-07-09"}]
-
-
 def test_fuzzy_strong_match_merges() -> None:
     a = _record(court={"name": "Special POCSO Court, TESTVILLE", "next_hearing": None})
-    b = _record(
-        court={"name": "Special POCSO Court TESTVILLE", "next_hearing": None}, sources=_URL_B
-    )
+    b = _record(court={"name": "Special POCSO Court TESTVILLE", "next_hearing": None})
     assert match_strength(a, b) == "strong"
     published, review = dedupe([a, b])
     assert len(published) == 1 and review == []
@@ -60,7 +55,7 @@ def test_fuzzy_strong_match_merges() -> None:
 
 def test_fuzzy_weak_match_goes_to_review() -> None:
     a = _record(offence_sections=[], court={})
-    b = _record(offence_sections=[], court={}, sources=_URL_B)
+    b = _record(offence_sections=[], court={})
     assert match_strength(a, b) == "weak"
     published, review = dedupe([a, b])
     assert len(published) == 1
@@ -120,7 +115,6 @@ def test_cnr_only_and_fir_only_merge_via_fuzzy() -> None:
     b = _record(
         fir_ref={"station": "TESTVILLE PS", "number": "9/2026"},
         court={"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
-        sources=_URL_B,
     )
     # Disjoint anchor types (CNR-only vs FIR-only) fall through to fuzzy signals.
     assert match_strength(a, b) == "strong"
@@ -181,53 +175,3 @@ def test_merge_drops_out_of_range_status_source() -> None:
     history = merged.get("status_history", [])
     assert all(h["source"] < len(merged["sources"]) for h in history)
     assert not any(h["status"] == "FIR_FILED" for h in history)  # dropped, not misattributed
-
-
-def test_same_source_url_same_district_merges() -> None:
-    # Two extractions of ONE media article (weak anchors: no cnr, year-only date) must
-    # merge instead of duplicating on the site.
-    a = _record(
-        cnr=None,
-        offence_sections=[],
-        incident_reported_date="2026",
-        status="UNKNOWN",
-        sources=[
-            {"url": "https://ex.invalid/a1", "publisher": "The Hindu", "retrieved": "2026-07-14"}
-        ],
-    )
-    b = _record(
-        cnr=None,
-        offence_sections=[],
-        incident_reported_date="2026",
-        status="UNDER_TRIAL",
-        sources=[
-            {"url": "https://ex.invalid/a1", "publisher": "The Hindu", "retrieved": "2026-07-14"}
-        ],
-    )
-    assert match_strength(a, b) == "exact"
-    published, review = dedupe([a, b])
-    assert len(published) == 1 and review == []
-    assert published[0]["status"] == "UNDER_TRIAL"
-
-
-def test_same_url_different_district_does_not_merge() -> None:
-    # An article covering cases in different districts must NOT be fused.
-    a = _record(
-        cnr=None,
-        district="Alpha",
-        offence_sections=[],
-        incident_reported_date="2026",
-        sources=[
-            {"url": "https://ex.invalid/multi", "publisher": "The Hindu", "retrieved": "2026-07-14"}
-        ],
-    )
-    b = _record(
-        cnr=None,
-        district="Beta",
-        offence_sections=[],
-        incident_reported_date="2026",
-        sources=[
-            {"url": "https://ex.invalid/multi", "publisher": "The Hindu", "retrieved": "2026-07-14"}
-        ],
-    )
-    assert match_strength(a, b) == "none"

@@ -129,14 +129,6 @@ def _anchor_types(keys: set[str]) -> set[str]:
     return {key.split(":", 1)[0] for key in keys}
 
 
-def _source_urls(record: dict[str, Any]) -> set[str]:
-    return {
-        str(source.get("url", "")).strip()
-        for source in record.get("sources", [])
-        if str(source.get("url", "")).strip()
-    }
-
-
 def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
     """Return 'exact', 'strong', 'weak', or 'none' for the a/b pairing."""
     keys_a, keys_b = exact_anchor_keys(a), exact_anchor_keys(b)
@@ -144,22 +136,12 @@ def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
         return "exact"
     # Only decide "distinct" when they share an anchor TYPE (cnr vs cnr, fir vs fir)
     # yet the values differ. If the anchor types are disjoint (one CNR-only, the
-    # other FIR-only), fall through so the same case can still match.
+    # other FIR-only), fall through to the fuzzy signals so the same case can match.
     if _anchor_types(keys_a) & _anchor_types(keys_b):
         return "none"
 
     district_a = str(a.get("district", "")).strip().lower()
     district_b = str(b.get("district", "")).strip().lower()
-    # Same source article in the same district is the same case (records with
-    # conflicting exact anchors were already returned "none" above). Media records
-    # often lack a CNR/FIR and carry a year-only date, so two extractions of one
-    # article (carryover + re-extraction) would otherwise not merge and would
-    # duplicate on the site. Scoped to a shared district so an article covering cases
-    # in different places is not fused. (A future court/cause-list source that lists
-    # many cases at one URL would need its own handling; media article URLs are one-case.)
-    if district_a and district_a == district_b and (_source_urls(a) & _source_urls(b)):
-        return "exact"
-
     if not district_a or district_a != district_b:
         return "none"
 
