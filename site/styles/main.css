@@ -1,21 +1,26 @@
 /* Sakshi — design system.
-   Restrained, memorial-grade. Light + dark via custom properties; the viewer's
-   OS theme is the default, and the header toggle stamps [data-theme] to override.
+   Restrained, memorial-grade — a "newspaper of record" feel: warm paper, near-
+   black ink, one deep ink-blue accent, serif headings, generous line-height.
+
+   LIGHT IS THE DEFAULT for every visitor. The base :root is the light palette;
+   `@media (prefers-color-scheme: dark)` is honoured only as an override for
+   dark-OS visitors; an explicit header-toggle choice ([data-theme]) beats both.
    Status colors give ACQUITTED and QUASHED the same visual weight as CONVICTED. */
 
 :root {
-  --bg: #f6f5f2;
-  --surface: #ffffff;
-  --surface-2: #faf9f6;
-  --text: #1b1d21;
-  --text-muted: #565a63;
-  --border: #e4e1da;
-  --accent: #3f4ea8;
-  --accent-soft: rgba(63, 78, 168, 0.14);
-  --focus: #3f4ea8;
-  --shadow: 0 1px 2px rgba(20, 22, 26, 0.05), 0 6px 18px rgba(20, 22, 26, 0.06);
-  --skeleton-a: #e9e6e0;
-  --skeleton-b: #f3f1ec;
+  /* Warm paper, ink-black text, one deep ink-blue accent. */
+  --bg: #faf8f3;
+  --surface: #fffdf9;
+  --surface-2: #f3efe6;
+  --text: #1a1815;
+  --text-muted: #5a544a;
+  --border: #e5ded1;
+  --accent: #2f3a6e;
+  --accent-soft: rgba(47, 58, 110, 0.12);
+  --focus: #2f3a6e;
+  --shadow: 0 1px 2px rgba(40, 33, 20, 0.04), 0 4px 14px rgba(40, 33, 20, 0.05);
+  --skeleton-a: #ece6da;
+  --skeleton-b: #f5f1e8;
 
   --c-fir: #c98a2b;
   --c-charge: #3b7dd8;
@@ -26,6 +31,7 @@
   --c-quashed: #3f8fb0;
   --c-closed: #6b7280;
   --c-unknown: #8a8f98;
+  --c-verified: #2f7d55;
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -35,8 +41,9 @@
   --font-head: Georgia, 'Times New Roman', 'Noto Serif', serif;
 }
 
+/* Dark honoured only for dark-OS visitors who have not explicitly chosen. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: #14161a;
     --surface: #1c1f26;
     --surface-2: #21252d;
@@ -49,21 +56,25 @@
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
     --skeleton-a: #23272f;
     --skeleton-b: #2c313a;
+    --c-verified: #4bb07d;
   }
 }
 
+/* Explicit light choice re-asserts the paper palette over a dark-OS default. */
 :root[data-theme='light'] {
-  --bg: #f6f5f2;
-  --surface: #ffffff;
-  --surface-2: #faf9f6;
-  --text: #1b1d21;
-  --text-muted: #565a63;
-  --border: #e4e1da;
-  --accent: #3f4ea8;
-  --accent-soft: rgba(63, 78, 168, 0.14);
-  --focus: #3f4ea8;
-  --skeleton-a: #e9e6e0;
-  --skeleton-b: #f3f1ec;
+  --bg: #faf8f3;
+  --surface: #fffdf9;
+  --surface-2: #f3efe6;
+  --text: #1a1815;
+  --text-muted: #5a544a;
+  --border: #e5ded1;
+  --accent: #2f3a6e;
+  --accent-soft: rgba(47, 58, 110, 0.12);
+  --focus: #2f3a6e;
+  --shadow: 0 1px 2px rgba(40, 33, 20, 0.04), 0 4px 14px rgba(40, 33, 20, 0.05);
+  --skeleton-a: #ece6da;
+  --skeleton-b: #f5f1e8;
+  --c-verified: #2f7d55;
 }
 
 :root[data-theme='dark'] {
@@ -76,8 +87,10 @@
   --accent: #8b9bff;
   --accent-soft: rgba(139, 155, 255, 0.16);
   --focus: #8b9bff;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
   --skeleton-a: #23272f;
   --skeleton-b: #2c313a;
+  --c-verified: #4bb07d;
 }
 
 *,
@@ -96,7 +109,7 @@ body {
   color: var(--text);
   font-family: var(--font);
   font-size: 16px;
-  line-height: 1.55;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
@@ -304,6 +317,186 @@ canvas {
 .stat__label {
   color: var(--text-muted);
   font-size: 0.85rem;
+}
+
+/* --- Landing: compact stat strip ---------------------------------------- */
+.stat-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+.stat-strip__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+.stat-strip__value {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+.stat-strip__sep {
+  color: var(--border);
+}
+
+/* --- Landing: recent-cases feed (primary content) ----------------------- */
+.recent {
+  display: grid;
+  gap: 0.85rem;
+}
+.recent__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  border-bottom: 2px solid var(--text);
+  padding-bottom: 0.5rem;
+}
+.recent__title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+.recent__explore {
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.recent__explore:hover {
+  text-decoration: underline;
+}
+.recent__lead {
+  margin: -0.25rem 0 0;
+  max-width: 46rem;
+  font-size: 0.92rem;
+}
+.filters--feed {
+  align-items: end;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+}
+.feed__count {
+  margin: 0;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.feed__empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.feed__empty p {
+  margin: 0.25rem auto;
+  max-width: 34rem;
+}
+.feed-card__link {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    border-left-color 0.15s ease;
+}
+.feed-card__link:hover {
+  border-color: var(--accent);
+  border-left-color: var(--accent);
+  transform: translateY(-2px);
+}
+.feed-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.feed-card__title {
+  margin: 0;
+  font-family: var(--font-head);
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.feed-card__summary {
+  margin: 0;
+  color: var(--text);
+}
+.feed-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.feed-card__place {
+  font-weight: 600;
+  color: color-mix(in srgb, var(--text-muted) 70%, var(--text));
+}
+.feed-card__source {
+  font-style: italic;
+}
+
+/* --- Landing: charts (below the feed; collapsed on mobile) --------------- */
+.charts-wrap {
+  display: block;
+}
+.charts {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+}
+.charts__summary {
+  cursor: pointer;
+  padding: 0.85rem 1.1rem;
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.charts__summary::-webkit-details-marker {
+  display: none;
+}
+.charts__summary::before {
+  content: '▸';
+  color: var(--text-muted);
+  transition: transform 0.15s ease;
+}
+.charts[open] > .charts__summary::before {
+  transform: rotate(90deg);
+}
+.charts__summary:hover {
+  color: var(--accent);
+}
+.charts__body {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  padding: 0 clamp(0.6rem, 2vw, 1rem) clamp(0.8rem, 2vw, 1rem);
 }
 
 /* --- Panels ------------------------------------------------------------- */
@@ -570,6 +763,14 @@ canvas {
 }
 .badge--minor {
   --badge-c: var(--accent);
+}
+.badge--verified {
+  --badge-c: var(--c-verified);
+  gap: 0.25em;
+}
+.badge__check {
+  font-weight: 900;
+  line-height: 1;
 }
 
 /* --- Case detail -------------------------------------------------------- */

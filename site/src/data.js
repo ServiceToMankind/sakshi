@@ -34,6 +34,16 @@ export function loadSummary() {
   return getJSON(`${DATA}/summary.json`);
 }
 
+/**
+ * The landing feed's data source: a flat array of the latest published records
+ * (newest first), written by the pipeline as `data/recent.json`. Deliberately a
+ * single small file so the landing never walks per-state shards. Callers should
+ * treat a rejection (missing/empty file) as "no recent cases" and degrade.
+ */
+export function loadRecent() {
+  return getJSON(`${DATA}/recent.json`);
+}
+
 export function loadIndex() {
   return getJSON(`${DATA}/index.json`);
 }
