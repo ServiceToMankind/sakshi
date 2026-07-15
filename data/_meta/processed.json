@@ -24,6 +24,12 @@
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
     },
+    "029f7af888ced65593b027ae2e14311a3f55a60fd5d87b0f5f9de9d4493ad850": {
+      "attempts": 0,
+      "first_seen": "2026-07-15",
+      "last_seen": "2026-07-15",
+      "outcome": "not_a_case"
+    },
     "03e0808e1d842c6ead63e51a463288b5e1be447b9453a8a90477cb9fede2a683": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -859,10 +865,10 @@
       "outcome": "not_a_case"
     },
     "4668c4c1754e02fcdbd4942e17affc1208310b1bc6cc28805fb572181ca9d711": {
-      "attempts": 2,
+      "attempts": 3,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
-      "outcome": "failed"
+      "outcome": "failed_permanent"
     },
     "4769f868a30f17280dd6f1826dcfaa5e39f63aa1e8d89b8cbc62968fe86b686f": {
       "attempts": 0,
@@ -2662,7 +2668,7 @@
       "attempts": 2,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
-      "outcome": "failed"
+      "outcome": "not_a_case"
     },
     "c7d49f3eae9e282bdf155a3260eeb788037e862f8512c728e32cb1a0b9013fa7": {
       "attempts": 0,
@@ -2704,7 +2710,7 @@
       "attempts": 2,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
-      "outcome": "failed"
+      "outcome": "not_a_case"
     },
     "cbb621f3a6f10b797ab3684bf336018e022fde98a503c56c236faf3346c7e69c": {
       "attempts": 0,
@@ -3156,6 +3162,12 @@
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
     },
+    "e8e73859e07f891ba69c8ce9f39dd0accdcefb8a400200fee46452495dc41762": {
+      "attempts": 1,
+      "first_seen": "2026-07-15",
+      "last_seen": "2026-07-15",
+      "outcome": "failed"
+    },
     "e8fb95a8a2e18fb0a8773dc322f43640c82d84500aa7328ec9a40b13add5efd6": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -3371,6 +3383,12 @@
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
+    },
+    "fa2fad8fb7fd559a08b6b4680f15c6ff1b4d2b0246b5351df849448a5efcda2b": {
+      "attempts": 0,
+      "first_seen": "2026-07-15",
+      "last_seen": "2026-07-15",
+      "outcome": "staged_pending"
     },
     "fa8ff529916cae80d434cd0927c6b6daa5b3285a18b2e83a3f4f821c9e87ebbd": {
       "attempts": 0,
