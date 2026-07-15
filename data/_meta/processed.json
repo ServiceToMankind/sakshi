@@ -226,7 +226,7 @@
       "attempts": 1,
       "first_seen": "2026-07-14",
       "last_seen": "2026-07-15",
-      "outcome": "staged_pending"
+      "outcome": "not_a_case"
     },
     "1510be37b71feb872427e7f15bf1d427e4858ea98fc7fd13e52a71924521e8c6": {
       "attempts": 0,
@@ -373,6 +373,12 @@
       "outcome": "not_a_case"
     },
     "21edd3facf3dec12d4a05d0251e86634b8b6b4d61d57d5491cdbc3a781aaed37": {
+      "attempts": 0,
+      "first_seen": "2026-07-15",
+      "last_seen": "2026-07-15",
+      "outcome": "not_a_case"
+    },
+    "22596f75cfe1a3424996285133e14c3375af3f664ab8105ef444884ac97ca194": {
       "attempts": 0,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
