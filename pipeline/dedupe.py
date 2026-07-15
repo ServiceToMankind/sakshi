@@ -277,6 +277,14 @@ def merge_records(a: dict[str, Any], b: dict[str, Any]) -> dict[str, Any]:
     merged["minor_involved"] = bool(
         primary.get("minor_involved") or secondary.get("minor_involved")
     )
+    # A case is verified if ANY copy in its cluster was verified — otherwise a fresh,
+    # verified copy that merges (as secondary) into a carried-over unverified copy would
+    # silently lose its `verified` flag and be held/quarantined despite being confirmed.
+    if primary.get("verified") or secondary.get("verified"):
+        merged["verified"] = True
+        note = primary.get("verification_note") or secondary.get("verification_note")
+        if note:
+            merged["verification_note"] = note
 
     sections = list(
         dict.fromkeys(

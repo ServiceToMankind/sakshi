@@ -45,6 +45,20 @@ def test_distinct_cases_stay_separate() -> None:
     assert len(published) == 2
 
 
+def test_merge_preserves_verified_flag_from_either_copy() -> None:
+    """A case is verified if ANY copy in its cluster was verified — a fresh verified copy
+    that merges (as secondary) into a carried-over UNVERIFIED copy must keep `verified`,
+    else the verifier-live publish gate would wrongly hold/quarantine a confirmed case."""
+    carried = _record(cnr="C-1", minor_involved=False)  # no `verified` key (carryover)
+    fresh = _record(cnr="C-1", minor_involved=False, verified=True, verification_note="ok")
+    merged = merge_records(carried, fresh)
+    assert merged["verified"] is True
+    assert merged.get("verification_note") == "ok"
+    # And a merge of two unverified copies stays unverified (no key invented).
+    both = merge_records(_record(cnr="C-2"), _record(cnr="C-2"))
+    assert both.get("verified") is None
+
+
 def test_fuzzy_strong_match_merges() -> None:
     a = _record(court={"name": "Special POCSO Court, TESTVILLE", "next_hearing": None})
     b = _record(court={"name": "Special POCSO Court TESTVILLE", "next_hearing": None})

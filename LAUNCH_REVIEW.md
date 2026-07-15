@@ -201,6 +201,75 @@ staged-PR → human-merge model is the safe standing operation.
 
 ---
 
+## L. Grounded verification before publish (issue #41, PRs #42 / #43 / #44)
+
+The bridge that lets records publish WITHOUT a human reading each one first, while
+keeping every Phase 0 guardrail intact. A second, stronger model
+(`gemini-2.5-pro` + Google Search grounding, config-pinned) re-checks each in-scope
+candidate against its cited source BEFORE publish and stamps `verified`.
+
+- **What the verifier may do:** (a) confirm the source text supports every field;
+  (b) re-check scope (a real, specific reported sexual-offence case — not a
+  commentary/trend/editorial piece); (c) run one grounded search and attach a second
+  corroborating source; (d) emit `verified` + a one-sentence `verification_note`, or
+  DEMOTE (`verified:false`). It may correct only a small set of FACTUAL fields
+  (`CORRECTABLE_FIELDS` in `pipeline/verify.py`).
+- **What it can NEVER do** (deterministic gates are supreme): it cannot touch
+  `minor_involved`, `accused`, `id`, a source URL, or a minor's deterministic
+  `title`/`summary`. A verifier that believes `minor_involved` is wrong must DEMOTE,
+  not flip it. A minor's content is never model-written; the verifier only decides
+  whether the *projected* minor record is publishable, never what it says.
+- **Publish rules (verifier-live, `VERIFY_ENABLED=true`):**
+  - A FRESH record must be `verified:true` to publish; otherwise it is quarantined to
+    `data/_review/` with the verifier's note — never onto the site.
+  - A verified record still passes the full last gate + the graduated auto-publish
+    gate **minus** `minor_involved`: a verified **minor** DOES publish (its
+    title/summary are deterministic, non-identifying — POCSO s.23 projection), but a
+    **named (court) accused** still routes to the human queue (defamation), as do
+    `pocso_minor_mismatch`, live-blog-only, and sub-threshold confidence.
+  - Every published record is re-run through `coerce_minor → sanitize/project →
+    withhold-unsourced-names`, so a dedupe merge that flips `minor_involved` after the
+    per-candidate sanitize is re-projected to the minimal shape before it reaches
+    either a shard **or** `data/recent.json`.
+  - **Grandfathering:** a record already live on the site is never unpublished by the
+    verifier flip — even if its source has rolled off the feed and it cannot be
+    re-verified this run (record-loss guardrail). Only genuinely fresh cases face the
+    verified-gate.
+  - **Carryover never lost:** the verifier runs only on fresh candidates, so a
+    carried-over held record can never earn `verified`. It is therefore HELD (kept in
+    the review queue), never swept to the `_review` quarantine — only a *purely-fresh*
+    candidate the verifier declines is quarantined. Human approval is honoured in
+    verifier-live mode exactly as in the supervised phase.
+- **Hardened by a 3-lens adversarial review** (PII-leak, record-loss, verifier-logic)
+  which found and fixed: a minor's model-written `verification_note` reaching the shard
+  un-scanned (stripped now; canonical fix tracked in issue #44); the verifier flip
+  sweeping the entire held queue into `_review` (permanent loss); dead approval logic
+  under the verifier; `verified` lost across a dedupe merge; the corroborating source's
+  empty date quarantining verified records; truthy-coerced `verified`; an unbounded
+  per-call cost; and non-http `second_source` URLs. All with regression tests.
+- **OPEN OPERATOR DECISION — require corroboration for unattended publish?** The
+  verifier is designed to attach a grounded second source. Today a *single-source*
+  fresh verified record still auto-publishes (per the "verified + gates → publish"
+  spec). A stronger anti-fabrication / anti-injection posture is to HOLD any fresh
+  verified record with `< 2` independent sources for human review (no record is lost —
+  it just waits). This trades auto-publish reach (nil when grounding is unavailable)
+  for stronger corroboration. Not enforced yet; decide before flipping to auto. The
+  source text is already fenced as untrusted data in the verifier prompt, and non-http
+  corroborating URLs are rejected at ingestion.
+- **Fail-safety & cost:** every error path (unparseable verdict, provider exception,
+  missing source text, budget exhausted) leaves a record `verified:false`
+  (quarantined) — fail-closed. Runs only on in-scope candidates (a handful/day) under
+  a hard per-run USD cap (`VERIFY_MAX_USD`, default $0.50); a candidate not verified
+  within budget stays quarantined. The daily heartbeat carries a `verify (guardrail
+  L)` line (verified / demoted / est. $).
+- **Evidence:** `test_verify.py` (parse/apply/budget/error/no-source paths),
+  `test_orchestrator.py` (verified minor publishes, unverified quarantined, named
+  accused held, legacy live record grandfathered across a verifier flip,
+  POCSO-nonminor fail-closed coerced to a projected minor). Hardened by a 3-lens
+  adversarial review (PII-leak, record-loss, verifier-logic) before merge.
+
+---
+
 ## Staged-run evidence
 
 _Two-state (TG, DL), 30-day scope, `staged` mode. Every run finished inside its
