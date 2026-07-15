@@ -329,6 +329,19 @@ jobs:
       - name: Gate — full `make check` on the staged tree
         id: gate
         if: success() && env.LAUNCH_MODE == 'auto' && steps.publish_stage.outputs.changed == 'true'
+        # Run the gate in a CI-like HERMETIC env: clear the pipeline-runtime vars set at
+        # job level so `make check`'s test suite is not influenced by them (e.g. an
+        # orchestrator test asserting a record publishes must not be held to 0 by an
+        # ambient PUBLISH_APPROVED_ONLY=true). Mirrors ci.yml, which sets none of these.
+        # (The tests also delenv these defensively, so this is belt-and-suspenders.)
+        # NOTE: LAUNCH_MODE is intentionally NOT overridden here — this step's own `if:`
+        # reads env.LAUNCH_MODE, and no test depends on it.
+        env:
+          LAUNCH_LOOKBACK_DAYS: ""
+          PUBLISH_APPROVED_ONLY: ""
+          VERIFY_ENABLED: ""
+          VERIFY_MAX_USD: ""
+          GEMINI_MODELS: ""
         run: |
           python -m pip install -e '.[dev]'
           ( cd site && npm ci --no-audit --no-fund )
