@@ -1,0 +1,23 @@
+[
+  {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "district": "Gurgaon",
+    "id": "SKS-2026-HR-000001",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-15",
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-14",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/delhi/gurgaon-child-sexual-assault-case-parents-challenge-sit-probe-in-court-10782114/"
+      }
+    ],
+    "state": "HR",
+    "status": "UNDER_TRIAL",
+    "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status."
+  }
+]
