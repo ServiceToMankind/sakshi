@@ -510,7 +510,10 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"| New this run | {report.new} |\n"
         f"| Updated | {report.updated} |\n"
         f"| Review queue (below threshold) | {report.review} |\n"
-        f"| Est. Gemini cost | ${report.estimated_usd:.4f} |\n\n"
+        f"| Verified (fresh, this run) | {report.verified} |\n"
+        f"| Verifier-demoted (quarantined) | {report.verify_demoted} |\n"
+        f"| Est. extraction cost | ${report.estimated_usd:.4f} |\n"
+        f"| Est. verification cost | ${report.verify_usd:.4f} |\n\n"
         f"{table('Auto-eligible by state', report.state_counts)}\n"
         f"{table('Auto-eligible by source', report.source_counts)}\n"
         f"{table('Held for review (why)', report.needs_review_reasons)}\n"
@@ -534,7 +537,9 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"REJECTED={report.rejected_out_of_scope}\n"
         f"FETCHED={report.fetched}\nPROCESSED={report.processed}\n"
         f"SKIPPED={report.skipped_settled}\nEXTRACTED={report.extracted}\n"
-        f"COST={report.estimated_usd:.6f}\n",
+        f"COST={report.estimated_usd:.6f}\n"
+        f"VERIFIED={report.verified}\nVERIFY_DEMOTED={report.verify_demoted}\n"
+        f"VERIFY_COST={report.verify_usd:.6f}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")

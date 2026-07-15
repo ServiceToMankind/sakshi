@@ -269,6 +269,7 @@ jobs:
         run: |
           NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; NEEDS_REVIEW=0; REJECTED=0; COST=0
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
+          VERIFIED=0; VERIFY_DEMOTED=0; VERIFY_COST=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
           # Depth of the persistent needs-review (held) queue, straight from the file.
           QUEUE="$(jq 'length' data/_needs_review/queue.json 2>/dev/null || echo 0)"
@@ -287,13 +288,18 @@ jobs:
           [ "${{ job.status }}" = "failure" ] && STATUS="RUN FAILED"
           INSCOPE=$((PUBLISHED + NEEDS_REVIEW + REVIEW))
           SCOPE="states=${LAUNCH_STATES:-<UNSET!>} · lookback=${LAUNCH_LOOKBACK_DAYS:-<none>}d"
+          # Verifier line (guardrail L) — shown only when the verifier ran this cycle.
+          VLINE=""
+          if [ "${VERIFY_ENABLED:-}" = "true" ] || [ "${VERIFIED:-0}" != "0" ] || [ "${VERIFY_DEMOTED:-0}" != "0" ]; then
+            VLINE="$(printf '\n- verify (guardrail L): **%s** verified · %s demoted/quarantined · est $%s' "$VERIFIED" "$VERIFY_DEMOTED" "$VERIFY_COST")"
+          fi
           # Flag a growing human-review backlog (held records awaiting promotion).
           QNOTE=""; [ "${QUEUE:-0}" -gt 25 ] && QNOTE=" ⚠️ over 25"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope\n- needs-review queue: **%s**%s\n- cost: $%s · status: **%s**%s' \
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
             "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" "$PENDING" "$LEDGER_TOTAL" \
-            "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$NEEDS_REVIEW" "$REVIEW" "$REJECTED" \
+            "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$NEEDS_REVIEW" "$REVIEW" "$REJECTED" "$VLINE" \
             "$QUEUE" "$QNOTE" \
             "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
