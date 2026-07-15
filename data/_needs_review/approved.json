@@ -1,9 +1,12 @@
 {
-  "_comment": "Human-approved held records to publish. Approval is by source URL; a promoted minor record stays projected/minimal. Reviewed and approved by the operator on 2026-07-14. The wife-burning/murder article (…-ablaze-…-10440845) is intentionally EXCLUDED as out of scope.",
+  "_comment": "Human-approved held records to publish. Approval is by source URL; a promoted minor record stays projected/minimal (state/district/year/offence/status). Reviewed by the operator 2026-07-14; 3 more POCSO cases approved 2026-07-15 after AI + human review. EXCLUDED as out of scope (NOT sexual offences): the wife-burning/murder article (…-ablaze-…-10440845) and the housing-society-clash/teen-ICU-assault article (…-mayur-vihar-phase-3-clash-…-10785334); both stay held, never published.",
   "approved_source_urls": [
     "https://indianexpress.com/article/cities/delhi/7-year-old-gangraped-killed-falls-through-shaft-from-3rd-floor-to-basement-of-upcoming-mall-in-ghaziabad-10782648/",
     "https://indianexpress.com/article/cities/delhi/gurgaon-child-sexual-assault-case-parents-challenge-sit-probe-in-court-10782114/",
     "https://indianexpress.com/article/cities/hyderabad/supervisor-of-hyderabad-welfare-home-arrested-for-sexually-assaulting-boys-under-his-care-10307360/",
-    "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/"
+    "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/",
+    "https://www.thehindu.com/news/national/telangana/five-sentenced-to-life-imprisonment-in-minor-girls-rape-case-in-jagtial/article71226758.ece",
+    "https://www.thehindu.com/news/national/telangana/three-accused-accomplice-in-minor-girls-rape-case-arrested-in-kothagudem/article71226352.ece",
+    "https://indianexpress.com/article/cities/delhi/ghaziabad-toddler-minor-rape-pocso-bns-case-accused-labourer-arrested-10771767/"
   ]
 }
