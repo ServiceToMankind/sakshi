@@ -43,6 +43,14 @@ Hard rules:
 - Do NOT invent, infer, or embellish. Only report what the text states.
 - "victim" MUST be null. Never output any victim, survivor, complainant, address,
   family, school, workplace, photo, phone, email, or age (beyond minor true/false).
+- TITLE + SUMMARY in plain English for a general reader:
+  · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
+    boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
+  · "summary": <=2 short declarative sentences, active voice, NO legalese. Say
+    "The court paused the trial while it reviews the FIR", not "stayed proceedings
+    concerning an FIR alleging...". Never define anything by section number alone.
+  · If minor_involved is true, OMIT title and summary entirely — they are generated
+    deterministically afterwards and must never be model-written for a minor.
 - SCOPE — sexual offences ONLY: this record covers rape, POCSO, sexual assault,
   sexual harassment, acid attack, stalking, voyeurism, and disrobing (BNS Chapter V
   sections 63-79 / POCSO / IPC 354, 375-377, 509). The "other" category means

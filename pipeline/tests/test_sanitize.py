@@ -9,7 +9,6 @@ from __future__ import annotations
 
 from pipeline.pii_constants import is_forbidden_key, matched_value_patterns
 from pipeline.sanitize import (
-    MINOR_SUMMARY_TEMPLATE,
     REDACTION_PLACEHOLDER,
     contains_pii,
     sanitize_record,
@@ -135,8 +134,11 @@ _MINOR_LEAK = {
 def test_minor_projection_replaces_age_narrative_and_truncates_dates() -> None:
     """A minor record's age-bearing narrative and day/age-precise fields are projected."""
     clean = sanitize_record(_MINOR_LEAK)
-    assert clean["summary"] == MINOR_SUMMARY_TEMPLATE  # model narrative gone
-    assert "17-year-old" not in clean["summary"]
+    # Title + summary are deterministic, non-identifying, and carry the legal sentence.
+    assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
+    assert "17-year-old" not in clean["summary"]  # model narrative gone
+    assert "involving a minor" in clean["title"]
+    assert "17-year-old" not in clean["title"]
     assert clean["incident_reported_date"] == "2026"  # year granularity only
     assert clean["pending_days"] is None  # not stored for a minor
     assert clean["court"]["next_hearing"] is None
@@ -149,11 +151,12 @@ def test_minor_projection_is_idempotent() -> None:
     assert sanitize_record(once) == once
 
 
-def test_minor_projection_absent_optional_fields_only_forces_summary() -> None:
-    """With the optional day/age fields absent, only the summary is set."""
+def test_minor_projection_absent_optional_fields_only_forces_title_and_summary() -> None:
+    """With the optional day/age fields absent, title + summary are still generated."""
     minimal = {"minor_involved": True, "state": "TG", "district": "TESTVILLE"}
     clean = sanitize_record(minimal)
-    assert clean["summary"] == MINOR_SUMMARY_TEMPLATE
+    assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
+    assert "involving a minor" in clean["title"]
     assert "incident_reported_date" not in clean
     assert "pending_days" not in clean
     assert "court" not in clean

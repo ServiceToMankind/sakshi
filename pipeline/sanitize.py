@@ -43,6 +43,66 @@ __all__ = [
 # itself match any PII value-pattern, so sanitisation stays idempotent.
 REDACTION_PLACEHOLDER = "[redacted]"
 
+# Deterministic title/summary for a MINOR case are built ONLY from these allowed,
+# non-identifying fields (POCSO s.23) — the model never writes a minor's title or
+# summary. Presentation labels; not PII.
+_CATEGORY_LABEL = {
+    "rape": "Rape",
+    "pocso": "Child sexual offence",
+    "sexual_assault": "Sexual assault",
+    "acid_attack": "Acid attack",
+    "harassment": "Sexual harassment",
+    "other": "Sexual offence",
+}
+_STATUS_PHRASE = {
+    "FIR_FILED": "An FIR has been filed",
+    "CHARGESHEETED": "A chargesheet has been filed",
+    "UNDER_TRIAL": "The case is under trial",
+    "CONVICTED": "The accused was convicted",
+    "ACQUITTED": "The accused was acquitted",
+    "APPEAL_PENDING": "An appeal is pending",
+    "CLOSED": "The case is closed",
+    "QUASHED": "The case was quashed",
+    "UNKNOWN": "The case status is not yet known",
+}
+# One human sentence: the gap is legal compliance, not missing data.
+MINOR_WITHHELD_SENTENCE = "Identifying details are withheld by law (POCSO s.23)."
+
+
+def _case_year(record: dict[str, Any]) -> str:
+    reported = str(record.get("incident_reported_date", ""))
+    return reported[:4] if len(reported) >= 4 and reported[:4].isdigit() else ""
+
+
+def _category_label(record: dict[str, Any]) -> str:
+    return _CATEGORY_LABEL.get(str(record.get("category", "")).lower(), "Sexual offence")
+
+
+def minor_title(record: dict[str, Any]) -> str:
+    """Deterministic, non-identifying title for a minor case (allowed fields only)."""
+    year = _case_year(record)
+    where = str(record.get("district") or record.get("state") or "").strip()
+    parts = [f"{_category_label(record)} case involving a minor"]
+    if where:
+        parts.append(f"— {where}")
+    if year:
+        parts.append(f"({year})")
+    return " ".join(parts)[:90]
+
+
+def minor_summary(record: dict[str, Any]) -> str:
+    """Deterministic, non-identifying summary for a minor case (allowed fields only)."""
+    year = _case_year(record)
+    location = ", ".join(
+        part
+        for part in (str(record.get("district", "")).strip(), str(record.get("state", "")).strip())
+        if part
+    )
+    phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
+    where = f" in {location}" if location else ""
+    reported = f" Reported {year}." if year else ""
+    return f"{phrase}{where}.{reported} {MINOR_WITHHELD_SENTENCE}"
+
 
 def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
     """Return a deep copy of ``record`` scrubbed of PII and Phase-0-projected.
@@ -60,8 +120,24 @@ def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
     """
     cleaned = _scrub_mapping(record)
     if cleaned.get("minor_involved") is True:
-        cleaned = project_minor_record(cleaned)
+        cleaned = project_minor_record(cleaned)  # sets title + summary deterministically
+    elif not str(cleaned.get("title", "")).strip():
+        # Non-minor with no model title (older record / model omission): deterministic
+        # fallback so the required `title` is always present. Non-identifying.
+        cleaned["title"] = _nonminor_title(cleaned)
     return cleaned
+
+
+def _nonminor_title(record: dict[str, Any]) -> str:
+    """Deterministic fallback title for a non-minor record lacking a model title."""
+    year = _case_year(record)
+    where = str(record.get("district") or record.get("state") or "").strip()
+    parts = [f"{_category_label(record)} case"]
+    if where:
+        parts.append(f"— {where}")
+    if year:
+        parts.append(f"({year})")
+    return " ".join(parts)[:90]
 
 
 def _scrub_mapping(mapping: dict[str, Any]) -> dict[str, Any]:
@@ -98,7 +174,10 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     Idempotent — applying it twice yields the same record.
     """
     projected = dict(record)
-    projected["summary"] = MINOR_SUMMARY_TEMPLATE
+    # Title AND summary are generated DETERMINISTICALLY from allowed non-identifying
+    # fields — the model never writes a minor's title or summary (POCSO s.23).
+    projected["title"] = minor_title(projected)
+    projected["summary"] = minor_summary(projected)
     reported = projected.get("incident_reported_date")
     if isinstance(reported, str) and reported:
         projected["incident_reported_date"] = reported[:4]  # year granularity only

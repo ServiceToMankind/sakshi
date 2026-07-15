@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "required": [
     "id",
+    "title",
     "state",
     "district",
     "category",
@@ -182,10 +183,16 @@
       "minimum": 0,
       "description": "Days the case has been pending, for accountability surfacing. MUST be null when minor_involved is true (a day-precise derivation is not stored for a minor)."
     },
+    "title": {
+      "type": "string",
+      "maxLength": 90,
+      "minLength": 1,
+      "description": "Short plain-English factual title (<=90 chars), no sensationalism. Model-written for non-minor cases; for a minor case it is generated DETERMINISTICALLY by pipeline.sanitize from allowed non-identifying fields only (enforced by the conditional below)."
+    },
     "summary": {
       "type": "string",
       "maxLength": 400,
-      "description": "One-paragraph neutral, non-graphic summary. Contains NO victim details. When minor_involved is true this is REPLACED by a fixed POCSO-s.23 template (enforced by the conditional below); the model-written narrative is never published for a minor case."
+      "description": "Plain-English neutral summary (<=2 sentences), no victim details. When minor_involved is true BOTH title and summary are generated DETERMINISTICALLY by pipeline.sanitize.project_minor_record from allowed fields only (enforced by the conditional below); the model-written narrative is never published for a minor case."
     },
     "sources": {
       "type": "array",
@@ -243,8 +250,9 @@
         "properties": {
           "incident_reported_date": { "pattern": "^\\d{4}$" },
           "pending_days": { "type": "null" },
+          "title": { "pattern": "involving a minor" },
           "summary": {
-            "const": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status."
+            "pattern": "Identifying details are withheld by law \\(POCSO s\\.23\\)\\.$"
           },
           "court": { "properties": { "next_hearing": { "const": null } } },
           "status_history": {
@@ -265,6 +273,7 @@
   "examples": [
     {
       "id": "SKS-2026-TG-000123",
+      "title": "Sexual assault case involving a minor — TESTVILLE (2026)",
       "cnr": "TSHC01-004321-2026",
       "fir_ref": { "station": "TESTVILLE PS", "number": "000/2026" },
       "state": "TG",
@@ -289,7 +298,7 @@
         "next_hearing": null
       },
       "pending_days": null,
-      "summary": "Case involving a minor. Details withheld under POCSO s.23. See cited sources and judicial status.",
+      "summary": "The case is under trial in TESTVILLE, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
       "sources": [
         {
           "url": "https://example.invalid/illustrative",

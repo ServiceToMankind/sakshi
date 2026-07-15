@@ -1457,7 +1457,8 @@ def test_approved_minor_is_promoted_and_stays_projected(tmp_path: Path) -> None:
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["minor_involved"] is True
     assert rec["incident_reported_date"] == "2026"  # STILL projected (year only)
-    assert "Details withheld under POCSO" in rec["summary"]  # STILL the projected template
+    assert "withheld by law (POCSO s.23)" in rec["summary"]  # STILL deterministic projection
+    assert "involving a minor" in rec["title"]
 
 
 def test_non_approved_minor_stays_held(tmp_path: Path) -> None:

@@ -14,13 +14,13 @@ import pytest
 from jsonschema import ValidationError
 
 from pipeline import validate
-from pipeline.sanitize import MINOR_SUMMARY_TEMPLATE
 from pipeline.shard import SUMMARY_MAX_BYTES
 
 
 def _valid_record() -> dict[str, Any]:
     return {
         "id": "SKS-2026-TG-000001",
+        "title": "Sexual assault case — TESTVILLE (2026)",
         "state": "TG",
         "district": "TESTVILLE",
         "category": "sexual_assault",
@@ -125,6 +125,7 @@ def _minor_projected_record() -> dict[str, Any]:
     """A minor record at the exact granularity sanitize.project_minor_record emits."""
     return {
         "id": "SKS-2026-TG-000001",
+        "title": "Child sexual offence case involving a minor — TESTVILLE (2026)",
         "state": "TG",
         "district": "TESTVILLE",
         "category": "pocso",
@@ -132,7 +133,7 @@ def _minor_projected_record() -> dict[str, Any]:
         "minor_involved": True,
         "incident_reported_date": "2026",
         "pending_days": None,
-        "summary": MINOR_SUMMARY_TEMPLATE,
+        "summary": "Under trial. Identifying details are withheld by law (POCSO s.23).",
         "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
         "status_history": [{"status": "FIR_FILED", "date": "2026-06", "source": 0}],
         "sources": [
@@ -172,11 +173,30 @@ def test_non_minor_requires_full_precision_dates() -> None:
         validate.validate_record(rec, schema)
 
 
-def test_schema_summary_const_matches_template() -> None:
-    """The schema's minor summary const cannot drift from the sanitizer's template."""
+def test_schema_minor_summary_pattern_matches_deterministic_text() -> None:
+    """The schema's minor summary pattern must accept the sanitizer's deterministic
+    output and reject a model narrative."""
+    import re
+
+    from pipeline import sanitize
+
     schema = validate.load_schema()
-    then = schema["allOf"][0]["then"]["properties"]
-    assert then["summary"]["const"] == MINOR_SUMMARY_TEMPLATE
+    pattern = schema["allOf"][0]["then"]["properties"]["summary"]["pattern"]
+    generated = sanitize.minor_summary(
+        {
+            "status": "UNDER_TRIAL",
+            "district": "TESTVILLE",
+            "state": "TG",
+            "incident_reported_date": "2026",
+        }
+    )
+    assert re.search(pattern, generated)  # deterministic output matches
+    assert not re.search(pattern, "Police rescued a 17-year-old.")  # a narrative does not
+    # The minor title pattern likewise accepts the deterministic title.
+    title_pattern = schema["allOf"][0]["then"]["properties"]["title"]["pattern"]
+    assert re.search(
+        title_pattern, sanitize.minor_title({"category": "pocso", "district": "TESTVILLE"})
+    )
 
 
 def test_schema_examples_all_validate() -> None:
