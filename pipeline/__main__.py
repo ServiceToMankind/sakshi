@@ -196,10 +196,13 @@ def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -
         return
     review_dir = data_dir / "_review"
     review_dir.mkdir(parents=True, exist_ok=True)
+    # Coerce minor BEFORE sanitize (symmetric with _write_needs_review) so a quarantined
+    # record whose minor_involved is a non-bool/absent/POCSO-implied minor is still
+    # age-projected — defence in depth for any record that reaches _review unfinalized.
     payload = [
         {
             "reason": item["reason"],
-            "record": _strip_minor_model_note(sanitize_record(item["record"])),
+            "record": _strip_minor_model_note(sanitize_record(_coerce_minor(item["record"]))),
         }
         for item in review
     ]

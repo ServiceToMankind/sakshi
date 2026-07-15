@@ -256,6 +256,15 @@ candidate against its cited source BEFORE publish and stamps `verified`.
   for stronger corroboration. Not enforced yet; decide before flipping to auto. The
   source text is already fenced as untrusted data in the verifier prompt, and non-http
   corroborating URLs are rejected at ingestion.
+- **OPERATOR NOTE — `verified` OR-fold across a merge.** A case is verified if ANY copy
+  in its dedupe cluster was verified (so a fresh verified copy is never lost to a
+  budget/no-source skip on another copy). A benign corner: a record previously verified
+  and HELD *only* for `live_blog_only`, if a fresh copy the verifier declined this run
+  adds a durable source, merges to `verified:True` with no remaining hold and
+  auto-publishes — even though its freshest verdict was "not verified." It leaks nothing
+  (the publish form is re-projected and unsourced names withheld) and loses/duplicates
+  nothing; it is a policy nuance to be aware of, not a guardrail breach. A fix-verification
+  pass confirmed the record-loss fixes introduce no new loss/duplication/leak.
 - **Fail-safety & cost:** every error path (unparseable verdict, provider exception,
   missing source text, budget exhausted) leaves a record `verified:false`
   (quarantined) — fail-closed. Runs only on in-scope candidates (a handful/day) under
