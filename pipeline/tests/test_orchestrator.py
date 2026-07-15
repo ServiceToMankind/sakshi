@@ -1840,3 +1840,164 @@ def test_verified_mode_coerces_pocso_nonminor_to_projected_minor(
     assert rec["minor_involved"] is True  # fail-closed coerced
     assert rec["incident_reported_date"] == "2026"  # projected to year granularity only
     assert "involving a minor" in rec["title"]  # deterministic, non-identifying title
+
+
+def test_verified_minor_shard_never_carries_model_verification_note(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Guardrail (POCSO s.23): a minor's `verification_note` is model-written free text
+    that the minor projection does not neutralise and pii_guard does not age-scan — so it
+    must be stripped before a minor record reaches the public shard. A non-minor keeps it.
+    """
+    monkeypatch.setenv("VERIFY_ENABLED", "true")
+    leaky_note = "Corroborated; the 15-year-old survivor's school in Kochi confirmed the FIR."
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/note",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A minor case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-NOTE",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+        verify_client=_FakeVerifier(True, note=leaky_note),
+    )
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["minor_involved"] is True and rec["verified"] is True
+    assert "verification_note" not in rec  # model free text stripped for the minor
+    assert "15-year-old" not in json.dumps(rec)  # the age never reached disk
+
+
+def test_verified_mode_preserves_carryover_review_queue(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """DEFECT A regression: turning the verifier ON must NOT sweep the carried-over
+    needs-review queue into _review (permanent loss). A record held in a prior
+    (pre-verifier) run has no `verified` flag; the verifier only runs on FRESH
+    candidates, so the held record must stay in queue.json, never be quarantined.
+    """
+    # Run 1 (verifier OFF / supervised): a minor case is held in the review queue.
+    held_doc = [
+        RawDocument(
+            url="https://ex.invalid/held",
+            publisher="The Hindu",
+            fetched_at="2026-06-01",
+            text="A held minor case.",
+        )
+    ]
+    held_payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-HELD",
+            "incident_reported_date": "2026-05-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-06-02",
+        out=io.StringIO(),
+        docs=held_doc,
+        extract_client=_FakeGemini(held_payload),
+    )
+    queue_path = tmp_path / "_needs_review" / "queue.json"
+    assert queue_path.exists()
+    assert any(r["record"]["cnr"] == "C-HELD" for r in json.loads(queue_path.read_text()))
+
+    # Run 2 (VERIFY_ENABLED=true): a DIFFERENT fresh case. The carried-over held record
+    # has no source this run and cannot be verified — it must REMAIN in the queue.
+    fresh_doc = [
+        RawDocument(
+            url="https://ex.invalid/fresh2",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="Another minor case.",
+        )
+    ]
+    fresh_payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-FRESH2",
+            "incident_reported_date": "2026-06-20",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    _run_verified(tmp_path, fresh_doc, fresh_payload, True, monkeypatch)
+    assert queue_path.exists()  # the queue file was NOT unlinked/swept
+    cnrs = {r["record"]["cnr"] for r in json.loads(queue_path.read_text())}
+    assert "C-HELD" in cnrs  # carried-over held record survived the verifier flip
+    # And it was NOT dumped into a _review quarantine file.
+    for review_file in (tmp_path / "_review").glob("review-*.json"):
+        for entry in json.loads(review_file.read_text()):
+            assert entry["record"].get("cnr") != "C-HELD"
+
+
+def test_verified_mode_honors_human_approval(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """DEFECT B regression: an operator-approved record publishes in verifier-live mode
+    even when the verifier DEMOTES it — an explicit human approval is honoured (else the
+    approval allowlist is dead code under the verifier and the record is lost)."""
+    approved_dir = tmp_path / "_needs_review"
+    approved_dir.mkdir(parents=True)
+    (approved_dir / "approved.json").write_text(
+        json.dumps(["https://ex.invalid/appr"]), encoding="utf-8"
+    )
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/appr",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="An approved minor case.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": True,
+            "cnr": "C-APPR",
+            "incident_reported_date": "2026-06-14",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    # Verifier DEMOTES (verified=False) — approval must still publish the safe form.
+    report = _run_verified(tmp_path, doc, payload, False, monkeypatch)
+    assert report.published == 1
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["cnr"] == "C-APPR" and rec["minor_involved"] is True

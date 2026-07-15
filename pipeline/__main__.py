@@ -175,13 +175,33 @@ def _scope_label(states: frozenset[str] | None, lookback: int | None) -> str:
     return f"{where}; {window}"
 
 
+def _strip_minor_model_note(record: dict[str, Any]) -> dict[str, Any]:
+    """Drop the verifier's model-written ``verification_note`` from a MINOR record.
+
+    A minor's published fields must be deterministic and non-identifying (POCSO s.23);
+    the note is free model text that the minor projection does not otherwise neutralise,
+    and it is invisible to ``pii_guard`` (not a forbidden key, not a PII-value match, and
+    the age-scan only inspects ``summary``). So a note like "the 15-year-old survivor's
+    school in Kochi" would ship un-scanned. Stripping it here is defence in depth for the
+    canonical fix in ``project_minor_record`` (protected — pending a human-approved
+    issue). Non-minor records keep the note. Idempotent.
+    """
+    if record.get("minor_involved") is True and "verification_note" in record:
+        return {key: value for key, value in record.items() if key != "verification_note"}
+    return record
+
+
 def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
     if not review:
         return
     review_dir = data_dir / "_review"
     review_dir.mkdir(parents=True, exist_ok=True)
     payload = [
-        {"reason": item["reason"], "record": sanitize_record(item["record"])} for item in review
+        {
+            "reason": item["reason"],
+            "record": _strip_minor_model_note(sanitize_record(item["record"])),
+        }
+        for item in review
     ]
     (review_dir / f"review-{run_date}.json").write_text(
         json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8"
@@ -245,7 +265,10 @@ def _write_needs_review(items: list[tuple[dict[str, Any], list[str]]], data_dir:
     # non-bool, absent, or POCSO-implied minor. A carryover held record bypasses the
     # fresh-extraction coercion, so without this it could keep day-precise detail.
     payload = [
-        {"reasons": reasons, "record": sanitize_record(_coerce_minor(record))}
+        {
+            "reasons": reasons,
+            "record": _strip_minor_model_note(sanitize_record(_coerce_minor(record))),
+        }
         for record, reasons in items
     ]
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
@@ -341,6 +364,22 @@ def _verified_hold_reasons(record: dict[str, Any]) -> list[str]:
     """
     _eligible, reasons = auto_publish_eligible(record)
     return [reason for reason in reasons if reason != "minor_involved"]
+
+
+def _finalize_for_disk(record: dict[str, Any], case_schema: dict[str, Any]) -> dict[str, Any]:
+    """Run the FULL last gate on one record and return its publish-safe form.
+
+    coerce-minor -> sanitize/project -> withhold unsourced accused names, then strip a
+    minor's model-written ``verification_note`` (see :func:`_strip_minor_model_note`).
+    This is the single choke point for every record that may touch a shard, so a dedupe
+    merge that flipped ``minor_involved`` after the per-candidate sanitize is re-projected
+    to the minimal non-identifying shape here. Idempotent for an already-projected record.
+    """
+    return _strip_minor_model_note(
+        withhold_unsourced_accused_names(
+            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+        )
+    )
 
 
 def _dedup_approved_by_url(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -724,12 +763,7 @@ def run(
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
     case_schema = load_schema()
     sanitized = [
-        _drop_null_top_level(
-            withhold_unsourced_accused_names(
-                project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
-            )
-        )
-        for record in in_scope
+        _drop_null_top_level(_finalize_for_disk(record, case_schema)) for record in in_scope
     ]
     # Route any freshly-extracted record that STILL fails the schema (a required field
     # the model could not supply, an out-of-enum value) to human review, rather than
@@ -789,32 +823,64 @@ def run(
     # its source doc has rolled off the feed and it cannot be re-verified this run.
     # Only genuinely FRESH cases (an id not already on the site) face the verified-gate.
     already_published_ids = {str(r.get("id", "")) for r in existing if r.get("id")}
+    # Provenance of every record that existed BEFORE this run (already on a shard OR in
+    # the carried-over held queue / staged archive). Only a record composed PURELY of
+    # this run's FRESH extractions may be quarantined to _review; anything that carries
+    # prior content MUST be held (never dropped) — the verifier only runs on fresh
+    # candidates, so a carryover held record can never earn `verified` and would
+    # otherwise be swept out of the queue and lost. Matched by id AND source URL (both
+    # are in sanitised space at this point, so they align with the published records).
+    prior_records = existing + staged_carryover
+    nonfresh_ids = {str(r.get("id", "")) for r in prior_records if r.get("id")}
+    nonfresh_urls = {
+        url
+        for r in prior_records
+        for url in (str(s.get("url", "")).strip() for s in r.get("sources") or [])
+        if url
+    }
+
+    def _has_carryover_content(rec: dict[str, Any]) -> bool:
+        if str(rec.get("id", "")) in nonfresh_ids:
+            return True
+        return any(str(s.get("url", "")).strip() in nonfresh_urls for s in rec.get("sources") or [])
+
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
     to_promote: list[dict[str, Any]] = []
     for record in published:
         if verified_mode:
             # A dedupe merge can flip minor_involved AFTER the per-candidate sanitize
-            # pass, so re-run the FULL last gate here: coerce -> sanitize/project ->
-            # withhold unsourced names. This re-projects any merged minor to the minimal
-            # non-identifying shape BEFORE the publish decision (idempotent otherwise).
-            safe = withhold_unsourced_accused_names(
-                project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
-            )
-            grandfathered = str(safe.get("id", "")) in already_published_ids
-            if grandfathered:
-                # Already vetted and live — re-projected for safety, but never demoted:
-                # the verifier flip must not unpublish a record already on the site.
+            # pass, so re-run the FULL last gate here (idempotent otherwise) so any merged
+            # minor is re-projected to the minimal non-identifying shape BEFORE publish.
+            safe = _finalize_for_disk(record, case_schema)
+            # 1. Already live on the site -> grandfathered: re-projected for safety but
+            #    NEVER demoted. The verifier flip must not unpublish a live record whose
+            #    source has rolled off the feed and cannot be re-verified this run.
+            if str(safe.get("id", "")) in already_published_ids:
                 auto_eligible.append(safe)
                 continue
-            # A FRESH record must be VERIFIED to publish; otherwise it is quarantined
-            # with the verifier's note. A verified minor DOES publish — its title/summary
-            # are deterministic and non-identifying.
-            if not safe.get("verified"):
-                review.append({"reason": "unverified", "record": safe})
+            # 2. Human-approved -> promote the already-safe form, exactly as in supervised
+            #    mode. An explicit operator approval is honoured even under the verifier
+            #    (else an approved-but-unverifiable record would be quarantined and lost).
+            if _is_approved(record, approved):
+                to_promote.append(record)
                 continue
-            holds = _verified_hold_reasons(safe)
-            (needs_review_items.append((safe, holds)) if holds else auto_eligible.append(safe))
+            # 3. A VERIFIED fresh candidate publishes if it clears the graduated gate
+            #    (minus minor_involved — a verified minor's content is deterministic),
+            #    else it is held for a human (named accused, POCSO mismatch, ...).
+            if safe.get("verified"):
+                holds = _verified_hold_reasons(safe)
+                (needs_review_items.append((safe, holds)) if holds else auto_eligible.append(safe))
+                continue
+            # 4. NOT verified. A record carrying ANY prior held/carryover content is HELD
+            #    (never lost) so the accumulated review backlog survives the verifier flip;
+            #    only a PURELY-fresh candidate the verifier declined is quarantined to
+            #    _review as "unverified" (the intended direct-publish behaviour).
+            if _has_carryover_content(record):
+                held = _verified_hold_reasons(safe) or ["unverified_held"]
+                needs_review_items.append((safe, held))
+            else:
+                review.append({"reason": "unverified", "record": safe})
             continue
         # Supervised phase (no verifier): graduated gate + approval allowlist. Even an
         # auto-eligible record is held until approved, so nothing publishes unapproved.
@@ -831,10 +897,7 @@ def run(
     # minimal non-identifying shape and no unsourced name ships — approval never
     # weakens a guardrail; it only allows the already-safe form onto the site.
     promoted_records = [
-        withhold_unsourced_accused_names(
-            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
-        )
-        for record in _dedup_approved_by_url(to_promote)
+        _finalize_for_disk(record, case_schema) for record in _dedup_approved_by_url(to_promote)
     ]
     auto_eligible.extend(promoted_records)
     promoted = len(promoted_records)

@@ -107,6 +107,40 @@ def test_apply_verdict_unions_second_source_only_when_verified() -> None:
     assert [s["url"] for s in out2["sources"]] == ["https://ex.invalid/a"]
 
 
+def test_apply_verdict_second_source_has_valid_retrieved_date() -> None:
+    """A FRESH record has no `last_verified` yet — the corroborating source must borrow
+    the primary source's `retrieved` (a schema-valid date), NOT publish an empty one that
+    fails the sources[].retrieved pattern and quarantines the verified record."""
+    rec = _record()
+    del rec["last_verified"]  # fresh extraction: assigned only later in write_shards
+    v = Verdict(True, {}, "ok", second_source={"url": "https://ex.invalid/b", "publisher": "IE"})
+    out = apply_verdict(rec, v)
+    appended = out["sources"][-1]
+    assert appended["url"] == "https://ex.invalid/b"
+    # Borrowed from the primary source's retrieved date — a valid YYYY-MM-DD, not "".
+    assert appended["retrieved"] == "2026-07-09"
+
+
+def test_parse_verdict_verified_must_be_boolean_true() -> None:
+    """`verified` is fail-closed: only a real boolean `true` verifies. A model that emits
+    the STRING "false" (or any truthy non-bool) must NOT publish."""
+    assert parse_verdict('{"verified": "false"}').verified is False  # type: ignore[union-attr]
+    assert parse_verdict('{"verified": 1}').verified is False  # type: ignore[union-attr]
+    assert parse_verdict('{"verified": "true"}').verified is False  # type: ignore[union-attr]
+    assert parse_verdict('{"verified": true}').verified is True  # type: ignore[union-attr]
+
+
+def test_parse_verdict_rejects_non_http_second_source() -> None:
+    """A model-supplied corroborating source URL is published as a link — reject
+    javascript:/data:/file: schemes before they can enter the data."""
+    bad = parse_verdict('{"verified": true, "second_source": {"url": "javascript:alert(1)"}}')
+    assert bad and bad.second_source is None
+    data = parse_verdict('{"verified": true, "second_source": {"url": "data:text/html,x"}}')
+    assert data and data.second_source is None
+    ok = parse_verdict('{"verified": true, "second_source": {"url": "https://ex.invalid/b"}}')
+    assert ok and ok.second_source == {"url": "https://ex.invalid/b"}
+
+
 # --- verify_records ---
 
 
@@ -123,6 +157,15 @@ def test_verify_records_no_source_text_stays_unverified() -> None:
     recs = [_record()]
     result = verify_records(recs, {}, _Client('{"verified": true}'))  # no matching source text
     assert result.records[0]["verified"] is False and result.verified_count == 0
+    # Accounted so verified + demoted + skipped_budget + skipped_no_source == len.
+    assert result.skipped_no_source == 1 and result.demoted_count == 0
+    assert (
+        result.verified_count
+        + result.demoted_count
+        + result.skipped_budget
+        + result.skipped_no_source
+        == len(recs)
+    )
 
 
 def test_verify_records_provider_error_demotes() -> None:

@@ -84,6 +84,7 @@ class VerifyResult:
     verified_count: int = 0
     demoted_count: int = 0
     skipped_budget: int = 0
+    skipped_no_source: int = 0
     input_tokens: int = 0
     output_tokens: int = 0
     error_samples: list[str] = field(default_factory=list)
@@ -159,6 +160,13 @@ def build_verify_prompt(record: dict[str, Any], source_text: str) -> str:
     )
 
 
+def _is_http_url(value: Any) -> bool:
+    """True only for an http(s):// URL — a model-supplied corroborating source URL is
+    published as a clickable link, so reject javascript:/data:/file: and other schemes
+    before they can enter the data."""
+    return isinstance(value, str) and value.strip().lower().startswith(("http://", "https://"))
+
+
 def parse_verdict(text: str) -> Verdict | None:
     """Parse the verifier's JSON response into a :class:`Verdict` (None if unparseable)."""
     cleaned = text.strip()
@@ -173,11 +181,14 @@ def parse_verdict(text: str) -> Verdict | None:
         return None
     corrections = obj.get("corrections")
     second = obj.get("second_source")
+    # `verified` must be a REAL boolean true — never truthy-coerce (a model that emits
+    # the string "false" or "no" must NOT publish). Fail-closed on anything but `true`.
+    second_ok = isinstance(second, dict) and _is_http_url(second.get("url"))
     return Verdict(
-        verified=bool(obj.get("verified")),
+        verified=obj.get("verified") is True,
         corrections=corrections if isinstance(corrections, dict) else {},
         note=str(obj.get("verification_note", ""))[:300],
-        second_source=second if isinstance(second, dict) and second.get("url") else None,
+        second_source=second if second_ok else None,
     )
 
 
@@ -208,10 +219,27 @@ def apply_verdict(record: dict[str, Any], verdict: Verdict) -> dict[str, Any]:
                         verdict.second_source.get("publisher", "corroborating source")
                     ),
                     "source_type": "news_article",
-                    "retrieved": str(record.get("last_verified", "")),
+                    # A fresh record has no `last_verified` yet (write_shards assigns it),
+                    # so borrow the primary source's `retrieved` — a schema-valid date.
+                    # Falling back to "" would fail the sources[].retrieved pattern and
+                    # quarantine the very records the verifier just corroborated.
+                    "retrieved": _corroboration_date(record),
                 }
             )
     return updated
+
+
+def _corroboration_date(record: dict[str, Any]) -> str:
+    """A schema-valid YYYY-MM-DD for a corroborating source: the record's own
+    ``last_verified`` if present, else the first existing source's ``retrieved``."""
+    stamp = str(record.get("last_verified", "")).strip()
+    if stamp:
+        return stamp
+    for source in record.get("sources", []):
+        retrieved = str(source.get("retrieved", "")).strip()
+        if retrieved:
+            return retrieved
+    return ""
 
 
 def verify_records(
@@ -233,8 +261,12 @@ def verify_records(
         source_text = _source_text_for(record, source_text_by_url)
         if result.estimated_usd >= cap or not source_text:
             result.records.append({**record, "verified": False})
+            # Account for WHY it was left unverified so verified + demoted + skipped_budget
+            # + skipped_no_source == len(records) (budget takes precedence when both hold).
             if result.estimated_usd >= cap:
                 result.skipped_budget += 1
+            else:
+                result.skipped_no_source += 1
             continue
         try:
             response = client.verify(build_verify_prompt(record, source_text))
@@ -285,7 +317,15 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
     genai.configure(api_key=api_key)
 
     def _make_model(with_search: bool) -> Any:
-        kwargs: dict[str, Any] = {"generation_config": {"response_mime_type": "application/json"}}
+        # Cap output tokens: the verdict JSON is tiny, and the per-run USD cap is checked
+        # BEFORE each call using prior-call tokens — so without a per-call ceiling one
+        # long grounded response could blow the budget by a single call.
+        kwargs: dict[str, Any] = {
+            "generation_config": {
+                "response_mime_type": "application/json",
+                "max_output_tokens": config.VERIFY_MAX_OUTPUT_TOKENS,
+            }
+        }
         if with_search:
             kwargs["tools"] = "google_search_retrieval"
         return genai.GenerativeModel(model_id, **kwargs)
@@ -323,6 +363,7 @@ def _write_cost(path: Path, result: VerifyResult) -> None:
                 "verified": result.verified_count,
                 "demoted": result.demoted_count,
                 "skipped_budget": result.skipped_budget,
+                "skipped_no_source": result.skipped_no_source,
                 "input_tokens": result.input_tokens,
                 "output_tokens": result.output_tokens,
                 "estimated_usd": result.estimated_usd,
