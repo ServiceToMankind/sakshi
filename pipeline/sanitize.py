@@ -169,15 +169,20 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     status for a minor. So the model-written ``summary`` is replaced with a fixed
     neutral template, ``incident_reported_date`` is truncated to the year,
     ``pending_days`` (a day-precise derivation) is nulled, ``court.next_hearing``
-    is nulled, and each ``status_history`` date is truncated to the month. This is
-    structural: it does not depend on the age-expression regexes catching anything.
-    Idempotent — applying it twice yields the same record.
+    is nulled, each ``status_history`` date is truncated to the month, and any
+    model-written ``verification_note`` (guardrail L free text — not age-scanned by
+    pii_guard) is dropped. This is structural: it does not depend on the age-expression
+    regexes catching anything. Idempotent — applying it twice yields the same record.
     """
     projected = dict(record)
     # Title AND summary are generated DETERMINISTICALLY from allowed non-identifying
     # fields — the model never writes a minor's title or summary (POCSO s.23).
     projected["title"] = minor_title(projected)
     projected["summary"] = minor_summary(projected)
+    # The verifier's model-written note is free text the minor projection does not
+    # otherwise neutralise and pii_guard does not age-scan — a minor's content is never
+    # model-written, so drop it (canonical home for the guard; issue #44).
+    projected.pop("verification_note", None)
     reported = projected.get("incident_reported_date")
     if isinstance(reported, str) and reported:
         projected["incident_reported_date"] = reported[:4]  # year granularity only

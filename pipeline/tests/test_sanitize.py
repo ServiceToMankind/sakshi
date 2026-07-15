@@ -7,6 +7,8 @@ in ``make check`` -- the sanitizer is a legally mandated Phase 0 safety gate.
 
 from __future__ import annotations
 
+import json
+
 from pipeline.pii_constants import is_forbidden_key, matched_value_patterns
 from pipeline.sanitize import (
     REDACTION_PLACEHOLDER,
@@ -149,6 +151,25 @@ def test_minor_projection_replaces_age_narrative_and_truncates_dates() -> None:
 def test_minor_projection_is_idempotent() -> None:
     once = sanitize_record(_MINOR_LEAK)
     assert sanitize_record(once) == once
+
+
+def test_minor_projection_drops_model_verification_note() -> None:
+    """Guardrail L / POCSO s.23: the verifier's model-written free-text note is never
+    part of a minor's allowed shape and pii_guard does not age-scan it — so the minor
+    projection drops it (canonical home; issue #44). A leaky note never reaches disk."""
+    rec = {
+        "minor_involved": True,
+        "state": "TG",
+        "district": "TESTVILLE",
+        "category": "pocso",
+        "status": "FIR_FILED",
+        "verified": True,
+        "verification_note": "Corroborated; the 17-year-old survivor's school confirmed it.",
+    }
+    clean = sanitize_record(rec)
+    assert "verification_note" not in clean  # model free text dropped for the minor
+    assert "17-year-old" not in json.dumps(clean)  # the age never survives
+    assert clean["verified"] is True  # the boolean flag itself is retained
 
 
 def test_minor_projection_absent_optional_fields_only_forces_title_and_summary() -> None:
