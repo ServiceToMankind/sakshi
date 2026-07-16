@@ -36,7 +36,11 @@
       "aggravated": false,
       "sections": ["POCSO 8", "POCSO 10", "POCSO 12"]
     },
-    { "label": "Rape", "aggravated": false, "sections": ["BNS 64", "IPC 376", "SECTION 376"] },
+    {
+      "label": "Rape",
+      "aggravated": false,
+      "sections": ["BNS 64", "IPC 376", "IPC 375", "SECTION 376", "SECTION 375"]
+    },
     { "label": "Acid attack", "aggravated": true, "sections": ["BNS 124", "IPC 326A", "326A"] },
     {
       "label": "Assault to outrage modesty",
@@ -49,6 +53,11 @@
       "label": "Sexual harassment",
       "aggravated": false,
       "sections": ["BNS 75", "IPC 509", "SECTION 509"]
+    },
+    {
+      "label": "Child sexual offence",
+      "aggravated": false,
+      "sections": ["POCSO"]
     }
   ],
   "repeat_sections": ["BNS 71", "IPC 376E", "376E", "POCSO 6(2)"]
