@@ -7,6 +7,11 @@
     "district": "Ghaziabad",
     "category": "pocso",
     "status": "FIR_FILED",
+    "offence_sections": [
+      "POCSO Act",
+      "IPC 375",
+      "POCSO"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
@@ -20,6 +25,11 @@
     "district": "Ghaziabad",
     "category": "rape",
     "status": "UNKNOWN",
+    "offence_sections": [
+      "BNS 63",
+      "POCSO 6",
+      "IPC 376"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
@@ -33,6 +43,10 @@
     "district": "Kothagudem",
     "category": "pocso",
     "status": "FIR_FILED",
+    "offence_sections": [
+      "POCSO",
+      "POCSO Act"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Hindu",
@@ -46,6 +60,9 @@
     "district": "Jagtial",
     "category": "pocso",
     "status": "CONVICTED",
+    "offence_sections": [
+      "POCSO"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Hindu",
@@ -59,6 +76,11 @@
     "district": "Hyderabad",
     "category": "sexual_assault",
     "status": "FIR_FILED",
+    "offence_sections": [
+      "BNS 64",
+      "POCSO Act",
+      "IPC 354"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
@@ -72,6 +94,7 @@
     "district": "Gurgaon",
     "category": "sexual_assault",
     "status": "UNDER_TRIAL",
+    "offence_sections": [],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
@@ -85,6 +108,9 @@
     "district": "Delhi",
     "category": "rape",
     "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "IPC 375"
+    ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
