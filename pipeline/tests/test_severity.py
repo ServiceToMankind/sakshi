@@ -41,6 +41,20 @@ def test_severity_label_and_aggravated(
     assert is_aggravated(sections) == aggravated
 
 
+@pytest.mark.parametrize(
+    ("sections", "label"),
+    [
+        (["IPC 375"], "Rape"),  # 375 defines rape (376 punishes it)
+        (["POCSO Act"], "Child sexual offence"),  # bare POCSO -> generic child label
+        (["POCSO"], "Child sexual offence"),
+        (["POCSO 6"], "Aggravated penetrative assault on a child"),  # specific still wins
+        (["POCSO 4", "POCSO Act"], "Penetrative assault on a child"),  # specific beats bare
+    ],
+)
+def test_coverage_for_vague_sections(sections: list[str], label: str) -> None:
+    assert severity_label(sections) == label
+
+
 def test_most_severe_rule_wins_when_multiple_match() -> None:
     """A gang-rape-of-a-minor charge outranks a plain rape charge on the same case."""
     assert severity_label(["IPC 376", "BNS 70(2)", "BNS 64"]) == "Gang rape of a minor"
