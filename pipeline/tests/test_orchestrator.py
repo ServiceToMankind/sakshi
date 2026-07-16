@@ -1745,6 +1745,7 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         "district",
         "category",
         "status",
+        "offence_sections",
         "incident_reported_date",
         "minor_involved",
         "publisher",

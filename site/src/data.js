@@ -67,6 +67,19 @@ export async function loadStateRecords(state) {
   return { present: true, records: arrays.flat() };
 }
 
+/**
+ * Load every published record across all shards (all states/years/parts). Used by
+ * the offender scorecard, which needs case-level `accused` data that the summary
+ * does not carry. Fetches are cached and run in parallel; a shard that fails to load
+ * is skipped so one bad file never blanks the whole scorecard.
+ */
+export async function loadAllRecords() {
+  const index = await loadIndex();
+  const paths = (index.shards || []).map((s) => s.path);
+  const arrays = await Promise.all(paths.map((path) => getJSON(`${DATA}/${path}`).catch(() => [])));
+  return arrays.flat();
+}
+
 const CASE_ID = /^SKS-(\d{4})-([A-Z]{2})-\d{6}$/;
 
 /** Load a single case by id, or null if the id is malformed or not found. */

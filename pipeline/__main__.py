@@ -238,6 +238,10 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             "district": record.get("district"),
             "category": record.get("category"),
             "status": record.get("status"),
+            # Public charge sections — the landing feed derives the severity badge from
+            # these. Charge codes are non-identifying (they describe the OFFENCE, not the
+            # victim), so this is guardrail-safe for every case including a minor's.
+            "offence_sections": record.get("offence_sections") or [],
             "incident_reported_date": record.get("incident_reported_date"),
             "minor_involved": bool(record.get("minor_involved")),
             "publisher": (record.get("sources") or [{}])[0].get("publisher", ""),

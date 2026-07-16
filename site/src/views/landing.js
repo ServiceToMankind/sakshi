@@ -18,6 +18,7 @@ import {
   formatNumber,
 } from '../format.js';
 import { recentCard } from './parts.js';
+import { scaleDrumbeat, jurisdictionScorecard, offenderScorecard } from './scorecards.js';
 
 function notice(kind, key) {
   return el('p', { class: `notice notice--${kind}`, role: 'status', 'data-i18n': key }, t(key));
@@ -321,7 +322,12 @@ export async function renderLanding() {
       el('p', { class: 'lead__text', 'data-i18n': 'landing_lead' }, t('landing_lead')),
     ]),
     statStrip(total, activeTotal, closedTotal),
+    // Accountability layer (aggregate/public data only — CLAUDE.md §1a). Each returns
+    // null on a v1 summary that lacks its block, so the landing degrades gracefully.
+    scaleDrumbeat(summary),
     recentFeed(recent),
+    jurisdictionScorecard(summary.jurisdictions),
+    offenderScorecard(),
     el('section', { class: 'charts-wrap reveal' }, [charts.details]),
   ]);
 

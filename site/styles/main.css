@@ -32,6 +32,8 @@
   --c-closed: #6b7280;
   --c-unknown: #8a8f98;
   --c-verified: #2f7d55;
+  --c-severity: #6f5c44;
+  --c-aggravated: #9e1b1b;
 
   --radius: 12px;
   --radius-sm: 8px;
@@ -57,6 +59,8 @@
     --skeleton-a: #23272f;
     --skeleton-b: #2c313a;
     --c-verified: #4bb07d;
+    --c-severity: #c6bca9;
+    --c-aggravated: #f0736a;
   }
 }
 
@@ -75,6 +79,8 @@
   --skeleton-a: #ece6da;
   --skeleton-b: #f5f1e8;
   --c-verified: #2f7d55;
+  --c-severity: #6f5c44;
+  --c-aggravated: #9e1b1b;
 }
 
 :root[data-theme='dark'] {
@@ -91,6 +97,8 @@
   --skeleton-a: #23272f;
   --skeleton-b: #2c313a;
   --c-verified: #4bb07d;
+  --c-severity: #c6bca9;
+  --c-aggravated: #f0736a;
 }
 
 *,
@@ -688,10 +696,6 @@ canvas {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
-.case-card__pending {
-  color: var(--accent);
-  font-weight: 600;
-}
 .case-card__id {
   font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
   font-size: 0.75rem;
@@ -763,6 +767,24 @@ canvas {
 }
 .badge--minor {
   --badge-c: var(--accent);
+}
+/* Charge-derived severity. Aggravated gets a distinct dark-red weight; the label
+   describes the OFFENCE, never the victim (safe for every case incl. minors). */
+.badge--severity {
+  --badge-c: var(--c-severity);
+}
+.badge--aggravated {
+  --badge-c: var(--c-aggravated);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: color-mix(in srgb, var(--badge-c) 20%, var(--surface));
+  border-color: color-mix(in srgb, var(--badge-c) 60%, transparent);
+}
+.badge--repeat {
+  --badge-c: var(--c-aggravated);
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
 }
 .badge--verified {
   --badge-c: var(--c-verified);
@@ -988,6 +1010,265 @@ canvas {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.26s;
+}
+
+/* --- Accountability layer: days ticker ---------------------------------- */
+/* Non-minor, unresolved cases only (day-precise pendency never exists for a minor). */
+.days-ticker {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--c-aggravated) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-aggravated) 32%, transparent);
+  color: color-mix(in srgb, var(--c-aggravated) 78%, var(--text));
+  font-variant-numeric: tabular-nums;
+  width: fit-content;
+}
+.days-ticker__num {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+.days-ticker__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* --- Accountability layer: scale drumbeat + heat strip ------------------ */
+.drumbeat {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.drumbeat__title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+.drumbeat__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.75rem;
+  align-items: baseline;
+}
+.drumbeat__line {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+.drumbeat__num {
+  font-family: var(--font-head);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.1rem;
+  color: var(--text);
+}
+.drumbeat__line--week {
+  color: var(--text);
+}
+.drumbeat__line--week .drumbeat__num {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  line-height: 1;
+}
+.drumbeat__line--aggravated .drumbeat__num {
+  color: color-mix(in srgb, var(--c-aggravated) 82%, var(--text));
+}
+.heat-strip {
+  display: grid;
+  gap: 0.35rem;
+}
+.heat-strip__cells {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.heat-cell {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--text) 6%, var(--surface));
+  border: 1px solid var(--border);
+}
+.heat-cell--data {
+  background: color-mix(in srgb, var(--accent) calc(var(--intensity) * 100%), var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
+}
+.heat-strip__axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.heat-strip__empty {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* --- Accountability layer: scorecards (jurisdiction + offenders) -------- */
+.scorecard-section {
+  display: grid;
+  gap: 0.85rem;
+}
+.scorecard-section__head {
+  display: grid;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--text);
+  padding-bottom: 0.5rem;
+}
+.scorecard-section__head .panel__title {
+  margin: 0;
+  font-size: 1.35rem;
+}
+.scorecard-section__lead {
+  margin: 0;
+  max-width: 46rem;
+  font-size: 0.92rem;
+}
+.scorecard-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.scorecard {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.scorecard th,
+.scorecard td {
+  padding: 0.6rem 0.8rem;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+.scorecard thead th {
+  position: sticky;
+  top: 0;
+  background: var(--surface-2);
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  z-index: 1;
+}
+.scorecard tbody tr:last-child td,
+.scorecard tbody tr:last-child th {
+  border-bottom: 0;
+}
+.scorecard tbody tr:hover {
+  background: var(--accent-soft);
+}
+.scorecard th:first-child,
+.scorecard__cell--place {
+  text-align: left;
+}
+.scorecard__place {
+  display: grid;
+  gap: 0.1rem;
+}
+.scorecard__state {
+  font-weight: 600;
+}
+.scorecard__district {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.scorecard__cell {
+  font-variant-numeric: tabular-nums;
+}
+.scorecard__longest {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.8rem;
+}
+.scorecard__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-family: var(--font-head);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.scorecard__sort:hover,
+.scorecard th[aria-sort='ascending'] .scorecard__sort,
+.scorecard th[aria-sort='descending'] .scorecard__sort {
+  color: var(--accent);
+}
+.scorecard__caret {
+  font-size: 0.7rem;
+}
+.offenders {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+.offender {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.offender__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+.offender__name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+.offender__offence-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.offender__offence {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.offender__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.offender__link {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.offenders__empty {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+.offenders__empty p {
+  margin: 0 auto;
+  max-width: 34rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
