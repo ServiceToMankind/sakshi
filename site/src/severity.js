@@ -18,13 +18,21 @@
 
 import rules from './severity_rules.json';
 
-// (label, aggravated, [UPPER-cased section substrings]) — MOST SEVERE FIRST.
+// Boundary-aware alternation over needles: a needle matches only when NOT immediately
+// followed by another alphanumeric, so "IPC 376A" no longer shadows the more-specific
+// "IPC 376AB", while "BNS 70(2)" and end-of-string still match. Mirrors severity.py.
+function needleMatcher(needles) {
+  const alternation = needles.map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  return new RegExp(`(?:${alternation})(?![A-Z0-9])`);
+}
+
+// (label, aggravated, compiled matcher) — MOST SEVERE FIRST.
 const SEVERITY_RULES = rules.rules.map((rule) => ({
   label: rule.label,
   aggravated: Boolean(rule.aggravated),
-  needles: rule.sections.map((section) => section.toUpperCase()),
+  matcher: needleMatcher(rule.sections.map((section) => section.toUpperCase())),
 }));
-const REPEAT_SECTIONS = rules.repeat_sections.map((section) => section.toUpperCase());
+const REPEAT_MATCHER = needleMatcher(rules.repeat_sections.map((section) => section.toUpperCase()));
 
 /**
  * Upper-case + space-normalise the sections into one searchable string. Mirrors
@@ -49,7 +57,7 @@ export function severityLabel(offenceSections) {
   const hay = haystack(offenceSections);
   if (!hay) return null;
   for (const rule of SEVERITY_RULES) {
-    if (rule.needles.some((needle) => hay.includes(needle))) return rule.label;
+    if (rule.matcher.test(hay)) return rule.label;
   }
   return null;
 }
@@ -59,13 +67,12 @@ export function isAggravated(offenceSections) {
   const hay = haystack(offenceSections);
   if (!hay) return false;
   for (const rule of SEVERITY_RULES) {
-    if (rule.needles.some((needle) => hay.includes(needle))) return rule.aggravated;
+    if (rule.matcher.test(hay)) return rule.aggravated;
   }
   return false;
 }
 
 /** True if a repeat/habitual-offender section is charged (a separate aggravating axis). */
 export function isRepeatOffender(offenceSections) {
-  const hay = haystack(offenceSections);
-  return REPEAT_SECTIONS.some((needle) => hay.includes(needle));
+  return REPEAT_MATCHER.test(haystack(offenceSections));
 }

@@ -93,6 +93,21 @@ def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) 
     assert juris["median_pending_days"] is None and juris["longest_pending"] is None
 
 
+def test_summary_jurisdictions_are_capped_and_trim_by_status(tmp_path: Path) -> None:
+    """jurisdictions is the only unbounded summary section — cap it (worst-first) so
+    summary.json can never overflow SUMMARY_MAX_BYTES and abort the run, and drop the
+    unused by_status dict to keep cards lean."""
+    recs = [
+        _record(cnr=f"C-{i}", district=f"DISTRICT-{i:03d}", offence_sections=["IPC 376"])
+        for i in range(200)
+    ]
+    write_shards(recs, tmp_path, run_date="2026-07-09")
+    summary = json.loads((tmp_path / "summary.json").read_text())
+    assert len(summary["jurisdictions"]) == 120  # _MAX_JURISDICTIONS
+    assert "by_status" not in summary["jurisdictions"][0]  # trimmed
+    assert (tmp_path / "summary.json").stat().st_size < SUMMARY_MAX_BYTES
+
+
 def test_summary_scale_accumulates_ingestion_across_runs(tmp_path: Path) -> None:
     """The daily scale histogram counts NEWLY-minted records per run, accumulated."""
     write_shards([_record(cnr="C-1")], tmp_path, run_date="2026-07-09")

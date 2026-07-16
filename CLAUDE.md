@@ -80,7 +80,12 @@ information and aggregates, never on victim particulars:
   concrete facts of the act, the district, and the institutional response, in plain
   English — but nothing that identifies the victim (the limits above still bind). A
   **minor's** title/summary stay the deterministic, minimal projection — never
-  model-written.
+  model-written. A **deterministic backstop** (`pipeline/identity_scan.py`) quarantines
+  any non-minor record whose model text reveals a **victim–accused relationship** or an
+  **age** (title/summary/sections) to `_review`, independent of model compliance.
+  Acknowledged RESIDUAL: victim **occupation** and **sub-district-in-prose** are guarded
+  only by the prompt + the grounded verifier, not a regex (a lexicon for them is too
+  noisy) — tighten via a human-approved issue if a leak of that shape is ever observed.
 - **Aggregate scale and pendency.** Counts, rates, medians, and day-precise pendency
   are aggregate/public; day-precise pendency ("days without justice") is derived only
   where a day-precise date exists — i.e. **non-minor** cases (a minor's date is

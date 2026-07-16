@@ -52,6 +52,22 @@ def test_section_matching_is_space_and_case_insensitive() -> None:
     assert severity_label(["Section 376 IPC"]) == "Rape"
 
 
+@pytest.mark.parametrize(
+    ("section", "label"),
+    [
+        # A shorter needle that PREFIXES a longer, more-specific section code must NOT
+        # shadow it (boundary-aware matching — was the correctness-review Defect 1).
+        ("IPC 376AB", "Rape of a minor"),  # not "…death…" (IPC 376A prefix)
+        ("IPC 354C", "Voyeurism"),  # not "Assault…" (IPC 354 prefix)
+        ("IPC 354D", "Stalking"),  # not "Assault…" (IPC 354 prefix)
+        ("IPC 376A", "Rape resulting in death or persistent vegetative state"),
+        ("IPC 376", "Rape"),
+    ],
+)
+def test_needle_matching_respects_code_boundaries(section: str, label: str) -> None:
+    assert severity_label([section]) == label
+
+
 def test_repeat_offender_flag() -> None:
     assert is_repeat_offender(["BNS 64", "BNS 71"]) is True
     assert is_repeat_offender(["BNS 64"]) is False

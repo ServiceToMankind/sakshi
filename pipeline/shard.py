@@ -35,6 +35,7 @@ from pipeline.validate import iter_shard_files, load_schema, validate_record
 
 # Accountability-layer summary bounds (keep summary.json within its byte budget).
 _SCALE_DAYS = 120  # length of the daily-ingestion heat strip retained in summary.json
+_MAX_JURISDICTIONS = 120  # cap the (worst-first) scorecard so summary.json can't overflow
 _CLOSED_STATUSES = frozenset({"CONVICTED", "ACQUITTED", "QUASHED", "CLOSED"})
 
 __all__ = ["SHARD_SPLIT_BYTES", "SUMMARY_MAX_BYTES", "WriteResult", "write_shards"]
@@ -270,10 +271,15 @@ def _build_summary(
             month_counts[reported[:7]] += 1
     monthly_trend = [{"month": m, "count": month_counts.get(m, 0)} for m in months]
 
+    # Day-precise pendency is NON-MINOR only (a minor carries no day-precise date by
+    # projection) — mirror the jurisdiction filter. The isinstance guard also avoids an
+    # int(None) crash if a legacy shard ever carried pending_days: null.
     pending = [
         {"id": r["id"], "district": r.get("district", ""), "pending_days": int(r["pending_days"])}
         for r in records
-        if r.get("status") in _ACTIVE_STATUSES and "pending_days" in r
+        if r.get("status") in _ACTIVE_STATUSES
+        and not r.get("minor_involved")
+        and isinstance(r.get("pending_days"), int)
     ]
     pending.sort(key=lambda p: p["pending_days"], reverse=True)
 
@@ -346,7 +352,6 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
                 "state": state,
                 "district": district,
                 "total": total,
-                "by_status": dict(sorted(by_status.items())),
                 "under_trial": under_trial,
                 "under_trial_pct": round(100 * under_trial / total) if total else 0,
                 "convictions": by_status.get("CONVICTED", 0),
@@ -355,8 +360,11 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
                 "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
             }
         )
+    # Worst-first, then CAP: jurisdictions is the only unbounded summary section, so an
+    # uncapped list would eventually push summary.json past SUMMARY_MAX_BYTES and abort
+    # the whole run. The cap keeps the highest-caseload ("shame table") districts.
     cards.sort(key=lambda c: (-int(c["total"]), str(c["state"]), str(c["district"])))
-    return cards
+    return cards[:_MAX_JURISDICTIONS]
 
 
 def _scale_block(data_dir: Path, run_date: str, new_count: int, total: int) -> dict[str, Any]:
