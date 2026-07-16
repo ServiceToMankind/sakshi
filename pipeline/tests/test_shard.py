@@ -50,6 +50,60 @@ def test_write_emits_shard_summary_index_and_assigns_id(tmp_path: Path) -> None:
     assert index["shards"][0]["records"] == 1
 
 
+def test_summary_accountability_severity_and_jurisdictions(tmp_path: Path) -> None:
+    """severity_counts + jurisdiction scorecards are charge/aggregate-derived only."""
+    recs = [
+        _record(cnr="C-1", offence_sections=["BNS 70(2)"], status="UNDER_TRIAL"),
+        _record(cnr="C-2", offence_sections=["IPC 376"], status="CONVICTED", district="OTHERVILLE"),
+        _record(cnr="C-3", offence_sections=["IPC 354"], status="ACQUITTED"),
+    ]
+    write_shards(recs, tmp_path, run_date="2026-07-09")
+    summary = json.loads((tmp_path / "summary.json").read_text())
+
+    assert summary["severity_counts"]["Gang rape of a minor"] == 1
+    assert summary["severity_counts"]["Rape"] == 1
+    assert summary["aggravated_total"] == 1  # only the BNS 70(2) case is aggravated
+
+    juris = {(j["state"], j["district"]): j for j in summary["jurisdictions"]}
+    testville = juris[("TG", "TESTVILLE")]  # C-1 (under trial) + C-3 (acquitted)
+    assert testville["total"] == 2
+    assert testville["under_trial"] == 1 and testville["acquittals"] == 1
+    # Non-minor active case C-1 has pending_days=25; C-3 is acquitted (not active).
+    assert testville["median_pending_days"] == 25
+    assert testville["longest_pending"] == {"id": "SKS-2026-TG-000001", "days": 25}
+    other = juris[("TG", "OTHERVILLE")]  # C-2 convicted (not active -> no pendency)
+    assert other["convictions"] == 1 and other["median_pending_days"] is None
+
+
+def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) -> None:
+    """A minor (year-only date, no pending_days) never contributes day-precise pendency."""
+    minor = _record(
+        cnr="C-M",
+        minor_involved=True,
+        incident_reported_date="2026",
+        status="UNDER_TRIAL",
+        title="Sexual assault case involving a minor — TESTVILLE (2026)",
+        summary=(
+            "The case is under trial in TESTVILLE, TG. Reported 2026. "
+            "Identifying details are withheld by law (POCSO s.23)."
+        ),
+    )
+    write_shards([minor], tmp_path, run_date="2026-07-09")
+    juris = json.loads((tmp_path / "summary.json").read_text())["jurisdictions"][0]
+    assert juris["median_pending_days"] is None and juris["longest_pending"] is None
+
+
+def test_summary_scale_accumulates_ingestion_across_runs(tmp_path: Path) -> None:
+    """The daily scale histogram counts NEWLY-minted records per run, accumulated."""
+    write_shards([_record(cnr="C-1")], tmp_path, run_date="2026-07-09")
+    write_shards([_record(cnr="C-1"), _record(cnr="C-2")], tmp_path, run_date="2026-07-10")
+    scale = json.loads((tmp_path / "summary.json").read_text())["scale"]
+    daily = {d["date"]: d["count"] for d in scale["daily"]}
+    assert daily["2026-07-09"] == 1  # 1 new on day 1
+    assert daily["2026-07-10"] == 1  # only C-2 is new on day 2 (C-1 already existed)
+    assert scale["cumulative_total"] == 2 and scale["this_week"] == 2
+
+
 def test_ids_are_stable_across_runs(tmp_path: Path) -> None:
     write_shards([_record(cnr="C-1")], tmp_path, run_date="2026-07-09")
     # A fresh record (no id) for the SAME case reuses the existing id -> "updated".

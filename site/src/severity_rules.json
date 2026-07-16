@@ -1,0 +1,55 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for charge-section -> severity labels (CLAUDE.md 5). Loaded by BOTH pipeline/severity.py and site/src/severity.js so they can never drift. Ordered MOST SEVERE FIRST; first rule whose section-substring (case-insensitive, space-normalised) appears wins. Derived only from public charge codes - never victim data.",
+  "rules": [
+    {
+      "label": "Gang rape of a minor",
+      "aggravated": true,
+      "sections": ["BNS 70(2)", "BNS 70 (2)"]
+    },
+    {
+      "label": "Gang rape",
+      "aggravated": true,
+      "sections": ["BNS 70(1)", "BNS 70 (1)", "BNS 70", "IPC 376D", "376D"]
+    },
+    {
+      "label": "Rape resulting in death or persistent vegetative state",
+      "aggravated": true,
+      "sections": ["BNS 66", "IPC 376A"]
+    },
+    {
+      "label": "Aggravated penetrative assault on a child",
+      "aggravated": true,
+      "sections": ["POCSO 6", "POCSO S.6", "POCSO SECTION 6"]
+    },
+    {
+      "label": "Rape of a minor",
+      "aggravated": true,
+      "sections": ["BNS 65", "IPC 376(3)", "IPC 376AB"]
+    },
+    {
+      "label": "Penetrative assault on a child",
+      "aggravated": true,
+      "sections": ["POCSO 4", "POCSO S.4", "POCSO SECTION 4"]
+    },
+    {
+      "label": "Sexual assault of a child",
+      "aggravated": false,
+      "sections": ["POCSO 8", "POCSO 10", "POCSO 12"]
+    },
+    { "label": "Rape", "aggravated": false, "sections": ["BNS 64", "IPC 376", "SECTION 376"] },
+    { "label": "Acid attack", "aggravated": true, "sections": ["BNS 124", "IPC 326A", "326A"] },
+    {
+      "label": "Assault to outrage modesty",
+      "aggravated": false,
+      "sections": ["BNS 74", "BNS 351", "IPC 354", "SECTION 354"]
+    },
+    { "label": "Stalking", "aggravated": false, "sections": ["BNS 78", "IPC 354D", "354D"] },
+    { "label": "Voyeurism", "aggravated": false, "sections": ["BNS 77", "IPC 354C", "354C"] },
+    {
+      "label": "Sexual harassment",
+      "aggravated": false,
+      "sections": ["BNS 75", "IPC 509", "SECTION 509"]
+    }
+  ],
+  "repeat_sections": ["BNS 71", "IPC 376E", "376E", "POCSO 6(2)"]
+}
