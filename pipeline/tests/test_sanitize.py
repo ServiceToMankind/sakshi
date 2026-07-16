@@ -153,6 +153,24 @@ def test_minor_projection_is_idempotent() -> None:
     assert sanitize_record(once) == once
 
 
+def test_minor_projection_drops_accused() -> None:
+    """POCSO s.23 / issue #55: a minor's record never carries an accused — naming an
+    offender in a child case is a re-identification vector (accused↔victim proximity)."""
+    rec = {
+        "minor_involved": True,
+        "state": "TG",
+        "district": "TESTVILLE",
+        "category": "pocso",
+        "status": "CONVICTED",
+        "accused": [
+            {"label": "Accused #1", "name_public_court_record": "A. Person", "status": "CONVICTED"}
+        ],
+    }
+    clean = sanitize_record(rec)
+    assert "accused" not in clean  # stripped entirely
+    assert "A. Person" not in json.dumps(clean)  # the court name never survives
+
+
 def test_minor_projection_drops_model_verification_note() -> None:
     """Guardrail L / POCSO s.23: the verifier's model-written free-text note is never
     part of a minor's allowed shape and pii_guard does not age-scan it — so the minor

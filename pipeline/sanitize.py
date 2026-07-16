@@ -183,6 +183,10 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     # otherwise neutralise and pii_guard does not age-scan — a minor's content is never
     # model-written, so drop it (canonical home for the guard; issue #44).
     projected.pop("verification_note", None)
+    # Drop the accused entirely: a minor's record carries only state/district/year/
+    # offence/status. Naming an offender in a child case is a re-identification vector
+    # (accused↔victim proximity), so a minor never carries an accused (issue #55).
+    projected.pop("accused", None)
     reported = projected.get("incident_reported_date")
     if isinstance(reported, str) and reported:
         projected["incident_reported_date"] = reported[:4]  # year granularity only
