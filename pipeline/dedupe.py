@@ -26,6 +26,7 @@ from typing import Any
 from rapidfuzz import fuzz
 
 from pipeline import config
+from pipeline.identity_scan import has_identity_detail
 from pipeline.pii_constants import FREE_TEXT_FIELD_NAMES, matched_age_patterns
 from pipeline.provenance import is_official_publisher
 from pipeline.validate import has_qualifying_offence_section
@@ -334,6 +335,11 @@ def dedupe(
         if _has_age_detail(record):
             # A residual age in free text never auto-publishes; a human confirms it.
             review.append(_review_entry(record, "age_detail_present"))
+        elif has_identity_detail(record):
+            # Deterministic backstop for the widened non-minor narrative: a victim-accused
+            # relationship (or an age in title/sections) in model text re-identifies the
+            # victim — quarantine to review regardless of prompt/verifier compliance.
+            review.append(_review_entry(record, "identity_detail_present"))
         elif _is_out_of_scope_offence(record):
             # Cited sections carry no sexual-offence statute: not ours to publish.
             review.append(_review_entry(record, "scope_review"))

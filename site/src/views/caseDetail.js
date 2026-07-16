@@ -7,7 +7,13 @@ import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
 import { loadCase } from '../data.js';
 import { formatDate, stateName, safeHttpUrl } from '../format.js';
-import { statusBadge, minorBadge } from './parts.js';
+import {
+  statusBadge,
+  minorBadge,
+  severityBadge,
+  repeatOffenderBadge,
+  daysTicker,
+} from './parts.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
 
@@ -42,6 +48,11 @@ function detailRow(labelKey, value) {
 }
 
 function accusedSection(record) {
+  // Guardrail (CLAUDE.md §1a): a minor's record never surfaces an accused — naming an
+  // offender in a child case is a re-identification vector (accused↔victim proximity).
+  // The pipeline already withholds a minor's accused name; this is defence-in-depth so
+  // the UI can never render one regardless of what a record happens to carry.
+  if (record.minor_involved) return null;
   const accused = record.accused || [];
   if (!accused.length) return null;
   const list = el(
@@ -132,10 +143,13 @@ export async function renderCase(route) {
       ),
       el('div', { class: 'case__badges' }, [
         statusBadge(record.status),
+        severityBadge(record.offence_sections),
+        repeatOffenderBadge(record.offence_sections),
         record.minor_involved ? minorBadge() : null,
       ]),
       el('h1', { class: 'case__id' }, record.id),
       el('p', { class: 'case__summary' }, record.summary || ''),
+      daysTicker(record),
     ]),
     el('section', { class: 'panel reveal' }, [
       el(

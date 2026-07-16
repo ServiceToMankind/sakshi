@@ -256,6 +256,7 @@
         "properties": { "minor_involved": { "const": true } }
       },
       "then": {
+        "not": { "required": ["accused"] },
         "properties": {
           "incident_reported_date": { "pattern": "^\\d{4}$" },
           "pending_days": { "type": "null" },
@@ -294,13 +295,6 @@
       "status": "UNDER_TRIAL",
       "status_history": [
         { "status": "FIR_FILED", "date": "2026-06", "source": 0 }
-      ],
-      "accused": [
-        {
-          "label": "Accused #1",
-          "name_public_court_record": null,
-          "status": "UNDER_TRIAL"
-        }
       ],
       "court": {
         "name": "Special POCSO Court, TESTVILLE",

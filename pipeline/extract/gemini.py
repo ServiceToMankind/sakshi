@@ -43,12 +43,20 @@ Hard rules:
 - Do NOT invent, infer, or embellish. Only report what the text states.
 - "victim" MUST be null. Never output any victim, survivor, complainant, address,
   family, school, workplace, photo, phone, email, or age (beyond minor true/false).
-- TITLE + SUMMARY in plain English for a general reader:
+- TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
-  · "summary": <=2 short declarative sentences, active voice, NO legalese. Say
-    "The court paused the trial while it reviews the FIR", not "stayed proceedings
+  · "summary": 2-4 short declarative sentences, active voice, NO legalese. State the
+    concrete facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never
+    finer), and the institutional/legal response (FIR, arrest, chargesheet, verdict).
+    The cruelty of the ACT may be stated plainly; sensationalism may not. Say "The
+    court paused the trial while it reviews the FIR", not "stayed proceedings
     concerning an FIR alleging...". Never define anything by section number alone.
+  · IDENTITY FLOOR (every age, statutory — BNS s.72): the summary must NEVER contain
+    or imply a victim name, age, or gender; a sub-district location (neighbourhood,
+    street, landmark, institution name, "near X"); how the accused knew the victim;
+    or ANY detail that could identify the victim. Describe the ACT and the RESPONSE,
+    never the person.
   · If minor_involved is true, OMIT title and summary entirely — they are generated
     deterministically afterwards and must never be model-written for a minor.
 - SCOPE — sexual offences ONLY: this record covers rape, POCSO, sexual assault,

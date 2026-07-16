@@ -2,7 +2,15 @@
 
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
-import { statusLabel, categoryLabel, stateName, formatDate } from '../format.js';
+import {
+  statusLabel,
+  categoryLabel,
+  stateName,
+  formatDate,
+  formatNumber,
+  isActiveStatus,
+} from '../format.js';
+import { severityLabel, isAggravated, isRepeatOffender } from '../severity.js';
 
 /** A status badge. ACQUITTED/QUASHED are styled with equal prominence to CONVICTED. */
 export function statusBadge(status) {
@@ -15,6 +23,57 @@ export function statusBadge(status) {
 
 export function minorBadge() {
   return el('span', { class: 'badge badge--minor', 'data-i18n': 'minor_flag' }, t('minor_flag'));
+}
+
+/**
+ * A charge-derived severity badge, or null when the offence sections match no rule.
+ * Aggravated categories get a distinct dark-red weight (`badge--aggravated`). Derived
+ * ONLY from public charge codes (`offence_sections`) — safe for EVERY case including a
+ * minor's, because it describes the OFFENCE, never the victim (CLAUDE.md §1a/§5).
+ */
+export function severityBadge(offenceSections) {
+  const label = severityLabel(offenceSections);
+  if (!label) return null;
+  const aggravated = isAggravated(offenceSections);
+  return el(
+    'span',
+    {
+      class: `badge badge--severity${aggravated ? ' badge--aggravated' : ''}`,
+      title: t('severity_hint'),
+    },
+    label,
+  );
+}
+
+/** A separate repeat/habitual-offender chip (a second aggravating axis), or null. */
+export function repeatOffenderBadge(offenceSections) {
+  if (!isRepeatOffender(offenceSections)) return null;
+  return el(
+    'span',
+    { class: 'badge badge--repeat', 'data-i18n': 'severity_repeat' },
+    t('severity_repeat'),
+  );
+}
+
+/**
+ * The "days without justice" ticker. Day-precise pendency exists ONLY for non-minor
+ * cases (a minor's date is year-only by projection, and `pending_days` is nulled), so
+ * this NEVER renders on a minor card — a hard guardrail, not a display choice
+ * (CLAUDE.md §1a). Shown while the case is unresolved (active statuses incl.
+ * under-trial); resolved cases (convicted/acquitted/quashed/closed) show no ticker.
+ */
+export function daysTicker(record) {
+  if (record.minor_involved) return null;
+  if (!isActiveStatus(record.status)) return null;
+  if (record.pending_days == null) return null;
+  return el('div', { class: 'days-ticker', role: 'note' }, [
+    el('span', { class: 'days-ticker__num' }, formatNumber(record.pending_days)),
+    el(
+      'span',
+      { class: 'days-ticker__label', 'data-i18n': 'days_without_justice' },
+      t('days_without_justice'),
+    ),
+  ]);
 }
 
 /**
@@ -56,6 +115,8 @@ export function recentCard(record) {
       [
         el('div', { class: 'feed-card__badges' }, [
           statusBadge(record.status),
+          severityBadge(record.offence_sections),
+          repeatOffenderBadge(record.offence_sections),
           record.minor_involved ? minorBadge() : null,
           record.verified ? verifiedBadge() : null,
         ]),
@@ -75,13 +136,6 @@ export function caseCard(record) {
     (record.offence_sections || []).length
       ? el('span', {}, (record.offence_sections || []).join(', '))
       : null,
-    record.pending_days != null
-      ? el(
-          'span',
-          { class: 'case-card__pending' },
-          `${record.pending_days} ${t('case_pending_days')}`,
-        )
-      : null,
   ].filter(Boolean);
 
   return el('li', { class: 'case-card' }, [
@@ -95,9 +149,12 @@ export function caseCard(record) {
       [
         el('div', { class: 'case-card__top' }, [
           statusBadge(record.status),
+          severityBadge(record.offence_sections),
+          repeatOffenderBadge(record.offence_sections),
           record.minor_involved ? minorBadge() : null,
         ]),
         el('p', { class: 'case-card__summary' }, record.summary || ''),
+        daysTicker(record),
         el('div', { class: 'case-card__meta' }, meta),
         el('span', { class: 'case-card__id' }, record.id),
       ],

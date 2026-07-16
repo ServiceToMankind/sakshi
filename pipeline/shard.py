@@ -25,11 +25,18 @@ from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 from pipeline import config
 from pipeline.dedupe import exact_anchor_keys
+from pipeline.severity import is_aggravated, severity_label
 from pipeline.validate import iter_shard_files, load_schema, validate_record
+
+# Accountability-layer summary bounds (keep summary.json within its byte budget).
+_SCALE_DAYS = 120  # length of the daily-ingestion heat strip retained in summary.json
+_MAX_JURISDICTIONS = 120  # cap the (worst-first) scorecard so summary.json can't overflow
+_CLOSED_STATUSES = frozenset({"CONVICTED", "ACQUITTED", "QUASHED", "CLOSED"})
 
 __all__ = ["SHARD_SPLIT_BYTES", "SUMMARY_MAX_BYTES", "WriteResult", "write_shards"]
 
@@ -250,7 +257,9 @@ def _clear_stale_shards(data_dir: Path, keep: set[Path]) -> None:
             shard.unlink()
 
 
-def _build_summary(records: list[dict[str, Any]], run_date: str) -> dict[str, Any]:
+def _build_summary(
+    records: list[dict[str, Any]], run_date: str, data_dir: Path, new_count: int
+) -> dict[str, Any]:
     status_counts = Counter(str(r.get("status", "UNKNOWN")) for r in records)
     state_counts = Counter(str(r.get("state", "")) for r in records)
 
@@ -262,13 +271,19 @@ def _build_summary(records: list[dict[str, Any]], run_date: str) -> dict[str, An
             month_counts[reported[:7]] += 1
     monthly_trend = [{"month": m, "count": month_counts.get(m, 0)} for m in months]
 
+    # Day-precise pendency is NON-MINOR only (a minor carries no day-precise date by
+    # projection) — mirror the jurisdiction filter. The isinstance guard also avoids an
+    # int(None) crash if a legacy shard ever carried pending_days: null.
     pending = [
         {"id": r["id"], "district": r.get("district", ""), "pending_days": int(r["pending_days"])}
         for r in records
-        if r.get("status") in _ACTIVE_STATUSES and "pending_days" in r
+        if r.get("status") in _ACTIVE_STATUSES
+        and not r.get("minor_involved")
+        and isinstance(r.get("pending_days"), int)
     ]
     pending.sort(key=lambda p: p["pending_days"], reverse=True)
 
+    severity_counts, aggravated_total = _severity_summary(records)
     return {
         "generated_at": f"{run_date}T00:00:00Z",
         "total": len(records),
@@ -276,7 +291,111 @@ def _build_summary(records: list[dict[str, Any]], run_date: str) -> dict[str, An
         "state_counts": dict(sorted(state_counts.items())),
         "monthly_trend": monthly_trend,
         "top_longest_pending": pending[: config.TOP_PENDING_COUNT],
+        # --- accountability layer (aggregate/public only; see CLAUDE.md §1a) ---
+        "severity_counts": severity_counts,
+        "aggravated_total": aggravated_total,
+        "jurisdictions": _jurisdiction_scorecards(records),
+        "scale": _scale_block(data_dir, run_date, new_count, len(records)),
     }
+
+
+def _severity_summary(records: list[dict[str, Any]]) -> tuple[dict[str, int], int]:
+    """Case counts by charge-derived severity label + count of aggravated cases."""
+    counts: Counter[str] = Counter()
+    aggravated = 0
+    for record in records:
+        label = severity_label(record.get("offence_sections"))
+        if label:
+            counts[label] += 1
+        if is_aggravated(record.get("offence_sections")):
+            aggravated += 1
+    ranked = dict(sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
+    return ranked, aggravated
+
+
+def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Per-(state, district) accountability scorecard — aggregate/public only.
+
+    Pendency (median + longest) is derived ONLY from NON-MINOR active cases: a minor
+    carries no day-precise date by projection, so an all-minor jurisdiction reports
+    ``median_pending_days: null`` and ``longest_pending: null`` — a guardrail, not a gap.
+    """
+    groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for record in records:
+        key = (str(record.get("state", "")), str(record.get("district", "")))
+        groups.setdefault(key, []).append(record)
+
+    cards: list[dict[str, Any]] = []
+    for (state, district), recs in groups.items():
+        by_status = Counter(str(r.get("status", "UNKNOWN")) for r in recs)
+        total = len(recs)
+        under_trial = by_status.get("UNDER_TRIAL", 0)
+        active_pending = [
+            int(r["pending_days"])
+            for r in recs
+            if r.get("status") in _ACTIVE_STATUSES
+            and not r.get("minor_involved")
+            and isinstance(r.get("pending_days"), int)
+        ]
+        longest = max(
+            (
+                (int(r["pending_days"]), str(r.get("id", "")))
+                for r in recs
+                if r.get("status") in _ACTIVE_STATUSES
+                and not r.get("minor_involved")
+                and isinstance(r.get("pending_days"), int)
+            ),
+            default=None,
+        )
+        cards.append(
+            {
+                "state": state,
+                "district": district,
+                "total": total,
+                "under_trial": under_trial,
+                "under_trial_pct": round(100 * under_trial / total) if total else 0,
+                "convictions": by_status.get("CONVICTED", 0),
+                "acquittals": by_status.get("ACQUITTED", 0) + by_status.get("QUASHED", 0),
+                "median_pending_days": int(median(active_pending)) if active_pending else None,
+                "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
+            }
+        )
+    # Worst-first, then CAP: jurisdictions is the only unbounded summary section, so an
+    # uncapped list would eventually push summary.json past SUMMARY_MAX_BYTES and abort
+    # the whole run. The cap keeps the highest-caseload ("shame table") districts.
+    cards.sort(key=lambda c: (-int(c["total"]), str(c["state"]), str(c["district"])))
+    return cards[:_MAX_JURISDICTIONS]
+
+
+def _scale_block(data_dir: Path, run_date: str, new_count: int, total: int) -> dict[str, Any]:
+    """The awareness scale: cumulative total + a persistent daily-INGESTION histogram.
+
+    "Entered the record" is an INGESTION date (when we recorded a case), never the
+    incident date — so it is non-identifying and works for minors too. The histogram
+    persists in summary.json itself: read the prior file, add this run's newly-minted
+    count to today's bucket (multiple same-day runs accumulate only genuine new ids,
+    since a re-run mints 0 new), and keep the last ``_SCALE_DAYS`` days.
+    """
+    prior: dict[str, int] = {}
+    existing = data_dir / "summary.json"
+    if existing.exists():
+        try:
+            prior_daily = json.loads(existing.read_text(encoding="utf-8")).get("scale", {})
+            prior = {str(d["date"]): int(d["count"]) for d in prior_daily.get("daily", [])}
+        except (OSError, json.JSONDecodeError, KeyError, TypeError, ValueError):
+            prior = {}
+    prior[run_date] = prior.get(run_date, 0) + int(new_count)
+
+    window = _recent_days(run_date, _SCALE_DAYS)
+    daily = [{"date": d, "count": prior.get(d, 0)} for d in window]
+    this_week = sum(prior.get(d, 0) for d in _recent_days(run_date, 7))
+    return {"cumulative_total": total, "this_week": this_week, "daily": daily}
+
+
+def _recent_days(run_date: str, count: int) -> list[str]:
+    """The last ``count`` calendar days ending at run_date, oldest first (YYYY-MM-DD)."""
+    end = date.fromisoformat(run_date)
+    return [(end.fromordinal(end.toordinal() - i)).isoformat() for i in range(count - 1, -1, -1)]
 
 
 def _recent_months(run_date: str, count: int) -> list[str]:
@@ -333,7 +452,7 @@ def write_shards(
                 }
             )
 
-    summary_text = _dumps(_build_summary(finalized, run_date))
+    summary_text = _dumps(_build_summary(finalized, run_date, data_dir, new))
     summary_bytes = len(summary_text.encode("utf-8"))
     if summary_bytes > SUMMARY_MAX_BYTES:
         raise ValueError(f"summary.json is {summary_bytes} bytes (budget {SUMMARY_MAX_BYTES})")
