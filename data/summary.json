@@ -63,7 +63,7 @@
       "district": "Kothagudem",
       "longest_pending": null,
       "median_pending_days": null,
-      "state": "TS",
+      "state": "TG",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -647,11 +647,11 @@
         "date": "2026-07-18"
       },
       {
-        "count": 0,
+        "count": 1,
         "date": "2026-07-19"
       }
     ],
-    "this_week": 0
+    "this_week": 1
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 1,
@@ -661,8 +661,7 @@
   "state_counts": {
     "DL": 1,
     "HR": 1,
-    "TG": 2,
-    "TS": 1,
+    "TG": 3,
     "UP": 2
   },
   "status_counts": {
