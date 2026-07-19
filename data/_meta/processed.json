@@ -1084,7 +1084,7 @@
       "attempts": 2,
       "first_seen": "2026-07-19",
       "last_seen": "2026-07-19",
-      "outcome": "failed"
+      "outcome": "not_a_case"
     },
     "3cfe95caee13d3782c521971a38610c2b798df4adddaa0fef8d1ff810cdf857c": {
       "attempts": 0,
