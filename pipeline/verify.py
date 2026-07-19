@@ -88,6 +88,11 @@ class VerifyResult:
     input_tokens: int = 0
     output_tokens: int = 0
     error_samples: list[str] = field(default_factory=list)
+    # Source URLs of records left unverified for an OPERATIONAL reason (provider error,
+    # no source text, budget cap) — NOT a genuine "verifier said not-a-case" demotion.
+    # The orchestrator HOLDS these for human review instead of quarantining them, so a
+    # legitimate case is never lost to a transient 503/504 or an exhausted budget.
+    incomplete_source_urls: set[str] = field(default_factory=set)
 
     @property
     def estimated_usd(self) -> float:
@@ -271,13 +276,17 @@ def verify_records(
                 result.skipped_budget += 1
             else:
                 result.skipped_no_source += 1
+            # Not a judgment — the verifier never ran. Hold for a human, don't quarantine.
+            _mark_incomplete(result, record)
             continue
         try:
             response = client.verify(build_verify_prompt(record, source_text))
-        except Exception as exc:  # provider error: demote, never publish an unverified claim
+        except Exception as exc:  # provider error (503/504/…): the verifier never returned.
             result.error_samples.append(f"{type(exc).__name__}: {str(exc)[:160]}")
             result.records.append({**record, "verified": False})
             result.demoted_count += 1
+            # A transient provider failure is NOT a "not-a-case" verdict — hold, don't lose.
+            _mark_incomplete(result, record)
             continue
         result.input_tokens += response.input_tokens
         result.output_tokens += response.output_tokens
@@ -293,6 +302,16 @@ def verify_records(
     if cost_log_path is not None:
         _write_cost(cost_log_path, result)
     return result
+
+
+def _mark_incomplete(result: VerifyResult, record: dict[str, Any]) -> None:
+    """Record a case as verification-INCOMPLETE (operational failure, not a verdict) by
+    its source URLs, so the orchestrator can hold it for human review instead of
+    quarantining it."""
+    for source in record.get("sources", []):
+        url = str(source.get("url", "")).strip()
+        if url:
+            result.incomplete_source_urls.add(url)
 
 
 def _source_text_for(record: dict[str, Any], source_text_by_url: dict[str, str]) -> str:
@@ -339,14 +358,22 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
     except Exception:
         model = _make_model(with_search=False)
 
+    # Retry transient provider failures (503 high-demand, 504 deadline, 429 rate) with
+    # exponential backoff — gemini-2.5-pro + grounding is frequently overloaded, and a
+    # single 504 must not silently sink a legitimate case. The deadline bounds total wait.
+    _retry = g_retry.Retry(
+        predicate=g_retry.if_transient_error,
+        initial=2.0,
+        maximum=30.0,
+        multiplier=2.0,
+        deadline=config.VERIFY_CALL_TIMEOUT_S,
+    )
+
     class _VerifyClient:
         def verify(self, prompt: str) -> VerificationResponse:
             response = model.generate_content(
                 prompt,
-                request_options={
-                    "timeout": config.VERIFY_CALL_TIMEOUT_S,
-                    "retry": g_retry.Retry(deadline=config.VERIFY_CALL_TIMEOUT_S),
-                },
+                request_options={"timeout": config.VERIFY_CALL_TIMEOUT_S, "retry": _retry},
             )
             usage = getattr(response, "usage_metadata", None)
             return VerificationResponse(

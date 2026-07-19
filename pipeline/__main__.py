@@ -747,6 +747,11 @@ def run(
     # in-scope candidate against its source BEFORE it can publish, stamping `verified`.
     # Runs on raw (pre-sanitize) records so corrections are sanitised afterwards. Opt-in
     # (VERIFY_ENABLED) — the auto-flip turns it on; never runs in dry-run.
+    # Source URLs (sanitised, to match the published records) of records the verifier
+    # could not ASSESS — a transient provider error, missing source text, or exhausted
+    # budget — as opposed to a genuine "not-a-case" demotion. A FRESH such record is HELD
+    # for human review, not quarantined, so a legitimate case is never lost to a 503/504.
+    verify_incomplete_urls: set[str] = set()
     if config.verification_enabled() and not dry_run and in_scope:
         source_text_by_url = {doc.url: doc.text for doc in raw_docs}
         client = verify_client or verify.default_verify_client(config.verification_model())
@@ -754,6 +759,7 @@ def run(
             in_scope, source_text_by_url, client, cost_log_path=logs_dir / "verify_cost.json"
         )
         in_scope = vresult.records
+        verify_incomplete_urls = {sanitize_string(u) for u in vresult.incomplete_source_urls}
         report.verified = vresult.verified_count
         report.verify_demoted = vresult.demoted_count
         report.verify_usd = vresult.estimated_usd
@@ -879,12 +885,17 @@ def run(
                 holds = _verified_hold_reasons(safe)
                 (needs_review_items.append((safe, holds)) if holds else auto_eligible.append(safe))
                 continue
-            # 4. NOT verified. A record carrying ANY prior held/carryover content is HELD
-            #    (never lost) so the accumulated review backlog survives the verifier flip;
-            #    only a PURELY-fresh candidate the verifier declined is quarantined to
-            #    _review as "unverified" (the intended direct-publish behaviour).
-            if _has_carryover_content(record):
-                held = _verified_hold_reasons(safe) or ["unverified_held"]
+            # 4. NOT verified. HOLD it for a human (never lose it) when it carries prior
+            #    content OR the verifier could not ASSESS it (a transient 503/504, missing
+            #    source, or exhausted budget — `verify_incomplete_urls`). Only a purely-
+            #    fresh candidate the verifier actually DECLINED is quarantined to _review.
+            incomplete = any(
+                str(s.get("url", "")).strip() in verify_incomplete_urls
+                for s in record.get("sources") or []
+            )
+            if _has_carryover_content(record) or incomplete:
+                reason = "verify_incomplete" if incomplete else "unverified_held"
+                held = _verified_hold_reasons(safe) or [reason]
                 needs_review_items.append((safe, held))
             else:
                 review.append({"reason": "unverified", "record": safe})

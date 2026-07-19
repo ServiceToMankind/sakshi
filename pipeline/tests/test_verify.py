@@ -176,6 +176,24 @@ def test_verify_records_provider_error_demotes() -> None:
     result = verify_records([_record()], {"https://ex.invalid/a": "text"}, _Boom())
     assert result.records[0]["verified"] is False and result.demoted_count == 1
     assert result.error_samples
+    # A transient provider error is INCOMPLETE (hold for a human), not a verdict.
+    assert result.incomplete_source_urls == {"https://ex.invalid/a"}
+
+
+def test_incomplete_urls_track_operational_failures_not_genuine_demotions() -> None:
+    """Provider error / no source / budget mark a record INCOMPLETE (hold, don't lose);
+    a genuine parsed verified:false does NOT — it is a real verdict (quarantine)."""
+    # Genuine demotion: verifier ran and said not-a-case -> NOT incomplete.
+    genuine = verify_records(
+        [_record(cnr="C-1")],
+        {"https://ex.invalid/a": "text"},
+        _Client('{"verified": false, "verification_note": "not a real case"}'),
+    )
+    assert genuine.records[0]["verified"] is False and genuine.demoted_count == 1
+    assert genuine.incomplete_source_urls == set()  # a verdict, not an operational failure
+    # No source text -> incomplete.
+    no_src = verify_records([_record(cnr="C-2")], {}, _Client('{"verified": true}'))
+    assert no_src.incomplete_source_urls == {"https://ex.invalid/a"}
 
 
 def test_verify_records_budget_cap_quarantines_remainder(monkeypatch: pytest.MonkeyPatch) -> None:
