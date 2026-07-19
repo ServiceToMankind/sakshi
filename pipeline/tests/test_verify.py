@@ -68,6 +68,23 @@ def test_parse_verdict_unparseable_returns_none() -> None:
     assert parse_verdict("[1,2,3]") is None  # not an object
 
 
+def test_parse_verdict_extracts_json_wrapped_in_prose() -> None:
+    """A GROUNDED response wraps the verdict in prose/citations — the object must still be
+    extracted (else every case is demoted on a formatting artefact)."""
+    grounded = (
+        "Based on a web search, here is my assessment:\n"
+        '{"verified": true, "verification_note": "matches the reported case"}\n'
+        "Sources: [1] example.com [2] news.example"
+    )
+    v = parse_verdict(grounded)
+    assert v and v.verified is True
+
+    # A brace inside a JSON string must not confuse the balanced extractor.
+    tricky = 'noise {"verified": false, "verification_note": "not a case (see }{ )"} trailing'
+    v2 = parse_verdict(tricky)
+    assert v2 and v2.verified is False and "not a case" in v2.note
+
+
 # --- apply_verdict: corrections restricted to CORRECTABLE_FIELDS ---
 
 
