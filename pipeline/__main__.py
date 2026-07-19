@@ -800,6 +800,9 @@ def run(
         )
         for sample in vresult.error_samples:
             _log(report, f"verifier error: {sample}")
+        # Surface WHY cases were declined so the bar is auditable (records stay private).
+        for note in vresult.decline_notes[:10]:
+            _log(report, f"verifier declined: {note}")
 
     # LAST GATE BEFORE DISK: sanitize every in-scope candidate (drop forbidden keys,
     # redact PII values, structurally project minor records), then project onto the
