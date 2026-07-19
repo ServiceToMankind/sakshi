@@ -1,0 +1,27 @@
+[
+  {
+    "category": "harassment",
+    "confidence": 0.9,
+    "district": "Unknown",
+    "id": "SKS-2026-XX-000001",
+    "incident_reported_date": "2026-07-19",
+    "last_verified": "2026-07-19",
+    "minor_involved": false,
+    "offence_sections": [],
+    "pending_days": 0,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-19",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/trainee-ips-accused-of-sexual-harassment-and-assault-by-fellow-officer-booked/article71241943.ece"
+      }
+    ],
+    "state": "XX",
+    "status": "FIR_FILED",
+    "summary": "A fellow officer accused a trainee IPS officer of sexual harassment and assault. The alleged harassment involved sexually abusive messages and derogatory remarks towards the complainant and in front of fellow trainees. Police subsequently booked the trainee officer.",
+    "title": "Trainee IPS officer booked for sexual harassment and assault",
+    "verification_note": "The source describes a specific case of sexual harassment and assault, and the core facts align with the candidate record.",
+    "verified": true
+  }
+]

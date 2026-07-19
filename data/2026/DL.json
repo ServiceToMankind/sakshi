@@ -15,7 +15,8 @@
       "IPC 376",
       "POCSO 4",
       "IPC 375",
-      "POCSO 3"
+      "POCSO 3",
+      "POCSO"
     ],
     "sources": [
       {
@@ -47,6 +48,12 @@
         "retrieved": "2026-07-19",
         "source_type": "court",
         "url": "https://indiankanoon.org/doc/55423549/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/95911673/"
       }
     ],
     "state": "DL",
@@ -87,6 +94,100 @@
     "status": "UNDER_TRIAL",
     "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape case involving a minor — Delhi (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "district": "Delhi",
+    "id": "SKS-2026-DL-000005",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-19",
+    "minor_involved": true,
+    "offence_sections": [
+      "PoCSO Act",
+      "IPC 376(2)",
+      "PoCSO 6",
+      "IPC 376(3)",
+      "IPC 506(ii)",
+      "POCSO 6",
+      "POCSO",
+      "rape",
+      "sexual_assault",
+      "POCSO Act",
+      "aggravated penetrative sexual assault",
+      "Rape",
+      "Sexual Assault"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/136396756/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/149906282/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/109912576/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/2880478/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/95911673/"
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "district": "South District",
+    "id": "SKS-2026-DL-000006",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-19",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO Act"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/141261189/"
+      }
+    ],
+    "state": "DL",
+    "status": "APPEAL_PENDING",
+    "summary": "An appeal is pending in South District, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — South District (2026)",
     "verified": true
   }
 ]
