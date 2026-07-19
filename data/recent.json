@@ -145,19 +145,22 @@
   },
   {
     "id": "SKS-2026-DL-000003",
-    "title": "Rape case involving a minor — Delhi (2026)",
-    "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "Delhi",
-    "category": "rape",
-    "status": "UNDER_TRIAL",
+    "category": "pocso",
+    "status": "APPEAL_PENDING",
     "offence_sections": [
-      "IPC 375"
+      "IPC 376",
+      "POCSO 4",
+      "IPC 375",
+      "POCSO 3"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
-    "publisher": "The Indian Express",
-    "verified": false,
+    "publisher": "Delhi High Court",
+    "verified": true,
     "last_verified": "2026-07-19"
   }
 ]

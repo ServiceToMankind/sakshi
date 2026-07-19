@@ -1,7 +1,7 @@
 [
   {
-    "category": "rape",
-    "confidence": 0.9,
+    "category": "pocso",
+    "confidence": 1.0,
     "court": {
       "name": "Delhi High Court",
       "next_hearing": null
@@ -12,20 +12,48 @@
     "last_verified": "2026-07-19",
     "minor_involved": true,
     "offence_sections": [
-      "IPC 375"
+      "IPC 376",
+      "POCSO 4",
+      "IPC 375",
+      "POCSO 3"
     ],
     "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/138118999/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/27881371/"
+      },
       {
         "publisher": "The Indian Express",
         "retrieved": "2026-07-14",
         "source_type": "news_article",
         "url": "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/33014810/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/55423549/"
       }
     ],
     "state": "DL",
-    "status": "UNDER_TRIAL",
-    "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Rape case involving a minor — Delhi (2026)"
+    "status": "APPEAL_PENDING",
+    "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "verified": true
   },
   {
     "category": "rape",

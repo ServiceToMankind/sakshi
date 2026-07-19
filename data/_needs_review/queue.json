@@ -50,5 +50,163 @@
       "incident_reported_date": "2026",
       "title": "Sexual assault case involving a minor — East Delhi (2026)"
     }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "incident_reported_date": "2026",
+      "offence_sections": [
+        "PoCSO Act",
+        "IPC 376(2)",
+        "PoCSO 6",
+        "IPC 376(3)",
+        "IPC 506(ii)",
+        "POCSO 6",
+        "POCSO",
+        "rape",
+        "sexual_assault"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/136396756/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        },
+        {
+          "url": "https://indiankanoon.org/doc/149906282/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        },
+        {
+          "url": "https://indiankanoon.org/doc/109912576/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        },
+        {
+          "url": "https://indiankanoon.org/doc/2880478/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        }
+      ],
+      "verified": false,
+      "title": "Child sexual offence case involving a minor — Delhi (2026)",
+      "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "incident_reported_date": "2026",
+      "offence_sections": [
+        "POCSO",
+        "IPC 376"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/95911673/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        }
+      ],
+      "verified": false,
+      "title": "Child sexual offence case involving a minor — Delhi (2026)",
+      "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "South Delhi",
+      "incident_reported_date": "2018",
+      "offence_sections": [
+        "POCSO Act"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/141261189/",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        }
+      ],
+      "verified": false,
+      "title": "Child sexual offence case involving a minor — South Delhi (2018)",
+      "summary": "An appeal is pending in South Delhi, DL. Reported 2018. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Warangal",
+      "offence_sections": [
+        "POCSO 5(g)",
+        "POCSO 5(k)",
+        "POCSO 5",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "court": {
+        "name": "Telangana High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/132641412/",
+          "publisher": "Telangana High Court",
+          "source_type": "court",
+          "retrieved": "2026-07-19"
+        }
+      ],
+      "incident_reported_date": "2026",
+      "verified": false,
+      "title": "Child sexual offence case involving a minor — Warangal (2026)",
+      "summary": "The case status is not yet known in Warangal, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
