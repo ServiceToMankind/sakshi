@@ -147,7 +147,7 @@ DEFAULT_VERIFY_MAX_USD: Final[float] = 0.50
 # Max chars of source text passed to the verifier (keeps the prompt + cost bounded).
 VERIFY_SOURCE_TEXT_CHARS: Final[int] = 12000
 # Per-verification call timeout (pro + grounding is slower than flash extraction).
-VERIFY_CALL_TIMEOUT_S: Final[float] = 60.0
+VERIFY_CALL_TIMEOUT_S: Final[float] = 120.0
 # Hard per-call output ceiling: the verdict JSON is tiny, so this bounds a single
 # call's cost (the running USD cap is only checked BETWEEN calls, not within one).
 VERIFY_MAX_OUTPUT_TOKENS: Final[int] = 1024

@@ -2020,3 +2020,60 @@ def test_verified_mode_honors_human_approval(
     assert report.published == 1
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["cnr"] == "C-APPR" and rec["minor_involved"] is True
+
+
+class _BoomVerifier:
+    """A verifier whose calls always fail transiently (503/504) — the exact production
+    failure that was silently sinking every new case."""
+
+    def verify(self, prompt: str) -> verify_mod.VerificationResponse:
+        raise RuntimeError("504 The request timed out. Please try again.")
+
+
+def test_verify_transient_error_holds_fresh_case_for_review_not_quarantine(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A fresh case the verifier could NOT assess (transient 503/504) must be HELD for a
+    human (recoverable, in the needs-review queue), NOT quarantined to _review where it is
+    lost — the fix for the 'runs daily but publishes nothing new' production issue."""
+    monkeypatch.setenv("VERIFY_ENABLED", "true")
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/transient",
+            publisher="The Hindu",
+            fetched_at="2026-07-09",
+            text="A reported rape case; FIR filed.",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "DL",
+            "district": "Delhi",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-TRANSIENT",
+            "incident_reported_date": "2026-07-01",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+        verify_client=_BoomVerifier(),
+    )
+    assert report.published == 0  # not verified -> not published
+    assert report.needs_review == 1  # but HELD for a human, not lost
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert queue[0]["record"]["cnr"] == "C-TRANSIENT"
+    assert "verify_incomplete" in queue[0]["reasons"]
+    # It must NOT be dumped into the _review quarantine.
+    for review_file in (tmp_path / "_review").glob("review-*.json"):
+        for entry in json.loads(review_file.read_text()):
+            assert entry["record"].get("cnr") != "C-TRANSIENT"
