@@ -59,16 +59,17 @@
       "state": "DL",
       "district": "Delhi",
       "offence_sections": [
-        "IPC 375",
-        "POCSO 6"
+        "POCSO 6",
+        "IPC 375"
       ],
       "category": "rape",
       "minor_involved": true,
       "status": "UNDER_TRIAL",
       "court": {
-        "name": "High Court"
+        "name": "High Court",
+        "next_hearing": null
       },
-      "confidence": 0.9,
+      "confidence": 1.0,
       "sources": [
         {
           "url": "https://indianexpress.com/article/cities/delhi/high-court-cancels-bail-to-teacher-in-rape-of-3-year-old-girl-in-delhi-school-10788410/",
