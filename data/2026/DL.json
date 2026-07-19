@@ -26,5 +26,37 @@
     "status": "UNDER_TRIAL",
     "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape case involving a minor — Delhi (2026)"
+  },
+  {
+    "category": "rape",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court",
+      "next_hearing": null
+    },
+    "district": "Delhi",
+    "id": "SKS-2026-DL-000004",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-19",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 6",
+      "IPC 375",
+      "POCSO 4",
+      "IPC 376"
+    ],
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-19",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/delhi/high-court-cancels-bail-to-teacher-in-rape-of-3-year-old-girl-in-delhi-school-10788410/"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape case involving a minor — Delhi (2026)",
+    "verified": true
   }
 ]
