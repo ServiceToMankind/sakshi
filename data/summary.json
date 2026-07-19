@@ -1,7 +1,18 @@
 {
-  "aggravated_total": 1,
+  "aggravated_total": 2,
   "generated_at": "2026-07-19T00:00:00Z",
   "jurisdictions": [
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 2,
+      "under_trial": 2,
+      "under_trial_pct": 100
+    },
     {
       "acquittals": 0,
       "convictions": 0,
@@ -12,17 +23,6 @@
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 1,
-      "under_trial": 1,
-      "under_trial_pct": 100
     },
     {
       "acquittals": 0,
@@ -168,7 +168,7 @@
     }
   ],
   "scale": {
-    "cumulative_total": 7,
+    "cumulative_total": 8,
     "daily": [
       {
         "count": 0,
@@ -647,19 +647,19 @@
         "date": "2026-07-18"
       },
       {
-        "count": 1,
+        "count": 2,
         "date": "2026-07-19"
       }
     ],
-    "this_week": 1
+    "this_week": 2
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 1,
+    "Aggravated penetrative assault on a child": 2,
     "Child sexual offence": 2,
     "Rape": 3
   },
   "state_counts": {
-    "DL": 1,
+    "DL": 2,
     "HR": 1,
     "TG": 3,
     "UP": 2
@@ -667,9 +667,9 @@
   "status_counts": {
     "CONVICTED": 1,
     "FIR_FILED": 3,
-    "UNDER_TRIAL": 2,
+    "UNDER_TRIAL": 3,
     "UNKNOWN": 1
   },
   "top_longest_pending": [],
-  "total": 7
+  "total": 8
 }
