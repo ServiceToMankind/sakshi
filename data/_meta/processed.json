@@ -400,7 +400,7 @@
       "attempts": 2,
       "first_seen": "2026-07-18",
       "last_seen": "2026-07-19",
-      "outcome": "failed"
+      "outcome": "published"
     },
     "15f235c6a1f12d494b8947fc5168eb2096984ee4645c443d34b0f601333f05f3": {
       "attempts": 0,
@@ -2638,7 +2638,7 @@
       "attempts": 2,
       "first_seen": "2026-07-18",
       "last_seen": "2026-07-19",
-      "outcome": "failed"
+      "outcome": "staged_pending"
     },
     "8f0664e919a7a38f8ed93f1069fb8d93ce4726878bf23a4cf45692743cf32053": {
       "attempts": 0,
