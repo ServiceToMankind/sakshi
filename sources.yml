@@ -45,13 +45,16 @@ sources:
 
   - id: indian-kanoon
     type: indiankanoon
-    enabled: false # opt-in: set true after provisioning INDIANKANOON_API_TOKEN + accepting ToS
+    enabled: true # active, but yields NOTHING until INDIANKANOON_API_TOKEN is set (safe)
     publisher: Indian Kanoon
-    # Court-record mirror. When enabled + token set, queries DL+TG sexual-offence
-    # judgments in the lookback window. Without the token it yields nothing.
+    # Court-record mirror. Yields nothing without the token, so enabling it early is safe:
+    # it activates the moment the secret is provisioned. Each query is billed, so keep the
+    # list tight; broaden to more states once it is confirmed working. `doctypes:<court>`
+    # scopes to a High Court; `fromdate:DD-MM-YYYY` limits to recent judgments (a wrong
+    # filter simply returns nothing — safe). Bump the year each January.
     queries:
-      - "rape OR POCSO OR 'sexual assault' doctypes:delhi"
-      - "rape OR POCSO OR 'sexual assault' doctypes:telangana"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:delhi fromdate:1-1-2026"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:telangana fromdate:1-1-2026"
 
   # Media — crime/city section feeds for DL + TG (deprioritized live-blogs). A city
   # section feed carries far fewer rolling "live updates" pages than a national feed.

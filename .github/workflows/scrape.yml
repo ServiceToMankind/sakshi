@@ -146,6 +146,9 @@ jobs:
         id: run
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Court-record source (Indian Kanoon). The source yields NOTHING without this
+          # token, so it is safe to leave wired even before the secret is provisioned.
+          INDIANKANOON_API_TOKEN: ${{ secrets.INDIANKANOON_API_TOKEN }}
         run: |
           echo "LAUNCH_MODE=$LAUNCH_MODE  STATES=${LAUNCH_STATES:-<all>}  LOOKBACK=${LAUNCH_LOOKBACK_DAYS:-<none>}"
           if [ "$DRY_RUN" = "true" ]; then
