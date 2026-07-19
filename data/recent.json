@@ -15,7 +15,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -33,13 +34,14 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
-    "id": "SKS-2026-TS-000001",
+    "id": "SKS-2026-TG-000003",
     "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
-    "summary": "An FIR has been filed in Kothagudem, TS. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "state": "TS",
+    "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
     "district": "Kothagudem",
     "category": "pocso",
     "status": "FIR_FILED",
@@ -50,7 +52,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Hindu",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -66,7 +69,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Hindu",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -84,7 +88,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -98,7 +103,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   },
   {
     "id": "SKS-2026-DL-000003",
@@ -114,6 +120,7 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "The Indian Express",
-    "verified": false
+    "verified": false,
+    "last_verified": "2026-07-19"
   }
 ]
