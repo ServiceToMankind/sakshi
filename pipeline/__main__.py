@@ -41,6 +41,7 @@ from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.registry import build_sources
+from pipeline.states import normalize_state
 from pipeline.validate import (
     iter_shard_files,
     load_schema,
@@ -246,6 +247,8 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             "minor_involved": bool(record.get("minor_involved")),
             "publisher": (record.get("sources") or [{}])[0].get("publisher", ""),
             "verified": bool(record.get("verified")),
+            # When the record was last (re)processed — the feed shows it as "Updated <date>".
+            "last_verified": record.get("last_verified"),
         }
         for record in ordered[:RECENT_FEED_SIZE]
     ]
@@ -297,6 +300,25 @@ def _load_existing_published(data_dir: Path) -> list[dict[str, Any]]:
 
 def _record_urls(records: list[dict[str, Any]]) -> set[str]:
     return {str(s.get("url", "")) for r in records for s in r.get("sources", [])}
+
+
+def _canonicalize_state(record: dict[str, Any]) -> dict[str, Any]:
+    """Normalise the state code to its canonical form (e.g. TS->TG) so one state is never
+    split across two codes in ids, shard files, and the jurisdiction scorecard.
+
+    If the change makes the record's id encode the OLD state, the id is CLEARED so
+    write_shards re-mints a matching one — the per-state shard file and the case-page
+    lookup are both keyed on the id's state-part, so a mismatched id would 404.
+    """
+    original = str(record.get("state", ""))
+    canonical = normalize_state(original)
+    if canonical == original:
+        return record
+    updated = {**record, "state": canonical}
+    rid = str(updated.get("id", ""))
+    if rid.startswith("SKS-") and len(rid) >= 11 and rid[9:11] != canonical:
+        updated.pop("id", None)
+    return updated
 
 
 def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
@@ -660,7 +682,10 @@ def run(
         # Skip documents already settled in prior runs so the budget goes to the
         # backlog TAIL — turns provider degradation into delay, not lost coverage.
         ledger = load_ledger(data_dir)
-        existing = _load_existing_published(data_dir)  # records already on main (the base)
+        # Canonicalise state codes (TS->TG, ...) on load so a state is never split across
+        # two codes in ids/shards/scorecards. An existing record whose state changes has
+        # its id cleared so write_shards re-mints a matching one (see _canonicalize_state).
+        existing = [_canonicalize_state(r) for r in _load_existing_published(data_dir)]
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
@@ -672,6 +697,7 @@ def run(
         staged_carryover = _load_staged_carryover()
         if not os.environ.get("STAGED_DIR", "").strip():
             staged_carryover += _load_needs_review_queue(data_dir)
+        staged_carryover = [_canonicalize_state(r) for r in staged_carryover]
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
@@ -714,6 +740,10 @@ def run(
 
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)
+
+    # Canonicalise the model's state code (TS->TG, ...) BEFORE the scope filter reads it,
+    # so a state is keyed one way everywhere (fresh extractions carry no id yet).
+    extractions = [_canonicalize_state(record) for record in extractions]
 
     # A record with no model-extracted date falls back to the date the source was
     # retrieved — which IS the field's meaning ("date the case was publicly

@@ -23,6 +23,8 @@
   "recent_empty": "No recent cases to show yet. New cases appear here as they are published, each cited to its public source.",
   "verified_badge": "Verified",
   "verified_hint": "Corroborated against a public court record.",
+  "updated_label": "Updated",
+  "updated_hint": "When this record was last processed by the pipeline.",
   "filter_category": "Category",
   "explore_title": "Explore the record",
   "explore_lead": "Filter by state, status, year and more. Every view is a shareable link.",
