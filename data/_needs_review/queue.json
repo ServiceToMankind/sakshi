@@ -50,5 +50,37 @@
       "incident_reported_date": "2026",
       "title": "Sexual assault case involving a minor — East Delhi (2026)"
     }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "offence_sections": [
+        "IPC 375",
+        "POCSO 6"
+      ],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "court": {
+        "name": "High Court"
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://indianexpress.com/article/cities/delhi/high-court-cancels-bail-to-teacher-in-rape-of-3-year-old-girl-in-delhi-school-10788410/",
+          "publisher": "The Indian Express",
+          "source_type": "news_article",
+          "retrieved": "2026-07-19"
+        }
+      ],
+      "incident_reported_date": "2026",
+      "verified": false,
+      "title": "Rape case involving a minor — Delhi (2026)",
+      "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
