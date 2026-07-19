@@ -1,5 +1,5 @@
 {
-  "aggravated_total": 2,
+  "aggravated_total": 3,
   "generated_at": "2026-07-19T00:00:00Z",
   "jurisdictions": [
     {
@@ -10,8 +10,8 @@
       "median_pending_days": null,
       "state": "DL",
       "total": 2,
-      "under_trial": 2,
-      "under_trial_pct": 100
+      "under_trial": 1,
+      "under_trial_pct": 50
     },
     {
       "acquittals": 0,
@@ -656,7 +656,8 @@
   "severity_counts": {
     "Aggravated penetrative assault on a child": 2,
     "Child sexual offence": 2,
-    "Rape": 3
+    "Penetrative assault on a child": 1,
+    "Rape": 2
   },
   "state_counts": {
     "DL": 2,
@@ -665,9 +666,10 @@
     "UP": 2
   },
   "status_counts": {
+    "APPEAL_PENDING": 1,
     "CONVICTED": 1,
     "FIR_FILED": 4,
-    "UNDER_TRIAL": 3,
+    "UNDER_TRIAL": 2,
     "UNKNOWN": 1
   },
   "top_longest_pending": [],
