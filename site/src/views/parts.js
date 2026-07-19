@@ -102,6 +102,17 @@ export function recentCard(record) {
       ? el('time', { class: 'feed-card__date', datetime: String(date) }, formatDate(date))
       : null,
     record.publisher ? el('span', { class: 'feed-card__source' }, record.publisher) : null,
+    record.last_verified
+      ? el(
+          'time',
+          {
+            class: 'feed-card__updated',
+            datetime: String(record.last_verified),
+            title: t('updated_hint'),
+          },
+          `${t('updated_label')} ${formatDate(record.last_verified)}`,
+        )
+      : null,
   ].filter(Boolean);
 
   return el('li', { class: 'feed-card' }, [

@@ -1750,8 +1750,10 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         "minor_involved",
         "publisher",
         "verified",
+        "last_verified",
     }
     assert feed[0]["publisher"] == "The Hindu" and feed[0]["verified"] is True
+    assert feed[0]["last_verified"] == "2026-07-09"  # the run date it was processed
     # A FRESHLY-MINTED record must carry its assigned id in the feed (not null) — else
     # the landing feed's case links break. Must match the id written to the shard.
     shard_id = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]["id"]
