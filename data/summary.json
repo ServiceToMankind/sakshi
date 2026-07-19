@@ -1,17 +1,17 @@
 {
-  "aggravated_total": 3,
+  "aggravated_total": 5,
   "generated_at": "2026-07-19T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
-      "convictions": 0,
+      "convictions": 1,
       "district": "Delhi",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
-      "total": 2,
+      "total": 3,
       "under_trial": 1,
-      "under_trial_pct": 50
+      "under_trial_pct": 33
     },
     {
       "acquittals": 0,
@@ -32,6 +32,17 @@
       "median_pending_days": null,
       "state": "UP",
       "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "South District",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
     },
@@ -64,6 +75,31 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "TG",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Warangal",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "TG",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Unknown",
+      "longest_pending": {
+        "days": 0,
+        "id": "SKS-2026-XX-000001"
+      },
+      "median_pending_days": 0,
+      "state": "XX",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -163,12 +199,12 @@
       "month": "2026-06"
     },
     {
-      "count": 0,
+      "count": 1,
       "month": "2026-07"
     }
   ],
   "scale": {
-    "cumulative_total": 9,
+    "cumulative_total": 13,
     "daily": [
       {
         "count": 0,
@@ -647,31 +683,38 @@
         "date": "2026-07-18"
       },
       {
-        "count": 3,
+        "count": 7,
         "date": "2026-07-19"
       }
     ],
-    "this_week": 3
+    "this_week": 7
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 2,
-    "Child sexual offence": 2,
+    "Aggravated penetrative assault on a child": 4,
+    "Child sexual offence": 3,
     "Penetrative assault on a child": 1,
     "Rape": 2
   },
   "state_counts": {
-    "DL": 2,
+    "DL": 4,
     "HR": 1,
-    "TG": 4,
-    "UP": 2
+    "TG": 5,
+    "UP": 2,
+    "XX": 1
   },
   "status_counts": {
-    "APPEAL_PENDING": 1,
-    "CONVICTED": 1,
-    "FIR_FILED": 4,
+    "APPEAL_PENDING": 2,
+    "CONVICTED": 2,
+    "FIR_FILED": 5,
     "UNDER_TRIAL": 2,
-    "UNKNOWN": 1
+    "UNKNOWN": 2
   },
-  "top_longest_pending": [],
-  "total": 9
+  "top_longest_pending": [
+    {
+      "district": "Unknown",
+      "id": "SKS-2026-XX-000001",
+      "pending_days": 0
+    }
+  ],
+  "total": 13
 }

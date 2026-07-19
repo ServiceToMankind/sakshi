@@ -96,5 +96,37 @@
     "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
     "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "Telangana High Court",
+      "next_hearing": null
+    },
+    "district": "Warangal",
+    "id": "SKS-2026-TG-000005",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-19",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(g)",
+      "POCSO 5(k)",
+      "POCSO 5",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Telangana High Court",
+        "retrieved": "2026-07-19",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/132641412/"
+      }
+    ],
+    "state": "TG",
+    "status": "UNKNOWN",
+    "summary": "The case status is not yet known in Warangal, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Warangal (2026)",
+    "verified": true
   }
 ]
