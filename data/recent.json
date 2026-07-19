@@ -38,6 +38,21 @@
     "last_verified": "2026-07-19"
   },
   {
+    "id": "SKS-2026-TG-000004",
+    "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
+    "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Kothagudem",
+    "category": "pocso",
+    "status": "FIR_FILED",
+    "offence_sections": [],
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Hindu",
+    "verified": true,
+    "last_verified": "2026-07-19"
+  },
+  {
     "id": "SKS-2026-TG-000003",
     "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
     "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
@@ -118,7 +133,9 @@
       "POCSO 6",
       "IPC 375",
       "POCSO 4",
-      "IPC 376"
+      "IPC 376",
+      "BNS 64",
+      "POCSO"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,

@@ -16,6 +16,17 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Kothagudem",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "TG",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Ghaziabad",
       "longest_pending": null,
       "median_pending_days": null,
@@ -50,17 +61,6 @@
       "acquittals": 0,
       "convictions": 1,
       "district": "Jagtial",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "TG",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Kothagudem",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "TG",
@@ -168,7 +168,7 @@
     }
   ],
   "scale": {
-    "cumulative_total": 8,
+    "cumulative_total": 9,
     "daily": [
       {
         "count": 0,
@@ -647,11 +647,11 @@
         "date": "2026-07-18"
       },
       {
-        "count": 2,
+        "count": 3,
         "date": "2026-07-19"
       }
     ],
-    "this_week": 2
+    "this_week": 3
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 2,
@@ -661,15 +661,15 @@
   "state_counts": {
     "DL": 2,
     "HR": 1,
-    "TG": 3,
+    "TG": 4,
     "UP": 2
   },
   "status_counts": {
     "CONVICTED": 1,
-    "FIR_FILED": 3,
+    "FIR_FILED": 4,
     "UNDER_TRIAL": 3,
     "UNKNOWN": 1
   },
   "top_longest_pending": [],
-  "total": 8
+  "total": 9
 }

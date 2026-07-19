@@ -73,5 +73,28 @@
     "status": "FIR_FILED",
     "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence case involving a minor — Kothagudem (2026)"
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "district": "Kothagudem",
+    "id": "SKS-2026-TG-000004",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-19",
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-19",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/telangana/kothagudem-police-arrest-constable-for-sheltering-accused-in-minor-girls-rape-case/article71234514.ece"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
+    "verified": true
   }
 ]
