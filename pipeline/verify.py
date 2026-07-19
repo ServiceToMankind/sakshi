@@ -378,12 +378,14 @@ def _source_text_for(record: dict[str, Any], source_text_by_url: dict[str, str])
 
 
 def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no cover - live SDK
-    """Build the real grounded verifier (gemini-2.5-pro + Google Search). Tests inject
-    their own client, so this is never exercised offline.
+    """Build the real verifier (gemini-2.5-flash, structured-JSON). Tests inject their own
+    client, so this is never exercised offline.
 
-    Grounding is best-effort: if the installed SDK does not accept the search tool, we
-    fall back to the same model WITHOUT grounding — it still verifies fields against the
-    provided source text (only the fresh-corroboration search is lost).
+    Uses ``response_mime_type=application/json`` to FORCE a valid JSON verdict. Google
+    Search grounding is deliberately NOT used: with grounding the model returns non-JSON
+    prose/citations that fail to parse, which demoted ~every case ("unparseable verifier
+    response"). Grounding was only a corroboration bonus; the verifier's real job is to
+    judge scope + no-contradiction against the SOURCE TEXT we already provide.
     """
     import importlib
 
@@ -394,29 +396,13 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
         raise RuntimeError("GEMINI_API_KEY is not set; cannot run live verification.")
     genai.configure(api_key=api_key)
 
-    def _make_model(with_search: bool) -> Any:
-        # NOTE: do NOT force response_mime_type=application/json. Google Search grounding
-        # is INCOMPATIBLE with JSON response mode — with both set, the API returns a
-        # non-JSON (grounded/prose) body that fails to parse, which demotes EVERY case.
-        # The prompt asks for a bare JSON object and parse_verdict extracts it robustly.
-        # max_output_tokens caps a single call's cost (the USD cap is only checked
-        # between calls).
-        kwargs: dict[str, Any] = {
-            "generation_config": {"max_output_tokens": config.VERIFY_MAX_OUTPUT_TOKENS}
-        }
-        if with_search:
-            kwargs["tools"] = "google_search_retrieval"
-        return genai.GenerativeModel(model_id, **kwargs)
-
-    # Build a grounded model (best-effort) AND a plain one. The `google_search_retrieval`
-    # tool is a Gemini-1.5 grounding config that a 2.x model may reject at CALL time (not
-    # just construction), so `verify()` falls back to the plain model per-call — grounding
-    # is a corroboration bonus and must NEVER be the reason a case fails to verify.
-    plain_model = _make_model(with_search=False)
-    try:
-        grounded_model = _make_model(with_search=True)
-    except Exception:
-        grounded_model = None
+    model = genai.GenerativeModel(
+        model_id,
+        generation_config={
+            "response_mime_type": "application/json",
+            "max_output_tokens": config.VERIFY_MAX_OUTPUT_TOKENS,
+        },
+    )
 
     # Retry transient provider failures (503 high-demand, 504 deadline, 429 rate) with
     # exponential backoff; the deadline bounds total wait so one hiccup can't sink a case.
@@ -431,13 +417,7 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
 
     class _VerifyClient:
         def verify(self, prompt: str) -> VerificationResponse:
-            try:
-                if grounded_model is None:
-                    raise RuntimeError("no grounded model")
-                response = grounded_model.generate_content(prompt, request_options=_opts)
-            except Exception:
-                # Grounding unsupported / errored — verify against the source text alone.
-                response = plain_model.generate_content(prompt, request_options=_opts)
+            response = model.generate_content(prompt, request_options=_opts)
             usage = getattr(response, "usage_metadata", None)
             return VerificationResponse(
                 text=response.text,
