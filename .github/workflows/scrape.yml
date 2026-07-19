@@ -391,20 +391,27 @@ jobs:
           if [ -z "$MERGE_OK" ]; then
             echo "::warning::mergeStateStatus not CLEAN after ~90s; attempting merge anyway."
           fi
-          # Keep data-staging (force-pushed next run); do NOT --admin. Retry the merge a
-          # few times — the GitHub API returns transient 502/504s, and one must not fail
-          # the whole publish (the PR stays open + recoverable, but we prefer to land it).
+          # Merge — do NOT --admin. The merge is ASYNC and the GitHub API returns transient
+          # 502/504s whose response can be lost even though the merge STARTED server-side
+          # (a follow-up call then reports "Merge already in progress"). So don't trust the
+          # `gh pr merge` exit code — CONFIRM by polling the PR state AND whether main's HEAD
+          # advanced past the pre-merge SHA. Keep data-staging (force-pushed next run).
+          BEFORE_SHA="$(gh api "repos/$REPO/commits/main" --jq .sha 2>/dev/null || echo '')"
           MERGED=""
-          for attempt in 1 2 3 4 5; do
-            if gh pr merge "$PR" --squash --delete-branch=false; then MERGED=1; break; fi
-            # Already merged by a prior attempt whose response was lost? Treat as success.
+          for attempt in $(seq 1 8); do
             if [ "$(gh pr view "$PR" --json state --jq .state 2>/dev/null)" = "MERGED" ]; then
               MERGED=1; break
             fi
-            echo "merge attempt $attempt failed (transient?); retrying in 15s…"; sleep 15
+            NOW_SHA="$(gh api "repos/$REPO/commits/main" --jq .sha 2>/dev/null || echo '')"
+            if [ -n "$NOW_SHA" ] && [ -n "$BEFORE_SHA" ] && [ "$NOW_SHA" != "$BEFORE_SHA" ]; then
+              echo "main advanced ($BEFORE_SHA -> $NOW_SHA); merge landed."; MERGED=1; break
+            fi
+            # (Re)initiate; tolerate a transient failure / already-in-progress, then re-poll.
+            gh pr merge "$PR" --squash --delete-branch=false || true
+            echo "merge not yet confirmed (attempt $attempt/8); waiting 15s…"; sleep 15
           done
           if [ -z "$MERGED" ]; then
-            echo "::error::could not merge PR #$PR after retries; left open for the next run."
+            echo "::error::merge of PR #$PR not confirmed after retries; left open for the next run."
             exit 1
           fi
           echo "merged PR #$PR into main."
