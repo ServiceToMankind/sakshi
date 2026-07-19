@@ -152,7 +152,7 @@ VERIFY_SOURCE_TEXT_CHARS: Final[int] = 12000
 VERIFY_CALL_TIMEOUT_S: Final[float] = 120.0
 # Hard per-call output ceiling: the verdict JSON is tiny, so this bounds a single
 # call's cost (the running USD cap is only checked BETWEEN calls, not within one).
-VERIFY_MAX_OUTPUT_TOKENS: Final[int] = 1024
+VERIFY_MAX_OUTPUT_TOKENS: Final[int] = 2048  # headroom so flash "thinking" can't truncate the JSON
 
 
 def verification_enabled() -> bool:
