@@ -74,6 +74,8 @@ jobs:
       # verify line only when $VERIFY_ENABLED=true) observe the same value.
       VERIFY_ENABLED: ${{ vars.VERIFY_ENABLED || '' }}
       VERIFY_MAX_USD: ${{ vars.VERIFY_MAX_USD || '' }}
+      # Verifier model override (repo var). Empty => config default (gemini-2.5-flash).
+      VERIFY_MODEL: ${{ vars.VERIFY_MODEL || '' }}
 
     steps:
       - name: Check out repository
@@ -341,6 +343,7 @@ jobs:
           PUBLISH_APPROVED_ONLY: ""
           VERIFY_ENABLED: ""
           VERIFY_MAX_USD: ""
+          VERIFY_MODEL: ""
           GEMINI_MODELS: ""
         run: |
           python -m pip install -e '.[dev]'
@@ -388,12 +391,26 @@ jobs:
           if [ -z "$MERGE_OK" ]; then
             echo "::warning::mergeStateStatus not CLEAN after ~90s; attempting merge anyway."
           fi
-          # Keep data-staging (force-pushed next run); do NOT --admin.
-          gh pr merge "$PR" --squash --delete-branch=false
+          # Keep data-staging (force-pushed next run); do NOT --admin. Retry the merge a
+          # few times — the GitHub API returns transient 502/504s, and one must not fail
+          # the whole publish (the PR stays open + recoverable, but we prefer to land it).
+          MERGED=""
+          for attempt in 1 2 3 4 5; do
+            if gh pr merge "$PR" --squash --delete-branch=false; then MERGED=1; break; fi
+            # Already merged by a prior attempt whose response was lost? Treat as success.
+            if [ "$(gh pr view "$PR" --json state --jq .state 2>/dev/null)" = "MERGED" ]; then
+              MERGED=1; break
+            fi
+            echo "merge attempt $attempt failed (transient?); retrying in 15s…"; sleep 15
+          done
+          if [ -z "$MERGED" ]; then
+            echo "::error::could not merge PR #$PR after retries; left open for the next run."
+            exit 1
+          fi
           echo "merged PR #$PR into main."
           # The GITHUB_TOKEN merge will not trigger deploy.yml's push event, so
           # dispatch it explicitly (workflow_dispatch fires even from GITHUB_TOKEN).
-          gh workflow run deploy.yml --ref main
+          gh workflow run deploy.yml --ref main || echo "::warning::deploy dispatch failed; a later run will redeploy."
           echo "dispatched deploy.yml on main."
 
       # Run logs + the review quarantine (both sanitized) for human inspection.

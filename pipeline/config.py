@@ -136,7 +136,9 @@ def gemini_models() -> list[str]:
 # BEFORE publish: confirms the source supports every field, re-checks scope, and
 # corroborates. It can only demote/correct/approve — it NEVER overrides the
 # deterministic gates (sanitize, minor projection, pii_guard, schema).
-DEFAULT_VERIFY_MODEL: Final[str] = "gemini-2.5-pro"
+# gemini-2.5-pro was retired (404 "no longer available"); use the same available flash
+# model the extractor uses. Override per-run with the VERIFY_MODEL env / repo variable.
+DEFAULT_VERIFY_MODEL: Final[str] = "gemini-2.5-flash"
 # gemini-2.5-pro rates (approx USD per 1M tokens) — verifier cost estimate only.
 VERIFY_INPUT_USD_PER_MTOK: Final[float] = 1.25
 VERIFY_OUTPUT_USD_PER_MTOK: Final[float] = 10.0
