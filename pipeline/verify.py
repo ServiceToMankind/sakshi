@@ -408,14 +408,18 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
             kwargs["tools"] = "google_search_retrieval"
         return genai.GenerativeModel(model_id, **kwargs)
 
+    # Build a grounded model (best-effort) AND a plain one. The `google_search_retrieval`
+    # tool is a Gemini-1.5 grounding config that a 2.x model may reject at CALL time (not
+    # just construction), so `verify()` falls back to the plain model per-call — grounding
+    # is a corroboration bonus and must NEVER be the reason a case fails to verify.
+    plain_model = _make_model(with_search=False)
     try:
-        model = _make_model(with_search=True)
+        grounded_model = _make_model(with_search=True)
     except Exception:
-        model = _make_model(with_search=False)
+        grounded_model = None
 
     # Retry transient provider failures (503 high-demand, 504 deadline, 429 rate) with
-    # exponential backoff — gemini-2.5-pro + grounding is frequently overloaded, and a
-    # single 504 must not silently sink a legitimate case. The deadline bounds total wait.
+    # exponential backoff; the deadline bounds total wait so one hiccup can't sink a case.
     _retry = g_retry.Retry(
         predicate=g_retry.if_transient_error,
         initial=2.0,
@@ -423,13 +427,17 @@ def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no co
         multiplier=2.0,
         deadline=config.VERIFY_CALL_TIMEOUT_S,
     )
+    _opts = {"timeout": config.VERIFY_CALL_TIMEOUT_S, "retry": _retry}
 
     class _VerifyClient:
         def verify(self, prompt: str) -> VerificationResponse:
-            response = model.generate_content(
-                prompt,
-                request_options={"timeout": config.VERIFY_CALL_TIMEOUT_S, "retry": _retry},
-            )
+            try:
+                if grounded_model is None:
+                    raise RuntimeError("no grounded model")
+                response = grounded_model.generate_content(prompt, request_options=_opts)
+            except Exception:
+                # Grounding unsupported / errored — verify against the source text alone.
+                response = plain_model.generate_content(prompt, request_options=_opts)
             usage = getattr(response, "usage_metadata", None)
             return VerificationResponse(
                 text=response.text,
