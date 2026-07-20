@@ -1,6 +1,6 @@
 {
-  "aggravated_total": 5,
-  "generated_at": "2026-07-19T00:00:00Z",
+  "aggravated_total": 4,
+  "generated_at": "2026-07-20T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -9,9 +9,9 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
-      "total": 3,
+      "total": 2,
       "under_trial": 1,
-      "under_trial_pct": 33
+      "under_trial_pct": 50
     },
     {
       "acquittals": 0,
@@ -95,10 +95,10 @@
       "convictions": 0,
       "district": "Unknown",
       "longest_pending": {
-        "days": 0,
+        "days": 1,
         "id": "SKS-2026-XX-000001"
       },
-      "median_pending_days": 0,
+      "median_pending_days": 1,
       "state": "XX",
       "total": 1,
       "under_trial": 0,
@@ -204,12 +204,8 @@
     }
   ],
   "scale": {
-    "cumulative_total": 13,
+    "cumulative_total": 12,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-03-22"
-      },
       {
         "count": 0,
         "date": "2026-03-23"
@@ -685,6 +681,10 @@
       {
         "count": 7,
         "date": "2026-07-19"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-20"
       }
     ],
     "this_week": 7
@@ -692,18 +692,17 @@
   "severity_counts": {
     "Aggravated penetrative assault on a child": 4,
     "Child sexual offence": 3,
-    "Penetrative assault on a child": 1,
     "Rape": 2
   },
   "state_counts": {
-    "DL": 4,
+    "DL": 3,
     "HR": 1,
     "TG": 5,
     "UP": 2,
     "XX": 1
   },
   "status_counts": {
-    "APPEAL_PENDING": 2,
+    "APPEAL_PENDING": 1,
     "CONVICTED": 2,
     "FIR_FILED": 5,
     "UNDER_TRIAL": 2,
@@ -713,8 +712,8 @@
     {
       "district": "Unknown",
       "id": "SKS-2026-XX-000001",
-      "pending_days": 0
+      "pending_days": 1
     }
   ],
-  "total": 13
+  "total": 12
 }

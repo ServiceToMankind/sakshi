@@ -12,7 +12,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -31,7 +31,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -50,7 +50,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -70,7 +70,7 @@
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -85,7 +85,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -103,7 +103,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -120,7 +120,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -139,7 +139,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -154,7 +154,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -171,36 +171,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-19"
-  },
-  {
-    "id": "SKS-2026-DL-000005",
-    "title": "Child sexual offence case involving a minor — Delhi (2026)",
-    "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "state": "DL",
-    "district": "Delhi",
-    "category": "pocso",
-    "status": "CONVICTED",
-    "offence_sections": [
-      "PoCSO Act",
-      "IPC 376(2)",
-      "PoCSO 6",
-      "IPC 376(3)",
-      "IPC 506(ii)",
-      "POCSO 6",
-      "POCSO",
-      "rape",
-      "sexual_assault",
-      "POCSO Act",
-      "aggravated penetrative sexual assault",
-      "Rape",
-      "Sexual Assault"
-    ],
-    "incident_reported_date": "2026",
-    "minor_involved": true,
-    "publisher": "Delhi High Court",
-    "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -222,27 +193,39 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   },
   {
     "id": "SKS-2026-DL-000003",
     "title": "Child sexual offence case involving a minor — Delhi (2026)",
-    "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "Delhi",
     "category": "pocso",
-    "status": "APPEAL_PENDING",
+    "status": "CONVICTED",
     "offence_sections": [
       "IPC 376",
       "POCSO 4",
       "IPC 375",
       "POCSO 3",
-      "POCSO"
+      "POCSO",
+      "PoCSO Act",
+      "IPC 376(2)",
+      "PoCSO 6",
+      "IPC 376(3)",
+      "IPC 506(ii)",
+      "POCSO 6",
+      "rape",
+      "sexual_assault",
+      "POCSO Act",
+      "aggravated penetrative sexual assault",
+      "Rape",
+      "Sexual Assault"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-19"
+    "last_verified": "2026-07-20"
   }
 ]
