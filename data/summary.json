@@ -1,6 +1,6 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-20T00:00:00Z",
+  "generated_at": "2026-07-21T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -32,6 +32,17 @@
       "median_pending_days": null,
       "state": "UP",
       "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "South Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
     },
@@ -95,10 +106,10 @@
       "convictions": 0,
       "district": "Unknown",
       "longest_pending": {
-        "days": 1,
+        "days": 2,
         "id": "SKS-2026-XX-000001"
       },
-      "median_pending_days": 1,
+      "median_pending_days": 2,
       "state": "XX",
       "total": 1,
       "under_trial": 0,
@@ -204,12 +215,8 @@
     }
   ],
   "scale": {
-    "cumulative_total": 12,
+    "cumulative_total": 13,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-03-23"
-      },
       {
         "count": 0,
         "date": "2026-03-24"
@@ -685,24 +692,28 @@
       {
         "count": 0,
         "date": "2026-07-20"
+      },
+      {
+        "count": 1,
+        "date": "2026-07-21"
       }
     ],
-    "this_week": 7
+    "this_week": 8
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 4,
-    "Child sexual offence": 3,
+    "Child sexual offence": 4,
     "Rape": 2
   },
   "state_counts": {
-    "DL": 3,
+    "DL": 4,
     "HR": 1,
     "TG": 5,
     "UP": 2,
     "XX": 1
   },
   "status_counts": {
-    "APPEAL_PENDING": 1,
+    "APPEAL_PENDING": 2,
     "CONVICTED": 2,
     "FIR_FILED": 5,
     "UNDER_TRIAL": 2,
@@ -712,8 +723,8 @@
     {
       "district": "Unknown",
       "id": "SKS-2026-XX-000001",
-      "pending_days": 1
+      "pending_days": 2
     }
   ],
-  "total": 12
+  "total": 13
 }

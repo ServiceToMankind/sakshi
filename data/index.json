@@ -1,6 +1,13 @@
 {
-  "generated_at": "2026-07-20T00:00:00Z",
+  "generated_at": "2026-07-21T00:00:00Z",
   "shards": [
+    {
+      "bytes": 846,
+      "path": "2018/DL.json",
+      "records": 1,
+      "state": "DL",
+      "year": "2018"
+    },
     {
       "bytes": 4711,
       "path": "2026/DL.json",

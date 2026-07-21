@@ -50,37 +50,5 @@
       "incident_reported_date": "2026",
       "title": "Sexual assault case involving a minor — East Delhi (2026)"
     }
-  },
-  {
-    "reasons": [
-      "unverified_held"
-    ],
-    "record": {
-      "state": "DL",
-      "district": "South Delhi",
-      "incident_reported_date": "2018",
-      "offence_sections": [
-        "POCSO Act"
-      ],
-      "category": "pocso",
-      "minor_involved": true,
-      "status": "APPEAL_PENDING",
-      "court": {
-        "name": "Delhi High Court",
-        "next_hearing": null
-      },
-      "confidence": 0.95,
-      "sources": [
-        {
-          "url": "https://indiankanoon.org/doc/141261189/",
-          "publisher": "Delhi High Court",
-          "source_type": "court",
-          "retrieved": "2026-07-19"
-        }
-      ],
-      "verified": false,
-      "title": "Child sexual offence case involving a minor — South Delhi (2018)",
-      "summary": "An appeal is pending in South Delhi, DL. Reported 2018. Identifying details are withheld by law (POCSO s.23)."
-    }
   }
 ]
