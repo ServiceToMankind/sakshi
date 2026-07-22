@@ -1,6 +1,6 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-21T00:00:00Z",
+  "generated_at": "2026-07-22T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -106,10 +106,10 @@
       "convictions": 0,
       "district": "Unknown",
       "longest_pending": {
-        "days": 2,
+        "days": 3,
         "id": "SKS-2026-XX-000001"
       },
-      "median_pending_days": 2,
+      "median_pending_days": 3,
       "state": "XX",
       "total": 1,
       "under_trial": 0,
@@ -217,10 +217,6 @@
   "scale": {
     "cumulative_total": 13,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-03-24"
-      },
       {
         "count": 0,
         "date": "2026-03-25"
@@ -696,6 +692,10 @@
       {
         "count": 1,
         "date": "2026-07-21"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-22"
       }
     ],
     "this_week": 8
@@ -723,7 +723,7 @@
     {
       "district": "Unknown",
       "id": "SKS-2026-XX-000001",
-      "pending_days": 2
+      "pending_days": 3
     }
   ],
   "total": 13
