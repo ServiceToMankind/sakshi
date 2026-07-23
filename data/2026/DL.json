@@ -9,7 +9,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "IPC 376",
@@ -90,6 +90,12 @@
         "retrieved": "2026-07-19",
         "source_type": "court",
         "url": "https://indiankanoon.org/doc/2880478/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-23",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/84952161/"
       }
     ],
     "state": "DL",
@@ -108,7 +114,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 6",
@@ -142,7 +148,7 @@
     "district": "South District",
     "id": "SKS-2026-DL-000006",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO Act"

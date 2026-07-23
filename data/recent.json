@@ -1,5 +1,39 @@
 [
   {
+    "id": "SKS-2026-TG-000007",
+    "title": "Driver arrested for Hyderabad office cab rape",
+    "summary": "A driver was arrested in Hyderabad following a reported sexual offence. He allegedly raped an IndiGo cabin crew member inside an office cab. The police have initiated action in the case.",
+    "state": "TG",
+    "district": "Hyderabad",
+    "category": "rape",
+    "status": "FIR_FILED",
+    "offence_sections": [
+      "IPC 376"
+    ],
+    "incident_reported_date": "2026-07-23",
+    "minor_involved": false,
+    "publisher": "The Indian Express",
+    "verified": true,
+    "last_verified": "2026-07-23"
+  },
+  {
+    "id": "SKS-2026-TG-000006",
+    "title": "Cab driver arrested for sexually assaulting a passenger in Ranga Reddy",
+    "summary": "A cab driver was arrested for sexually assaulting a passenger. The incident occurred in Ranga Reddy district. Police apprehended the accused after the incident was reported.",
+    "state": "TG",
+    "district": "Ranga Reddy",
+    "category": "sexual_assault",
+    "status": "FIR_FILED",
+    "offence_sections": [
+      "BNS 63"
+    ],
+    "incident_reported_date": "2026-07-23",
+    "minor_involved": false,
+    "publisher": "The Hindu",
+    "verified": true,
+    "last_verified": "2026-07-23"
+  },
+  {
     "id": "SKS-2026-XX-000001",
     "title": "Trainee IPS officer booked for sexual harassment and assault",
     "summary": "A fellow officer accused a trainee IPS officer of sexual harassment and assault. The alleged harassment involved sexually abusive messages and derogatory remarks towards the complainant and in front of fellow trainees. Police subsequently booked the trainee officer.",
@@ -12,7 +46,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -31,7 +65,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -50,7 +84,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -70,7 +104,7 @@
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -85,7 +119,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -103,7 +137,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -120,7 +154,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -139,7 +173,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -154,7 +188,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -171,7 +205,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -193,7 +227,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2026-DL-000003",
@@ -226,7 +260,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   },
   {
     "id": "SKS-2018-DL-000001",
@@ -243,6 +277,6 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-22"
+    "last_verified": "2026-07-23"
   }
 ]
