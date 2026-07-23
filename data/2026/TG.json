@@ -2,10 +2,64 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
+    "district": "Ranga Reddy",
+    "id": "SKS-2026-TG-000006",
+    "incident_reported_date": "2026-07-23",
+    "last_verified": "2026-07-23",
+    "minor_involved": false,
+    "offence_sections": [
+      "BNS 63"
+    ],
+    "pending_days": 0,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-23",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/cab-driver-held-for-sexually-assaulting-indigo-cabin-crew-member-en-route-to-rgia/article71252371.ece"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "A cab driver was arrested for sexually assaulting a passenger. The incident occurred in Ranga Reddy district. Police apprehended the accused after the incident was reported.",
+    "title": "Cab driver arrested for sexually assaulting a passenger in Ranga Reddy",
+    "verification_note": "Approved as the source describes a specific sexual assault case in Ranga Reddy, consistent with the candidate record.",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.9,
+    "district": "Hyderabad",
+    "id": "SKS-2026-TG-000007",
+    "incident_reported_date": "2026-07-23",
+    "last_verified": "2026-07-23",
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376"
+    ],
+    "pending_days": 0,
+    "sources": [
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-07-23",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/hyderabad/hyderabad-airline-cabin-crew-assaulted-cab-driver-rgia-shamshabad-arrested-10798282/"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "A driver was arrested in Hyderabad following a reported sexual offence. He allegedly raped an IndiGo cabin crew member inside an office cab. The police have initiated action in the case.",
+    "title": "Driver arrested for Hyderabad office cab rape",
+    "verification_note": "The source describes a real, specific reported sexual offence case and its core facts are consistent.",
+    "verified": true
+  },
+  {
+    "category": "sexual_assault",
+    "confidence": 0.95,
     "district": "Hyderabad",
     "id": "SKS-2026-TG-000001",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "BNS 64",
@@ -31,7 +85,7 @@
     "district": "Jagtial",
     "id": "SKS-2026-TG-000002",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
@@ -55,7 +109,7 @@
     "district": "Kothagudem",
     "id": "SKS-2026-TG-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO",
@@ -80,7 +134,7 @@
     "district": "Kothagudem",
     "id": "SKS-2026-TG-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [],
     "sources": [
@@ -107,7 +161,7 @@
     "district": "Warangal",
     "id": "SKS-2026-TG-000005",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-22",
+    "last_verified": "2026-07-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 5(g)",
