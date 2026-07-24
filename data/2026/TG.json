@@ -5,12 +5,12 @@
     "district": "Ranga Reddy",
     "id": "SKS-2026-TG-000006",
     "incident_reported_date": "2026-07-23",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": false,
     "offence_sections": [
       "BNS 63"
     ],
-    "pending_days": 0,
+    "pending_days": 1,
     "sources": [
       {
         "publisher": "The Hindu",
@@ -32,12 +32,12 @@
     "district": "Hyderabad",
     "id": "SKS-2026-TG-000007",
     "incident_reported_date": "2026-07-23",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": false,
     "offence_sections": [
       "IPC 376"
     ],
-    "pending_days": 0,
+    "pending_days": 1,
     "sources": [
       {
         "publisher": "The Indian Express",
@@ -59,7 +59,7 @@
     "district": "Hyderabad",
     "id": "SKS-2026-TG-000001",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": true,
     "offence_sections": [
       "BNS 64",
@@ -85,7 +85,7 @@
     "district": "Jagtial",
     "id": "SKS-2026-TG-000002",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
@@ -109,7 +109,7 @@
     "district": "Kothagudem",
     "id": "SKS-2026-TG-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": true,
     "offence_sections": [
       "POCSO",
@@ -134,7 +134,7 @@
     "district": "Kothagudem",
     "id": "SKS-2026-TG-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": true,
     "offence_sections": [],
     "sources": [
@@ -161,7 +161,7 @@
     "district": "Warangal",
     "id": "SKS-2026-TG-000005",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-23",
+    "last_verified": "2026-07-24",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 5(g)",
