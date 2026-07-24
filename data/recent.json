@@ -14,7 +14,7 @@
     "minor_involved": false,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000006",
@@ -31,7 +31,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-XX-000001",
@@ -46,7 +46,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -65,7 +65,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -84,7 +84,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -104,7 +104,7 @@
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -119,7 +119,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -137,7 +137,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -154,7 +154,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -173,7 +173,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -188,7 +188,25 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
+  },
+  {
+    "id": "SKS-2026-DL-000007",
+    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "DL",
+    "district": "Delhi",
+    "category": "pocso",
+    "status": "APPEAL_PENDING",
+    "offence_sections": [
+      "POCSO 29",
+      "POCSO 30"
+    ],
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "Delhi High Court",
+    "verified": true,
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -205,7 +223,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -227,7 +245,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2026-DL-000003",
@@ -260,7 +278,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   },
   {
     "id": "SKS-2018-DL-000001",
@@ -277,6 +295,6 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-23"
+    "last_verified": "2026-07-24"
   }
 ]
