@@ -1,5 +1,36 @@
 [
   {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "district": "Delhi",
+    "id": "SKS-2026-DL-000008",
+    "incident_reported_date": "2026-07-25",
+    "last_verified": "2026-07-25",
+    "minor_involved": false,
+    "offence_sections": [
+      "BNS 74"
+    ],
+    "pending_days": 0,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-25",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-hc-seeks-centre-police-response-on-pleas-alleging-excessive-force-during-july-20-cjp-protest-march/article71253106.ece"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "The Delhi High Court is reviewing claims of police brutality during a Parliament march in Delhi. Petitioners allege that police used force and molested women. The court has ordered the preservation of CCTV and video footage.",
+    "title": "Delhi HC hears allegations of police molestation during Parliament march",
+    "verification_note": "The source describes specific allegations of molestation during a Parliament march, being heard by the Delhi High Court, consistent with the record's core facts.",
+    "verified": true
+  },
+  {
     "category": "pocso",
     "confidence": 1.0,
     "court": {
@@ -9,7 +40,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-24",
+    "last_verified": "2026-07-25",
     "minor_involved": true,
     "offence_sections": [
       "IPC 376",
@@ -28,7 +59,9 @@
       "POCSO Act",
       "aggravated penetrative sexual assault",
       "Rape",
-      "Sexual Assault"
+      "Sexual Assault",
+      "IPC 376(2)(i)",
+      "BNS 64"
     ],
     "sources": [
       {
@@ -96,6 +129,24 @@
         "retrieved": "2026-07-23",
         "source_type": "court",
         "url": "https://indiankanoon.org/doc/84952161/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-25",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/103505428/"
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-07-25",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/133896038/"
+      },
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-25",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-high-court-acquits-man-in-2006-rape-case-says-names-do-not-define-character/article71261546.ece"
       }
     ],
     "state": "DL",
@@ -114,7 +165,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-24",
+    "last_verified": "2026-07-25",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 6",
@@ -148,7 +199,7 @@
     "district": "South District",
     "id": "SKS-2026-DL-000006",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-24",
+    "last_verified": "2026-07-25",
     "minor_involved": true,
     "offence_sections": [
       "POCSO Act"
@@ -176,7 +227,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000007",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-24",
+    "last_verified": "2026-07-25",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 29",
