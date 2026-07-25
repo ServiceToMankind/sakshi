@@ -1,5 +1,22 @@
 [
   {
+    "id": "SKS-2026-DL-000008",
+    "title": "Delhi HC hears allegations of police molestation during Parliament march",
+    "summary": "The Delhi High Court is reviewing claims of police brutality during a Parliament march in Delhi. Petitioners allege that police used force and molested women. The court has ordered the preservation of CCTV and video footage.",
+    "state": "DL",
+    "district": "Delhi",
+    "category": "sexual_assault",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "BNS 74"
+    ],
+    "incident_reported_date": "2026-07-25",
+    "minor_involved": false,
+    "publisher": "The Hindu",
+    "verified": true,
+    "last_verified": "2026-07-25"
+  },
+  {
     "id": "SKS-2026-TG-000007",
     "title": "Driver arrested for Hyderabad office cab rape",
     "summary": "A driver was arrested in Hyderabad following a reported sexual offence. He allegedly raped an IndiGo cabin crew member inside an office cab. The police have initiated action in the case.",
@@ -14,7 +31,7 @@
     "minor_involved": false,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000006",
@@ -31,7 +48,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-XX-000001",
@@ -46,7 +63,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -65,7 +82,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -84,7 +101,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -104,7 +121,7 @@
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -119,7 +136,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -137,7 +154,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -154,7 +171,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -173,7 +190,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -188,7 +205,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-DL-000007",
@@ -206,7 +223,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -223,7 +240,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -245,7 +262,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2026-DL-000003",
@@ -272,13 +289,15 @@
       "POCSO Act",
       "aggravated penetrative sexual assault",
       "Rape",
-      "Sexual Assault"
+      "Sexual Assault",
+      "IPC 376(2)(i)",
+      "BNS 64"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   },
   {
     "id": "SKS-2018-DL-000001",
@@ -295,6 +314,6 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-24"
+    "last_verified": "2026-07-25"
   }
 ]
