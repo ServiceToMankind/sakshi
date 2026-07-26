@@ -9,12 +9,12 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000008",
     "incident_reported_date": "2026-07-25",
-    "last_verified": "2026-07-25",
+    "last_verified": "2026-07-26",
     "minor_involved": false,
     "offence_sections": [
       "BNS 74"
     ],
-    "pending_days": 0,
+    "pending_days": 1,
     "sources": [
       {
         "publisher": "The Hindu",
@@ -40,7 +40,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-25",
+    "last_verified": "2026-07-26",
     "minor_involved": true,
     "offence_sections": [
       "IPC 376",
@@ -165,7 +165,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-25",
+    "last_verified": "2026-07-26",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 6",
@@ -199,7 +199,7 @@
     "district": "South District",
     "id": "SKS-2026-DL-000006",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-25",
+    "last_verified": "2026-07-26",
     "minor_involved": true,
     "offence_sections": [
       "POCSO Act"
@@ -227,7 +227,7 @@
     "district": "Delhi",
     "id": "SKS-2026-DL-000007",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-25",
+    "last_verified": "2026-07-26",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 29",

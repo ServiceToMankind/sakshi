@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T00:00:00Z",
+  "generated_at": "2026-07-26T00:00:00Z",
   "shards": [
     {
       "bytes": 846,
@@ -23,9 +23,9 @@
       "year": "2026"
     },
     {
-      "bytes": 6489,
+      "bytes": 7346,
       "path": "2026/TG.json",
-      "records": 7,
+      "records": 8,
       "state": "TG",
       "year": "2026"
     },
