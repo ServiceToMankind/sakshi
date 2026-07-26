@@ -1,16 +1,16 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-25T00:00:00Z",
+  "generated_at": "2026-07-26T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
       "convictions": 1,
       "district": "Delhi",
       "longest_pending": {
-        "days": 0,
+        "days": 1,
         "id": "SKS-2026-DL-000008"
       },
-      "median_pending_days": 0,
+      "median_pending_days": 1,
       "state": "DL",
       "total": 4,
       "under_trial": 2,
@@ -21,12 +21,12 @@
       "convictions": 0,
       "district": "Hyderabad",
       "longest_pending": {
-        "days": 2,
+        "days": 3,
         "id": "SKS-2026-TG-000007"
       },
-      "median_pending_days": 2,
+      "median_pending_days": 3,
       "state": "TG",
-      "total": 2,
+      "total": 3,
       "under_trial": 0,
       "under_trial_pct": 0
     },
@@ -101,10 +101,10 @@
       "convictions": 0,
       "district": "Ranga Reddy",
       "longest_pending": {
-        "days": 2,
+        "days": 3,
         "id": "SKS-2026-TG-000006"
       },
-      "median_pending_days": 2,
+      "median_pending_days": 3,
       "state": "TG",
       "total": 1,
       "under_trial": 0,
@@ -126,10 +126,10 @@
       "convictions": 0,
       "district": "Unknown",
       "longest_pending": {
-        "days": 6,
+        "days": 7,
         "id": "SKS-2026-XX-000001"
       },
-      "median_pending_days": 6,
+      "median_pending_days": 7,
       "state": "XX",
       "total": 1,
       "under_trial": 0,
@@ -235,12 +235,8 @@
     }
   ],
   "scale": {
-    "cumulative_total": 17,
+    "cumulative_total": 18,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-03-28"
-      },
       {
         "count": 0,
         "date": "2026-03-29"
@@ -716,27 +712,31 @@
       {
         "count": 1,
         "date": "2026-07-25"
+      },
+      {
+        "count": 1,
+        "date": "2026-07-26"
       }
     ],
-    "this_week": 12
+    "this_week": 6
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 4,
     "Assault to outrage modesty": 1,
-    "Child sexual offence": 5,
+    "Child sexual offence": 6,
     "Rape": 3
   },
   "state_counts": {
     "DL": 6,
     "HR": 1,
-    "TG": 7,
+    "TG": 8,
     "UP": 2,
     "XX": 1
   },
   "status_counts": {
     "APPEAL_PENDING": 3,
     "CONVICTED": 2,
-    "FIR_FILED": 7,
+    "FIR_FILED": 8,
     "UNDER_TRIAL": 3,
     "UNKNOWN": 2
   },
@@ -744,23 +744,23 @@
     {
       "district": "Unknown",
       "id": "SKS-2026-XX-000001",
-      "pending_days": 6
+      "pending_days": 7
     },
     {
       "district": "Ranga Reddy",
       "id": "SKS-2026-TG-000006",
-      "pending_days": 2
+      "pending_days": 3
     },
     {
       "district": "Hyderabad",
       "id": "SKS-2026-TG-000007",
-      "pending_days": 2
+      "pending_days": 3
     },
     {
       "district": "Delhi",
       "id": "SKS-2026-DL-000008",
-      "pending_days": 0
+      "pending_days": 1
     }
   ],
-  "total": 17
+  "total": 18
 }
