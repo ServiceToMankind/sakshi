@@ -1,16 +1,16 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-26T00:00:00Z",
+  "generated_at": "2026-07-27T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
       "convictions": 1,
       "district": "Delhi",
       "longest_pending": {
-        "days": 1,
+        "days": 2,
         "id": "SKS-2026-DL-000008"
       },
-      "median_pending_days": 1,
+      "median_pending_days": 2,
       "state": "DL",
       "total": 4,
       "under_trial": 2,
@@ -21,10 +21,10 @@
       "convictions": 0,
       "district": "Hyderabad",
       "longest_pending": {
-        "days": 3,
+        "days": 4,
         "id": "SKS-2026-TG-000007"
       },
-      "median_pending_days": 3,
+      "median_pending_days": 4,
       "state": "TG",
       "total": 3,
       "under_trial": 0,
@@ -101,10 +101,10 @@
       "convictions": 0,
       "district": "Ranga Reddy",
       "longest_pending": {
-        "days": 3,
+        "days": 4,
         "id": "SKS-2026-TG-000006"
       },
-      "median_pending_days": 3,
+      "median_pending_days": 4,
       "state": "TG",
       "total": 1,
       "under_trial": 0,
@@ -126,10 +126,10 @@
       "convictions": 0,
       "district": "Unknown",
       "longest_pending": {
-        "days": 7,
+        "days": 8,
         "id": "SKS-2026-XX-000001"
       },
-      "median_pending_days": 7,
+      "median_pending_days": 8,
       "state": "XX",
       "total": 1,
       "under_trial": 0,
@@ -237,10 +237,6 @@
   "scale": {
     "cumulative_total": 18,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-03-29"
-      },
       {
         "count": 0,
         "date": "2026-03-30"
@@ -716,6 +712,10 @@
       {
         "count": 1,
         "date": "2026-07-26"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-27"
       }
     ],
     "this_week": 6
@@ -744,22 +744,22 @@
     {
       "district": "Unknown",
       "id": "SKS-2026-XX-000001",
-      "pending_days": 7
+      "pending_days": 8
     },
     {
       "district": "Ranga Reddy",
       "id": "SKS-2026-TG-000006",
-      "pending_days": 3
+      "pending_days": 4
     },
     {
       "district": "Hyderabad",
       "id": "SKS-2026-TG-000007",
-      "pending_days": 3
+      "pending_days": 4
     },
     {
       "district": "Delhi",
       "id": "SKS-2026-DL-000008",
-      "pending_days": 1
+      "pending_days": 2
     }
   ],
   "total": 18
