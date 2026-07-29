@@ -1,0 +1,27 @@
+[
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "district": "Malkajgiri",
+    "id": "SKS-2026-TL-000001",
+    "incident_reported_date": "2026",
+    "last_verified": "2026-07-29",
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO Act"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-07-29",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/man-held-for-allegedly-sexually-assaulting-four-year-old-girl-in-malkajgiri/article71275821.ece"
+      }
+    ],
+    "state": "TL",
+    "status": "FIR_FILED",
+    "summary": "An FIR has been filed in Malkajgiri, TL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence case involving a minor — Malkajgiri (2026)",
+    "verified": true
+  }
+]

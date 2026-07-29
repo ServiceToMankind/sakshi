@@ -14,7 +14,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000007",
@@ -31,7 +31,7 @@
     "minor_involved": false,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000006",
@@ -48,7 +48,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-XX-000001",
@@ -63,7 +63,7 @@
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -82,7 +82,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -101,7 +101,24 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
+  },
+  {
+    "id": "SKS-2026-TL-000001",
+    "title": "Child sexual offence case involving a minor — Malkajgiri (2026)",
+    "summary": "An FIR has been filed in Malkajgiri, TL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TL",
+    "district": "Malkajgiri",
+    "category": "pocso",
+    "status": "FIR_FILED",
+    "offence_sections": [
+      "POCSO Act"
+    ],
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "The Hindu",
+    "verified": true,
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000008",
@@ -118,7 +135,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -138,7 +155,7 @@
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -153,7 +170,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -171,7 +188,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -188,7 +205,7 @@
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -207,7 +224,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -222,7 +239,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-DL-000007",
@@ -240,7 +257,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -257,7 +274,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -279,7 +296,7 @@
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2026-DL-000003",
@@ -314,7 +331,7 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   },
   {
     "id": "SKS-2018-DL-000001",
@@ -331,6 +348,6 @@
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
-    "last_verified": "2026-07-28"
+    "last_verified": "2026-07-29"
   }
 ]
