@@ -179,6 +179,118 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
         orchestrator._assert_no_pii(tmp_path)
 
 
+def test_split_by_jurisdiction_partitions_on_state_validity() -> None:
+    """§4a: recognised states publish; unknown/absent states divert to review with a
+    distinguishing reason (helper covers both arms without a full run)."""
+    records = [
+        {"id": "SKS-2026-TG-000001", "state": "TG"},  # canonical -> publishable
+        {"id": "SKS-2026-XX-000001", "state": "XX"},  # unknown code -> unknown_state
+        {"id": "SKS-2026-??-000001", "state": ""},  # no state -> no_jurisdiction
+    ]
+    publishable, diverted = orchestrator._split_by_jurisdiction(records)
+    assert [r["state"] for r in publishable] == ["TG"]
+    assert [(d["reason"], d["record"]["state"]) for d in diverted] == [
+        ("unknown_state", "XX"),
+        ("no_jurisdiction", ""),
+    ]
+
+
+def test_unknown_state_record_quarantined_and_stale_shard_cleared(tmp_path: Path) -> None:
+    """§4a: an existing published record with an unrecognised state (XX) is diverted to
+    _review with reason unknown_state, never re-published, and its stale shard is removed."""
+    (tmp_path / "2026").mkdir(parents=True)
+    (tmp_path / "2026" / "XX.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "SKS-2026-XX-000001",
+                    "title": "Case — Unknown (2026)",
+                    "state": "XX",
+                    "district": "Unknown",
+                    "category": "sexual_assault",
+                    "status": "FIR_FILED",
+                    "minor_involved": False,
+                    "sources": [
+                        {
+                            "url": "https://example.invalid/xx",
+                            "publisher": "eCourts",
+                            "retrieved": "2026-07-09",
+                        }
+                    ],
+                    "confidence": 0.9,
+                    "first_published": "2026-07-09",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-12",
+        out=io.StringIO(),
+        docs=[],  # no fresh fetch; the existing XX record is re-examined and diverted
+        extract_client=_FakeGemini("{}"),
+    )
+    assert not (tmp_path / "2026" / "XX.json").exists()  # stale phantom shard removed
+    assert report.review_reasons.get("unknown_state") == 1
+    entries = json.loads(next((tmp_path / "_review").glob("review-*.json")).read_text())
+    assert any(e["reason"] == "unknown_state" for e in entries)
+
+
+def test_misconducted_state_alias_rehomes_not_quarantined(tmp_path: Path) -> None:
+    """§4a: a Telangana mis-code (TL) canonicalises to TG and re-homes to the TG shard
+    with a re-minted id — it is NOT quarantined (the alias resolves before the gate).
+    Uses a non-minor record so it is auto-eligible and lands on the public shard."""
+    (tmp_path / "2026").mkdir(parents=True)
+    (tmp_path / "2026" / "TL.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "SKS-2026-TL-000001",
+                    "title": "Sexual assault case — Malkajgiri (2026)",
+                    "state": "TL",
+                    "district": "Malkajgiri",
+                    "category": "sexual_assault",
+                    "status": "UNDER_TRIAL",
+                    "minor_involved": False,
+                    "incident_reported_date": "2026-06-14",
+                    "offence_sections": ["IPC 376"],
+                    "sources": [
+                        {
+                            "url": "https://example.invalid/tl",
+                            "publisher": "eCourts",
+                            "source_type": "court",
+                            "retrieved": "2026-07-09",
+                        }
+                    ],
+                    "confidence": 0.9,
+                    "first_published": "2026-07-09",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-12",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini("{}"),
+    )
+    assert not (tmp_path / "2026" / "TL.json").exists()  # old code's shard cleared
+    tg = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    assert len(tg) == 1
+    assert tg[0]["id"] == "SKS-2026-TG-000001"  # re-minted under the canonical code
+    assert tg[0]["district"] == "Malkajgiri"
+    review_files = list((tmp_path / "_review").glob("review-*.json"))
+    diverted = [e for f in review_files for e in json.loads(f.read_text())]
+    assert not any(e["record"].get("district") == "Malkajgiri" for e in diverted)
+
+
 def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
     def _doc(slug: str) -> list[RawDocument]:
         # Distinct URLs so the processed-document ledger does not skip run 2's doc.

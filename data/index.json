@@ -23,17 +23,10 @@
       "year": "2026"
     },
     {
-      "bytes": 7362,
+      "bytes": 8220,
       "path": "2026/TG.json",
-      "records": 8,
+      "records": 9,
       "state": "TG",
-      "year": "2026"
-    },
-    {
-      "bytes": 860,
-      "path": "2026/TL.json",
-      "records": 1,
-      "state": "TL",
       "year": "2026"
     },
     {
@@ -41,13 +34,6 @@
       "path": "2026/UP.json",
       "records": 2,
       "state": "UP",
-      "year": "2026"
-    },
-    {
-      "bytes": 1175,
-      "path": "2026/XX.json",
-      "records": 1,
-      "state": "XX",
       "year": "2026"
     }
   ]

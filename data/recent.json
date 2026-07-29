@@ -54,22 +54,6 @@
     "last_status_change": null
   },
   {
-    "id": "SKS-2026-XX-000001",
-    "title": "Trainee IPS officer booked for sexual harassment and assault",
-    "summary": "A fellow officer accused a trainee IPS officer of sexual harassment and assault. The alleged harassment involved sexually abusive messages and derogatory remarks towards the complainant and in front of fellow trainees. Police subsequently booked the trainee officer.",
-    "state": "XX",
-    "district": "Unknown",
-    "category": "harassment",
-    "status": "FIR_FILED",
-    "offence_sections": [],
-    "incident_reported_date": "2026-07-19",
-    "minor_involved": false,
-    "publisher": "The Hindu",
-    "verified": true,
-    "first_published": "2026-07-19",
-    "last_status_change": null
-  },
-  {
     "id": "SKS-2026-UP-000002",
     "title": "Child sexual offence case involving a minor — Ghaziabad (2026)",
     "summary": "An FIR has been filed in Ghaziabad, UP. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
@@ -110,10 +94,10 @@
     "last_status_change": null
   },
   {
-    "id": "SKS-2026-TL-000001",
+    "id": "SKS-2026-TG-000009",
     "title": "Child sexual offence case involving a minor — Malkajgiri (2026)",
-    "summary": "An FIR has been filed in Malkajgiri, TL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "state": "TL",
+    "summary": "An FIR has been filed in Malkajgiri, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
     "district": "Malkajgiri",
     "category": "pocso",
     "status": "FIR_FILED",
