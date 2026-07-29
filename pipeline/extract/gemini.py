@@ -43,6 +43,14 @@ Hard rules:
 - Do NOT invent, infer, or embellish. Only report what the text states.
 - "victim" MUST be null. Never output any victim, survivor, complainant, address,
   family, school, workplace, photo, phone, email, or age (beyond minor true/false).
+- ANCHORS — capture case identifiers when the text states them (these are the strong keys
+  that keep DISTINCT cases apart and link the SAME case across sources; without them two
+  different cases in the same district/court can be wrongly merged):
+  · "cnr": the CNR / Court Case Number verbatim if present (e.g. "DLHC01-001234-2026").
+  · "fir_ref": {{"station": <police station>, "number": <FIR number, e.g. "45/2026">}} if
+    the text states an FIR number and station.
+  These are NOT victim identity — they are public case numbers. Never guess or fabricate
+  them; omit (null) when the text does not state them.
 - TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".

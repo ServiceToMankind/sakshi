@@ -76,6 +76,45 @@ def test_fuzzy_weak_match_goes_to_review() -> None:
     assert len(review) == 1 and review[0]["reason"] == "ambiguous_match"
 
 
+def test_year_only_dates_cannot_fuzzy_auto_merge() -> None:
+    """§4c: two distinct cases sharing a court + section but with only YEAR-precise dates
+    (as every minor record has) must NOT fuse into one id — they are at most ambiguous and
+    the second routes to review, never silently merged (the over-merge that undercounted)."""
+    court = {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None}
+    a = _record(incident_reported_date="2026", court=court)
+    b = _record(incident_reported_date="2026", court=court)
+    assert match_strength(a, b) == "weak"  # was "strong" before §4c
+    published, review = dedupe([a, b])
+    assert len(published) == 1
+    assert len(review) == 1 and review[0]["reason"] == "ambiguous_match"
+
+
+def test_day_precise_but_no_corroborator_is_weak() -> None:
+    """A day-precise date alone is necessary but NOT sufficient: with no section overlap
+    and no court match, the pairing is ambiguous, not a confident merge."""
+    a = _record(incident_reported_date="2026-06-14", offence_sections=[], court={})
+    b = _record(incident_reported_date="2026-06-14", offence_sections=[], court={})
+    assert match_strength(a, b) == "weak"
+
+
+def test_day_precise_with_corroborator_still_strong() -> None:
+    """Backward-compat: a day-precise pair within the window with one corroborator (a
+    shared section here) still auto-merges."""
+    a = _record(incident_reported_date="2026-06-14", court={})
+    b = _record(incident_reported_date="2026-06-16", court={})  # within +-3 days
+    assert match_strength(a, b) == "strong"
+
+
+def test_exact_cnr_merges_despite_year_only_dates() -> None:
+    """The exact-anchor path is unaffected by the date-precision rule: a shared CNR merges
+    even when both dates are year-only."""
+    a = _record(cnr="C-1", incident_reported_date="2026")
+    b = _record(cnr="C-1", incident_reported_date="2026", status="UNDER_TRIAL")
+    assert match_strength(a, b) == "exact"
+    published, review = dedupe([a, b])
+    assert len(published) == 1 and review == []
+
+
 def test_low_confidence_goes_to_review() -> None:
     published, review = dedupe([_record(cnr="C-1", confidence=0.5)])
     assert published == []

@@ -6,9 +6,13 @@ identity (which is never ingested).
 
 Matching:
 - Exact: same CNR, or same (police station, FIR number).
-- Fuzzy: same district AND date within +-3 days AND overlapping offence sections
-  AND similar court name (rapidfuzz). Two or more of those signals present is a
-  confident merge; exactly one is AMBIGUOUS and routed to review, not merged.
+- Fuzzy: same district, then a DAY-PRECISE date within +-3 days on BOTH sides is
+  REQUIRED for a confident merge, PLUS at least one corroborator (overlapping offence
+  section or a similar court name, rapidfuzz). A pairing that is not day-precise, or that
+  is day-precise but has no corroborator, is at most AMBIGUOUS and routed to review, never
+  silently merged. (Every minor record is projected to a YEAR-only date, so a minor can
+  only auto-merge on an EXACT anchor — CNR / year-qualified FIR — never fuzzily; this is
+  what stopped distinct cases from over-merging into one id and undercounting — §4c.)
 
 Merge policy: court records beat media; the further-along status wins; offence
 sections, status history, accused, and sources[] are unioned. Records below the
@@ -131,7 +135,11 @@ def _anchor_types(keys: set[str]) -> set[str]:
 
 
 def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
-    """Return 'exact', 'strong', 'weak', or 'none' for the a/b pairing."""
+    """Return 'exact', 'strong', 'weak', or 'none' for the a/b pairing.
+
+    'strong' (auto-merge) requires a day-precise date on both sides within the window PLUS a
+    corroborator (§4c); 'weak' is ambiguous (routed to review); 'none' is distinct.
+    """
     keys_a, keys_b = exact_anchor_keys(a), exact_anchor_keys(b)
     if keys_a & keys_b:
         return "exact"
@@ -163,17 +171,23 @@ def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
     if court_a and court_b and fuzz.ratio(court_a, court_b) < COURT_NAME_SIMILARITY:
         return "none"
 
-    signals = 0
-    if date_a and date_b:
-        signals += 1
+    # A day-precise date on BOTH sides is NECESSARY (not merely one of three signals) for a
+    # confident fuzzy merge (§4c). Without it, distinct cases sharing only a court name and
+    # an overlapping section fused into one id and UNDERCOUNTED — and because every minor
+    # record is projected to a YEAR-only date (_parse_date -> None), minors can never fuzzy
+    # auto-merge and must rely on an EXACT anchor (CNR / year-qualified FIR). A pairing that
+    # is not day-precise, or is day-precise but has no corroborator, is at most AMBIGUOUS and
+    # routes to _review rather than silently merging.
+    date_precise = bool(date_a and date_b)
+    corroborators = 0
     if sections_a and sections_b and (sections_a & sections_b):
-        signals += 1
+        corroborators += 1
     if court_a and court_b and fuzz.ratio(court_a, court_b) >= COURT_NAME_SIMILARITY:
-        signals += 1
+        corroborators += 1
 
-    if signals >= 2:
+    if date_precise and corroborators >= 1:
         return "strong"
-    if signals == 1:
+    if date_precise or corroborators >= 1:
         return "weak"
     return "none"
 
