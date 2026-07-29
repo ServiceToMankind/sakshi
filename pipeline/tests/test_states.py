@@ -11,6 +11,7 @@ from pipeline.states import CANONICAL_STATES, normalize_state
     ("code", "canonical"),
     [
         ("TS", "TG"),  # Telangana — the observed split
+        ("TL", "TG"),  # Telangana mis-code (§4a — the observed SKS-2026-TL-000001 record)
         ("ts", "TG"),  # case-insensitive
         (" TS ", "TG"),  # whitespace
         ("CG", "CT"),  # Chhattisgarh

@@ -99,6 +99,17 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Malkajgiri",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "TG",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Ranga Reddy",
       "longest_pending": {
         "days": 6,
@@ -117,31 +128,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "TG",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Malkajgiri",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "TL",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Unknown",
-      "longest_pending": {
-        "days": 10,
-        "id": "SKS-2026-XX-000001"
-      },
-      "median_pending_days": 10,
-      "state": "XX",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -241,12 +227,12 @@
       "month": "2026-06"
     },
     {
-      "count": 4,
+      "count": 3,
       "month": "2026-07"
     }
   ],
   "scale": {
-    "cumulative_total": 19,
+    "cumulative_total": 18,
     "daily": [
       {
         "count": 0,
@@ -725,11 +711,11 @@
         "date": "2026-07-28"
       },
       {
-        "count": 1,
+        "count": 2,
         "date": "2026-07-29"
       }
     ],
-    "this_week": 6
+    "this_week": 7
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 4,
@@ -740,24 +726,17 @@
   "state_counts": {
     "DL": 6,
     "HR": 1,
-    "TG": 8,
-    "TL": 1,
-    "UP": 2,
-    "XX": 1
+    "TG": 9,
+    "UP": 2
   },
   "status_counts": {
     "APPEAL_PENDING": 3,
     "CONVICTED": 2,
-    "FIR_FILED": 9,
+    "FIR_FILED": 8,
     "UNDER_TRIAL": 3,
     "UNKNOWN": 2
   },
   "top_longest_pending": [
-    {
-      "district": "Unknown",
-      "id": "SKS-2026-XX-000001",
-      "pending_days": 10
-    },
     {
       "district": "Ranga Reddy",
       "id": "SKS-2026-TG-000006",
@@ -774,5 +753,5 @@
       "pending_days": 4
     }
   ],
-  "total": 19
+  "total": 18
 }

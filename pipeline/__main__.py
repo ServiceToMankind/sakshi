@@ -41,7 +41,7 @@ from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.registry import build_sources
-from pipeline.states import normalize_state
+from pipeline.states import CANONICAL_STATES, normalize_state
 from pipeline.validate import (
     iter_shard_files,
     load_schema,
@@ -327,6 +327,30 @@ def _canonicalize_state(record: dict[str, Any]) -> dict[str, Any]:
     if rid.startswith("SKS-") and len(rid) >= 11 and rid[9:11] != canonical:
         updated.pop("id", None)
     return updated
+
+
+def _split_by_jurisdiction(
+    records: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Partition ``records`` into (publishable, review-entries) by state validity (§4a).
+
+    A record whose (already-canonicalised) state is not a code the site recognises is a
+    data-quality signal, not something to ship to a phantom shard/scorecard: it is diverted
+    to ``_review`` with reason ``unknown_state`` (a 2-letter code is present but unrecognised)
+    or ``no_jurisdiction`` (no state at all). Callers append the second list to their review
+    queue. Aliases are already resolved upstream (``_canonicalize_state``), so a valid alias
+    like TL->TG is never diverted.
+    """
+    jurisdictional: list[dict[str, Any]] = []
+    diverted: list[dict[str, Any]] = []
+    for record in records:
+        state = str(record.get("state", "")).strip().upper()
+        if state in CANONICAL_STATES:
+            jurisdictional.append(record)
+        else:
+            reason = "unknown_state" if state else "no_jurisdiction"
+            diverted.append({"reason": reason, "record": record})
+    return jurisdictional, diverted
 
 
 def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
@@ -865,6 +889,15 @@ def run(
     published, review = dedupe(base + staged_only + valid_sanitized)
     # Schema-invalid records are quarantined alongside dedupe's review queue.
     review = review + [{"reason": "schema_invalid", "record": r} for r in invalid]
+
+    # JURISDICTION gate (§4a): the schema's state pattern is only ^[A-Z]{2}$, so a record
+    # whose state the site does not recognise (e.g. "XX") would otherwise publish to a
+    # phantom shard/scorecard. Every record here is already canonicalised, so a valid alias
+    # like TL->TG is never wrongly caught — only a genuinely unknown code is diverted.
+    published, diverted = _split_by_jurisdiction(published)
+    review = review + diverted
+    if diverted:
+        _log(report, f"jurisdiction: {len(diverted)} record(s) routed to review (unknown state)")
 
     # GRADUATED auto-publish gate: split the published set into what may ship
     # unattended (auto_eligible) and what a human must promote first (needs_review:

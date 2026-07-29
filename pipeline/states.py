@@ -57,6 +57,7 @@ CANONICAL_STATES = frozenset(
 # Alternate code -> canonical code.
 STATE_ALIASES = {
     "TS": "TG",  # Telangana (Telangana State vehicle code)
+    "TL": "TG",  # Telangana (common mis-code / abbreviation; canonical TG)
     "CG": "CT",  # Chhattisgarh
     "OR": "OD",  # Odisha (pre-2011 spelling)
     "UK": "UT",  # Uttarakhand
