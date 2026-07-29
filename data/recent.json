@@ -62,9 +62,8 @@
     "category": "pocso",
     "status": "FIR_FILED",
     "offence_sections": [
-      "POCSO Act",
-      "IPC 375",
-      "POCSO"
+      "POCSO",
+      "IPC 375"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
@@ -102,7 +101,7 @@
     "category": "pocso",
     "status": "FIR_FILED",
     "offence_sections": [
-      "POCSO Act"
+      "POCSO"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
@@ -138,8 +137,8 @@
     "category": "pocso",
     "status": "UNKNOWN",
     "offence_sections": [
-      "POCSO 5(g)",
-      "POCSO 5(k)",
+      "POCSO 5(G)",
+      "POCSO 5(K)",
       "POCSO 5",
       "POCSO 6"
     ],
@@ -175,8 +174,7 @@
     "category": "pocso",
     "status": "FIR_FILED",
     "offence_sections": [
-      "POCSO",
-      "POCSO Act"
+      "POCSO"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
@@ -213,7 +211,7 @@
     "status": "FIR_FILED",
     "offence_sections": [
       "BNS 64",
-      "POCSO Act",
+      "POCSO",
       "IPC 354"
     ],
     "incident_reported_date": "2026",
@@ -267,7 +265,7 @@
     "category": "pocso",
     "status": "APPEAL_PENDING",
     "offence_sections": [
-      "POCSO Act"
+      "POCSO"
     ],
     "incident_reported_date": "2026",
     "minor_involved": true,
@@ -313,19 +311,11 @@
       "IPC 375",
       "POCSO 3",
       "POCSO",
-      "PoCSO Act",
       "IPC 376(2)",
-      "PoCSO 6",
-      "IPC 376(3)",
-      "IPC 506(ii)",
       "POCSO 6",
-      "rape",
-      "sexual_assault",
-      "POCSO Act",
-      "aggravated penetrative sexual assault",
-      "Rape",
-      "Sexual Assault",
-      "IPC 376(2)(i)",
+      "IPC 376(3)",
+      "IPC 506(II)",
+      "IPC 376(2)(I)",
       "BNS 64"
     ],
     "incident_reported_date": "2026",
@@ -344,7 +334,7 @@
     "category": "pocso",
     "status": "APPEAL_PENDING",
     "offence_sections": [
-      "POCSO Act"
+      "POCSO"
     ],
     "incident_reported_date": "2018",
     "minor_involved": true,

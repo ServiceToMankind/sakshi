@@ -48,19 +48,11 @@
       "IPC 375",
       "POCSO 3",
       "POCSO",
-      "PoCSO Act",
       "IPC 376(2)",
-      "PoCSO 6",
-      "IPC 376(3)",
-      "IPC 506(ii)",
       "POCSO 6",
-      "rape",
-      "sexual_assault",
-      "POCSO Act",
-      "aggravated penetrative sexual assault",
-      "Rape",
-      "Sexual Assault",
-      "IPC 376(2)(i)",
+      "IPC 376(3)",
+      "IPC 506(II)",
+      "IPC 376(2)(I)",
       "BNS 64"
     ],
     "sources": [
@@ -153,6 +145,13 @@
     "status": "CONVICTED",
     "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "unparsed_sections": [
+      "rape",
+      "sexual_assault",
+      "aggravated penetrative sexual assault",
+      "Rape",
+      "Sexual Assault"
+    ],
     "verified": true
   },
   {
@@ -202,7 +201,7 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "offence_sections": [
-      "POCSO Act"
+      "POCSO"
     ],
     "sources": [
       {

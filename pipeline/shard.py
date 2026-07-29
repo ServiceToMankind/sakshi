@@ -30,6 +30,7 @@ from typing import Any
 
 from pipeline import config
 from pipeline.dedupe import exact_anchor_keys
+from pipeline.offence_sections import normalize_sections
 from pipeline.severity import is_aggravated, severity_label
 from pipeline.validate import iter_shard_files, load_schema, validate_record
 
@@ -188,7 +189,10 @@ def _material_signature(record: dict[str, Any]) -> tuple[Any, ...]:
     accused, and the derived severity. Two records with the same signature have had no
     material change (a mere re-sighting)."""
     court = str((record.get("court") or {}).get("name", "")).strip().lower()
-    sections = tuple(sorted(str(s).strip().lower() for s in record.get("offence_sections") or []))
+    # Compare NORMALISED sections so a §4b canonicalisation ("POCSO Act" -> "POCSO") is not
+    # mistaken for a material change — only a real change in the charged sections counts.
+    canonical, _ = normalize_sections(record.get("offence_sections") or [])
+    sections = tuple(sorted(s.lower() for s in canonical))
     accused = tuple(
         sorted(
             (

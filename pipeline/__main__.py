@@ -36,6 +36,7 @@ from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
+from pipeline.offence_sections import normalize_sections
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
@@ -436,11 +437,28 @@ def _finalize_for_disk(record: dict[str, Any], case_schema: dict[str, Any]) -> d
     merge that flipped ``minor_involved`` after the per-candidate sanitize is re-projected
     to the minimal non-identifying shape here. Idempotent for an already-projected record.
     """
-    return _strip_minor_model_note(
+    finalized = _strip_minor_model_note(
         withhold_unsourced_accused_names(
             project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
         )
     )
+    return _normalize_offence_sections(finalized)
+
+
+def _normalize_offence_sections(record: dict[str, Any]) -> dict[str, Any]:
+    """Rewrite ``offence_sections`` to its canonical, de-duplicated form and split any junk
+    tokens into ``unparsed_sections`` (§4b). Runs after project_to_schema so both keys are
+    schema-valid; idempotent. Public charge codes only — never victim data."""
+    sections = record.get("offence_sections")
+    if not sections:
+        return record
+    canonical, unparsed = normalize_sections(sections)
+    updated = {**record, "offence_sections": canonical}
+    if unparsed:
+        updated["unparsed_sections"] = unparsed
+    else:
+        updated.pop("unparsed_sections", None)
+    return updated
 
 
 def _dedup_approved_by_url(records: list[dict[str, Any]]) -> list[dict[str, Any]]:

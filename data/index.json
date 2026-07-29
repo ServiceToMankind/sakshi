@@ -2,14 +2,14 @@
   "generated_at": "2026-07-29T00:00:00Z",
   "shards": [
     {
-      "bytes": 848,
+      "bytes": 844,
       "path": "2018/DL.json",
       "records": 1,
       "state": "DL",
       "year": "2018"
     },
     {
-      "bytes": 7715,
+      "bytes": 7689,
       "path": "2026/DL.json",
       "records": 5,
       "state": "DL",
@@ -23,14 +23,14 @@
       "year": "2026"
     },
     {
-      "bytes": 8214,
+      "bytes": 8187,
       "path": "2026/TG.json",
       "records": 9,
       "state": "TG",
       "year": "2026"
     },
     {
-      "bytes": 1745,
+      "bytes": 1726,
       "path": "2026/UP.json",
       "records": 2,
       "state": "UP",

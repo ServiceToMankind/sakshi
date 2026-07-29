@@ -179,6 +179,28 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
         orchestrator._assert_no_pii(tmp_path)
 
 
+def test_normalize_offence_sections_canonicalises_and_splits_junk() -> None:
+    """§4b: _finalize_for_disk's section step canonicalises + de-dups and lifts junk into
+    unparsed_sections."""
+    out = orchestrator._normalize_offence_sections(
+        {"offence_sections": ["POCSO", "POCSO Act", "rape", "IPC 376(2)(i)"]}
+    )
+    assert out["offence_sections"] == ["POCSO", "IPC 376(2)(I)"]
+    assert out["unparsed_sections"] == ["rape"]
+
+
+def test_normalize_offence_sections_clears_stale_unparsed_and_skips_empty() -> None:
+    # Empty sections: record returned unchanged.
+    assert orchestrator._normalize_offence_sections({"offence_sections": []}) == {
+        "offence_sections": []
+    }
+    # A now-clean record must not keep a stale unparsed_sections key.
+    cleaned = orchestrator._normalize_offence_sections(
+        {"offence_sections": ["IPC 376"], "unparsed_sections": ["stale"]}
+    )
+    assert "unparsed_sections" not in cleaned
+
+
 def test_split_by_jurisdiction_partitions_on_state_validity() -> None:
     """§4a: recognised states publish; unknown/absent states divert to review with a
     distinguishing reason (helper covers both arms without a full run)."""

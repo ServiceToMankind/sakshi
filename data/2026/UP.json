@@ -34,9 +34,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "offence_sections": [
-      "POCSO Act",
-      "IPC 375",
-      "POCSO"
+      "POCSO",
+      "IPC 375"
     ],
     "sources": [
       {
