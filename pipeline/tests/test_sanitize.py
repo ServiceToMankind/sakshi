@@ -9,7 +9,14 @@ from __future__ import annotations
 
 import json
 
-from pipeline.pii_constants import is_forbidden_key, matched_value_patterns
+from pipeline.pii_constants import (
+    OCCUPATION_REDACTION,
+    is_forbidden_key,
+    is_occupation_scanned_key,
+    matched_value_patterns,
+    matched_victim_occupation,
+    scrub_victim_occupation,
+)
 from pipeline.sanitize import (
     REDACTION_PLACEHOLDER,
     contains_pii,
@@ -233,3 +240,97 @@ def test_non_minor_record_is_not_projected() -> None:
     assert clean["incident_reported_date"] == "2026-07-05"
     assert clean["pending_days"] == 5
     assert clean["summary"] == "A neutral non-graphic summary of a reported adult case."
+
+
+# --- §4d victim occupation / institution scrub -------------------------------
+
+
+def test_victim_occupation_is_scrubbed_from_summary() -> None:
+    """The observed live leak: a victim occupation + employer is redacted, while the
+    ACCUSED's occupation/action prose survives."""
+    rec = {
+        "minor_involved": False,
+        "title": "Driver arrested for office cab rape",
+        "summary": (
+            "A driver was arrested. He allegedly raped an IndiGo cabin crew member "
+            "inside an office cab."
+        ),
+    }
+    clean = sanitize_record(rec)
+    assert "cabin crew member" not in clean["summary"]
+    assert "IndiGo" not in clean["summary"]
+    assert OCCUPATION_REDACTION in clean["summary"]
+    assert "driver was arrested" in clean["summary"]  # accused action kept
+    assert clean["title"] == "Driver arrested for office cab rape"  # accused occupation kept
+
+
+def test_victim_occupation_scrub_covers_title_and_institution_tail() -> None:
+    rec = {
+        "minor_involved": False,
+        "title": "A nurse was assaulted",  # victim occupation in the title
+        "summary": "The survivor, a student at St Xavier School, was attacked.",
+    }
+    clean = sanitize_record(rec)
+    assert "nurse" not in clean["title"] and OCCUPATION_REDACTION in clean["title"]
+    assert "student" not in clean["summary"] and "St Xavier School" not in clean["summary"]
+
+
+def test_accused_occupation_is_kept() -> None:
+    """The accused's occupation is public — never scrubbed (accused verb/noun context)."""
+    for summary in (
+        "The accused, a teacher, was convicted.",  # accused verb after
+        "A nurse was arrested for abetting the crime.",  # accused verb after, no assault
+        "The convict, a doctor, is now in jail.",  # accused noun before, no verb after
+    ):
+        rec = {"minor_involved": False, "title": "Case", "summary": summary}
+        assert sanitize_record(rec)["summary"] == summary
+
+
+def test_headline_style_and_predicate_victim_occupation_scrubbed() -> None:
+    """Article-less headline phrasing and a bare predicate occupation (no assault/accused
+    verb adjacent) both default to redaction — the fail-toward-redaction branch."""
+    head = sanitize_record(
+        {"minor_involved": False, "title": "Techie raped in Hyderabad", "summary": "x"}
+    )
+    assert "Techie" not in head["title"] and OCCUPATION_REDACTION in head["title"]
+    pred = sanitize_record(
+        {"minor_involved": False, "title": "Case", "summary": "The survivor was a teacher."}
+    )
+    assert "teacher" not in pred["summary"]  # default redact: no accused signal present
+
+
+def test_minor_record_occupation_scrub_is_skipped_but_projection_removes_it() -> None:
+    """A minor's title/summary are replaced wholesale by the projection, so a victim
+    occupation cannot survive even though the occupation scrub does not run on minors."""
+    rec = {
+        "minor_involved": True,
+        "category": "pocso",
+        "state": "TG",
+        "district": "TESTVILLE",
+        "status": "FIR_FILED",
+        "summary": "A student nurse was assaulted.",  # model prose — must be replaced
+    }
+    clean = sanitize_record(rec)
+    assert "nurse" not in clean["summary"]
+    assert "withheld by law" in clean["summary"]  # deterministic minor projection
+
+
+def test_scrub_occupation_fields_ignores_non_string_values() -> None:
+    """A non-str title (None) is left untouched by the occupation scrub (branch coverage);
+    a clean summary passes through unchanged."""
+    rec = {"minor_involved": False, "title": None, "summary": "A neutral summary."}
+    clean = sanitize_record(rec)
+    assert clean["title"] is None  # non-str: scrub skips it (and str(None) is truthy)
+    assert clean["summary"] == "A neutral summary."
+
+
+def test_occupation_scrub_is_idempotent() -> None:
+    once = scrub_victim_occupation("He raped a nurse near the market.")
+    assert scrub_victim_occupation(once) == once  # placeholder carries no occupation term
+
+
+def test_matched_victim_occupation_and_scanned_key_helpers() -> None:
+    assert matched_victim_occupation("He raped a nurse.") == ["a nurse"]
+    assert matched_victim_occupation("The accused, a nurse, was booked.") == []  # accused kept
+    assert is_occupation_scanned_key("summary") and is_occupation_scanned_key("title")
+    assert not is_occupation_scanned_key("district")

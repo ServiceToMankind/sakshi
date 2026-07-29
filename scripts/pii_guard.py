@@ -43,8 +43,10 @@ if str(_REPO_ROOT) not in sys.path:  # pragma: no cover - import-time path shim
 from pipeline.pii_constants import (  # noqa: E402
     is_forbidden_key,
     is_free_text_key,
+    is_occupation_scanned_key,
     matched_age_patterns,
     matched_value_patterns,
+    matched_victim_occupation,
 )
 
 
@@ -72,6 +74,11 @@ def _age_reason(pattern_name: str) -> str:
     return f"value matches age-expression pattern ({pattern_name})"
 
 
+def _occupation_reason(matched: str) -> str:
+    """Human-readable reason string for a leaked victim occupation/institution span."""
+    return f"value reveals victim occupation/institution ('{matched}')"
+
+
 def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Finding]:
     """Recursively yield findings for keys and string values under ``value``.
 
@@ -95,6 +102,13 @@ def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Fi
         if scan_ages and is_free_text_key(path.rsplit(".", 1)[-1]):
             for pattern_name in matched_age_patterns(value):
                 yield Finding(loc, loc, _age_reason(pattern_name))
+        # §4d: a published title/summary must not name the VICTIM's occupation/institution.
+        # Gated on scan_ages so it applies to published shards (and recent.json), never the
+        # _review quarantine — same policy as the age scan. Shares the sanitizer's core, so
+        # it can only fire on an occupation the sanitizer would have removed.
+        if scan_ages and is_occupation_scanned_key(path.rsplit(".", 1)[-1]):
+            for matched in matched_victim_occupation(value):
+                yield Finding(loc, loc, _occupation_reason(matched))
 
 
 def _scans_ages(file_path: Path) -> bool:
