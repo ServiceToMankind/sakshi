@@ -51,6 +51,13 @@ def test_build_prompt_embeds_schema_and_text() -> None:
     assert "TESTVILLE case under trial" in prompt
 
 
+def test_build_prompt_instructs_anchor_capture() -> None:
+    """§4c: the prompt must ask the model to capture CNR/FIR anchors (the strong keys that
+    keep distinct cases apart), so a guardrail-safe case number is available for dedupe."""
+    prompt = gemini.build_prompt(_DOC, "THE-SCHEMA").lower()
+    assert "cnr" in prompt and "fir" in prompt and "anchor" in prompt
+
+
 def test_parse_forces_victim_null_and_attaches_source() -> None:
     record = gemini._parse(_VALID_JSON, _DOC)
     assert record is not None
