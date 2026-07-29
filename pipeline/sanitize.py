@@ -25,9 +25,11 @@ from typing import Any
 
 from pipeline.pii_constants import (
     MINOR_SUMMARY_TEMPLATE,
+    OCCUPATION_SCANNED_FIELDS,
     PII_VALUE_PATTERNS,
     is_forbidden_key,
     matched_value_patterns,
+    scrub_victim_occupation,
 )
 
 __all__ = [
@@ -121,10 +123,26 @@ def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
     cleaned = _scrub_mapping(record)
     if cleaned.get("minor_involved") is True:
         cleaned = project_minor_record(cleaned)  # sets title + summary deterministically
-    elif not str(cleaned.get("title", "")).strip():
-        # Non-minor with no model title (older record / model omission): deterministic
-        # fallback so the required `title` is always present. Non-identifying.
-        cleaned["title"] = _nonminor_title(cleaned)
+    else:
+        # Non-minor: the model writes title/summary, which may name the VICTIM's occupation
+        # or institution (a re-identifying detail — §4d). Scrub those spans while keeping the
+        # ACCUSED's public occupation. Minors skip this: their title/summary are already
+        # replaced wholesale by project_minor_record, so no victim occupation can survive.
+        cleaned = _scrub_occupation_fields(cleaned)
+        if not str(cleaned.get("title", "")).strip():
+            # No model title (older record / omission): deterministic non-identifying fallback.
+            cleaned["title"] = _nonminor_title(cleaned)
+    return cleaned
+
+
+def _scrub_occupation_fields(record: dict[str, Any]) -> dict[str, Any]:
+    """Redact any VICTIM occupation/institution span from a non-minor's model-written
+    title/summary (§4d). Non-string fields are left untouched."""
+    cleaned = dict(record)
+    for field in sorted(OCCUPATION_SCANNED_FIELDS):
+        value = cleaned.get(field)
+        if isinstance(value, str):
+            cleaned[field] = scrub_victim_occupation(value)
     return cleaned
 
 

@@ -60,6 +60,38 @@ def test_scan_value_no_age_findings_when_disabled() -> None:
     assert not any("age-expression" in r for r in reasons)
 
 
+def test_scan_value_flags_victim_occupation_in_title_and_summary() -> None:
+    """§4d: a victim occupation in a published title or summary is reported (scan_ages on)."""
+    data = {
+        "title": "A nurse was assaulted",
+        "summary": "He raped a software engineer near the office.",
+        "district": "TESTVILLE",
+    }
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert sum("victim occupation" in r for r in reasons) == 2
+
+
+def test_scan_value_accused_occupation_not_flagged() -> None:
+    """The accused's occupation is public — never flagged (no CI false-positive)."""
+    data = {"summary": "The accused, a teacher, was arrested and convicted."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert not any("victim occupation" in r for r in reasons)
+
+
+def test_scan_value_occupation_ignores_non_scanned_field() -> None:
+    """An occupation-shaped value in a non-scanned field (e.g. court.name) is not flagged."""
+    data = {"court": {"name": "Special Court for a nurse"}, "summary": "A neutral summary."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert not any("victim occupation" in r for r in reasons)
+
+
+def test_scan_value_occupation_not_scanned_when_ages_disabled() -> None:
+    """Occupation scanning shares the age gate: off for the _review quarantine."""
+    data = {"summary": "He raped a nurse."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=False)]
+    assert not any("victim occupation" in r for r in reasons)
+
+
 def test_scans_ages_public_shard_yes_review_no() -> None:
     """Published shards are age-scanned; the _review quarantine is not."""
     assert pii_guard._scans_ages(Path("data/2026/TG.json")) is True
