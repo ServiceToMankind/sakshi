@@ -15,7 +15,7 @@
     "minor_involved",
     "sources",
     "confidence",
-    "last_verified"
+    "first_published"
   ],
   "properties": {
     "id": {
@@ -232,10 +232,16 @@
       "maximum": 1,
       "description": "Extraction confidence 0..1. Records below 0.8 are quarantined to data/_review/ and never auto-published."
     },
-    "last_verified": {
+    "first_published": {
       "type": "string",
       "format": "date",
-      "description": "Date this record was last verified against sources. ISO YYYY-MM-DD.",
+      "description": "Date this record first entered the public tree. Written ONCE, then immutable. ISO YYYY-MM-DD. (Replaces last_verified, which restamped daily and made the whole site appear to change every morning — §1.)",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "last_status_change": {
+      "type": "string",
+      "format": "date",
+      "description": "Date a MATERIAL field (status, court, offence_sections, accused, severity) last actually changed. ABSENT when no change has ever been observed. Bumps only on a real change — a new corroborating source alone is not a change. The 'date the pipeline last re-examined the case' (last_checked) is INTERNAL (data/_meta/), never here.",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     },
     "verified": {
@@ -311,7 +317,7 @@
         }
       ],
       "confidence": 0.94,
-      "last_verified": "2026-07-09"
+      "first_published": "2026-07-09"
     }
   ]
 }

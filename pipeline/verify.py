@@ -276,10 +276,11 @@ def apply_verdict(record: dict[str, Any], verdict: Verdict) -> dict[str, Any]:
                         verdict.second_source.get("publisher", "corroborating source")
                     ),
                     "source_type": "news_article",
-                    # A fresh record has no `last_verified` yet (write_shards assigns it),
-                    # so borrow the primary source's `retrieved` — a schema-valid date.
-                    # Falling back to "" would fail the sources[].retrieved pattern and
-                    # quarantine the very records the verifier just corroborated.
+                    # A fresh record has no temporal stamp yet (write_shards assigns
+                    # first_published), so borrow the primary source's `retrieved` — a
+                    # schema-valid date. Falling back to "" would fail the
+                    # sources[].retrieved pattern and quarantine the very records the
+                    # verifier just corroborated.
                     "retrieved": _corroboration_date(record),
                 }
             )
@@ -288,8 +289,10 @@ def apply_verdict(record: dict[str, Any], verdict: Verdict) -> dict[str, Any]:
 
 def _corroboration_date(record: dict[str, Any]) -> str:
     """A schema-valid YYYY-MM-DD for a corroborating source: the record's own
-    ``last_verified`` if present, else the first existing source's ``retrieved``."""
-    stamp = str(record.get("last_verified", "")).strip()
+    ``first_published`` if present, else the first existing source's ``retrieved``.
+    (At verify time first_published is not yet assigned, so this falls through to the
+    source date — the correct behaviour for a fresh record.)"""
+    stamp = str(record.get("first_published", "")).strip()
     if stamp:
         return stamp
     for source in record.get("sources", []):

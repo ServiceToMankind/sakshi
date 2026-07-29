@@ -35,7 +35,6 @@ def _record(**overrides: Any) -> dict[str, Any]:
             {"url": "https://ex.invalid/a", "publisher": "The Hindu", "retrieved": "2026-07-09"}
         ],
         "confidence": 0.9,
-        "last_verified": "2026-07-09",
     }
     base.update(overrides)
     return base
@@ -125,11 +124,12 @@ def test_apply_verdict_unions_second_source_only_when_verified() -> None:
 
 
 def test_apply_verdict_second_source_has_valid_retrieved_date() -> None:
-    """A FRESH record has no `last_verified` yet — the corroborating source must borrow
-    the primary source's `retrieved` (a schema-valid date), NOT publish an empty one that
-    fails the sources[].retrieved pattern and quarantines the verified record."""
+    """A FRESH record has no temporal stamp yet (first_published is assigned later in
+    write_shards) — the corroborating source must borrow the primary source's `retrieved`
+    (a schema-valid date), NOT publish an empty one that fails the sources[].retrieved
+    pattern and quarantines the verified record."""
     rec = _record()
-    del rec["last_verified"]  # fresh extraction: assigned only later in write_shards
+    assert "first_published" not in rec  # fresh extraction: no temporal stamp yet
     v = Verdict(True, {}, "ok", second_source={"url": "https://ex.invalid/b", "publisher": "IE"})
     out = apply_verdict(rec, v)
     appended = out["sources"][-1]

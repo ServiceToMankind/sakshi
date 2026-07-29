@@ -30,7 +30,7 @@ def _valid_record() -> dict[str, Any]:
             {"url": "https://example.invalid/x", "publisher": "eCourts", "retrieved": "2026-07-09"}
         ],
         "confidence": 0.9,
-        "last_verified": "2026-07-09",
+        "first_published": "2026-07-09",
     }
 
 
@@ -140,7 +140,7 @@ def _minor_projected_record() -> dict[str, Any]:
             {"url": "https://example.invalid/x", "publisher": "eCourts", "retrieved": "2026-07-09"}
         ],
         "confidence": 0.9,
-        "last_verified": "2026-07-09",
+        "first_published": "2026-07-09",
     }
 
 
