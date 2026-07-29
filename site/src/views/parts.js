@@ -99,18 +99,25 @@ export function recentCard(record) {
     place ? el('span', { class: 'feed-card__place' }, place) : null,
     el('span', { class: 'feed-card__cat' }, categoryLabel(record.category)),
     date
-      ? el('time', { class: 'feed-card__date', datetime: String(date) }, formatDate(date))
+      ? el(
+          'time',
+          { class: 'feed-card__date', datetime: String(date) },
+          `${t('case_reported')} ${formatDate(date)}`,
+        )
       : null,
     record.publisher ? el('span', { class: 'feed-card__source' }, record.publisher) : null,
-    record.last_verified
+    // A record shows "Status changed <date>" ONLY when a material field actually changed
+    // (last_status_change is present). An unchanged re-sighting shows nothing — the site no
+    // longer claims every case "updated today" (§1).
+    record.last_status_change
       ? el(
           'time',
           {
             class: 'feed-card__updated',
-            datetime: String(record.last_verified),
-            title: t('updated_hint'),
+            datetime: String(record.last_status_change),
+            title: t('status_changed_hint'),
           },
-          `${t('updated_label')} ${formatDate(record.last_verified)}`,
+          `${t('status_changed_label')} ${formatDate(record.last_status_change)}`,
         )
       : null,
   ].filter(Boolean);

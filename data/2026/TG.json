@@ -3,9 +3,9 @@
     "category": "sexual_assault",
     "confidence": 0.95,
     "district": "Ranga Reddy",
+    "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
     "incident_reported_date": "2026-07-23",
-    "last_verified": "2026-07-29",
     "minor_involved": false,
     "offence_sections": [
       "BNS 63"
@@ -30,9 +30,9 @@
     "category": "rape",
     "confidence": 0.9,
     "district": "Hyderabad",
+    "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
     "incident_reported_date": "2026-07-23",
-    "last_verified": "2026-07-29",
     "minor_involved": false,
     "offence_sections": [
       "IPC 376"
@@ -57,9 +57,9 @@
     "category": "sexual_assault",
     "confidence": 0.95,
     "district": "Hyderabad",
+    "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "BNS 64",
@@ -83,9 +83,9 @@
     "category": "pocso",
     "confidence": 0.95,
     "district": "Jagtial",
+    "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
@@ -107,9 +107,9 @@
     "category": "pocso",
     "confidence": 1.0,
     "district": "Kothagudem",
+    "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO",
@@ -132,9 +132,9 @@
     "category": "pocso",
     "confidence": 0.9,
     "district": "Kothagudem",
+    "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [],
     "sources": [
@@ -159,9 +159,9 @@
       "next_hearing": null
     },
     "district": "Warangal",
+    "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 5(g)",
@@ -187,9 +187,9 @@
     "category": "pocso",
     "confidence": 0.9,
     "district": "Hyderabad",
+    "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"

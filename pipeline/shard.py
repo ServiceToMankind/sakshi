@@ -53,9 +53,10 @@ class WriteResult:
 
     published: int = 0
     new: int = 0
-    updated: int = 0
+    material: int = 0  # records with a real material status change this run (§1 "updated")
+    rechecked: int = 0  # records re-sighted with NO material change (not a change)
     shards: list[str] = field(default_factory=list)
-    # The records AS WRITTEN — with their assigned ids / last_verified / pending_days.
+    # The records AS WRITTEN — with their assigned ids / first_published / pending_days.
     # Callers that need the canonical published form (e.g. the recent-feed writer) must
     # use this, NOT the pre-write input, whose freshly-minted records have no id yet.
     records: list[dict[str, Any]] = field(default_factory=list)
@@ -94,17 +95,27 @@ def _pending_days(record: dict[str, Any], run_day: date) -> int | None:
     return max((run_day - reported).days, 0)
 
 
-def _read_existing(data_dir: Path) -> tuple[dict[str, str], dict[tuple[str, str], int], set[str]]:
-    """Return (anchor-key -> id, (year,state) -> max serial, all ids) from disk.
+@dataclass
+class _ExistingIndex:
+    """The prior on-disk tree indexed for id-reuse AND temporal carry-over."""
+
+    key_to_id: dict[str, str] = field(default_factory=dict)
+    max_serial: dict[tuple[str, str], int] = field(default_factory=dict)
+    all_ids: set[str] = field(default_factory=set)
+    by_id: dict[str, dict[str, Any]] = field(default_factory=dict)  # id -> prior record
+
+
+def _read_existing(data_dir: Path) -> _ExistingIndex:
+    """Index the prior on-disk tree: anchor->id, (year,state)->max serial, all ids, and
+    the prior record BY ID (so the temporal stamp can carry first_published forward and
+    detect a real material change).
 
     An unreadable or corrupt existing shard is a HARD error — silently skipping it
     would risk re-minting an ID it already holds or dropping its cases.
     """
-    key_to_id: dict[str, str] = {}
-    max_serial: dict[tuple[str, str], int] = {}
-    all_ids: set[str] = set()
+    idx = _ExistingIndex()
     if not data_dir.exists():
-        return key_to_id, max_serial, all_ids
+        return idx
     for shard in iter_shard_files(data_dir):
         try:
             records = json.loads(shard.read_text(encoding="utf-8"))
@@ -114,13 +125,13 @@ def _read_existing(data_dir: Path) -> tuple[dict[str, str], dict[tuple[str, str]
             record_id = record.get("id", "")
             if not _ID_RE.match(record_id):
                 continue
-            all_ids.add(record_id)
+            idx.all_ids.add(record_id)
+            idx.by_id[record_id] = record
             for key in _anchor_keys(record):
-                key_to_id.setdefault(key, record_id)
+                idx.key_to_id.setdefault(key, record_id)
             year, state, serial = record_id[4:8], record_id[9:11], int(record_id[12:])
-            slot = (year, state)
-            max_serial[slot] = max(max_serial.get(slot, 0), serial)
-    return key_to_id, max_serial, all_ids
+            idx.max_serial[(year, state)] = max(idx.max_serial.get((year, state), 0), serial)
+    return idx
 
 
 def _seed_from_carryover(
@@ -158,26 +169,73 @@ def _seed_from_carryover(
         max_serial[slot] = max(max_serial.get(slot, 0), int(record_id[12:]))
 
 
+def _earliest_source_date(record: dict[str, Any]) -> str:
+    """The earliest ``sources[].retrieved`` date on a record, or ``""``.
+
+    Used ONLY to migrate a record that predates the ``first_published`` field: its truest
+    "first entered the tree" date is when we first fetched it, ≈ its earliest source date.
+    A brand-new record does NOT use this (it entered the tree on the run_date)."""
+    dates = sorted(
+        d for s in record.get("sources") or [] if (d := str(s.get("retrieved", "")).strip())
+    )
+    return dates[0] if dates else ""
+
+
+# Fields whose change is a MATERIAL status change (bumps last_status_change +
+# status_history). A new corroborating source alone is NOT material (§1).
+def _material_signature(record: dict[str, Any]) -> tuple[Any, ...]:
+    """A stable signature over the material fields: status, court, offence_sections,
+    accused, and the derived severity. Two records with the same signature have had no
+    material change (a mere re-sighting)."""
+    court = str((record.get("court") or {}).get("name", "")).strip().lower()
+    sections = tuple(sorted(str(s).strip().lower() for s in record.get("offence_sections") or []))
+    accused = tuple(
+        sorted(
+            (
+                str(a.get("label", "")),
+                str(a.get("name_public_court_record") or ""),
+                str(a.get("status", "")),
+            )
+            for a in record.get("accused") or []
+        )
+    )
+    return (
+        str(record.get("status", "")),
+        court,
+        sections,
+        accused,
+        severity_label(record.get("offence_sections") or []) or "",
+    )
+
+
 def _assign_ids(
     records: list[dict[str, Any]],
     data_dir: Path,
     run_date: str,
     reserve: list[dict[str, Any]] | None = None,
-) -> tuple[list[dict[str, Any]], int, int]:
-    """Assign IDs, last_verified, and pending_days. Returns (records, new, updated).
+) -> tuple[list[dict[str, Any]], int, int, int]:
+    """Assign IDs + the temporal stamps. Returns (records, new, material, rechecked).
 
-    ``reserve`` records are NOT sharded, but their ids/serials/anchors are reserved so
-    a newly minted serial can never collide with one — used to reserve the held
-    (needs-review) records' ids, which live off-shard yet must never be re-minted for a
-    distinct new case (id fusion). Reserve seeding does not affect the new/updated
-    count (only ``records`` are counted).
+    Temporal model (§1): ``first_published`` is written ONCE and carried forward
+    immutably; ``last_status_change`` bumps ONLY on a real material change vs the prior
+    published version (else it carries the prior value / stays absent); ``last_verified``
+    is gone. So a record re-processed with identical content is byte-identical to its
+    prior self — the site no longer appears to change every morning. ``last_checked`` is
+    INTERNAL (``data/_meta/``), never in the public record.
+
+    ``reserve`` records are NOT sharded, but their ids/serials/anchors are reserved so a
+    newly minted serial can never collide with one (id fusion). Reserve seeding does not
+    affect the counts (only ``records`` are counted).
     """
-    key_to_id, max_serial, existing_ids = _read_existing(data_dir)
+    idx = _read_existing(data_dir)
     if reserve:
-        _seed_from_carryover(reserve, key_to_id, max_serial, existing_ids, seed_anchors=False)
-    _seed_from_carryover(records, key_to_id, max_serial, existing_ids)
+        _seed_from_carryover(
+            reserve, idx.key_to_id, idx.max_serial, idx.all_ids, seed_anchors=False
+        )
+    known_ids = set(idx.all_ids)  # ids that existed BEFORE this run (for new-vs-recheck)
+    _seed_from_carryover(records, idx.key_to_id, idx.max_serial, idx.all_ids)
     run_day = date.fromisoformat(run_date)
-    new = updated = 0
+    new = material = rechecked = 0
     finalized: list[dict[str, Any]] = []
     for record in records:
         record = dict(record)
@@ -187,29 +245,57 @@ def _assign_ids(
             record_id = current
         else:
             anchors = _anchor_keys(record)
-            reused = next((key_to_id[key] for key in anchors if key in key_to_id), None)
+            reused = next((idx.key_to_id[key] for key in anchors if key in idx.key_to_id), None)
             if reused is not None:
                 record_id = reused
             else:
                 slot = (year, state)
-                serial = max_serial.get(slot, 0) + 1
-                max_serial[slot] = serial
+                serial = idx.max_serial.get(slot, 0) + 1
+                idx.max_serial[slot] = serial
                 record_id = f"SKS-{year}-{state}-{serial:06d}"
                 for key in anchors:
-                    key_to_id.setdefault(key, record_id)
+                    idx.key_to_id.setdefault(key, record_id)
         record["id"] = record_id
-        if record_id in existing_ids:
-            updated += 1
-        else:
-            new += 1
-            existing_ids.add(record_id)
+        prior = idx.by_id.get(record_id)
 
-        record["last_verified"] = run_date
+        # first_published — write ONCE, then immutable. Precedence:
+        #  1. the prior on-disk value (already assigned → frozen forever);
+        #  2. MIGRATION: a record already in the tree from before this field existed keeps its
+        #     truest "entered the tree" date — its earliest source date, not today;
+        #  3. a staged carryover record's own value;
+        #  4. brand-new record → it entered the tree today (run_date).
+        prior_fp = (prior or {}).get("first_published")
+        if prior_fp:
+            record["first_published"] = str(prior_fp)
+        elif prior is not None:
+            # Migration: prefer the PRIOR record's earliest source (the evidence that
+            # existed when it first entered the tree), then the current record's, then today.
+            record["first_published"] = (
+                _earliest_source_date(prior) or _earliest_source_date(record) or run_date
+            )
+        else:
+            record["first_published"] = str(record.get("first_published") or run_date)
+        record.pop("last_verified", None)  # removed from the model
+
+        if record_id not in known_ids:
+            new += 1
+            record.pop("last_status_change", None)  # brand-new: no change observed yet
+        elif prior is not None and _material_signature(record) != _material_signature(prior):
+            material += 1
+            record["last_status_change"] = run_date
+        else:
+            rechecked += 1  # a re-sighting with no material change — carry the prior stamp
+            prior_lsc = (prior or {}).get("last_status_change")
+            if prior_lsc:
+                record["last_status_change"] = str(prior_lsc)
+            else:
+                record.pop("last_status_change", None)
+
         pending = _pending_days(record, run_day)
         if pending is not None:
             record["pending_days"] = pending
         finalized.append(record)
-    return finalized, new, updated
+    return finalized, new, material, rechecked
 
 
 def _assert_unique_ids(records: list[dict[str, Any]]) -> None:
@@ -424,7 +510,7 @@ def write_shards(
     off-shard ids are never re-minted for a distinct new case.
     """
     run_date = run_date or date.today().isoformat()
-    finalized, new, updated = _assign_ids(records, data_dir, run_date, reserve=reserve)
+    finalized, new, material, rechecked = _assign_ids(records, data_dir, run_date, reserve=reserve)
 
     # --- All gates run BEFORE any file is written. ---
     _assert_unique_ids(finalized)
@@ -473,11 +559,24 @@ def write_shards(
         tmp.replace(path)
 
     _clear_stale_shards(data_dir, {data_dir / entry["path"] for entry in manifest})
+    _write_last_checked(finalized, run_date, data_dir)
 
     return WriteResult(
         published=len(finalized),
         new=new,
-        updated=updated,
+        material=material,
+        rechecked=rechecked,
         shards=[entry["path"] for entry in manifest],
         records=finalized,
     )
+
+
+def _write_last_checked(records: list[dict[str, Any]], run_date: str, data_dir: Path) -> None:
+    """Persist per-id ``last_checked`` to ``data/_meta/`` — INTERNAL only (§1). It is never
+    in the public record (that would make every case appear to change daily); it exists so
+    the future ``refresh`` pipeline can revisit oldest-checked-first. Every published record
+    was examined this run, so all get ``run_date``."""
+    path = data_dir / "_meta" / "last_checked.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    checked = {str(r["id"]): run_date for r in records if r.get("id")}
+    path.write_text(json.dumps(checked, indent=2, sort_keys=True), encoding="utf-8")

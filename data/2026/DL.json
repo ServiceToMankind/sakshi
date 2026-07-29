@@ -7,9 +7,9 @@
       "next_hearing": null
     },
     "district": "Delhi",
+    "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
     "incident_reported_date": "2026-07-25",
-    "last_verified": "2026-07-29",
     "minor_involved": false,
     "offence_sections": [
       "BNS 74"
@@ -38,9 +38,9 @@
       "next_hearing": null
     },
     "district": "Delhi",
+    "first_published": "2026-07-14",
     "id": "SKS-2026-DL-000003",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "IPC 376",
@@ -163,9 +163,9 @@
       "next_hearing": null
     },
     "district": "Delhi",
+    "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 6",
@@ -197,9 +197,9 @@
       "next_hearing": null
     },
     "district": "South District",
+    "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO Act"
@@ -225,9 +225,9 @@
       "name": "Delhi High Court"
     },
     "district": "Delhi",
+    "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",
     "incident_reported_date": "2026",
-    "last_verified": "2026-07-29",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 29",

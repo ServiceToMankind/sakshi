@@ -56,7 +56,11 @@ class RunReport:
     """Everything a caller (or the review PR) needs to know about a run."""
 
     new: int = 0
-    updated: int = 0
+    # A MATERIAL change (status/court/offence_sections/accused/severity actually changed) —
+    # NOT a re-sighting. A record re-seen unchanged is a `rechecked`, never a `material`. This
+    # is what makes the site stop appearing to churn daily (§1).
+    material: int = 0
+    rechecked: int = 0
     review: int = 0
     published: int = 0
     needs_review: int = 0
@@ -247,8 +251,12 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             "minor_involved": bool(record.get("minor_involved")),
             "publisher": (record.get("sources") or [{}])[0].get("publisher", ""),
             "verified": bool(record.get("verified")),
-            # When the record was last (re)processed — the feed shows it as "Updated <date>".
-            "last_verified": record.get("last_verified"),
+            # Public temporal fields. first_published is write-once; last_status_change is
+            # present ONLY when a material field actually changed (else absent). The feed
+            # shows "Status changed <date>" only when last_status_change is present — never a
+            # blanket "updated today" (§1). last_checked stays internal (data/_meta/).
+            "first_published": record.get("first_published"),
+            "last_status_change": record.get("last_status_change"),
         }
         for record in ordered[:RECENT_FEED_SIZE]
     ]
@@ -576,7 +584,8 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"| **Auto-eligible (on site)** | {report.published} |\n"
         f"| **Held for review (not on site)** | {report.needs_review} |\n"
         f"| New this run | {report.new} |\n"
-        f"| Updated | {report.updated} |\n"
+        f"| Materially changed | {report.material} |\n"
+        f"| Re-checked (unchanged) | {report.rechecked} |\n"
         f"| Review queue (below threshold) | {report.review} |\n"
         f"| Verified (fresh, this run) | {report.verified} |\n"
         f"| Verifier-demoted (quarantined) | {report.verify_demoted} |\n"
@@ -600,7 +609,10 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     logs_dir.mkdir(parents=True, exist_ok=True)
     (logs_dir / "run.log").write_text("\n".join(report.logs) + "\n", encoding="utf-8")
     (logs_dir / "run_summary.env").write_text(
-        f"NEW={report.new}\nUPDATED={report.updated}\nREVIEW={report.review}\n"
+        # UPDATED now means MATERIAL changes only (status/court/sections/accused/severity) —
+        # re-sightings are RECHECKED and never inflate the "~N updated" commit message (§1).
+        f"NEW={report.new}\nUPDATED={report.material}\nRECHECKED={report.rechecked}\n"
+        f"REVIEW={report.review}\n"
         f"PUBLISHED={report.published}\nNEEDS_REVIEW={report.needs_review}\n"
         f"REJECTED={report.rejected_out_of_scope}\n"
         f"FETCHED={report.fetched}\nPROCESSED={report.processed}\n"
@@ -635,7 +647,7 @@ def _print_journey(
     block("3. SANITIZED (forbidden keys dropped, PII values redacted)", sanitized)
     block("4. DEDUPED / MERGED (sources unioned, court status wins)", published)
     if sharded is not None:
-        block("5. SHARDED (deterministic id, last_verified, pending_days assigned)", sharded)
+        block("5. SHARDED (deterministic id, first_published, pending_days assigned)", sharded)
 
 
 def run(
@@ -818,11 +830,11 @@ def run(
     invalid: list[dict[str, Any]] = []
     valid_sanitized: list[dict[str, Any]] = []
     for record in sanitized:
-        # id + last_verified are assigned later (write_shards), so probe with
+        # id + first_published are assigned later (write_shards), so probe with
         # placeholders to validate every OTHER field (date, status/category enums,
         # minor date granularity). A record that still fails is quarantined, so one
         # malformed record can never abort write_shards' validation of the whole batch.
-        probe = {**record, "id": "SKS-2026-XX-000000", "last_verified": run_date}
+        probe = {**record, "id": "SKS-2026-XX-000000", "first_published": run_date}
         try:
             validate_record(probe, case_schema)
         except Exception:  # jsonschema.ValidationError — quarantine, never crash
@@ -994,7 +1006,8 @@ def run(
     _assert_no_pii(data_dir)
 
     report.new = write_result.new
-    report.updated = write_result.updated
+    report.material = write_result.material
+    report.rechecked = write_result.rechecked
     report.review = len(review)
     report.published = write_result.published
     report.needs_review = len(needs_review_items)
@@ -1026,8 +1039,8 @@ def run(
         )
         out.write("\n=== DRY-RUN RESULT ===\n")
         out.write(
-            f"published={report.published} new={report.new} updated={report.updated} "
-            f"review={report.review}\n"
+            f"published={report.published} new={report.new} material={report.material} "
+            f"rechecked={report.rechecked} review={report.review}\n"
         )
         out.write(
             f"Gemini: 0 live calls (fixtures). Illustrative cost estimate for these "
