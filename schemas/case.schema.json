@@ -58,7 +58,14 @@
     },
     "offence_sections": {
       "type": "array",
-      "description": "Statutory sections cited (e.g. \"BNS 64\", \"POCSO 6\").",
+      "description": "Statutory sections cited, in CANONICAL form (e.g. \"BNS 64\", \"POCSO 6\", \"IPC 376\"). Normalised and de-duplicated deterministically by pipeline/offence_sections.py (§4b) so severity mapping and dedupe see clean input. Public charge codes only — never victim data.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unparsed_sections": {
+      "type": "array",
+      "description": "Original offence-section tokens that carried NEITHER a known act NOR a section number (e.g. \"rape\", \"sexual_assault\") — real junk separated out of offence_sections by the §4b normaliser and surfaced here for review. Public charge-shaped text only, never victim data. Absent when there is nothing unparsed.",
       "items": {
         "type": "string"
       }

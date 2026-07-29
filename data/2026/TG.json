@@ -63,7 +63,7 @@
     "minor_involved": true,
     "offence_sections": [
       "BNS 64",
-      "POCSO Act",
+      "POCSO",
       "IPC 354"
     ],
     "sources": [
@@ -112,8 +112,7 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "offence_sections": [
-      "POCSO",
-      "POCSO Act"
+      "POCSO"
     ],
     "sources": [
       {
@@ -164,8 +163,8 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "offence_sections": [
-      "POCSO 5(g)",
-      "POCSO 5(k)",
+      "POCSO 5(G)",
+      "POCSO 5(K)",
       "POCSO 5",
       "POCSO 6"
     ],
@@ -217,7 +216,7 @@
     "incident_reported_date": "2026",
     "minor_involved": true,
     "offence_sections": [
-      "POCSO Act"
+      "POCSO"
     ],
     "sources": [
       {

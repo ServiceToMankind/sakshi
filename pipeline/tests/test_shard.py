@@ -154,6 +154,23 @@ def test_material_change_bumps_last_status_change_only(tmp_path: Path) -> None:
     assert result2.material == 0 and result2.rechecked == 1
 
 
+def test_offence_section_reformat_is_not_a_material_change(tmp_path: Path) -> None:
+    """§4b: re-expressing the same charges in a different string form ("POCSO Act" vs the
+    canonical "POCSO") must NOT bump last_status_change — the material signature compares
+    NORMALISED sections."""
+    write_shards(
+        [_record(cnr="C-1", offence_sections=["POCSO", "IPC 376"])], tmp_path, run_date="2026-07-09"
+    )
+    result = write_shards(
+        [_record(cnr="C-1", offence_sections=["POCSO Act", "Section 376 IPC"])],
+        tmp_path,
+        run_date="2026-07-20",
+    )
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert result.material == 0 and result.rechecked == 1
+    assert "last_status_change" not in rec
+
+
 def test_new_source_alone_is_not_a_material_change(tmp_path: Path) -> None:
     """Adding a corroborating source is NOT material — no last_status_change bump (§1)."""
     write_shards([_record(cnr="C-1")], tmp_path, run_date="2026-07-09")
