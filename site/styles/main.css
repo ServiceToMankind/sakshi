@@ -906,6 +906,22 @@ canvas {
   color: var(--text-muted);
   font-size: 0.85rem;
 }
+.sources__flagged {
+  margin-top: 0.75rem;
+}
+.sources__flagged-summary {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.sources__flagged-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0.75rem;
+}
+.sources__flagged[open] > .sources__flagged-summary {
+  margin-bottom: 0.25rem;
+}
 .case__actions {
   margin-top: 0.5rem;
 }

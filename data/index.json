@@ -9,7 +9,7 @@
       "year": "2018"
     },
     {
-      "bytes": 7689,
+      "bytes": 7625,
       "path": "2026/DL.json",
       "records": 5,
       "state": "DL",
@@ -23,14 +23,14 @@
       "year": "2026"
     },
     {
-      "bytes": 8187,
+      "bytes": 8463,
       "path": "2026/TG.json",
       "records": 9,
       "state": "TG",
       "year": "2026"
     },
     {
-      "bytes": 1726,
+      "bytes": 1818,
       "path": "2026/UP.json",
       "records": 2,
       "state": "UP",

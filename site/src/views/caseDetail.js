@@ -80,30 +80,55 @@ function accusedSection(record) {
   ]);
 }
 
-function sourcesSection(record) {
-  const list = el(
-    'ul',
-    { class: 'sources' },
-    (record.sources || []).map((s) =>
-      el('li', { class: 'source' }, [
-        el(
-          'a',
-          {
-            href: safeHttpUrl(s.url),
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            class: 'source__link',
-          },
-          s.publisher || s.url,
-        ),
-        el('span', { class: 'source__meta' }, formatDate(s.retrieved)),
-      ]),
+function sourceDomain(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return t('case_view_source');
+  }
+}
+
+function sourceItem(s) {
+  // Anchor text is the publisher or the bare DOMAIN — NEVER the raw URL, whose slug can
+  // state a detail the record withholds (§5). The href keeps the full URL (a citation must
+  // be verifiable); the visible text does not expose the slug.
+  return el('li', { class: 'source' }, [
+    el(
+      'a',
+      {
+        href: safeHttpUrl(s.url),
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        class: 'source__link',
+      },
+      s.publisher || sourceDomain(s.url),
     ),
-  );
-  return el('section', { class: 'panel reveal' }, [
-    el('h2', { class: 'panel__title', 'data-i18n': 'case_sources' }, t('case_sources')),
-    list,
+    el('span', { class: 'source__meta' }, formatDate(s.retrieved)),
   ]);
+}
+
+function sourcesSection(record) {
+  const all = record.sources || [];
+  // Clean sources first (§5 "prefer clean source for display"); sources whose URL slug may
+  // reveal a withheld detail go behind an expander, de-emphasised.
+  const clean = all.filter((s) => !s.url_carries_identifying_slug);
+  const flagged = all.filter((s) => s.url_carries_identifying_slug);
+  const children = [
+    el('h2', { class: 'panel__title', 'data-i18n': 'case_sources' }, t('case_sources')),
+  ];
+  if (clean.length) {
+    children.push(el('ul', { class: 'sources' }, clean.map(sourceItem)));
+  }
+  if (flagged.length) {
+    children.push(
+      el('details', { class: 'sources__flagged' }, [
+        el('summary', { class: 'sources__flagged-summary' }, t('sources_identifying_summary')),
+        el('p', { class: 'sources__flagged-note' }, t('sources_identifying_note')),
+        el('ul', { class: 'sources' }, flagged.map(sourceItem)),
+      ]),
+    );
+  }
+  return el('section', { class: 'panel reveal' }, children);
 }
 
 function notFound(id) {

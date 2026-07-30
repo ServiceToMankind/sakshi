@@ -179,6 +179,27 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
         orchestrator._assert_no_pii(tmp_path)
 
 
+def test_flag_identifying_sources_marks_only_identifying_urls() -> None:
+    """§5: a source whose URL slug states a withheld detail gets the flag; a clean court
+    source does not; a stale flag on a now-clean URL is cleared."""
+    out = orchestrator._flag_identifying_sources(
+        {
+            "sources": [
+                {"url": "https://indiankanoon.org/doc/123/", "publisher": "eCourts"},
+                {"url": "https://ex.invalid/rape-of-3-year-old-girl", "publisher": "X"},
+                {
+                    "url": "https://ex.invalid/high-court-order",
+                    "publisher": "Y",
+                    "url_carries_identifying_slug": True,  # stale -> must be cleared
+                },
+            ]
+        }
+    )
+    assert "url_carries_identifying_slug" not in out["sources"][0]
+    assert out["sources"][1]["url_carries_identifying_slug"] is True
+    assert "url_carries_identifying_slug" not in out["sources"][2]
+
+
 def test_normalize_offence_sections_canonicalises_and_splits_junk() -> None:
     """§4b: _finalize_for_disk's section step canonicalises + de-dups and lifts junk into
     unparsed_sections."""

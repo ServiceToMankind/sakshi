@@ -72,7 +72,8 @@
         "publisher": "The Indian Express",
         "retrieved": "2026-07-14",
         "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/"
+        "url": "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/",
+        "url_carries_identifying_slug": true
       },
       {
         "publisher": "Delhi High Court",
@@ -145,13 +146,6 @@
     "status": "CONVICTED",
     "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence case involving a minor — Delhi (2026)",
-    "unparsed_sections": [
-      "rape",
-      "sexual_assault",
-      "aggravated penetrative sexual assault",
-      "Rape",
-      "Sexual Assault"
-    ],
     "verified": true
   },
   {
@@ -179,7 +173,8 @@
         "publisher": "The Indian Express",
         "retrieved": "2026-07-19",
         "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/delhi/high-court-cancels-bail-to-teacher-in-rape-of-3-year-old-girl-in-delhi-school-10788410/"
+        "url": "https://indianexpress.com/article/cities/delhi/high-court-cancels-bail-to-teacher-in-rape-of-3-year-old-girl-in-delhi-school-10788410/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

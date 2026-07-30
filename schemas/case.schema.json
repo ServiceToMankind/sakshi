@@ -229,6 +229,10 @@
             "format": "date",
             "description": "Date the source was retrieved. ISO YYYY-MM-DD.",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "url_carries_identifying_slug": {
+            "type": "boolean",
+            "description": "True if this source URL's own slug states a detail this record withholds — a victim age, gender, accused–victim relationship, or institution (§5). Set deterministically by pipeline/citation_slug.py. The site never renders the raw URL as anchor text (domain only) and tucks a flagged source behind an expander; clean sources are shown first. Absent/false means the slug carries no such detail."
           }
         }
       }
