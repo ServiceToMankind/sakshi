@@ -32,6 +32,7 @@ from typing import Any, TextIO
 from scripts.pii_guard import iter_json_files, scan_json_file
 
 from pipeline import config, fixtures, verify
+from pipeline.citation_slug import url_carries_identifying_slug
 from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
@@ -442,7 +443,26 @@ def _finalize_for_disk(record: dict[str, Any], case_schema: dict[str, Any]) -> d
             project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
         )
     )
-    return _normalize_offence_sections(finalized)
+    return _flag_identifying_sources(_normalize_offence_sections(finalized))
+
+
+def _flag_identifying_sources(record: dict[str, Any]) -> dict[str, Any]:
+    """Mark each source whose URL slug states a withheld detail (§5) so the site renders the
+    domain — never the raw slug — and tucks it behind an expander. Set after project_to_schema
+    so the flag is schema-valid; idempotent; the URL itself is kept (a citation is verifiable).
+    """
+    sources = record.get("sources")
+    if not sources:
+        return record
+    flagged = []
+    for source in sources:
+        updated = dict(source)
+        if url_carries_identifying_slug(str(updated.get("url", ""))):
+            updated["url_carries_identifying_slug"] = True
+        else:
+            updated.pop("url_carries_identifying_slug", None)
+        flagged.append(updated)
+    return {**record, "sources": flagged}
 
 
 def _normalize_offence_sections(record: dict[str, Any]) -> dict[str, Any]:

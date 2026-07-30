@@ -54,6 +54,8 @@
   "case_back": "Back to results",
   "case_status_timeline": "Status timeline",
   "case_sources": "Sources",
+  "sources_identifying_summary": "More sources (web address may reveal withheld details)",
+  "sources_identifying_note": "The web address of these sources may itself state a detail this record withholds by law (such as a victim's age or gender). We link the publisher, not the headline. Open only if needed.",
   "case_next_hearing": "Next hearing",
   "case_pending": "Pending",
   "case_pending_days": "days",

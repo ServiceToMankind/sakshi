@@ -71,7 +71,8 @@
         "publisher": "The Indian Express",
         "retrieved": "2026-07-15",
         "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/hyderabad/supervisor-of-hyderabad-welfare-home-arrested-for-sexually-assaulting-boys-under-his-care-10307360/"
+        "url": "https://indianexpress.com/article/cities/hyderabad/supervisor-of-hyderabad-welfare-home-arrested-for-sexually-assaulting-boys-under-his-care-10307360/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -95,7 +96,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-07-15",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/national/telangana/five-sentenced-to-life-imprisonment-in-minor-girls-rape-case-in-jagtial/article71226758.ece"
+        "url": "https://www.thehindu.com/news/national/telangana/five-sentenced-to-life-imprisonment-in-minor-girls-rape-case-in-jagtial/article71226758.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -119,7 +121,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-07-15",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/national/telangana/three-accused-accomplice-in-minor-girls-rape-case-arrested-in-kothagudem/article71226352.ece"
+        "url": "https://www.thehindu.com/news/national/telangana/three-accused-accomplice-in-minor-girls-rape-case-arrested-in-kothagudem/article71226352.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -141,7 +144,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-07-19",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/national/telangana/kothagudem-police-arrest-constable-for-sheltering-accused-in-minor-girls-rape-case/article71234514.ece"
+        "url": "https://www.thehindu.com/news/national/telangana/kothagudem-police-arrest-constable-for-sheltering-accused-in-minor-girls-rape-case/article71234514.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -198,7 +202,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-07-26",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Hyderabad/maternal-uncle-two-relatives-booked-for-sexually-assaulting-minor-girl-in-hyderabad/article71267098.ece"
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/maternal-uncle-two-relatives-booked-for-sexually-assaulting-minor-girl-in-hyderabad/article71267098.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -223,7 +228,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-07-29",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Hyderabad/man-held-for-allegedly-sexually-assaulting-four-year-old-girl-in-malkajgiri/article71275821.ece"
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/man-held-for-allegedly-sexually-assaulting-four-year-old-girl-in-malkajgiri/article71275821.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
