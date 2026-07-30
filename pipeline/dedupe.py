@@ -8,11 +8,13 @@ Matching:
 - Exact: same CNR, or same (police station, FIR number).
 - Fuzzy: same district, then a DAY-PRECISE date within +-3 days on BOTH sides is
   REQUIRED for a confident merge, PLUS at least one corroborator (overlapping offence
-  section or a similar court name, rapidfuzz). A pairing that is not day-precise, or that
-  is day-precise but has no corroborator, is at most AMBIGUOUS and routed to review, never
-  silently merged. (Every minor record is projected to a YEAR-only date, so a minor can
-  only auto-merge on an EXACT anchor — CNR / year-qualified FIR — never fuzzily; this is
-  what stopped distinct cases from over-merging into one id and undercounting — §4c.)
+  section or a similar court name, rapidfuzz). Ambiguous (routed to review, never merged)
+  means a precise date with no corroborator, OR both corroborators without a precise date;
+  a single corroborator without a precise date is DISTINCT (both published) — two distinct
+  same-district POCSO minors sharing one section are not the same case. (Every minor record
+  is projected to a YEAR-only date, so a minor can only auto-merge on an EXACT anchor — CNR
+  / year-qualified FIR — never fuzzily; this is what stopped distinct cases from
+  over-merging into one id and undercounting — §4c.)
 
 Merge policy: court records beat media; the further-along status wins; offence
 sections, status history, accused, and sources[] are unioned. Records below the
@@ -138,7 +140,10 @@ def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
     """Return 'exact', 'strong', 'weak', or 'none' for the a/b pairing.
 
     'strong' (auto-merge) requires a day-precise date on both sides within the window PLUS a
-    corroborator (§4c); 'weak' is ambiguous (routed to review); 'none' is distinct.
+    corroborator (§4c). 'weak' (ambiguous, routed to review) is a precise date with no
+    corroborator OR both corroborators without a precise date. A single corroborator without
+    a precise date is 'none' (distinct) — otherwise distinct same-district minors sharing one
+    POCSO section would be wrongly quarantined.
     """
     keys_a, keys_b = exact_anchor_keys(a), exact_anchor_keys(b)
     if keys_a & keys_b:
@@ -175,9 +180,14 @@ def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
     # confident fuzzy merge (§4c). Without it, distinct cases sharing only a court name and
     # an overlapping section fused into one id and UNDERCOUNTED — and because every minor
     # record is projected to a YEAR-only date (_parse_date -> None), minors can never fuzzy
-    # auto-merge and must rely on an EXACT anchor (CNR / year-qualified FIR). A pairing that
-    # is not day-precise, or is day-precise but has no corroborator, is at most AMBIGUOUS and
-    # routes to _review rather than silently merging.
+    # auto-merge and must rely on an EXACT anchor (CNR / year-qualified FIR).
+    #
+    # But a SINGLE corroborator without a precise date is NOT even ambiguous — two distinct
+    # minor cases in the same district very often share just one POCSO section (or one busy
+    # court), which is no evidence they are the same case. So "weak" (ambiguous -> review)
+    # needs a precise date, OR BOTH corroborators (section AND court); a lone corroborator is
+    # "none" (distinct, both published). Otherwise §4b's section canonicalisation would make
+    # every pair of same-district POCSO minors weak-match and one would be wrongly quarantined.
     date_precise = bool(date_a and date_b)
     corroborators = 0
     if sections_a and sections_b and (sections_a & sections_b):
@@ -187,7 +197,7 @@ def match_strength(a: dict[str, Any], b: dict[str, Any]) -> str:
 
     if date_precise and corroborators >= 1:
         return "strong"
-    if date_precise or corroborators >= 1:
+    if date_precise or corroborators >= 2:
         return "weak"
     return "none"
 

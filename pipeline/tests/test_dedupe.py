@@ -89,6 +89,27 @@ def test_year_only_dates_cannot_fuzzy_auto_merge() -> None:
     assert len(review) == 1 and review[0]["reason"] == "ambiguous_match"
 
 
+def test_distinct_same_district_minors_sharing_one_section_stay_separate() -> None:
+    """Two DISTINCT minor cases in the same district with only a single shared POCSO section
+    (no court, year-only dates) are NOT the same case: match_strength is 'none' and both
+    publish — a lone corroborator without a precise date must never quarantine a real case
+    (regression: §4b's section canonicalisation created these shared strings)."""
+    a = _record(offence_sections=["POCSO", "BNS 64"], court={}, incident_reported_date="2026")
+    b = _record(offence_sections=["POCSO"], court={}, incident_reported_date="2026")
+    assert match_strength(a, b) == "none"
+    published, review = dedupe([a, b])
+    assert len(published) == 2 and review == []
+
+
+def test_both_corroborators_without_precise_date_is_weak() -> None:
+    """Sharing BOTH a section AND a court name (but only year-only dates) is genuinely
+    ambiguous -> review (the over-merge prevention of §4c still holds)."""
+    court = {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None}
+    a = _record(offence_sections=["POCSO"], court=court, incident_reported_date="2026")
+    b = _record(offence_sections=["POCSO"], court=court, incident_reported_date="2026")
+    assert match_strength(a, b) == "weak"
+
+
 def test_day_precise_but_no_corroborator_is_weak() -> None:
     """A day-precise date alone is necessary but NOT sufficient: with no section overlap
     and no court match, the pairing is ambiguous, not a confident merge."""
