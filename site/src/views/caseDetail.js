@@ -18,6 +18,23 @@ import { readAloudButton } from '../read-aloud.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
 
+// The statutory withholding sentence a minor's summary always ends with (mirrors
+// pipeline/sanitize.py MINOR_WITHHELD_SENTENCE). It is shown as a de-emphasised FOOTNOTE
+// rather than a sentence inside the summary prose (§6 readability) — display only; the
+// stored record text is unchanged, so the POCSO s.23 projection stands exactly as before.
+const POCSO_WITHHELD_SENTENCE = 'Identifying details are withheld by law (POCSO s.23).';
+
+function summaryBodyAndFootnote(summary) {
+  const text = String(summary || '').trim();
+  if (text.endsWith(POCSO_WITHHELD_SENTENCE)) {
+    return {
+      body: text.slice(0, -POCSO_WITHHELD_SENTENCE.length).trim(),
+      footnote: POCSO_WITHHELD_SENTENCE,
+    };
+  }
+  return { body: text, footnote: null };
+}
+
 function timeline(record) {
   const history = (record.status_history || [])
     .slice()
@@ -174,9 +191,18 @@ export async function renderCase(route) {
         record.minor_involved ? minorBadge() : null,
       ]),
       el('h1', { class: 'case__id' }, record.id),
-      el('p', { class: 'case__summary' }, record.summary || ''),
-      readAloudButton([record.title, record.summary].filter(Boolean).join('. ')),
+      el('p', { class: 'case__summary' }, summaryBodyAndFootnote(record.summary).body),
+      readAloudButton(
+        [record.title, summaryBodyAndFootnote(record.summary).body].filter(Boolean).join('. '),
+      ),
       daysTicker(record),
+      summaryBodyAndFootnote(record.summary).footnote
+        ? el(
+            'p',
+            { class: 'case__footnote', role: 'note' },
+            summaryBodyAndFootnote(record.summary).footnote,
+          )
+        : null,
     ]),
     el('section', { class: 'panel reveal' }, [
       el(

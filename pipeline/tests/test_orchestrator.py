@@ -330,6 +330,35 @@ def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
     assert "C-BRAND-NEW" in cnrs  # discovery created it
 
 
+def test_district_is_canonicalised_through_the_pipeline(tmp_path: Path) -> None:
+    """§6: a record whose source names the pre-rename district ("Gurgaon") is stored under
+    the canonical spelling ("Gurugram") so it is neither mislabelled nor split from
+    Gurugram records at dedupe."""
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "HR",
+            "district": "Gurgaon",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-HR-1",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    districts = {r["district"] for r in json.loads((tmp_path / "2026" / "HR.json").read_text())}
+    assert districts == {"Gurugram"}
+
+
 def _seed_media_record_with_summary(tmp_path: Path) -> None:
     """A non-minor, MEDIA-sourced record already on the site: reviewed model prose and
     status FIR_FILED — the exact shape a weekly COURT refresh advances (and would, absent
