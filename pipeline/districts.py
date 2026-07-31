@@ -35,10 +35,16 @@ ALIASES: dict[str, str] = {
     "mangalore": "Mangaluru",
     "pondicherry": "Puducherry",
     "poona": "Pune",
-    # Administrative label -> common name (same Delhi district).
-    "south district": "South Delhi",
     "new delhi district": "New Delhi",
 }
+# NOT aliased, deliberately: "South District" is already an OFFICIAL Delhi district name
+# (Delhi's revenue districts are "South", "South East", "South West", "New Delhi", ...),
+# so it needs no canonicalisation. Folding it into the colloquial "South Delhi" would also
+# collide two DISTINCT anchor-less minor cases (a 2018 "South Delhi" case and a 2026 "South
+# District" case) that only their district spelling keeps apart under weak-anchor dedupe —
+# quarantining a live record. Whether "South District" and "South Delhi" should be unified
+# is a data-modelling decision for a human (it changes dedupe of real cases), not a
+# mechanical alias.
 
 
 def canonical_district(name: object) -> str:
