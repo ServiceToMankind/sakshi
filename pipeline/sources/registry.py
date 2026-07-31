@@ -98,5 +98,14 @@ def build_sources(
             if not url:
                 continue
             feeds = (Feed(url=url, publisher=publisher or "Media"),)
-            sources.append(RssMediaSource(client, feeds=feeds, fetched_at=fetched_at))
+            # Article-body fetching (amnesiac-discovery fix) is flag-gated and OFF by
+            # default; it only runs in discover (court_only refresh skips media above).
+            sources.append(
+                RssMediaSource(
+                    client,
+                    feeds=feeds,
+                    fetched_at=fetched_at,
+                    fetch_body=config.article_body_enabled(),
+                )
+            )
     return sources
