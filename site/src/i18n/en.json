@@ -84,6 +84,7 @@
   "case_fir": "FIR",
   "case_cnr": "CNR",
   "minor_flag": "Minor involved",
+  "corrected_flag": "Corrected",
   "severity_hint": "Severity is derived from the public charge sections — it describes the offence, not any person.",
   "severity_repeat": "Repeat offender",
   "days_since_reported": "days since first reported",

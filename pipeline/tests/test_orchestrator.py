@@ -330,6 +330,68 @@ def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
     assert "C-BRAND-NEW" in cnrs  # discovery created it
 
 
+def test_correction_override_is_applied_and_marked(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A corrections/<id>.yml field override lands on the matching record, which is marked
+    `corrected` and re-sanitised (so the override still passes every gate)."""
+    _seed_anchored_record(tmp_path)  # SKS-2026-TG-000001, status FIR_FILED
+    monkeypatch.setattr(
+        orchestrator,
+        "load_corrections",
+        lambda *a, **k: {
+            "SKS-2026-TG-000001": {
+                "record_id": "SKS-2026-TG-000001",
+                "overrides": {"status": "CHARGESHEETED"},
+            }
+        },
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini("{}"),
+    )
+    rec = next(
+        r
+        for r in json.loads((tmp_path / "2026" / "TG.json").read_text())
+        if r["id"] == "SKS-2026-TG-000001"
+    )
+    assert rec["status"] == "CHARGESHEETED"
+    assert rec.get("corrected") is True
+
+
+def test_correction_quarantine_routes_record_to_review(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A corrections/<id>.yml with quarantine:true routes its record out of the published
+    site into _review — the mechanism behind the DL-000003 over-merge fix."""
+    _seed_anchored_record(tmp_path)
+    monkeypatch.setattr(
+        orchestrator,
+        "load_corrections",
+        lambda *a, **k: {
+            "SKS-2026-TG-000001": {"record_id": "SKS-2026-TG-000001", "quarantine": True}
+        },
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini("{}"),
+    )
+    shard = tmp_path / "2026" / "TG.json"
+    ids = {r["id"] for r in json.loads(shard.read_text())} if shard.exists() else set()
+    assert "SKS-2026-TG-000001" not in ids  # quarantined out of the published shard
+    assert report.review >= 1
+
+
 def test_unreadable_fresh_summary_is_quarantined(tmp_path: Path) -> None:
     """§6a is a GATE: a FRESH non-minor record whose summary fails the readability rules
     (legalese / section-in-prose / over-long sentence) is routed to _review, so it never

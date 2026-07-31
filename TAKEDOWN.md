@@ -46,9 +46,31 @@ We welcome and act on requests to fix the public record, including:
 * **Duplicate or merged records** that should be split, or split records that
   should be merged.
 
-Corrections are applied by re-running the pipeline against the corrected
-source, not by hand-editing `data/`. Humans never hand-edit the data tree; this
-keeps every published field traceable to a source.
+## How a correction is applied
+
+Humans never hand-edit the `data/` tree — the pipeline regenerates it. A
+confirmed correction is applied in one of two ways:
+
+1. **Re-extraction (preferred).** Where the corrected fact is in a live public
+   source, we re-run the pipeline against that source and the record updates
+   itself — every field stays traceable to a citation.
+2. **A reviewed correction file** (`corrections/<record-id>.yml`) for fixes the
+   pipeline cannot make on its own: an over-merge it cannot re-split, or a
+   summary whose source article has rolled off the feed and cannot be
+   re-extracted. Each correction file is committed to git, keyed by the record
+   `id`, and records **who** authored it, **when**, **why**, and the **evidence**
+   relied on — so every correction is auditable. A correction can either:
+   * **quarantine** the record (route it out of the public site into review), or
+   * **override specific fields** (for example, fix a district or advance a
+     status). Overrides are applied *before* the sanitizer and validator run, so
+     a corrected value still passes every guardrail; a correction can **never**
+     set a victim-identifying field, an `id`, or the `minor_involved` flag (those
+     are refused outright). A corrected record is shown with a **“Corrected”**
+     marker, and the reasoning lives in the committed correction file.
+
+Correction files are validated against
+[`schemas/correction.schema.json`](./schemas/correction.schema.json) and
+described in [`corrections/README.md`](./corrections/README.md).
 
 ## Removal-on-request policy
 

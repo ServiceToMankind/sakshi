@@ -25,6 +25,15 @@ export function minorBadge() {
   return el('span', { class: 'badge badge--minor', 'data-i18n': 'minor_flag' }, t('minor_flag'));
 }
 
+/** A "Corrected" marker for a record a reviewed human-authored correction has touched. */
+export function correctedBadge() {
+  return el(
+    'span',
+    { class: 'badge badge--corrected', 'data-i18n': 'corrected_flag' },
+    t('corrected_flag'),
+  );
+}
+
 /**
  * A charge-derived severity badge, or null when the offence sections match no rule.
  * Aggravated categories get a distinct dark-red weight (`badge--aggravated`). Derived
