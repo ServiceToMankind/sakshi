@@ -215,6 +215,35 @@ def test_minor_summary_falls_back_to_category_without_sections() -> None:
     assert "sexual assault involving a minor" in clean["summary"].lower()
 
 
+def test_minor_summary_uses_structured_composer_when_facts_resolve() -> None:
+    """§6b: a minor with >=2 structured facts gets the richer deterministic composition; the
+    non-identifying structured fields survive the minor projection; accused (names) do not."""
+    rec = {
+        "minor_involved": True,
+        "category": "pocso",
+        "district": "Kothagudem",
+        "state": "TG",
+        "status": "CHARGESHEETED",
+        "incident_reported_date": "2026",
+        "offence_sections": ["POCSO 6"],
+        "accused_count": 3,
+        "institutional_actions": ["arrest_made", "chargesheet_filed"],
+        "accused": [
+            {"label": "A1", "name_public_court_record": "Some Name", "status": "CHARGESHEETED"}
+        ],
+    }
+    clean = sanitize_record(rec)
+    assert clean["summary"].startswith(
+        "Three people were arrested in Kothagudem for the aggravated penetrative assault"
+    )
+    assert "Police have filed a chargesheet." in clean["summary"]
+    assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
+    assert clean["accused_count"] == 3  # non-identifying structured fact kept
+    assert clean["institutional_actions"] == ["arrest_made", "chargesheet_filed"]
+    assert "accused" not in clean  # accused (with a NAME) is still stripped for a minor
+    assert "Some Name" not in json.dumps(clean)
+
+
 def test_minor_summary_child_category_without_sections_is_not_redundant() -> None:
     """A category that already says 'child' (pocso) with no sections must NOT get a
     redundant 'involving a minor' appended."""

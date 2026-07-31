@@ -51,6 +51,16 @@ Hard rules:
     the text states an FIR number and station.
   These are NOT victim identity — they are public case numbers. Never guess or fabricate
   them; omit (null) when the text does not state them.
+- ACCOUNTABILITY FACTS (structured, non-identifying — these enrich a MINOR's deterministic
+  summary without any prose): capture ONLY what the text states, else null/empty:
+  · "accused_count": integer — how many accused, a COUNT only, never a name.
+  · "repeat_offence": true if the text says the accused is a repeat/habitual offender.
+  · "weapon_or_threat": true if a weapon was used or a threat/coercion was made.
+  · "institutional_actions": a subset of this CLOSED list ONLY — arrest_made,
+    chargesheet_filed, bail_granted, bail_denied, sit_formed, suspension_ordered,
+    convicted, acquitted, appeal_filed. Emit only the actions the text states.
+  · "sentence_years": integer years of a custodial sentence, when a conviction states one.
+  Never place any name, age, gender, relationship, or place finer than district in these.
 - TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".

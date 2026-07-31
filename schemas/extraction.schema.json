@@ -85,6 +85,32 @@
       ],
       "description": "Judicial status inferred strictly from the public source text."
     },
+    "accused_count": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "How many accused the public text names/counts (§6b). A NUMBER only — never a name. Null when the text does not state it. Non-identifying; safe to store for a minor case (a count is not identity)."
+    },
+    "repeat_offence": {
+      "type": ["boolean", "null"],
+      "description": "True if the public text states the accused is a repeat/habitual offender (or the charges are repeat-offender sections). Null when not stated. Non-identifying."
+    },
+    "weapon_or_threat": {
+      "type": ["boolean", "null"],
+      "description": "True if the public text states a weapon was used or a threat/coercion was made. Null when not stated. Describes the ACT, never the victim."
+    },
+    "institutional_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["arrest_made", "chargesheet_filed", "bail_granted", "bail_denied", "sit_formed", "suspension_ordered", "convicted", "acquitted", "appeal_filed"]
+      },
+      "description": "The institutional/legal response, as an ENUM set only (§6b) — the model cannot smuggle identifying prose into a closed vocabulary. Empty/absent when none stated. Non-identifying."
+    },
+    "sentence_years": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Custodial sentence length in years when a conviction states one. A NUMBER only. Null when not stated. Non-identifying."
+    },
     "court": {
       "type": "object",
       "additionalProperties": false,

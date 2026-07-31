@@ -101,6 +101,32 @@
         "UNKNOWN"
       ]
     },
+    "accused_count": {
+      "type": ["integer", "null"],
+      "minimum": 1,
+      "description": "Number of accused stated in the public record (§6b) — a COUNT, never a name. Non-identifying, so it is kept even for a minor case and feeds the deterministic minor summary composer. Absent/null when not stated."
+    },
+    "repeat_offence": {
+      "type": ["boolean", "null"],
+      "description": "True if the accused is a repeat/habitual offender per the public record (or repeat-offender charge sections). Non-identifying. Absent/null when not stated."
+    },
+    "weapon_or_threat": {
+      "type": ["boolean", "null"],
+      "description": "True if a weapon or threat/coercion is stated in the public record. Describes the ACT, never the victim. Absent/null when not stated."
+    },
+    "institutional_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["arrest_made", "chargesheet_filed", "bail_granted", "bail_denied", "sit_formed", "suspension_ordered", "convicted", "acquitted", "appeal_filed"]
+      },
+      "description": "The institutional/legal response as a closed ENUM set (§6b) — the accountability facts, incapable of holding identifying prose. Feeds the deterministic minor summary composer. Absent/empty when none stated."
+    },
+    "sentence_years": {
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "description": "Custodial sentence length in years when a conviction states one — a NUMBER only. Non-identifying. Absent/null when not stated."
+    },
     "status_history": {
       "type": "array",
       "description": "Chronological status changes. Each entry cites a source by integer index into sources[].",

@@ -23,6 +23,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from pipeline.minor_summary_compose import compose as _compose_minor_summary
 from pipeline.pii_constants import (
     MINOR_SUMMARY_TEMPLATE,
     OCCUPATION_SCANNED_FIELDS,
@@ -113,14 +114,15 @@ def minor_summary(record: dict[str, Any]) -> str:
     status — the exact set §1a permits for a minor — then the statutory withholding
     sentence. No model text, no age, no sub-district, no accused.
     """
-    year = _case_year(record)
-    location = ", ".join(
-        part
-        for part in (str(record.get("district", "")).strip(), str(record.get("state", "")).strip())
-        if part
-    )
     offence = _minor_offence_phrase(record)
     offence_lc = offence[0].lower() + offence[1:]
+    district = str(record.get("district", "")).strip()
+    # Richer composition from STRUCTURED facts (§6b) when >=2 resolve; else the flat template.
+    composed = _compose_minor_summary(record, offence_lc, f" in {district}" if district else "")
+    if composed is not None:
+        return f"{composed} {MINOR_WITHHELD_SENTENCE}"
+    year = _case_year(record)
+    location = ", ".join(part for part in (district, str(record.get("state", "")).strip()) if part)
     phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
     where = f" in {location}" if location else ""
     reported = f" ({year})" if year else ""
