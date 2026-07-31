@@ -14,6 +14,7 @@ import {
   repeatOffenderBadge,
   daysTicker,
 } from './parts.js';
+import { readAloudButton } from '../read-aloud.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
 
@@ -174,6 +175,7 @@ export async function renderCase(route) {
       ]),
       el('h1', { class: 'case__id' }, record.id),
       el('p', { class: 'case__summary' }, record.summary || ''),
+      readAloudButton([record.title, record.summary].filter(Boolean).join('. ')),
       daysTicker(record),
     ]),
     el('section', { class: 'panel reveal' }, [

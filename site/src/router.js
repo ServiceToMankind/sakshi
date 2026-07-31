@@ -14,6 +14,7 @@ import { renderLanding } from './views/landing.js';
 import { renderExplore } from './views/explore.js';
 import { renderCase } from './views/caseDetail.js';
 import { renderCoverage } from './views/coverage.js';
+import { stopReadAloud } from './read-aloud.js';
 
 const OUTLET_ID = 'app';
 const VIEWS = {
@@ -66,6 +67,7 @@ function markActiveNav(routeName) {
 async function render() {
   const outlet = document.getElementById(OUTLET_ID);
   if (!outlet) return;
+  stopReadAloud(); // never let narration bleed across a route change (§7)
   const route = parseRoute();
   markActiveNav(route.name);
 

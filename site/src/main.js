@@ -39,9 +39,15 @@ function initTheme() {
   });
 }
 
+// The toggle label shows the NEXT language in the cycle, in its own script.
+const LANG_LABEL = { en: 'EN', hi: 'हिंदी', te: 'తెలుగు' };
+
 function updateLangLabel() {
   const btn = document.getElementById('lang-toggle');
-  if (btn) btn.textContent = currentLocale() === 'en' ? 'हिंदी' : 'EN';
+  if (!btn) return;
+  const locales = supportedLocales();
+  const next = locales[(locales.indexOf(currentLocale()) + 1) % locales.length];
+  btn.textContent = LANG_LABEL[next] || next.toUpperCase();
 }
 
 function initLangToggle() {
