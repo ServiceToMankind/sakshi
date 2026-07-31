@@ -144,8 +144,8 @@
     ],
     "state": "DL",
     "status": "CONVICTED",
-    "summary": "The accused was convicted in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
     "verified": true
   },
   {
@@ -179,8 +179,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "The case is under trial in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Rape case involving a minor — Delhi (2026)",
+    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
     "verified": true
   },
   {
@@ -208,8 +208,8 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "An appeal is pending in South District, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — South District (2026)",
+    "summary": "A case of child sexual offence in South District, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — South District (2026)",
     "verified": true
   },
   {
@@ -237,8 +237,8 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "An appeal is pending in Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Delhi (2026)",
+    "summary": "A case of child sexual offence in Delhi, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026)",
     "verified": true
   }
 ]

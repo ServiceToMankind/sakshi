@@ -51,15 +51,29 @@ Hard rules:
     the text states an FIR number and station.
   These are NOT victim identity — they are public case numbers. Never guess or fabricate
   them; omit (null) when the text does not state them.
+- ACCOUNTABILITY FACTS (structured, non-identifying — these enrich a MINOR's deterministic
+  summary without any prose): capture ONLY what the text states, else null/empty:
+  · "accused_count": integer — how many accused, a COUNT only, never a name.
+  · "repeat_offence": true if the text says the accused is a repeat/habitual offender.
+  · "weapon_or_threat": true if a weapon was used or a threat/coercion was made.
+  · "institutional_actions": a subset of this CLOSED list ONLY — arrest_made,
+    chargesheet_filed, bail_granted, bail_denied, sit_formed, suspension_ordered,
+    convicted, acquitted, appeal_filed. Emit only the actions the text states.
+  · "sentence_years": integer years of a custodial sentence, when a conviction states one.
+  Never place any name, age, gender, relationship, or place finer than district in these.
 - TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
-  · "summary": 2-4 short declarative sentences, active voice, NO legalese. State the
-    concrete facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never
-    finer), and the institutional/legal response (FIR, arrest, chargesheet, verdict).
-    The cruelty of the ACT may be stated plainly; sensationalism may not. Say "The
-    court paused the trial while it reviews the FIR", not "stayed proceedings
-    concerning an FIR alleging...". Never define anything by section number alone.
+  · "summary": 2-4 short declarative sentences (aim for <=45 words total), active
+    voice, written so a low-literacy general reader understands it. State the concrete
+    facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never finer), and
+    the institutional/legal response (FIR, arrest, chargesheet, verdict). The cruelty of
+    the ACT may be stated plainly; sensationalism may not.
+    · BANNED legalese — never use: "stayed proceedings", "vide order", "learned counsel",
+      "the instant matter", "quashed the proceedings", "aforesaid", "hereinafter", "u/s",
+      "r/w", "prima facie", "cognizance", "the petitioner/respondent" (say who they are).
+      Say "The court paused the trial while it reviews the FIR", not "stayed proceedings
+      concerning an FIR alleging...". Never define anything by section number alone.
   · IDENTITY FLOOR (every age, statutory — BNS s.72): the summary must NEVER contain
     or imply a victim name, age, or gender; a sub-district location (neighbourhood,
     street, landmark, institution name, "near X"); how the accused knew the victim;

@@ -79,8 +79,10 @@ information and aggregates, never on victim particulars:
 - **Fuller facts for adult-victim cases only.** A non-minor case's summary may state the
   concrete facts of the act, the district, and the institutional response, in plain
   English — but nothing that identifies the victim (the limits above still bind). A
-  **minor's** title/summary stay the deterministic, minimal projection — never
-  model-written. A **deterministic backstop** (`pipeline/identity_scan.py`) quarantines
+  **minor's** title/summary stay a **deterministic** projection — never model-written —
+  now enriched (§6) to name the plain-English offence/severity (from public charge codes)
+  alongside category + district + year + status, but nothing more. A **deterministic
+  backstop** (`pipeline/identity_scan.py`) quarantines
   any non-minor record whose model text reveals a **victim–accused relationship** or an
   **age** (title/summary/sections) to `_review`, independent of model compliance.
   Victim **occupation/institution** in a non-minor title/summary is now also scrubbed

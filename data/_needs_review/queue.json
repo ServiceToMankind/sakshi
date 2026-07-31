@@ -11,7 +11,7 @@
       "category": "other",
       "minor_involved": true,
       "status": "FIR_FILED",
-      "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+      "summary": "A case of sexual offence involving a minor in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
       "confidence": 0.9,
       "sources": [
         {
@@ -21,7 +21,7 @@
           "retrieved": "2026-07-14"
         }
       ],
-      "title": "Sexual offence case involving a minor — Hyderabad (2026)"
+      "title": "Sexual offence involving a minor — Hyderabad (2026)"
     }
   },
   {
@@ -46,9 +46,9 @@
       "offence_sections": [
         "IPC 354"
       ],
-      "summary": "The case status is not yet known in East Delhi, DL. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
+      "summary": "A case of assault to outrage modesty involving a minor in East Delhi, DL (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
       "incident_reported_date": "2026",
-      "title": "Sexual assault case involving a minor — East Delhi (2026)"
+      "title": "Assault to outrage modesty involving a minor — East Delhi (2026)"
     }
   }
 ]
