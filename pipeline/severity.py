@@ -17,10 +17,12 @@ from pathlib import Path
 from typing import Any
 
 __all__ = [
+    "REPEAT_CODE",
     "REPEAT_SECTIONS",
     "SEVERITY_RULES",
     "is_aggravated",
     "is_repeat_offender",
+    "severity_code",
     "severity_label",
 ]
 
@@ -32,6 +34,10 @@ SEVERITY_RULES: list[tuple[str, bool, list[str]]] = [
     (r["label"], bool(r["aggravated"]), [s.upper() for s in r["sections"]]) for r in _DATA["rules"]
 ]
 REPEAT_SECTIONS: list[str] = [s.upper() for s in _DATA["repeat_sections"]]
+# Stable machine token per label (never renamed when the display wording changes) and the
+# repeat-offender token — the code side of the label/code pair the frontend mirrors.
+_CODE_BY_LABEL: dict[str, str] = {r["label"]: r["code"] for r in _DATA["rules"]}
+REPEAT_CODE: str = str(_DATA.get("repeat_code", "REPEAT_OFFENDER"))
 
 
 def _needle_pattern(needles: list[str]) -> re.Pattern[str]:
@@ -71,6 +77,16 @@ def severity_label(offence_sections: Any) -> str | None:
         if matcher.search(hay):
             return label
     return None
+
+
+def severity_code(offence_sections: Any) -> str | None:
+    """The stable MACHINE token for the most-severe matched rule, or None.
+
+    Parallel to :func:`severity_label` but returns the rule's ``code`` — a token that
+    never changes when the display wording does, so styling/analytics can key on it.
+    """
+    label = severity_label(offence_sections)
+    return _CODE_BY_LABEL.get(label) if label is not None else None
 
 
 def is_aggravated(offence_sections: Any) -> bool:

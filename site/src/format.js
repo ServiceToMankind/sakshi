@@ -9,7 +9,9 @@ export const STATUS_LABELS = {
   ACQUITTED: 'Acquitted',
   QUASHED: 'Quashed',
   CLOSED: 'Closed',
-  UNKNOWN: 'Unknown',
+  // No status has been recorded from a court/media source yet — not "unknown" as a claim
+  // about the case, but "not yet recorded" (§6 plain-language honesty).
+  UNKNOWN: 'No court status recorded yet',
 };
 
 // "Active" = the matter is live in the system; "Closed" = resolved. ACQUITTED and

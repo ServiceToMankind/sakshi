@@ -35,6 +35,7 @@ from pipeline import config, fixtures, spend, verify
 from pipeline.citation_slug import url_carries_identifying_slug
 from pipeline.coverage import build_coverage
 from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
+from pipeline.districts import canonical_district
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
@@ -346,21 +347,31 @@ def _record_urls(records: list[dict[str, Any]]) -> set[str]:
 
 
 def _canonicalize_state(record: dict[str, Any]) -> dict[str, Any]:
-    """Normalise the state code to its canonical form (e.g. TS->TG) so one state is never
-    split across two codes in ids, shard files, and the jurisdiction scorecard.
+    """Normalise a record's GEOGRAPHY to one canonical spelling so a single jurisdiction is
+    never split across two forms in ids, shard files, dedupe anchors, and the scorecard:
 
-    If the change makes the record's id encode the OLD state, the id is CLEARED so
-    write_shards re-mints a matching one — the per-state shard file and the case-page
-    lookup are both keyed on the id's state-part, so a mismatched id would 404.
+    - state code to its canonical form (e.g. TS->TG). If the change makes the record's id
+      encode the OLD state, the id is CLEARED so write_shards re-mints a matching one — the
+      per-state shard file and the case-page lookup are both keyed on the id's state-part,
+      so a mismatched id would 404.
+    - district spelling to its canonical form (e.g. Gurgaon->Gurugram, South District->South
+      Delhi) via :func:`pipeline.districts.canonical_district`. District is a dedupe anchor
+      and user-facing, so two spellings would both split a case and mislead a reader; the id
+      is NOT re-minted on a district change (the id encodes only year+state+serial).
     """
-    original = str(record.get("state", ""))
+    updated = record
+    district = updated.get("district")
+    if isinstance(district, str):
+        canonical_d = canonical_district(district)
+        if canonical_d != district:
+            updated = {**updated, "district": canonical_d}
+    original = str(updated.get("state", ""))
     canonical = normalize_state(original)
-    if canonical == original:
-        return record
-    updated = {**record, "state": canonical}
-    rid = str(updated.get("id", ""))
-    if rid.startswith("SKS-") and len(rid) >= 11 and rid[9:11] != canonical:
-        updated.pop("id", None)
+    if canonical != original:
+        updated = {**updated, "state": canonical}
+        rid = str(updated.get("id", ""))
+        if rid.startswith("SKS-") and len(rid) >= 11 and rid[9:11] != canonical:
+            updated.pop("id", None)
     return updated
 
 

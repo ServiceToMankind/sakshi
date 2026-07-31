@@ -10,7 +10,7 @@ import {
   formatNumber,
   isActiveStatus,
 } from '../format.js';
-import { severityLabel, isAggravated, isRepeatOffender } from '../severity.js';
+import { severityLabel, severityCode, isAggravated, isRepeatOffender } from '../severity.js';
 
 /** A status badge. ACQUITTED/QUASHED are styled with equal prominence to CONVICTED. */
 export function statusBadge(status) {
@@ -35,10 +35,13 @@ export function severityBadge(offenceSections) {
   const label = severityLabel(offenceSections);
   if (!label) return null;
   const aggravated = isAggravated(offenceSections);
+  // The visible text is the human `severity_display`; `data-severity-code` carries the
+  // stable machine token (severity_code) so styling/analytics never depend on wording.
   return el(
     'span',
     {
       class: `badge badge--severity${aggravated ? ' badge--aggravated' : ''}`,
+      'data-severity-code': severityCode(offenceSections) || '',
       title: t('severity_hint'),
     },
     label,

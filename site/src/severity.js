@@ -26,13 +26,15 @@ function needleMatcher(needles) {
   return new RegExp(`(?:${alternation})(?![A-Z0-9])`);
 }
 
-// (label, aggravated, compiled matcher) — MOST SEVERE FIRST.
+// (label, code, aggravated, compiled matcher) — MOST SEVERE FIRST.
 const SEVERITY_RULES = rules.rules.map((rule) => ({
   label: rule.label,
+  code: rule.code,
   aggravated: Boolean(rule.aggravated),
   matcher: needleMatcher(rule.sections.map((section) => section.toUpperCase())),
 }));
 const REPEAT_MATCHER = needleMatcher(rules.repeat_sections.map((section) => section.toUpperCase()));
+export const REPEAT_CODE = rules.repeat_code || 'REPEAT_OFFENDER';
 
 /**
  * Upper-case + space-normalise the sections into one searchable string. Mirrors
@@ -58,6 +60,20 @@ export function severityLabel(offenceSections) {
   if (!hay) return null;
   for (const rule of SEVERITY_RULES) {
     if (rule.matcher.test(hay)) return rule.label;
+  }
+  return null;
+}
+
+/**
+ * The stable MACHINE token for the most-severe matched rule, or null. Parallel to
+ * severityLabel — a token that never changes when the display wording does, so CSS/
+ * analytics can key on it. Mirrors pipeline.severity.severity_code.
+ */
+export function severityCode(offenceSections) {
+  const hay = haystack(offenceSections);
+  if (!hay) return null;
+  for (const rule of SEVERITY_RULES) {
+    if (rule.matcher.test(hay)) return rule.code;
   }
   return null;
 }

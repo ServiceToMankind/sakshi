@@ -8,8 +8,10 @@ from pathlib import Path
 import pytest
 
 from pipeline.severity import (
+    REPEAT_CODE,
     is_aggravated,
     is_repeat_offender,
+    severity_code,
     severity_label,
 )
 
@@ -82,6 +84,33 @@ def test_needle_matching_respects_code_boundaries(section: str, label: str) -> N
     assert severity_label([section]) == label
 
 
+@pytest.mark.parametrize(
+    ("sections", "code"),
+    [
+        (["BNS 70(2)"], "GANG_RAPE_MINOR"),
+        (["BNS 70(1)"], "GANG_RAPE"),
+        (["POCSO 6"], "AGG_PENETRATIVE_ASSAULT_CHILD"),
+        (["BNS 64", "IPC 376"], "RAPE"),
+        (["IPC 354"], "OUTRAGE_MODESTY"),
+        (["some unmatched section"], None),
+        ([], None),
+    ],
+)
+def test_severity_code_parallels_label(sections: list[str], code: str | None) -> None:
+    """severity_code returns the stable machine token for the same matched rule as the
+    label, or None when nothing matches."""
+    assert severity_code(sections) == code
+    # A code exists iff a label exists — they are two projections of the same rule.
+    assert (severity_code(sections) is None) == (severity_label(sections) is None)
+
+
+def test_every_rule_has_a_unique_stable_code() -> None:
+    codes = [severity_code(rule["sections"][:1]) for rule in _RULES["rules"]]
+    assert all(codes), "every rule must resolve to a code"
+    assert len(set(codes)) == len(codes), "codes must be unique across rules"
+    assert REPEAT_CODE == "REPEAT_OFFENDER"
+
+
 def test_repeat_offender_flag() -> None:
     assert is_repeat_offender(["BNS 64", "BNS 71"]) is True
     assert is_repeat_offender(["BNS 64"]) is False
@@ -97,6 +126,8 @@ def test_rules_json_shape_is_stable() -> None:
     """The shared rules file the frontend also imports keeps its contract."""
     assert isinstance(_RULES["rules"], list) and _RULES["rules"]
     for rule in _RULES["rules"]:
-        assert set(rule) >= {"label", "aggravated", "sections"}
+        assert set(rule) >= {"label", "code", "aggravated", "sections"}
         assert isinstance(rule["sections"], list) and rule["sections"]
+        assert isinstance(rule["code"], str) and rule["code"]
     assert isinstance(_RULES["repeat_sections"], list)
+    assert isinstance(_RULES["repeat_code"], str) and _RULES["repeat_code"]
