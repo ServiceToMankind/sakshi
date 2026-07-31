@@ -50,6 +50,21 @@ national:
     publisher: PTI
     url: ""
 
+  # --- Tranche 1 (DRAFT — every feed enabled:false; flip per source after operator sign-off).
+  # robots.txt verdicts verified 2026-08-01 for the sakshi-bot UA; see
+  # docs/feed-expansion-tranche-1.md for the full checklist + the candidates excluded on robots.
+  - id: times-of-india-top
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · ToS: RSS publicly syndicated (legal review pending)
+    publisher: The Times of India
+    url: "https://timesofindia.indiatimes.com/rssfeedstopstories.cms"
+
+  - id: hindustan-times-india
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · ToS: RSS publicly syndicated (legal review pending)
+    publisher: Hindustan Times
+    url: "https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml"
+
 # --- Per state / UT --------------------------------------------------------------------
 # Every canonical state/UT is listed. `[]` = a DECLARED coverage gap (see header).
 states:
