@@ -330,6 +330,101 @@ def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
     assert "C-BRAND-NEW" in cnrs  # discovery created it
 
 
+def test_unreadable_fresh_summary_is_quarantined(tmp_path: Path) -> None:
+    """§6a is a GATE: a FRESH non-minor record whose summary fails the readability rules
+    (legalese / section-in-prose / over-long sentence) is routed to _review, so it never
+    publishes and the CI readability assertion never trips on a fresh record."""
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-UNREAD",
+            "title": "A TESTVILLE case",
+            "summary": "The accused was booked u/s 376 IPC on a complaint by the learned counsel.",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.review >= 1
+    shard = tmp_path / "2026" / "TG.json"
+    published_cnrs = (
+        {r.get("cnr") for r in json.loads(shard.read_text())} if shard.exists() else set()
+    )
+    assert "C-UNREAD" not in published_cnrs  # quarantined, not published
+
+
+def test_grandfathered_unreadable_summary_is_not_demoted(tmp_path: Path) -> None:
+    """§6a gate grandfathers already-live records: an existing published record with a
+    pre-§6a unreadable summary is NOT quarantined when re-seen (only fresh records face the
+    gate; the guard's BASELINE_ALLOWLIST tracks the live ones until re-extraction)."""
+    (tmp_path / "2026").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "2026" / "TG.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "SKS-2026-TG-000001",
+                    "title": "A TESTVILLE case",
+                    "summary": "The accused was booked u/s 376 IPC by the learned counsel.",
+                    "state": "TG",
+                    "district": "TESTVILLE",
+                    "category": "rape",
+                    "status": "FIR_FILED",
+                    "minor_involved": False,
+                    "cnr": "C-OLD",
+                    "incident_reported_date": "2026-06-14",
+                    "offence_sections": ["IPC 376"],
+                    "sources": [
+                        {
+                            "url": "https://ex.invalid/a",
+                            "publisher": "The Hindu",
+                            "source_type": "news_article",
+                            "retrieved": "2026-07-09",
+                        }
+                    ],
+                    "confidence": 0.9,
+                    "first_published": "2026-07-09",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-OLD",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    ids = {r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
+    assert "SKS-2026-TG-000001" in ids  # grandfathered — survived the readability gate
+
+
 def test_district_is_canonicalised_through_the_pipeline(tmp_path: Path) -> None:
     """§6: a record whose source names the pre-rename district ("Gurgaon") is stored under
     the canonical spelling ("Gurugram") so it is neither mislabelled nor split from
