@@ -1,16 +1,16 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-30T00:00:00Z",
+  "generated_at": "2026-07-31T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
       "convictions": 1,
       "district": "Delhi",
       "longest_pending": {
-        "days": 5,
+        "days": 6,
         "id": "SKS-2026-DL-000008"
       },
-      "median_pending_days": 5,
+      "median_pending_days": 6,
       "state": "DL",
       "total": 4,
       "under_trial": 2,
@@ -21,10 +21,10 @@
       "convictions": 0,
       "district": "Hyderabad",
       "longest_pending": {
-        "days": 7,
+        "days": 8,
         "id": "SKS-2026-TG-000007"
       },
-      "median_pending_days": 7,
+      "median_pending_days": 8,
       "state": "TG",
       "total": 3,
       "under_trial": 0,
@@ -112,10 +112,10 @@
       "convictions": 0,
       "district": "Ranga Reddy",
       "longest_pending": {
-        "days": 7,
+        "days": 8,
         "id": "SKS-2026-TG-000006"
       },
-      "median_pending_days": 7,
+      "median_pending_days": 8,
       "state": "TG",
       "total": 1,
       "under_trial": 0,
@@ -234,10 +234,6 @@
   "scale": {
     "cumulative_total": 18,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-02"
-      },
       {
         "count": 0,
         "date": "2026-04-03"
@@ -713,9 +709,13 @@
       {
         "count": 0,
         "date": "2026-07-30"
+      },
+      {
+        "count": 0,
+        "date": "2026-07-31"
       }
     ],
-    "this_week": 5
+    "this_week": 4
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 4,
@@ -740,17 +740,17 @@
     {
       "district": "Ranga Reddy",
       "id": "SKS-2026-TG-000006",
-      "pending_days": 7
+      "pending_days": 8
     },
     {
       "district": "Hyderabad",
       "id": "SKS-2026-TG-000007",
-      "pending_days": 7
+      "pending_days": 8
     },
     {
       "district": "Delhi",
       "id": "SKS-2026-DL-000008",
-      "pending_days": 5
+      "pending_days": 6
     }
   ],
   "total": 18
