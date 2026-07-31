@@ -41,6 +41,7 @@ from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_sections import normalize_sections
+from pipeline.readability import readability_violations
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
@@ -397,6 +398,33 @@ def _split_by_jurisdiction(
             reason = "unknown_state" if state else "no_jurisdiction"
             diverted.append({"reason": reason, "record": record})
     return jurisdictional, diverted
+
+
+def _split_unreadable(
+    records: list[dict[str, Any]], grandfathered_ids: set[str]
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Partition ``records`` by the §6a readability GATE (the pipeline side of
+    ``pipeline.readability`` — the deterministic backstop the prompt cannot guarantee).
+
+    A FRESH non-minor record whose summary carries a readability violation (legalese, a
+    section-number-in-prose citation, or an over-long sentence) is diverted to ``_review``
+    with reason ``unreadable_summary`` — so an unreadable summary never publishes and never
+    trips the CI readability assertion on a fresh record. An already-live record (its id in
+    ``grandfathered_ids``) is NEVER demoted (the guard's BASELINE_ALLOWLIST tracks those
+    until re-extraction); a MINOR's summary is deterministic (fixed vocabulary) and exempt.
+    """
+    readable: list[dict[str, Any]] = []
+    diverted: list[dict[str, Any]] = []
+    for record in records:
+        if (
+            not record.get("minor_involved")
+            and str(record.get("id", "")) not in grandfathered_ids
+            and readability_violations(record.get("summary"))
+        ):
+            diverted.append({"reason": "unreadable_summary", "record": record})
+        else:
+            readable.append(record)
+    return readable, diverted
 
 
 def _coerce_minor(record: dict[str, Any]) -> dict[str, Any]:
@@ -1060,6 +1088,16 @@ def run(
     review = review + diverted
     if diverted:
         _log(report, f"jurisdiction: {len(diverted)} record(s) routed to review (unknown state)")
+
+    # READABILITY gate (§6a): a FRESH non-minor record with an unreadable summary is
+    # quarantined to _review rather than published — the deterministic backstop behind the
+    # extraction prompt, and what keeps the CI readability assertion from tripping on a fresh
+    # record. Already-live records are grandfathered (never demoted by a newer rule).
+    grandfathered_ids = {str(r.get("id", "")) for r in existing if r.get("id")}
+    published, unreadable = _split_unreadable(published, grandfathered_ids)
+    review = review + unreadable
+    if unreadable:
+        _log(report, f"readability: {len(unreadable)} fresh record(s) routed to review (§6a)")
 
     # REFRESH mode (§2): update-only. Keep just the records that correspond to one already on
     # the site (same id, or a shared exact anchor after the court re-query merged into it); any
