@@ -152,6 +152,30 @@ and an unprotected side-branch avoids needing to.
   from now on under that fixed window). If you later widen the states or lookback,
   **delete the `ledger-state` branch** so those documents are re-examined.
 
+### Run modes, the monthly budget cap, and corrections
+
+- **`discover` vs `refresh` (`--mode`, `PIPELINE_MODE`).** The daily run is
+  `discover`: it fetches every enabled source and may create new records. The
+  weekly `refresh` fetches **court sources only** and is **update-only** — it
+  advances an existing record's status (appending one `status_history` point and
+  bumping `last_status_change`) but **never creates a record and never rewrites a
+  non-minor record's reviewed narrative** (a court judgment is a high-PII source,
+  not a text to republish; a new narrative belongs to `discover` + review).
+- **Monthly Gemini spend cap (`MONTHLY_MAX_USD`, default $10).** Cumulative spend
+  per calendar month is tracked in `data/_meta/spend.json` (aggregate dollars
+  only — never case content), persisted on the `ledger-state` branch like the
+  document ledger. When a run starts and the month is already at the cap it makes
+  **no new Gemini calls** (a clean abort, not a silent partial run), still
+  regenerates existing records, shows month-to-date in the heartbeat, and opens an
+  ops issue. A new month resets it. Raise the cap by setting the repo variable.
+- **Corrections (`corrections/<record-id>.yml`).** The only sanctioned way a human
+  changes a published record — never by hand-editing `data/`. A correction can
+  `quarantine` a record (route it to `_review`) or `override` specific fields;
+  overrides are applied before sanitize (so they still pass every gate) and can
+  never set a victim field, `id`, or `minor_involved`. See
+  [`TAKEDOWN.md`](./TAKEDOWN.md) and [`corrections/README.md`](./corrections/README.md).
+  Adding a correction is a **data change** and goes through a reviewed PR.
+
 ### Daily review procedure (rehearsal + cron period)
 
 Every scrape run posts one **heartbeat** comment to the pinned ops-log issue
