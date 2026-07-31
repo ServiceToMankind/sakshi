@@ -186,6 +186,23 @@ def verify_max_usd() -> float:
         return DEFAULT_VERIFY_MAX_USD
 
 
+# Cumulative Gemini spend cap PER CALENDAR MONTH (extraction + verification). The
+# per-run token cap bounds a single day; this bounds the month across all runs so a
+# stuck cron or a feed expansion cannot quietly run up the bill. When month-to-date
+# reaches it, a run makes NO new paid calls and posts to the ops issue (see
+# pipeline.spend + __main__.run) rather than silently truncating. A new month resets it.
+DEFAULT_MONTHLY_MAX_USD: Final[float] = 10.00
+
+
+def monthly_max_usd() -> float:
+    """Cumulative monthly USD budget cap (env MONTHLY_MAX_USD > default)."""
+    raw = os.environ.get("MONTHLY_MAX_USD", "").strip()
+    try:
+        return float(raw) if raw else DEFAULT_MONTHLY_MAX_USD
+    except ValueError:
+        return DEFAULT_MONTHLY_MAX_USD
+
+
 def estimate_verify_cost_usd(input_tokens: int, output_tokens: int) -> float:
     """Estimate USD for a verifier token spend at gemini-2.5-pro rates."""
     return round(

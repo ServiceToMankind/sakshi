@@ -31,7 +31,7 @@ from typing import Any, TextIO
 
 from scripts.pii_guard import iter_json_files, scan_json_file
 
-from pipeline import config, fixtures, verify
+from pipeline import config, fixtures, spend, verify
 from pipeline.citation_slug import url_carries_identifying_slug
 from pipeline.coverage import build_coverage
 from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
@@ -77,6 +77,12 @@ class RunReport:
     extracted: int = 0
     rejected_out_of_scope: int = 0
     estimated_usd: float = 0.0
+    # Monthly budget accounting (pipeline.spend): cumulative USD spent this calendar month
+    # (incl. this run) vs the cap; budget_exhausted is set when a run made no paid calls
+    # because the month's cap was already reached (heartbeat + ops issue surface it).
+    month_to_date: float = 0.0
+    monthly_cap: float = 0.0
+    budget_exhausted: bool = False
     scope: str = ""
     state_counts: dict[str, int] = field(default_factory=dict)
     source_counts: dict[str, int] = field(default_factory=dict)
@@ -508,6 +514,44 @@ def _normalize_offence_sections(record: dict[str, Any]) -> dict[str, Any]:
     return updated
 
 
+def _preserve_refresh_narrative(kept: list[dict[str, Any]], existing: list[dict[str, Any]]) -> int:
+    """Freeze the reviewed NARRATIVE (title/summary) of each refreshed record to the text
+    already on the site. Returns the count of records whose narrative was held.
+
+    Refresh (§2) is a STATUS-only update: a weekly court re-query may advance a record's
+    status, append a timeline point, or add a court source — but it must never rewrite the
+    reviewed prose. A court JUDGMENT is a HIGH-PII SOURCE, not a text to republish (§1b):
+    its narrative about the family, the hamlet, the child's schooling is exactly what must
+    not survive extraction, and the merge (court beats media in ``dedupe._order``) would
+    otherwise make the fresh judgment's model summary the primary and overwrite the vetted
+    one. A genuinely NEW narrative belongs to the daily ``discover`` run and its review, not
+    a silent refresh. Minor summaries are deterministic projections (recomposed from
+    structured facts, never model prose), so they are left to re-project — only NON-MINOR
+    model narratives are restored here. Mutates ``kept`` in place.
+    """
+    by_id = {str(r.get("id", "")): r for r in existing if r.get("id")}
+    by_anchor: dict[str, dict[str, Any]] = {}
+    for record in existing:
+        for anchor in exact_anchor_keys(record):
+            by_anchor.setdefault(anchor, record)
+    held = 0
+    for record in kept:
+        if record.get("minor_involved"):
+            continue
+        prior = by_id.get(str(record.get("id", "")))
+        if prior is None:
+            prior = next((by_anchor[a] for a in exact_anchor_keys(record) if a in by_anchor), None)
+        if prior is None:
+            continue
+        changed = False
+        for key in ("title", "summary"):
+            if prior.get(key) and record.get(key) != prior.get(key):
+                record[key] = prior[key]
+                changed = True
+        held += changed
+    return held
+
+
 def _dedup_approved_by_url(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Merge approved records that share a source URL (same article => same case).
 
@@ -679,7 +723,15 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"| Verified (fresh, this run) | {report.verified} |\n"
         f"| Verifier-demoted (quarantined) | {report.verify_demoted} |\n"
         f"| Est. extraction cost | ${report.estimated_usd:.4f} |\n"
-        f"| Est. verification cost | ${report.verify_usd:.4f} |\n\n"
+        f"| Est. verification cost | ${report.verify_usd:.4f} |\n"
+        f"| **Month-to-date spend** | ${report.month_to_date:.4f} / ${report.monthly_cap:.2f} |\n"
+        + (
+            "| ⚠ **Monthly budget** | EXHAUSTED — no new Gemini calls this run; "
+            "extraction resumes next month |\n"
+            if report.budget_exhausted
+            else ""
+        )
+        + "\n"
         f"{table('Auto-eligible by state', report.state_counts)}\n"
         f"{table('Auto-eligible by source', report.source_counts)}\n"
         f"{table('Held for review (why)', report.needs_review_reasons)}\n"
@@ -708,7 +760,10 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"SKIPPED={report.skipped_settled}\nEXTRACTED={report.extracted}\n"
         f"COST={report.estimated_usd:.6f}\n"
         f"VERIFIED={report.verified}\nVERIFY_DEMOTED={report.verify_demoted}\n"
-        f"VERIFY_COST={report.verify_usd:.6f}\n",
+        f"VERIFY_COST={report.verify_usd:.6f}\n"
+        f"MONTH_TO_DATE={report.month_to_date:.6f}\n"
+        f"MONTHLY_CAP={report.monthly_cap:.6f}\n"
+        f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -825,28 +880,50 @@ def run(
             f"fetched {len(raw_docs)} documents ({report.processed} to process, "
             f"{report.skipped_settled} already settled)",
         )
-        result = extract(
-            to_process, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
-        )
-        doc_outcomes = dict(result.doc_outcomes)
-        extractions = result.records
-        report.estimated_usd = result.estimated_usd
-        report.rejected_out_of_scope = result.rejected_out_of_scope
-        detail = f"{result.failed} failed"
-        if result.rejected_out_of_scope:
-            detail += f", {result.rejected_out_of_scope} out-of-scope rejected"
-        if result.failovers:
-            detail += f", {result.failovers} model failover(s)"
-        if result.truncated:
-            detail += f", TRUNCATED ({result.truncated_reason})"
-        if result.aborted:
-            detail += ", ABORTED (all models exhausted / provider overload)"
-        _log(
-            report,
-            f"extracted {len(extractions)} candidates ({detail}); est ${result.estimated_usd:.6f}",
-        )
-        for sample in result.error_samples:
-            _log(report, f"provider error: {sample}")
+        # MONTHLY BUDGET GATE: if this calendar month's cumulative spend already meets the
+        # cap, abort the PAID work cleanly — make no new Gemini calls this run — rather than
+        # silently doing a partial extraction. Existing records still regenerate/refresh
+        # below (free); a new month resets the cap. The heartbeat + ops issue flag it.
+        mtd_before = spend.month_to_date(data_dir, run_date)
+        report.monthly_cap = config.monthly_max_usd()
+        if to_process and mtd_before >= report.monthly_cap:
+            report.budget_exhausted = True
+            extractions = []
+            _log(
+                report,
+                f"MONTHLY BUDGET EXHAUSTED: month-to-date ${mtd_before:.4f} >= cap "
+                f"${report.monthly_cap:.2f}; made NO new Gemini calls (skipped "
+                f"{len(to_process)} document(s)). Extraction resumes next month; posting "
+                "to the ops issue.",
+            )
+            result = None
+        else:
+            result = extract(
+                to_process, client=extract_client, cost_log_path=logs_dir / "gemini_cost.json"
+            )
+        if result is None:
+            _log(report, "extracted 0 candidates (budget exhausted — extraction skipped)")
+        else:
+            doc_outcomes = dict(result.doc_outcomes)
+            extractions = result.records
+            report.estimated_usd = result.estimated_usd
+            report.rejected_out_of_scope = result.rejected_out_of_scope
+            detail = f"{result.failed} failed"
+            if result.rejected_out_of_scope:
+                detail += f", {result.rejected_out_of_scope} out-of-scope rejected"
+            if result.failovers:
+                detail += f", {result.failovers} model failover(s)"
+            if result.truncated:
+                detail += f", TRUNCATED ({result.truncated_reason})"
+            if result.aborted:
+                detail += ", ABORTED (all models exhausted / provider overload)"
+            _log(
+                report,
+                f"extracted {len(extractions)} candidates ({detail}); "
+                f"est ${result.estimated_usd:.6f}",
+            )
+            for sample in result.error_samples:
+                _log(report, f"provider error: {sample}")
 
     report.fetched = len(raw_docs)
     report.extracted = len(extractions)
@@ -989,6 +1066,9 @@ def run(
         created = len(published) - len(kept)
         if created:
             _log(report, f"refresh: dropped {created} newly-discovered record(s) (update-only)")
+        held_narrative = _preserve_refresh_narrative(kept, existing)
+        if held_narrative:
+            _log(report, f"refresh: held reviewed narrative on {held_narrative} record(s) (§1b)")
         published = kept
 
     # GRADUATED auto-publish gate: split the published set into what may ship
@@ -1126,6 +1206,15 @@ def run(
             run_date,
             report,
             data_dir,
+        )
+
+    # Fold this run's estimated spend (extraction + verification) into the month-to-date
+    # ledger (real runs only) so the monthly cap is enforced across the month's runs. A
+    # budget-exhausted run adds ~0 and stays idempotent. Written before the PII assertion
+    # so the ledger file (aggregate dollars only, no case content) is scanned too.
+    if not dry_run:
+        report.month_to_date = spend.record_spend(
+            data_dir, run_date, report.estimated_usd + report.verify_usd
         )
 
     # Independent final assertion over EVERY file just written (shards + review queue

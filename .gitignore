@@ -45,3 +45,11 @@ data/_review/
 
 # NOTE: data/ itself is intentionally NOT ignored. The daily GitHub Action
 # regenerates and commits the data/ tree. Humans never hand-edit data/.
+
+# --- Operator scratch (unattended-run harness; never repo content) ---
+NIGHT_RUN.md
+NIGHT_QUEUE.md
+NIGHT_LOG.md
+MORNING_REPORT.md
+night-watch.sh
+night-watch.log
