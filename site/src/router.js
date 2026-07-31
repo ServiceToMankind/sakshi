@@ -13,15 +13,22 @@ import { revealOnScroll, prefersReducedMotion } from './animations.js';
 import { renderLanding } from './views/landing.js';
 import { renderExplore } from './views/explore.js';
 import { renderCase } from './views/caseDetail.js';
+import { renderCoverage } from './views/coverage.js';
 
 const OUTLET_ID = 'app';
-const VIEWS = { landing: renderLanding, explore: renderExplore, case: renderCase };
+const VIEWS = {
+  landing: renderLanding,
+  explore: renderExplore,
+  case: renderCase,
+  coverage: renderCoverage,
+};
 
 export function parseRoute() {
   const raw = window.location.hash.replace(/^#/, '') || '/';
   const [path, query = ''] = raw.split('?');
   const params = new URLSearchParams(query);
   if (path.startsWith('/explore')) return { name: 'explore', path, params };
+  if (path.startsWith('/coverage')) return { name: 'coverage', path, params };
   if (path.startsWith('/case/')) {
     return { name: 'case', path, params, id: decodeURIComponent(path.slice('/case/'.length)) };
   }

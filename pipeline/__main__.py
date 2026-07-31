@@ -33,6 +33,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 
 from pipeline import config, fixtures, verify
 from pipeline.citation_slug import url_carries_identifying_slug
+from pipeline.coverage import build_coverage
 from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
@@ -43,7 +44,7 @@ from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
-from pipeline.sources.registry import build_sources
+from pipeline.sources.registry import build_sources, load_source_configs
 from pipeline.states import CANONICAL_STATES, normalize_state
 from pipeline.validate import (
     iter_shard_files,
@@ -197,6 +198,14 @@ def _strip_minor_model_note(record: dict[str, Any]) -> dict[str, Any]:
     if record.get("minor_involved") is True and "verification_note" in record:
         return {key: value for key, value in record.items() if key != "verification_note"}
     return record
+
+
+def _write_coverage(records: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
+    """Write data/coverage.json — per-state coverage (declared gaps included) and the
+    trackability rate (§3). Public counts only; committed for the Coverage page."""
+    coverage = build_coverage(load_source_configs(), records, run_date)
+    path = data_dir / "coverage.json"
+    path.write_text(json.dumps(coverage, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def _write_merge_review(records: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
@@ -1068,6 +1077,7 @@ def run(
     _write_needs_review(needs_review_items, data_dir)
     _write_review(review, data_dir, run_date)
     _write_merge_review(write_result.records, data_dir, run_date)
+    _write_coverage(write_result.records, data_dir, run_date)
 
     # Update the processed-document ledger (real runs only). A record is settled
     # "published" only once it is on main; until then it is staged_pending and

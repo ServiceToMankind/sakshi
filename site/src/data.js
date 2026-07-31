@@ -48,6 +48,11 @@ export function loadIndex() {
   return getJSON(`${DATA}/index.json`);
 }
 
+/** Per-state coverage + the trackability rate (data/coverage.json, §3). */
+export function loadCoverage() {
+  return getJSON(`${DATA}/coverage.json`);
+}
+
 function shardsWhere(index, predicate) {
   return (index.shards || []).filter(predicate);
 }

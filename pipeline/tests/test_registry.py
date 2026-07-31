@@ -56,9 +56,28 @@ def test_build_sources_respects_enabled_and_types() -> None:
 
 def test_load_source_configs_reads_repo_yaml() -> None:
     configs = registry.load_source_configs()
-    ids = {c.get("id") for c in configs}
-    assert "ecourts-njdg" in ids and "indian-kanoon" in ids
-    assert "the-hindu-delhi" in ids  # crime/city feeds replaced the national feed
+    by_id = {c.get("id"): c for c in configs}
+    assert "ecourts-njdg" in by_id and "indian-kanoon" in by_id
+    assert "the-hindu-delhi" in by_id
+    # §3: every source is tagged with the state block it came from.
+    assert by_id["indian-kanoon"]["state"] == "national"
+    assert by_id["the-hindu-delhi"]["state"] == "DL"
+    assert by_id["the-hindu-hyderabad"]["state"] == "TG"
+
+
+def test_load_source_configs_by_state_and_legacy(tmp_path: Any) -> None:
+    by_state = tmp_path / "s.yml"
+    by_state.write_text(
+        "national:\n  - {id: n1, type: rss}\nstates:\n  DL:\n    - {id: d1, type: rss}\n  MH: []\n",
+        encoding="utf-8",
+    )
+    configs = registry.load_source_configs(by_state)
+    tagged = {c["id"]: c["state"] for c in configs}
+    assert tagged == {"n1": "national", "d1": "DL"}  # empty MH block contributes nothing
+
+    legacy = tmp_path / "legacy.yml"
+    legacy.write_text("sources:\n  - {id: x, type: rss}\n", encoding="utf-8")
+    assert registry.load_source_configs(legacy) == [{"state": "national", "id": "x", "type": "rss"}]
 
 
 def test_load_source_configs_missing_file(tmp_path: Any) -> None:

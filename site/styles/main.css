@@ -1304,3 +1304,65 @@ canvas {
     animation: none;
   }
 }
+
+/* --- Coverage page (§3) --------------------------------------------------- */
+.view--coverage {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+.cov-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.cov-tile {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e2e2e2);
+  border-radius: 0.6rem;
+  padding: 1rem;
+  text-align: center;
+}
+.cov-tile__value {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.cov-tile__label {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+.cov-trackable-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+}
+.cov-subtitle {
+  margin: 1.5rem 0 0.75rem;
+  font-size: 1.15rem;
+}
+.cov-table-wrap {
+  overflow-x: auto;
+}
+.cov-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+.cov-table th,
+.cov-table td {
+  text-align: left;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--border, #e2e2e2);
+}
+.cov-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.cov-row--gap {
+  color: var(--text-muted);
+}
+.disclaimer--coverage {
+  margin-top: 1.5rem;
+}
