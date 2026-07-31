@@ -34,3 +34,16 @@ def test_clean_non_minor_passes_and_main_exit_codes(tmp_path: Path) -> None:
 
     _shard(tmp_path, [{"id": "B", "minor_involved": False, "summary": "Booked u/s 376."}])
     assert readability_guard.main([str(tmp_path)]) == 1
+
+
+def test_baseline_allowlist_exempts_and_self_cleans(tmp_path: Path) -> None:
+    """An allowlisted id is exempt from its violation; but once it is clean, the guard
+    reports the entry as STALE so the allowlist shrinks to empty."""
+    aid = next(iter(readability_guard.BASELINE_ALLOWLIST))
+    # Exempt while still violating.
+    _shard(tmp_path, [{"id": aid, "minor_involved": False, "summary": "The petitioner appealed."}])
+    assert readability_guard.scan_tree([tmp_path]) == []
+    # Stale once clean.
+    _shard(tmp_path, [{"id": aid, "minor_involved": False, "summary": "A man was arrested."}])
+    findings = readability_guard.scan_tree([tmp_path])
+    assert any("STALE allowlist entry" in f for f in findings)

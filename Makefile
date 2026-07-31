@@ -17,7 +17,7 @@ COV_OVERALL := 85
 
 .DEFAULT_GOAL := check
 
-.PHONY: setup check test lint fmt pii-guard validate lighthouse site-dev site-build clean
+.PHONY: setup check test lint fmt pii-guard readability-guard validate lighthouse site-dev site-build clean
 
 # ---------------------------------------------------------------------------
 # setup — create the virtualenv and install python + node dependencies.
@@ -48,6 +48,7 @@ check: lint
 		pipeline/tests/test_sanitize.py pipeline/tests/test_pii_guard.py
 	$(MAKE) validate
 	$(MAKE) pii-guard
+	$(MAKE) readability-guard
 	cd $(SITE) && npm run lint
 	cd $(SITE) && npm run format:check
 
@@ -78,6 +79,14 @@ fmt:
 # ---------------------------------------------------------------------------
 pii-guard:
 	$(PY) scripts/pii_guard.py data/
+
+# ---------------------------------------------------------------------------
+# readability-guard — §6a: assert every PUBLISHED non-minor summary is plain
+# (no legalese, no section-number-in-prose, <=25 words/sentence). A prompt is
+# not a gate; this fails the run. Minors are deterministic and exempt.
+# ---------------------------------------------------------------------------
+readability-guard:
+	$(PY) scripts/readability_guard.py data/
 
 # ---------------------------------------------------------------------------
 # validate — jsonschema-validate every shard against schemas/case.schema.json
