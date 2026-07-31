@@ -79,6 +79,15 @@ jobs:
       - name: PII guard
         run: python scripts/pii_guard.py data/
 
+      # §6a: every published non-minor summary must be plain (no legalese, no
+      # section-number-in-prose, <=25 words/sentence). A prompt is not a gate.
+      - name: Readability guard
+        run: python scripts/readability_guard.py data/
+
+      # Credential backstop: no live API key / token in any tracked file.
+      - name: Secret guard
+        run: python scripts/secret_guard.py
+
       # Prove the whole pipeline runs offline on TESTVILLE fixtures — no network,
       # no Gemini key — before any real scrape is ever trusted.
       - name: Pipeline dry-run (offline)

@@ -5,8 +5,14 @@
 # ...but the documented, secret-free template MUST stay tracked.
 !.env.example
 # Pasted credential files placed at the repo root for local reference only.
-# These hold real keys and must NEVER be committed or pushed.
+# These hold real keys and must NEVER be committed or pushed. .env is the
+# documented path (loaded via python-dotenv); the entries below defensively cover
+# the ad-hoc *.txt shapes an operator might paste a key into. scripts/secret_guard.py
+# is the DURABLE backstop — .gitignore only covers filenames we can name.
 GEMINI_API_KEY
+gemini_api.txt
+gemini*.txt
+*_api.txt
 *.key
 *.pem
 secrets.txt
