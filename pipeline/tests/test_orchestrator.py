@@ -76,6 +76,75 @@ def test_dry_run_end_to_end(tmp_path: Path) -> None:
         assert key in env
 
 
+class _ExplodingGemini:
+    """A client that must NEVER be called — asserts the budget gate skipped extraction."""
+
+    def generate(self, prompt: str) -> ExtractionResponse:  # pragma: no cover - must not run
+        raise AssertionError("extraction ran despite the monthly budget being exhausted")
+
+
+def test_monthly_budget_exhausted_makes_no_paid_calls(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The monthly cap aborts PAID work cleanly: with the month's spend already at the cap,
+    a run makes NO Gemini calls, creates no record, and flags the ops issue — never a silent
+    partial extraction."""
+    monkeypatch.setenv("MONTHLY_MAX_USD", "0.01")
+    from pipeline import spend
+
+    spend.record_spend(tmp_path, "2026-07-20", 0.02)  # month-to-date already over the cap
+
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_ExplodingGemini(),  # explodes if extraction is attempted
+    )
+    assert report.budget_exhausted is True
+    assert report.extracted == 0 and report.published == 0
+    assert not (tmp_path / "2026").exists()  # nothing was created
+    env = (tmp_path / "logs" / "run_summary.env").read_text()
+    assert "BUDGET_EXHAUSTED=1" in env
+    assert "MONTHLY_CAP=" in env and "MONTH_TO_DATE=" in env
+
+
+def test_monthly_budget_under_cap_runs_and_records_spend(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """Under the cap, a run extracts normally and folds its spend into the month ledger."""
+    monkeypatch.setenv("MONTHLY_MAX_USD", "100.0")
+    from pipeline import spend
+
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-UNDERCAP",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.budget_exhausted is False
+    # The run's estimated spend is now recorded in the month ledger.
+    assert spend.month_to_date(tmp_path, "2026-07-20") == report.month_to_date
+    assert report.month_to_date >= 0.0
+
+
 def test_real_branch_with_injected_client_merges_sources(tmp_path: Path) -> None:
     payload = json.dumps(
         {
@@ -259,6 +328,103 @@ def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
     )
     cnrs = {r.get("cnr") for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
     assert "C-BRAND-NEW" in cnrs  # discovery created it
+
+
+def _seed_media_record_with_summary(tmp_path: Path) -> None:
+    """A non-minor, MEDIA-sourced record already on the site: reviewed model prose and
+    status FIR_FILED — the exact shape a weekly COURT refresh advances (and would, absent
+    the guard, have its prose overwritten by the judgment's when the court source wins the
+    merge)."""
+    (tmp_path / "2026").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "2026" / "TG.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "SKS-2026-TG-000001",
+                    "title": "Reviewed headline about a TESTVILLE case (2026)",
+                    "summary": "A reviewed plain-language summary already vetted for the site.",
+                    "state": "TG",
+                    "district": "TESTVILLE",
+                    "category": "rape",
+                    "status": "FIR_FILED",
+                    "minor_involved": False,
+                    "cnr": "C-EXISTING",
+                    "incident_reported_date": "2026-06-14",
+                    "offence_sections": ["IPC 376"],
+                    "status_history": [{"status": "FIR_FILED", "date": "2026-06-14", "source": 0}],
+                    "sources": [
+                        {
+                            "url": "https://news.invalid/story",
+                            "publisher": "The Hindu",
+                            "source_type": "news_article",
+                            "retrieved": "2026-07-09",
+                        }
+                    ],
+                    "confidence": 0.9,
+                    "first_published": "2026-07-09",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+
+def _court_conviction_payload() -> str:
+    """A court re-extraction of the SAME anchor (C-EXISTING): status advanced to CONVICTED,
+    carrying fresh judgment prose that refresh must NOT adopt (§1b)."""
+    return json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "CONVICTED",
+            "minor_involved": False,
+            "cnr": "C-EXISTING",
+            "incident_reported_date": "2026-06-14",
+            "offence_sections": ["IPC 376"],
+            "title": "JUDGMENT HEADLINE that must not overwrite the reviewed one",
+            "summary": "Raw judgment prose that must never survive into the published record.",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+
+
+def test_refresh_status_change_is_status_only_never_narrative(tmp_path: Path) -> None:
+    """§2 fixture verification (LAUNCH_REVIEW guardrail m): a court source reporting a
+    CHANGED status on an existing record produces exactly one status_history append, one
+    last_status_change bump, NO narrative rewrite, and NO new record."""
+    _seed_media_record_with_summary(tmp_path)
+    court_doc = RawDocument(
+        url="https://indiankanoon.org/doc/EXISTING/",
+        publisher="Indian Kanoon",
+        fetched_at="2026-07-20",
+        text="Judgment. The court convicted the accused. (synthetic)",
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=[court_doc],
+        extract_client=_FakeGemini(_court_conviction_payload()),
+        mode="refresh",
+    )
+    records = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    assert len(records) == 1  # NO new record — refresh never discovers
+    rec = records[0]
+    assert rec["id"] == "SKS-2026-TG-000001"
+    assert rec.get("cnr") == "C-EXISTING"
+    # status advanced, recorded as EXACTLY ONE status_history append (FIR_FILED -> +CONVICTED)
+    assert rec["status"] == "CONVICTED"
+    assert [h["status"] for h in rec.get("status_history", [])] == ["FIR_FILED", "CONVICTED"]
+    # ONE last_status_change bump to the run date; first_published is write-once
+    assert rec["last_status_change"] == "2026-07-20"
+    assert rec["first_published"] == "2026-07-09"
+    # NO narrative rewrite: the reviewed prose survives; the judgment prose does not ship
+    assert rec["title"] == "Reviewed headline about a TESTVILLE case (2026)"
+    assert rec["summary"] == "A reviewed plain-language summary already vetted for the site."
 
 
 def test_run_writes_merge_review_candidates_file(tmp_path: Path) -> None:

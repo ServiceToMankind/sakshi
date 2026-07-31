@@ -277,6 +277,50 @@ candidate against its cited source BEFORE publish and stamps `verified`.
   POCSO-nonminor fail-closed coerced to a projected minor). Hardened by a 3-lens
   adversarial review (PII-leak, record-loss, verifier-logic) before merge.
 
+## M. Refresh is a STATUS-only update — never a narrative rewrite (§2 temporal integrity)
+
+The weekly `refresh` run (court-sources only, `--mode refresh`) exists to advance an
+existing record's judicial status, not to rediscover cases or rewrite prose. Two
+properties are now **verified against a fixture**, each independently guarded:
+
+- **A status change is recorded once, in both temporal fields.** When a court source
+  reports a materially advanced status on an existing record, `shard._record_status_transition`
+  appends exactly one `status_history` point (seeding the prior status as the timeline
+  origin if the history was empty) and `last_status_change` bumps to the run date; a
+  re-sighting at the same status appends nothing (idempotent — the entry carries forward
+  on disk). A non-status material change (a section correction) bumps the stamp only.
+  `first_published` stays write-once. Before this, a status advance changed the `status`
+  field but left `status_history` empty — the timeline never recorded when justice moved.
+- **The reviewed narrative is frozen.** `_preserve_refresh_narrative` restores each
+  refreshed **non-minor** record's `title`/`summary` to the text already on the site, so
+  a fresh court **judgment**'s model prose can never overwrite the vetted summary
+  (`dedupe._order` makes the court copy primary, which otherwise wins the merge). This is
+  the §1b rule made mechanical: a judgment is a HIGH-PII *source*, not a text to
+  republish; a genuinely new narrative belongs to the daily `discover` run and its review.
+  Minor summaries are deterministic projections and are left to re-project (never model
+  prose), so they are exempt.
+- **Refresh never creates a record.** A brand-new case a court source surfaces during
+  refresh is dropped (discovery is the daily run's job).
+- **Evidence:** `test_orchestrator.py::test_refresh_status_change_is_status_only_never_narrative`
+  (one append, one bump, no rewrite, no new record — proven to FAIL if either guard is
+  removed), `::test_refresh_mode_never_creates_a_new_record`, `test_shard.py`.
+
+## N. Monthly Gemini spend cap (cost governance)
+
+A cumulative per-calendar-month USD cap (`config.monthly_max_usd`, env `MONTHLY_MAX_USD`,
+default $10) bounds spend across every run in a month, above the existing per-run token
+cap. The month-to-date total persists in `data/_meta/spend.json` on the `ledger-state`
+branch (aggregate dollars only — structurally incapable of holding case content or PII).
+When a run starts and the month is already at the cap, it makes **no new Gemini calls**
+(a clean abort, not a silent partial extraction), still regenerates existing records for
+free, and surfaces `⚠ Monthly budget EXHAUSTED` in the heartbeat + opens an ops issue. A
+new month resets it.
+
+- **Evidence:** `test_spend.py` (accumulate / month-buckets / corrupt-file /
+  aggregate-only), `test_orchestrator.py::test_monthly_budget_exhausted_makes_no_paid_calls`
+  (an exploding client proves zero paid calls when the cap is met) and
+  `::test_monthly_budget_under_cap_runs_and_records_spend`.
+
 ---
 
 ## Staged-run evidence

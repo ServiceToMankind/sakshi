@@ -216,6 +216,41 @@ def _material_signature(record: dict[str, Any]) -> tuple[Any, ...]:
     )
 
 
+def _record_status_transition(record: dict[str, Any], prior: dict[str, Any], run_date: str) -> None:
+    """Append a ``status_history`` point when a record's STATUS advances vs its prior
+    published self — the temporal timeline of the case (§1).
+
+    A material change to a NON-status field (a section correction, a new court source)
+    bumps ``last_status_change`` but adds NO history point; only a genuine status
+    transition does. Idempotent: a re-sighting at the same status appends nothing, and the
+    entry — once written — carries forward on disk, so the next run sees no change. The
+    date is day-precise for a non-minor and truncated to ``YYYY-MM`` for a minor (mirrors
+    :func:`sanitize.project_minor_record`, which the schema's minor conditional enforces);
+    ``source`` cites the primary source (index 0). When the timeline is still empty, the
+    prior status is seeded first so a first-ever transition renders as
+    ``[prior_status -> new_status]`` rather than a lone endpoint.
+    """
+    status = str(record.get("status", ""))
+    if status == str(prior.get("status", "")):
+        return
+    is_minor = bool(record.get("minor_involved"))
+    history: list[dict[str, Any]] = [dict(entry) for entry in record.get("status_history") or []]
+    if not history:
+        origin = str(prior.get("last_status_change") or prior.get("first_published") or run_date)
+        history.append(
+            {
+                "status": str(prior.get("status", "")),
+                "date": origin[:7] if is_minor else origin,
+                "source": 0,
+            }
+        )
+    if str(history[-1].get("status", "")) != status:
+        history.append(
+            {"status": status, "date": run_date[:7] if is_minor else run_date, "source": 0}
+        )
+    record["status_history"] = history
+
+
 def _assign_ids(
     records: list[dict[str, Any]],
     data_dir: Path,
@@ -291,6 +326,10 @@ def _assign_ids(
         elif prior is not None and _material_signature(record) != _material_signature(prior):
             material += 1
             record["last_status_change"] = run_date
+            # A material change that is a STATUS transition also records a timeline point
+            # (a non-status material change bumps the stamp only). status_history is not in
+            # the signature, so appending here never re-triggers the comparison above.
+            _record_status_transition(record, prior, run_date)
         else:
             rechecked += 1  # a re-sighting with no material change — carry the prior stamp
             prior_lsc = (prior or {}).get("last_status_change")

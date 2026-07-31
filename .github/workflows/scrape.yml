@@ -127,6 +127,15 @@ jobs:
             echo '{"version":1,"documents":{}}' > data/_meta/processed.json
             echo "no ledger-state yet; starting fresh."
           fi
+          # Restore the monthly-spend ledger the same way, so the monthly Gemini budget
+          # cap accumulates across every run in a month (aggregate dollars only, no PII).
+          SPEND_RAW="$(gh api "repos/$REPO/contents/data/_meta/spend.json?ref=ledger-state" --jq '.content // empty' 2>/dev/null || true)"
+          if [ -n "$SPEND_RAW" ] && echo "$SPEND_RAW" | base64 -d > data/_meta/spend.json 2>/dev/null; then
+            echo "restored spend ledger from ledger-state."
+          else
+            echo '{"months":{}}' > data/_meta/spend.json
+            echo "no spend ledger yet; starting fresh."
+          fi
 
       # Restore the PRIOR staged (not-yet-on-main) records from data-staging into a
       # side dir, so the pipeline folds them back into the tree even if their source
@@ -173,9 +182,10 @@ jobs:
         id: counts
         if: always()
         run: |
-          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; COST=0
+          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; COST=0; BUDGET_EXHAUSTED=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
-          for k in new:$NEW updated:$UPDATED review:$REVIEW published:$PUBLISHED; do
+          for k in new:$NEW updated:$UPDATED review:$REVIEW published:$PUBLISHED \
+                   budget_exhausted:$BUDGET_EXHAUSTED; do
             echo "${k%%:*}=${k#*:}" >> "$GITHUB_OUTPUT"
           done
 
@@ -229,6 +239,38 @@ jobs:
              + (if $s == "" then {} else {sha:$s} end)' > "$RUNNER_TEMP/ledger_payload.json"
           gh api -X PUT "repos/$REPO/contents/$LEDGER" --input "$RUNNER_TEMP/ledger_payload.json" >/dev/null
           echo "ledger persisted to ledger-state."
+
+      # Persist the monthly-spend ledger to ledger-state (same mechanism as the doc
+      # ledger). Aggregate USD totals per month only — pii_guard over data/_meta already
+      # gates it. continue-on-error: a persist hiccup must never block staging; the cap is
+      # a cost guard, not data. A missed persist only risks re-spending within one month.
+      - name: Persist spend ledger to ledger-state
+        if: success() && env.DRY_RUN != 'true'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          SPEND=data/_meta/spend.json
+          test -f "$SPEND" || { echo "no spend ledger to persist"; exit 0; }
+          python scripts/pii_guard.py data/_meta/            # aggregate dollars only
+          REPO="${{ github.repository }}"
+          if ! gh api "repos/$REPO/branches/ledger-state" >/dev/null 2>&1; then
+            MAIN_SHA="$(gh api "repos/$REPO/git/refs/heads/main" --jq .object.sha)"
+            gh api -X POST "repos/$REPO/git/refs" -f ref="refs/heads/ledger-state" -f sha="$MAIN_SHA" >/dev/null
+          fi
+          REMOTE="$(gh api "repos/$REPO/contents/$SPEND?ref=ledger-state" --jq '.content // empty' 2>/dev/null | base64 -d 2>/dev/null || true)"
+          if [ -n "$REMOTE" ] && [ "$REMOTE" = "$(cat "$SPEND")" ]; then
+            echo "spend ledger unchanged."; exit 0
+          fi
+          SHA="$(gh api "repos/$REPO/contents/$SPEND?ref=ledger-state" --jq '.sha // empty' 2>/dev/null || true)"
+          base64 -w0 "$SPEND" > "$RUNNER_TEMP/spend.b64"
+          jq -n --rawfile c "$RUNNER_TEMP/spend.b64" \
+            --arg m "chore(spend): update $(date +%F) run ${{ github.run_number }}" \
+            --arg b ledger-state --arg s "${SHA:-}" \
+            '{message:$m, content:($c|rtrimstr("\n")), branch:$b}
+             + (if $s == "" then {} else {sha:$s} end)' > "$RUNNER_TEMP/spend_payload.json"
+          gh api -X PUT "repos/$REPO/contents/$SPEND" --input "$RUNNER_TEMP/spend_payload.json" >/dev/null
+          echo "spend ledger persisted to ledger-state."
 
       # STAGED: push data/ to a review branch and open/update the PR. No publish.
       - name: Stage data for review
@@ -457,6 +499,7 @@ jobs:
           NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; NEEDS_REVIEW=0; REJECTED=0; COST=0
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
           VERIFIED=0; VERIFY_DEMOTED=0; VERIFY_COST=0
+          MONTH_TO_DATE=0; MONTHLY_CAP=0; BUDGET_EXHAUSTED=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
           # Depth of the persistent needs-review (held) queue, straight from the file.
           QUEUE="$(jq 'length' data/_needs_review/queue.json 2>/dev/null || echo 0)"
@@ -482,17 +525,21 @@ jobs:
           fi
           # Flag a growing human-review backlog (held records awaiting promotion).
           QNOTE=""; [ "${QUEUE:-0}" -gt 25 ] && QNOTE=" ⚠️ over 25"
+          # Monthly Gemini budget line (month-to-date / cap). A cap breach means the run
+          # made NO paid calls this cycle — surface it prominently.
+          SPEND="$(printf '\n- spend (guardrail): month-to-date **$%s** / $%s cap' "$MONTH_TO_DATE" "$MONTHLY_CAP")"
+          [ "${BUDGET_EXHAUSTED:-0}" = "1" ] && SPEND="${SPEND} — ⚠️ **EXHAUSTED: extraction skipped until next month**"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s\n- cost: $%s · status: **%s**%s' \
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
             "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" "$PENDING" "$LEDGER_TOTAL" \
             "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$NEEDS_REVIEW" "$REVIEW" "$REJECTED" "$VLINE" \
-            "$QUEUE" "$QNOTE" \
+            "$QUEUE" "$QNOTE" "$SPEND" \
             "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
 
-      - name: Open issue on failure or large review queue
-        if: always() && (failure() || fromJSON(steps.counts.outputs.review || '0') > 20)
+      - name: Open issue on failure, large review queue, or budget exhaustion
+        if: always() && (failure() || fromJSON(steps.counts.outputs.review || '0') > 20 || steps.counts.outputs.budget_exhausted == '1')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -500,6 +547,9 @@ jobs:
           if [ "${{ job.status }}" = "failure" ]; then
             TITLE="Pipeline run failed — ${DATE}"
             BODY="The pipeline failed on ${DATE}. See the run logs artifact and the [run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+          elif [ "${{ steps.counts.outputs.budget_exhausted }}" = "1" ]; then
+            TITLE="Monthly Gemini budget exhausted — ${DATE}"
+            BODY="The monthly Gemini spend cap has been reached, so the ${DATE} run made NO new paid calls (extraction skipped — no records lost, existing data regenerated). Extraction resumes automatically next calendar month, or raise MONTHLY_MAX_USD to lift the cap. See the [run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
           else
             TITLE="Review queue over threshold — ${DATE}"
             BODY="The review queue holds ${{ steps.counts.outputs.review }} records (threshold 20) on ${DATE}, quarantined in data/_review/."
