@@ -23,12 +23,27 @@ __all__ = ["build_sources", "load_source_configs"]
 
 
 def load_source_configs(path: Path = config.SOURCES_CONFIG_PATH) -> list[dict[str, Any]]:
-    """Parse ``sources.yml`` into a list of source-config dicts (empty if absent)."""
+    """Parse ``sources.yml`` into a flat list of source-config dicts, each tagged with the
+    ``state`` it belongs to (§3). The file is organised BY STATE — ``national`` for
+    non-state-specific sources and ``states: {DL: [...], MH: [], ...}`` where every state is a
+    declared block and an empty list is a declared coverage gap. A legacy flat ``sources:``
+    list is still accepted (its entries are tagged ``national``). Empty if absent."""
     if not path.exists():
         return []
     data = yaml.safe_load(path.read_text(encoding="utf-8"))
-    entries = data.get("sources", []) if isinstance(data, dict) else []
-    return [entry for entry in entries if isinstance(entry, dict)]
+    if not isinstance(data, dict):
+        return []
+    if "sources" in data:  # legacy flat list
+        return [{"state": "national", **e} for e in data["sources"] if isinstance(e, dict)]
+    out: list[dict[str, Any]] = []
+    for entry in data.get("national") or []:
+        if isinstance(entry, dict):
+            out.append({"state": "national", **entry})
+    for state, entries in (data.get("states") or {}).items():
+        for entry in entries or []:
+            if isinstance(entry, dict):
+                out.append({"state": str(state).strip().upper(), **entry})
+    return out
 
 
 def build_sources(

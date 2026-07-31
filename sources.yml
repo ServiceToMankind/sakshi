@@ -1,102 +1,120 @@
-# Enabled data sources — the per-source kill switch.
+# Enabled data sources — the per-source kill switch, organised BY STATE (§3).
 #
 # To disable a misbehaving source, set `enabled: false` and commit this file.
 # No code change, no redeploy. Order here does NOT imply priority; the dedupe
 # merge policy (official/court records beat media) decides authority.
 #
-# COURT-SOURCE ACCESSIBILITY (issue: wire court sources; assessed 2026-07-10).
-# Court records are the backbone (CNRs for dedup, judicial status, the ONLY
-# permitted source for accused names). What is and is NOT legitimately accessible
-# WITHOUT circumventing any CAPTCHA (a hard, inviolable rule):
-#   - eCourts "case status" search (services.ecourts.gov.in): CAPTCHA-gated.
-#     UNAVAILABLE for automation. We NEVER solve or bypass a CAPTCHA. This source
-#     therefore consumes only OPERATOR-RESOLVED endpoint URLs (official eCourts API
-#     access, or manually exported JSON) supplied via `endpoints` / ECOURTS_ENDPOINTS.
-#     Empty endpoints => it yields nothing (safe: no fabrication).
-#   - NJDG (njdg.ecourts.gov.in): publishes AGGREGATE STATISTICS (pendency/disposal),
-#     not case-level records with offence detail. Not usable as a per-case source.
-#   - High Court judgment portals (Delhi HC, Telangana HC): publish judgments/orders,
-#     but search is often CAPTCHA-gated and outputs are PDFs. Add as an `ecourts`
-#     endpoint source ONLY when a robots-permitted, non-CAPTCHA listing URL is provided.
-#   - Indian Kanoon (api.indiankanoon.org): a court-record MIRROR with a DOCUMENTED
-#     API. Legitimate via its API + ToS, but PAID and token-gated. Wired below but
-#     DISABLED pending an operator decision (cost + ToS) and INDIANKANOON_API_TOKEN.
+# STRUCTURE (§3 — coverage is explicit, gaps are declared):
+#   national: sources that are not state-specific (court-record mirrors, national wires).
+#   states:   EVERY Indian state/UT is a block. A populated block is covered; an EMPTY block
+#             (`[]`) is a DECLARED coverage GAP — a KNOWN blind spot, not a silent one. This
+#             is what data/coverage.json + the Coverage page report. Add a feed to a state's
+#             block to start covering it. A record can still appear in a state with no source
+#             (e.g. an NCR case from a Delhi feed); coverage.json counts that honestly.
 #
-# Types:
-#   ecourts      : NJDG-style JSON endpoints (official). Live bulk access needs a
-#                  session token; supply resolved URLs in `endpoints` or the
-#                  ECOURTS_ENDPOINTS env var. Empty endpoints => yields nothing.
-#   indiankanoon : Indian Kanoon documented API (court-record mirror). Needs
-#                  INDIANKANOON_API_TOKEN; without it, yields nothing.
-#   rss          : an established outlet's public RSS/Atom feed (media). Names of
-#                  the accused are never taken from media alone. Prefer crime/city
-#                  section feeds over national breaking-news / live-blog feeds
-#                  (those decay and mutate; provenance is capped at intake).
+# COURT-SOURCE ACCESSIBILITY (assessed 2026-07-10). Court records are the backbone (CNRs for
+# dedup, judicial status, the ONLY permitted source for accused names). What is legitimately
+# accessible WITHOUT circumventing any CAPTCHA (a hard, inviolable rule):
+#   - eCourts "case status" search: CAPTCHA-gated => consumes only OPERATOR-RESOLVED endpoint
+#     URLs via `endpoints` / ECOURTS_ENDPOINTS. Empty => yields nothing (no fabrication).
+#   - NJDG: AGGREGATE statistics only, not per-case records. Not usable as a per-case source.
+#   - High Court judgment portals: judgments/orders, often CAPTCHA-gated PDFs. Add as an
+#     `ecourts` endpoint source only with a robots-permitted, non-CAPTCHA listing URL.
+#   - Indian Kanoon: a court-record MIRROR with a DOCUMENTED API. Legitimate via API + ToS,
+#     PAID + token-gated. Enabled below but yields nothing until INDIANKANOON_API_TOKEN is set.
+#
+# Types: ecourts | indiankanoon | rss (see git history for the full notes).
 
-sources:
+# --- National (not state-specific) ------------------------------------------------------
+national:
   - id: ecourts-njdg
     type: ecourts
     enabled: true
     publisher: eCourts
-    # Operator-resolved endpoints only (direct case-search is CAPTCHA-gated). Empty
-    # => nothing. Populate via ECOURTS_ENDPOINTS or here once official API access or
-    # a manually exported NJDG/HC judgment JSON is available for DL + TG.
+    # Operator-resolved endpoints only (direct case-search is CAPTCHA-gated). Empty => nothing.
     endpoints: []
 
   - id: indian-kanoon
     type: indiankanoon
     enabled: true # active, but yields NOTHING until INDIANKANOON_API_TOKEN is set (safe)
     publisher: Indian Kanoon
-    # Court-record mirror. Yields nothing without the token, so enabling it early is safe:
-    # it activates the moment the secret is provisioned. Each query is billed, so keep the
-    # list tight; broaden to more states once it is confirmed working. `doctypes:<court>`
-    # scopes to a High Court; `fromdate:DD-MM-YYYY` limits to recent judgments (a wrong
-    # filter simply returns nothing — safe). Bump the year each January.
+    # Court-record mirror. Each query is billed — keep the list tight; broaden by adding a
+    # `doctypes:<court>` query per state as coverage expands. Bump the year each January.
     queries:
       - "rape OR POCSO OR \"sexual assault\" doctypes:delhi fromdate:1-1-2026"
       - "rape OR POCSO OR \"sexual assault\" doctypes:telangana fromdate:1-1-2026"
 
-  # Media — crime/city section feeds for DL + TG (deprioritized live-blogs). A city
-  # section feed carries far fewer rolling "live updates" pages than a national feed.
-  - id: the-hindu-delhi
-    type: rss
-    enabled: true
-    publisher: The Hindu
-    url: "https://www.thehindu.com/news/cities/Delhi/feeder/default.rss"
-
-  - id: the-hindu-hyderabad
-    type: rss
-    enabled: true
-    publisher: The Hindu
-    url: "https://www.thehindu.com/news/cities/Hyderabad/feeder/default.rss"
-
-  - id: indian-express-delhi
-    type: rss
-    enabled: true
-    publisher: The Indian Express
-    url: "https://indianexpress.com/section/cities/delhi/feed/"
-
-  - id: indian-express-hyderabad
-    type: rss
-    enabled: true
-    publisher: The Indian Express
-    url: "https://indianexpress.com/section/cities/hyderabad/feed/"
-
-  # Disabled example (kill switch off). Enable and set a real feed URL after a
-  # source-suggestion review.
   - id: pti
     type: rss
-    enabled: false
+    enabled: false # disabled example — set a real national wire feed after a source review
     publisher: PTI
     url: ""
 
-# Extraction model chain (ordered fallback). PINNED ids — never a `-latest` alias,
-# which repoints silently and turns an external model swap into a surprise mid-run
-# failure for a daily unattended job. On sustained provider failure (circuit-break)
-# of one model, extraction fails over to the next before aborting the run. Every
-# model gets the same schema-constrained prompt and the same sanitize gate, so the
-# Phase 0 guardrails hold regardless of which model answered. Swapping a model is a
-# reviewed commit here (or via the GEMINI_MODELS repo variable) — not a code change.
+# --- Per state / UT --------------------------------------------------------------------
+# Every canonical state/UT is listed. `[]` = a DECLARED coverage gap (see header).
+states:
+  AN: [] # Andaman & Nicobar Islands
+  AP: [] # Andhra Pradesh
+  AR: [] # Arunachal Pradesh
+  AS: [] # Assam
+  BR: [] # Bihar
+  CH: [] # Chandigarh
+  CT: [] # Chhattisgarh
+  DL: # Delhi
+    - id: the-hindu-delhi
+      type: rss
+      enabled: true
+      publisher: The Hindu
+      url: "https://www.thehindu.com/news/cities/Delhi/feeder/default.rss"
+    - id: indian-express-delhi
+      type: rss
+      enabled: true
+      publisher: The Indian Express
+      url: "https://indianexpress.com/section/cities/delhi/feed/"
+  DN: [] # Dadra & Nagar Haveli and Daman & Diu
+  GA: [] # Goa
+  GJ: [] # Gujarat
+  HP: [] # Himachal Pradesh
+  HR: [] # Haryana
+  JH: [] # Jharkhand
+  JK: [] # Jammu & Kashmir
+  KA: [] # Karnataka
+  KL: [] # Kerala
+  LA: [] # Ladakh
+  LD: [] # Lakshadweep
+  MH: [] # Maharashtra
+  ML: [] # Meghalaya
+  MN: [] # Manipur
+  MP: [] # Madhya Pradesh
+  MZ: [] # Mizoram
+  NL: [] # Nagaland
+  OD: [] # Odisha
+  PB: [] # Punjab
+  PY: [] # Puducherry
+  RJ: [] # Rajasthan
+  SK: [] # Sikkim
+  TG: # Telangana
+    - id: the-hindu-hyderabad
+      type: rss
+      enabled: true
+      publisher: The Hindu
+      url: "https://www.thehindu.com/news/cities/Hyderabad/feeder/default.rss"
+    - id: indian-express-hyderabad
+      type: rss
+      enabled: true
+      publisher: The Indian Express
+      url: "https://indianexpress.com/section/cities/hyderabad/feed/"
+  TN: [] # Tamil Nadu
+  TR: [] # Tripura
+  UP: [] # Uttar Pradesh (NCR cases currently arrive via the Delhi feeds)
+  UT: [] # Uttarakhand
+  WB: [] # West Bengal
+
+# Extraction model chain (ordered fallback). PINNED ids — never a `-latest` alias, which
+# repoints silently and turns an external model swap into a surprise mid-run failure for a
+# daily unattended job. On sustained provider failure of one model, extraction fails over to
+# the next before aborting. Every model gets the same schema-constrained prompt and the same
+# sanitize gate, so the Phase 0 guardrails hold regardless of which model answered.
 extraction:
   models:
     - gemini-2.5-flash

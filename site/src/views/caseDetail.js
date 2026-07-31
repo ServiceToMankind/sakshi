@@ -196,8 +196,11 @@ export async function renderCase(route) {
           ),
           detailRow('case_offences', (record.offence_sections || []).join(', ')),
           detailRow('case_reported', formatDate(record.incident_reported_date)),
-          record.pending_days != null
-            ? detailRow('case_pending', `${record.pending_days} ${t('case_pending_days')}`)
+          record.days_since_reported != null
+            ? detailRow(
+                'case_days_since_reported',
+                `${record.days_since_reported} ${t('case_pending_days')}`,
+              )
             : null,
           detailRow('case_cnr', record.cnr),
           detailRow('case_fir', fir),

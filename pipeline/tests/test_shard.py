@@ -43,7 +43,7 @@ def test_write_emits_shard_summary_index_and_assigns_id(tmp_path: Path) -> None:
     assert records[0]["first_published"] == "2026-07-09"
     assert "last_status_change" not in records[0]  # brand-new: no change observed yet
     assert "last_verified" not in records[0]  # removed from the model (§1)
-    assert records[0]["pending_days"] == 25
+    assert records[0]["days_since_reported"] == 25
 
     assert (tmp_path / "summary.json").exists()
     assert (tmp_path / "summary.json").stat().st_size < SUMMARY_MAX_BYTES
@@ -70,7 +70,7 @@ def test_summary_accountability_severity_and_jurisdictions(tmp_path: Path) -> No
     testville = juris[("TG", "TESTVILLE")]  # C-1 (under trial) + C-3 (acquitted)
     assert testville["total"] == 2
     assert testville["under_trial"] == 1 and testville["acquittals"] == 1
-    # Non-minor active case C-1 has pending_days=25; C-3 is acquitted (not active).
+    # Non-minor active case C-1 has days_since_reported=25; C-3 is acquitted (not active).
     assert testville["median_pending_days"] == 25
     assert testville["longest_pending"] == {"id": "SKS-2026-TG-000001", "days": 25}
     other = juris[("TG", "OTHERVILLE")]  # C-2 convicted (not active -> no pendency)
@@ -78,7 +78,7 @@ def test_summary_accountability_severity_and_jurisdictions(tmp_path: Path) -> No
 
 
 def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) -> None:
-    """A minor (year-only date, no pending_days) never contributes day-precise pendency."""
+    """A minor (year-only date, no days_since_reported) never contributes day-precise pendency."""
     minor = _record(
         cnr="C-M",
         minor_involved=True,
@@ -93,6 +93,28 @@ def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) 
     write_shards([minor], tmp_path, run_date="2026-07-09")
     juris = json.loads((tmp_path / "summary.json").read_text())["jurisdictions"][0]
     assert juris["median_pending_days"] is None and juris["longest_pending"] is None
+
+
+def test_pendency_requires_a_court_anchor(tmp_path: Path) -> None:
+    """§ pendency honesty: a non-minor, active, day-precise record with NO court anchor
+    (media-only) carries days_since_reported but is EXCLUDED from the pendency leaderboard and
+    the jurisdiction median — a 'still pending' claim needs a re-checkable anchor."""
+    media_only = _record(status="UNDER_TRIAL", incident_reported_date="2026-06-14")  # no cnr/fir
+    media_only.pop("cnr", None)
+    write_shards([media_only], tmp_path, run_date="2026-07-09")
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    summary = json.loads((tmp_path / "summary.json").read_text())
+    assert rec["days_since_reported"] == 25  # elapsed time IS stored...
+    assert summary["top_longest_pending"] == []  # ...but never a pendency claim
+    assert summary["jurisdictions"][0]["median_pending_days"] is None
+
+    # The SAME record WITH a CNR is trackable, so pendency returns (fresh tree).
+    fresh = tmp_path / "anchored"
+    anchored = _record(cnr="CNR-1", status="UNDER_TRIAL", incident_reported_date="2026-06-14")
+    write_shards([anchored], fresh, run_date="2026-07-09")
+    summary2 = json.loads((fresh / "summary.json").read_text())
+    assert [p["id"] for p in summary2["top_longest_pending"]] == ["SKS-2026-TG-000001"]
+    assert summary2["jurisdictions"][0]["median_pending_days"] == 25
 
 
 def test_summary_jurisdictions_are_capped_and_trim_by_status(tmp_path: Path) -> None:

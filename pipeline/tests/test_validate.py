@@ -132,7 +132,7 @@ def _minor_projected_record() -> dict[str, Any]:
         "status": "UNDER_TRIAL",
         "minor_involved": True,
         "incident_reported_date": "2026",
-        "pending_days": None,
+        "days_since_reported": None,
         "summary": "Under trial. Identifying details are withheld by law (POCSO s.23).",
         "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
         "status_history": [{"status": "FIR_FILED", "date": "2026-06", "source": 0}],
@@ -150,11 +150,11 @@ def test_projected_minor_record_validates() -> None:
 
 
 def test_unprojected_minor_record_is_rejected() -> None:
-    """A minor record still carrying a full date / integer pending_days / narrative fails."""
+    """A minor record still carrying a full date / integer days_since_reported / narrative fails."""
     schema = validate.load_schema()
     bad = _minor_projected_record()
     bad["incident_reported_date"] = "2026-07-05"
-    bad["pending_days"] = 5
+    bad["days_since_reported"] = 5
     bad["summary"] = "Police rescued a 17-year-old."
     bad["court"]["next_hearing"] = "2026-08-02"
     with pytest.raises(ValidationError):
@@ -166,7 +166,7 @@ def test_non_minor_requires_full_precision_dates() -> None:
     schema = validate.load_schema()
     rec = _minor_projected_record()
     rec["minor_involved"] = False
-    rec["pending_days"] = 5
+    rec["days_since_reported"] = 5
     rec["summary"] = "A neutral non-graphic summary."
     # A year-only date is invalid for a non-minor case.
     with pytest.raises(ValidationError):

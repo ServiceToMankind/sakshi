@@ -6,6 +6,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
+    "days_since_reported": 6,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -14,7 +15,6 @@
     "offence_sections": [
       "BNS 74"
     ],
-    "pending_days": 6,
     "sources": [
       {
         "publisher": "The Hindu",

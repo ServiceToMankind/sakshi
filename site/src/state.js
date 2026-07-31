@@ -38,7 +38,7 @@ export function paramsFromFilters(filters) {
 }
 
 const SORTERS = {
-  pending: (a, b) => (b.pending_days || 0) - (a.pending_days || 0),
+  pending: (a, b) => (b.days_since_reported || 0) - (a.days_since_reported || 0),
   recent: (a, b) =>
     String(b.incident_reported_date || '').localeCompare(String(a.incident_reported_date || '')),
   oldest: (a, b) =>

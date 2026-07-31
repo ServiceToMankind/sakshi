@@ -29,6 +29,7 @@ from statistics import median
 from typing import Any
 
 from pipeline import config
+from pipeline.coverage import is_court_anchored
 from pipeline.dedupe import exact_anchor_keys
 from pipeline.offence_sections import normalize_sections
 from pipeline.severity import is_aggravated, severity_label
@@ -88,7 +89,10 @@ def _year(record: dict[str, Any], run_date: str) -> str:
     return run_date[:4]
 
 
-def _pending_days(record: dict[str, Any], run_day: date) -> int | None:
+def _days_since_reported(record: dict[str, Any], run_day: date) -> int | None:
+    """Days elapsed since the case was first reported. This is NEUTRAL elapsed time — it is
+    NOT verified pendency (that needs a re-checkable court anchor). The pendency leaderboard
+    and jurisdiction medians additionally require ``is_court_anchored`` (§ pendency honesty)."""
     try:
         reported = date.fromisoformat(str(record["incident_reported_date"]))
     except (KeyError, ValueError, TypeError):
@@ -295,9 +299,9 @@ def _assign_ids(
             else:
                 record.pop("last_status_change", None)
 
-        pending = _pending_days(record, run_day)
-        if pending is not None:
-            record["pending_days"] = pending
+        elapsed = _days_since_reported(record, run_day)
+        if elapsed is not None:
+            record["days_since_reported"] = elapsed
         finalized.append(record)
     return finalized, new, material, rechecked
 
@@ -361,17 +365,23 @@ def _build_summary(
             month_counts[reported[:7]] += 1
     monthly_trend = [{"month": m, "count": month_counts.get(m, 0)} for m in months]
 
-    # Day-precise pendency is NON-MINOR only (a minor carries no day-precise date by
-    # projection) — mirror the jurisdiction filter. The isinstance guard also avoids an
-    # int(None) crash if a legacy shard ever carried pending_days: null.
+    # The "longest pending" leaderboard claims a case is STILL WAITING for justice, so it may
+    # only include records whose status can actually be re-checked — a court anchor (§ pendency
+    # honesty). At 0% trackability this list is empty, which is the honest (and more damning)
+    # fact. Also non-minor + active + day-precise, as before.
     pending = [
-        {"id": r["id"], "district": r.get("district", ""), "pending_days": int(r["pending_days"])}
+        {
+            "id": r["id"],
+            "district": r.get("district", ""),
+            "days_since_reported": int(r["days_since_reported"]),
+        }
         for r in records
         if r.get("status") in _ACTIVE_STATUSES
         and not r.get("minor_involved")
-        and isinstance(r.get("pending_days"), int)
+        and isinstance(r.get("days_since_reported"), int)
+        and is_court_anchored(r)
     ]
-    pending.sort(key=lambda p: p["pending_days"], reverse=True)
+    pending.sort(key=lambda p: p["days_since_reported"], reverse=True)
 
     severity_counts, aggravated_total = _severity_summary(records)
     return {
@@ -406,9 +416,11 @@ def _severity_summary(records: list[dict[str, Any]]) -> tuple[dict[str, int], in
 def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Per-(state, district) accountability scorecard — aggregate/public only.
 
-    Pendency (median + longest) is derived ONLY from NON-MINOR active cases: a minor
-    carries no day-precise date by projection, so an all-minor jurisdiction reports
-    ``median_pending_days: null`` and ``longest_pending: null`` — a guardrail, not a gap.
+    Pendency (median + longest) is derived ONLY from NON-MINOR, active, day-precise cases
+    that ALSO carry a court anchor (§ pendency honesty) — a claim that a case is still pending
+    is only honest if its status can be re-checked. A jurisdiction with no anchored active
+    case reports ``median_pending_days: null`` and ``longest_pending: null`` — a guardrail,
+    not a gap. (At the current 0% trackability that is every jurisdiction.)
     """
     groups: dict[tuple[str, str], list[dict[str, Any]]] = {}
     for record in records:
@@ -421,19 +433,21 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
         total = len(recs)
         under_trial = by_status.get("UNDER_TRIAL", 0)
         active_pending = [
-            int(r["pending_days"])
+            int(r["days_since_reported"])
             for r in recs
             if r.get("status") in _ACTIVE_STATUSES
             and not r.get("minor_involved")
-            and isinstance(r.get("pending_days"), int)
+            and isinstance(r.get("days_since_reported"), int)
+            and is_court_anchored(r)
         ]
         longest = max(
             (
-                (int(r["pending_days"]), str(r.get("id", "")))
+                (int(r["days_since_reported"]), str(r.get("id", "")))
                 for r in recs
                 if r.get("status") in _ACTIVE_STATUSES
                 and not r.get("minor_involved")
-                and isinstance(r.get("pending_days"), int)
+                and isinstance(r.get("days_since_reported"), int)
+                and is_court_anchored(r)
             ),
             default=None,
         )

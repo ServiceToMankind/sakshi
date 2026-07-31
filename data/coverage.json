@@ -1,0 +1,193 @@
+{
+  "generated": "2026-07-31",
+  "trackability": {
+    "total": 18,
+    "court_anchored": 0,
+    "rate": 0.0
+  },
+  "states_covered": 4,
+  "states_total": 36,
+  "national_sources": 2,
+  "states": {
+    "AN": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "AP": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "AR": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "AS": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "BR": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "CH": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "CT": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "DL": {
+      "active_sources": 2,
+      "records": 6,
+      "declared_gap": false
+    },
+    "DN": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "GA": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "GJ": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "HP": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "HR": {
+      "active_sources": 0,
+      "records": 1,
+      "declared_gap": false
+    },
+    "JH": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "JK": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "KA": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "KL": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "LA": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "LD": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "MH": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "ML": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "MN": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "MP": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "MZ": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "NL": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "OD": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "PB": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "PY": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "RJ": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "SK": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "TG": {
+      "active_sources": 2,
+      "records": 9,
+      "declared_gap": false
+    },
+    "TN": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "TR": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "UP": {
+      "active_sources": 0,
+      "records": 2,
+      "declared_gap": false
+    },
+    "UT": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    },
+    "WB": {
+      "active_sources": 0,
+      "records": 0,
+      "declared_gap": true
+    }
+  }
+}

@@ -2,6 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
+    "days_since_reported": 8,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -10,7 +11,6 @@
     "offence_sections": [
       "BNS 63"
     ],
-    "pending_days": 8,
     "sources": [
       {
         "publisher": "The Hindu",
@@ -29,6 +29,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
+    "days_since_reported": 8,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -37,7 +38,6 @@
     "offence_sections": [
       "IPC 376"
     ],
-    "pending_days": 8,
     "sources": [
       {
         "publisher": "The Indian Express",
