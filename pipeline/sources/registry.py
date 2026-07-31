@@ -46,18 +46,30 @@ def load_source_configs(path: Path = config.SOURCES_CONFIG_PATH) -> list[dict[st
     return out
 
 
+# Source types that are COURT-RECORD provenance (re-checkable status), used by the weekly
+# refresh (§2), which re-queries only these — never the media discovery feeds.
+_COURT_SOURCE_TYPES = frozenset({"ecourts", "indiankanoon"})
+
+
 def build_sources(
     client: HttpClient,
     fetched_at: str | None = None,
     configs: list[dict[str, Any]] | None = None,
+    court_only: bool = False,
 ) -> list[Source]:
-    """Instantiate the ENABLED sources from config (defaults to sources.yml)."""
+    """Instantiate the ENABLED sources from config (defaults to sources.yml).
+
+    ``court_only`` (the weekly ``refresh`` mode, §2) restricts to court-record sources — the
+    ones that carry re-checkable judicial status — and skips the media discovery feeds.
+    """
     resolved = configs if configs is not None else load_source_configs()
     sources: list[Source] = []
     for cfg in resolved:
         if not cfg.get("enabled"):
             continue
         kind = str(cfg.get("type", ""))
+        if court_only and kind not in _COURT_SOURCE_TYPES:
+            continue
         publisher = str(cfg.get("publisher", ""))
         if kind == "ecourts":
             endpoints = tuple(str(e) for e in (cfg.get("endpoints") or []))

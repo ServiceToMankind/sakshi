@@ -53,6 +53,12 @@ def test_build_sources_respects_enabled_and_types() -> None:
     assert isinstance(sources[1], IndianKanoonSource)
     assert isinstance(sources[2], RssMediaSource)
 
+    # §2 refresh: court_only keeps only court-record sources, dropping the media feed.
+    court = registry.build_sources(
+        _FakeClient(), fetched_at="2026-07-10", configs=configs, court_only=True
+    )
+    assert [type(s).__name__ for s in court] == ["EcourtsSource", "IndianKanoonSource"]
+
 
 def test_load_source_configs_reads_repo_yaml() -> None:
     configs = registry.load_source_configs()

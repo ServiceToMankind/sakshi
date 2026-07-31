@@ -34,7 +34,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 from pipeline import config, fixtures, verify
 from pipeline.citation_slug import url_carries_identifying_slug
 from pipeline.coverage import build_coverage
-from pipeline.dedupe import dedupe, merge_records
+from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
@@ -90,18 +90,23 @@ def _log(report: RunReport, message: str) -> None:
     report.logs.append(sanitize_string(message))
 
 
-async def _fetch_all(client: PoliteClient, fetched_at: str) -> list[RawDocument]:
-    """Fetch from every ENABLED source (sources.yml) with one polite client."""
+async def _fetch_all(
+    client: PoliteClient, fetched_at: str, court_only: bool = False
+) -> list[RawDocument]:
+    """Fetch from every ENABLED source (sources.yml) with one polite client. ``court_only``
+    (refresh mode) restricts to court-record sources."""
     docs: list[RawDocument] = []
-    for source in build_sources(client, fetched_at=fetched_at):
+    for source in build_sources(client, fetched_at=fetched_at, court_only=court_only):
         docs.extend(await source.fetch())
     return docs
 
 
-def _fetch_documents(fetched_at: str) -> list[RawDocument]:  # pragma: no cover - network I/O
+def _fetch_documents(
+    fetched_at: str, court_only: bool = False
+) -> list[RawDocument]:  # pragma: no cover - network I/O
     async def _go() -> list[RawDocument]:
         async with PoliteClient() as client:
-            return await _fetch_all(client, fetched_at)
+            return await _fetch_all(client, fetched_at, court_only=court_only)
 
     return asyncio.run(_go())
 
@@ -744,9 +749,18 @@ def run(
     docs: list[RawDocument] | None = None,
     extract_client: ExtractionClient | None = None,
     verify_client: verify.VerificationClient | None = None,
+    mode: str = "discover",
 ) -> RunReport:
-    """Execute one pipeline run and return a :class:`RunReport`."""
+    """Execute one pipeline run and return a :class:`RunReport`.
+
+    ``mode`` (§2): ``discover`` (default, daily) fetches every source and CREATES new records;
+    ``refresh`` (weekly) fetches only court-record sources and only UPDATES records that already
+    exist (matched by exact anchor / id) — it never creates a new record. Splitting the two
+    keeps the temporal architecture honest at scale: feeds can grow without producing a flood
+    of never-re-checked first reports.
+    """
     report = RunReport()
+    is_refresh = mode == "refresh"
     states = config.launch_states()
     lookback = config.launch_lookback_days()
     report.scope = _scope_label(states, lookback)
@@ -774,7 +788,7 @@ def run(
         report.estimated_usd = _illustrative_cost(raw_docs)
         _log(report, f"dry-run: {len(extractions)} fixture extractions (no network, no Gemini)")
     else:
-        raw_docs = docs if docs is not None else _fetch_documents(run_date)
+        raw_docs = docs if docs is not None else _fetch_documents(run_date, court_only=is_refresh)
         # Skip documents already settled in prior runs so the budget goes to the
         # backlog TAIL — turns provider degradation into delay, not lost coverage.
         ledger = load_ledger(data_dir)
@@ -958,6 +972,24 @@ def run(
     review = review + diverted
     if diverted:
         _log(report, f"jurisdiction: {len(diverted)} record(s) routed to review (unknown state)")
+
+    # REFRESH mode (§2): update-only. Keep just the records that correspond to one already on
+    # the site (same id, or a shared exact anchor after the court re-query merged into it); any
+    # brand-new case a court source surfaced is DROPPED here — discovery is the daily run's job.
+    if is_refresh:
+        existing_ids = {str(r["id"]) for r in existing if r.get("id")}
+        existing_anchors: set[str] = set()
+        for record in existing:
+            existing_anchors |= exact_anchor_keys(record)
+        kept = [
+            r
+            for r in published
+            if str(r.get("id", "")) in existing_ids or (exact_anchor_keys(r) & existing_anchors)
+        ]
+        created = len(published) - len(kept)
+        if created:
+            _log(report, f"refresh: dropped {created} newly-discovered record(s) (update-only)")
+        published = kept
 
     # GRADUATED auto-publish gate: split the published set into what may ship
     # unattended (auto_eligible) and what a human must promote first (needs_review:
@@ -1165,6 +1197,13 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--data-dir", type=Path, default=None, help="Output data directory.")
     parser.add_argument("--run-date", default=None, help="Override run date (YYYY-MM-DD).")
+    parser.add_argument(
+        "--mode",
+        choices=("discover", "refresh"),
+        default="discover",
+        help="discover (daily, creates new records) or refresh (weekly, court-only, "
+        "updates existing records' status — never creates).",
+    )
     return parser
 
 
@@ -1189,6 +1228,7 @@ def main(argv: list[str] | None = None) -> int:
             logs_dir=logs_dir,
             run_date=run_date,
             out=sys.stdout,
+            mode=args.mode,
         )
     except Exception as exc:  # pragma: no cover - top-level failure path
         print(f"pipeline run failed: {exc}", file=sys.stderr)
