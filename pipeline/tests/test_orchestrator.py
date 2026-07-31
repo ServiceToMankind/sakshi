@@ -179,6 +179,35 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
         orchestrator._assert_no_pii(tmp_path)
 
 
+def test_run_writes_merge_review_candidates_file(tmp_path: Path) -> None:
+    """§8: every run writes data/_merge_review/candidates.json (empty when no candidates),
+    never merging or removing a record."""
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-1",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(payload),
+    )
+    candidates = json.loads((tmp_path / "_merge_review" / "candidates.json").read_text())
+    assert candidates["generated"] == "2026-07-09"
+    assert candidates["candidates"] == []  # a single record has no duplicate
+
+
 def test_flag_identifying_sources_marks_only_identifying_urls() -> None:
     """§5: a source whose URL slug states a withheld detail gets the flag; a clean court
     source does not; a stale flag on a now-clean URL is cleared."""

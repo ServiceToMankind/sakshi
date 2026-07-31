@@ -37,6 +37,7 @@ from pipeline.dedupe import dedupe, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
+from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_sections import normalize_sections
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
@@ -196,6 +197,18 @@ def _strip_minor_model_note(record: dict[str, Any]) -> dict[str, Any]:
     if record.get("minor_involved") is True and "verification_note" in record:
         return {key: value for key, value in record.items() if key != "verification_note"}
     return record
+
+
+def _write_merge_review(records: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
+    """Write data/_merge_review/candidates.json — POSSIBLE duplicate clusters a human must
+    decide on (§8). NEVER auto-merges and never removes a record; the corpus is untouched.
+    The file is written even when empty (an empty list is the honest "no candidates" state)
+    so a reviewer can trust it, and rewritten each run so a resolved candidate disappears."""
+    candidates = find_candidate_matches(records)
+    path = data_dir / "_merge_review" / "candidates.json"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {"generated": run_date, "candidates": candidates}
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def _write_review(review: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
@@ -1054,6 +1067,7 @@ def run(
     _write_recent(write_result.records, data_dir)
     _write_needs_review(needs_review_items, data_dir)
     _write_review(review, data_dir, run_date)
+    _write_merge_review(write_result.records, data_dir, run_date)
 
     # Update the processed-document ledger (real runs only). A record is settled
     # "published" only once it is on main; until then it is staged_pending and
