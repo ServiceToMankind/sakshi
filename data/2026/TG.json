@@ -77,8 +77,8 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Sexual assault case involving a minor — Hyderabad (2026)"
+    "summary": "A case of rape involving a minor in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Hyderabad (2026)"
   },
   {
     "category": "pocso",
@@ -102,8 +102,8 @@
     ],
     "state": "TG",
     "status": "CONVICTED",
-    "summary": "The accused was convicted in Jagtial, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Jagtial (2026)"
+    "summary": "A case of child sexual offence in Jagtial, TG (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Jagtial (2026)"
   },
   {
     "category": "pocso",
@@ -127,8 +127,8 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Kothagudem (2026)"
+    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kothagudem (2026)"
   },
   {
     "category": "pocso",
@@ -150,8 +150,8 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "An FIR has been filed in Kothagudem, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Kothagudem (2026)",
+    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kothagudem (2026)",
     "verified": true
   },
   {
@@ -182,8 +182,8 @@
     ],
     "state": "TG",
     "status": "UNKNOWN",
-    "summary": "The case status is not yet known in Warangal, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Warangal (2026)",
+    "summary": "A case of aggravated penetrative assault on a child in Warangal, TG (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Warangal (2026)",
     "verified": true
   },
   {
@@ -208,8 +208,8 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "An FIR has been filed in Hyderabad, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Hyderabad (2026)",
+    "summary": "A case of child sexual offence in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Hyderabad (2026)",
     "verified": true
   },
   {
@@ -234,8 +234,8 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "An FIR has been filed in Malkajgiri, TG. Reported 2026. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence case involving a minor — Malkajgiri (2026)",
+    "summary": "A case of child sexual offence in Malkajgiri, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Malkajgiri (2026)",
     "verified": true
   }
 ]

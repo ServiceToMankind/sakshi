@@ -31,6 +31,7 @@ from pipeline.pii_constants import (
     matched_value_patterns,
     scrub_victim_occupation,
 )
+from pipeline.severity import severity_label
 
 __all__ = [
     "MINOR_SUMMARY_TEMPLATE",
@@ -80,11 +81,24 @@ def _category_label(record: dict[str, Any]) -> str:
     return _CATEGORY_LABEL.get(str(record.get("category", "")).lower(), "Sexual offence")
 
 
+def _minor_offence_phrase(record: dict[str, Any]) -> str:
+    """Plain-English offence description for a minor, derived ONLY from PUBLIC charge
+    sections (§1a explicitly permits a minor's severity label) — falls back to the coarse
+    category. Non-identifying: it describes the OFFENCE, never the victim. §6 enriches the
+    minor projection with this so a child's record still says WHAT happened, in plain words,
+    while staying 100% deterministic (never model-written)."""
+    label = severity_label(record.get("offence_sections") or [])
+    phrase = label if label else _category_label(record)
+    if "child" in phrase.lower() or "minor" in phrase.lower():
+        return phrase  # already conveys the minor (e.g. "... on a child", "Child sexual offence")
+    return f"{phrase} involving a minor"
+
+
 def minor_title(record: dict[str, Any]) -> str:
     """Deterministic, non-identifying title for a minor case (allowed fields only)."""
     year = _case_year(record)
     where = str(record.get("district") or record.get("state") or "").strip()
-    parts = [f"{_category_label(record)} case involving a minor"]
+    parts = [_minor_offence_phrase(record)]
     if where:
         parts.append(f"— {where}")
     if year:
@@ -93,17 +107,24 @@ def minor_title(record: dict[str, Any]) -> str:
 
 
 def minor_summary(record: dict[str, Any]) -> str:
-    """Deterministic, non-identifying summary for a minor case (allowed fields only)."""
+    """Deterministic, non-identifying summary for a minor case (allowed fields only).
+
+    States the plain-language offence (from public charges), location, year, and judicial
+    status — the exact set §1a permits for a minor — then the statutory withholding
+    sentence. No model text, no age, no sub-district, no accused.
+    """
     year = _case_year(record)
     location = ", ".join(
         part
         for part in (str(record.get("district", "")).strip(), str(record.get("state", "")).strip())
         if part
     )
+    offence = _minor_offence_phrase(record)
+    offence_lc = offence[0].lower() + offence[1:]
     phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
     where = f" in {location}" if location else ""
-    reported = f" Reported {year}." if year else ""
-    return f"{phrase}{where}.{reported} {MINOR_WITHHELD_SENTENCE}"
+    reported = f" ({year})" if year else ""
+    return f"A case of {offence_lc}{where}{reported}. {phrase}. {MINOR_WITHHELD_SENTENCE}"
 
 
 def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:

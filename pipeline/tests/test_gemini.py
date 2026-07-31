@@ -58,6 +58,14 @@ def test_build_prompt_instructs_anchor_capture() -> None:
     assert "cnr" in prompt and "fir" in prompt and "anchor" in prompt
 
 
+def test_build_prompt_bans_legalese_for_readability() -> None:
+    """§6(A): the prompt carries an explicit legalese ban-list + a plain-language / length
+    cue for non-minor summaries."""
+    prompt = gemini.build_prompt(_DOC, "THE-SCHEMA").lower()
+    assert "banned legalese" in prompt
+    assert "stayed proceedings" in prompt and "low-literacy" in prompt
+
+
 def test_parse_forces_victim_null_and_attaches_source() -> None:
     record = gemini._parse(_VALID_JSON, _DOC)
     assert record is not None

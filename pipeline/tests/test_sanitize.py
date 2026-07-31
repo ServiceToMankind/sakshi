@@ -160,6 +160,78 @@ def test_minor_projection_is_idempotent() -> None:
     assert sanitize_record(once) == once
 
 
+def test_minor_summary_states_offence_from_child_severity_label() -> None:
+    """§6: a minor's deterministic summary/title now name the plain-English offence derived
+    from PUBLIC charge sections (§1a permits severity for minors). A child-severity label is
+    used verbatim (it already conveys the minor)."""
+    rec = {
+        "minor_involved": True,
+        "category": "pocso",
+        "district": "TESTVILLE",
+        "state": "TG",
+        "status": "FIR_FILED",
+        "incident_reported_date": "2026",
+        "offence_sections": ["POCSO 6"],
+    }
+    clean = sanitize_record(rec)
+    assert "aggravated penetrative assault on a child" in clean["summary"].lower()
+    assert clean["title"].startswith("Aggravated penetrative assault on a child")
+    assert "An FIR has been filed" in clean["summary"]
+    assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
+    assert "involving a minor" not in clean["title"]  # label already says "child"
+
+
+def test_minor_summary_appends_minor_for_generic_severity_label() -> None:
+    """A generic severity label (e.g. 'Rape' from BNS 64) gets 'involving a minor' appended
+    so the child context is never lost."""
+    rec = {
+        "minor_involved": True,
+        "category": "rape",
+        "district": "TESTVILLE",
+        "state": "TG",
+        "status": "UNDER_TRIAL",
+        "incident_reported_date": "2026",
+        "offence_sections": ["BNS 64"],
+    }
+    clean = sanitize_record(rec)
+    assert "Rape involving a minor" in clean["title"]
+    assert "a case of rape involving a minor" in clean["summary"].lower()
+
+
+def test_minor_summary_falls_back_to_category_without_sections() -> None:
+    """With no charge sections (no severity), the coarse category carries the offence; a
+    generic category gets 'involving a minor' appended."""
+    rec = {
+        "minor_involved": True,
+        "category": "sexual_assault",
+        "district": "TESTVILLE",
+        "state": "HR",
+        "status": "UNDER_TRIAL",
+        "incident_reported_date": "2026",
+        "offence_sections": [],
+    }
+    clean = sanitize_record(rec)
+    assert "Sexual assault involving a minor" in clean["title"]
+    assert "sexual assault involving a minor" in clean["summary"].lower()
+
+
+def test_minor_summary_child_category_without_sections_is_not_redundant() -> None:
+    """A category that already says 'child' (pocso) with no sections must NOT get a
+    redundant 'involving a minor' appended."""
+    rec = {
+        "minor_involved": True,
+        "category": "pocso",
+        "district": "TESTVILLE",
+        "state": "TG",
+        "status": "FIR_FILED",
+        "incident_reported_date": "2026",
+        "offence_sections": [],
+    }
+    clean = sanitize_record(rec)
+    assert clean["title"].startswith("Child sexual offence —")
+    assert "involving a minor" not in clean["title"]
+
+
 def test_minor_projection_drops_accused() -> None:
     """POCSO s.23 / issue #55: a minor's record never carries an accused — naming an
     offender in a child case is a re-identification vector (accused↔victim proximity)."""

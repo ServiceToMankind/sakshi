@@ -54,12 +54,16 @@ Hard rules:
 - TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
-  · "summary": 2-4 short declarative sentences, active voice, NO legalese. State the
-    concrete facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never
-    finer), and the institutional/legal response (FIR, arrest, chargesheet, verdict).
-    The cruelty of the ACT may be stated plainly; sensationalism may not. Say "The
-    court paused the trial while it reviews the FIR", not "stayed proceedings
-    concerning an FIR alleging...". Never define anything by section number alone.
+  · "summary": 2-4 short declarative sentences (aim for <=45 words total), active
+    voice, written so a low-literacy general reader understands it. State the concrete
+    facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never finer), and
+    the institutional/legal response (FIR, arrest, chargesheet, verdict). The cruelty of
+    the ACT may be stated plainly; sensationalism may not.
+    · BANNED legalese — never use: "stayed proceedings", "vide order", "learned counsel",
+      "the instant matter", "quashed the proceedings", "aforesaid", "hereinafter", "u/s",
+      "r/w", "prima facie", "cognizance", "the petitioner/respondent" (say who they are).
+      Say "The court paused the trial while it reviews the FIR", not "stayed proceedings
+      concerning an FIR alleging...". Never define anything by section number alone.
   · IDENTITY FLOOR (every age, statutory — BNS s.72): the summary must NEVER contain
     or imply a victim name, age, or gender; a sub-district location (neighbourhood,
     street, landmark, institution name, "near X"); how the accused knew the victim;
