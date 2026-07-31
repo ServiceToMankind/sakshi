@@ -17,7 +17,7 @@ COV_OVERALL := 85
 
 .DEFAULT_GOAL := check
 
-.PHONY: setup check test lint fmt pii-guard readability-guard validate lighthouse site-dev site-build clean
+.PHONY: setup check test lint fmt pii-guard readability-guard secret-guard validate lighthouse site-dev site-build clean
 
 # ---------------------------------------------------------------------------
 # setup — create the virtualenv and install python + node dependencies.
@@ -49,6 +49,7 @@ check: lint
 	$(MAKE) validate
 	$(MAKE) pii-guard
 	$(MAKE) readability-guard
+	$(MAKE) secret-guard
 	cd $(SITE) && npm run lint
 	cd $(SITE) && npm run format:check
 
@@ -87,6 +88,14 @@ pii-guard:
 # ---------------------------------------------------------------------------
 readability-guard:
 	$(PY) scripts/readability_guard.py data/
+
+# ---------------------------------------------------------------------------
+# secret-guard — fail if a live credential (Google API key / token assignment)
+# reached any git-TRACKED file. .gitignore covers named files; this is the
+# durable deterministic backstop. Untracked local key files are not scanned.
+# ---------------------------------------------------------------------------
+secret-guard:
+	$(PY) scripts/secret_guard.py
 
 # ---------------------------------------------------------------------------
 # validate — jsonschema-validate every shard against schemas/case.schema.json
