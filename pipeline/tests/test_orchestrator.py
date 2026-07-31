@@ -179,6 +179,88 @@ def test_assert_no_pii_blocks_planted_leak(tmp_path: Path) -> None:
         orchestrator._assert_no_pii(tmp_path)
 
 
+def _seed_anchored_record(tmp_path: Path) -> None:
+    (tmp_path / "2026").mkdir(parents=True, exist_ok=True)
+    (tmp_path / "2026" / "TG.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "SKS-2026-TG-000001",
+                    "title": "Sexual assault case — TESTVILLE (2026)",
+                    "state": "TG",
+                    "district": "TESTVILLE",
+                    "category": "rape",
+                    "status": "FIR_FILED",
+                    "minor_involved": False,
+                    "cnr": "C-EXISTING",
+                    "incident_reported_date": "2026-06-14",
+                    "offence_sections": ["IPC 376"],
+                    "sources": [
+                        {
+                            "url": "https://ex.invalid/court",
+                            "publisher": "eCourts",
+                            "source_type": "court",
+                            "retrieved": "2026-07-09",
+                        }
+                    ],
+                    "confidence": 0.9,
+                    "first_published": "2026-07-09",
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+
+def _new_case_payload() -> str:
+    return json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "FIR_FILED",
+            "minor_involved": False,
+            "cnr": "C-BRAND-NEW",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+
+
+def test_refresh_mode_never_creates_a_new_record(tmp_path: Path) -> None:
+    """§2: refresh updates existing records but a brand-new court find is DROPPED (discovery
+    is the daily run's job)."""
+    _seed_anchored_record(tmp_path)
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(_new_case_payload()),
+        mode="refresh",
+    )
+    ids = {r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
+    assert ids == {"SKS-2026-TG-000001"}  # the existing case survives; C-BRAND-NEW not created
+
+
+def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
+    """Contrast: the same input in the default discover mode CREATES the new case."""
+    _seed_anchored_record(tmp_path)
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(_new_case_payload()),
+    )
+    cnrs = {r.get("cnr") for r in json.loads((tmp_path / "2026" / "TG.json").read_text())}
+    assert "C-BRAND-NEW" in cnrs  # discovery created it
+
+
 def test_run_writes_merge_review_candidates_file(tmp_path: Path) -> None:
     """§8: every run writes data/_merge_review/candidates.json (empty when no candidates),
     never merging or removing a record."""

@@ -16,13 +16,20 @@ on:
   # each run only opens/updates the data-review PR — nothing publishes without a
   # human merge. Counts toward the 2/day cap alongside manual workflow_dispatch.
   schedule:
-    - cron: '30 0 * * *'   # 00:30 UTC == 06:00 IST
+    - cron: '30 0 * * *'   # 00:30 UTC == 06:00 IST — daily DISCOVER (creates new cases)
+    - cron: '30 1 * * 0'   # 01:30 UTC Sunday — weekly REFRESH (§2): court-only, updates
+                           # existing court-anchored records' status; never creates a record
   workflow_dispatch:
     inputs:
       dry_run:
         description: "Offline dry-run on TESTVILLE fixtures (no network, no Gemini, no commit)."
         type: boolean
         default: false
+      mode:
+        description: "discover (daily, creates) or refresh (weekly, court-only, updates only)."
+        type: choice
+        options: [discover, refresh]
+        default: discover
       states:
         description: "Comma-separated state codes to limit this run (e.g. TG,DL). Blank = repo var/all."
         type: string
@@ -149,13 +156,17 @@ jobs:
           # Court-record source (Indian Kanoon). The source yields NOTHING without this
           # token, so it is safe to leave wired even before the secret is provisioned.
           INDIANKANOON_API_TOKEN: ${{ secrets.INDIANKANOON_API_TOKEN }}
+          # §2: weekly cron OR an explicit dispatch => refresh (update-only); else discover.
+          PIPELINE_MODE: ${{ (github.event.schedule == '30 1 * * 0' || github.event.inputs.mode == 'refresh') && 'refresh' || 'discover' }}
         run: |
-          echo "LAUNCH_MODE=$LAUNCH_MODE  STATES=${LAUNCH_STATES:-<all>}  LOOKBACK=${LAUNCH_LOOKBACK_DAYS:-<none>}"
+          echo "LAUNCH_MODE=$LAUNCH_MODE  STATES=${LAUNCH_STATES:-<all>}  LOOKBACK=${LAUNCH_LOOKBACK_DAYS:-<none>}  MODE=${PIPELINE_MODE:-discover}"
           if [ "$DRY_RUN" = "true" ]; then
             echo "Running OFFLINE dry-run (fixtures only; no network, no Gemini)."
             python -m pipeline --dry-run
           else
-            python -m pipeline
+            # §2: the weekly cron re-checks court-anchored records (refresh); every other
+            # trigger discovers new cases (default). refresh never creates a record.
+            python -m pipeline --mode "${PIPELINE_MODE:-discover}"
           fi
 
       - name: Read run counters
