@@ -33,6 +33,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 
 from pipeline import config, fixtures, spend, verify
 from pipeline.citation_slug import url_carries_identifying_slug
+from pipeline.corrections import apply_correction, load_corrections, quarantined_ids
 from pipeline.coverage import build_coverage
 from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
 from pipeline.districts import canonical_district
@@ -1098,6 +1099,31 @@ def run(
     review = review + unreadable
     if unreadable:
         _log(report, f"readability: {len(unreadable)} fresh record(s) routed to review (§6a)")
+
+    # CORRECTIONS (human-authored, corrections/<id>.yml): the reviewed escape hatch for fixes
+    # the pipeline cannot make itself. A quarantined id is routed OUT to _review; a record
+    # with field overrides has them applied and is RE-SANITISED (so a corrected value still
+    # passes every gate), then marked `corrected`. Applied here, before the graduated gate.
+    corrections = load_corrections()
+    if corrections:
+        q_ids = quarantined_ids(corrections)
+        quarantined = [r for r in published if str(r.get("id", "")) in q_ids]
+        published = [r for r in published if str(r.get("id", "")) not in q_ids]
+        review = review + [{"reason": "operator_quarantine", "record": r} for r in quarantined]
+        corrected_count = 0
+        applied: list[dict[str, Any]] = []
+        for record in published:
+            fixed = apply_correction(record, corrections)
+            if fixed is not record:
+                fixed = _finalize_for_disk(fixed, case_schema)
+                corrected_count += 1
+            applied.append(fixed)
+        published = applied
+        if quarantined or corrected_count:
+            _log(
+                report,
+                f"corrections: {len(quarantined)} quarantined, {corrected_count} field-corrected",
+            )
 
     # REFRESH mode (§2): update-only. Keep just the records that correspond to one already on
     # the site (same id, or a shared exact anchor after the court re-query merged into it); any

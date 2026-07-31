@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/ServiceToMankind/sakshi/main/schemas/correction.schema.json",
+  "title": "Human-authored correction",
+  "description": "A reviewed, committed correction over pipeline output (corrections/<record-id>.yml). Keyed by record id; records who/when/why + evidence so every correction is auditable. Applied by pipeline.corrections AFTER extraction and BEFORE the final sanitize, so an overridden value still passes every gate. overrides can never set a forbidden PII field, id, or minor_involved (dropped by the loader).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["record_id", "author", "date", "reason"],
+  "properties": {
+    "record_id": {
+      "type": "string",
+      "pattern": "^SKS-\\d{4}-[A-Z]{2}-\\d{6}$",
+      "description": "The id of the record this correction applies to."
+    },
+    "quarantine": {
+      "type": "boolean",
+      "description": "true routes the record out of the published site into _review."
+    },
+    "overrides": {
+      "type": "object",
+      "description": "Field-level overrides applied to the record before sanitize. Keys targeting a forbidden PII field, id, or minor_involved are ignored.",
+      "minProperties": 1
+    },
+    "author": { "type": "string", "minLength": 1 },
+    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "reason": { "type": "string", "minLength": 1 },
+    "evidence": {
+      "type": ["string", "array"],
+      "items": { "type": "string" },
+      "description": "Citations the correction relies on (URLs, order numbers)."
+    },
+    "resolution": { "type": "string" }
+  }
+}

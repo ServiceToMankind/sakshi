@@ -10,6 +10,7 @@ import { formatDate, stateName, safeHttpUrl } from '../format.js';
 import {
   statusBadge,
   minorBadge,
+  correctedBadge,
   severityBadge,
   repeatOffenderBadge,
   daysTicker,
@@ -189,6 +190,7 @@ export async function renderCase(route) {
         severityBadge(record.offence_sections),
         repeatOffenderBadge(record.offence_sections),
         record.minor_involved ? minorBadge() : null,
+        record.corrected ? correctedBadge() : null,
       ]),
       el('h1', { class: 'case__id' }, record.id),
       el('p', { class: 'case__summary' }, summaryBodyAndFootnote(record.summary).body),

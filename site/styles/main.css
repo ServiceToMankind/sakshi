@@ -768,6 +768,12 @@ canvas {
 .badge--minor {
   --badge-c: var(--accent);
 }
+/* A reviewed human-authored correction has touched this record (corrections/<id>.yml). */
+.badge--corrected {
+  --badge-c: var(--c-severity, #b45309);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+}
 /* Charge-derived severity. Aggravated gets a distinct dark-red weight; the label
    describes the OFFENCE, never the victim (safe for every case incl. minors). */
 .badge--severity {

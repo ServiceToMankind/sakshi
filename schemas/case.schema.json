@@ -289,6 +289,10 @@
       "type": "string",
       "maxLength": 300,
       "description": "Short verifier note (corroboration found, or the reason it demoted/corrected). Contains NO victim details."
+    },
+    "corrected": {
+      "type": "boolean",
+      "description": "True if a reviewed human-authored correction (corrections/<id>.yml, applied by pipeline.corrections before sanitize) narrowed or fixed a field on this record. The site shows a 'Corrected' marker; the audit trail lives in the committed correction file. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
     }
   },
   "allOf": [
