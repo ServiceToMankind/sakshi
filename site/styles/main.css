@@ -1211,6 +1211,22 @@ canvas {
   color: var(--text-muted);
   font-size: 0.82rem;
 }
+/* Marks a jurisdiction with no state-specific source — its counts are floors. */
+.scorecard__nosource {
+  justify-self: start;
+  margin-top: 0.15rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px dashed var(--border, #9ca3af);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.scorecard-section__disclaimer {
+  font-size: 0.8rem;
+  max-width: 60rem;
+}
 .scorecard__cell {
   font-variant-numeric: tabular-nums;
 }
