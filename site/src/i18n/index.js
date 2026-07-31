@@ -5,9 +5,12 @@
 
 import en from './en.json';
 import hi from './hi.json';
+import te from './te.json';
 
-const LOCALES = { en, hi };
-const SUPPORTED = ['en', 'hi'];
+const LOCALES = { en, hi, te };
+// Telugu (te) is a partial STUB — only a few keys are translated; the rest fall back to
+// English key-by-key (§7). English is the complete base.
+const SUPPORTED = ['en', 'hi', 'te'];
 const DEV = import.meta.env.DEV;
 
 let base = {}; // full English

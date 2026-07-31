@@ -1366,3 +1366,19 @@ canvas {
 .disclaimer--coverage {
   margin-top: 1.5rem;
 }
+
+/* --- Read-aloud button (§7) ---------------------------------------------- */
+.read-aloud {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+.read-aloud__icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+.read-aloud[aria-pressed='true'] {
+  border-color: var(--accent, #b23);
+}
