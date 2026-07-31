@@ -60,6 +60,23 @@ Publication mechanics (this launch):
   full last gate (coerce-minor → sanitize/project → withhold names) on every promoted
   record.
 
+### Known defects
+- **DEFECT — the discovery pipeline is architecturally amnesiac (logged 2026-07-31).**
+  Every published record is extracted from a feed HEADLINE + short blurb, not the article,
+  and is permanently un-re-verifiable once its feed item rolls off (evidence: only 1 of 15
+  corpus news URLs was still in a live feed; a ledger reset re-extracts nothing). Two
+  consequences: (1) CNRs and the §6b structured facts almost never populate from a blurb, so
+  trackability sits at 0% and minor summaries stay at the composer fallback; (2) a cited
+  source that 404s makes a public claim unfalsifiable. Fixes queued: fetch article bodies in
+  `discover` (HIGH-PII, in-memory only); store an existing Internet-Archive snapshot as
+  `archive_url`; and a `corrections/` override mechanism (the quarantine slice ships now —
+  see `pipeline/corrections.py`). Feed expansion is HELD until these land, or every new
+  record is unverifiable from day two.
+- **Over-merge quarantined — SKS-2026-DL-000003** (`corrections/SKS-2026-DL-000003.yml`):
+  13 distinct Indian Kanoon judgments + a 2006 acquittal + a bail cancellation fused into one
+  record asserting CONVICTED. §4c stops future over-merges but did not retroactively split
+  this one; held in `_review` pending re-extraction of its court docs (needs the IK token).
+
 ### Known follow-ups
 - **Issue #29** — id reuse via serial-HWM regression (edge case; not triggered by the
   media-only launch).

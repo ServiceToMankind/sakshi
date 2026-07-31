@@ -33,6 +33,7 @@ from scripts.pii_guard import iter_json_files, scan_json_file
 
 from pipeline import config, fixtures, verify
 from pipeline.citation_slug import url_carries_identifying_slug
+from pipeline.corrections import load_corrections, quarantined_ids
 from pipeline.coverage import build_coverage
 from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
 from pipeline.extract.gemini import ExtractionClient, extract
@@ -990,6 +991,19 @@ def run(
         if created:
             _log(report, f"refresh: dropped {created} newly-discovered record(s) (update-only)")
         published = kept
+
+    # OPERATOR QUARANTINE (corrections/<id>.yml with quarantine: true): a reviewed, committed
+    # human decision to hold a record out of the public site — e.g. an over-merged record the
+    # pipeline cannot re-split on its own. Routed to _review, never silently dropped.
+    quarantine_ids = quarantined_ids(load_corrections())
+    if quarantine_ids:
+        quarantined = [r for r in published if str(r.get("id", "")) in quarantine_ids]
+        published = [r for r in published if str(r.get("id", "")) not in quarantine_ids]
+        review = review + [{"reason": "operator_quarantine", "record": r} for r in quarantined]
+        if quarantined:
+            _log(
+                report, f"quarantine: {len(quarantined)} record(s) held per corrections/ (operator)"
+            )
 
     # GRADUATED auto-publish gate: split the published set into what may ship
     # unattended (auto_eligible) and what a human must promote first (needs_review:

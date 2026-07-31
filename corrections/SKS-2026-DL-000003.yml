@@ -1,0 +1,22 @@
+# Human-authored correction (quarantine). See pipeline/corrections.py and TAKEDOWN.md.
+record_id: SKS-2026-DL-000003
+quarantine: true
+author: operator (via Claude Code session)
+date: 2026-07-31
+reason: >
+  Over-merged record. Fourteen sources fuse 13 distinct Indian Kanoon judgments,
+  a 2006 rape ACQUITTAL ("Delhi High Court acquits man in 2006 rape case"), and a
+  West-Delhi-school bail cancellation into ONE record that asserts status
+  CONVICTED. A conviction claim over a set that contains an acquittal is false.
+  §4c prevents future over-merges (day-precise date required for a confident fuzzy
+  merge) but does not retroactively split this pre-existing fusion; the year-only
+  minor projection also keeps §8's candidate-match from re-examining it.
+evidence: >
+  14 sources spanning provably distinct proceedings, including
+  https://www.thehindu.com/news/cities/Delhi/delhi-high-court-acquits-man-in-2006-rape-case
+  (an acquittal) alongside a CONVICTED status; offence_sections is a 19-token
+  grab-bag from many judgments.
+resolution: >
+  Held in _review. The constituent Indian Kanoon documents can be re-extracted into
+  distinct, correctly-anchored records once INDIANKANOON_API_TOKEN is provisioned
+  (§4c then keeps them separate). Do not scrape the IK website as a substitute.

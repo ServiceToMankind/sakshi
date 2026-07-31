@@ -261,6 +261,34 @@ def test_discover_mode_does_create_the_new_record(tmp_path: Path) -> None:
     assert "C-BRAND-NEW" in cnrs  # discovery created it
 
 
+def test_operator_quarantine_holds_record_out_of_publish(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """A corrections/<id>.yml with quarantine:true routes that record to _review, not the site."""
+    corrections_dir = tmp_path / "corrections"
+    corrections_dir.mkdir()
+    (corrections_dir / "q.yml").write_text(
+        "record_id: SKS-2026-TG-000001\nquarantine: true\nreason: test\n", encoding="utf-8"
+    )
+    from pipeline import corrections as corrections_mod
+
+    monkeypatch.setattr(
+        orchestrator, "load_corrections", lambda: corrections_mod.load_corrections(corrections_dir)
+    )
+    _seed_anchored_record(tmp_path)  # seeds SKS-2026-TG-000001
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini("{}"),
+    )
+    assert not (tmp_path / "2026" / "TG.json").exists()  # the only record was quarantined
+    assert report.review_reasons.get("operator_quarantine") == 1
+
+
 def test_run_writes_merge_review_candidates_file(tmp_path: Path) -> None:
     """§8: every run writes data/_merge_review/candidates.json (empty when no candidates),
     never merging or removing a record."""
