@@ -6,11 +6,8 @@
       "acquittals": 0,
       "convictions": 1,
       "district": "Delhi",
-      "longest_pending": {
-        "days": 6,
-        "id": "SKS-2026-DL-000008"
-      },
-      "median_pending_days": 6,
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "DL",
       "total": 4,
       "under_trial": 2,
@@ -20,11 +17,8 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Hyderabad",
-      "longest_pending": {
-        "days": 8,
-        "id": "SKS-2026-TG-000007"
-      },
-      "median_pending_days": 8,
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "TG",
       "total": 3,
       "under_trial": 0,
@@ -111,11 +105,8 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Ranga Reddy",
-      "longest_pending": {
-        "days": 8,
-        "id": "SKS-2026-TG-000006"
-      },
-      "median_pending_days": 8,
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "TG",
       "total": 1,
       "under_trial": 0,
@@ -736,22 +727,6 @@
     "UNDER_TRIAL": 3,
     "UNKNOWN": 2
   },
-  "top_longest_pending": [
-    {
-      "district": "Ranga Reddy",
-      "id": "SKS-2026-TG-000006",
-      "pending_days": 8
-    },
-    {
-      "district": "Hyderabad",
-      "id": "SKS-2026-TG-000007",
-      "pending_days": 8
-    },
-    {
-      "district": "Delhi",
-      "id": "SKS-2026-DL-000008",
-      "pending_days": 6
-    }
-  ],
+  "top_longest_pending": [],
   "total": 18
 }

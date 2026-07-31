@@ -209,7 +209,7 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     POCSO s.23 permits only state, district, year, offence category, and judicial
     status for a minor. So the model-written ``summary`` is replaced with a fixed
     neutral template, ``incident_reported_date`` is truncated to the year,
-    ``pending_days`` (a day-precise derivation) is nulled, ``court.next_hearing``
+    ``days_since_reported`` (a day-precise derivation) is nulled, ``court.next_hearing``
     is nulled, each ``status_history`` date is truncated to the month, and any
     model-written ``verification_note`` (guardrail L free text — not age-scanned by
     pii_guard) is dropped. This is structural: it does not depend on the age-expression
@@ -231,8 +231,8 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     reported = projected.get("incident_reported_date")
     if isinstance(reported, str) and reported:
         projected["incident_reported_date"] = reported[:4]  # year granularity only
-    if "pending_days" in projected:
-        projected["pending_days"] = None  # cannot be derived from a year; never stored
+    if "days_since_reported" in projected:
+        projected["days_since_reported"] = None  # cannot be derived from a year; never stored
     court = projected.get("court")
     if isinstance(court, dict) and "next_hearing" in court:
         projected["court"] = {**court, "next_hearing": None}

@@ -63,7 +63,7 @@ def test_sanitize_recurses_into_dicts_lists_and_leaves_scalars() -> None:
         "court": {"name": "Special POCSO Court, TESTVILLE", "email": "clerk@testville.example"},
         "accused": [{"label": "Accused #1", "phone": "9876543210"}],
         "minor_involved": False,  # non-minor: no projection, scalars pass through
-        "pending_days": 25,
+        "days_since_reported": 25,
     }
     clean = sanitize_record(dirty)
     assert "email" not in clean["court"]
@@ -71,7 +71,7 @@ def test_sanitize_recurses_into_dicts_lists_and_leaves_scalars() -> None:
     assert "phone" not in clean["accused"][0]
     assert clean["accused"][0]["label"] == "Accused #1"
     assert clean["minor_involved"] is False
-    assert clean["pending_days"] == 25
+    assert clean["days_since_reported"] == 25
 
 
 def test_sanitize_is_idempotent() -> None:
@@ -124,7 +124,7 @@ _MINOR_LEAK = {
     "id": "SKS-2026-TG-000001",
     "incident_reported_date": "2026-07-05",
     "minor_involved": True,
-    "pending_days": 5,
+    "days_since_reported": 5,
     "status": "UNKNOWN",
     "status_history": [{"status": "FIR_FILED", "date": "2026-07-05", "source": 0}],
     "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": "2026-08-02"},
@@ -149,7 +149,7 @@ def test_minor_projection_replaces_age_narrative_and_truncates_dates() -> None:
     assert "involving a minor" in clean["title"]
     assert "17-year-old" not in clean["title"]
     assert clean["incident_reported_date"] == "2026"  # year granularity only
-    assert clean["pending_days"] is None  # not stored for a minor
+    assert clean["days_since_reported"] is None  # not stored for a minor
     assert clean["court"]["next_hearing"] is None
     assert clean["status_history"][0]["date"] == "2026-07"  # YYYY-MM, day dropped
     assert clean["minor_involved"] is True
@@ -305,7 +305,7 @@ def test_minor_projection_absent_optional_fields_only_forces_title_and_summary()
     assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
     assert "involving a minor" in clean["title"]
     assert "incident_reported_date" not in clean
-    assert "pending_days" not in clean
+    assert "days_since_reported" not in clean
     assert "court" not in clean
     assert "status_history" not in clean
 
@@ -334,12 +334,12 @@ def test_non_minor_record_is_not_projected() -> None:
     rec = {
         "minor_involved": False,
         "incident_reported_date": "2026-07-05",
-        "pending_days": 5,
+        "days_since_reported": 5,
         "summary": "A neutral non-graphic summary of a reported adult case.",
     }
     clean = sanitize_record(rec)
     assert clean["incident_reported_date"] == "2026-07-05"
-    assert clean["pending_days"] == 5
+    assert clean["days_since_reported"] == 5
     assert clean["summary"] == "A neutral non-graphic summary of a reported adult case."
 
 

@@ -211,10 +211,10 @@
         }
       }
     },
-    "pending_days": {
+    "days_since_reported": {
       "type": ["integer", "null"],
       "minimum": 0,
-      "description": "Days the case has been pending, for accountability surfacing. MUST be null when minor_involved is true (a day-precise derivation is not stored for a minor)."
+      "description": "Days elapsed since the case was first reported — NEUTRAL elapsed time, not verified pendency. A pending / 'days without justice' claim requires a re-checkable court anchor, so the pendency leaderboard and jurisdiction medians additionally filter on that (§ pendency honesty). MUST be null when minor_involved is true (a day-precise derivation is not stored for a minor)."
     },
     "title": {
       "type": "string",
@@ -302,7 +302,7 @@
         "not": { "required": ["accused"] },
         "properties": {
           "incident_reported_date": { "pattern": "^\\d{4}$" },
-          "pending_days": { "type": "null" },
+          "days_since_reported": { "type": "null" },
           "title": { "pattern": "[Cc]hild|[Mm]inor" },
           "summary": {
             "pattern": "Identifying details are withheld by law \\(POCSO s\\.23\\)\\.$"
@@ -343,7 +343,7 @@
         "name": "Special POCSO Court, TESTVILLE",
         "next_hearing": null
       },
-      "pending_days": null,
+      "days_since_reported": null,
       "summary": "A case of aggravated penetrative assault on a child in TESTVILLE, TG (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
       "sources": [
         {

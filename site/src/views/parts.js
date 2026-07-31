@@ -56,22 +56,22 @@ export function repeatOffenderBadge(offenceSections) {
 }
 
 /**
- * The "days without justice" ticker. Day-precise pendency exists ONLY for non-minor
- * cases (a minor's date is year-only by projection, and `pending_days` is nulled), so
- * this NEVER renders on a minor card — a hard guardrail, not a display choice
- * (CLAUDE.md §1a). Shown while the case is unresolved (active statuses incl.
- * under-trial); resolved cases (convicted/acquitted/quashed/closed) show no ticker.
+ * The "days since first reported" ticker — NEUTRAL elapsed time, never a "days without
+ * justice" claim (that would need a re-checkable court anchor; pendency honesty). Day-precise
+ * elapsed time exists ONLY for non-minor cases (a minor's date is year-only by projection, and
+ * `days_since_reported` is nulled), so this NEVER renders on a minor card — a hard guardrail
+ * (CLAUDE.md §1a). Shown while the case is unresolved; resolved cases show no ticker.
  */
 export function daysTicker(record) {
   if (record.minor_involved) return null;
   if (!isActiveStatus(record.status)) return null;
-  if (record.pending_days == null) return null;
+  if (record.days_since_reported == null) return null;
   return el('div', { class: 'days-ticker', role: 'note' }, [
-    el('span', { class: 'days-ticker__num' }, formatNumber(record.pending_days)),
+    el('span', { class: 'days-ticker__num' }, formatNumber(record.days_since_reported)),
     el(
       'span',
-      { class: 'days-ticker__label', 'data-i18n': 'days_without_justice' },
-      t('days_without_justice'),
+      { class: 'days-ticker__label', 'data-i18n': 'days_since_reported' },
+      t('days_since_reported'),
     ),
   ]);
 }

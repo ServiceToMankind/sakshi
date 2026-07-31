@@ -28,7 +28,7 @@ def test_scan_value_flags_forbidden_key_and_pii_value() -> None:
         "district": "TESTVILLE",
         "victim_name": "SHOULD NOT PERSIST",
         "note": "reach test@testville.example",
-        "pending_days": 25,  # non-string scalar: walked but never flagged
+        "days_since_reported": 25,  # non-string scalar: walked but never flagged
         "accused": [{"label": "Accused #1"}],
     }
     reasons = [f.reason for f in pii_guard.scan_value(data, "")]
