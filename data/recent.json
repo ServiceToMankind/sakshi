@@ -93,6 +93,25 @@
     "last_status_change": null
   },
   {
+    "id": "SKS-2026-TG-000010",
+    "title": "Penetrative assault on a child — Hyderabad (2026)",
+    "summary": "A case of penetrative assault on a child in Hyderabad, TG (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Hyderabad",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "Telangana High Court",
+    "verified": true,
+    "first_published": "2026-08-01",
+    "last_status_change": null
+  },
+  {
     "id": "SKS-2026-TG-000009",
     "title": "Child sexual offence — Malkajgiri (2026)",
     "summary": "A case of child sexual offence in Malkajgiri, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
@@ -223,10 +242,10 @@
   },
   {
     "id": "SKS-2026-HR-000001",
-    "title": "Sexual assault involving a minor — Gurgaon (2026)",
-    "summary": "A case of sexual assault involving a minor in Gurgaon, HR (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Gurugram (2026)",
+    "summary": "A case of sexual assault involving a minor in Gurugram, HR (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "state": "HR",
-    "district": "Gurgaon",
+    "district": "Gurugram",
     "category": "sexual_assault",
     "status": "UNDER_TRIAL",
     "offence_sections": [],

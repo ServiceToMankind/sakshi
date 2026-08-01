@@ -2,7 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -29,7 +29,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -236,6 +236,37 @@
     "status": "FIR_FILED",
     "summary": "A case of child sexual offence in Malkajgiri, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Malkajgiri (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "Telangana High Court",
+      "next_hearing": null
+    },
+    "district": "Hyderabad",
+    "first_published": "2026-08-01",
+    "id": "SKS-2026-TG-000010",
+    "incident_reported_date": "2026",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "sources": [
+      {
+        "publisher": "Telangana High Court",
+        "retrieved": "2026-08-01",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/150255030/"
+      }
+    ],
+    "state": "TG",
+    "status": "UNDER_TRIAL",
+    "summary": "A case of penetrative assault on a child in Hyderabad, TG (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Hyderabad (2026)",
     "verified": true
   }
 ]
