@@ -1,0 +1,56 @@
+name: Case submission
+description: Tell us about a publicly reported sexual-offence case we may have missed. A submission is a LEAD, never a published record.
+title: "case: "
+labels: ["case-submission", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Thank you for helping the record be complete. Submit the **public source URL**
+        and a few non-identifying facts. Your submission becomes a **candidate** in the
+        next run and passes through **every** guardrail — extraction, grounded
+        verification, the minor projection, PII stripping. It is **never** published as-is.
+
+
+        **Do NOT include any victim-identifying detail** — no names, ages, photos,
+        addresses, family, school, or "near X". We never ingest those (BNS s.72 /
+        POCSO s.23), and we do not need them. Submit the public URL; the pipeline reads it.
+  - type: input
+    id: source_url
+    attributes:
+      label: Public source URL
+      description: A court record, judgment, or an established news outlet's article. Not social media.
+      placeholder: https://...
+    validations:
+      required: true
+  - type: input
+    id: state
+    attributes:
+      label: State / UT
+      placeholder: e.g. Telangana
+    validations:
+      required: false
+  - type: input
+    id: district
+    attributes:
+      label: District
+      placeholder: e.g. Warangal
+    validations:
+      required: false
+  - type: input
+    id: incident_date
+    attributes:
+      label: Reported month (YYYY-MM) or date (YYYY-MM-DD)
+      description: When the case was publicly reported/registered, if you know it.
+      placeholder: 2026-07
+    validations:
+      required: false
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: Confirmations
+      options:
+        - label: The URL is a PUBLIC source (court record or established media), not social media.
+          required: true
+        - label: I have NOT included any victim-identifying detail in this submission.
+          required: true

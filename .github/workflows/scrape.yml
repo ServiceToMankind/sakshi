@@ -158,6 +158,24 @@ jobs:
 
       # Fetch -> extract -> sanitize -> project -> scope -> dedupe -> validate &
       # shard -> pii_guard. Writes data/ + logs/run_report.md (the PR body).
+      # Collect open community case-submission issues (§6) into submissions.json so the
+      # discover run picks them up as seed URLs. Each submission is a LEAD that passes
+      # through every gate — never a published record. Discover only; never on a refresh.
+      - name: Collect case submissions
+        if: env.DRY_RUN != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SCRAPE_BOT_TOKEN || secrets.GITHUB_TOKEN }}
+          PIPELINE_MODE: ${{ (github.event.schedule == '30 1 * * 0' || github.event.inputs.mode == 'refresh') && 'refresh' || 'discover' }}
+        run: |
+          if [ "${PIPELINE_MODE:-discover}" = "discover" ]; then
+            gh issue list --repo "${{ github.repository }}" --label case-submission \
+              --state open --limit 100 --json number,body > submissions.json 2>/dev/null \
+              || echo '[]' > submissions.json
+            echo "collected $(jq 'length' submissions.json 2>/dev/null || echo 0) submission(s)"
+          else
+            echo '[]' > submissions.json
+          fi
+
       - name: Run pipeline
         id: run
         env:
@@ -500,6 +518,7 @@ jobs:
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
           VERIFIED=0; VERIFY_DEMOTED=0; VERIFY_COST=0
           MONTH_TO_DATE=0; MONTHLY_CAP=0; BUDGET_EXHAUSTED=0
+          SUBMISSIONS=0; SUBMISSIONS_PUBLISHED=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
           # Depth of the persistent needs-review (held) queue, straight from the file.
           QUEUE="$(jq 'length' data/_needs_review/queue.json 2>/dev/null || echo 0)"
@@ -529,12 +548,16 @@ jobs:
           # made NO paid calls this cycle — surface it prominently.
           SPEND="$(printf '\n- spend (guardrail): month-to-date **$%s** / $%s cap' "$MONTH_TO_DATE" "$MONTHLY_CAP")"
           [ "${BUDGET_EXHAUSTED:-0}" = "1" ] && SPEND="${SPEND} — ⚠️ **EXHAUSTED: extraction skipped until next month**"
+          # Community submissions line (§6) — shown only when a submission was fetched. A
+          # high fetched-but-not-published ratio is itself a signal (submission quality/spam).
+          SUB=""
+          [ "${SUBMISSIONS:-0}" != "0" ] && SUB="$(printf '\n- submissions (§6): **%s** fetched · %s published' "$SUBMISSIONS" "$SUBMISSIONS_PUBLISHED")"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s%s\n- cost: $%s · status: **%s**%s' \
+          BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s%s%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
             "$FETCHED" "$PROCESSED" "$SKIPPED" "$LEDGER" "$PENDING" "$LEDGER_TOTAL" \
             "$EXTRACTED" "$INSCOPE" "$PUBLISHED" "$NEEDS_REVIEW" "$REVIEW" "$REJECTED" "$VLINE" \
-            "$QUEUE" "$QNOTE" "$SPEND" \
+            "$QUEUE" "$QNOTE" "$SPEND" "$SUB" \
             "$COST" "$STATUS" "${ERRS:+ · errors: $ERRS}")"
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
 
