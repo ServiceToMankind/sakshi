@@ -6,7 +6,7 @@
 
 import { el, clear } from '../dom.js';
 import { t, applyI18n } from '../i18n/index.js';
-import { loadSummary, loadRecent } from '../data.js';
+import { loadSummary, loadRecent, loadCoverage } from '../data.js';
 import { renderDonut, renderTrend, renderStateGrid, statusLegend } from '../charts.js';
 import {
   ACTIVE_STATUSES,
@@ -311,6 +311,16 @@ export async function renderLanding() {
   );
   const stale = hoursSince(summary.generated_at) > 48;
 
+  // Coverage (per-state source presence) calibrates the jurisdiction scorecard: a state
+  // with no source is marked so its counts read as floors, not clean comparisons. Optional
+  // — a missing coverage.json just omits the markers, never breaks the landing.
+  let coverage = null;
+  try {
+    coverage = await loadCoverage();
+  } catch {
+    coverage = null;
+  }
+
   const charts = chartsSection(statusCounts, stateCounts, monthly);
 
   const node = el('div', { class: 'view view--landing' }, [
@@ -326,7 +336,7 @@ export async function renderLanding() {
     // null on a v1 summary that lacks its block, so the landing degrades gracefully.
     scaleDrumbeat(summary),
     recentFeed(recent),
-    jurisdictionScorecard(summary.jurisdictions),
+    jurisdictionScorecard(summary.jurisdictions, coverage),
     offenderScorecard(),
     el('section', { class: 'charts-wrap reveal' }, [charts.details]),
   ]);

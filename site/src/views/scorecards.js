@@ -183,9 +183,19 @@ function compareBy(col, dir) {
  * summary.jurisdictions. Aggregate/public counts only — no case-level or victim data.
  * Returns null when there are no jurisdictions (landing simply omits the section).
  */
-export function jurisdictionScorecard(jurisdictions) {
+export function jurisdictionScorecard(jurisdictions, coverage = null) {
   const rows = Array.isArray(jurisdictions) ? jurisdictions : [];
   if (!rows.length) return null;
+
+  // States with NO state-specific source (coverage.json active_sources === 0). Their
+  // scorecard counts are FLOORS — a case there was surfaced incidentally (a national
+  // wire, an NCR spillover), so the jurisdiction is likely under-counted, not clean.
+  // The ranking is meaningful only AMONG covered jurisdictions (see the disclaimer).
+  const covStates = coverage && coverage.states ? coverage.states : {};
+  const noLocalSource = (state) => {
+    const info = covStates[state];
+    return info ? Number(info.active_sources) === 0 : false;
+  };
 
   const sort = { key: 'total', dir: 'desc' };
   const tbody = el('tbody');
@@ -213,9 +223,29 @@ export function jurisdictionScorecard(jurisdictions) {
     sorted.forEach((j) => {
       const cells = COLUMNS.map((c) => {
         const content = c.cell(j);
-        return c.key === 'place'
-          ? el('th', { scope: 'row', class: 'scorecard__cell scorecard__cell--place' }, content)
-          : el('td', { class: `scorecard__cell scorecard__cell--${c.key}` }, content);
+        if (c.key === 'place') {
+          // A no-local-source marker (its counts are floors) — appended here rather than in
+          // the module-level COLUMNS spec, which cannot see this run's coverage closure.
+          if (noLocalSource(j.state)) {
+            content.append(
+              el(
+                'span',
+                {
+                  class: 'scorecard__nosource',
+                  'data-i18n': 'jur_no_source',
+                  title: t('jur_no_source_hint'),
+                },
+                t('jur_no_source'),
+              ),
+            );
+          }
+          return el(
+            'th',
+            { scope: 'row', class: 'scorecard__cell scorecard__cell--place' },
+            content,
+          );
+        }
+        return el('td', { class: `scorecard__cell scorecard__cell--${c.key}` }, content);
       });
       tbody.append(el('tr', {}, cells));
     });
@@ -265,6 +295,11 @@ export function jurisdictionScorecard(jurisdictions) {
         t('section_jurisdictions'),
       ),
       el('p', { class: 'muted scorecard-section__lead', 'data-i18n': 'jur_lead' }, t('jur_lead')),
+      el(
+        'p',
+        { class: 'muted scorecard-section__disclaimer', 'data-i18n': 'jur_coverage_disclaimer' },
+        t('jur_coverage_disclaimer'),
+      ),
     ]),
     el('div', { class: 'scorecard-wrap' }, table),
   ]);
