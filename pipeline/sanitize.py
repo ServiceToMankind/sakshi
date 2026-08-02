@@ -33,6 +33,7 @@ from pipeline.pii_constants import (
     scrub_victim_occupation,
 )
 from pipeline.severity import severity_label
+from pipeline.states import state_name
 
 __all__ = [
     "MINOR_SUMMARY_TEMPLATE",
@@ -98,7 +99,7 @@ def _minor_offence_phrase(record: dict[str, Any]) -> str:
 def minor_title(record: dict[str, Any]) -> str:
     """Deterministic, non-identifying title for a minor case (allowed fields only)."""
     year = _case_year(record)
-    where = str(record.get("district") or record.get("state") or "").strip()
+    where = str(record.get("district") or "").strip() or state_name(str(record.get("state") or ""))
     parts = [_minor_offence_phrase(record)]
     if where:
         parts.append(f"— {where}")
@@ -122,7 +123,9 @@ def minor_summary(record: dict[str, Any]) -> str:
     if composed is not None:
         return f"{composed} {MINOR_WITHHELD_SENTENCE}"
     year = _case_year(record)
-    location = ", ".join(part for part in (district, str(record.get("state", "")).strip()) if part)
+    location = ", ".join(
+        part for part in (district, state_name(str(record.get("state", "")))) if part
+    )
     phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
     where = f" in {location}" if location else ""
     reported = f" ({year})" if year else ""
@@ -172,7 +175,7 @@ def _scrub_occupation_fields(record: dict[str, Any]) -> dict[str, Any]:
 def _nonminor_title(record: dict[str, Any]) -> str:
     """Deterministic fallback title for a non-minor record lacking a model title."""
     year = _case_year(record)
-    where = str(record.get("district") or record.get("state") or "").strip()
+    where = str(record.get("district") or "").strip() or state_name(str(record.get("state") or ""))
     parts = [f"{_category_label(record)} case"]
     if where:
         parts.append(f"— {where}")
