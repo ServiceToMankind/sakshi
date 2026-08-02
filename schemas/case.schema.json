@@ -247,8 +247,8 @@
           },
           "source_type": {
             "type": "string",
-            "description": "Provenance class, assigned deterministically from the source. A record whose ONLY sources are live_blog is capped below the publish threshold and quarantined for human confirmation (a rolling live-updates page is not durable provenance for a permanent public claim).",
-            "enum": ["court", "news_article", "live_blog", "press_release"]
+            "description": "Provenance class, assigned deterministically from the source (§3 tiers: court=1, legal_press=2, news_article/press_release=3, live_blog=4). A record whose ONLY sources are live_blog is capped below the publish threshold and quarantined for human confirmation (a rolling live-updates page is not durable provenance for a permanent public claim).",
+            "enum": ["court", "legal_press", "news_article", "live_blog", "press_release"]
           },
           "retrieved": {
             "type": "string",
@@ -298,6 +298,12 @@
     "corrected": {
       "type": "boolean",
       "description": "True if a reviewed human-authored correction (corrections/<id>.yml, applied by pipeline.corrections before sanitize) narrowed or fixed a field on this record. The site shows a 'Corrected' marker; the audit trail lives in the committed correction file. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
+    },
+    "traced_to_court": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "The date a media-only (tier ≥ 2) record first gained a COURT source — an unregistered/untracked case entering the visible judicial record, the project's highest-value event (§3). Set once by the sharder when a court source appears; the site shows 'Traced to a court record on <date>'. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
     }
   },
   "allOf": [

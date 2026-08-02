@@ -2370,8 +2370,11 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         "verified",
         "first_published",
         "last_status_change",
+        "source_tier",
+        "traced_to_court",
     }
     assert feed[0]["publisher"] == "The Hindu" and feed[0]["verified"] is True
+    assert feed[0]["source_tier"] == 3  # media-sourced (The Hindu, news_article)
     assert feed[0]["first_published"] == "2026-07-09"  # the run date it entered the tree
     assert feed[0]["last_status_change"] is None  # brand-new: no material change yet
     # A FRESHLY-MINTED record must carry its assigned id in the feed (not null) — else

@@ -12,6 +12,7 @@ import {
   relativeRecency,
 } from '../format.js';
 import { severityLabel, severityCode, isAggravated, isRepeatOffender } from '../severity.js';
+import { recordTier, hasCourtSource } from '../tier.js';
 
 /** A status badge. ACQUITTED/QUASHED are styled with equal prominence to CONVICTED. */
 export function statusBadge(status) {
@@ -56,6 +57,31 @@ export function severityBadge(offenceSections) {
     },
     label,
   );
+}
+
+/**
+ * The source-tier tracing marker (§3), or null when the record is court-sourced and was
+ * always so. Tells a reader/journalist/RTI activist exactly which cases have NOT reached the
+ * visible judicial record — the accountability signal the project exists for.
+ */
+export function tracingMarker(record) {
+  if (record.traced_to_court) {
+    return el(
+      'span',
+      { class: 'badge badge--traced', title: t('traced_to_court_hint') },
+      `${t('traced_to_court')} ${formatDate(record.traced_to_court)}`,
+    );
+  }
+  if (hasCourtSource(record)) return null; // a court record, always tracked
+  const tier = recordTier(record);
+  if (tier <= 2) {
+    return el(
+      'span',
+      { class: 'badge badge--legalpress', 'data-i18n': 'tier_legal' },
+      t('tier_legal'),
+    );
+  }
+  return el('span', { class: 'badge badge--media', 'data-i18n': 'tier_media' }, t('tier_media'));
 }
 
 /** A separate repeat/habitual-offender chip (a second aggravating axis), or null. */
@@ -152,6 +178,7 @@ export function recentCard(record) {
           repeatOffenderBadge(record.offence_sections),
           record.minor_involved ? minorBadge() : null,
           record.verified ? verifiedBadge() : null,
+          tracingMarker(record),
         ]),
         el('h3', { class: 'feed-card__title' }, record.title || record.id),
         record.summary ? el('p', { class: 'feed-card__summary' }, record.summary) : null,

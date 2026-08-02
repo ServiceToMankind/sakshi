@@ -24,6 +24,16 @@
 #     PAID + token-gated. Enabled below but yields nothing until INDIANKANOON_API_TOKEN is set.
 #
 # Types: ecourts | indiankanoon | rss (see git history for the full notes).
+#
+# SOURCE TIERS (§3 — court sources are the RECORD; media is the discovery net). Each fetched
+# source is classified (pipeline/provenance.classify_source_type) into a source_type, and a
+# record's TIER is the strongest (lowest) among its sources:
+#   tier 1  court        — ecourts / indiankanoon(court docsource) — CNR, status, pendency, names
+#   tier 2  legal_press  — LiveLaw, Bar & Bench — court proceedings with a court citation
+#   tier 3  news_article / press_release — incident/arrest/FIR reports; not yet a court record
+#   tier 4  live_blog    — rolling coverage (quarantine only)
+# The site marks a tier-3-only record "Reported in media — not yet traced to a court record",
+# and celebrates the tier-3 -> court transition ("Traced to a court record on <date>").
 
 # --- National (not state-specific) ------------------------------------------------------
 national:
