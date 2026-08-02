@@ -259,6 +259,11 @@
           "url_carries_identifying_slug": {
             "type": "boolean",
             "description": "True if this source URL's own slug states a detail this record withholds — a victim age, gender, accused–victim relationship, or institution (§5). Set deterministically by pipeline/citation_slug.py. The site never renders the raw URL as anchor text (domain only) and tucks a flagged source behind an expander; clean sources are shown first. Absent/false means the slug carries no such detail."
+          },
+          "archive_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "A pre-EXISTING Internet Archive (Wayback) snapshot of this source, for citation permanence when the original rolls off the feed. Looked up read-only via pipeline/archive.py (the availability API) — a capture is NEVER triggered. Set ONLY for sources that do NOT carry the §5 identifying-slug flag, so a permanent third-party copy of an identifying URL is never referenced. Additive field — additionalProperties:false is unchanged."
           }
         }
       }
