@@ -1,0 +1,21 @@
+record_id: SKS-2026-DL-000003
+quarantine: true
+author: phase-7-directive
+date: "2026-08-03"
+reason: >
+  Over-merge. This single record fused 14 DISTINCT Delhi High Court matters — 12
+  Indian Kanoon judgments, a bail-cancellation report, and a 2006 acquittal — into one
+  case, and published it as CONVICTED against (a projected) minor record with NO CNR and
+  NO FIR. A CONVICTED status not traceable to a single judgment naming a single accused
+  is a defamation exposure and is withdrawn from the public site pending re-derivation.
+evidence:
+  - https://indiankanoon.org/doc/138118999/
+  - https://indiankanoon.org/doc/27881371/
+  - https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/
+  - https://www.thehindu.com/news/cities/Delhi/delhi-high-court-acquits-man-in-2006-rape-case-says-names-do-not-define-character/article71261546.ece
+resolution: >
+  Legacy over-merge created before the §4c (#92) / #94 dedupe fixes, which now route
+  anchorless same-court minors to review rather than merging them. The forward-only
+  pipeline cannot un-split an already-merged record, so the 14 constituent matters must
+  be re-derived by re-extracting each source (blocked on INDIANKANOON_API_TOKEN; scraping
+  the IK site is not permitted). Until then this record stays quarantined in _review.
