@@ -391,3 +391,41 @@ def test_days_since_reported_parses_partial_dates() -> None:
     assert _days_since_reported({"incident_reported_date": "2026-07"}, date(2026, 8, 2)) == 32
     assert _days_since_reported({"incident_reported_date": "2026"}, date(2026, 8, 2)) is None
     assert _days_since_reported({"incident_reported_date": "x"}, date(2026, 8, 2)) is None
+
+
+def test_traced_to_court_set_when_media_record_gains_a_court_source(tmp_path: Path) -> None:
+    """§3: a media-only record that later gains a COURT source is stamped traced_to_court
+    (the highest-value transition), write-once and carried forward."""
+    media_sources = [
+        {
+            "url": "https://news.invalid/a",
+            "publisher": "The Hindu",
+            "source_type": "news_article",
+            "retrieved": "2026-07-09",
+        }
+    ]
+    media = _record(cnr="C-TRACE", status="FIR_FILED", sources=media_sources)
+    r1 = write_shards([media], tmp_path, run_date="2026-07-20")
+    assert "traced_to_court" not in r1.records[0]
+    assert r1.traced_to_court == 0
+
+    with_court = _record(
+        cnr="C-TRACE",
+        status="FIR_FILED",
+        sources=[
+            *media_sources,
+            {
+                "url": "https://services.ecourts.gov.in/x",
+                "publisher": "eCourts",
+                "source_type": "court",
+                "retrieved": "2026-07-25",
+            },
+        ],
+    )
+    r2 = write_shards([with_court], tmp_path, run_date="2026-07-25")
+    assert r2.traced_to_court == 1
+    assert r2.records[0]["traced_to_court"] == "2026-07-25"
+
+    r3 = write_shards([with_court], tmp_path, run_date="2026-08-01")
+    assert r3.records[0]["traced_to_court"] == "2026-07-25"  # write-once, carried forward
+    assert r3.traced_to_court == 0  # not counted again

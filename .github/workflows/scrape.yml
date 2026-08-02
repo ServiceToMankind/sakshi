@@ -518,7 +518,7 @@ jobs:
           FETCHED=0; PROCESSED=0; SKIPPED=0; EXTRACTED=0
           VERIFIED=0; VERIFY_DEMOTED=0; VERIFY_COST=0
           MONTH_TO_DATE=0; MONTHLY_CAP=0; BUDGET_EXHAUSTED=0
-          SUBMISSIONS=0; SUBMISSIONS_PUBLISHED=0
+          SUBMISSIONS=0; SUBMISSIONS_PUBLISHED=0; TRACED_TO_COURT=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
           # Depth of the persistent needs-review (held) queue, straight from the file.
           QUEUE="$(jq 'length' data/_needs_review/queue.json 2>/dev/null || echo 0)"
@@ -552,6 +552,9 @@ jobs:
           # high fetched-but-not-published ratio is itself a signal (submission quality/spam).
           SUB=""
           [ "${SUBMISSIONS:-0}" != "0" ] && SUB="$(printf '\n- submissions (§6): **%s** fetched · %s published' "$SUBMISSIONS" "$SUBMISSIONS_PUBLISHED")"
+          # Traced-to-court (§3) — the highest-value event: an untracked case entering the
+          # judicial record. Shown only when it happened this run.
+          [ "${TRACED_TO_COURT:-0}" != "0" ] && SUB="${SUB}$(printf '\n- 🏛️ traced to court (§3): **%s** media record(s) gained a court source' "$TRACED_TO_COURT")"
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s%s%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \

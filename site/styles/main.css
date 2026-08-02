@@ -774,6 +774,21 @@ canvas {
   font-size: 0.68rem;
   letter-spacing: 0.02em;
 }
+/* Source-tier tracing markers (§3). "Media, not yet traced" is the key accountability
+   signal; "traced to court" is the positive transition. */
+.badge--media {
+  --badge-c: var(--text-muted, #6b7280);
+  font-size: 0.68rem;
+}
+.badge--legalpress {
+  --badge-c: var(--accent, #4f46e5);
+  font-size: 0.68rem;
+}
+.badge--traced {
+  --badge-c: var(--c-conviction, #15803d);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
 /* Charge-derived severity. Aggravated gets a distinct dark-red weight; the label
    describes the OFFENCE, never the victim (safe for every case incl. minors). */
 .badge--severity {

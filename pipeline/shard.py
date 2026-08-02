@@ -32,6 +32,7 @@ from pipeline import config
 from pipeline.coverage import is_court_anchored
 from pipeline.dedupe import exact_anchor_keys
 from pipeline.offence_sections import normalize_sections
+from pipeline.provenance import has_court_source
 from pipeline.severity import is_aggravated, severity_label
 from pipeline.validate import iter_shard_files, load_schema, validate_record
 
@@ -57,6 +58,7 @@ class WriteResult:
     new: int = 0
     material: int = 0  # records with a real material status change this run (§1 "updated")
     rechecked: int = 0  # records re-sighted with NO material change (not a change)
+    traced_to_court: int = 0  # media records that gained a court source this run (§3)
     shards: list[str] = field(default_factory=list)
     # The records AS WRITTEN — with their assigned ids / first_published / pending_days.
     # Callers that need the canonical published form (e.g. the recent-feed writer) must
@@ -270,8 +272,8 @@ def _assign_ids(
     data_dir: Path,
     run_date: str,
     reserve: list[dict[str, Any]] | None = None,
-) -> tuple[list[dict[str, Any]], int, int, int]:
-    """Assign IDs + the temporal stamps. Returns (records, new, material, rechecked).
+) -> tuple[list[dict[str, Any]], int, int, int, int]:
+    """Assign IDs + the temporal stamps. Returns (records, new, material, rechecked, traced).
 
     Temporal model (§1): ``first_published`` is written ONCE and carried forward
     immutably; ``last_status_change`` bumps ONLY on a real material change vs the prior
@@ -292,7 +294,7 @@ def _assign_ids(
     known_ids = set(idx.all_ids)  # ids that existed BEFORE this run (for new-vs-recheck)
     _seed_from_carryover(records, idx.key_to_id, idx.max_serial, idx.all_ids)
     run_day = date.fromisoformat(run_date)
-    new = material = rechecked = 0
+    new = material = rechecked = traced = 0
     finalized: list[dict[str, Any]] = []
     for record in records:
         record = dict(record)
@@ -352,11 +354,23 @@ def _assign_ids(
             else:
                 record.pop("last_status_change", None)
 
+        # traced_to_court (§3): set ONCE, the date a media-only record first gained a court
+        # source — an untracked case entering the visible judicial record. Write-once; carried
+        # forward immutably. Not applicable to a brand-new record (no prior to have lacked it).
+        prior_traced = (prior or {}).get("traced_to_court")
+        if prior_traced:
+            record["traced_to_court"] = str(prior_traced)
+        elif prior is not None and not has_court_source(prior) and has_court_source(record):
+            record["traced_to_court"] = run_date
+            traced += 1
+        else:
+            record.pop("traced_to_court", None)
+
         elapsed = _days_since_reported(record, run_day)
         if elapsed is not None:
             record["days_since_reported"] = elapsed
         finalized.append(record)
-    return finalized, new, material, rechecked
+    return finalized, new, material, rechecked, traced
 
 
 def _assert_unique_ids(records: list[dict[str, Any]]) -> None:
@@ -581,7 +595,9 @@ def write_shards(
     off-shard ids are never re-minted for a distinct new case.
     """
     run_date = run_date or date.today().isoformat()
-    finalized, new, material, rechecked = _assign_ids(records, data_dir, run_date, reserve=reserve)
+    finalized, new, material, rechecked, traced = _assign_ids(
+        records, data_dir, run_date, reserve=reserve
+    )
 
     # --- All gates run BEFORE any file is written. ---
     _assert_unique_ids(finalized)
@@ -637,6 +653,7 @@ def write_shards(
         new=new,
         material=material,
         rechecked=rechecked,
+        traced_to_court=traced,
         shards=[entry["path"] for entry in manifest],
         records=finalized,
     )

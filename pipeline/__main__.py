@@ -42,6 +42,7 @@ from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_sections import normalize_sections
+from pipeline.provenance import record_tier
 from pipeline.readability import readability_violations
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
@@ -68,6 +69,7 @@ class RunReport:
     # is what makes the site stop appearing to churn daily (§1).
     material: int = 0
     rechecked: int = 0
+    traced_to_court: int = 0  # media records that gained a court source this run (§3)
     review: int = 0
     published: int = 0
     needs_review: int = 0
@@ -299,6 +301,10 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             # blanket "updated today" (§1). last_checked stays internal (data/_meta/).
             "first_published": record.get("first_published"),
             "last_status_change": record.get("last_status_change"),
+            # Source tier + tracing (§3) — the feed card has no sources[], so carry the
+            # derived tier + the traced-to-court date it needs for the tracing marker.
+            "source_tier": record_tier(record),
+            "traced_to_court": record.get("traced_to_court"),
         }
         for record in ordered[:RECENT_FEED_SIZE]
     ]
@@ -809,7 +815,8 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"MONTHLY_CAP={report.monthly_cap:.6f}\n"
         f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
         f"SUBMISSIONS={report.submissions}\n"
-        f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n",
+        f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
+        f"TRACED_TO_COURT={report.traced_to_court}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -1306,6 +1313,9 @@ def run(
     report.new = write_result.new
     report.material = write_result.material
     report.rechecked = write_result.rechecked
+    report.traced_to_court = write_result.traced_to_court
+    if report.traced_to_court:
+        _log(report, f"traced to court (§3): {report.traced_to_court} media record(s)")
     report.review = len(review)
     report.published = write_result.published
     report.needs_review = len(needs_review_items)

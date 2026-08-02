@@ -15,7 +15,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-25",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000007",
@@ -33,7 +35,9 @@
     "publisher": "The Indian Express",
     "verified": true,
     "first_published": "2026-07-23",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000006",
@@ -51,7 +55,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-23",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-UP-000002",
@@ -70,7 +76,9 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-UP-000001",
@@ -90,7 +98,9 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000010",
@@ -109,7 +119,9 @@
     "publisher": "Telangana High Court",
     "verified": true,
     "first_published": "2026-08-01",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000009",
@@ -127,7 +139,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-29",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000008",
@@ -145,7 +159,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-26",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000005",
@@ -166,7 +182,9 @@
     "publisher": "Telangana High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000004",
@@ -182,7 +200,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000003",
@@ -200,7 +220,9 @@
     "publisher": "The Hindu",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000002",
@@ -218,7 +240,9 @@
     "publisher": "The Hindu",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000001",
@@ -238,7 +262,9 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-HR-000001",
@@ -254,7 +280,9 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-14",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000007",
@@ -273,7 +301,9 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-24",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000006",
@@ -291,7 +321,9 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000004",
@@ -314,7 +346,9 @@
     "publisher": "The Indian Express",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2018-DL-000001",
@@ -332,6 +366,8 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   }
 ]

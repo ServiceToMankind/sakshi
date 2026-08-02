@@ -14,6 +14,7 @@ import {
   severityBadge,
   repeatOffenderBadge,
   daysTicker,
+  tracingMarker,
 } from './parts.js';
 import { readAloudButton } from '../read-aloud.js';
 
@@ -191,6 +192,7 @@ export async function renderCase(route) {
         repeatOffenderBadge(record.offence_sections),
         record.minor_involved ? minorBadge() : null,
         record.corrected ? correctedBadge() : null,
+        tracingMarker(record),
       ]),
       el('h1', { class: 'case__id' }, record.id),
       el('p', { class: 'case__summary' }, summaryBodyAndFootnote(record.summary).body),
