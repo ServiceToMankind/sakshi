@@ -435,3 +435,23 @@ def test_matched_victim_occupation_and_scanned_key_helpers() -> None:
     assert matched_victim_occupation("The accused, a nurse, was booked.") == []  # accused kept
     assert is_occupation_scanned_key("summary") and is_occupation_scanned_key("title")
     assert not is_occupation_scanned_key("district")
+
+
+def test_minor_summary_uses_full_state_name_not_code() -> None:
+    """§1c: a minor summary/title renders the full state name (never the 2-letter code)."""
+    from pipeline.sanitize import minor_summary, minor_title
+
+    record = {
+        "minor_involved": True,
+        "category": "pocso",
+        "state": "HR",
+        "district": "Gurugram",
+        "status": "UNDER_TRIAL",
+        "offence_sections": ["POCSO 4"],
+        "incident_reported_date": "2026",
+    }
+    summary = minor_summary(record)
+    assert "Haryana" in summary and ", HR" not in summary
+    # Title falls back to the full state name when a district is absent.
+    no_district = {**record, "district": ""}
+    assert minor_title(no_district).endswith("— Haryana (2026)")

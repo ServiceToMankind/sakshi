@@ -10,7 +10,49 @@ matching ``site/src/format.js``) keeps a state whole.
 
 from __future__ import annotations
 
-__all__ = ["CANONICAL_STATES", "STATE_ALIASES", "normalize_state"]
+__all__ = ["CANONICAL_STATES", "STATE_ALIASES", "STATE_NAMES", "normalize_state", "state_name"]
+
+# Canonical code -> full display name. MIRRORS site/src/format.js STATE_NAMES exactly (a
+# parity test asserts it) so a state reads the same on the site and in the pipeline's
+# deterministic minor projection. A state name is public, non-identifying geography.
+STATE_NAMES: dict[str, str] = {
+    "AP": "Andhra Pradesh",
+    "AR": "Arunachal Pradesh",
+    "AS": "Assam",
+    "BR": "Bihar",
+    "CT": "Chhattisgarh",
+    "GA": "Goa",
+    "GJ": "Gujarat",
+    "HR": "Haryana",
+    "HP": "Himachal Pradesh",
+    "JH": "Jharkhand",
+    "KA": "Karnataka",
+    "KL": "Kerala",
+    "MP": "Madhya Pradesh",
+    "MH": "Maharashtra",
+    "MN": "Manipur",
+    "ML": "Meghalaya",
+    "MZ": "Mizoram",
+    "NL": "Nagaland",
+    "OD": "Odisha",
+    "PB": "Punjab",
+    "RJ": "Rajasthan",
+    "SK": "Sikkim",
+    "TN": "Tamil Nadu",
+    "TG": "Telangana",
+    "TR": "Tripura",
+    "UP": "Uttar Pradesh",
+    "UT": "Uttarakhand",
+    "WB": "West Bengal",
+    "DL": "Delhi",
+    "JK": "Jammu & Kashmir",
+    "LA": "Ladakh",
+    "PY": "Puducherry",
+    "CH": "Chandigarh",
+    "AN": "Andaman & Nicobar",
+    "DN": "Dadra & Nagar Haveli and Daman & Diu",
+    "LD": "Lakshadweep",
+}
 
 # The canonical 2-letter codes the site knows (mirrors site/src/format.js STATE_NAMES).
 CANONICAL_STATES = frozenset(
@@ -75,3 +117,11 @@ def normalize_state(code: str) -> str:
     """
     upper = str(code or "").strip().upper()
     return STATE_ALIASES.get(upper, upper)
+
+
+def state_name(code: str) -> str:
+    """Return the full display name for a state code (canonicalised first), or the
+    upper-cased code if it is unrecognised. Used so user-facing text — including the
+    deterministic minor projection — never shows a bare two-letter code."""
+    canonical = normalize_state(code)
+    return STATE_NAMES.get(canonical, canonical)
