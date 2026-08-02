@@ -148,7 +148,7 @@ def test_minor_projection_replaces_age_narrative_and_truncates_dates() -> None:
     assert "17-year-old" not in clean["summary"]  # model narrative gone
     assert "involving a minor" in clean["title"]
     assert "17-year-old" not in clean["title"]
-    assert clean["incident_reported_date"] == "2026"  # year granularity only
+    assert clean["incident_reported_date"] == "2026-07"  # month granularity (§2)
     assert clean["days_since_reported"] is None  # not stored for a minor
     assert clean["court"]["next_hearing"] is None
     assert clean["status_history"][0]["date"] == "2026-07"  # YYYY-MM, day dropped
@@ -455,3 +455,30 @@ def test_minor_summary_uses_full_state_name_not_code() -> None:
     # Title falls back to the full state name when a district is absent.
     no_district = {**record, "district": ""}
     assert minor_title(no_district).endswith("— Haryana (2026)")
+
+
+def test_minor_status_history_keeps_court_date_day_precision() -> None:
+    """§2: a minor's incident date truncates to month, and each status_history date to month
+    — EXCEPT a court-sourced date, which keeps full day precision (a public cause-list date
+    attached to a case number, not a fact about where a child was)."""
+    from pipeline.sanitize import project_minor_record
+
+    record = {
+        "minor_involved": True,
+        "category": "pocso",
+        "state": "TG",
+        "district": "Warangal",
+        "status": "CONVICTED",
+        "offence_sections": ["POCSO 6"],
+        "incident_reported_date": "2026-07-15",
+        "status_history": [
+            {"status": "FIR_FILED", "date": "2026-06-20", "source": 0},  # news -> month
+            {"status": "CONVICTED", "date": "2026-07-30", "source": 1},  # court -> day kept
+        ],
+        "sources": [{"source_type": "news_article"}, {"source_type": "court"}],
+    }
+    projected = project_minor_record(record)
+    assert projected["incident_reported_date"] == "2026-07"  # incident DAY withheld for a minor
+    dates = {e["status"]: e["date"] for e in projected["status_history"]}
+    assert dates["FIR_FILED"] == "2026-06"  # non-court date truncated to month
+    assert dates["CONVICTED"] == "2026-07-30"  # court date keeps day precision

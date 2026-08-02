@@ -89,13 +89,27 @@ def _year(record: dict[str, Any], run_date: str) -> str:
     return run_date[:4]
 
 
+def _parse_reported_date(value: str) -> date | None:
+    """Parse a stored incident date to a concrete day for the recency count: ``YYYY-MM-DD``
+    as itself, ``YYYY-MM`` as the FIRST of that month (a minor's month-precise recency, §2).
+    A bare ``YYYY`` returns None — a year is too coarse for any day count, so a legacy
+    year-only minor keeps a null ``days_since_reported`` until re-extraction gives it a month."""
+    v = value.strip()
+    try:
+        if re.fullmatch(r"\d{4}-\d{2}", v):
+            return date(int(v[:4]), int(v[5:7]), 1)
+        return date.fromisoformat(v)  # full ISO; a bare year raises -> None
+    except (ValueError, TypeError):
+        return None
+
+
 def _days_since_reported(record: dict[str, Any], run_day: date) -> int | None:
     """Days elapsed since the case was first reported. This is NEUTRAL elapsed time — it is
     NOT verified pendency (that needs a re-checkable court anchor). The pendency leaderboard
-    and jurisdiction medians additionally require ``is_court_anchored`` (§ pendency honesty)."""
-    try:
-        reported = date.fromisoformat(str(record["incident_reported_date"]))
-    except (KeyError, ValueError, TypeError):
+    and jurisdiction medians additionally require ``is_court_anchored`` (§ pendency honesty).
+    For a minor (month-precise date) it counts from the first of the incident month (§2)."""
+    reported = _parse_reported_date(str(record.get("incident_reported_date", "")))
+    if reported is None:
         return None
     return max((run_day - reported).days, 0)
 

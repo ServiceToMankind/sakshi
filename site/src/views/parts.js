@@ -9,6 +9,7 @@ import {
   formatDate,
   formatNumber,
   isActiveStatus,
+  relativeRecency,
 } from '../format.js';
 import { severityLabel, severityCode, isAggravated, isRepeatOffender } from '../severity.js';
 
@@ -114,7 +115,9 @@ export function recentCard(record) {
       ? el(
           'time',
           { class: 'feed-card__date', datetime: String(date) },
-          `${t('case_reported')} ${formatDate(date)}`,
+          `${t('case_reported')} ${formatDate(date)}${
+            relativeRecency(date) ? ` · ${relativeRecency(date)}` : ''
+          }`,
         )
       : null,
     record.publisher ? el('span', { class: 'feed-card__source' }, record.publisher) : null,
