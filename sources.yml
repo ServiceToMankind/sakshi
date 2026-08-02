@@ -75,6 +75,14 @@ national:
     publisher: Hindustan Times
     url: "https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml"
 
+  # --- §4b legal press (TIER 2 — court proceedings with a case citation). Publisher name
+  # "LiveLaw" is classified as legal_press (pipeline/provenance). robots verified 2026-08-03.
+  - id: livelaw
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · legal_press (tier 2) · ToS review pending
+    publisher: LiveLaw
+    url: "https://www.livelaw.in/google_feeds.xml"
+
 # --- Per state / UT --------------------------------------------------------------------
 # Every canonical state/UT is listed. `[]` = a DECLARED coverage gap (see header).
 states:
