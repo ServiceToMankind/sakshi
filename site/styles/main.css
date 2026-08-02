@@ -1384,6 +1384,23 @@ canvas {
   font-size: 0.9rem;
   margin: 0 0 1.5rem;
 }
+/* The honest achievable-claim framing (§7) — a calibration callout, not a disclaimer. */
+.cov-framing {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent, #4f46e5);
+  background: color-mix(in srgb, var(--accent, #4f46e5) 6%, var(--surface, transparent));
+  border-radius: 0 6px 6px 0;
+}
+.cov-framing__title {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+.cov-framing__text {
+  margin: 0;
+  max-width: 60rem;
+  font-size: 0.92rem;
+}
 .cov-subtitle {
   margin: 1.5rem 0 0.75rem;
   font-size: 1.15rem;

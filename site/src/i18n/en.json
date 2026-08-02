@@ -11,6 +11,8 @@
   "nav_coverage": "Coverage",
   "cov_title": "Coverage & trackability",
   "cov_lead": "Where this record looks, and whether its claims can be re-checked. Sakshi records a case only where it has a source; a state with no source is a declared gap, not an absence of crime.",
+  "cov_framing_title": "What this record can, and cannot, be",
+  "cov_framing": "\"Every case in India\" is not reachable, and this record does not claim it. The NCRB recorded roughly 29,500 rape cases and 68,000 POCSO cases in 2024 — and the NCRB counts only cases that reached the police; media covers a fraction of those, and many assaults are never reported at all. What Sakshi can honestly claim is narrower and still worth building: every case that appears in an accessible public source, with the gaps published. This page is that accounting — where we look, and where we do not yet.",
   "cov_trackable_label": "Records with a court anchor",
   "cov_states_label": "States & UTs covered",
   "cov_national_label": "National sources",

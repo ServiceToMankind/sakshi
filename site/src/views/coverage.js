@@ -77,6 +77,10 @@ export async function renderCoverage() {
     el('a', { href: '#/', class: 'crumb' }, `← ${t('nav_home')}`),
     el('h1', { class: 'view__title' }, t('cov_title')),
     el('p', { class: 'view__lead' }, t('cov_lead')),
+    el('aside', { class: 'cov-framing', role: 'note' }, [
+      el('h2', { class: 'cov-framing__title' }, t('cov_framing_title')),
+      el('p', { class: 'cov-framing__text' }, t('cov_framing')),
+    ]),
     tiles,
     el('p', { class: 'cov-trackable-note' }, t('cov_trackable_note')),
     el('h2', { class: 'cov-subtitle' }, t('cov_by_state')),
