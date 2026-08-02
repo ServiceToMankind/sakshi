@@ -75,6 +75,10 @@ class RunReport:
     verify_demoted: int = 0
     verify_usd: float = 0.0
     fetched: int = 0
+    # Community case submissions (§6) fetched this run + how many reached the published site.
+    # A high fetched-but-not-published ratio is itself a signal (submission quality/spam).
+    submissions: int = 0
+    submissions_published: int = 0
     processed: int = 0
     skipped_settled: int = 0
     extracted: int = 0
@@ -803,7 +807,9 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"VERIFY_COST={report.verify_usd:.6f}\n"
         f"MONTH_TO_DATE={report.month_to_date:.6f}\n"
         f"MONTHLY_CAP={report.monthly_cap:.6f}\n"
-        f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n",
+        f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
+        f"SUBMISSIONS={report.submissions}\n"
+        f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -966,6 +972,7 @@ def run(
                 _log(report, f"provider error: {sample}")
 
     report.fetched = len(raw_docs)
+    report.submissions = sum(1 for d in raw_docs if d.publisher == "Community submission")
     report.extracted = len(extractions)
 
     # Canonicalise the model's state code (TS->TG, ...) BEFORE the scope filter reads it,
@@ -1302,6 +1309,17 @@ def run(
     report.review = len(review)
     report.published = write_result.published
     report.needs_review = len(needs_review_items)
+    report.submissions_published = sum(
+        1
+        for r in write_result.records
+        if any(str(s.get("publisher", "")) == "Community submission" for s in r.get("sources", []))
+    )
+    if report.submissions:
+        _log(
+            report,
+            f"submissions (§6): {report.submissions} fetched, "
+            f"{report.submissions_published} published",
+        )
     report.state_counts = dict(
         sorted(Counter(str(r.get("state", "")) for r in auto_eligible).items())
     )
