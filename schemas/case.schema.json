@@ -54,7 +54,7 @@
     "incident_reported_date": {
       "type": "string",
       "description": "Date the case was publicly reported/registered. Full ISO YYYY-MM-DD for non-minor cases; truncated to YYYY (year only) when minor_involved is true (POCSO s.23). The conditional below enforces the right granularity per case.",
-      "pattern": "^\\d{4}(-\\d{2}-\\d{2})?$"
+      "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
     },
     "offence_sections": {
       "type": "array",
@@ -310,15 +310,15 @@
       "then": {
         "not": { "required": ["accused"] },
         "properties": {
-          "incident_reported_date": { "pattern": "^\\d{4}$" },
-          "days_since_reported": { "type": "null" },
+          "incident_reported_date": { "pattern": "^\\d{4}(-\\d{2})?$" },
+          "days_since_reported": { "type": ["integer", "null"], "minimum": 0 },
           "title": { "pattern": "[Cc]hild|[Mm]inor" },
           "summary": {
             "pattern": "Identifying details are withheld by law \\(POCSO s\\.23\\)\\.$"
           },
           "court": { "properties": { "next_hearing": { "const": null } } },
           "status_history": {
-            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}$" } } }
+            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$" } } }
           }
         }
       },
@@ -340,7 +340,7 @@
       "fir_ref": { "station": "TESTVILLE PS", "number": "000/2026" },
       "state": "TG",
       "district": "TESTVILLE",
-      "incident_reported_date": "2026",
+      "incident_reported_date": "2026-06",
       "offence_sections": ["BNS 64", "POCSO 6"],
       "category": "sexual_assault",
       "minor_involved": true,

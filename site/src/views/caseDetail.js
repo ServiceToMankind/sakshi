@@ -6,7 +6,7 @@
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
 import { loadCase } from '../data.js';
-import { formatDate, stateName, safeHttpUrl } from '../format.js';
+import { formatDate, stateName, safeHttpUrl, relativeRecency } from '../format.js';
 import {
   statusBadge,
   minorBadge,
@@ -225,7 +225,14 @@ export async function renderCase(route) {
             record.court?.next_hearing ? formatDate(record.court.next_hearing) : null,
           ),
           detailRow('case_offences', (record.offence_sections || []).join(', ')),
-          detailRow('case_reported', formatDate(record.incident_reported_date)),
+          detailRow(
+            'case_reported',
+            `${formatDate(record.incident_reported_date)}${
+              relativeRecency(record.incident_reported_date)
+                ? ` · ${relativeRecency(record.incident_reported_date)}`
+                : ''
+            }`,
+          ),
           record.days_since_reported != null
             ? detailRow(
                 'case_days_since_reported',

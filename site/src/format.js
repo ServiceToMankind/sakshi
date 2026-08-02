@@ -128,6 +128,26 @@ export function formatNumber(n) {
   return new Intl.NumberFormat().format(n || 0);
 }
 
+/**
+ * A relative-recency phrase ("3 weeks ago") for a DAY-PRECISE date only. Returns '' for a
+ * year- or month-only date — a minor's incident date is month-precise by projection (§2), so
+ * a minor card shows the month itself ("Jul 2026"), never a day-grained "N ago". Localised via
+ * Intl.RelativeTimeFormat. Future dates return ''.
+ */
+export function relativeRecency(iso) {
+  const s = String(iso || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return '';
+  const then = new Date(`${s}T00:00:00Z`).getTime();
+  if (Number.isNaN(then)) return '';
+  const days = Math.floor((Date.now() - then) / 86_400_000);
+  if (days < 0) return '';
+  const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: 'auto' });
+  if (days < 7) return rtf.format(-days, 'day');
+  if (days < 45) return rtf.format(-Math.round(days / 7), 'week');
+  if (days < 365) return rtf.format(-Math.round(days / 30), 'month');
+  return rtf.format(-Math.round(days / 365), 'year');
+}
+
 /** Whole hours since an ISO timestamp; used for the stale-data notice. */
 export function hoursSince(iso) {
   const t = new Date(iso).getTime();
