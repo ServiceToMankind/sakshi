@@ -150,7 +150,20 @@ states:
           base_url: "https://delhihighcourt.nic.in"
   DN: [] # Dadra & Nagar Haveli and Daman & Diu
   GA: [] # Goa
-  GJ: [] # Gujarat
+  GJ: # Gujarat
+    # §4d REGIONAL-LANGUAGE — GUJARATI. robots + feed verified 2026-08-04. The §4e
+    # multilingual PII guard is WIRED (#136), so the identity floor holds for this
+    # language's input; a source still lands enabled:false — ENABLING is the operator's.
+    - id: divya-bhaskar-gj
+      type: rss
+      enabled: false # GUJARATI · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Divya Bhaskar
+      url: "https://www.divyabhaskar.co.in/rss-v1--category-1035.xml"
+    - id: divya-bhaskar-india-gj
+      type: rss
+      enabled: false # GUJARATI · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Divya Bhaskar
+      url: "https://www.divyabhaskar.co.in/rss-v1--category-1037.xml"
   HP: [] # Himachal Pradesh
   HR: [] # Haryana
   JH: [] # Jharkhand
