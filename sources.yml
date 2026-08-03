@@ -94,6 +94,26 @@ national:
     publisher: LiveLaw
     url: "https://www.livelaw.in/google_feeds.xml"
 
+  # ==========================================================================================
+  # §4d REGIONAL-LANGUAGE — HINDI. robots verified ALLOW + valid RSS on 2026-08-03.
+  # ⛔ DO NOT set enabled: true until the MULTILINGUAL PII GUARD (§4e) is WIRED into
+  #    pii_constants/sanitize/pii_guard (a PROTECTED change needing a human-approved issue —
+  #    see docs/multilingual-pii-guard-proposal.md + pipeline/pii_multilingual.py). Every active
+  #    identity gate is an English regex today; enabling a Hindi source before the guard fires
+  #    runs the pipeline with the identity floor DISABLED for its input. See docs/feed-expansion
+  #    -regional-4d.md for the enablement gate + the other languages' candidate feeds.
+  - id: dainik-bhaskar-hi
+    type: rss
+    enabled: false # HINDI · robots ALLOW · 200 XML · BLOCKED on §4e guard (do not enable)
+    publisher: Dainik Bhaskar
+    url: "https://www.bhaskar.com/rss-v1--category-4587.xml"
+
+  - id: amar-ujala-hi
+    type: rss
+    enabled: false # HINDI · robots ALLOW · 200 XML · BLOCKED on §4e guard (do not enable)
+    publisher: Amar Ujala
+    url: "https://www.amarujala.com/rss/breaking-news.xml"
+
 # --- Per state / UT --------------------------------------------------------------------
 # Every canonical state/UT is listed. `[]` = a DECLARED coverage gap (see header).
 states:
