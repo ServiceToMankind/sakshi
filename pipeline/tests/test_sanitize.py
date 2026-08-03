@@ -49,6 +49,23 @@ def test_pii_value_patterns_match_synthetic_values() -> None:
 # --- sanitize_record ---------------------------------------------------------
 
 
+def test_sanitize_scrubs_multilingual_markers_from_nonminor_prose() -> None:
+    """§4e (issue #136): a romanized identity marker in the model prose is redacted, and any
+    native-script span is redacted field-wide — but a place-name slug in a URL is untouched."""
+    dirty = {
+        "minor_involved": False,
+        "title": "Accused, her chacha, held",
+        "summary": "The sarpanch of Rampur gaon was named; बयान दर्ज.",
+        "sources": [{"url": "https://x.invalid/gurgaon-child-case-101/"}],
+    }
+    clean = sanitize_record(dirty)
+    assert "chacha" not in clean["title"]
+    assert "sarpanch" not in clean["summary"] and "gaon" not in clean["summary"]
+    assert "बयान" not in clean["summary"]  # native script removed
+    # The citation URL's place-name slug ("gurgaon") is NOT mangled.
+    assert clean["sources"][0]["url"] == "https://x.invalid/gurgaon-child-case-101/"
+
+
 def test_sanitize_drops_forbidden_field_keeps_clean_ones() -> None:
     """A forbidden key must not survive; clean sibling keys are preserved."""
     dirty = {"district": "TESTVILLE", "victim_name": "SHOULD NOT PERSIST"}

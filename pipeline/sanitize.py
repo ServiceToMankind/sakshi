@@ -32,6 +32,7 @@ from pipeline.pii_constants import (
     matched_value_patterns,
     scrub_victim_occupation,
 )
+from pipeline.pii_multilingual import scrub_multilingual_pii, scrub_native_script
 from pipeline.severity import severity_label
 from pipeline.states import state_name
 
@@ -158,6 +159,21 @@ def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
         if not str(cleaned.get("title", "")).strip():
             # No model title (older record / omission): deterministic non-identifying fallback.
             cleaned["title"] = _nonminor_title(cleaned)
+    # §4e (issue #136): redact any romanized identity marker (kinship relationship, local
+    # office title, sub-district locality) from the model PROSE fields. Applied to both paths:
+    # a minor's projected template is marker-free, but running it is harmless + idempotent.
+    return _scrub_multilingual_prose(cleaned)
+
+
+def _scrub_multilingual_prose(record: dict[str, Any]) -> dict[str, Any]:
+    """Redact §4e romanized identity markers from a record's model-written prose (title,
+    summary). Scoped to prose so a citation URL slug's place name is never mangled. Native
+    script is already handled field-wide by :func:`sanitize_string`."""
+    cleaned = dict(record)
+    for field in sorted(OCCUPATION_SCANNED_FIELDS):
+        value = cleaned.get(field)
+        if isinstance(value, str):
+            cleaned[field] = scrub_multilingual_pii(value)
     return cleaned
 
 
@@ -277,11 +293,18 @@ def sanitize_string(s: str) -> str:
     Redaction (rather than raising) is used for free-text fields such as
     ``summary`` where a stray match must be neutralised without discarding the
     surrounding neutral prose. Idempotent: the placeholder matches no pattern.
+
+    After the English value-patterns, the §4e native-script scrub runs
+    (:func:`pipeline.pii_multilingual.scrub_native_script`, issue #136) on EVERY string:
+    extraction must output English, so any Devanagari/Telugu/… run is redacted. Romanized
+    identity markers (kinship/office/sub-district) are NOT scrubbed here — a citation URL slug
+    legitimately carries a place name — they are scrubbed from the model PROSE fields only
+    (:func:`_scrub_multilingual_prose`). The shared ``[redacted]`` placeholder keeps it idempotent.
     """
     result = s
     for pattern in PII_VALUE_PATTERNS.values():
         result = pattern.sub(REDACTION_PLACEHOLDER, result)
-    return result
+    return scrub_native_script(result)
 
 
 def contains_pii(value: object) -> bool:

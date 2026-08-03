@@ -48,6 +48,10 @@ from pipeline.pii_constants import (  # noqa: E402
     matched_value_patterns,
     matched_victim_occupation,
 )
+from pipeline.pii_multilingual import (  # noqa: E402
+    matched_native_script,
+    matched_romanized_pii,
+)
 
 
 class Finding:
@@ -77,6 +81,11 @@ def _age_reason(pattern_name: str) -> str:
 def _occupation_reason(matched: str) -> str:
     """Human-readable reason string for a leaked victim occupation/institution span."""
     return f"value reveals victim occupation/institution ('{matched}')"
+
+
+def _multilingual_reason(label: str) -> str:
+    """Human-readable reason string for a §4e multilingual identity marker."""
+    return f"value carries multilingual identity marker ({label})"
 
 
 def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Finding]:
@@ -109,6 +118,18 @@ def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Fi
         if scan_ages and is_occupation_scanned_key(path.rsplit(".", 1)[-1]):
             for matched in matched_victim_occupation(value):
                 yield Finding(loc, loc, _occupation_reason(matched))
+        # §4e (issue #136), gated on scan_ages (published shards + recent.json, never the
+        # _review quarantine — the same policy as the age/occupation scans). Backstops the
+        # sanitizer's multilingual scrub. NATIVE-SCRIPT is asserted on EVERY field (extraction
+        # must output English; a URL/id is ASCII so this never false-positives there); the
+        # ROMANIZED markers only on prose fields (a citation URL slug legitimately carries a
+        # place name, e.g. ".../rampur-gaon-case/").
+        if scan_ages:
+            for label in matched_native_script(value):
+                yield Finding(loc, loc, _multilingual_reason(label))
+            if is_occupation_scanned_key(path.rsplit(".", 1)[-1]):
+                for label in matched_romanized_pii(value):
+                    yield Finding(loc, loc, _multilingual_reason(label))
 
 
 def _scans_ages(file_path: Path) -> bool:
