@@ -35,6 +35,7 @@ from pipeline import config, fixtures, spend, verify
 from pipeline.citation_slug import url_carries_identifying_slug
 from pipeline.corrections import apply_correction, load_corrections, quarantined_ids
 from pipeline.coverage import build_coverage
+from pipeline.date_recovery import recover_incident_month
 from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
 from pipeline.districts import canonical_district
 from pipeline.extract.gemini import ExtractionClient, extract
@@ -512,18 +513,37 @@ def _verified_hold_reasons(record: dict[str, Any]) -> list[str]:
     return [reason for reason in reasons if reason != "minor_involved"]
 
 
+def _recover_incident_date(record: dict[str, Any]) -> dict[str, Any]:
+    """Recover a year-only incident date's MONTH deterministically (§2 / issue #124).
+
+    Runs BEFORE sanitize so the recovered ``YYYY-MM`` survives the minor projection's
+    month-truncation (``reported[:7]``). Idempotent: a date that is already month/day-precise
+    resolves to nothing, and once recovered the record carries ``incident_date_provenance``
+    so the derivation is transparent. Offline — the Wayback precedence step is a no-op here
+    (its hook exists for callers that supply a lookup). A record with no same-year evidence
+    is returned unchanged (it stays year-only; a month is never invented)."""
+    recovered = recover_incident_month(record)
+    if recovered is None:
+        return record
+    month, provenance = recovered
+    return {**record, "incident_reported_date": month, "incident_date_provenance": provenance}
+
+
 def _finalize_for_disk(record: dict[str, Any], case_schema: dict[str, Any]) -> dict[str, Any]:
     """Run the FULL last gate on one record and return its publish-safe form.
 
-    coerce-minor -> sanitize/project -> withhold unsourced accused names, then strip a
-    minor's model-written ``verification_note`` (see :func:`_strip_minor_model_note`).
-    This is the single choke point for every record that may touch a shard, so a dedupe
-    merge that flipped ``minor_involved`` after the per-candidate sanitize is re-projected
-    to the minimal non-identifying shape here. Idempotent for an already-projected record.
+    recover-month -> coerce-minor -> sanitize/project -> withhold unsourced accused names,
+    then strip a minor's model-written ``verification_note`` (see
+    :func:`_strip_minor_model_note`). This is the single choke point for every record that
+    may touch a shard, so a dedupe merge that flipped ``minor_involved`` after the
+    per-candidate sanitize is re-projected to the minimal non-identifying shape here.
+    Idempotent for an already-projected record.
     """
     finalized = _strip_minor_model_note(
         withhold_unsourced_accused_names(
-            project_to_schema(sanitize_record(_coerce_minor(record)), case_schema)
+            project_to_schema(
+                sanitize_record(_coerce_minor(_recover_incident_date(record))), case_schema
+            )
         )
     )
     return _flag_identifying_sources(_normalize_offence_sections(finalized))

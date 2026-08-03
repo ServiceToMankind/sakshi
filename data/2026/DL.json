@@ -37,10 +37,12 @@
       "name": "High Court",
       "next_hearing": null
     },
+    "days_since_reported": 33,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
-    "incident_reported_date": "2026",
+    "incident_date_provenance": "first_published",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 6",
@@ -72,10 +74,12 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
+    "days_since_reported": 33,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
-    "incident_reported_date": "2026",
+    "incident_date_provenance": "first_published",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
@@ -100,10 +104,12 @@
     "court": {
       "name": "Delhi High Court"
     },
+    "days_since_reported": 33,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",
-    "incident_reported_date": "2026",
+    "incident_date_provenance": "first_published",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "offence_sections": [
       "POCSO 29",

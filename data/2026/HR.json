@@ -2,10 +2,12 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
+    "days_since_reported": 33,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",
-    "incident_reported_date": "2026",
+    "incident_date_provenance": "first_published",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "offence_sections": [],
     "sources": [
