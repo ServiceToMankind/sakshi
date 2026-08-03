@@ -5,6 +5,7 @@ from __future__ import annotations
 import asyncio
 from typing import Any
 
+from pipeline import config
 from pipeline.sources import ecourts, rss_media
 from pipeline.sources.rss_media import Feed, RssMediaSource, parse_feed
 
@@ -94,6 +95,82 @@ def test_rss_source_fetch_skips_none_and_non_200() -> None:
 def test_default_feeds_are_established_outlets() -> None:
     publishers = {feed.publisher for feed in rss_media.DEFAULT_FEEDS}
     assert "The Hindu" in publishers
+
+
+# --- Article-body fetching (amnesiac-discovery fix, HIGH-PII in memory only) --
+
+_ARTICLE_HTML = (
+    "<html><head><style>.ad{color:red}</style>"
+    "<script>track('x')</script></head>"
+    "<body><h1>Headline</h1><p>Full article body about a TESTVILLE trial.</p></body></html>"
+)
+
+
+def test_extract_article_text_strips_html_and_bounds() -> None:
+    text = rss_media.extract_article_text(_ARTICLE_HTML)
+    assert "Full article body about a TESTVILLE trial." in text
+    assert "track(" not in text and ".ad{" not in text  # script/style CONTENT dropped
+    assert "<" not in text  # tags stripped
+    long_html = "<p>" + ("word " * 20000) + "</p>"
+    assert len(rss_media.extract_article_text(long_html)) <= config.ARTICLE_BODY_CHARS
+
+
+def test_fetch_body_folds_article_into_text() -> None:
+    feeds = (Feed("https://a.invalid/feed", "A"),)
+    client = _FakeClient(
+        {
+            "https://a.invalid/feed": _Resp(200, _RSS),
+            "https://example.invalid/news/1": _Resp(200, _ARTICLE_HTML),
+        }
+    )
+    source = RssMediaSource(client, feeds=feeds, fetched_at="2026-07-09", fetch_body=True)
+    docs = _run(source.fetch())
+    assert len(docs) == 1
+    assert "Full article body about a TESTVILLE trial." in docs[0].text  # body folded in
+    assert "TESTVILLE case listed" in docs[0].text  # syndicated blurb still leads
+    assert source.disallowed_outlets == set()
+
+
+def test_fetch_body_robots_disallowed_records_outlet_and_keeps_blurb() -> None:
+    feeds = (Feed("https://a.invalid/feed", "A"),)
+    client = _FakeClient(
+        {
+            "https://a.invalid/feed": _Resp(200, _RSS),
+            "https://example.invalid/news/1": None,  # robots.txt disallows the article
+        }
+    )
+    source = RssMediaSource(client, feeds=feeds, fetched_at="2026-07-09", fetch_body=True)
+    docs = _run(source.fetch())
+    # Unchanged from the blurb-only build (no body folded in).
+    assert docs[0].text == parse_feed(_RSS, "A", "2026-07-09")[0].text
+    assert source.disallowed_outlets == {"A"}  # outlet recorded (publisher only, no body)
+
+
+def test_fetch_body_off_never_fetches_the_article() -> None:
+    feeds = (Feed("https://a.invalid/feed", "A"),)
+    client = _FakeClient(
+        {
+            "https://a.invalid/feed": _Resp(200, _RSS),
+            "https://example.invalid/news/1": _Resp(200, "<p>SHOULD NOT BE FETCHED</p>"),
+        }
+    )
+    source = RssMediaSource(client, feeds=feeds, fetched_at="2026-07-09", fetch_body=False)
+    docs = _run(source.fetch())
+    assert "SHOULD NOT BE FETCHED" not in docs[0].text
+
+
+def test_fetch_body_non_200_degrades_to_blurb() -> None:
+    feeds = (Feed("https://a.invalid/feed", "A"),)
+    client = _FakeClient(
+        {
+            "https://a.invalid/feed": _Resp(200, _RSS),
+            "https://example.invalid/news/1": _Resp(404, ""),
+        }
+    )
+    source = RssMediaSource(client, feeds=feeds, fetched_at="2026-07-09", fetch_body=True)
+    docs = _run(source.fetch())
+    assert "TESTVILLE case listed" in docs[0].text
+    assert source.disallowed_outlets == set()  # a 404 is not a robots disallow
 
 
 # --- eCourts / NJDG parsing --------------------------------------------------

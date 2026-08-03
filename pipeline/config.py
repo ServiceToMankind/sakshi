@@ -90,6 +90,21 @@ def user_agent() -> str:
     return os.environ.get("USER_AGENT", DEFAULT_USER_AGENT)
 
 
+# Max characters of fetched article body kept in memory (HIGH-PII bound + cost cap).
+ARTICLE_BODY_CHARS: Final[int] = 20000
+
+
+def article_body_enabled() -> bool:
+    """True if the daily ``discover`` run fetches the FULL linked article body (not just the
+    syndicated headline/blurb) — the fix for the amnesiac-discovery defect.
+
+    OFF by default. An article body is a HIGH-PII input (§1b): it lives ONLY in the in-memory
+    ``RawDocument.text``, is never written to disk/log/error-sample, and is fetched only for
+    outlets whose robots.txt allows it. Enable per run via ``FETCH_ARTICLE_BODY=true``.
+    """
+    return os.environ.get("FETCH_ARTICLE_BODY", "").strip().lower() in {"1", "true", "yes"}
+
+
 def gemini_api_key() -> str | None:
     """The Gemini API key from the environment, or None if unset (e.g. dry-run)."""
     return os.environ.get("GEMINI_API_KEY")
