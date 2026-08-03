@@ -108,4 +108,15 @@ def build_sources(
                     fetch_body=config.article_body_enabled(),
                 )
             )
+
+    # Community case submissions (§6) — discover ONLY (a court refresh skips media/leads).
+    # Populated by the workflow from open case-submission issues into submissions.json; a
+    # submission is a LEAD that passes through every gate, never a record. Absent file => none.
+    if not court_only:
+        from pipeline.sources.submissions import SubmissionsSource
+        from pipeline.submissions import load_submissions
+
+        submissions = load_submissions(config.REPO_ROOT / "submissions.json")
+        if submissions:
+            sources.append(SubmissionsSource(client, submissions, fetched_at=fetched_at))
     return sources

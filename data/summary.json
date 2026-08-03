@@ -1,18 +1,7 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-07-31T00:00:00Z",
+  "generated_at": "2026-08-03T00:00:00Z",
   "jurisdictions": [
-    {
-      "acquittals": 0,
-      "convictions": 1,
-      "district": "Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 4,
-      "under_trial": 2,
-      "under_trial_pct": 50
-    },
     {
       "acquittals": 0,
       "convictions": 0,
@@ -20,9 +9,20 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "TG",
+      "total": 4,
+      "under_trial": 1,
+      "under_trial_pct": 25
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
       "total": 3,
-      "under_trial": 0,
-      "under_trial_pct": 0
+      "under_trial": 2,
+      "under_trial_pct": 67
     },
     {
       "acquittals": 0,
@@ -71,7 +71,7 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "Gurgaon",
+      "district": "Gurugram",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "HR",
@@ -125,10 +125,6 @@
     }
   ],
   "monthly_trend": [
-    {
-      "count": 0,
-      "month": "2024-08"
-    },
     {
       "count": 0,
       "month": "2024-09"
@@ -220,23 +216,15 @@
     {
       "count": 3,
       "month": "2026-07"
+    },
+    {
+      "count": 0,
+      "month": "2026-08"
     }
   ],
   "scale": {
     "cumulative_total": 18,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-03"
-      },
-      {
-        "count": 0,
-        "date": "2026-04-04"
-      },
-      {
-        "count": 0,
-        "date": "2026-04-05"
-      },
       {
         "count": 0,
         "date": "2026-04-06"
@@ -704,27 +692,40 @@
       {
         "count": 0,
         "date": "2026-07-31"
+      },
+      {
+        "count": 1,
+        "date": "2026-08-01"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-02"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-03"
       }
     ],
-    "this_week": 4
+    "this_week": 3
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 4,
+    "Aggravated penetrative assault on a child": 3,
     "Assault to outrage modesty": 1,
     "Child sexual offence": 7,
+    "Penetrative assault on a child": 1,
     "Rape": 3
   },
   "state_counts": {
-    "DL": 6,
+    "DL": 5,
     "HR": 1,
-    "TG": 9,
+    "TG": 10,
     "UP": 2
   },
   "status_counts": {
     "APPEAL_PENDING": 3,
-    "CONVICTED": 2,
+    "CONVICTED": 1,
     "FIR_FILED": 8,
-    "UNDER_TRIAL": 3,
+    "UNDER_TRIAL": 4,
     "UNKNOWN": 2
   },
   "top_longest_pending": [],

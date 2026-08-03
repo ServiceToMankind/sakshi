@@ -1436,7 +1436,7 @@ def test_pocso_non_minor_is_held_not_published(tmp_path: Path) -> None:
     # A POCSO signal forces minor treatment: the record is held AND age-projected, so
     # no day-precise date reaches even the committed queue (POCSO s.23).
     assert rec["minor_involved"] is True
-    assert rec["incident_reported_date"] == "2026"
+    assert rec["incident_reported_date"] == "2026-06"
 
 
 def test_non_bool_minor_is_projected_and_held(tmp_path: Path) -> None:
@@ -1474,7 +1474,7 @@ def test_non_bool_minor_is_projected_and_held(tmp_path: Path) -> None:
     assert report.published == 0 and report.needs_review == 1
     rec = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())[0]["record"]
     assert rec["minor_involved"] is True  # coerced to a strict bool
-    assert rec["incident_reported_date"] == "2026"  # age-projected to year only (POCSO s.23)
+    assert rec["incident_reported_date"] == "2026-06"  # month granularity (§2, POCSO s.23)
 
 
 def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -2089,7 +2089,7 @@ def test_approved_minor_is_promoted_and_stays_projected(tmp_path: Path) -> None:
     assert report.published == 1 and report.needs_review == 0
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["minor_involved"] is True
-    assert rec["incident_reported_date"] == "2026"  # STILL projected (year only)
+    assert rec["incident_reported_date"] == "2026-06"  # STILL projected (month, §2)
     assert "withheld by law (POCSO s.23)" in rec["summary"]  # STILL deterministic projection
     assert "child" in rec["title"].lower() or "minor" in rec["title"].lower()
 
@@ -2370,8 +2370,11 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
         "verified",
         "first_published",
         "last_status_change",
+        "source_tier",
+        "traced_to_court",
     }
     assert feed[0]["publisher"] == "The Hindu" and feed[0]["verified"] is True
+    assert feed[0]["source_tier"] == 3  # media-sourced (The Hindu, news_article)
     assert feed[0]["first_published"] == "2026-07-09"  # the run date it entered the tree
     assert feed[0]["last_status_change"] is None  # brand-new: no material change yet
     # A FRESHLY-MINTED record must carry its assigned id in the feed (not null) — else
@@ -2479,7 +2482,7 @@ def test_verified_mode_coerces_pocso_nonminor_to_projected_minor(
     assert report.published == 1
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["minor_involved"] is True  # fail-closed coerced
-    assert rec["incident_reported_date"] == "2026"  # projected to year granularity only
+    assert rec["incident_reported_date"] == "2026-06"  # projected to month granularity (§2)
     assert "child" in rec["title"].lower() or "minor" in rec["title"].lower()
 
 

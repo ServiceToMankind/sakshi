@@ -1,5 +1,5 @@
 {
-  "generated": "2026-07-31",
+  "generated": "2026-08-03",
   "trackability": {
     "total": 18,
     "court_anchored": 0,
@@ -46,7 +46,7 @@
     },
     "DL": {
       "active_sources": 2,
-      "records": 6,
+      "records": 5,
       "declared_gap": false
     },
     "DN": {
@@ -161,7 +161,7 @@
     },
     "TG": {
       "active_sources": 2,
-      "records": 9,
+      "records": 10,
       "declared_gap": false
     },
     "TN": {

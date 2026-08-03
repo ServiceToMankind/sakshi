@@ -50,3 +50,36 @@ def test_every_classification_is_a_known_source_type() -> None:
         classify_source_type("https://x", "eCourts"),
     }
     assert results <= SOURCE_TYPES
+
+
+def test_legal_press_is_tier_two() -> None:
+    from pipeline.provenance import classify_source_type
+
+    assert classify_source_type("https://livelaw.in/x", "LiveLaw") == "legal_press"
+    assert classify_source_type("https://barandbench.com/x", "Bar and Bench") == "legal_press"
+
+
+def test_record_tier_is_the_strongest_source() -> None:
+    from pipeline.provenance import has_court_source, record_tier
+
+    court = {"sources": [{"source_type": "news_article"}, {"source_type": "court"}]}
+    legal = {"sources": [{"source_type": "legal_press"}, {"source_type": "news_article"}]}
+    media = {"sources": [{"source_type": "news_article"}]}
+    assert record_tier(court) == 1 and has_court_source(court) is True
+    assert record_tier(legal) == 2 and has_court_source(legal) is False
+    assert record_tier(media) == 3 and has_court_source(media) is False
+    assert record_tier({"sources": []}) == 3  # no sources -> media-grade default
+
+
+def test_source_tier_parity_with_frontend() -> None:
+    """SOURCE_TIER must match site/src/tier.js so a tier reads the same both sides (§3)."""
+    import re
+    from pathlib import Path
+
+    from pipeline.provenance import SOURCE_TIER
+
+    js = (Path(__file__).resolve().parents[2] / "site" / "src" / "tier.js").read_text()
+    block = re.search(r"export const SOURCE_TIER = \{(.*?)\};", js, re.S)
+    assert block is not None
+    frontend = {k: int(v) for k, v in re.findall(r"(\w+):\s*(\d+)", block.group(1))}
+    assert frontend == SOURCE_TIER

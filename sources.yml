@@ -12,18 +12,39 @@
 #             block to start covering it. A record can still appear in a state with no source
 #             (e.g. an NCR case from a Delhi feed); coverage.json counts that honestly.
 #
-# COURT-SOURCE ACCESSIBILITY (assessed 2026-07-10). Court records are the backbone (CNRs for
-# dedup, judicial status, the ONLY permitted source for accused names). What is legitimately
+# COURT-SOURCE ACCESSIBILITY (re-surveyed 2026-08-03 — all 25 HCs + SC; see
+# docs/court-portal-survey-2026-08-03.md). Court records are the backbone (CNRs for dedup,
+# judicial status, the ONLY permitted source for accused names). What is legitimately
 # accessible WITHOUT circumventing any CAPTCHA (a hard, inviolable rule):
 #   - eCourts "case status" search: CAPTCHA-gated => consumes only OPERATOR-RESOLVED endpoint
 #     URLs via `endpoints` / ECOURTS_ENDPOINTS. Empty => yields nothing (no fabrication).
 #   - NJDG: AGGREGATE statistics only, not per-case records. Not usable as a per-case source.
-#   - High Court judgment portals: judgments/orders, often CAPTCHA-gated PDFs. Add as an
-#     `ecourts` endpoint source only with a robots-permitted, non-CAPTCHA listing URL.
 #   - Indian Kanoon: a court-record MIRROR with a DOCUMENTED API. Legitimate via API + ToS,
 #     PAID + token-gated. Enabled below but yields nothing until INDIANKANOON_API_TOKEN is set.
+#   - HIGH COURT judgment portals (2026-08-03 survey): SEVEN are cleanly OPEN (no CAPTCHA,
+#     robots-permitted HTML listings of judgment PDFs) — Delhi, J&K & Ladakh, Jharkhand,
+#     Madhya Pradesh, Madras, Meghalaya (legacy-orders), Punjab & Haryana. BUT none of the
+#     open paths offers a statute-SECTION facet (POCSO/BNS/IPC), so they support only
+#     fetch-everything-then-filter. Seven more are hard CAPTCHA-gated (SC, Calcutta,
+#     Chhattisgarh, Kerala, Patna, Rajasthan, Tripura — never bypass), three unreachable from
+#     CI egress (Bombay, Karnataka, Telangana — likely geo-fenced), two unknown (Allahabad
+#     429, Himachal JS-rendered). TAKEAWAY: the IK token remains the critical path for
+#     section-targeted, all-India court coverage; the open HCs are a valuable supplement.
+#   - Wiring the open HCs needs a NEW `hc_judgments` source module (fetch the HTML listing ->
+#     judgment PDF URLs -> PDF text -> extract). It does not exist yet, so the open portals are
+#     documented in the survey (not added here as inert entries). That module is the follow-up.
 #
 # Types: ecourts | indiankanoon | rss (see git history for the full notes).
+#
+# SOURCE TIERS (§3 — court sources are the RECORD; media is the discovery net). Each fetched
+# source is classified (pipeline/provenance.classify_source_type) into a source_type, and a
+# record's TIER is the strongest (lowest) among its sources:
+#   tier 1  court        — ecourts / indiankanoon(court docsource) — CNR, status, pendency, names
+#   tier 2  legal_press  — LiveLaw, Bar & Bench — court proceedings with a court citation
+#   tier 3  news_article / press_release — incident/arrest/FIR reports; not yet a court record
+#   tier 4  live_blog    — rolling coverage (quarantine only)
+# The site marks a tier-3-only record "Reported in media — not yet traced to a court record",
+# and celebrates the tier-3 -> court transition ("Traced to a court record on <date>").
 
 # --- National (not state-specific) ------------------------------------------------------
 national:
@@ -49,6 +70,29 @@ national:
     enabled: false # disabled example — set a real national wire feed after a source review
     publisher: PTI
     url: ""
+
+  # --- Tranche 1 (DRAFT — every feed enabled:false; flip per source after operator sign-off).
+  # robots.txt verdicts verified 2026-08-01 for the sakshi-bot UA; see
+  # docs/feed-expansion-tranche-1.md for the full checklist + the candidates excluded on robots.
+  - id: times-of-india-top
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · ToS: RSS publicly syndicated (legal review pending)
+    publisher: The Times of India
+    url: "https://timesofindia.indiatimes.com/rssfeedstopstories.cms"
+
+  - id: hindustan-times-india
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · ToS: RSS publicly syndicated (legal review pending)
+    publisher: Hindustan Times
+    url: "https://www.hindustantimes.com/feeds/rss/india-news/rssfeed.xml"
+
+  # --- §4b legal press (TIER 2 — court proceedings with a case citation). Publisher name
+  # "LiveLaw" is classified as legal_press (pipeline/provenance). robots verified 2026-08-03.
+  - id: livelaw
+    type: rss
+    enabled: false # robots: ALLOW · feed: 200 XML · legal_press (tier 2) · ToS review pending
+    publisher: LiveLaw
+    url: "https://www.livelaw.in/google_feeds.xml"
 
 # --- Per state / UT --------------------------------------------------------------------
 # Every canonical state/UT is listed. `[]` = a DECLARED coverage gap (see header).

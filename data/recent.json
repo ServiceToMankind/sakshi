@@ -15,7 +15,9 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-25",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000007",
@@ -33,7 +35,9 @@
     "publisher": "The Indian Express",
     "verified": true,
     "first_published": "2026-07-23",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000006",
@@ -51,12 +55,14 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-23",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-UP-000002",
     "title": "Rape involving a minor — Ghaziabad (2026)",
-    "summary": "A case of rape involving a minor in Ghaziabad, UP (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of rape involving a minor in Ghaziabad, Uttar Pradesh (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "UP",
     "district": "Ghaziabad",
     "category": "pocso",
@@ -70,12 +76,14 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-UP-000001",
     "title": "Aggravated penetrative assault on a child — Ghaziabad (2026)",
-    "summary": "A case of aggravated penetrative assault on a child in Ghaziabad, UP (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of aggravated penetrative assault on a child in Ghaziabad, Uttar Pradesh (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "state": "UP",
     "district": "Ghaziabad",
     "category": "rape",
@@ -90,12 +98,35 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
+  },
+  {
+    "id": "SKS-2026-TG-000010",
+    "title": "Penetrative assault on a child — Hyderabad (2026)",
+    "summary": "A case of penetrative assault on a child in Hyderabad, Telangana (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Hyderabad",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "incident_reported_date": "2026",
+    "minor_involved": true,
+    "publisher": "Telangana High Court",
+    "verified": true,
+    "first_published": "2026-08-01",
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000009",
     "title": "Child sexual offence — Malkajgiri (2026)",
-    "summary": "A case of child sexual offence in Malkajgiri, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Malkajgiri, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Malkajgiri",
     "category": "pocso",
@@ -108,12 +139,14 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-29",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000008",
     "title": "Child sexual offence — Hyderabad (2026)",
-    "summary": "A case of child sexual offence in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Hyderabad, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Hyderabad",
     "category": "pocso",
@@ -126,12 +159,14 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-26",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000005",
     "title": "Aggravated penetrative assault on a child — Warangal (2026)",
-    "summary": "A case of aggravated penetrative assault on a child in Warangal, TG (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of aggravated penetrative assault on a child in Warangal, Telangana (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Warangal",
     "category": "pocso",
@@ -147,12 +182,14 @@
     "publisher": "Telangana High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000004",
     "title": "Child sexual offence — Kothagudem (2026)",
-    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Kothagudem, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Kothagudem",
     "category": "pocso",
@@ -163,12 +200,14 @@
     "publisher": "The Hindu",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000003",
     "title": "Child sexual offence — Kothagudem (2026)",
-    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Kothagudem, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Kothagudem",
     "category": "pocso",
@@ -181,12 +220,14 @@
     "publisher": "The Hindu",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000002",
     "title": "Child sexual offence — Jagtial (2026)",
-    "summary": "A case of child sexual offence in Jagtial, TG (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Jagtial, Telangana (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Jagtial",
     "category": "pocso",
@@ -199,12 +240,14 @@
     "publisher": "The Hindu",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-TG-000001",
     "title": "Rape involving a minor — Hyderabad (2026)",
-    "summary": "A case of rape involving a minor in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of rape involving a minor in Hyderabad, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TG",
     "district": "Hyderabad",
     "category": "sexual_assault",
@@ -219,14 +262,16 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-HR-000001",
-    "title": "Sexual assault involving a minor — Gurgaon (2026)",
-    "summary": "A case of sexual assault involving a minor in Gurgaon, HR (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Gurugram (2026)",
+    "summary": "A case of sexual assault involving a minor in Gurugram, Haryana (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "state": "HR",
-    "district": "Gurgaon",
+    "district": "Gurugram",
     "category": "sexual_assault",
     "status": "UNDER_TRIAL",
     "offence_sections": [],
@@ -235,12 +280,14 @@
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-14",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000007",
     "title": "Child sexual offence — Delhi (2026)",
-    "summary": "A case of child sexual offence in Delhi, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Delhi, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "Delhi",
     "category": "pocso",
@@ -254,12 +301,14 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-24",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000006",
     "title": "Child sexual offence — South District (2026)",
-    "summary": "A case of child sexual offence in South District, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in South District, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "South District",
     "category": "pocso",
@@ -272,12 +321,14 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2026-DL-000004",
     "title": "Aggravated penetrative assault on a child — Delhi (2026)",
-    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of aggravated penetrative assault on a child in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "Delhi",
     "category": "rape",
@@ -295,40 +346,14 @@
     "publisher": "The Indian Express",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
-  },
-  {
-    "id": "SKS-2026-DL-000003",
-    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
-    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
-    "state": "DL",
-    "district": "Delhi",
-    "category": "pocso",
-    "status": "CONVICTED",
-    "offence_sections": [
-      "IPC 376",
-      "POCSO 4",
-      "IPC 375",
-      "POCSO 3",
-      "POCSO",
-      "IPC 376(2)",
-      "POCSO 6",
-      "IPC 376(3)",
-      "IPC 506(II)",
-      "IPC 376(2)(I)",
-      "BNS 64"
-    ],
-    "incident_reported_date": "2026",
-    "minor_involved": true,
-    "publisher": "Delhi High Court",
-    "verified": true,
-    "first_published": "2026-07-14",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
   },
   {
     "id": "SKS-2018-DL-000001",
     "title": "Child sexual offence — South Delhi (2018)",
-    "summary": "A case of child sexual offence in South Delhi, DL (2018). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in South Delhi, Delhi (2018). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "state": "DL",
     "district": "South Delhi",
     "category": "pocso",
@@ -341,6 +366,8 @@
     "publisher": "Delhi High Court",
     "verified": true,
     "first_published": "2026-07-19",
-    "last_status_change": null
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
   }
 ]

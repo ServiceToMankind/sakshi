@@ -131,7 +131,7 @@ def _minor_projected_record() -> dict[str, Any]:
         "category": "pocso",
         "status": "UNDER_TRIAL",
         "minor_involved": True,
-        "incident_reported_date": "2026",
+        "incident_reported_date": "2026-06",
         "days_since_reported": None,
         "summary": "Under trial. Identifying details are withheld by law (POCSO s.23).",
         "court": {"name": "Special POCSO Court, TESTVILLE", "next_hearing": None},
@@ -168,7 +168,7 @@ def test_non_minor_requires_full_precision_dates() -> None:
     rec["minor_involved"] = False
     rec["days_since_reported"] = 5
     rec["summary"] = "A neutral non-graphic summary."
-    # A year-only date is invalid for a non-minor case.
+    # A month-precision date is invalid for a non-minor case (needs YYYY-MM-DD).
     with pytest.raises(ValidationError):
         validate.validate_record(rec, schema)
 
@@ -187,7 +187,7 @@ def test_schema_minor_summary_pattern_matches_deterministic_text() -> None:
             "status": "UNDER_TRIAL",
             "district": "TESTVILLE",
             "state": "TG",
-            "incident_reported_date": "2026",
+            "incident_reported_date": "2026-06",
         }
     )
     assert re.search(pattern, generated)  # deterministic output matches

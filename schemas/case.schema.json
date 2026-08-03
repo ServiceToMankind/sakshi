@@ -54,7 +54,7 @@
     "incident_reported_date": {
       "type": "string",
       "description": "Date the case was publicly reported/registered. Full ISO YYYY-MM-DD for non-minor cases; truncated to YYYY (year only) when minor_involved is true (POCSO s.23). The conditional below enforces the right granularity per case.",
-      "pattern": "^\\d{4}(-\\d{2}-\\d{2})?$"
+      "pattern": "^\\d{4}(-\\d{2}(-\\d{2})?)?$"
     },
     "offence_sections": {
       "type": "array",
@@ -247,8 +247,8 @@
           },
           "source_type": {
             "type": "string",
-            "description": "Provenance class, assigned deterministically from the source. A record whose ONLY sources are live_blog is capped below the publish threshold and quarantined for human confirmation (a rolling live-updates page is not durable provenance for a permanent public claim).",
-            "enum": ["court", "news_article", "live_blog", "press_release"]
+            "description": "Provenance class, assigned deterministically from the source (§3 tiers: court=1, legal_press=2, news_article/press_release=3, live_blog=4). A record whose ONLY sources are live_blog is capped below the publish threshold and quarantined for human confirmation (a rolling live-updates page is not durable provenance for a permanent public claim).",
+            "enum": ["court", "legal_press", "news_article", "live_blog", "press_release"]
           },
           "retrieved": {
             "type": "string",
@@ -259,6 +259,11 @@
           "url_carries_identifying_slug": {
             "type": "boolean",
             "description": "True if this source URL's own slug states a detail this record withholds — a victim age, gender, accused–victim relationship, or institution (§5). Set deterministically by pipeline/citation_slug.py. The site never renders the raw URL as anchor text (domain only) and tucks a flagged source behind an expander; clean sources are shown first. Absent/false means the slug carries no such detail."
+          },
+          "archive_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "A pre-EXISTING Internet Archive (Wayback) snapshot of this source, for citation permanence when the original rolls off the feed. Looked up read-only via pipeline/archive.py (the availability API) — a capture is NEVER triggered. Set ONLY for sources that do NOT carry the §5 identifying-slug flag, so a permanent third-party copy of an identifying URL is never referenced. Additive field — additionalProperties:false is unchanged."
           }
         }
       }
@@ -293,6 +298,12 @@
     "corrected": {
       "type": "boolean",
       "description": "True if a reviewed human-authored correction (corrections/<id>.yml, applied by pipeline.corrections before sanitize) narrowed or fixed a field on this record. The site shows a 'Corrected' marker; the audit trail lives in the committed correction file. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
+    },
+    "traced_to_court": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "The date a media-only (tier ≥ 2) record first gained a COURT source — an unregistered/untracked case entering the visible judicial record, the project's highest-value event (§3). Set once by the sharder when a court source appears; the site shows 'Traced to a court record on <date>'. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
     }
   },
   "allOf": [
@@ -305,15 +316,15 @@
       "then": {
         "not": { "required": ["accused"] },
         "properties": {
-          "incident_reported_date": { "pattern": "^\\d{4}$" },
-          "days_since_reported": { "type": "null" },
+          "incident_reported_date": { "pattern": "^\\d{4}(-\\d{2})?$" },
+          "days_since_reported": { "type": ["integer", "null"], "minimum": 0 },
           "title": { "pattern": "[Cc]hild|[Mm]inor" },
           "summary": {
             "pattern": "Identifying details are withheld by law \\(POCSO s\\.23\\)\\.$"
           },
           "court": { "properties": { "next_hearing": { "const": null } } },
           "status_history": {
-            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}$" } } }
+            "items": { "properties": { "date": { "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$" } } }
           }
         }
       },
@@ -335,7 +346,7 @@
       "fir_ref": { "station": "TESTVILLE PS", "number": "000/2026" },
       "state": "TG",
       "district": "TESTVILLE",
-      "incident_reported_date": "2026",
+      "incident_reported_date": "2026-06",
       "offence_sections": ["BNS 64", "POCSO 6"],
       "category": "sexual_assault",
       "minor_involved": true,

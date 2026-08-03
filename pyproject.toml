@@ -70,6 +70,11 @@ ignore = []
 
 [tool.ruff.lint.per-file-ignores]
 "pipeline/tests/*" = ["S101"]  # asserts are expected in tests
+# The multilingual PII module (§4e) MUST contain non-ASCII by design (Devanagari digits/words in
+# the detection patterns + test fixtures). RUF001/002/003 flag "ambiguous" Unicode, which is the
+# whole point here — suppress only for these files, not project-wide.
+"pipeline/pii_multilingual.py" = ["RUF001", "RUF002", "RUF003"]
+"pipeline/tests/test_pii_multilingual.py" = ["S101", "RUF001", "RUF002", "RUF003"]
 
 [tool.ruff.format]
 quote-style = "double"

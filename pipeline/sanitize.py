@@ -33,6 +33,7 @@ from pipeline.pii_constants import (
     scrub_victim_occupation,
 )
 from pipeline.severity import severity_label
+from pipeline.states import state_name
 
 __all__ = [
     "MINOR_SUMMARY_TEMPLATE",
@@ -98,7 +99,7 @@ def _minor_offence_phrase(record: dict[str, Any]) -> str:
 def minor_title(record: dict[str, Any]) -> str:
     """Deterministic, non-identifying title for a minor case (allowed fields only)."""
     year = _case_year(record)
-    where = str(record.get("district") or record.get("state") or "").strip()
+    where = str(record.get("district") or "").strip() or state_name(str(record.get("state") or ""))
     parts = [_minor_offence_phrase(record)]
     if where:
         parts.append(f"— {where}")
@@ -122,7 +123,9 @@ def minor_summary(record: dict[str, Any]) -> str:
     if composed is not None:
         return f"{composed} {MINOR_WITHHELD_SENTENCE}"
     year = _case_year(record)
-    location = ", ".join(part for part in (district, str(record.get("state", "")).strip()) if part)
+    location = ", ".join(
+        part for part in (district, state_name(str(record.get("state", "")))) if part
+    )
     phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
     where = f" in {location}" if location else ""
     reported = f" ({year})" if year else ""
@@ -172,7 +175,7 @@ def _scrub_occupation_fields(record: dict[str, Any]) -> dict[str, Any]:
 def _nonminor_title(record: dict[str, Any]) -> str:
     """Deterministic fallback title for a non-minor record lacking a model title."""
     year = _case_year(record)
-    where = str(record.get("district") or record.get("state") or "").strip()
+    where = str(record.get("district") or "").strip() or state_name(str(record.get("state") or ""))
     parts = [f"{_category_label(record)} case"]
     if where:
         parts.append(f"— {where}")
@@ -206,11 +209,13 @@ def _sanitize_value(value: Any) -> Any:
 def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     """Enforce the Phase 0 field allowance for a minor case, deterministically.
 
-    POCSO s.23 permits only state, district, year, offence category, and judicial
-    status for a minor. So the model-written ``summary`` is replaced with a fixed
-    neutral template, ``incident_reported_date`` is truncated to the year,
-    ``days_since_reported`` (a day-precise derivation) is nulled, ``court.next_hearing``
-    is nulled, each ``status_history`` date is truncated to the month, and any
+    POCSO s.23 permits only state, district, month/year, offence category, and judicial
+    status for a minor. So the model-written ``summary`` is replaced with a fixed neutral
+    template, ``incident_reported_date`` is truncated to the MONTH (``YYYY-MM``, §2 — day
+    precision on an incident date is withheld for a minor), ``days_since_reported`` is
+    nulled here and re-derived (month-precise, from the first of that month) by the sharder,
+    ``court.next_hearing`` is nulled, each ``status_history`` date is truncated to the month
+    EXCEPT a date drawn from a court source (which keeps day precision — §2), and any
     model-written ``verification_note`` (guardrail L free text — not age-scanned by
     pii_guard) is dropped. This is structural: it does not depend on the age-expression
     regexes catching anything. Idempotent — applying it twice yields the same record.
@@ -230,23 +235,40 @@ def project_minor_record(record: dict[str, Any]) -> dict[str, Any]:
     projected.pop("accused", None)
     reported = projected.get("incident_reported_date")
     if isinstance(reported, str) and reported:
-        projected["incident_reported_date"] = reported[:4]  # year granularity only
+        # Month granularity (§2): incident date is YYYY-MM. Day precision on a MINOR's
+        # incident date is withheld — incident-day + district + offence identifies in a
+        # small district. days_since_reported (recency) is re-derived from the FIRST of that
+        # month by the sharder; null it here so a stale day-precise value never survives.
+        projected["incident_reported_date"] = reported[:7]
     if "days_since_reported" in projected:
-        projected["days_since_reported"] = None  # cannot be derived from a year; never stored
+        projected["days_since_reported"] = None  # re-derived (month-precise) in write_shards
     court = projected.get("court")
     if isinstance(court, dict) and "next_hearing" in court:
         projected["court"] = {**court, "next_hearing": None}
     history = projected.get("status_history")
     if isinstance(history, list):
-        projected["status_history"] = [_project_history_entry(entry) for entry in history]
+        sources = projected.get("sources") or []
+        projected["status_history"] = [_project_history_entry(e, sources) for e in history]
     return projected
 
 
-def _project_history_entry(entry: Any) -> Any:
-    """Truncate a status_history entry's date to YYYY-MM (day precision is not stored)."""
-    if isinstance(entry, dict) and isinstance(entry.get("date"), str) and entry["date"]:
-        return {**entry, "date": entry["date"][:7]}
-    return entry
+def _project_history_entry(entry: Any, sources: list[Any]) -> Any:
+    """Project a minor's status_history entry's date. A judicial date is truncated to YYYY-MM,
+    EXCEPT a date drawn from a COURT source, which keeps full day precision (§2): a
+    judgment/order/hearing date sits on a public cause list, attaches to a case NUMBER not a
+    person, and is what makes pendency real — it is not a fact about where a child was."""
+    if not (isinstance(entry, dict) and isinstance(entry.get("date"), str) and entry["date"]):
+        return entry
+    src = entry.get("source")
+    court_sourced = (
+        isinstance(src, int)
+        and 0 <= src < len(sources)
+        and isinstance(sources[src], dict)
+        and sources[src].get("source_type") == "court"
+    )
+    if court_sourced:
+        return entry  # court date keeps day precision
+    return {**entry, "date": entry["date"][:7]}
 
 
 def sanitize_string(s: str) -> str:

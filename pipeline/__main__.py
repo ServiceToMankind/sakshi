@@ -42,6 +42,7 @@ from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_sections import normalize_sections
+from pipeline.provenance import record_tier
 from pipeline.readability import readability_violations
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
@@ -68,6 +69,7 @@ class RunReport:
     # is what makes the site stop appearing to churn daily (§1).
     material: int = 0
     rechecked: int = 0
+    traced_to_court: int = 0  # media records that gained a court source this run (§3)
     review: int = 0
     published: int = 0
     needs_review: int = 0
@@ -75,6 +77,10 @@ class RunReport:
     verify_demoted: int = 0
     verify_usd: float = 0.0
     fetched: int = 0
+    # Community case submissions (§6) fetched this run + how many reached the published site.
+    # A high fetched-but-not-published ratio is itself a signal (submission quality/spam).
+    submissions: int = 0
+    submissions_published: int = 0
     processed: int = 0
     skipped_settled: int = 0
     extracted: int = 0
@@ -295,6 +301,10 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             # blanket "updated today" (§1). last_checked stays internal (data/_meta/).
             "first_published": record.get("first_published"),
             "last_status_change": record.get("last_status_change"),
+            # Source tier + tracing (§3) — the feed card has no sources[], so carry the
+            # derived tier + the traced-to-court date it needs for the tracing marker.
+            "source_tier": record_tier(record),
+            "traced_to_court": record.get("traced_to_court"),
         }
         for record in ordered[:RECENT_FEED_SIZE]
     ]
@@ -803,7 +813,10 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"VERIFY_COST={report.verify_usd:.6f}\n"
         f"MONTH_TO_DATE={report.month_to_date:.6f}\n"
         f"MONTHLY_CAP={report.monthly_cap:.6f}\n"
-        f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n",
+        f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
+        f"SUBMISSIONS={report.submissions}\n"
+        f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
+        f"TRACED_TO_COURT={report.traced_to_court}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -966,6 +979,7 @@ def run(
                 _log(report, f"provider error: {sample}")
 
     report.fetched = len(raw_docs)
+    report.submissions = sum(1 for d in raw_docs if d.publisher == "Community submission")
     report.extracted = len(extractions)
 
     # Canonicalise the model's state code (TS->TG, ...) BEFORE the scope filter reads it,
@@ -1299,9 +1313,23 @@ def run(
     report.new = write_result.new
     report.material = write_result.material
     report.rechecked = write_result.rechecked
+    report.traced_to_court = write_result.traced_to_court
+    if report.traced_to_court:
+        _log(report, f"traced to court (§3): {report.traced_to_court} media record(s)")
     report.review = len(review)
     report.published = write_result.published
     report.needs_review = len(needs_review_items)
+    report.submissions_published = sum(
+        1
+        for r in write_result.records
+        if any(str(s.get("publisher", "")) == "Community submission" for s in r.get("sources", []))
+    )
+    if report.submissions:
+        _log(
+            report,
+            f"submissions (§6): {report.submissions} fetched, "
+            f"{report.submissions_published} published",
+        )
     report.state_counts = dict(
         sorted(Counter(str(r.get("state", "")) for r in auto_eligible).items())
     )

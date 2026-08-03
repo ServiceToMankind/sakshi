@@ -82,7 +82,7 @@ def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) 
     minor = _record(
         cnr="C-M",
         minor_involved=True,
-        incident_reported_date="2026",
+        incident_reported_date="2026-07",
         status="UNDER_TRIAL",
         title="Sexual assault case involving a minor — TESTVILLE (2026)",
         summary=(
@@ -375,3 +375,57 @@ def test_read_existing_raises_on_corrupt_shard(tmp_path: Path) -> None:
     (tmp_path / "2026" / "TG.json").write_text("{corrupt", encoding="utf-8")
     with pytest.raises(ValueError, match="cannot read existing shard"):
         write_shards([_record(cnr="C-2")], tmp_path, run_date="2026-07-09")
+
+
+def test_days_since_reported_parses_partial_dates() -> None:
+    """§2: a stored incident date at any granularity resolves to a concrete day — a minor's
+    YYYY-MM counts from the FIRST of that month."""
+    from datetime import date
+
+    from pipeline.shard import _days_since_reported, _parse_reported_date
+
+    assert _parse_reported_date("2026-07-15") == date(2026, 7, 15)
+    assert _parse_reported_date("2026-07") == date(2026, 7, 1)  # first of the month
+    assert _parse_reported_date("2026") is None  # bare year too coarse for a day count
+    assert _parse_reported_date("not-a-date") is None
+    assert _days_since_reported({"incident_reported_date": "2026-07"}, date(2026, 8, 2)) == 32
+    assert _days_since_reported({"incident_reported_date": "2026"}, date(2026, 8, 2)) is None
+    assert _days_since_reported({"incident_reported_date": "x"}, date(2026, 8, 2)) is None
+
+
+def test_traced_to_court_set_when_media_record_gains_a_court_source(tmp_path: Path) -> None:
+    """§3: a media-only record that later gains a COURT source is stamped traced_to_court
+    (the highest-value transition), write-once and carried forward."""
+    media_sources = [
+        {
+            "url": "https://news.invalid/a",
+            "publisher": "The Hindu",
+            "source_type": "news_article",
+            "retrieved": "2026-07-09",
+        }
+    ]
+    media = _record(cnr="C-TRACE", status="FIR_FILED", sources=media_sources)
+    r1 = write_shards([media], tmp_path, run_date="2026-07-20")
+    assert "traced_to_court" not in r1.records[0]
+    assert r1.traced_to_court == 0
+
+    with_court = _record(
+        cnr="C-TRACE",
+        status="FIR_FILED",
+        sources=[
+            *media_sources,
+            {
+                "url": "https://services.ecourts.gov.in/x",
+                "publisher": "eCourts",
+                "source_type": "court",
+                "retrieved": "2026-07-25",
+            },
+        ],
+    )
+    r2 = write_shards([with_court], tmp_path, run_date="2026-07-25")
+    assert r2.traced_to_court == 1
+    assert r2.records[0]["traced_to_court"] == "2026-07-25"
+
+    r3 = write_shards([with_court], tmp_path, run_date="2026-08-01")
+    assert r3.records[0]["traced_to_court"] == "2026-07-25"  # write-once, carried forward
+    assert r3.traced_to_court == 0  # not counted again

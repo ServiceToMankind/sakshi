@@ -46,6 +46,10 @@ data/_review/
 # NOTE: data/ itself is intentionally NOT ignored. The daily GitHub Action
 # regenerates and commits the data/ tree. Humans never hand-edit data/.
 
+# Transient per-run manifest of open case-submission issues (§6), written by the
+# scrape workflow before a discover run and read by the pipeline. Never committed.
+submissions.json
+
 # --- Operator scratch (unattended-run harness; never repo content) ---
 NIGHT_RUN.md
 NIGHT_QUEUE.md

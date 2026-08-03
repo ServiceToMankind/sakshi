@@ -774,6 +774,21 @@ canvas {
   font-size: 0.68rem;
   letter-spacing: 0.02em;
 }
+/* Source-tier tracing markers (§3). "Media, not yet traced" is the key accountability
+   signal; "traced to court" is the positive transition. */
+.badge--media {
+  --badge-c: var(--text-muted, #6b7280);
+  font-size: 0.68rem;
+}
+.badge--legalpress {
+  --badge-c: var(--accent, #4f46e5);
+  font-size: 0.68rem;
+}
+.badge--traced {
+  --badge-c: var(--c-conviction, #15803d);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
 /* Charge-derived severity. Aggravated gets a distinct dark-red weight; the label
    describes the OFFENCE, never the victim (safe for every case incl. minors). */
 .badge--severity {
@@ -1211,6 +1226,22 @@ canvas {
   color: var(--text-muted);
   font-size: 0.82rem;
 }
+/* Marks a jurisdiction with no state-specific source — its counts are floors. */
+.scorecard__nosource {
+  justify-self: start;
+  margin-top: 0.15rem;
+  padding: 0.05rem 0.4rem;
+  border: 1px dashed var(--border, #9ca3af);
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.scorecard-section__disclaimer {
+  font-size: 0.8rem;
+  max-width: 60rem;
+}
 .scorecard__cell {
   font-variant-numeric: tabular-nums;
 }
@@ -1352,6 +1383,23 @@ canvas {
   color: var(--text-muted);
   font-size: 0.9rem;
   margin: 0 0 1.5rem;
+}
+/* The honest achievable-claim framing (§7) — a calibration callout, not a disclaimer. */
+.cov-framing {
+  margin: 1rem 0 1.5rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--accent, #4f46e5);
+  background: color-mix(in srgb, var(--accent, #4f46e5) 6%, var(--surface, transparent));
+  border-radius: 0 6px 6px 0;
+}
+.cov-framing__title {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+}
+.cov-framing__text {
+  margin: 0;
+  max-width: 60rem;
+  font-size: 0.92rem;
 }
 .cov-subtitle {
   margin: 1.5rem 0 0.75rem;

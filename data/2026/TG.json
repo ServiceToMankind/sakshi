@@ -2,7 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 11,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -29,7 +29,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 8,
+    "days_since_reported": 11,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -77,7 +77,7 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "A case of rape involving a minor in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of rape involving a minor in Hyderabad, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape involving a minor — Hyderabad (2026)"
   },
   {
@@ -102,7 +102,7 @@
     ],
     "state": "TG",
     "status": "CONVICTED",
-    "summary": "A case of child sexual offence in Jagtial, TG (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Jagtial, Telangana (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Jagtial (2026)"
   },
   {
@@ -127,7 +127,7 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Kothagudem, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Kothagudem (2026)"
   },
   {
@@ -150,7 +150,7 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "A case of child sexual offence in Kothagudem, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Kothagudem, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Kothagudem (2026)",
     "verified": true
   },
@@ -182,7 +182,7 @@
     ],
     "state": "TG",
     "status": "UNKNOWN",
-    "summary": "A case of aggravated penetrative assault on a child in Warangal, TG (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of aggravated penetrative assault on a child in Warangal, Telangana (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Aggravated penetrative assault on a child — Warangal (2026)",
     "verified": true
   },
@@ -208,7 +208,7 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "A case of child sexual offence in Hyderabad, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Hyderabad, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Hyderabad (2026)",
     "verified": true
   },
@@ -234,8 +234,39 @@
     ],
     "state": "TG",
     "status": "FIR_FILED",
-    "summary": "A case of child sexual offence in Malkajgiri, TG (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Malkajgiri, Telangana (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Malkajgiri (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "Telangana High Court",
+      "next_hearing": null
+    },
+    "district": "Hyderabad",
+    "first_published": "2026-08-01",
+    "id": "SKS-2026-TG-000010",
+    "incident_reported_date": "2026",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "sources": [
+      {
+        "publisher": "Telangana High Court",
+        "retrieved": "2026-08-01",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/150255030/"
+      }
+    ],
+    "state": "TG",
+    "status": "UNDER_TRIAL",
+    "summary": "A case of penetrative assault on a child in Hyderabad, Telangana (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Hyderabad (2026)",
     "verified": true
   }
 ]

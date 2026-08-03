@@ -112,9 +112,17 @@ def test_correction_schema_accepts_valid_and_rejects_malformed() -> None:
             jsonschema.validate(bad, _CORRECTION_SCHEMA)
 
 
-def test_no_correction_files_apply_nothing() -> None:
-    """The committed corrections/ directory carries NO *.yml (only docs), so a normal run
-    applies zero corrections — the mechanism ships inert until an operator authors one."""
+def test_committed_correction_files_are_schema_valid() -> None:
+    """Every committed corrections/<id>.yml must validate against the correction schema and
+    load through load_corrections — so a malformed operator-authored correction is caught in
+    CI, not at run time. (DL-000003 is the first: an operator-directed quarantine.)"""
     repo_corrections = Path(__file__).resolve().parents[2] / "corrections"
-    yml = list(repo_corrections.glob("*.yml")) if repo_corrections.exists() else []
-    assert yml == [], f"unexpected committed correction(s): {yml}"
+    files = sorted(repo_corrections.glob("*.yml")) if repo_corrections.exists() else []
+    for path in files:
+        import yaml
+
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        jsonschema.validate(data, _CORRECTION_SCHEMA)
+        assert str(data["record_id"]) == path.stem  # file name mirrors the record id
+    loaded = load_corrections(repo_corrections)
+    assert set(loaded) == {p.stem for p in files}  # all load, keyed by record id

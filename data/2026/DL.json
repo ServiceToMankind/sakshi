@@ -6,7 +6,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 6,
+    "days_since_reported": 9,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -28,124 +28,6 @@
     "summary": "The Delhi High Court is reviewing claims of police brutality during a Parliament march in Delhi. Petitioners allege that police used force and molested women. The court has ordered the preservation of CCTV and video footage.",
     "title": "Delhi HC hears allegations of police molestation during Parliament march",
     "verification_note": "The source describes specific allegations of molestation during a Parliament march, being heard by the Delhi High Court, consistent with the record's core facts.",
-    "verified": true
-  },
-  {
-    "category": "pocso",
-    "confidence": 1.0,
-    "court": {
-      "name": "Delhi High Court",
-      "next_hearing": null
-    },
-    "district": "Delhi",
-    "first_published": "2026-07-14",
-    "id": "SKS-2026-DL-000003",
-    "incident_reported_date": "2026",
-    "minor_involved": true,
-    "offence_sections": [
-      "IPC 376",
-      "POCSO 4",
-      "IPC 375",
-      "POCSO 3",
-      "POCSO",
-      "IPC 376(2)",
-      "POCSO 6",
-      "IPC 376(3)",
-      "IPC 506(II)",
-      "IPC 376(2)(I)",
-      "BNS 64"
-    ],
-    "sources": [
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/138118999/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/27881371/"
-      },
-      {
-        "publisher": "The Indian Express",
-        "retrieved": "2026-07-14",
-        "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/delhi/delhi-high-court-cancels-bail-west-delhi-school-minor-assault-bnss-10764367/",
-        "url_carries_identifying_slug": true
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/33014810/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/55423549/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/95911673/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/136396756/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/149906282/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/109912576/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-19",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/2880478/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-23",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/84952161/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-25",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/103505428/"
-      },
-      {
-        "publisher": "Delhi High Court",
-        "retrieved": "2026-07-25",
-        "source_type": "court",
-        "url": "https://indiankanoon.org/doc/133896038/"
-      },
-      {
-        "publisher": "The Hindu",
-        "retrieved": "2026-07-25",
-        "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-high-court-acquits-man-in-2006-rape-case-says-names-do-not-define-character/article71261546.ece"
-      }
-    ],
-    "state": "DL",
-    "status": "CONVICTED",
-    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
     "verified": true
   },
   {
@@ -179,7 +61,7 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "A case of aggravated penetrative assault on a child in Delhi, DL (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of aggravated penetrative assault on a child in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "title": "Aggravated penetrative assault on a child — Delhi (2026)",
     "verified": true
   },
@@ -208,7 +90,7 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "A case of child sexual offence in South District, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in South District, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — South District (2026)",
     "verified": true
   },
@@ -237,7 +119,7 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "A case of child sexual offence in Delhi, DL (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "A case of child sexual offence in Delhi, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Delhi (2026)",
     "verified": true
   }
