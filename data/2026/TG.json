@@ -2,7 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -29,7 +29,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
