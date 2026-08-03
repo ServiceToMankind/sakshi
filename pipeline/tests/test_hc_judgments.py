@@ -9,6 +9,7 @@ fake HTTP client, so no network and no real court is ever touched.
 from __future__ import annotations
 
 import asyncio
+import shutil
 import subprocess
 from typing import Any
 
@@ -110,9 +111,22 @@ def test_extract_pdf_urls_empty_is_empty() -> None:
 # --- pdf_to_text() ---------------------------------------------------------------------------
 
 
+@pytest.mark.skipif(shutil.which("pdftotext") is None, reason="pdftotext (poppler) not installed")
 def test_pdf_to_text_real_binary_reads_from_stdin() -> None:
-    # The real pdftotext, PDF piped via stdin -> stdout (never a temp file).
+    # Integration proof WHERE poppler exists: the real pdftotext, PDF piped via
+    # stdin -> stdout (never a temp file). Skipped where the binary is absent (e.g. CI
+    # without poppler); the default-runner branch is covered deterministically below.
     assert "POCSO" in pdf_to_text(_TINY_PDF)
+
+
+def test_pdf_to_text_default_runner_is_subprocess_run(monkeypatch: pytest.MonkeyPatch) -> None:
+    # Covers the run=None branch (runner := subprocess.run) with NO dependency on the
+    # binary, so coverage of the default path holds on a runner without poppler.
+    def fake_run(*_a: Any, **_k: Any) -> subprocess.CompletedProcess[bytes]:
+        return subprocess.CompletedProcess(args=[], returncode=0, stdout=b"POCSO 376", stderr=b"")
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    assert pdf_to_text(_TINY_PDF) == "POCSO 376"
 
 
 def test_pdf_to_text_empty_bytes_short_circuits() -> None:
