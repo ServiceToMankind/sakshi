@@ -168,7 +168,15 @@ states:
         - court: "High Court of Jammu & Kashmir and Ladakh"
           listing_url: "https://jkhighcourt.nic.in/judgments_hc.php"
           base_url: "https://jkhighcourt.nic.in"
-  KA: [] # Karnataka
+  KA: # Karnataka
+    # §4d REGIONAL-LANGUAGE — KANNADA. robots + feed verified 2026-08-04. The §4e
+    # multilingual PII guard is WIRED (#136), so the identity floor holds for this
+    # language's input; a source still lands enabled:false — ENABLING is the operator's.
+    - id: kannada-prabha-kn
+      type: rss
+      enabled: false # KANNADA · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Kannada Prabha
+      url: "https://www.kannadaprabha.com/stories.rss"
   KL: # Kerala
     # §4d REGIONAL-LANGUAGE — MALAYALAM. robots + feed verified 2026-08-04. The §4e
     # multilingual PII guard is WIRED (#136), so the identity floor holds for this
