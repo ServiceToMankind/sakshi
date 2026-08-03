@@ -92,6 +92,49 @@ def test_scan_value_occupation_not_scanned_when_ages_disabled() -> None:
     assert not any("victim occupation" in r for r in reasons)
 
 
+def test_scan_value_flags_multilingual_markers_when_enabled() -> None:
+    """§4e: a romanized identity marker or a native-script span in a published field fires."""
+    data = {
+        "summary": "The accused, her chacha, was arrested in Rampur gaon.",
+        "title": "पीड़िता १५ साल",  # native-script + native age
+        "district": "TESTVILLE",
+    }
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    joined = " ".join(reasons)
+    assert "romanized_kinship_relation" in joined
+    assert "subdistrict_geography" in joined
+    assert "native_script:devanagari" in joined
+    assert "native_age:hindi" in joined
+
+
+def test_scan_value_multilingual_not_scanned_when_ages_disabled() -> None:
+    """§4e shares the age gate: OFF for the _review quarantine (a hit there is the quarantine)."""
+    data = {"summary": "The accused, her chacha, in पीड़िता १५ साल."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=False)]
+    assert not any("multilingual identity marker" in r for r in reasons)
+
+
+def test_scan_value_plain_english_no_multilingual_finding() -> None:
+    """A normal English published summary must not false-positive."""
+    data = {"summary": "A case of rape in South Delhi (2026). The accused was chargesheeted."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert not any("multilingual identity marker" in r for r in reasons)
+
+
+def test_scan_value_native_script_flagged_in_any_field() -> None:
+    """Native script anywhere (even a non-prose display field) is an English-output leak."""
+    data = {"court": {"name": "बाल न्यायालय"}, "summary": "A neutral summary."}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert any("native_script:devanagari" in r for r in reasons)
+
+
+def test_scan_value_romanized_marker_in_url_slug_not_flagged() -> None:
+    """A citation URL slug legitimately carries a place name — romanized scan is prose-only."""
+    data = {"sources": [{"url": "https://x.invalid/rampur-gaon-case-10782114/"}]}
+    reasons = [f.reason for f in pii_guard.scan_value(data, "", scan_ages=True)]
+    assert not any("multilingual identity marker" in r for r in reasons)
+
+
 def test_scans_ages_public_shard_yes_review_no() -> None:
     """Published shards are age-scanned; the _review quarantine is not."""
     assert pii_guard._scans_ages(Path("data/2026/TG.json")) is True

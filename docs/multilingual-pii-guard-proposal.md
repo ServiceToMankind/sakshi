@@ -1,7 +1,18 @@
-# Multilingual PII guard — proposal + wiring plan (§4e)
+# Multilingual PII guard — WIRED (§4e)
 
-**Status:** proposal. `pipeline/pii_multilingual.py` ships the detection patterns; **nothing is
-wired yet, and no non-English source may be enabled until it is.**
+**Status: WIRED (issue #136).** `pipeline/pii_multilingual.py` is now the enforced guard, not a
+proposal. It is wired into the two protected gates:
+- **`pipeline/sanitize.py`** — `sanitize_string` scrubs any native-script span from every field
+  (the English-output enforcement), and `sanitize_record` scrubs romanized kinship/office/
+  sub-district markers from the model **prose** fields (title/summary). Romanized markers are
+  prose-only so a citation URL slug's place name (e.g. `.../rampur-gaon-case/`) is never mangled.
+- **`scripts/pii_guard.py`** — the ship-time scan asserts NO published field carries a
+  native-script character (any field) and NO prose field carries a romanized identity marker,
+  gated to published shards (the `_review` quarantine is exempt, as for age/occupation).
+
+Both stay at **100% branch coverage**; per-script fixtures in `test_pii_multilingual.py` prove
+each vector fires. **A source still lands `enabled: false`** — the guard clears the §4e
+*blocker*, but enabling remains the operator's call, one PR per language (D5).
 
 ## Why this blocks §4d
 

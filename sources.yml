@@ -96,21 +96,21 @@ national:
 
   # ==========================================================================================
   # §4d REGIONAL-LANGUAGE — HINDI. robots verified ALLOW + valid RSS on 2026-08-03.
-  # ⛔ DO NOT set enabled: true until the MULTILINGUAL PII GUARD (§4e) is WIRED into
-  #    pii_constants/sanitize/pii_guard (a PROTECTED change needing a human-approved issue —
-  #    see docs/multilingual-pii-guard-proposal.md + pipeline/pii_multilingual.py). Every active
-  #    identity gate is an English regex today; enabling a Hindi source before the guard fires
-  #    runs the pipeline with the identity floor DISABLED for its input. See docs/feed-expansion
-  #    -regional-4d.md for the enablement gate + the other languages' candidate feeds.
+  # The §4e MULTILINGUAL PII GUARD is now WIRED (issue #136) into sanitize + pii_guard, so the
+  # identity floor holds for non-English input (native-script scrub everywhere + romanized
+  # kinship/office/sub-district scrub in prose, asserted at ship time). The §4e BLOCKER is
+  # cleared — but per the standing rule a source still lands enabled:false; ENABLING is the
+  # operator's, one PR per language, each carrying its language's guard fixtures (see
+  # docs/feed-expansion-regional-4d.md). Do not flip these without that operator sign-off.
   - id: dainik-bhaskar-hi
     type: rss
-    enabled: false # HINDI · robots ALLOW · 200 XML · BLOCKED on §4e guard (do not enable)
+    enabled: false # HINDI · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
     publisher: Dainik Bhaskar
     url: "https://www.bhaskar.com/rss-v1--category-4587.xml"
 
   - id: amar-ujala-hi
     type: rss
-    enabled: false # HINDI · robots ALLOW · 200 XML · BLOCKED on §4e guard (do not enable)
+    enabled: false # HINDI · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
     publisher: Amar Ujala
     url: "https://www.amarujala.com/rss/breaking-news.xml"
 
