@@ -207,6 +207,19 @@ states:
       enabled: true
       publisher: The Indian Express
       url: "https://indianexpress.com/section/cities/hyderabad/feed/"
+    # §4d REGIONAL-LANGUAGE — TELUGU. robots + feed verified 2026-08-04. The §4e multilingual
+    # PII guard is WIRED (#136), so the identity floor holds for this language's input; a
+    # source still lands enabled:false — ENABLING is the operator's.
+    - id: namasthe-telangana-te
+      type: rss
+      enabled: false # TELUGU · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Namasthe Telangana
+      url: "https://www.ntnews.com/feed"
+    - id: sakshi-te
+      type: rss
+      enabled: false # TELUGU · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Sakshi
+      url: "https://www.sakshi.com/rss.xml"
   TN: [] # Tamil Nadu
   TR: [] # Tripura
   UP: [] # Uttar Pradesh (NCR cases currently arrive via the Delhi feeds)
