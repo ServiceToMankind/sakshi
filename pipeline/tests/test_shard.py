@@ -52,6 +52,30 @@ def test_write_emits_shard_summary_index_and_assigns_id(tmp_path: Path) -> None:
     assert index["shards"][0]["records"] == 1
 
 
+def test_serial_hwm_prevents_reuse_after_dropped_id(tmp_path: Path) -> None:
+    """Issue #29: a serial freed when a distinct published id is dropped is NEVER re-minted."""
+    # Run 1: two distinct cases -> serials 000001 and 000002; the HWM is persisted.
+    write_shards([_record(cnr="C-1"), _record(cnr="C-2")], tmp_path, run_date="2026-07-09")
+    hwm = json.loads((tmp_path / "_meta" / "serials.json").read_text())
+    assert hwm["2026-TG"] == 2
+
+    # Simulate a merge that DROPS the distinct id 000002 from the live tree (the #29 trigger):
+    # the bare live-tree max_serial would now regress to 1.
+    shard = tmp_path / "2026" / "TG.json"
+    kept = [r for r in json.loads(shard.read_text()) if r["id"] != "SKS-2026-TG-000002"]
+    shard.write_text(json.dumps(kept), encoding="utf-8")
+
+    # Run 2: the existing C-1 (re-anchors to 000001) plus a NEW distinct case C-3.
+    write_shards([_record(cnr="C-1"), _record(cnr="C-3")], tmp_path, run_date="2026-07-20")
+    published = json.loads(shard.read_text())
+    ids = {r["id"] for r in published}
+    c3 = next(r for r in published if r.get("cnr") == "C-3")
+    # The new case minted 000003 from the restored HWM — NOT the freed 000002.
+    assert c3["id"] == "SKS-2026-TG-000003"
+    assert "SKS-2026-TG-000002" not in ids
+    assert json.loads((tmp_path / "_meta" / "serials.json").read_text())["2026-TG"] == 3
+
+
 def test_summary_accountability_severity_and_jurisdictions(tmp_path: Path) -> None:
     """severity_counts + jurisdiction scorecards are charge/aggregate-derived only."""
     recs = [
