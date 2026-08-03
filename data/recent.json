@@ -1,5 +1,26 @@
 [
   {
+    "id": "SKS-2026-TG-000010",
+    "title": "Penetrative assault on a child — Hyderabad (2026)",
+    "summary": "A case of penetrative assault on a child in Hyderabad, Telangana (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TG",
+    "district": "Hyderabad",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "incident_reported_date": "2026-08",
+    "minor_involved": true,
+    "publisher": "Telangana High Court",
+    "verified": true,
+    "first_published": "2026-08-01",
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
+  },
+  {
     "id": "SKS-2026-DL-000008",
     "title": "Delhi HC hears allegations of police molestation during Parliament march",
     "summary": "The Delhi High Court is reviewing claims of police brutality during a Parliament march in Delhi. Petitioners allege that police used force and molested women. The court has ordered the preservation of CCTV and video footage.",
@@ -71,7 +92,7 @@
       "POCSO",
       "IPC 375"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -93,34 +114,13 @@
       "POCSO 6",
       "IPC 376"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
     "last_status_change": null,
     "source_tier": 3,
-    "traced_to_court": null
-  },
-  {
-    "id": "SKS-2026-TG-000010",
-    "title": "Penetrative assault on a child — Hyderabad (2026)",
-    "summary": "A case of penetrative assault on a child in Hyderabad, Telangana (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
-    "state": "TG",
-    "district": "Hyderabad",
-    "category": "pocso",
-    "status": "UNDER_TRIAL",
-    "offence_sections": [
-      "POCSO 3",
-      "POCSO 4"
-    ],
-    "incident_reported_date": "2026",
-    "minor_involved": true,
-    "publisher": "Telangana High Court",
-    "verified": true,
-    "first_published": "2026-08-01",
-    "last_status_change": null,
-    "source_tier": 1,
     "traced_to_court": null
   },
   {
@@ -134,7 +134,7 @@
     "offence_sections": [
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -154,7 +154,7 @@
     "offence_sections": [
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -177,7 +177,7 @@
       "POCSO 5",
       "POCSO 6"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
@@ -195,7 +195,7 @@
     "category": "pocso",
     "status": "FIR_FILED",
     "offence_sections": [],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -215,7 +215,7 @@
     "offence_sections": [
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
@@ -235,7 +235,7 @@
     "offence_sections": [
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
@@ -257,7 +257,7 @@
       "POCSO",
       "IPC 354"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -275,7 +275,7 @@
     "category": "sexual_assault",
     "status": "UNDER_TRIAL",
     "offence_sections": [],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -296,7 +296,7 @@
       "POCSO 29",
       "POCSO 30"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -316,7 +316,7 @@
     "offence_sections": [
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -341,7 +341,7 @@
       "BNS 64",
       "POCSO"
     ],
-    "incident_reported_date": "2026",
+    "incident_reported_date": "2026-07",
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,

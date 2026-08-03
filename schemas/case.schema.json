@@ -304,6 +304,11 @@
       "format": "date",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
       "description": "The date a media-only (tier ≥ 2) record first gained a COURT source — an unregistered/untracked case entering the visible judicial record, the project's highest-value event (§3). Set once by the sharder when a court source appears; the site shows 'Traced to a court record on <date>'. Additive field — additionalProperties:false and the forbidden-field list are unchanged."
+    },
+    "incident_date_provenance": {
+      "type": "string",
+      "enum": ["source_url", "wayback", "first_published"],
+      "description": "Present ONLY when incident_reported_date's MONTH was recovered deterministically (pipeline.date_recovery, issue #124) for a record that would otherwise be year-only. Names the evidence that supplied the month — a date in a source URL path, the Wayback first-seen snapshot, or first_published — each accepted only when its YEAR matches the incident year (a month is never invented). Absent for a genuinely month/day-precise date. Non-identifying provenance flag — additionalProperties:false and the forbidden-field list are unchanged."
     }
   },
   "allOf": [
