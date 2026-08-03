@@ -155,6 +155,46 @@ def _read_existing(data_dir: Path) -> _ExistingIndex:
     return idx
 
 
+def _serials_path(data_dir: Path) -> Path:
+    return data_dir / "_meta" / "serials.json"
+
+
+def _load_serial_hwm(data_dir: Path) -> dict[tuple[str, str], int]:
+    """Load the persisted per-(year,state) serial HIGH-WATER-MARK (issue #29).
+
+    The live tree alone is not a safe floor for minting: if a distinct published id is later
+    dropped (e.g. a bridge doc merges two previously-distinct cases and ``merge_records`` keeps
+    the primary's id, dropping the secondary's), that serial vanishes from disk and a bare
+    live-tree ``max_serial`` REGRESSES — a new case would then re-mint the freed serial, so one
+    permanent public id would resolve to two distinct cases (violates "IDs never reused",
+    CLAUDE.md §5). This monotonic HWM, restored before minting, closes that gap. Absent/corrupt
+    file => empty (the live tree is then the only floor, i.e. the prior behaviour)."""
+    path = _serials_path(data_dir)
+    if not path.exists():
+        return {}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out: dict[tuple[str, str], int] = {}
+    if isinstance(raw, dict):
+        for key, value in raw.items():
+            year, _, state = str(key).partition("-")
+            if len(year) == 4 and len(state) == 2 and isinstance(value, int):
+                out[(year, state)] = value
+    return out
+
+
+def _write_serial_hwm(data_dir: Path, max_serial: dict[tuple[str, str], int]) -> None:
+    """Persist the monotonic serial HWM (issue #29). Callers merge the prior file into
+    ``max_serial`` before minting, so a slot only ever GROWS. Committed under ``data/_meta/``
+    (like ``last_checked.json``) so the next run reads it back."""
+    path = _serials_path(data_dir)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {f"{year}-{state}": serial for (year, state), serial in sorted(max_serial.items())}
+    path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+
 def _seed_from_carryover(
     records: list[dict[str, Any]],
     key_to_id: dict[str, str],
@@ -287,6 +327,10 @@ def _assign_ids(
     affect the counts (only ``records`` are counted).
     """
     idx = _read_existing(data_dir)
+    # Issue #29: restore the monotonic serial high-water-mark so a serial freed by a dropped
+    # distinct id is NEVER re-minted. Mint from max(live-tree max, persisted HWM).
+    for slot, hwm in _load_serial_hwm(data_dir).items():
+        idx.max_serial[slot] = max(idx.max_serial.get(slot, 0), hwm)
     if reserve:
         _seed_from_carryover(
             reserve, idx.key_to_id, idx.max_serial, idx.all_ids, seed_anchors=False
@@ -370,6 +414,9 @@ def _assign_ids(
         if elapsed is not None:
             record["days_since_reported"] = elapsed
         finalized.append(record)
+    # Persist the monotonic serial HWM (issue #29): idx.max_serial now reflects max(live,
+    # persisted, newly-minted) for every touched slot, so this only ever grows a slot.
+    _write_serial_hwm(data_dir, idx.max_serial)
     return finalized, new, material, rechecked, traced
 
 
