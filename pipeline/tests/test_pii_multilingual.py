@@ -236,3 +236,14 @@ def test_bengali_guard_ready() -> None:
     assert "romanized_kinship_relation:bengali" in find_multilingual_pii(
         "the dada of the child", languages=("bengali",)
     )
+
+
+def test_malayalam_guard_ready() -> None:
+    # §4d MALAYALAM enablement readiness (#136): the wired guard fires on this language's
+    # vectors — native script, a native-script age, and a romanized kinship term under the
+    # language guard. The feed lands enabled:false; this proves the floor is ready first.
+    assert "native_script:malayalam" in find_multilingual_pii("ഇരയുടെ മൊഴി")
+    assert "native_age:malayalam" in find_multilingual_pii("15 വയസ്സ്")
+    assert "romanized_kinship_relation:malayalam" in find_multilingual_pii(
+        "the chettan reported it", languages=("malayalam",)
+    )
