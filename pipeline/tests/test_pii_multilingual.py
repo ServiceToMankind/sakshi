@@ -192,3 +192,14 @@ def test_languages_checklist_is_the_enablement_gate() -> None:
     assert set(LANGUAGE_KINSHIP_TERMS).issubset(set(LANGUAGES))
     # Every language with a native-age pattern is on the checklist.
     assert set(NATIVE_SCRIPT_AGE_PATTERNS).issubset(set(LANGUAGES))
+
+
+def test_telugu_guard_ready() -> None:
+    # §4d TELUGU enablement readiness (#136): the wired guard fires on this language's vectors —
+    # native script, a native-script age, and a romanized kinship term under the language guard.
+    # The feed lands enabled:false; this proves the identity floor is ready first.
+    assert "native_script:telugu" in find_multilingual_pii("బాధితురాలి వాంగ్మూలం")
+    assert "native_age:telugu" in find_multilingual_pii("15 ఏళ్ల బాలిక")
+    assert "romanized_kinship_relation:telugu" in find_multilingual_pii(
+        "the akka reported it", languages=("telugu",)
+    )
