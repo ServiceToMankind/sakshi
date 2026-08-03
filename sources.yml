@@ -233,7 +233,20 @@ states:
       enabled: false # TELUGU · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
       publisher: Sakshi
       url: "https://www.sakshi.com/rss.xml"
-  TN: [] # Tamil Nadu
+  TN: # Tamil Nadu
+    # §4d REGIONAL-LANGUAGE — TAMIL. robots + feed verified 2026-08-04. The §4e
+    # multilingual PII guard is WIRED (#136), so the identity floor holds for this
+    # language's input; a source still lands enabled:false — ENABLING is the operator's.
+    - id: daily-thanthi-ta
+      type: rss
+      enabled: false # TAMIL · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Daily Thanthi
+      url: "https://www.dailythanthi.com/api/v1/collections/tamilnadu-news.rss"
+    - id: hindu-tamil-ta
+      type: rss
+      enabled: false # TAMIL · robots ALLOW · 200 XML · §4e guard wired (#136) · enable = operator
+      publisher: Hindu Tamil Thisai
+      url: "https://www.hindutamil.in/feed"
   TR: [] # Tripura
   UP: [] # Uttar Pradesh (NCR cases currently arrive via the Delhi feeds)
   UT: [] # Uttarakhand
