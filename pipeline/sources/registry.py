@@ -15,6 +15,7 @@ import yaml
 from pipeline import config
 from pipeline.sources.base import Source
 from pipeline.sources.ecourts import EcourtsSource
+from pipeline.sources.hc_judgments import HcCourt, HcJudgmentsSource
 from pipeline.sources.http import HttpClient
 from pipeline.sources.indiankanoon import IndianKanoonSource
 from pipeline.sources.rss_media import Feed, RssMediaSource
@@ -48,7 +49,7 @@ def load_source_configs(path: Path = config.SOURCES_CONFIG_PATH) -> list[dict[st
 
 # Source types that are COURT-RECORD provenance (re-checkable status), used by the weekly
 # refresh (§2), which re-queries only these — never the media discovery feeds.
-_COURT_SOURCE_TYPES = frozenset({"ecourts", "indiankanoon"})
+_COURT_SOURCE_TYPES = frozenset({"ecourts", "indiankanoon", "hc_judgments"})
 
 
 def build_sources(
@@ -93,6 +94,21 @@ def build_sources(
                     fetched_at=fetched_at,
                 )
             )
+        elif kind == "hc_judgments":
+            # Open High Court judgment portals (§4a): each entry carries one or more courts,
+            # every judgment PDF fetched + statute-pre-filtered in memory (HIGH-PII, §1b).
+            courts = tuple(
+                HcCourt(
+                    court=str(c.get("court", "")).strip(),
+                    listing_url=str(c.get("listing_url", "")).strip(),
+                    base_url=str(c.get("base_url", "")).strip(),
+                )
+                for c in (cfg.get("courts") or [])
+                if isinstance(c, dict) and str(c.get("listing_url", "")).strip()
+            )
+            if not courts:
+                continue
+            sources.append(HcJudgmentsSource(client, courts, fetched_at=fetched_at))
         elif kind == "rss":
             url = str(cfg.get("url", "")).strip()
             if not url:

@@ -135,19 +135,58 @@ states:
       enabled: true
       publisher: The Indian Express
       url: "https://indianexpress.com/section/cities/delhi/feed/"
+    # §4a TIER-1 COURT SOURCE — Delhi HC judgment portal (direct-PDF HTML listing; survey
+    # 2026-08-03: ~315 docs, no CAPTCHA, case-no + status readable). Each PDF is fetched +
+    # statute-pre-filtered IN MEMORY (pipeline/sources/hc_judgments). ⛔ enabled:false — a
+    # source lands disabled, always; enabling (and confirming the exact GET listing URL) is
+    # the operator's. Qualifying rate in the survey sample was ~0% (mixed feed) — the local
+    # pre-filter is exactly what keeps that cheap.
+    - id: delhi-hc-judgments
+      type: hc_judgments
+      enabled: false
+      courts:
+        - court: "Delhi High Court"
+          listing_url: "https://delhihighcourt.nic.in/web/judgement/fetch-data"
+          base_url: "https://delhihighcourt.nic.in"
   DN: [] # Dadra & Nagar Haveli and Daman & Diu
   GA: [] # Goa
   GJ: [] # Gujarat
   HP: [] # Himachal Pradesh
   HR: [] # Haryana
   JH: [] # Jharkhand
-  JK: [] # Jammu & Kashmir
+  JK: # Jammu & Kashmir
+    # §4a TIER-1 COURT SOURCE — J&K and Ladakh HC judgment portal (flat HTML, direct PDF
+    # links with the case number embedded in the filename; survey 2026-08-03: ~64 docs, no
+    # CAPTCHA, status readable). Fetched + statute-pre-filtered IN MEMORY. ⛔ enabled:false —
+    # enabling is the operator's. NOTE (survey): the Jharkhand HC endpoint currently MISROUTES
+    # to this same J&K content on shared NIC infra, so Jharkhand is intentionally NOT wired
+    # until its true endpoint is confirmed (a wrong-court record is worse than a gap).
+    - id: jk-hc-judgments
+      type: hc_judgments
+      enabled: false
+      courts:
+        - court: "High Court of Jammu & Kashmir and Ladakh"
+          listing_url: "https://jkhighcourt.nic.in/judgments_hc.php"
+          base_url: "https://jkhighcourt.nic.in"
   KA: [] # Karnataka
   KL: [] # Kerala
   LA: [] # Ladakh
   LD: [] # Lakshadweep
   MH: [] # Maharashtra
-  ML: [] # Meghalaya
+  ML: # Meghalaya
+    # §4a TIER-1 COURT SOURCE — Meghalaya HC "legacy orders" (direct-PDF daily order-sheets;
+    # survey 2026-08-03: ~495 docs, no CAPTCHA). CAVEATS the operator must weigh before
+    # enabling: the legacy set is 2013-2015 & PRE-CNR (case numbers only), each PDF BUNDLES
+    # many orders (the extractor must segment per case-number header), and the sampled
+    # qualifying rate was ~0% (old civil/misc). Low-yield; wired for completeness, IN MEMORY,
+    # ⛔ enabled:false — enabling is the operator's; prefer the newer orders feed when live.
+    - id: meghalaya-hc-judgments
+      type: hc_judgments
+      enabled: false
+      courts:
+        - court: "High Court of Meghalaya"
+          listing_url: "https://meghalayahighcourt.nic.in/legacy-orders"
+          base_url: "https://meghalayahighcourt.nic.in"
   MN: [] # Manipur
   MP: [] # Madhya Pradesh
   MZ: [] # Mizoram

@@ -49,6 +49,12 @@ LIVE_BLOG_CONFIDENCE_CAP: Final[float] = 0.79
 # (the shared PoliteClient additionally honours 2s/host + 429 Retry-After). Keep
 # conservative; raise only with an eye on the bill.
 IK_MAX_DOCS_PER_RUN: Final[int] = 100
+# Open High Court judgment portals (§4a) publish a MIXED listing (all case types), so the
+# walk is bounded twice: how many newest PDFs to fetch per court per run (politeness/time),
+# and how many QUALIFYING docs (post statute pre-filter) reach Gemini per run (extraction
+# cost). Conservative — a daily incremental walk of the newest judgments, not a backfill.
+HC_MAX_FETCH_PER_COURT: Final[int] = 40
+HC_MAX_DOCS_PER_RUN: Final[int] = 60
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 # Per-document Gemini retries (fail fast, then skip the doc) and a circuit breaker
 # so sustained provider errors (503 overload) abort extraction instead of hanging.

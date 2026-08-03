@@ -6,6 +6,7 @@ from typing import Any
 
 from pipeline.sources import registry
 from pipeline.sources.ecourts import EcourtsSource
+from pipeline.sources.hc_judgments import HcJudgmentsSource
 from pipeline.sources.indiankanoon import IndianKanoonSource
 from pipeline.sources.rss_media import RssMediaSource
 
@@ -58,6 +59,56 @@ def test_build_sources_respects_enabled_and_types() -> None:
         _FakeClient(), fetched_at="2026-07-10", configs=configs, court_only=True
     )
     assert [type(s).__name__ for s in court] == ["EcourtsSource", "IndianKanoonSource"]
+
+
+def test_build_sources_wires_hc_judgments_as_a_court_source() -> None:
+    configs = [
+        {
+            "id": "delhi-hc",
+            "type": "hc_judgments",
+            "enabled": True,
+            "state": "DL",
+            "courts": [
+                {
+                    "court": "Delhi High Court",
+                    "listing_url": "https://delhihighcourt.nic.in/web/judgement",
+                    "base_url": "https://delhihighcourt.nic.in",
+                }
+            ],
+        },
+        # court-less entry (and one with no listing_url) contribute no court -> dropped
+        {"id": "empty-hc", "type": "hc_judgments", "enabled": True, "courts": []},
+        {
+            "id": "nolisting-hc",
+            "type": "hc_judgments",
+            "enabled": True,
+            "courts": [{"court": "X HC", "listing_url": ""}],
+        },
+        {
+            "id": "off-hc",
+            "type": "hc_judgments",
+            "enabled": False,
+            "courts": [{"listing_url": "u"}],
+        },
+    ]
+    sources = registry.build_sources(_FakeClient(), fetched_at="2026-08-03", configs=configs)
+    assert [type(s).__name__ for s in sources] == ["HcJudgmentsSource"]
+    assert isinstance(sources[0], HcJudgmentsSource)
+    # §2 refresh re-queries court sources — hc_judgments is one (re-checkable judicial status).
+    court = registry.build_sources(
+        _FakeClient(), fetched_at="2026-08-03", configs=configs, court_only=True
+    )
+    assert [type(s).__name__ for s in court] == ["HcJudgmentsSource"]
+
+
+def test_repo_yaml_hc_judgments_entries_are_all_disabled() -> None:
+    # The standing rule: a source lands enabled:false, always. Enabling is the operator's.
+    configs = registry.load_source_configs()
+    hc = [c for c in configs if c.get("type") == "hc_judgments"]
+    assert hc, "expected the §4a HC judgment sources to be present"
+    assert all(c.get("enabled") is False for c in hc)
+    ids = {c["id"] for c in hc}
+    assert {"delhi-hc-judgments", "jk-hc-judgments", "meghalaya-hc-judgments"} <= ids
 
 
 def test_load_source_configs_reads_repo_yaml() -> None:
