@@ -1,6 +1,6 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-08-04T00:00:00Z",
+  "generated_at": "2026-08-05T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -225,10 +225,6 @@
   "scale": {
     "cumulative_total": 18,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-07"
-      },
       {
         "count": 0,
         "date": "2026-04-08"
@@ -704,9 +700,13 @@
       {
         "count": 0,
         "date": "2026-08-04"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-05"
       }
     ],
-    "this_week": 3
+    "this_week": 1
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 3,

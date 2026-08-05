@@ -6,7 +6,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -35,7 +35,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -62,7 +62,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -89,7 +89,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -118,7 +118,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -145,7 +145,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -172,7 +172,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -202,7 +202,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -232,7 +232,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -260,7 +260,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",
