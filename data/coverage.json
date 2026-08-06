@@ -1,7 +1,7 @@
 {
-  "generated": "2026-08-05",
+  "generated": "2026-08-06",
   "trackability": {
-    "total": 18,
+    "total": 19,
     "court_anchored": 0,
     "rate": 0.0
   },
@@ -46,7 +46,7 @@
     },
     "DL": {
       "active_sources": 2,
-      "records": 5,
+      "records": 6,
       "declared_gap": false
     },
     "DN": {
