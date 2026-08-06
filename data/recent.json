@@ -21,6 +21,24 @@
     "traced_to_court": null
   },
   {
+    "id": "SKS-2026-DL-000009",
+    "title": "Sexual assault involving a minor — Delhi (2026)",
+    "summary": "A case of sexual assault involving a minor in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "state": "DL",
+    "district": "Delhi",
+    "category": "sexual_assault",
+    "status": "UNKNOWN",
+    "offence_sections": [],
+    "incident_reported_date": "2026-08",
+    "minor_involved": true,
+    "publisher": "Delhi High Court",
+    "verified": true,
+    "first_published": "2026-08-06",
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
+  },
+  {
     "id": "SKS-2026-DL-000008",
     "title": "Delhi HC hears allegations of police molestation during Parliament march",
     "summary": "The Delhi High Court is reviewing claims of police brutality during a Parliament march in Delhi. Petitioners allege that police used force and molested women. The court has ordered the preservation of CCTV and video footage.",

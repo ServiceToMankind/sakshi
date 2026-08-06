@@ -6,7 +6,36 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 11,
+    "days_since_reported": 5,
+    "district": "Delhi",
+    "first_published": "2026-08-06",
+    "id": "SKS-2026-DL-000009",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-06",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/158939006/"
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "A case of sexual assault involving a minor in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Delhi (2026)",
+    "verified": true
+  },
+  {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 12,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -37,7 +66,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 35,
+    "days_since_reported": 36,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -74,7 +103,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 35,
+    "days_since_reported": 36,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -104,7 +133,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 35,
+    "days_since_reported": 36,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",
