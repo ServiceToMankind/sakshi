@@ -6,7 +6,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 5,
+    "days_since_reported": 7,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -29,13 +29,45 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 7,
+    "district": "Delhi",
+    "first_published": "2026-08-08",
+    "id": "SKS-2026-DL-000010",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-08-08",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-hc-refuses-to-quash-case-against-doctor-for-aborting-minors-pregnancy-not-reporting-it/article71313447.ece"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "A case of child sexual offence in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
     "court": {
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 12,
+    "days_since_reported": 14,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -66,7 +98,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 36,
+    "days_since_reported": 38,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -103,7 +135,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 36,
+    "days_since_reported": 38,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -133,7 +165,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 36,
+    "days_since_reported": 38,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

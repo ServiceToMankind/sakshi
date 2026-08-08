@@ -21,6 +21,26 @@
     "traced_to_court": null
   },
   {
+    "id": "SKS-2026-DL-000010",
+    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "A case of child sexual offence in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "DL",
+    "district": "Delhi",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "POCSO"
+    ],
+    "incident_reported_date": "2026-08",
+    "minor_involved": true,
+    "publisher": "The Hindu",
+    "verified": true,
+    "first_published": "2026-08-08",
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
+  },
+  {
     "id": "SKS-2026-DL-000009",
     "title": "Sexual assault involving a minor — Delhi (2026)",
     "summary": "A case of sexual assault involving a minor in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
