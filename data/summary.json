@@ -1,6 +1,6 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-08-06T00:00:00Z",
+  "generated_at": "2026-08-08T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -9,9 +9,9 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
-      "total": 4,
-      "under_trial": 2,
-      "under_trial_pct": 50
+      "total": 5,
+      "under_trial": 3,
+      "under_trial_pct": 60
     },
     {
       "acquittals": 0,
@@ -218,21 +218,13 @@
       "month": "2026-07"
     },
     {
-      "count": 2,
+      "count": 3,
       "month": "2026-08"
     }
   ],
   "scale": {
-    "cumulative_total": 19,
+    "cumulative_total": 20,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-09"
-      },
-      {
-        "count": 0,
-        "date": "2026-04-10"
-      },
       {
         "count": 0,
         "date": "2026-04-11"
@@ -704,6 +696,14 @@
       {
         "count": 1,
         "date": "2026-08-06"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-07"
+      },
+      {
+        "count": 1,
+        "date": "2026-08-08"
       }
     ],
     "this_week": 2
@@ -711,12 +711,12 @@
   "severity_counts": {
     "Aggravated penetrative assault on a child": 3,
     "Assault to outrage modesty": 1,
-    "Child sexual offence": 7,
+    "Child sexual offence": 8,
     "Penetrative assault on a child": 1,
     "Rape": 3
   },
   "state_counts": {
-    "DL": 6,
+    "DL": 7,
     "HR": 1,
     "TG": 10,
     "UP": 2
@@ -725,9 +725,9 @@
     "APPEAL_PENDING": 3,
     "CONVICTED": 1,
     "FIR_FILED": 8,
-    "UNDER_TRIAL": 4,
+    "UNDER_TRIAL": 5,
     "UNKNOWN": 3
   },
   "top_longest_pending": [],
-  "total": 19
+  "total": 20
 }
