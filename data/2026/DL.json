@@ -6,7 +6,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -36,7 +36,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -67,7 +67,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 14,
+    "days_since_reported": 15,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -98,7 +98,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -135,7 +135,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -165,7 +165,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",
