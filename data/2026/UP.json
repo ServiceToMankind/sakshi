@@ -2,7 +2,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -31,7 +31,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

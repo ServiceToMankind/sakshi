@@ -1,6 +1,6 @@
 {
   "aggravated_total": 4,
-  "generated_at": "2026-08-09T00:00:00Z",
+  "generated_at": "2026-08-10T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -225,10 +225,6 @@
   "scale": {
     "cumulative_total": 20,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-12"
-      },
       {
         "count": 0,
         "date": "2026-04-13"
@@ -704,6 +700,10 @@
       {
         "count": 0,
         "date": "2026-08-09"
+      },
+      {
+        "count": 0,
+        "date": "2026-08-10"
       }
     ],
     "this_week": 2
