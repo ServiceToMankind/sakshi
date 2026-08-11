@@ -101,14 +101,18 @@ def test_build_sources_wires_hc_judgments_as_a_court_source() -> None:
     assert [type(s).__name__ for s in court] == ["HcJudgmentsSource"]
 
 
-def test_repo_yaml_hc_judgments_entries_are_all_disabled() -> None:
-    # The standing rule: a source lands enabled:false, always. Enabling is the operator's.
+def test_repo_yaml_hc_judgments_entries_are_present_and_well_formed() -> None:
+    # The 3 wired open High Courts are present; each carries a court + listing_url + base_url
+    # so build_sources can instantiate it. (Enabled state is the operator's call — enabled by
+    # the 2026-08-12 sign-off; the kill switch stays per-source in sources.yml.)
     configs = registry.load_source_configs()
     hc = [c for c in configs if c.get("type") == "hc_judgments"]
     assert hc, "expected the §4a HC judgment sources to be present"
-    assert all(c.get("enabled") is False for c in hc)
     ids = {c["id"] for c in hc}
     assert {"delhi-hc-judgments", "jk-hc-judgments", "meghalaya-hc-judgments"} <= ids
+    for cfg in hc:
+        courts = cfg.get("courts") or []
+        assert courts and all(c.get("court") and c.get("listing_url") for c in courts)
 
 
 def test_load_source_configs_reads_repo_yaml() -> None:
