@@ -49,6 +49,11 @@ LIVE_BLOG_CONFIDENCE_CAP: Final[float] = 0.79
 # (the shared PoliteClient additionally honours 2s/host + 429 Retry-After). Keep
 # conservative; raise only with an eye on the bill.
 IK_MAX_DOCS_PER_RUN: Final[int] = 100
+# Max characters of an Indian Kanoon JUDGMENT body kept in memory (HIGH-PII bound + Gemini
+# cost cap). A judgment is fetched from /doc/{tid}/ only after its search hit clears the local
+# statute pre-filter, so only qualifying documents are billed. Generous enough to hold the
+# operative portion (charges + disposition) of most judgments; a rare huge one is truncated.
+IK_DOC_MAX_CHARS: Final[int] = 40000
 # Open High Court judgment portals (§4a) publish a MIXED listing (all case types), so the
 # walk is bounded twice: how many newest PDFs to fetch per court per run (politeness/time),
 # and how many QUALIFYING docs (post statute pre-filter) reach Gemini per run (extraction
