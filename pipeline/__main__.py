@@ -40,6 +40,7 @@ from pipeline.dedupe import dedupe, exact_anchor_keys, merge_records
 from pipeline.districts import canonical_district
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
+from pipeline.health import build_pipeline_health
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_sections import normalize_sections
@@ -98,6 +99,7 @@ class RunReport:
     source_counts: dict[str, int] = field(default_factory=dict)
     review_reasons: dict[str, int] = field(default_factory=dict)
     needs_review_reasons: dict[str, int] = field(default_factory=dict)
+    health: dict[str, Any] = field(default_factory=dict)  # §3 ops: per-source funnel
     logs: list[str] = field(default_factory=list)
 
 
@@ -106,21 +108,43 @@ def _log(report: RunReport, message: str) -> None:
     report.logs.append(sanitize_string(message))
 
 
+def _collect_prefilter(
+    prefilter: list[dict[str, Any]], source: object, stats: dict[str, Any]
+) -> None:
+    """Fold a source's pre-filter ``stats`` into ``prefilter`` (per-run accounting, §3 ops).
+
+    hc_judgments reports ``{court: {listed, fetched, qualifying}}`` (per-court dicts);
+    indiankanoon reports a flat ``{hits, qualifying, fetched}`` labelled by SOURCE_LABEL.
+    Counts only.
+    """
+    if stats and all(isinstance(v, dict) for v in stats.values()):
+        for court, court_stats in stats.items():
+            prefilter.append({"source": str(court), **court_stats})
+    else:
+        label = getattr(source, "SOURCE_LABEL", type(source).__name__)
+        prefilter.append({"source": str(label), **stats})
+
+
 async def _fetch_all(
     client: PoliteClient, fetched_at: str, court_only: bool = False
-) -> list[RawDocument]:
-    """Fetch from every ENABLED source (sources.yml) with one polite client. ``court_only``
-    (refresh mode) restricts to court-record sources."""
+) -> tuple[list[RawDocument], list[dict[str, Any]]]:
+    """Fetch from every ENABLED source (sources.yml) with one polite client, collecting each
+    source's pre-filter stats for the health accounting. ``court_only`` (refresh mode)
+    restricts to court-record sources."""
     docs: list[RawDocument] = []
+    prefilter: list[dict[str, Any]] = []
     for source in build_sources(client, fetched_at=fetched_at, court_only=court_only):
         docs.extend(await source.fetch())
-    return docs
+        stats = getattr(source, "stats", None)
+        if isinstance(stats, dict) and stats:
+            _collect_prefilter(prefilter, source, stats)
+    return docs, prefilter
 
 
 def _fetch_documents(
     fetched_at: str, court_only: bool = False
-) -> list[RawDocument]:  # pragma: no cover - network I/O
-    async def _go() -> list[RawDocument]:
+) -> tuple[list[RawDocument], list[dict[str, Any]]]:  # pragma: no cover - network I/O
+    async def _go() -> tuple[list[RawDocument], list[dict[str, Any]]]:
         async with PoliteClient() as client:
             return await _fetch_all(client, fetched_at, court_only=court_only)
 
@@ -227,6 +251,13 @@ def _write_coverage(records: list[dict[str, Any]], data_dir: Path, run_date: str
     coverage = build_coverage(load_source_configs(), records, run_date)
     path = data_dir / "coverage.json"
     path.write_text(json.dumps(coverage, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def _write_health(payload: dict[str, Any], data_dir: Path) -> None:
+    """Write data/pipeline_health.json — the per-source funnel (documents → records) and the
+    court pre-filter (§3 ops). Counts only; committed so the funnel is auditable each run."""
+    path = data_dir / "pipeline_health.json"
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 def _write_merge_review(records: list[dict[str, Any]], data_dir: Path, run_date: str) -> None:
@@ -768,6 +799,35 @@ def _assert_no_pii(data_dir: Path) -> None:
         )
 
 
+def _render_health(health: dict[str, Any]) -> str:
+    """Render the §3 per-source funnel table (documents -> records) for the run report."""
+    by_pub = health.get("by_publisher") or {}
+    if not by_pub:
+        return ""
+    rows = [
+        "**Source funnel (documents → records)**\n",
+        "| Source | Docs | Extracted | Out-of-scope | Failed | Published | Held | Quarantined |",
+        "|---|--:|--:|--:|--:|--:|--:|--:|",
+    ]
+    for pub, s in by_pub.items():
+        rows.append(
+            f"| {pub} | {s['documents']} | {s['extracted']} | {s['out_of_scope']} | "
+            f"{s['failed']} | {s['published']} | {s['needs_review']} | {s['quarantined']} |"
+        )
+    prefilter = health.get("court_prefilter") or []
+    if prefilter:
+        rows.append("\n**Court pre-filter (search → billed doc fetch)**\n")
+        rows.append("| Source | Listed/Hits | Qualifying | Fetched |")
+        rows.append("|---|--:|--:|--:|")
+        for row in prefilter:
+            listed = row.get("listed", row.get("hits", "—"))
+            rows.append(
+                f"| {row.get('source', '?')} | {listed} | "
+                f"{row.get('qualifying', '—')} | {row.get('fetched', '—')} |"
+            )
+    return "\n".join(rows) + "\n"
+
+
 def _render_report(report: RunReport, run_date: str) -> str:
     def table(title: str, counts: dict[str, int]) -> str:
         if not counts:
@@ -806,6 +866,7 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"{table('Auto-eligible by source', report.source_counts)}\n"
         f"{table('Held for review (why)', report.needs_review_reasons)}\n"
         f"{table('Review queue (reasons)', report.review_reasons)}\n"
+        f"{_render_health(report.health)}\n"
         "> **Auto-eligible** records (non-minor, no named accused, durable source, "
         "confidence ≥ 0.85) publish to the site on merge. **Held-for-review** records "
         "(`data/_needs_review/queue.json`) are minors, named accused, live-blog-only, "
@@ -819,6 +880,8 @@ def _render_report(report: RunReport, run_date: str) -> str:
 def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     logs_dir.mkdir(parents=True, exist_ok=True)
     (logs_dir / "run.log").write_text("\n".join(report.logs) + "\n", encoding="utf-8")
+    funnel = json.dumps(report.health.get("by_publisher", {}), separators=(",", ":"))
+    prefilter = json.dumps(report.health.get("court_prefilter", []), separators=(",", ":"))
     (logs_dir / "run_summary.env").write_text(
         # UPDATED now means MATERIAL changes only (status/court/sections/accused/severity) —
         # re-sightings are RECHECKED and never inflate the "~N updated" commit message (§1).
@@ -836,7 +899,11 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
         f"SUBMISSIONS={report.submissions}\n"
         f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
-        f"TRACED_TO_COURT={report.traced_to_court}\n",
+        f"TRACED_TO_COURT={report.traced_to_court}\n"
+        # §3 ops: the per-source funnel (documents → records) + court pre-filter, so the
+        # heartbeat alone answers "why did N documents produce M records?" per source.
+        f"SOURCE_FUNNEL={funnel}\n"
+        f"COURT_PREFILTER={prefilter}\n",
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
@@ -910,13 +977,17 @@ def run(
     existing: list[dict[str, Any]] = []
     existing_urls: set[str] = set()
     staged_carryover: list[dict[str, Any]] = []
+    court_prefilter: list[dict[str, Any]] = []  # per-source pre-filter stats (health accounting)
     if dry_run:
         raw_docs = fixtures.fixture_raw_documents()
         extractions = fixtures.fixture_extractions()
         report.estimated_usd = _illustrative_cost(raw_docs)
         _log(report, f"dry-run: {len(extractions)} fixture extractions (no network, no Gemini)")
     else:
-        raw_docs = docs if docs is not None else _fetch_documents(run_date, court_only=is_refresh)
+        if docs is not None:
+            raw_docs, court_prefilter = docs, []
+        else:
+            raw_docs, court_prefilter = _fetch_documents(run_date, court_only=is_refresh)
         # Skip documents already settled in prior runs so the budget goes to the
         # backlog TAIL — turns provider degradation into delay, not lost coverage.
         ledger = load_ledger(data_dir)
@@ -1299,6 +1370,19 @@ def run(
     _write_review(review, data_dir, run_date)
     _write_merge_review(write_result.records, data_dir, run_date)
     _write_coverage(write_result.records, data_dir, run_date)
+    # §3 ops: the per-source funnel (documents -> extracted -> published/held/quarantined) +
+    # the court pre-filter — so "why did N documents produce M records?" is answerable per run.
+    health = build_pipeline_health(
+        run_date=run_date,
+        raw_docs=raw_docs,
+        doc_outcomes=doc_outcomes,
+        published=write_result.records,
+        needs_review=needs_review_records,
+        review=review,
+        court_prefilter=court_prefilter,
+    )
+    _write_health(health, data_dir)
+    report.health = health
 
     # Update the processed-document ledger (real runs only). A record is settled
     # "published" only once it is on main; until then it is staged_pending and

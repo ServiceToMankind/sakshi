@@ -141,6 +141,8 @@ class IndianKanoonSource:
     ``qualifying`` after the pre-filter, and ``fetched`` doc bodies (the billed count).
     """
 
+    SOURCE_LABEL = "Indian Kanoon"
+
     def __init__(
         self,
         client: HttpPoster,
