@@ -67,11 +67,24 @@ national:
     type: indiankanoon
     enabled: true # LIVE: token provisioned in CI secrets (2026-08-12); fetches judgment BODIES
     publisher: Indian Kanoon
-    # Court-record mirror. Each query is billed — keep the list tight; broaden by adding a
-    # `doctypes:<court>` query per state as coverage expands. Bump the year each January.
+    # Court-record mirror. Each query is billed — the IK_MAX_DOCS_PER_RUN=100 cap is shared
+    # across ALL queries, so adding a court broadens coverage without raising the bill ceiling.
+    # Broaden by adding a `doctypes:<court>` query per state as coverage expands; bump the year
+    # each January. The doctypes below are VERIFIED to return that court (2026-08-12).
+    #
+    # WHY IK, not the portals, for Punjab & Haryana / Madhya Pradesh / Madras / Jharkhand
+    # (the "remaining open High Courts"): the 2026-08-03 survey called them open, but wiring
+    # them directly hits an INVIOLABLE rule — P&H's judgment API (livedb9010.phhc.gov.in) sets
+    # robots `Disallow: /`; MP is an SPA behind a CAPTCHA search; Madras needs a CSRF POST form;
+    # Jharkhand's portal intermittently serves J&K content on shared NIC infra. IK mirrors all
+    # of them via the LICENSED API (robots + no-CAPTCHA respected), so it is the correct path.
     queries:
       - "rape OR POCSO OR \"sexual assault\" doctypes:delhi fromdate:1-1-2026"
       - "rape OR POCSO OR \"sexual assault\" doctypes:telangana fromdate:1-1-2026"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:punjab fromdate:1-1-2026"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:madhyapradesh fromdate:1-1-2026"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:chennai fromdate:1-1-2026"
+      - "rape OR POCSO OR \"sexual assault\" doctypes:jharkhand fromdate:1-1-2026"
 
   - id: pti
     type: rss
