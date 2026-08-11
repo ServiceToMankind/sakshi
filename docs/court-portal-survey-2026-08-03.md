@@ -87,3 +87,24 @@ Of the 26 courts, only **7 are cleanly OPEN** — reachable, no CAPTCHA on an op
 - Himachal Pradesh HC — JS/DataTables-rendered; needs AJAX endpoint discovery
 
 **robots-disallow:** none of the judgment paths are explicitly robots-disallowed; Calcutta returns a 403 WAF page for robots.txt (verdict unknown, treat cautiously). Meghalaya disallows only /search/ (legacy-orders permitted).
+---
+
+## 2026-08-12 update — wiring the "remaining open" courts (P&H, MP, Madras, Jharkhand)
+
+Re-checked the four courts the survey called open but that were never wired. **Direct portal
+scraping is blocked for all four by an inviolable rule — so coverage goes via Indian Kanoon's
+licensed API instead** (`doctypes:` queries added to `sources.yml`, all verified 2026-08-12 to
+return the right court):
+
+| Court | Direct-portal verdict (2026-08-12) | Coverage path |
+|---|---|---|
+| **Punjab & Haryana** | The judgment JSON API host `livedb9010.phhc.gov.in` serves `robots.txt: Disallow: /` — the whole API is robots-forbidden. The public site is an SPA that only calls that host. | `doctypes:punjab` → "Punjab-Haryana High Court" ✓ |
+| **Madhya Pradesh** | Next.js SPA; judgments come from a CAPTCHA-gated search API — 0 docs by plain HTTP. | `doctypes:madhyapradesh` → "Madhya Pradesh High Court" ✓ |
+| **Madras** | CodeIgniter POST form needing a dated request + CSRF cookie; not a static list. | `doctypes:chennai` → "Madras High Court" ✓ |
+| **Jharkhand** | `hc_order_judgement.php` is **not a redirect** (HTTP 200, 0 redirects) and currently serves correct Jharkhand content — the earlier "J&K content" was a **transient shared-NIC-infra misroute**, so a direct scraper would intermittently record wrong-court cases. | `doctypes:jharkhand` → "Jharkhand High Court" ✓ (no misroute risk) |
+
+**Conclusion:** none of the four can be scraped directly without breaking the robots or
+no-CAPTCHA rules (P&H, MP, Madras) or risking wrong-court records (Jharkhand). Indian Kanoon —
+already wired, now token-live, fetching judgment BODIES (#153) — mirrors all four and is the
+correct, rule-respecting coverage path. The shared `IK_MAX_DOCS_PER_RUN=100` budget spans all
+queries, so this broadens national court coverage without raising the bill ceiling.
