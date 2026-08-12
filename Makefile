@@ -17,7 +17,7 @@ COV_OVERALL := 85
 
 .DEFAULT_GOAL := check
 
-.PHONY: setup check test lint fmt pii-guard readability-guard secret-guard validate backfill lighthouse site-dev site-build clean
+.PHONY: setup check test lint fmt pii-guard readability-guard secret-guard counts-guard validate backfill lighthouse site-dev site-build clean
 
 # ---------------------------------------------------------------------------
 # setup — create the virtualenv and install python + node dependencies.
@@ -50,6 +50,7 @@ check: lint
 	$(MAKE) pii-guard
 	$(MAKE) readability-guard
 	$(MAKE) secret-guard
+	$(MAKE) counts-guard
 	cd $(SITE) && npm run lint
 	cd $(SITE) && npm run format:check
 
@@ -103,6 +104,11 @@ secret-guard:
 # ---------------------------------------------------------------------------
 validate:
 	$(PY) -m pipeline.validate --all
+
+# counts-guard — Phase 9 §1: every published record is counted in EVERY aggregate
+# (summary/index/recent/scorecard/coverage) or the build fails. One number, everywhere.
+counts-guard:
+	$(PY) scripts/counts_guard.py data/
 
 # ---------------------------------------------------------------------------
 # backfill — a LOCAL historical backfill with the same gates, a HARD cost cap, and a
