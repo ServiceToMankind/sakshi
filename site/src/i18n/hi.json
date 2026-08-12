@@ -47,5 +47,10 @@
   "case_where_justice_stands": "न्याय कहाँ खड़ा है",
   "case_severity": "गंभीरता",
   "days_without_justice": "न्याय के बिना दिन",
-  "days_no_verdict": "अभी तक कोई फैसला नहीं"
+  "days_no_verdict": "अभी तक कोई फैसला नहीं",
+  "nav_accountability": "जवाबदेही",
+  "acct_title": "जवाबदेही रिकॉर्ड",
+  "acct_cta": "जवाबदेही रिकॉर्ड खोलें",
+  "acct_longest_title": "न्याय के बिना सबसे लंबा",
+  "jur_col_pre_chargesheet": "% आरोपपत्र-पूर्व"
 }

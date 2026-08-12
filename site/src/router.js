@@ -14,6 +14,7 @@ import { renderLanding } from './views/landing.js';
 import { renderExplore } from './views/explore.js';
 import { renderCase } from './views/caseDetail.js';
 import { renderCoverage } from './views/coverage.js';
+import { renderAccountability } from './views/accountability.js';
 import { stopReadAloud } from './read-aloud.js';
 
 const OUTLET_ID = 'app';
@@ -22,6 +23,7 @@ const VIEWS = {
   explore: renderExplore,
   case: renderCase,
   coverage: renderCoverage,
+  accountability: renderAccountability,
 };
 
 export function parseRoute() {
@@ -29,6 +31,7 @@ export function parseRoute() {
   const [path, query = ''] = raw.split('?');
   const params = new URLSearchParams(query);
   if (path.startsWith('/explore')) return { name: 'explore', path, params };
+  if (path.startsWith('/accountability')) return { name: 'accountability', path, params };
   if (path.startsWith('/coverage')) return { name: 'coverage', path, params };
   if (path.startsWith('/case/')) {
     return { name: 'case', path, params, id: decodeURIComponent(path.slice('/case/'.length)) };
