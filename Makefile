@@ -17,7 +17,7 @@ COV_OVERALL := 85
 
 .DEFAULT_GOAL := check
 
-.PHONY: setup check test lint fmt pii-guard readability-guard secret-guard validate lighthouse site-dev site-build clean
+.PHONY: setup check test lint fmt pii-guard readability-guard secret-guard validate backfill lighthouse site-dev site-build clean
 
 # ---------------------------------------------------------------------------
 # setup — create the virtualenv and install python + node dependencies.
@@ -103,6 +103,15 @@ secret-guard:
 # ---------------------------------------------------------------------------
 validate:
 	$(PY) -m pipeline.validate --all
+
+# ---------------------------------------------------------------------------
+# backfill — a LOCAL historical backfill with the same gates, a HARD cost cap, and a
+# printed estimate, writing to a branch for a review PR (never main). Removes Actions
+# minutes as a constraint on backfill. Pass args via ARGS, e.g.:
+#   make backfill ARGS="--lookback-days 365 --max-usd 5"
+# ---------------------------------------------------------------------------
+backfill:
+	$(PY) scripts/backfill.py $(ARGS)
 
 # ---------------------------------------------------------------------------
 # lighthouse — Lighthouse CI over the built site (Phase-4/5 frontend gate).
