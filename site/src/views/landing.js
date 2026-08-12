@@ -6,7 +6,7 @@
 
 import { el, clear } from '../dom.js';
 import { t, applyI18n } from '../i18n/index.js';
-import { loadSummary, loadRecent, loadCoverage } from '../data.js';
+import { loadSummary, loadRecent } from '../data.js';
 import { renderDonut, renderTrend, renderStateGrid, statusLegend } from '../charts.js';
 import {
   ACTIVE_STATUSES,
@@ -18,7 +18,7 @@ import {
   formatNumber,
 } from '../format.js';
 import { recentCard } from './parts.js';
-import { scaleDrumbeat, jurisdictionScorecard, offenderScorecard } from './scorecards.js';
+import { scaleDrumbeat } from './scorecards.js';
 
 function notice(kind, key) {
   return el('p', { class: `notice notice--${kind}`, role: 'status', 'data-i18n': key }, t(key));
@@ -311,16 +311,6 @@ export async function renderLanding() {
   );
   const stale = hoursSince(summary.generated_at) > 48;
 
-  // Coverage (per-state source presence) calibrates the jurisdiction scorecard: a state
-  // with no source is marked so its counts read as floors, not clean comparisons. Optional
-  // — a missing coverage.json just omits the markers, never breaks the landing.
-  let coverage = null;
-  try {
-    coverage = await loadCoverage();
-  } catch {
-    coverage = null;
-  }
-
   const charts = chartsSection(statusCounts, stateCounts, monthly);
 
   const node = el('div', { class: 'view view--landing' }, [
@@ -336,8 +326,27 @@ export async function renderLanding() {
     // null on a v1 summary that lacks its block, so the landing degrades gracefully.
     scaleDrumbeat(summary),
     recentFeed(recent),
-    jurisdictionScorecard(summary.jurisdictions, coverage),
-    offenderScorecard(),
+    // The full sortable scorecard + offender board now live on the dedicated /accountability
+    // page (§3); the landing points to it rather than duplicating the big tables.
+    el('section', { class: 'acct-teaser reveal' }, [
+      el('div', { class: 'acct-teaser__body' }, [
+        el(
+          'h2',
+          { class: 'acct-teaser__title', 'data-i18n': 'acct_teaser_title' },
+          t('acct_teaser_title'),
+        ),
+        el(
+          'p',
+          { class: 'acct-teaser__text', 'data-i18n': 'acct_teaser_text' },
+          t('acct_teaser_text'),
+        ),
+      ]),
+      el(
+        'a',
+        { class: 'btn acct-teaser__cta', href: '#/accountability', 'data-i18n': 'acct_cta' },
+        t('acct_cta'),
+      ),
+    ]),
     el('section', { class: 'charts-wrap reveal' }, [charts.details]),
   ]);
 

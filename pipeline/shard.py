@@ -488,6 +488,9 @@ def _build_summary(
             "id": r["id"],
             "district": r.get("district", ""),
             "days_since_reported": int(r["days_since_reported"]),
+            # The day-precise report date (non-minor only, so no minor granularity leaks) lets the
+            # accountability page tick a LIVE counter forward from the real date, not the snapshot.
+            "incident_reported_date": r.get("incident_reported_date"),
         }
         for r in records
         if r.get("status") in _ACTIVE_STATUSES
@@ -546,6 +549,9 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
         by_status = Counter(str(r.get("status", "UNKNOWN")) for r in recs)
         total = len(recs)
         under_trial = by_status.get("UNDER_TRIAL", 0)
+        # Stalled pre-chargesheet: an FIR was filed but no chargesheet followed — the earliest,
+        # most-common place a case stops moving. Public/aggregate; no victim data (§3).
+        pre_chargesheet = by_status.get("FIR_FILED", 0)
         active_pending = [
             int(r["days_since_reported"])
             for r in recs
@@ -565,19 +571,23 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
             ),
             default=None,
         )
-        cards.append(
-            {
-                "state": state,
-                "district": district,
-                "total": total,
-                "under_trial": under_trial,
-                "under_trial_pct": round(100 * under_trial / total) if total else 0,
-                "convictions": by_status.get("CONVICTED", 0),
-                "acquittals": by_status.get("ACQUITTED", 0) + by_status.get("QUASHED", 0),
-                "median_pending_days": int(median(active_pending)) if active_pending else None,
-                "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
-            }
-        )
+        card: dict[str, Any] = {
+            "state": state,
+            "district": district,
+            "total": total,
+            "under_trial": under_trial,
+            "under_trial_pct": round(100 * under_trial / total) if total else 0,
+            "convictions": by_status.get("CONVICTED", 0),
+            "acquittals": by_status.get("ACQUITTED", 0) + by_status.get("QUASHED", 0),
+            "median_pending_days": int(median(active_pending)) if active_pending else None,
+            "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
+        }
+        # Stalled pre-chargesheet count (%-of-total computed on the client). Emitted only when
+        # non-zero so it stays SPARSE — jurisdictions is the size-capped section and the
+        # summary.json budget is tight; an all-zero field on every row would waste the budget.
+        if pre_chargesheet:
+            card["pre_chargesheet"] = pre_chargesheet
+        cards.append(card)
     # Worst-first, then CAP: jurisdictions is the only unbounded summary section, so an
     # uncapped list would eventually push summary.json past SUMMARY_MAX_BYTES and abort
     # the whole run. The cap keeps the highest-caseload ("shame table") districts.

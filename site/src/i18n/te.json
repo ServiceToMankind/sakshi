@@ -12,5 +12,10 @@
   "case_where_justice_stands": "న్యాయం ఎక్కడ ఉంది",
   "case_severity": "తీవ్రత",
   "days_without_justice": "న్యాయం లేని రోజులు",
-  "days_no_verdict": "ఇంకా తీర్పు రాలేదు"
+  "days_no_verdict": "ఇంకా తీర్పు రాలేదు",
+  "nav_accountability": "జవాబుదారీతనం",
+  "acct_title": "జవాబుదారీ రికార్డు",
+  "acct_cta": "జవాబుదారీ రికార్డును తెరవండి",
+  "acct_longest_title": "న్యాయం లేకుండా అత్యధిక కాలం",
+  "jur_col_pre_chargesheet": "% ఛార్జిషీట్‌కు ముందు"
 }

@@ -136,5 +136,16 @@
   "case_where_justice_stands": "Where justice stands",
   "case_severity": "Severity",
   "days_without_justice": "days without justice",
-  "days_no_verdict": "No verdict yet"
+  "days_no_verdict": "No verdict yet",
+  "nav_accountability": "Accountability",
+  "acct_title": "The accountability record",
+  "acct_lead": "Every tracked case, and how far it has — or has not — moved. These are publicly reported cases, not official crime statistics.",
+  "acct_teaser_title": "Follow the cases that stall",
+  "acct_teaser_text": "Which districts stall cases before a chargesheet, how long the longest cases have waited, and convictions against acquittals — the full record.",
+  "acct_cta": "Open the accountability record",
+  "acct_longest_title": "Longest without justice",
+  "acct_longest_lead": "Court-anchored cases still waiting for a verdict, counting live from the day each was reported. Only cases whose status can be re-checked appear here.",
+  "acct_longest_empty": "No court-anchored pending case is currently tracked — an honest gap, not zero cases.",
+  "acct_stalled_text": "of tracked cases are stalled before a chargesheet was filed.",
+  "jur_col_pre_chargesheet": "% pre-chargesheet"
 }

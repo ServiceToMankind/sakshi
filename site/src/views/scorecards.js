@@ -122,6 +122,16 @@ const COLUMNS = [
     cell: (j) => `${Number(j.under_trial_pct) || 0}%`,
   },
   {
+    // Share of a jurisdiction's cases stalled at FIR — reported, never chargesheeted (§3).
+    // `pre_chargesheet` is emitted sparsely (absent === 0), so the % is computed here.
+    key: 'pre_chargesheet_pct',
+    i18n: 'jur_col_pre_chargesheet',
+    type: 'num',
+    sortable: true,
+    value: (j) => (j.total ? Math.round((100 * (j.pre_chargesheet || 0)) / j.total) : 0),
+    cell: (j) => `${j.total ? Math.round((100 * (j.pre_chargesheet || 0)) / j.total) : 0}%`,
+  },
+  {
     key: 'median_pending_days',
     i18n: 'jur_col_median_pending',
     type: 'num',

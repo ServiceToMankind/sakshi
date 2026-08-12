@@ -1148,6 +1148,107 @@ canvas {
   font-size: 0.8rem;
 }
 
+/* --- /accountability page (§3) ----------------------------------------- */
+.acct-headline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--c-aggravated) 10%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-aggravated) 30%, transparent);
+}
+.acct-headline__num {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  color: color-mix(in srgb, var(--c-aggravated) 85%, var(--text));
+  line-height: 1;
+}
+.acct-headline__text {
+  max-width: 40rem;
+}
+/* Landing teaser that points to the dedicated page. */
+.acct-teaser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+.acct-teaser__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+.acct-teaser__text {
+  margin: 0;
+  max-width: 42rem;
+  color: var(--text-muted);
+}
+.acct-teaser__cta {
+  white-space: nowrap;
+}
+/* Longest-without-justice spotlight with a live counter. */
+.longest-list {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+.longest-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--c-aggravated) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--c-aggravated) 28%, transparent);
+}
+.live-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--c-aggravated) 82%, var(--text));
+}
+.live-counter__days {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  line-height: 1;
+}
+.live-counter__clock {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+.longest-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.longest-card__label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: color-mix(in srgb, var(--c-aggravated) 78%, var(--text));
+}
+.longest-card__place {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.longest-card__link {
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.85rem;
+}
+
 /* --- Accountability layer: scale drumbeat + heat strip ------------------ */
 .drumbeat {
   display: grid;
