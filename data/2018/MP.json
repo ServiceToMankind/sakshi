@@ -1,0 +1,41 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 2964,
+    "district": "Singrauli",
+    "first_published": "2026-08-12",
+    "id": "SKS-2018-MP-000001",
+    "incident_reported_date": "2018-07",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376(2)(F)",
+      "IPC 376(2)(N)",
+      "POCSO 5(J)(II)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/156404247/"
+      }
+    ],
+    "state": "MP",
+    "status": "ACQUITTED",
+    "summary": "One person was accused of the aggravated penetrative assault on a child in Singrauli. The accused was convicted. The accused was acquitted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Singrauli (2018)",
+    "verified": true
+  }
+]

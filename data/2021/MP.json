@@ -1,0 +1,54 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh"
+    },
+    "days_since_reported": 1745,
+    "district": "Dewas",
+    "fir_ref": {
+      "number": "725/2021",
+      "station": "Khategaon"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2021-MP-000001",
+    "incident_reported_date": "2021-11",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 302",
+      "IPC 377",
+      "IPC 201",
+      "POCSO 5(M)",
+      "POCSO 6",
+      "IPC 376AB"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/93805759/"
+      },
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/168591794/"
+      }
+    ],
+    "state": "MP",
+    "status": "CONVICTED",
+    "summary": "One person was arrested in Dewas for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Dewas (2021)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

@@ -1,0 +1,84 @@
+[
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Punjab & Haryana High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 254,
+    "district": "Palwal",
+    "fir_ref": {
+      "number": "176",
+      "station": "Bahin"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2025-HR-000002",
+    "incident_reported_date": "2025-12",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 6",
+      "BNS 127(2)",
+      "BNS 351(3)",
+      "BNS 70(2)"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/160717748/"
+      }
+    ],
+    "state": "HR",
+    "status": "FIR_FILED",
+    "summary": "Four people were accused of the gang rape of a minor in Palwal. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape of a minor — Palwal (2025)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Punjab & Haryana"
+    },
+    "days_since_reported": 468,
+    "district": "Palwal",
+    "fir_ref": {
+      "number": "51",
+      "station": "Uttawar"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2025-HR-000001",
+    "incident_reported_date": "2025-05",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 61(2)",
+      "BNS 64(1)",
+      "BNS 87",
+      "BNS 137(2)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/28306419/"
+      }
+    ],
+    "state": "HR",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Palwal for the aggravated penetrative assault on a child. Bail was granted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Palwal (2025)",
+    "verified": true
+  }
+]

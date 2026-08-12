@@ -1,0 +1,51 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1594,
+    "district": "Tiruppur",
+    "fir_ref": {
+      "number": "5/2022",
+      "station": "Avinasi All Women Police Station"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2022-TN-000001",
+    "incident_reported_date": "2022-04",
+    "institutional_actions": [
+      "convicted",
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 5(I)",
+      "POCSO 6(1)",
+      "POCSO 5(M)",
+      "POCSO 6",
+      "POCSO 3(B)",
+      "POCSO 4(1)",
+      "POCSO 9(M)",
+      "POCSO 10"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/139824707/"
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the aggravated penetrative assault on a child in Tiruppur. The accused was convicted. The accused was acquitted. An appeal was filed. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Tiruppur (2022)",
+    "verified": true
+  }
+]

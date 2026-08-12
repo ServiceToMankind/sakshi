@@ -1,0 +1,43 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Punjab and Haryana"
+    },
+    "days_since_reported": 1472,
+    "district": "Ludhiana",
+    "fir_ref": {
+      "number": "218/2022",
+      "station": "Division 5"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2022-PB-000001",
+    "incident_reported_date": "2022-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 366A",
+      "IPC 376",
+      "POCSO 33"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/95646336/"
+      }
+    ],
+    "state": "PB",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the rape involving a minor in Ludhiana. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Ludhiana (2022)",
+    "verified": true
+  }
+]

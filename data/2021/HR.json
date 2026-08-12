@@ -1,0 +1,49 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Punjab and Haryana High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1929,
+    "district": "Palwal",
+    "fir_ref": {
+      "number": "144/2021",
+      "station": "Mundkati"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2021-HR-000001",
+    "incident_reported_date": "2021-05",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 302",
+      "IPC 363",
+      "IPC 201",
+      "POCSO 6",
+      "IPC 366",
+      "3(1)(W)(I)"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/75690978/"
+      }
+    ],
+    "state": "HR",
+    "status": "APPEAL_PENDING",
+    "summary": "One person was arrested in Palwal for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Palwal (2021)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

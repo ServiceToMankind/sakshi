@@ -1,0 +1,48 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 3663,
+    "district": "Shahdara",
+    "fir_ref": {
+      "number": "678/2016",
+      "station": "Nand Nagri"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2016-DL-000001",
+    "incident_reported_date": "2016-08",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 354A",
+      "POCSO 10",
+      "POCSO 21"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75512082026CRLA5732026_194524.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "Two people were arrested in Shahdara for the sexual assault of a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Shahdara (2016)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

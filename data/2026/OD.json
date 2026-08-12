@@ -1,0 +1,31 @@
+[
+  {
+    "accused_count": 6,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Cuttack",
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-OD-000001",
+    "incident_reported_date": "2026-08-12",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-12",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/bhubaneswar/woman-out-for-a-drive-with-friend-gangraped-by-6-in-cuttack/articleshow/133187896.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "OD",
+    "status": "FIR_FILED",
+    "summary": "Six men allegedly assaulted a woman and her friend before gangraping her in Cuttack district. Police have registered a case and are searching for the accused.",
+    "title": "Police register case after woman gangraped by six men in Cuttack",
+    "verification_note": "The source confirms a gangrape case was reported and registered by the police in Cuttack, Odisha.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

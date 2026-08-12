@@ -1,0 +1,44 @@
+[
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Meghalaya"
+    },
+    "days_since_reported": 4606,
+    "district": "West Garo Hills",
+    "fir_ref": {
+      "number": "1(1) of 2014",
+      "station": "Tura Women Police Station"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2014-ML-000001",
+    "incident_reported_date": "2014-01",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 34",
+      "IPC 376",
+      "POCSO 9",
+      "POCSO 10"
+    ],
+    "sources": [
+      {
+        "publisher": "High Court of Meghalaya",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://meghalayahighcourt.nic.in/sites/default/files/21-02-2014.pdf"
+      }
+    ],
+    "state": "ML",
+    "status": "UNDER_TRIAL",
+    "summary": "Three people were arrested in West Garo Hills for the sexual assault of a child. Bail was granted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — West Garo Hills (2014)",
+    "verified": true
+  }
+]
