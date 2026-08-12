@@ -1,12 +1,18 @@
-// Case detail route. Renders the presumption-of-innocence banner (always), an
-// animated status timeline, case details, accused (names only from court records),
-// a cited sources list, and a "report a correction" link that opens a prefilled
-// GitHub issue. ACQUITTED/QUASHED are shown with the same prominence as CONVICTED.
+// Case detail route — a real article, not a field dump. Structure (§2c):
+//   presumption banner (always)
+//   → What happened      (the plain-English account / minor projection + read-aloud of the page)
+//   → Where justice stands (pendency counter, animated status timeline, court + case anchors)
+//   → Severity           (plain-language label from PUBLIC charge codes, then the codes)
+//   → Accused            (names only from court records; never for a minor)
+//   → Sources            (cited; identifying-slug URLs behind an expander)
+// ACQUITTED/QUASHED are shown with the same prominence as CONVICTED. Nothing here lowers the
+// identity floor — the summary text is the sanitised record, severity is charge-derived, and a
+// minor never surfaces an accused.
 
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
 import { loadCase } from '../data.js';
-import { formatDate, stateName, safeHttpUrl, relativeRecency } from '../format.js';
+import { formatDate, stateName, statusLabel, safeHttpUrl, relativeRecency } from '../format.js';
 import {
   statusBadge,
   minorBadge,
@@ -16,6 +22,7 @@ import {
   daysTicker,
   tracingMarker,
 } from './parts.js';
+import { severityLabel } from '../severity.js';
 import { readAloudButton } from '../read-aloud.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
@@ -67,6 +74,91 @@ function detailRow(labelKey, value) {
   ]);
 }
 
+// "What happened" — the account. For a non-minor this is the plain-English article summary;
+// for a minor it is the deterministic, non-identifying projection. Same section, same heading.
+function whatHappenedSection(record) {
+  const { body, footnote } = summaryBodyAndFootnote(record.summary);
+  const children = [
+    sectionTitle('case_what_happened'),
+    body ? el('p', { class: 'case__summary' }, body) : null,
+  ];
+  if (footnote) {
+    children.push(el('p', { class: 'case__footnote', role: 'note' }, footnote));
+  }
+  return el('section', { class: 'panel reveal' }, children.filter(Boolean));
+}
+
+function sectionTitle(key) {
+  return el('h2', { class: 'panel__title', 'data-i18n': key }, t(key));
+}
+
+// "Where justice stands" — the pendency counter first (the drumbeat), then the timeline, then
+// the court + case-number anchors that make the pendency re-checkable.
+function whereJusticeStandsSection(record) {
+  const fir = record.fir_ref
+    ? `${record.fir_ref.station || ''} ${record.fir_ref.number || ''}`.trim()
+    : '';
+  const details = [
+    detailRow('case_court', record.court?.name),
+    detailRow(
+      'case_next_hearing',
+      record.court?.next_hearing ? formatDate(record.court.next_hearing) : null,
+    ),
+    detailRow(
+      'case_reported',
+      record.incident_reported_date
+        ? `${formatDate(record.incident_reported_date)}${
+            relativeRecency(record.incident_reported_date)
+              ? ` · ${relativeRecency(record.incident_reported_date)}`
+              : ''
+          }`
+        : null,
+    ),
+    detailRow('case_cnr', record.cnr),
+    detailRow('case_fir', fir),
+  ].filter(Boolean);
+
+  return el(
+    'section',
+    { class: 'panel reveal' },
+    [
+      sectionTitle('case_where_justice_stands'),
+      daysTicker(record, { block: true }),
+      timeline(record),
+      details.length ? el('dl', { class: 'details' }, details) : null,
+    ].filter(Boolean),
+  );
+}
+
+// "Severity" — plain-language label derived ONLY from public charge sections (never the victim),
+// then the raw charge codes for anyone who wants to check them. Rendered only when we have codes.
+function severitySection(record) {
+  const codes = record.offence_sections || [];
+  if (!codes.length) return null;
+  const badges = [severityBadge(codes), repeatOffenderBadge(codes)].filter(Boolean);
+  return el(
+    'section',
+    { class: 'panel reveal' },
+    [
+      sectionTitle('case_severity'),
+      badges.length ? el('div', { class: 'case__badges' }, badges) : null,
+      el('p', { class: 'case__severity-note', 'data-i18n': 'severity_hint' }, t('severity_hint')),
+      el('div', { class: 'charge-codes' }, [
+        el(
+          'span',
+          { class: 'charge-codes__label', 'data-i18n': 'case_offences' },
+          t('case_offences'),
+        ),
+        el(
+          'ul',
+          { class: 'charge-codes__list' },
+          codes.map((c) => el('li', { class: 'charge-codes__item' }, String(c))),
+        ),
+      ]),
+    ].filter(Boolean),
+  );
+}
+
 function accusedSection(record) {
   // Guardrail (CLAUDE.md §1a): a minor's record never surfaces an accused — naming an
   // offender in a child case is a re-identification vector (accused↔victim proximity).
@@ -94,10 +186,7 @@ function accusedSection(record) {
       ]),
     ),
   );
-  return el('section', { class: 'panel reveal' }, [
-    el('h2', { class: 'panel__title', 'data-i18n': 'case_accused' }, t('case_accused')),
-    list,
-  ]);
+  return el('section', { class: 'panel reveal' }, [sectionTitle('case_accused'), list]);
 }
 
 function sourceDomain(url) {
@@ -133,9 +222,7 @@ function sourcesSection(record) {
   // reveal a withheld detail go behind an expander, de-emphasised.
   const clean = all.filter((s) => !s.url_carries_identifying_slug);
   const flagged = all.filter((s) => s.url_carries_identifying_slug);
-  const children = [
-    el('h2', { class: 'panel__title', 'data-i18n': 'case_sources' }, t('case_sources')),
-  ];
+  const children = [sectionTitle('case_sources')];
   if (clean.length) {
     children.push(el('ul', { class: 'sources' }, clean.map(sourceItem)));
   }
@@ -149,6 +236,25 @@ function sourcesSection(record) {
     );
   }
   return el('section', { class: 'panel reveal' }, children);
+}
+
+// The read-aloud narration for the WHOLE page (§2c): what happened, where justice stands, and
+// the charge-derived severity — the record spoken as an article, in reading order.
+function pageNarration(record) {
+  const { body } = summaryBodyAndFootnote(record.summary);
+  const parts = [
+    record.title || null,
+    body || null,
+    `${t('filter_status')}: ${statusLabel(record.status)}`,
+    record.court?.name ? `${t('case_court')}: ${record.court.name}` : null,
+    record.days_since_reported != null && !record.minor_involved
+      ? `${record.days_since_reported} ${t('days_since_reported')}`
+      : null,
+    severityLabel(record.offence_sections)
+      ? `${t('case_severity')}: ${severityLabel(record.offence_sections)}`
+      : null,
+  ];
+  return parts.filter(Boolean).join('. ');
 }
 
 function notFound(id) {
@@ -170,9 +276,6 @@ export async function renderCase(route) {
   const correctionUrl = `${REPO}/issues/new?template=data-correction.yml&title=${encodeURIComponent(
     `Data correction: ${record.id}`,
   )}`;
-  const fir = record.fir_ref
-    ? `${record.fir_ref.station || ''} ${record.fir_ref.number || ''}`.trim()
-    : '';
 
   return el('article', { class: 'view view--case', tabindex: '-1' }, [
     el(
@@ -195,57 +298,11 @@ export async function renderCase(route) {
         tracingMarker(record),
       ]),
       el('h1', { class: 'case__id' }, record.id),
-      el('p', { class: 'case__summary' }, summaryBodyAndFootnote(record.summary).body),
-      readAloudButton(
-        [record.title, summaryBodyAndFootnote(record.summary).body].filter(Boolean).join('. '),
-      ),
-      daysTicker(record),
-      summaryBodyAndFootnote(record.summary).footnote
-        ? el(
-            'p',
-            { class: 'case__footnote', role: 'note' },
-            summaryBodyAndFootnote(record.summary).footnote,
-          )
-        : null,
+      readAloudButton(pageNarration(record)),
     ]),
-    el('section', { class: 'panel reveal' }, [
-      el(
-        'h2',
-        { class: 'panel__title', 'data-i18n': 'case_status_timeline' },
-        t('case_status_timeline'),
-      ),
-      timeline(record),
-    ]),
-    el('section', { class: 'panel reveal' }, [
-      el(
-        'dl',
-        { class: 'details' },
-        [
-          detailRow('case_court', record.court?.name),
-          detailRow(
-            'case_next_hearing',
-            record.court?.next_hearing ? formatDate(record.court.next_hearing) : null,
-          ),
-          detailRow('case_offences', (record.offence_sections || []).join(', ')),
-          detailRow(
-            'case_reported',
-            `${formatDate(record.incident_reported_date)}${
-              relativeRecency(record.incident_reported_date)
-                ? ` · ${relativeRecency(record.incident_reported_date)}`
-                : ''
-            }`,
-          ),
-          record.days_since_reported != null
-            ? detailRow(
-                'case_days_since_reported',
-                `${record.days_since_reported} ${t('case_pending_days')}`,
-              )
-            : null,
-          detailRow('case_cnr', record.cnr),
-          detailRow('case_fir', fir),
-        ].filter(Boolean),
-      ),
-    ]),
+    whatHappenedSection(record),
+    whereJusticeStandsSection(record),
+    severitySection(record),
     accusedSection(record),
     sourcesSection(record),
     el('div', { class: 'case__actions reveal' }, [

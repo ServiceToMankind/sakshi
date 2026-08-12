@@ -7,5 +7,10 @@
   "nav_coverage": "పరిధి",
   "helplines": "మహిళా హెల్ప్‌లైన్ 181 · పోలీస్ 112 · సైబర్ నేరాలు 1930",
   "read_aloud": "చదివి వినిపించు",
-  "read_stop": "ఆపు"
+  "read_stop": "ఆపు",
+  "case_what_happened": "ఏం జరిగింది",
+  "case_where_justice_stands": "న్యాయం ఎక్కడ ఉంది",
+  "case_severity": "తీవ్రత",
+  "days_without_justice": "న్యాయం లేని రోజులు",
+  "days_no_verdict": "ఇంకా తీర్పు రాలేదు"
 }

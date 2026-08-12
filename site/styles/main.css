@@ -1083,6 +1083,70 @@ canvas {
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+/* Court-anchored pendency: the "days without justice" drumbeat (§3). A re-checkable court
+   anchor is what makes the framing honest — media-only cases keep the neutral wording. */
+.days-ticker--accountability {
+  background: color-mix(in srgb, var(--c-aggravated) 16%, var(--surface));
+  border-color: color-mix(in srgb, var(--c-aggravated) 55%, transparent);
+  color: color-mix(in srgb, var(--c-aggravated) 88%, var(--text));
+}
+.days-ticker__note {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-left: 0.5rem;
+  border-left: 1px solid currentColor;
+  opacity: 0.85;
+}
+/* The larger case-page treatment (§2c "Where justice stands"). */
+.days-ticker--block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.6rem;
+  padding: 0.6rem 1rem;
+  margin-bottom: 1rem;
+}
+.days-ticker--block .days-ticker__num {
+  font-size: 2rem;
+}
+
+/* Severity section: the plain-language note + the raw public charge codes (§2c). */
+.case__severity-note {
+  margin: 0.5rem 0 0.9rem;
+  max-width: 46rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.charge-codes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.charge-codes__label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.charge-codes__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.charge-codes__item {
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.8rem;
+}
 
 /* --- Accountability layer: scale drumbeat + heat strip ------------------ */
 .drumbeat {
