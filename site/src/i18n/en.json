@@ -131,5 +131,10 @@
   "missing_shard": "No published data for this state yet.",
   "theme_toggle": "Toggle light and dark theme",
   "lang_toggle": "Switch language",
-  "skip_to_content": "Skip to content"
+  "skip_to_content": "Skip to content",
+  "case_what_happened": "What happened",
+  "case_where_justice_stands": "Where justice stands",
+  "case_severity": "Severity",
+  "days_without_justice": "days without justice",
+  "days_no_verdict": "No verdict yet"
 }

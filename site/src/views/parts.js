@@ -94,25 +94,55 @@ export function repeatOffenderBadge(offenceSections) {
   );
 }
 
+// Pre-verdict statuses — the ones where "no verdict yet" is literally true. APPEAL_PENDING is
+// excluded (a verdict exists; it is under appeal), so we never mis-state it.
+const PRE_VERDICT_STATUSES = new Set(['FIR_FILED', 'CHARGESHEETED', 'UNDER_TRIAL']);
+
 /**
- * The "days since first reported" ticker — NEUTRAL elapsed time, never a "days without
- * justice" claim (that would need a re-checkable court anchor; pendency honesty). Day-precise
- * elapsed time exists ONLY for non-minor cases (a minor's date is year-only by projection, and
- * `days_since_reported` is nulled), so this NEVER renders on a minor card — a hard guardrail
- * (CLAUDE.md §1a). Shown while the case is unresolved; resolved cases show no ticker.
+ * The pendency ticker. Day-precise elapsed time exists ONLY for non-minor cases (a minor's
+ * date is year-only by projection and `days_since_reported` is nulled), so this NEVER renders
+ * on a minor card — a hard guardrail (CLAUDE.md §1a). Shown while the case is unresolved.
+ *
+ * Wording follows the source anchor, which is where the honesty lives:
+ *   - COURT-ANCHORED (a re-checkable tier-1 record): "days without justice" — the framing the
+ *     project exists for (§3, "aim the shame at power"). For a pre-verdict status it adds a
+ *     factual "no verdict yet" line; the status badge + presumption banner still stand, so this
+ *     is a statement about the SYSTEM's pendency, never about the accused's guilt.
+ *   - MEDIA-ONLY (no court anchor yet): the neutral "days since first reported" — we do not
+ *     assert "without justice" for a case that has not reached the judicial record.
+ * Pass `{ block: true }` for the larger case-page treatment.
  */
-export function daysTicker(record) {
+export function daysTicker(record, { block = false } = {}) {
   if (record.minor_involved) return null;
   if (!isActiveStatus(record.status)) return null;
   if (record.days_since_reported == null) return null;
-  return el('div', { class: 'days-ticker', role: 'note' }, [
+  const courtAnchored =
+    hasCourtSource(record) || Boolean(record.court?.name) || Boolean(record.cnr);
+  const cls =
+    'days-ticker' +
+    (courtAnchored ? ' days-ticker--accountability' : '') +
+    (block ? ' days-ticker--block' : '');
+  const children = [
     el('span', { class: 'days-ticker__num' }, formatNumber(record.days_since_reported)),
     el(
       'span',
-      { class: 'days-ticker__label', 'data-i18n': 'days_since_reported' },
-      t('days_since_reported'),
+      {
+        class: 'days-ticker__label',
+        'data-i18n': courtAnchored ? 'days_without_justice' : 'days_since_reported',
+      },
+      courtAnchored ? t('days_without_justice') : t('days_since_reported'),
     ),
-  ]);
+  ];
+  if (courtAnchored && PRE_VERDICT_STATUSES.has(String(record.status))) {
+    children.push(
+      el(
+        'span',
+        { class: 'days-ticker__note', 'data-i18n': 'days_no_verdict' },
+        t('days_no_verdict'),
+      ),
+    );
+  }
+  return el('div', { class: cls, role: 'note' }, children);
 }
 
 /**
