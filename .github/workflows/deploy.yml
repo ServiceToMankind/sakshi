@@ -21,11 +21,15 @@ permissions:
   pages: write
   id-token: write
 
-# Only one concurrent Pages deployment. Do not cancel an in-progress deploy —
-# let it finish so the live site is never left half-published.
+# Only one concurrent Pages deployment. CANCEL an in-progress/queued one when a newer deploy
+# arrives: a GitHub Pages deploy is atomic (the last good version stays live until the new one
+# is accepted), so cancelling never half-publishes — but with cancel-in-progress:false a single
+# STUCK run (e.g. a workflow_dispatch that GitHub leaves "queued") jams this group and every
+# later deploy piles up "Pending" for days, leaving the site stale. Cancelling the superseded
+# run keeps the newest data flowing. (Both jobs also carry timeout-minutes for a hung RUN.)
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:

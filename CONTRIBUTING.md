@@ -122,6 +122,16 @@ Pushing/opening the PR with a real-actor token makes that CI run automatically.
 Until the secret is set, the workflow falls back to `GITHUB_TOKEN` and a maintainer
 approves the staged PR's CI manually.
 
+**Symptom of an EXPIRED `SCRAPE_BOT_TOKEN`:** the staged-review PR is opened by
+`github-actions[bot]` (not the bot actor), its required checks never run (they park
+at *"Action required"*), and the PR shows **`mergeable: MERGEABLE`, state `BLOCKED`**
+— it cannot merge because the required checks are missing, so `main` stops receiving
+data and the site shows *"generated over 48 hours ago"*. **Recovery:** mint a fresh
+fine-grained PAT (Contents + Pull requests, read/write, this repo only), update the
+`SCRAPE_BOT_TOKEN` secret, and re-run the scrape. As a one-time unblock a maintainer
+may `gh pr merge <n> --admin` **after** verifying the staged data locally
+(`scripts/pii_guard.py` + jsonschema validation) and noting the admin bypass in the PR.
+
 **Merge discipline for data PRs:** once `SCRAPE_BOT_TOKEN` is set and staged-PR CI
 runs on its own, **data-review PRs merge only through the normal reviewed path**
 (required checks green + human review). Admin bypass is for emergencies only and
