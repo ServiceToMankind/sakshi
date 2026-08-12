@@ -75,6 +75,9 @@ ignore = []
 # whole point here — suppress only for these files, not project-wide.
 "pipeline/pii_multilingual.py" = ["RUF001", "RUF002", "RUF003"]
 "pipeline/tests/test_pii_multilingual.py" = ["S101", "RUF001", "RUF002", "RUF003"]
+# The §2 media offence filter + its tests carry native-script offence terms by design.
+"pipeline/offence_filter.py" = ["RUF001", "RUF002", "RUF003"]
+"pipeline/tests/test_offence_filter.py" = ["S101", "RUF001", "RUF002", "RUF003"]
 
 [tool.ruff.format]
 quote-style = "double"

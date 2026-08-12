@@ -38,13 +38,18 @@ def build_pipeline_health(
     needs_review: Iterable[Mapping[str, Any]],
     review: Iterable[Mapping[str, Any]],
     court_prefilter: list[dict[str, Any]],
+    prefilter_skipped_urls: set[str] | None = None,
 ) -> dict[str, Any]:
     """Build the per-publisher funnel + the court pre-filter section (counts only).
 
     ``doc_outcomes`` maps a document URL to ``extracted`` | ``out_of_scope`` | ``not_a_case`` |
     ``failed``. ``review`` items are ``{"reason", "record"}``. ``court_prefilter`` is the list
     of per-source pre-filter rows (hits/qualifying/fetched) surfaced by the court sources.
+    ``prefilter_skipped_urls`` are media documents skipped by the §2 offence-language pre-filter
+    (fetched but not sent to an LLM) — reported per publisher as ``prefilter_skipped`` with a
+    ``prefilter_pass_rate``, so the media funnel is as auditable as the court one.
     """
+    skipped = prefilter_skipped_urls or set()
     per: dict[str, dict[str, Any]] = {}
 
     def slot(publisher: str) -> dict[str, Any]:
@@ -52,6 +57,7 @@ def build_pipeline_health(
             publisher,
             {
                 "documents": 0,
+                "prefilter_skipped": 0,
                 "extracted": 0,
                 "out_of_scope": 0,
                 "failed": 0,
@@ -64,7 +70,10 @@ def build_pipeline_health(
 
     url_publisher: dict[str, str] = {}
     for doc in raw_docs:
-        slot(doc.publisher)["documents"] += 1
+        entry = slot(doc.publisher)
+        entry["documents"] += 1
+        if doc.url in skipped:
+            entry["prefilter_skipped"] += 1
         url_publisher.setdefault(doc.url, doc.publisher)
 
     for url, outcome in doc_outcomes.items():
@@ -95,6 +104,11 @@ def build_pipeline_health(
             entry["quarantined"] += 1
             reasons = entry["quarantine_reasons"]
             reasons[reason] = reasons.get(reason, 0) + 1
+
+    for entry in per.values():
+        media = entry["documents"]
+        passed = media - entry["prefilter_skipped"]
+        entry["prefilter_pass_rate"] = round(passed / media, 3) if media else None
 
     return {
         "generated": run_date,

@@ -73,6 +73,24 @@ def test_review_item_without_record_does_not_crash() -> None:
     assert health["by_publisher"] == {}
 
 
+def test_prefilter_skipped_and_pass_rate_reported_per_publisher() -> None:
+    raw = [_doc("u1", "Dainik Bhaskar"), _doc("u2", "Dainik Bhaskar"), _doc("u3", "The Hindu")]
+    health = build_pipeline_health(
+        run_date="2026-08-12",
+        raw_docs=raw,
+        doc_outcomes={"u1": "extracted"},
+        published=[],
+        needs_review=[],
+        review=[],
+        court_prefilter=[],
+        prefilter_skipped_urls={"u2"},  # one Dainik Bhaskar doc skipped by the offence filter
+    )
+    db = health["by_publisher"]["Dainik Bhaskar"]
+    assert db["documents"] == 2 and db["prefilter_skipped"] == 1
+    assert db["prefilter_pass_rate"] == 0.5
+    assert health["by_publisher"]["The Hindu"]["prefilter_pass_rate"] == 1.0
+
+
 def test_prefilter_is_sorted_by_source() -> None:
     health = build_pipeline_health(
         run_date="2026-08-04",

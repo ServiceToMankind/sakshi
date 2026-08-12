@@ -43,8 +43,9 @@ from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.health import build_pipeline_health
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
+from pipeline.offence_filter import media_offence_hit
 from pipeline.offence_sections import normalize_sections
-from pipeline.provenance import record_tier
+from pipeline.provenance import classify_source_type, record_tier
 from pipeline.readability import readability_violations
 from pipeline.sanitize import sanitize_record, sanitize_string
 from pipeline.shard import WriteResult, write_shards
@@ -99,6 +100,7 @@ class RunReport:
     source_counts: dict[str, int] = field(default_factory=dict)
     review_reasons: dict[str, int] = field(default_factory=dict)
     needs_review_reasons: dict[str, int] = field(default_factory=dict)
+    prefilter_skipped: int = 0  # §2: media docs skipped by the offence-language pre-filter
     health: dict[str, Any] = field(default_factory=dict)  # §3 ops: per-source funnel
     logs: list[str] = field(default_factory=list)
 
@@ -156,40 +158,6 @@ def _illustrative_cost(docs: list[RawDocument]) -> float:
     input_tokens = sum(len(doc.text) for doc in docs) // 4 + 400 * len(docs)
     output_tokens = 200 * len(docs)
     return config.estimate_cost_usd(input_tokens, output_tokens)
-
-
-# Substrings that flag a document as a LIKELY sexual-offence case, used only to
-# ORDER extraction (relevant first) so a truncated run reaches cases before its
-# wall-clock budget runs out. Generous by design — a false positive only reorders,
-# and the extractor's in_scope gate + deterministic offence-section check decide
-# what is actually a case. Not a filter: nothing is dropped from coverage.
-_OFFENCE_HINTS: tuple[str, ...] = (
-    "rape",
-    "gangrape",
-    "gang rape",
-    "sexual",
-    "molest",
-    "pocso",
-    "outrage",
-    "modesty",
-    "stalk",
-    "voyeur",
-    "unnatural offence",
-    "assault",
-    "abuse",
-    "harass",
-    "376",
-    "375",
-    "377",
-    "354",
-    "509",
-)
-
-
-def _looks_offence_relevant(doc: RawDocument) -> bool:
-    """True if a document's text hints at a sexual offence (for extraction ORDERING)."""
-    text = doc.text.lower()
-    return any(hint in text for hint in _OFFENCE_HINTS)
 
 
 def _drop_null_top_level(record: dict[str, Any]) -> dict[str, Any]:
@@ -806,13 +774,17 @@ def _render_health(health: dict[str, Any]) -> str:
         return ""
     rows = [
         "**Source funnel (documents → records)**\n",
-        "| Source | Docs | Extracted | Out-of-scope | Failed | Published | Held | Quarantined |",
-        "|---|--:|--:|--:|--:|--:|--:|--:|",
+        "| Source | Docs | Pre-filtered | Pass% | Extracted | Out-of-scope | "
+        "Failed | Published | Held | Quarantined |",
+        "|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|",
     ]
     for pub, s in by_pub.items():
+        rate = s.get("prefilter_pass_rate")
+        pct = f"{round(rate * 100)}%" if rate is not None else "—"
         rows.append(
-            f"| {pub} | {s['documents']} | {s['extracted']} | {s['out_of_scope']} | "
-            f"{s['failed']} | {s['published']} | {s['needs_review']} | {s['quarantined']} |"
+            f"| {pub} | {s['documents']} | {s.get('prefilter_skipped', 0)} | {pct} | "
+            f"{s['extracted']} | {s['out_of_scope']} | {s['failed']} | {s['published']} | "
+            f"{s['needs_review']} | {s['quarantined']} |"
         )
     prefilter = health.get("court_prefilter") or []
     if prefilter:
@@ -840,7 +812,8 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"**Mode:** {config.launch_mode()} · **Scope:** {report.scope}\n\n"
         "| metric | value |\n|---|---|\n"
         f"| Fetched documents | {report.fetched} |\n"
-        f"| Processed this run | {report.processed} |\n"
+        f"| Skipped by offence pre-filter (§2) | {report.prefilter_skipped} |\n"
+        f"| Passed pre-filter → extraction | {report.processed} |\n"
         f"| Skipped (already settled) | {report.skipped_settled} |\n"
         f"| Extracted candidates | {report.extracted} |\n"
         f"| Rejected (out of scope) | {report.rejected_out_of_scope} |\n"
@@ -889,7 +862,10 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"REVIEW={report.review}\n"
         f"PUBLISHED={report.published}\nNEEDS_REVIEW={report.needs_review}\n"
         f"REJECTED={report.rejected_out_of_scope}\n"
-        f"FETCHED={report.fetched}\nPROCESSED={report.processed}\n"
+        # §6: the funnel — documents FETCHED → PASSED the media pre-filter (PROCESSED) →
+        # EXTRACTED → PUBLISHED — so a fetch-many/extract-nothing run is visible at a glance.
+        f"FETCHED={report.fetched}\nPREFILTER_SKIPPED={report.prefilter_skipped}\n"
+        f"PROCESSED={report.processed}\n"
         f"SKIPPED={report.skipped_settled}\nEXTRACTED={report.extracted}\n"
         f"COST={report.estimated_usd:.6f}\n"
         f"VERIFIED={report.verified}\nVERIFY_DEMOTED={report.verify_demoted}\n"
@@ -978,6 +954,7 @@ def run(
     existing_urls: set[str] = set()
     staged_carryover: list[dict[str, Any]] = []
     court_prefilter: list[dict[str, Any]] = []  # per-source pre-filter stats (health accounting)
+    prefilter_skipped_urls: set[str] = set()  # §2 media docs skipped by the offence pre-filter
     if dry_run:
         raw_docs = fixtures.fixture_raw_documents()
         extractions = fixtures.fixture_extractions()
@@ -1010,15 +987,30 @@ def run(
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
-        to_process = [d for d in raw_docs if ledger.should_process(d.url)]
-        # Extract likely sexual-offence documents FIRST. Fetched feeds are mostly
-        # non-crime city news, so a wall-clock-bounded run that truncates would
-        # otherwise spend its whole budget on irrelevant docs and reach no cases. This
-        # only REORDERS (no doc is dropped); the ledger processes the tail on later
-        # runs. A stable sort keeps feed order within each group.
-        to_process.sort(key=lambda d: 0 if _looks_offence_relevant(d) else 1)
+        ledger_ready = [d for d in raw_docs if ledger.should_process(d.url)]
+
+        # §2 TIERED PRE-FILTER. COURT documents (tier 1: Indian Kanoon, hc_judgments) are
+        # already statute-filtered by their source, so they always proceed. MEDIA documents
+        # (tier 2/3) must clear the HIGH-RECALL offence-language filter, or we do not pay an
+        # LLM to read them — newspapers report the OFFENCE in many languages, not the statute,
+        # so a section-anchored English filter scored every regional crime feed at zero (the
+        # defect this fixes). Recall was measured at ~100% over 1064 live docs vs the old
+        # English-only filter's 88% / 0%-on-regional (docs/offence-filter-recall.md). A skip
+        # is not settled in the ledger: it costs nothing to re-check and the RSS item rolls off.
+        def _is_court_doc(doc: RawDocument) -> bool:
+            return classify_source_type(doc.url, doc.publisher) == "court"
+
+        to_process: list[RawDocument] = []
+        for doc in ledger_ready:
+            if _is_court_doc(doc) or media_offence_hit(doc.text):
+                to_process.append(doc)
+            else:
+                prefilter_skipped_urls.add(doc.url)
+        # Court docs first (highest-value tier-1 yield); stable within each group.
+        to_process.sort(key=lambda d: 0 if _is_court_doc(d) else 1)
+        report.prefilter_skipped = len(prefilter_skipped_urls)
         report.processed = len(to_process)
-        report.skipped_settled = len(raw_docs) - len(to_process)
+        report.skipped_settled = len(raw_docs) - len(ledger_ready)
         _log(
             report,
             f"fetched {len(raw_docs)} documents ({report.processed} to process, "
@@ -1072,6 +1064,24 @@ def run(
     report.fetched = len(raw_docs)
     report.submissions = sum(1 for d in raw_docs if d.publisher == "Community submission")
     report.extracted = len(extractions)
+
+    # §6 SILENT-NOTHING GUARD. A run that passes many documents THROUGH the pre-filter to
+    # extraction and produces ZERO candidates is the exact failure mode that hid the broken
+    # (English-only, section-anchored) media filter for days: fetch hundreds, extract nothing,
+    # report success. Refuse to report success — raise so CI fails and the ops issue opens.
+    # Skipped when the budget was exhausted (a legitimate 0-extraction reason) or in a dry run.
+    if (
+        not dry_run
+        and not report.budget_exhausted
+        and report.processed > config.SILENT_NOTHING_THRESHOLD
+        and report.extracted == 0
+    ):
+        raise RuntimeError(
+            f"SILENT-NOTHING GUARD tripped: {report.processed} documents cleared the pre-filter "
+            f"(prefilter_skipped={report.prefilter_skipped}) but extraction produced 0 "
+            "candidates. The pre-filter or the extractor is likely broken; refusing to report a "
+            "success that commits nothing. Inspect logs/gemini_cost.json + pipeline_health.json."
+        )
 
     # Canonicalise the model's state code (TS->TG, ...) BEFORE the scope filter reads it,
     # so a state is keyed one way everywhere (fresh extractions carry no id yet).
@@ -1380,6 +1390,7 @@ def run(
         needs_review=needs_review_records,
         review=review,
         court_prefilter=court_prefilter,
+        prefilter_skipped_urls=prefilter_skipped_urls,
     )
     _write_health(health, data_dir)
     report.health = health

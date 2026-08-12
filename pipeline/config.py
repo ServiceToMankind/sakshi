@@ -60,6 +60,10 @@ IK_DOC_MAX_CHARS: Final[int] = 40000
 # cost). Conservative — a daily incremental walk of the newest judgments, not a backfill.
 HC_MAX_FETCH_PER_COURT: Final[int] = 40
 HC_MAX_DOCS_PER_RUN: Final[int] = 60
+# §6 silent-nothing guard: if MORE than this many documents clear the media pre-filter and go
+# to extraction but ZERO candidates come back, the run FAILS loudly (the pre-filter/extractor
+# is broken) instead of silently committing nothing. A genuinely quiet day rarely clears 50.
+SILENT_NOTHING_THRESHOLD: Final[int] = 50
 DEFAULT_DAILY_TOKEN_CAP: Final[int] = 2_000_000
 # Per-document Gemini retries (fail fast, then skip the doc) and a circuit breaker
 # so sustained provider errors (503 overload) abort extraction instead of hanging.

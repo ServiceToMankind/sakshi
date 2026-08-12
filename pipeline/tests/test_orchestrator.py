@@ -585,7 +585,7 @@ def test_refresh_status_change_is_status_only_never_narrative(tmp_path: Path) ->
         url="https://indiankanoon.org/doc/EXISTING/",
         publisher="Indian Kanoon",
         fetched_at="2026-07-20",
-        text="Judgment. The court convicted the accused. (synthetic)",
+        text="Judgment. The court convicted the accused of rape. (synthetic)",
     )
     orchestrator.run(
         dry_run=False,
@@ -805,7 +805,7 @@ def test_existing_records_preserved_across_runs(tmp_path: Path) -> None:
                 url=f"https://example.invalid/{slug}",
                 publisher="eCourts",
                 fetched_at="2026-07-09",
-                text="A TESTVILLE case.",
+                text="A TESTVILLE rape case.",
             )
         ]
 
@@ -853,7 +853,7 @@ def test_ledger_skips_settled_documents_across_runs(tmp_path: Path) -> None:
             url="https://example.invalid/settled",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -910,7 +910,7 @@ def test_staged_record_resurfaces_until_merged_to_main(tmp_path: Path) -> None:
             url="https://example.invalid/staged",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A DL case.",
+            text="A DL rape case.",
         )
     ]
     payload = json.dumps(
@@ -953,7 +953,7 @@ def test_staged_record_survives_aging_past_lookback(
             url="https://example.invalid/aging",
             publisher="The Hindu",
             fetched_at="2026-07-05",
-            text="A DL case.",
+            text="A DL rape case.",
         )
     ]
     payload = json.dumps(
@@ -1004,7 +1004,7 @@ def test_staged_carryover_persists_without_refetch(
             url="https://example.invalid/carry",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A DL case.",
+            text="A DL rape case.",
         )
     ]
     payload = json.dumps(
@@ -1064,7 +1064,7 @@ def test_merged_record_in_both_main_and_carryover_is_not_double_fed(
             url="https://example.invalid/merged",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A DL case.",
+            text="A DL rape case.",
         )
     ]
     payload = json.dumps(
@@ -1123,7 +1123,7 @@ def test_pii_url_review_doc_resurfaces_not_settled(tmp_path: Path) -> None:
             url="https://indiankanoon.org/doc/9876543210/",  # 10-digit run -> sanitised
             publisher="The Example Herald",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1175,7 +1175,7 @@ def test_staged_enrichment_of_on_main_case_survives_source_rolloff(
             url="https://example.invalid/d1",
             publisher="The Hindu",
             fetched_at="2026-07-08",
-            text="A DL case.",
+            text="A DL rape case.",
         )
     ]
     p1 = json.dumps(
@@ -1210,7 +1210,7 @@ def test_staged_enrichment_of_on_main_case_survives_source_rolloff(
             url="https://example.invalid/d2",
             publisher="eCourts",
             fetched_at="2026-07-10",
-            text="A DL appeal.",
+            text="A DL rape appeal.",
         )
     ]
     p2 = json.dumps(
@@ -1263,7 +1263,7 @@ def test_minor_is_held_not_published(tmp_path: Path) -> None:
             url="https://example.invalid/minor",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1303,7 +1303,7 @@ def test_named_accused_is_held_not_published(tmp_path: Path) -> None:
             url="https://example.invalid/named",
             publisher="Delhi High Court",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1349,7 +1349,7 @@ def test_needs_review_hold_persists_via_carryover(
             url="https://example.invalid/held",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1404,7 +1404,7 @@ def test_pocso_non_minor_is_held_not_published(tmp_path: Path) -> None:
             url="https://example.invalid/pocsomismatch",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1446,7 +1446,7 @@ def test_non_bool_minor_is_projected_and_held(tmp_path: Path) -> None:
             url="https://example.invalid/truthy",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1500,7 +1500,7 @@ def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.Monk
             url="https://ex.invalid/a",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="x",
+            text="a rape case",
         )
     ]
     a_clean = json.dumps(
@@ -1525,7 +1525,7 @@ def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.Monk
             url="https://ex.invalid/a2",
             publisher="Delhi High Court",
             fetched_at="2026-07-10",
-            text="x",
+            text="a rape case",
         )
     ]
     a_named = json.dumps(
@@ -1557,7 +1557,10 @@ def test_held_id_not_reused_by_new_case(tmp_path: Path, monkeypatch: pytest.Monk
     # Run 3: an unrelated NEW case must NOT get CNR-A's freed id.
     c_doc = [
         RawDocument(
-            url="https://ex.invalid/c", publisher="eCourts", fetched_at="2026-07-11", text="x"
+            url="https://ex.invalid/c",
+            publisher="eCourts",
+            fetched_at="2026-07-11",
+            text="a rape case",
         )
     ]
     c_payload = json.dumps(
@@ -1584,7 +1587,10 @@ def test_held_record_persists_in_auto_mode_without_staged_dir(
     monkeypatch.delenv("STAGED_DIR", raising=False)
     doc = [
         RawDocument(
-            url="https://ex.invalid/held", publisher="eCourts", fetched_at="2026-07-09", text="x"
+            url="https://ex.invalid/held",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="a rape case",
         )
     ]
     payload = json.dumps(
@@ -1637,7 +1643,7 @@ def test_review_doc_not_settled_by_collision_with_published(tmp_path: Path) -> N
             url="https://indiankanoon.org/doc/9876543210/",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="x",
+            text="a rape case",
         )
     ]
     a_payload = json.dumps(
@@ -1668,7 +1674,7 @@ def test_review_doc_not_settled_by_collision_with_published(tmp_path: Path) -> N
             url="https://indiankanoon.org/doc/9123456780/",
             publisher="The Hindu",
             fetched_at="2026-07-10",
-            text="x",
+            text="a rape case",
         )
     ]
     b_payload = json.dumps(
@@ -1729,7 +1735,7 @@ def test_quarantined_doc_is_not_settled_and_resurfaces(tmp_path: Path) -> None:
             url="https://example.invalid/q",
             publisher="The Example Herald",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1779,7 +1785,7 @@ def test_scope_filtered_doc_is_settled_out_of_window(
             url="https://example.invalid/tgcase",
             publisher="eCourts",
             fetched_at="2026-07-09",
-            text="A TESTVILLE case.",
+            text="A TESTVILLE rape case.",
         )
     ]
     payload = json.dumps(
@@ -1971,7 +1977,7 @@ def test_schema_invalid_record_routes_to_review_not_crash(tmp_path: Path) -> Non
             url="https://ex.invalid/bad",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A case with a malformed status.",
+            text="A rape case with a malformed status.",
         )
     ]
     # status is not in the allowed enum -> schema-invalid after projection.
@@ -2102,7 +2108,7 @@ def test_non_approved_minor_stays_held(tmp_path: Path) -> None:
             url="https://ex.invalid/notapproved",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A minor case.",
+            text="A minor POCSO case.",
         )
     ]
     payload = json.dumps(
@@ -2148,7 +2154,7 @@ def test_approved_only_holds_unapproved_auto_eligible(
             url="https://ex.invalid/approved-one",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A minor case.",
+            text="A minor POCSO case.",
         ),
     ]
 
@@ -2271,7 +2277,7 @@ def test_verified_mode_quarantines_unverified(
             url="https://ex.invalid/u",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A commentary piece.",
+            text="A commentary piece on a rape case.",
         )
     ]
     payload = json.dumps(
@@ -2299,7 +2305,7 @@ def test_verified_mode_holds_named_accused(tmp_path: Path, monkeypatch: pytest.M
             url="https://ex.invalid/n",
             publisher="Delhi High Court",
             fetched_at="2026-07-09",
-            text="A court judgment naming the accused.",
+            text="A court judgment naming the accused of rape.",
         )
     ]
     payload = json.dumps(
@@ -2336,7 +2342,7 @@ def test_recent_json_is_written(tmp_path: Path, monkeypatch: pytest.MonkeyPatch)
             url="https://ex.invalid/r",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A minor case.",
+            text="A minor POCSO case.",
         )
     ]
     payload = json.dumps(
@@ -2396,7 +2402,7 @@ def test_verified_mode_grandfathers_legacy_live_record(
             url="https://ex.invalid/legacy",
             publisher="The Hindu",
             fetched_at="2026-06-01",
-            text="A minor case.",
+            text="A minor POCSO case.",
         )
     ]
     payload1 = json.dumps(
@@ -2428,7 +2434,7 @@ def test_verified_mode_grandfathers_legacy_live_record(
             url="https://ex.invalid/fresh",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="Another minor case.",
+            text="Another minor POCSO case.",
         )
     ]
     payload2 = json.dumps(
@@ -2500,7 +2506,7 @@ def test_verified_minor_shard_never_carries_model_verification_note(
             url="https://ex.invalid/note",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="A minor case.",
+            text="A minor POCSO case.",
         )
     ]
     payload = json.dumps(
@@ -2546,7 +2552,7 @@ def test_verified_mode_preserves_carryover_review_queue(
             url="https://ex.invalid/held",
             publisher="The Hindu",
             fetched_at="2026-06-01",
-            text="A held minor case.",
+            text="A held minor POCSO case.",
         )
     ]
     held_payload = json.dumps(
@@ -2582,7 +2588,7 @@ def test_verified_mode_preserves_carryover_review_queue(
             url="https://ex.invalid/fresh2",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="Another minor case.",
+            text="Another minor POCSO case.",
         )
     ]
     fresh_payload = json.dumps(
@@ -2624,7 +2630,7 @@ def test_verified_mode_honors_human_approval(
             url="https://ex.invalid/appr",
             publisher="The Hindu",
             fetched_at="2026-07-09",
-            text="An approved minor case.",
+            text="An approved minor POCSO case.",
         )
     ]
     payload = json.dumps(
