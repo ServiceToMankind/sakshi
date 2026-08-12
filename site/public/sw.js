@@ -1,11 +1,15 @@
-// Service worker: an offline glance.
-//   - summary.json     -> stale-while-revalidate (instant last-known, refreshed).
-//   - navigations      -> network-first, falling back to the cached app shell.
-//   - everything else  -> network-first with a cache fallback.
+// Service worker: an offline glance, but NEVER a stale record count.
+//   - navigations    -> network-first, falling back to the cached app shell.
+//   - everything else (data/*.json, assets) -> network-first with a cache fallback.
+// summary.json used to be stale-while-revalidate ("instant last-known"), which meant the
+// map tiles, state tables, scorecards and the "last updated" footer showed the PREVIOUS
+// day's counts for a whole extra load after every data update — while the recent feed
+// (network-first) was already fresh. For an accountability record, a stale count is a wrong
+// count, so ALL data is network-first now; the cache is only a fallback when offline.
 // Path checks use endsWith so the same code works at a subpath (/sakshi/) or a
 // custom-domain root.
 
-const CACHE = 'sakshi-v2';
+const CACHE = 'sakshi-v3';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting());
@@ -19,18 +23,6 @@ self.addEventListener('activate', (event) => {
       .then(() => self.clients.claim()),
   );
 });
-
-async function staleWhileRevalidate(request) {
-  const cache = await caches.open(CACHE);
-  const cached = await cache.match(request);
-  const network = fetch(request)
-    .then((res) => {
-      if (res.ok) cache.put(request, res.clone());
-      return res;
-    })
-    .catch(() => cached);
-  return cached || network;
-}
 
 async function networkFirst(request, shellFallback = false) {
   const cache = await caches.open(CACHE);
@@ -57,10 +49,6 @@ self.addEventListener('fetch', (event) => {
 
   if (request.mode === 'navigate') {
     event.respondWith(networkFirst(request, true));
-    return;
-  }
-  if (url.pathname.endsWith('/data/summary.json')) {
-    event.respondWith(staleWhileRevalidate(request));
     return;
   }
   event.respondWith(networkFirst(request));

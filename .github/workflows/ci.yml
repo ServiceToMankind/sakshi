@@ -88,6 +88,12 @@ jobs:
       - name: Secret guard
         run: python scripts/secret_guard.py
 
+      # Phase 9 §1: every published record is counted in EVERY aggregate the site
+      # renders (summary/index/recent/scorecard/coverage) or the build fails — one
+      # number, everywhere. A record uncounted anywhere is invisible on the map/tables.
+      - name: Count guard
+        run: python scripts/counts_guard.py data/
+
       # Prove the whole pipeline runs offline on TESTVILLE fixtures — no network,
       # no Gemini key — before any real scrape is ever trusted.
       - name: Pipeline dry-run (offline)
