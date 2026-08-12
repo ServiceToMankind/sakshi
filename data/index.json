@@ -2,11 +2,123 @@
   "generated_at": "2026-08-12T00:00:00Z",
   "shards": [
     {
+      "bytes": 1398,
+      "path": "2014/HR.json",
+      "records": 1,
+      "state": "HR",
+      "year": "2014"
+    },
+    {
+      "bytes": 1200,
+      "path": "2014/ML.json",
+      "records": 1,
+      "state": "ML",
+      "year": "2014"
+    },
+    {
+      "bytes": 1412,
+      "path": "2016/DL.json",
+      "records": 1,
+      "state": "DL",
+      "year": "2016"
+    },
+    {
+      "bytes": 1512,
+      "path": "2017/TN.json",
+      "records": 1,
+      "state": "TN",
+      "year": "2017"
+    },
+    {
       "bytes": 848,
       "path": "2018/DL.json",
       "records": 1,
       "state": "DL",
       "year": "2018"
+    },
+    {
+      "bytes": 1185,
+      "path": "2018/MP.json",
+      "records": 1,
+      "state": "MP",
+      "year": "2018"
+    },
+    {
+      "bytes": 1174,
+      "path": "2019/JH.json",
+      "records": 1,
+      "state": "JH",
+      "year": "2019"
+    },
+    {
+      "bytes": 1423,
+      "path": "2019/TN.json",
+      "records": 1,
+      "state": "TN",
+      "year": "2019"
+    },
+    {
+      "bytes": 1382,
+      "path": "2021/HR.json",
+      "records": 1,
+      "state": "HR",
+      "year": "2021"
+    },
+    {
+      "bytes": 1539,
+      "path": "2021/MP.json",
+      "records": 1,
+      "state": "MP",
+      "year": "2021"
+    },
+    {
+      "bytes": 1274,
+      "path": "2021/TN.json",
+      "records": 1,
+      "state": "TN",
+      "year": "2021"
+    },
+    {
+      "bytes": 1165,
+      "path": "2022/PB.json",
+      "records": 1,
+      "state": "PB",
+      "year": "2022"
+    },
+    {
+      "bytes": 1418,
+      "path": "2022/TN.json",
+      "records": 1,
+      "state": "TN",
+      "year": "2022"
+    },
+    {
+      "bytes": 1168,
+      "path": "2023/HR.json",
+      "records": 1,
+      "state": "HR",
+      "year": "2023"
+    },
+    {
+      "bytes": 1174,
+      "path": "2024/JH.json",
+      "records": 1,
+      "state": "JH",
+      "year": "2024"
+    },
+    {
+      "bytes": 2278,
+      "path": "2025/HR.json",
+      "records": 2,
+      "state": "HR",
+      "year": "2025"
+    },
+    {
+      "bytes": 1436,
+      "path": "2025/TN.json",
+      "records": 1,
+      "state": "TN",
+      "year": "2025"
     },
     {
       "bytes": 6294,
@@ -23,10 +135,38 @@
       "year": "2026"
     },
     {
-      "bytes": 10190,
+      "bytes": 5858,
+      "path": "2026/JH.json",
+      "records": 5,
+      "state": "JH",
+      "year": "2026"
+    },
+    {
+      "bytes": 4443,
+      "path": "2026/MP.json",
+      "records": 4,
+      "state": "MP",
+      "year": "2026"
+    },
+    {
+      "bytes": 1183,
+      "path": "2026/OD.json",
+      "records": 1,
+      "state": "OD",
+      "year": "2026"
+    },
+    {
+      "bytes": 11177,
       "path": "2026/TG.json",
-      "records": 10,
+      "records": 11,
       "state": "TG",
+      "year": "2026"
+    },
+    {
+      "bytes": 1370,
+      "path": "2026/TN.json",
+      "records": 1,
+      "state": "TN",
       "year": "2026"
     },
     {

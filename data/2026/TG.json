@@ -33,6 +33,36 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 11,
+    "district": "Rangareddy",
+    "fir_ref": {
+      "station": "Madhapur"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-TG-000011",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-12",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/hyderabad/g-basketball-association-suspends-prithviswar-reddy-pocso-case-suchi-2480843"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "One person was accused of the child sexual offence in Rangareddy. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Rangareddy (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.95,
     "days_since_reported": 20,

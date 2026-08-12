@@ -1,0 +1,53 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3420,
+    "district": "Thiruvannamalai",
+    "fir_ref": {
+      "number": "4/2017",
+      "station": "AWPS, Vandavasi"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2017-TN-000001",
+    "incident_reported_date": "2017-04",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 451",
+      "IPC 354",
+      "POCSO 9(G)",
+      "POCSO 10",
+      "IPC 376(D)",
+      "IPC 511",
+      "POCSO 5(G)",
+      "POCSO 6",
+      "POCSO 18",
+      "IPC 506(II)"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/16665435/"
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "Two people were accused of the aggravated penetrative assault on a child in Thiruvannamalai. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2017)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

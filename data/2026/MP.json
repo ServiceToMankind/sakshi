@@ -1,0 +1,155 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Gwalior",
+      "next_hearing": null
+    },
+    "days_since_reported": 11,
+    "district": "Bhind",
+    "fir_ref": {
+      "number": "200/2024",
+      "station": "Umri"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-MP-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 65",
+      "BNS 78",
+      "BNS 296",
+      "BNS 127(2)",
+      "BNS 115(2)",
+      "POCSO 3",
+      "POCSO 4",
+      "POCSO 11",
+      "POCSO 12"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/155394364/"
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Bhind for the rape of a minor. Police have filed a chargesheet. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape of a minor — Bhind (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 11,
+    "district": "Bhind",
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-MP-000004",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-12",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/9-year-old-girl-allegedly-raped-in-front-of-brother-in-madhya-pradesh-bhind-101786553576171.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNKNOWN",
+    "summary": "One person was accused of the child sexual offence in Bhind. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Bhind (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 42,
+    "district": "Ratlam",
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-MP-000003",
+    "incident_reported_date": "2026-07",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 2020",
+      "1971",
+      "2003"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/54856625/"
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "A case of child sexual offence in Ratlam, Madhya Pradesh (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Ratlam (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Jabalpur",
+      "next_hearing": null
+    },
+    "days_since_reported": 192,
+    "district": "Sagar",
+    "fir_ref": {
+      "number": "34 of 2026",
+      "station": "Khurai"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-MP-000002",
+    "incident_reported_date": "2026-02",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 351(2)",
+      "BNS 62(2)(M)",
+      "BNS 65(1)",
+      "BNS 332",
+      "POCSO 5L",
+      "POCSO 5J(II)",
+      "3(2)(VA)",
+      "3(2)(W)",
+      "3(1)(W)(I)"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/130957960/"
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was accused of the rape of a minor in Sagar. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape of a minor — Sagar (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

@@ -1,175 +1,298 @@
 [
   {
     "reasons": [
-      "unverified_held"
+      "verify_incomplete"
     ],
     "record": {
-      "state": "WB",
-      "district": "Kolkata",
-      "incident_reported_date": "2026-08-11",
-      "offence_sections": [],
-      "category": "rape",
-      "minor_involved": false,
-      "status": "UNDER_TRIAL",
-      "accused_count": 1,
-      "weapon_or_threat": true,
-      "institutional_actions": [
-        "arrest_made"
-      ],
-      "court": {
-        "name": "Calcutta High Court",
-        "next_hearing": null
-      },
-      "title": "IPL cricketer Abishek Porel arrested on rape charge in Kolkata",
-      "summary": "Bengal Police arrested cricketer Abishek Porel in Kolkata for an alleged rape. [occupation withheld] accused him of a physical relationship on a promise of marriage. The complaint also includes criminal intimidation.",
-      "confidence": 0.9,
-      "sources": [
-        {
-          "url": "https://timesofindia.indiatimes.com/sports/cricket/news/ipl-cricketer-abishek-porel-arrested-in-rape-case-bengal-police-take-delhi-capitals-player-into-custody/articleshow/133149391.cms",
-          "publisher": "The Times of India",
-          "source_type": "news_article",
-          "retrieved": "2026-08-11"
-        }
-      ],
-      "verified": false
-    }
-  },
-  {
-    "reasons": [
-      "live_blog_only"
-    ],
-    "record": {
-      "state": "CH",
-      "district": "Chandigarh",
-      "offence_sections": [
-        "POCSO 6",
-        "IPC 302"
-      ],
+      "state": "MP",
+      "district": "Chhindwara",
       "category": "pocso",
       "minor_involved": true,
       "status": "CONVICTED",
+      "offence_sections": [
+        "IPC 363",
+        "IPC 366A",
+        "IPC 342",
+        "POCSO 4",
+        "POCSO 6",
+        "IPC 376(2)",
+        "POCSO 9(M)",
+        "POCSO 10"
+      ],
       "accused_count": 1,
       "institutional_actions": [
-        "convicted"
+        "convicted",
+        "appeal_filed"
       ],
-      "sentence_years": 50,
+      "sentence_years": 7,
       "court": {
-        "name": "P&H High Court",
+        "name": "Madhya Pradesh High Court",
         "next_hearing": null
       },
       "confidence": 0.95,
       "sources": [
         {
-          "url": "https://www.livelaw.in/high-court/punjab-and-haryana-high-court/punjab-haryana-high-court-commutes-death-penalty-for-rape-murder-of-7-yrs-old-directs-50-yrs-in-jail-545377",
-          "publisher": "LiveLaw",
-          "source_type": "legal_press",
-          "retrieved": "2026-08-11",
-          "url_carries_identifying_slug": true
+          "url": "https://indiankanoon.org/doc/26448313/",
+          "publisher": "Madhya Pradesh High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-12"
         }
       ],
       "incident_reported_date": "2026-08",
       "verified": false,
-      "title": "Aggravated penetrative assault on a child — Chandigarh (2026)",
-      "summary": "One person was accused of the aggravated penetrative assault on a child in Chandigarh. The accused was convicted. The court imposed a sentence of 50 years. Identifying details are withheld by law (POCSO s.23)."
+      "title": "Aggravated penetrative assault on a child — Chhindwara (2026)",
+      "summary": "One person was accused of the aggravated penetrative assault on a child in Chhindwara. The accused was convicted. An appeal was filed. The court imposed a sentence of 7 years. Identifying details are withheld by law (POCSO s.23)."
     }
   },
   {
     "reasons": [
-      "live_blog_only"
+      "verify_incomplete"
     ],
     "record": {
-      "state": "UP",
-      "district": "Prayagraj",
-      "offence_sections": [],
-      "category": "harassment",
-      "minor_involved": false,
-      "status": "UNKNOWN",
+      "fir_ref": {
+        "station": "All Women Police Station Central, Coimbatore",
+        "number": "2/2017"
+      },
+      "state": "TN",
+      "district": "Coimbatore",
+      "incident_reported_date": "2017-05",
+      "offence_sections": [
+        "POCSO 5(L)",
+        "POCSO 5(J)(II)",
+        "POCSO 6",
+        "IPC 506(I)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
       "accused_count": 1,
-      "institutional_actions": [],
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
       "court": {
-        "name": "Allahabad High Court",
+        "name": "Madras High Court",
         "next_hearing": null
       },
-      "title": "Allahabad HC orders UP DGP inquiry into police refusal on sexual harassment complaint",
-      "summary": "The Allahabad High Court directed the Uttar Pradesh DGP to investigate police inaction. This concerns the refusal to register a sexual harassment complaint against an employer in Allahabad.",
-      "confidence": 0.9,
+      "confidence": 0.95,
       "sources": [
         {
-          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-up-dgp-inquire-police-failed-register-fir-woman-sexual-complaint-employer-545367",
-          "publisher": "LiveLaw",
-          "source_type": "legal_press",
-          "retrieved": "2026-08-11",
-          "url_carries_identifying_slug": true
+          "url": "https://indiankanoon.org/doc/82843941/",
+          "publisher": "Madras High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-12"
         }
       ],
-      "incident_reported_date": "2026-08-11",
-      "verified": false
+      "verified": false,
+      "title": "Aggravated penetrative assault on a child — Coimbatore (2017)",
+      "summary": "One person was accused of the aggravated penetrative assault on a child in Coimbatore. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
     }
   },
   {
     "reasons": [
-      "live_blog_only"
+      "verify_incomplete"
     ],
     "record": {
-      "state": "KL",
-      "district": "Ernakulam",
+      "fir_ref": {
+        "station": "Vanapuram Police Station",
+        "number": "147 of 2022"
+      },
+      "state": "TN",
+      "district": "Thiruvannamalai",
+      "incident_reported_date": "2022-07",
       "offence_sections": [
-        "POCSO"
+        "IPC 450",
+        "IPC 376(2)(N)",
+        "IPC 366",
+        "IPC 506(1)",
+        "POCSO 5(L)",
+        "POCSO 6(1)",
+        "POCSO 5(J)(II)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "High Court of Judicature at Madras",
+        "next_hearing": null
+      },
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/133566175/",
+          "publisher": "Madras High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-12"
+        }
+      ],
+      "verified": false,
+      "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2022)",
+      "summary": "A case of aggravated penetrative assault on a child in Thiruvannamalai, Tamil Nadu (2022). The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Dandai",
+        "number": "103/2025"
+      },
+      "state": "JH",
+      "district": "Garhwa",
+      "incident_reported_date": "2026-03",
+      "offence_sections": [
+        "BNS 127(2)",
+        "BNS 115(2)",
+        "BNS 117(2)",
+        "BNS 64",
+        "BNS 332(B)",
+        "BNS 331(6)",
+        "BNS 351(2)",
+        "POCSO 4",
+        "POCSO 6"
       ],
       "category": "pocso",
       "minor_involved": true,
       "status": "UNDER_TRIAL",
       "accused_count": 1,
-      "institutional_actions": [],
+      "institutional_actions": [
+        "arrest_made",
+        "bail_denied"
+      ],
       "court": {
-        "name": "Kerala High Court",
+        "name": "Jharkhand High Court",
         "next_hearing": null
       },
-      "confidence": 0.9,
+      "confidence": 1.0,
       "sources": [
         {
-          "url": "https://www.livelaw.in/high-court/kerala-high-court/kerala-high-court-parents-settle-sexual-assault-case-545266",
-          "publisher": "LiveLaw",
-          "source_type": "legal_press",
-          "retrieved": "2026-08-11"
+          "url": "https://indiankanoon.org/doc/117351378/",
+          "publisher": "Jharkhand High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-12"
         }
       ],
-      "incident_reported_date": "2026-08",
       "verified": false,
-      "title": "Child sexual offence — Ernakulam (2026)",
-      "summary": "A case of child sexual offence in Ernakulam, Kerala (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+      "title": "Aggravated penetrative assault on a child — Garhwa (2026)",
+      "summary": "One person was arrested in Garhwa for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
     }
   },
   {
     "reasons": [
-      "unverified_held"
+      "verify_incomplete"
     ],
     "record": {
-      "state": "TG",
-      "district": "Khammam",
+      "cnr": "DLHC012885792016",
+      "fir_ref": {
+        "station": "Hauz Qazi",
+        "number": "110/2013"
+      },
+      "state": "DL",
+      "district": "Central",
+      "incident_reported_date": "2013-07",
       "offence_sections": [
-        "POCSO"
+        "IPC 354A",
+        "POCSO 10",
+        "IPC 354D",
+        "POCSO 12"
       ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "arrest_made",
+        "chargesheet_filed",
+        "acquitted",
+        "appeal_filed",
+        "convicted"
+      ],
+      "court": {
+        "name": "High Court of Delhi",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://delhihighcourt.nic.in/app/showFileJudgment/76010082026CRLA10652016_123826.pdf",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-12"
+        }
+      ],
+      "verified": false,
+      "title": "Sexual assault of a child — Central (2013)",
+      "summary": "One person was arrested in Central for the sexual assault of a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. The accused was acquitted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "MP",
+      "district": "Bhind",
       "category": "pocso",
       "minor_involved": true,
       "status": "FIR_FILED",
       "accused_count": 1,
-      "institutional_actions": [
-        "arrest_made"
-      ],
+      "institutional_actions": [],
       "confidence": 0.9,
       "sources": [
         {
-          "url": "https://www.thehindu.com/news/national/telangana/man-arrested-under-pocso-act-in-wyra/article71325697.ece",
-          "publisher": "The Hindu",
+          "url": "https://timesofindia.indiatimes.com/city/bhopal/mp-horror-9-year-old-girl-raped-in-front-of-brother-while-returning-home-from-school/articleshow/133177183.cms",
+          "publisher": "The Times of India",
           "source_type": "news_article",
-          "retrieved": "2026-08-11"
+          "retrieved": "2026-08-12",
+          "url_carries_identifying_slug": true
         }
       ],
       "incident_reported_date": "2026-08",
       "verified": false,
-      "title": "Child sexual offence — Khammam (2026)",
-      "summary": "One person was arrested in Khammam for the child sexual offence. Identifying details are withheld by law (POCSO s.23)."
+      "title": "Child sexual offence — Bhind (2026)",
+      "summary": "A case of child sexual offence in Bhind, Madhya Pradesh (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "PB",
+      "district": "Hoshiarpur",
+      "incident_reported_date": "2026-08-12",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "court": {
+        "name": "Punjab & Haryana High Court",
+        "next_hearing": null
+      },
+      "title": "Punjab and Haryana HC upholds Dera head's conviction in rape case",
+      "summary": "The Punjab and Haryana High Court upheld the rape conviction of a Dera head from Hoshiarpur. The court also ordered six lakh rupees in compensation for the survivor.",
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/punjab-and-haryana-high-court/dera-head-rape-conviction-upheld-victims-sole-testimony-545494",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-12"
+        }
+      ],
+      "verified": false
     }
   }
 ]

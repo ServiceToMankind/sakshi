@@ -1,0 +1,46 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 11,
+    "district": "Tiruvarur",
+    "fir_ref": {
+      "number": "2671/2020",
+      "station": "All Women Police Station, Mannargudi"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-TN-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 366",
+      "POCSO 6",
+      "POCSO 5(L)"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/42316870/"
+      }
+    ],
+    "state": "TN",
+    "status": "APPEAL_PENDING",
+    "summary": "One person was accused of the aggravated penetrative assault on a child in Tiruvarur. A weapon or threat was involved. Bail was denied. The accused was convicted. An appeal was filed. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Tiruvarur (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

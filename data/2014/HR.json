@@ -1,0 +1,49 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "CRA-D-296-DB-2015",
+    "confidence": 1.0,
+    "court": {
+      "name": "Punjab and Haryana High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 4606,
+    "district": "Palwal",
+    "fir_ref": {
+      "number": "28/2014",
+      "station": "Hodal"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2014-HR-000001",
+    "incident_reported_date": "2014-01",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 376(2)(I)(J)(K)(N)",
+      "IPC 506",
+      "POCSO 4",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/2004465/"
+      }
+    ],
+    "state": "HR",
+    "status": "CONVICTED",
+    "summary": "One person was arrested in Palwal for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Palwal (2014)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

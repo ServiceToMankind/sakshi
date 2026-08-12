@@ -1,0 +1,209 @@
+[
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Jharkhand"
+    },
+    "days_since_reported": 164,
+    "district": "Giridih",
+    "fir_ref": {
+      "number": "91/2025",
+      "station": "Nimiyaghat"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-JH-000002",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 96",
+      "BNS 127(2)",
+      "BNS 118(1)",
+      "BNS 3(5)",
+      "POCSO 4",
+      "POCSO 18",
+      "POCSO 8"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/152200725/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "Three people were accused of the penetrative assault on a child in Giridih. Bail was granted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Giridih (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Jharkhand"
+    },
+    "days_since_reported": 164,
+    "district": "Garhwa",
+    "fir_ref": {
+      "number": "53/2025",
+      "station": "Bardiha"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-JH-000004",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 351(2)",
+      "BNS 351(3)",
+      "POCSO 4",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/9906136/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Garhwa for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Garhwa (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 164,
+    "district": "Ranchi",
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-JH-000005",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "convicted",
+      "bail_denied",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376(D)",
+      "POCSO 6"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/125107364/"
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "A case of aggravated penetrative assault on a child in Ranchi was recorded. Bail was denied. The accused was convicted. An appeal was filed. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Ranchi (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Jharkhand"
+    },
+    "days_since_reported": 192,
+    "district": "Simdega",
+    "fir_ref": {
+      "number": "18 of 2025",
+      "station": "Simdega (Mahila)"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-JH-000001",
+    "incident_reported_date": "2026-02",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64",
+      "POCSO 4",
+      "POCSO 6",
+      "POCSO 8"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/165712634/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Simdega for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Simdega (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Jharkhand at Ranchi",
+      "next_hearing": null
+    },
+    "days_since_reported": 192,
+    "district": "Seraikela Kharsawan",
+    "fir_ref": {
+      "number": "79 of 2024",
+      "station": "Ichagarh"
+    },
+    "first_published": "2026-08-12",
+    "id": "SKS-2026-JH-000003",
+    "incident_reported_date": "2026-02",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 65(2)",
+      "POCSO 4",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/25001169/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Seraikela Kharsawan for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Seraikela Kharsawan (2026)",
+    "verified": true
+  }
+]

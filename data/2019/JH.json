@@ -1,0 +1,41 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 2690,
+    "district": "Hazaribagh",
+    "first_published": "2026-08-12",
+    "id": "SKS-2019-JH-000001",
+    "incident_reported_date": "2019-04",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 8",
+      "IPC 366A",
+      "IPC 363"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/135741756/"
+      }
+    ],
+    "state": "JH",
+    "status": "ACQUITTED",
+    "summary": "One person was accused of the sexual assault of a child in Hazaribagh. A weapon or threat was involved. The accused was convicted. The accused was acquitted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Hazaribagh (2019)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
