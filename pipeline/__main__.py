@@ -853,8 +853,6 @@ def _render_report(report: RunReport, run_date: str) -> str:
 def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
     logs_dir.mkdir(parents=True, exist_ok=True)
     (logs_dir / "run.log").write_text("\n".join(report.logs) + "\n", encoding="utf-8")
-    funnel = json.dumps(report.health.get("by_publisher", {}), separators=(",", ":"))
-    prefilter = json.dumps(report.health.get("court_prefilter", []), separators=(",", ":"))
     (logs_dir / "run_summary.env").write_text(
         # UPDATED now means MATERIAL changes only (status/court/sections/accused/severity) —
         # re-sightings are RECHECKED and never inflate the "~N updated" commit message (§1).
@@ -875,11 +873,20 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
         f"SUBMISSIONS={report.submissions}\n"
         f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
-        f"TRACED_TO_COURT={report.traced_to_court}\n"
-        # §3 ops: the per-source funnel (documents → records) + court pre-filter, so the
-        # heartbeat alone answers "why did N documents produce M records?" per source.
-        f"SOURCE_FUNNEL={funnel}\n"
-        f"COURT_PREFILTER={prefilter}\n",
+        f"TRACED_TO_COURT={report.traced_to_court}\n",
+        encoding="utf-8",
+    )
+    # The per-source funnel + court pre-filter are JSON (braces/quotes/colons) that would break
+    # a shell that `source`s run_summary.env, so they live in their own file (and in
+    # data/pipeline_health.json, committed each run) rather than in the shell-sourced env.
+    (logs_dir / "source_funnel.json").write_text(
+        json.dumps(
+            {
+                "by_publisher": report.health.get("by_publisher", {}),
+                "court_prefilter": report.health.get("court_prefilter", []),
+            },
+            indent=2,
+        ),
         encoding="utf-8",
     )
     (logs_dir / "run_report.md").write_text(_render_report(report, run_date), encoding="utf-8")
