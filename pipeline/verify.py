@@ -122,7 +122,11 @@ DECLINE (set "verified": false) ONLY when there is a clear, specific problem:
 editorial / opinion, a "false-allegation" piece, or a NON-sexual crime; or
 - the source MATERIALLY CONTRADICTS a core fact (clearly a different state/district, or the \
 offence is plainly not a sexual offence); or
-- no real, specific case is actually described in the source.
+- no real, specific case is actually described in the source; or
+- the record's SUMMARY states a fact the source does NOT support (a fabricated detail), or it \
+reveals a VICTIM-IDENTIFYING detail — a victim/survivor name, an exact age, a minor's gender, a \
+place finer than the district, or how the accused knew the victim. (The account must be faithful \
+to the source AND identity-safe; describe the ACT and the RESPONSE, never the person.)
 
 Optionally correct a factual field ONLY when the source clearly states a better value. If you \
 happen to know a second credible public source for the SAME case, include it — but this is a \

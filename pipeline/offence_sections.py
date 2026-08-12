@@ -42,6 +42,16 @@ _ACT_PATTERNS: tuple[tuple[re.Pattern[str], str], ...] = (
 # by zero or more parenthesised subsections ("(2)", "(2)(i)"), tolerating inner whitespace.
 _SECTION_RE = re.compile(r"\b(\d{1,4}[A-Z]{0,3})((?:\s*\([^)]{1,4}\))*)")
 _SUBSECTION_RE = re.compile(r"\(\s*([^)\s]{1,4})\s*\)")
+# A bare four-digit number in the statute enactment band is an ACT/AMENDMENT YEAR the extractor
+# mis-captured as a section ("POCSO 2020", "POCSO 2012", a bare "1971"/"2003"). No genuine
+# section reaches four digits — IPC<=511, BNS<=358, BNSS<=531, POCSO<=46 — so a plain 4-digit
+# section with no subsection suffix is never a real charge; it is surfaced as unparsed, not kept.
+_YEAR_SECTION_RE = re.compile(r"^(?:1[89]\d{2}|20\d{2})$")
+
+
+def _is_year_section(section: str | None, suffix: str) -> bool:
+    """True if a parsed section is a mis-captured act/amendment year (4-digit, no subsection)."""
+    return bool(section is not None and suffix == "" and _YEAR_SECTION_RE.match(section))
 
 
 def parse_section(raw: str) -> tuple[str | None, str | None, str]:
@@ -85,7 +95,10 @@ def normalize_sections(sections: object) -> tuple[list[str], list[str]]:
     unparsed: list[str] = []
     seen: set[str] = set()
     for raw in sections:
-        canon = _canonical(*parse_section(str(raw)))
+        act, section, suffix = parse_section(str(raw))
+        # An act/amendment year mis-captured as a section is junk, not a charge (§2b):
+        # surface the original token as unparsed and keep it OUT of the canonical list.
+        canon = None if _is_year_section(section, suffix) else _canonical(act, section, suffix)
         if canon is None:
             token = " ".join(str(raw).split())
             if token and token not in unparsed:
