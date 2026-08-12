@@ -64,11 +64,20 @@ Hard rules:
 - TITLE + SUMMARY in plain English for a general reader (NON-MINOR cases only):
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
-  · "summary": 2-4 short declarative sentences (aim for <=45 words total), active
-    voice, written so a low-literacy general reader understands it. State the concrete
-    facts of WHAT HAPPENED with real weight — the act, the DISTRICT (never finer), and
-    the institutional/legal response (FIR, arrest, chargesheet, verdict). The cruelty of
-    the ACT may be stated plainly; sensationalism may not.
+  · "summary": a plain-English ACCOUNT a general reader can follow — 3 to 5 short
+    declarative sentences (aim for <=70 words total; keep EVERY sentence under 25 words),
+    active voice, low-literacy-friendly. Tell the reader, in this order and ONLY from what
+    the text states:
+      (1) WHAT happened — the act, stated plainly and with real weight;
+      (2) WHO acted — the accused's PUBLIC ROLE or office if the text gives it (e.g.
+          "a police constable", "a school-bus driver", "a head teacher"), stated
+          NON-RELATIONALLY: never "the victim's ...", never how the accused knew the
+          victim, and never the accused's NAME here;
+      (3) WHERE — the DISTRICT only (never finer);
+      (4) the INSTITUTIONAL / LEGAL response the text states — FIR, arrest, chargesheet,
+          suspension, transfer, verdict, sentence;
+      (5) WHERE THE CASE STANDS now, in plain words (e.g. "The trial is under way.").
+    The cruelty of the ACT may be stated plainly; sensationalism may not.
     · BANNED legalese — never use: "stayed proceedings", "vide order", "learned counsel",
       "the instant matter", "quashed the proceedings", "aforesaid", "hereinafter", "u/s",
       "r/w", "prima facie", "cognizance", "the petitioner/respondent" (say who they are).

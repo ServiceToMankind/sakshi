@@ -64,3 +64,31 @@ def test_normalize_is_idempotent() -> None:
 def test_normalize_non_list_input() -> None:
     assert normalize_sections(None) == ([], [])
     assert normalize_sections("IPC 376") == ([], [])  # a bare string is not a sections list
+
+
+def test_act_year_tokens_are_surfaced_as_unparsed_not_kept() -> None:
+    """§2b: an act/amendment YEAR the extractor captured as a section ("POCSO 2020",
+    a bare "1971") is junk, not a charge — surfaced in unparsed, never in canonical."""
+    # The exact MP-000003 garbage shape: nothing usable survives.
+    canonical, unparsed = normalize_sections(["POCSO 2020", "1971", "2003"])
+    assert canonical == []
+    assert unparsed == ["POCSO 2020", "1971", "2003"]
+
+    # A POCSO-2012 act reference beside a real section: the year drops, the section stays.
+    canonical, unparsed = normalize_sections(["POCSO 2012", "POCSO 6"])
+    assert canonical == ["POCSO 6"]
+    assert unparsed == ["POCSO 2012"]
+
+
+def test_real_sections_are_never_mistaken_for_years() -> None:
+    # 3-digit sections, subsectioned sections, and act-less needles are untouched.
+    canonical, unparsed = normalize_sections(["IPC 376", "BNS 65(1)", "376D", "70(2)"])
+    assert unparsed == []
+    assert canonical == ["IPC 376", "BNS 65(1)", "376D", "70(2)"]
+
+
+def test_year_dropping_is_idempotent() -> None:
+    once, once_unparsed = normalize_sections(["POCSO 2020", "BNS 64"])
+    assert once == ["BNS 64"] and once_unparsed == ["POCSO 2020"]
+    twice, twice_unparsed = normalize_sections(once)
+    assert twice == ["BNS 64"] and twice_unparsed == []
