@@ -93,7 +93,10 @@ EXTRACT_MAX_DOC_ATTEMPTS: Final[int] = 3
 # failure (circuit-break) of model N, extraction fails over to model N+1 before
 # aborting the run. Every model gets the same schema-constrained prompt and the
 # same downstream sanitize gate — the guardrails are model-agnostic by design.
-DEFAULT_GEMINI_MODELS: Final[tuple[str, ...]] = ("gemini-2.5-flash", "gemini-2.5-flash-lite")
+# The gemini-2.5 family returns 404 "no longer available to new users" for keys provisioned
+# after its deprecation (confirmed 2026-08-12) — a silent extract-nothing failure. Pinned to
+# the current GA 3.x flash chain; verified callable. Bump when Google deprecates these too.
+DEFAULT_GEMINI_MODELS: Final[tuple[str, ...]] = ("gemini-3.5-flash", "gemini-3.5-flash-lite")
 # Approximate USD per 1M tokens at flash-class rates; used only for the per-run
 # cost ESTIMATE (the chain's primary model). Keep current with published pricing.
 GEMINI_INPUT_USD_PER_MTOK: Final[float] = 0.30
@@ -168,7 +171,7 @@ def gemini_models() -> list[str]:
 # deterministic gates (sanitize, minor projection, pii_guard, schema).
 # gemini-2.5-pro was retired (404 "no longer available"); use the same available flash
 # model the extractor uses. Override per-run with the VERIFY_MODEL env / repo variable.
-DEFAULT_VERIFY_MODEL: Final[str] = "gemini-2.5-flash"
+DEFAULT_VERIFY_MODEL: Final[str] = "gemini-3.5-flash"
 # gemini-2.5-pro rates (approx USD per 1M tokens) — verifier cost estimate only.
 VERIFY_INPUT_USD_PER_MTOK: Final[float] = 1.25
 VERIFY_OUTPUT_USD_PER_MTOK: Final[float] = 10.0
