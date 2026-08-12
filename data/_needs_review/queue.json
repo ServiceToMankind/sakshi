@@ -1,0 +1,175 @@
+[
+  {
+    "reasons": [
+      "unverified_held"
+    ],
+    "record": {
+      "state": "WB",
+      "district": "Kolkata",
+      "incident_reported_date": "2026-08-11",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "arrest_made"
+      ],
+      "court": {
+        "name": "Calcutta High Court",
+        "next_hearing": null
+      },
+      "title": "IPL cricketer Abishek Porel arrested on rape charge in Kolkata",
+      "summary": "Bengal Police arrested cricketer Abishek Porel in Kolkata for an alleged rape. [occupation withheld] accused him of a physical relationship on a promise of marriage. The complaint also includes criminal intimidation.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://timesofindia.indiatimes.com/sports/cricket/news/ipl-cricketer-abishek-porel-arrested-in-rape-case-bengal-police-take-delhi-capitals-player-into-custody/articleshow/133149391.cms",
+          "publisher": "The Times of India",
+          "source_type": "news_article",
+          "retrieved": "2026-08-11"
+        }
+      ],
+      "verified": false
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "CH",
+      "district": "Chandigarh",
+      "offence_sections": [
+        "POCSO 6",
+        "IPC 302"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "sentence_years": 50,
+      "court": {
+        "name": "P&H High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/punjab-and-haryana-high-court/punjab-haryana-high-court-commutes-death-penalty-for-rape-murder-of-7-yrs-old-directs-50-yrs-in-jail-545377",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-11",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": false,
+      "title": "Aggravated penetrative assault on a child — Chandigarh (2026)",
+      "summary": "One person was accused of the aggravated penetrative assault on a child in Chandigarh. The accused was convicted. The court imposed a sentence of 50 years. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Prayagraj",
+      "offence_sections": [],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "title": "Allahabad HC orders UP DGP inquiry into police refusal on sexual harassment complaint",
+      "summary": "The Allahabad High Court directed the Uttar Pradesh DGP to investigate police inaction. This concerns the refusal to register a sexual harassment complaint against an employer in Allahabad.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-up-dgp-inquire-police-failed-register-fir-woman-sexual-complaint-employer-545367",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-11",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-08-11",
+      "verified": false
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Ernakulam",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Kerala High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/kerala-high-court/kerala-high-court-parents-settle-sexual-assault-case-545266",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-11"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": false,
+      "title": "Child sexual offence — Ernakulam (2026)",
+      "summary": "A case of child sexual offence in Ernakulam, Kerala (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "unverified_held"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Khammam",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "arrest_made"
+      ],
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.thehindu.com/news/national/telangana/man-arrested-under-pocso-act-in-wyra/article71325697.ece",
+          "publisher": "The Hindu",
+          "source_type": "news_article",
+          "retrieved": "2026-08-11"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": false,
+      "title": "Child sexual offence — Khammam (2026)",
+      "summary": "One person was arrested in Khammam for the child sexual offence. Identifying details are withheld by law (POCSO s.23)."
+    }
+  }
+]

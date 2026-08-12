@@ -1,0 +1,211 @@
+{
+  "generated": "2026-08-12",
+  "by_publisher": {
+    "Amar Ujala": {
+      "documents": 11,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Daily Thanthi": {
+      "documents": 40,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Dainik Bhaskar": {
+      "documents": 28,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Delhi High Court": {
+      "documents": 9,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 4,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Hindu Tamil Thisai": {
+      "documents": 19,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Hindustan Times": {
+      "documents": 100,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Jharkhand High Court": {
+      "documents": 10,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "LiveLaw": {
+      "documents": 60,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 3,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Lokmat": {
+      "documents": 10,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Madhya Pradesh High Court": {
+      "documents": 10,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 3,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Madras High Court": {
+      "documents": 9,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Namasthe Telangana": {
+      "documents": 200,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Punjab-Haryana High Court": {
+      "documents": 7,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 7,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Sakal": {
+      "documents": 2,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "Telangana High Court": {
+      "documents": 2,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 2,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "The Hindu": {
+      "documents": 120,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 8,
+      "needs_review": 1,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "The Indian Express": {
+      "documents": 0,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 6,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    },
+    "The Times of India": {
+      "documents": 45,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 1,
+      "quarantined": 0,
+      "quarantine_reasons": {}
+    }
+  },
+  "court_prefilter": [
+    {
+      "source": "Delhi High Court",
+      "listed": 369,
+      "fetched": 40,
+      "qualifying": 0
+    },
+    {
+      "source": "High Court of Jammu & Kashmir and Ladakh",
+      "listed": 194,
+      "fetched": 35,
+      "qualifying": 0
+    },
+    {
+      "source": "High Court of Meghalaya",
+      "listed": 495,
+      "fetched": 40,
+      "qualifying": 0
+    },
+    {
+      "source": "Indian Kanoon",
+      "hits": 53,
+      "qualifying": 47,
+      "fetched": 47
+    }
+  ]
+}
