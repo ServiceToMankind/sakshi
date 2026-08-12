@@ -215,7 +215,13 @@ def test_fetch_keeps_only_qualifying_docs_and_records_counts() -> None:
     assert docs[0].publisher == "Delhi High Court"  # -> classifies as court-grade (tier 1)
     assert docs[0].fetched_at == "2026-08-03"
     # Counts only — never a dropped URL, never any text.
-    assert src.stats["Delhi High Court"] == {"listed": 3, "fetched": 2, "qualifying": 1}
+    assert src.stats["Delhi High Court"] == {
+        "listed": 3,
+        "fetched": 2,
+        "pdf_text_empty": 0,
+        "not_qualifying": 1,
+        "qualifying": 1,
+    }
 
 
 def test_fetch_disallowed_or_error_listing_yields_zero() -> None:
@@ -223,7 +229,13 @@ def test_fetch_disallowed_or_error_listing_yields_zero() -> None:
     client = _FakeClient({f"{_BASE}/none": None})  # robots-disallowed listing
     src = HcJudgmentsSource(client, (court,), pdf_to_text_fn=_text_for)
     assert _run(src.fetch()) == []
-    assert src.stats["High Court of Meghalaya"] == {"listed": 0, "fetched": 0, "qualifying": 0}
+    assert src.stats["High Court of Meghalaya"] == {
+        "listed": 0,
+        "fetched": 0,
+        "pdf_text_empty": 0,
+        "not_qualifying": 0,
+        "qualifying": 0,
+    }
 
 
 def test_fetch_non_200_listing_yields_zero() -> None:
@@ -244,7 +256,13 @@ def test_fetch_skips_non_200_pdf() -> None:
     )
     src = HcJudgmentsSource(client, (court,), pdf_to_text_fn=_text_for)
     assert _run(src.fetch()) == []
-    assert src.stats["HC"] == {"listed": 1, "fetched": 0, "qualifying": 0}
+    assert src.stats["HC"] == {
+        "listed": 1,
+        "fetched": 0,
+        "pdf_text_empty": 0,
+        "not_qualifying": 0,
+        "qualifying": 0,
+    }
 
 
 def test_fetch_respects_per_court_fetch_cap() -> None:
@@ -258,7 +276,13 @@ def test_fetch_respects_per_court_fetch_cap() -> None:
     )
     docs = _run(src.fetch())
     assert len(docs) == 2  # only the 2 newest fetched, though 5 are listed
-    assert src.stats["HC"] == {"listed": 5, "fetched": 2, "qualifying": 2}
+    assert src.stats["HC"] == {
+        "listed": 5,
+        "fetched": 2,
+        "pdf_text_empty": 0,
+        "not_qualifying": 0,
+        "qualifying": 2,
+    }
 
 
 def test_fetch_respects_global_run_budget_across_courts() -> None:
@@ -275,3 +299,51 @@ def test_fetch_respects_global_run_budget_across_courts() -> None:
     docs = _run(src.fetch())
     assert len(docs) == 1  # global budget of 1 stops after HC-A's first qualifying doc
     assert src.stats["HC-B"]["fetched"] == 0  # budget exhausted before HC-B is walked
+
+
+def test_fetch_raises_when_pdftotext_absent(monkeypatch: pytest.MonkeyPatch) -> None:
+    # §3: with the REAL pdf_to_text (no injected fn) and pdftotext missing, fetch RAISES at
+    # startup rather than silently extracting "" from every PDF.
+    monkeypatch.setattr("pipeline.sources.hc_judgments.shutil.which", lambda _name: None)
+    court = HcCourt("HC", f"{_BASE}/l", _BASE)
+    src = HcJudgmentsSource(_FakeClient({}), (court,))  # default (real) pdf_to_text
+    with pytest.raises(RuntimeError, match="poppler"):
+        _run(src.fetch())
+
+
+def test_fetch_fails_when_many_pdfs_all_empty() -> None:
+    # §3: >10 fetched PDFs that ALL extract 0 characters = broken binary/PDFs, not a quiet
+    # docket — the run fails loudly with the reason.
+    listing = "".join(f'<a href="/e/{i}.pdf">x</a>' for i in range(12))
+    responses: dict[str, httpx.Response | None] = {f"{_BASE}/l": httpx.Response(200, text=listing)}
+    for i in range(12):
+        responses[f"{_BASE}/e/{i}.pdf"] = _pdf("")  # empty text from every PDF
+    src = HcJudgmentsSource(
+        _FakeClient(responses),
+        (HcCourt("HC", f"{_BASE}/l", _BASE),),
+        pdf_to_text_fn=_text_for,
+        max_fetch_per_court=12,
+    )
+    with pytest.raises(RuntimeError, match="extracted 0"):
+        _run(src.fetch())
+
+
+def test_fetch_splits_empty_from_not_qualifying() -> None:
+    # A doc with no text -> pdf_text_empty; a doc with text but no statute -> not_qualifying.
+    listing = '<a href="/a.pdf">a</a><a href="/b.pdf">b</a>'
+    responses: dict[str, httpx.Response | None] = {
+        f"{_BASE}/l": httpx.Response(200, text=listing),
+        f"{_BASE}/a.pdf": _pdf(""),  # empty
+        f"{_BASE}/b.pdf": _pdf("a civil suit, no offence"),  # text, not qualifying
+    }
+    src = HcJudgmentsSource(
+        _FakeClient(responses), (HcCourt("HC", f"{_BASE}/l", _BASE),), pdf_to_text_fn=_text_for
+    )
+    assert _run(src.fetch()) == []
+    assert src.stats["HC"] == {
+        "listed": 2,
+        "fetched": 2,
+        "pdf_text_empty": 1,
+        "not_qualifying": 1,
+        "qualifying": 0,
+    }

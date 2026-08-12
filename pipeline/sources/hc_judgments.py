@@ -32,6 +32,7 @@ from __future__ import annotations
 
 import html
 import re
+import shutil
 import subprocess
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -80,6 +81,9 @@ _FIRST_PDF_RE = re.compile(r"(.*?\.pdf)(\?[^,\s]*)?", re.IGNORECASE)
 
 # pdftotext is a fast local process, but a malformed PDF can hang it — bound the wait.
 _PDFTOTEXT_TIMEOUT_S = 20.0
+# §3: more than this many fetched PDFs with ZERO extracted characters = a broken binary, not a
+# quiet docket — the run fails loudly rather than reporting a silent zero.
+_EMPTY_PDF_FAIL_THRESHOLD = 10
 
 
 def qualifies(text: str) -> bool:
@@ -116,6 +120,13 @@ def extract_pdf_urls(listing_html: str, base_url: str) -> list[str]:
 
 
 _Runner = Callable[..., "subprocess.CompletedProcess[bytes]"]
+
+
+def pdftotext_available() -> bool:
+    """True if the ``pdftotext`` binary (poppler-utils) is on PATH. The court source RAISES at
+    startup when it is absent, because without it every judgment PDF extracts ``""`` and
+    silently fails the statute pre-filter (the 0-of-N funnel this guards against)."""
+    return shutil.which("pdftotext") is not None
 
 
 def pdf_to_text(pdf_bytes: bytes, *, run: _Runner | None = None) -> str:
@@ -176,6 +187,8 @@ class HcJudgmentsSource:
         self._client = client
         self._courts = courts
         self._fetched_at = fetched_at or date.today().isoformat()
+        # Probe the REAL pdftotext only when using it (tests inject a fake and skip the probe).
+        self._probe_pdftotext = pdf_to_text_fn is None
         self._pdf_to_text: Callable[[bytes], str] = (
             pdf_to_text if pdf_to_text_fn is None else pdf_to_text_fn
         )
@@ -183,11 +196,20 @@ class HcJudgmentsSource:
             config.HC_MAX_FETCH_PER_COURT if max_fetch_per_court is None else max_fetch_per_court
         )
         self._max_docs = config.HC_MAX_DOCS_PER_RUN if max_docs is None else max_docs
-        # Per-court walk statistics — COUNTS ONLY (listed / fetched / qualifying), for the
-        # operator report. Never a URL of a dropped document, never any text.
+        # Per-court walk statistics — COUNTS ONLY, for the operator report. The funnel is split
+        # so a MISSING BINARY (pdf_text_empty) is never confused with a genuinely non-qualifying
+        # docket (not_qualifying). Never a URL of a dropped document, never any text.
         self.stats: dict[str, dict[str, int]] = {}
 
     async def fetch(self) -> list[RawDocument]:
+        # §3: fail at startup if pdftotext is absent — otherwise every PDF extracts "" and the
+        # source silently yields nothing (the defect the operator caught). Loud > silent zero.
+        if self._probe_pdftotext and not pdftotext_available():
+            raise RuntimeError(
+                "hc_judgments requires `pdftotext` (poppler-utils), which is NOT installed. "
+                "Without it every court judgment PDF extracts empty text and silently fails the "
+                "statute pre-filter. Install poppler-utils (see .github/workflows/scrape.yml)."
+            )
         docs: list[RawDocument] = []
         for court in self._courts:
             self.stats[court.court] = await self._walk_court(court, docs)
@@ -195,7 +217,13 @@ class HcJudgmentsSource:
 
     async def _walk_court(self, court: HcCourt, docs: list[RawDocument]) -> dict[str, int]:
         """Walk one court's listing, appending qualifying docs to ``docs`` (shared budget)."""
-        stat = {"listed": 0, "fetched": 0, "qualifying": 0}
+        stat = {
+            "listed": 0,
+            "fetched": 0,
+            "pdf_text_empty": 0,
+            "not_qualifying": 0,
+            "qualifying": 0,
+        }
         response = await self._client.get(court.listing_url)
         # None -> robots-disallowed; non-200 (incl. 304 unchanged) -> nothing this run.
         if response is None or response.status_code != 200:
@@ -210,8 +238,12 @@ class HcJudgmentsSource:
                 continue
             stat["fetched"] += 1
             text = self._pdf_to_text(pdf.content)
+            if not text.strip():
+                stat["pdf_text_empty"] += 1
+                continue  # NO text extracted — a missing binary or unreadable PDF, not a docket
             if not qualifies(text):
-                continue  # dropped by the local statute pre-filter — no model ever sees it
+                stat["not_qualifying"] += 1
+                continue  # text is fine, but no sexual-offence statute — dropped, unread by a model
             stat["qualifying"] += 1
             docs.append(
                 RawDocument(
@@ -220,5 +252,16 @@ class HcJudgmentsSource:
                     fetched_at=self._fetched_at,
                     text=text,
                 )
+            )
+        # §3: a court that fetched many PDFs but extracted ZERO characters from ANY of them is a
+        # broken pipeline (missing/broken pdftotext, or unreadable PDFs), NOT a quiet docket —
+        # fail the run loudly with the reason rather than report a silent zero.
+        if (
+            stat["fetched"] > _EMPTY_PDF_FAIL_THRESHOLD
+            and stat["pdf_text_empty"] == stat["fetched"]
+        ):
+            raise RuntimeError(
+                f"hc_judgments: {court.court} fetched {stat['fetched']} PDFs but extracted 0 "
+                "characters from every one — pdftotext is broken or the PDFs are unreadable."
             )
         return stat
