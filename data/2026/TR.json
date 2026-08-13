@@ -1,0 +1,29 @@
+[
+  {
+    "category": "rape",
+    "confidence": 1.0,
+    "days_since_reported": 0,
+    "district": "West Tripura",
+    "first_published": "2026-08-13",
+    "id": "SKS-2026-TR-000001",
+    "incident_reported_date": "2026-08-13",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-13",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/tripura-college-student-allegedly-abducted-raped-while-returning-home-police-101786530033333.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TR",
+    "status": "UNKNOWN",
+    "summary": "Unknown attackers abducted and raped [occupation withheld] in West Tripura. Police are investigating the incident, but no arrests have been made.",
+    "title": "Police investigate abduction and rape of college [occupation withheld] in West Tripura",
+    "verification_note": "The source describes a specific alleged rape case in West Tripura, which is consistent with the candidate record.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

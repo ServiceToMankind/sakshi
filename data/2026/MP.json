@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -81,18 +81,15 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 42,
+    "days_since_reported": 43,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
     "incident_reported_date": "2026-07",
     "institutional_actions": [],
+    "last_status_change": "2026-08-13",
     "minor_involved": true,
-    "offence_sections": [
-      "POCSO 2020",
-      "1971",
-      "2003"
-    ],
+    "offence_sections": [],
     "sources": [
       {
         "publisher": "Madhya Pradesh High Court",
@@ -105,6 +102,38 @@
     "status": "UNDER_TRIAL",
     "summary": "A case of child sexual offence in Ratlam, Madhya Pradesh (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Ratlam (2026)",
+    "unparsed_sections": [
+      "POCSO 2020",
+      "1971",
+      "2003"
+    ],
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 43,
+    "district": "Indore",
+    "first_published": "2026-08-13",
+    "id": "SKS-2026-MP-000005",
+    "incident_reported_date": "2026-07",
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/73847932/"
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "A case of child sexual offence in Indore, Madhya Pradesh (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026)",
     "verified": true
   },
   {
@@ -115,7 +144,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 192,
+    "days_since_reported": 193,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
