@@ -212,6 +212,9 @@ export function recentCard(record) {
         ]),
         el('h3', { class: 'feed-card__title' }, record.title || record.id),
         record.summary ? el('p', { class: 'feed-card__summary' }, record.summary) : null,
+        // Pendency ticker — consistent with the explore card (§3 "days without justice on
+        // every court-anchored card"). Null for minors / resolved / media-with-no-days.
+        daysTicker(record),
         el('div', { class: 'feed-card__meta' }, meta),
       ],
     ),

@@ -292,6 +292,11 @@ def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
             # victim), so this is guardrail-safe for every case including a minor's.
             "offence_sections": record.get("offence_sections") or [],
             "incident_reported_date": record.get("incident_reported_date"),
+            # Elapsed-days pendency for the feed's "days without justice" ticker — already a
+            # published shard field (day-precise for a non-minor; month-precise, from the 1st,
+            # for a minor's coarsened date). The feed's daysTicker renders it for NON-MINOR cases
+            # only, so no minor pendency is ever shown; carrying it here just feeds that ticker.
+            "days_since_reported": record.get("days_since_reported"),
             "minor_involved": bool(record.get("minor_involved")),
             "publisher": (record.get("sources") or [{}])[0].get("publisher", ""),
             "verified": bool(record.get("verified")),
