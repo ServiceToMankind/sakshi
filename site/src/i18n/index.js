@@ -68,6 +68,13 @@ export function applyI18n(root = document) {
     if (DEV && isUntranslated(key)) node.setAttribute('data-i18n-missing', '');
     else node.removeAttribute('data-i18n-missing');
   });
+  // [data-i18n-attr] localises an icon-only control's ACCESSIBLE NAME (aria-label) rather than
+  // its text — e.g. the theme toggle. Without this the attribute was inert and the label stayed
+  // English in every locale.
+  root.querySelectorAll('[data-i18n-attr]').forEach((node) => {
+    const key = node.getAttribute('data-i18n-attr');
+    if (key) node.setAttribute('aria-label', t(key));
+  });
 }
 
 export function initI18n() {
