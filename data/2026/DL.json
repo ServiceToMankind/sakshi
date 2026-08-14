@@ -1,12 +1,49 @@
 [
   {
+    "accused_count": 1,
+    "category": "harassment",
+    "cnr": "DLHC010096292026",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Delhi"
+    },
+    "days_since_reported": 0,
+    "district": "New Delhi",
+    "fir_ref": {
+      "number": "28/2023",
+      "station": "New Delhi Railway Station"
+    },
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-DL-000011",
+    "incident_reported_date": "2026-08-14",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 354"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-14",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/60814082026CRLMM19232026_165047.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "The Delhi High Court cancelled a sexual harassment case against a man. The court ended the case after the complainant confirmed she had settled all disputes.",
+    "title": "Delhi HC ends sexual harassment case after mutual settlement",
+    "verification_note": "The candidate record correctly reflects the High Court of Delhi judgment quashing the Section 354 IPC FIR on the grounds of a compromise.",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
     "court": {
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -36,7 +73,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -61,13 +98,45 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Delhi High Court"
+    },
+    "days_since_reported": 13,
+    "district": "New Delhi",
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-DL-000012",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/delhi-hc-upholds-conviction-of-man-who-sodomised-11-year-old-homeless-child-101786698819070.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in New Delhi. The accused was convicted. The court imposed a sentence of 10 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
     "court": {
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -98,7 +167,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -135,7 +204,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -165,7 +234,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

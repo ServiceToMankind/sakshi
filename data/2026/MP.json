@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -81,7 +81,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -116,7 +116,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -144,7 +144,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 193,
+    "days_since_reported": 194,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",

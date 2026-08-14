@@ -1,0 +1,36 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Chinsurah Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Hooghly",
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-WB-000001",
+    "incident_reported_date": "2026-08-14",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Amar Ujala",
+        "retrieved": "2026-08-14",
+        "source_type": "news_article",
+        "url": "https://www.amarujala.com/cricket/cricket-news/abhishek-porel-bail-plea-rejected-remanded-to-14-days-judicial-custody-2026-08-14"
+      }
+    ],
+    "state": "WB",
+    "status": "UNDER_TRIAL",
+    "summary": "A court in Hooghly rejected the bail plea of a man accused of rape. The court sent the accused to fourteen days of judicial custody.",
+    "title": "Chinsurah court denies bail to rape accused",
+    "verification_note": "The source confirms the rejection of the accused's bail plea in a rape case by the Chinsurah Court in Hooghly.",
+    "verified": true
+  }
+]

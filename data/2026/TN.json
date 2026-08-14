@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -42,5 +42,31 @@
     "title": "Aggravated penetrative assault on a child — Tiruvarur (2026)",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 13,
+    "district": "Unknown",
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-TN-000002",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-08-14",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/sexual-harassment-of-4-year-old-girl-grandmother-hacks-worker-with-sickle",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Unknown, Tamil Nadu (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
   }
 ]
