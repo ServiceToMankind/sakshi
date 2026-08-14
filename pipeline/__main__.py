@@ -1411,7 +1411,11 @@ def run(
             f"id collision: {len(write_result.id_collisions)} record(s) quarantined to _review "
             f"(shared id(s) {colliding}); one kept per id, no duplicate shipped",
         )
-        review = [*review, *write_result.id_collisions]
+        # _write_review expects {"reason", "record"} entries — wrap the raw colliding records.
+        review = [
+            *review,
+            *({"reason": "id_collision", "record": r} for r in write_result.id_collisions),
+        ]
     _write_review(review, data_dir, run_date)
     _write_merge_review(write_result.records, data_dir, run_date)
     _write_coverage(write_result.records, data_dir, run_date)

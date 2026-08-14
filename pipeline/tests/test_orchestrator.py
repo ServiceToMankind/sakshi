@@ -2739,3 +2739,16 @@ def test_fetch_all_skips_a_failing_source(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setattr(orchestrator, "build_sources", lambda *a, **k: [_Bad(), _Good()])
     docs, _prefilter = asyncio.run(orchestrator._fetch_all(None, "2026-01-01"))  # type: ignore[arg-type]
     assert [d.url for d in docs] == ["https://ex.invalid/ok"]  # bad skipped, good kept
+
+
+def test_id_collision_records_write_to_review_with_a_reason(tmp_path: Path) -> None:
+    """Regression: a quarantined id-collision must reach _write_review as {"reason","record"},
+    not a bare record (which raised KeyError: 'reason' and aborted the run)."""
+    collisions = [
+        {"id": "SKS-2026-DL-000009", "state": "DL", "category": "pocso", "minor_involved": True}
+    ]
+    review = [{"reason": "id_collision", "record": r} for r in collisions]
+    orchestrator._write_review(review, tmp_path, "2026-08-14")
+    payload = json.loads((tmp_path / "_review" / "review-2026-08-14.json").read_text())
+    assert payload[0]["reason"] == "id_collision"
+    assert payload[0]["record"]["id"] == "SKS-2026-DL-000009"
