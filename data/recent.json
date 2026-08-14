@@ -1,5 +1,24 @@
 [
   {
+    "id": "SKS-2026-TR-000001",
+    "title": "Police investigate abduction and rape of college [occupation withheld] in West Tripura",
+    "summary": "Unknown attackers abducted and raped [occupation withheld] in West Tripura. Police are investigating the incident, but no arrests have been made.",
+    "state": "TR",
+    "district": "West Tripura",
+    "category": "rape",
+    "status": "UNKNOWN",
+    "offence_sections": [],
+    "incident_reported_date": "2026-08-13",
+    "days_since_reported": 0,
+    "minor_involved": false,
+    "publisher": "Hindustan Times",
+    "verified": true,
+    "first_published": "2026-08-13",
+    "last_status_change": null,
+    "source_tier": 3,
+    "traced_to_court": null
+  },
+  {
     "id": "SKS-2026-OD-000001",
     "title": "Police register case after woman gangraped by six men in Cuttack",
     "summary": "Six men allegedly assaulted a woman and her friend before gangraping her in Cuttack district. Police have registered a case and are searching for the accused.",
@@ -9,6 +28,7 @@
     "status": "FIR_FILED",
     "offence_sections": [],
     "incident_reported_date": "2026-08-12",
+    "days_since_reported": 1,
     "minor_involved": false,
     "publisher": "The Times of India",
     "verified": true,
@@ -31,6 +51,7 @@
       "POCSO 5(L)"
     ],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Madras High Court",
     "verified": true,
@@ -49,6 +70,7 @@
     "status": "FIR_FILED",
     "offence_sections": [],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Namasthe Telangana",
     "verified": true,
@@ -70,6 +92,7 @@
       "POCSO 4"
     ],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
@@ -88,6 +111,7 @@
     "status": "UNKNOWN",
     "offence_sections": [],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Hindustan Times",
     "verified": true,
@@ -116,6 +140,7 @@
       "POCSO 12"
     ],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Madhya Pradesh High Court",
     "verified": true,
@@ -136,6 +161,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -154,6 +180,7 @@
     "status": "UNKNOWN",
     "offence_sections": [],
     "incident_reported_date": "2026-08",
+    "days_since_reported": 12,
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -174,6 +201,7 @@
       "BNS 74"
     ],
     "incident_reported_date": "2026-07-25",
+    "days_since_reported": 19,
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
@@ -194,6 +222,7 @@
       "IPC 376"
     ],
     "incident_reported_date": "2026-07-23",
+    "days_since_reported": 21,
     "minor_involved": false,
     "publisher": "The Indian Express",
     "verified": true,
@@ -214,6 +243,7 @@
       "BNS 63"
     ],
     "incident_reported_date": "2026-07-23",
+    "days_since_reported": 21,
     "minor_involved": false,
     "publisher": "The Hindu",
     "verified": true,
@@ -235,6 +265,7 @@
       "IPC 375"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -257,6 +288,7 @@
       "IPC 376"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -277,6 +309,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -297,6 +330,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -320,6 +354,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "Telangana High Court",
     "verified": true,
@@ -338,6 +373,7 @@
     "status": "FIR_FILED",
     "offence_sections": [],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": true,
@@ -358,6 +394,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
@@ -378,6 +415,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Hindu",
     "verified": false,
@@ -400,12 +438,32 @@
       "IPC 354"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
     "first_published": "2026-07-15",
     "last_status_change": null,
     "source_tier": 3,
+    "traced_to_court": null
+  },
+  {
+    "id": "SKS-2026-MP-000005",
+    "title": "Child sexual offence — Indore (2026)",
+    "summary": "A case of child sexual offence in Indore, Madhya Pradesh (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "MP",
+    "district": "Indore",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [],
+    "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
+    "minor_involved": true,
+    "publisher": "Madhya Pradesh High Court",
+    "verified": true,
+    "first_published": "2026-08-13",
+    "last_status_change": null,
+    "source_tier": 1,
     "traced_to_court": null
   },
   {
@@ -416,17 +474,14 @@
     "district": "Ratlam",
     "category": "pocso",
     "status": "UNDER_TRIAL",
-    "offence_sections": [
-      "POCSO 2020",
-      "1971",
-      "2003"
-    ],
+    "offence_sections": [],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "Madhya Pradesh High Court",
     "verified": true,
     "first_published": "2026-08-12",
-    "last_status_change": null,
+    "last_status_change": "2026-08-13",
     "source_tier": 1,
     "traced_to_court": null
   },
@@ -440,6 +495,7 @@
     "status": "UNDER_TRIAL",
     "offence_sections": [],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": false,
@@ -461,6 +517,7 @@
       "POCSO 30"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -481,6 +538,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -506,6 +564,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2026-07",
+    "days_since_reported": 43,
     "minor_involved": true,
     "publisher": "The Indian Express",
     "verified": true,
@@ -527,6 +586,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2026-03",
+    "days_since_reported": 165,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -551,6 +611,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2026-03",
+    "days_since_reported": 165,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -577,6 +638,7 @@
       "POCSO 8"
     ],
     "incident_reported_date": "2026-03",
+    "days_since_reported": 165,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -605,6 +667,7 @@
       "3(1)(W)(I)"
     ],
     "incident_reported_date": "2026-02",
+    "days_since_reported": 193,
     "minor_involved": true,
     "publisher": "Madhya Pradesh High Court",
     "verified": true,
@@ -627,6 +690,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2026-02",
+    "days_since_reported": 193,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -650,6 +714,7 @@
       "POCSO 8"
     ],
     "incident_reported_date": "2026-02",
+    "days_since_reported": 193,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -673,6 +738,7 @@
       "BNS 70(2)"
     ],
     "incident_reported_date": "2025-12",
+    "days_since_reported": 255,
     "minor_involved": true,
     "publisher": "Punjab-Haryana High Court",
     "verified": true,
@@ -696,6 +762,7 @@
       "BNS 115(2)"
     ],
     "incident_reported_date": "2025-09-30",
+    "days_since_reported": 317,
     "minor_involved": false,
     "publisher": "Madras High Court",
     "verified": true,
@@ -720,6 +787,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2025-05",
+    "days_since_reported": 469,
     "minor_involved": true,
     "publisher": "Punjab-Haryana High Court",
     "verified": true,
@@ -743,6 +811,7 @@
       "POCSO 8"
     ],
     "incident_reported_date": "2024-06",
+    "days_since_reported": 803,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -765,6 +834,7 @@
       "POCSO 4"
     ],
     "incident_reported_date": "2023-02",
+    "days_since_reported": 1289,
     "minor_involved": true,
     "publisher": "Punjab-Haryana High Court",
     "verified": true,
@@ -788,10 +858,65 @@
       "POCSO 33"
     ],
     "incident_reported_date": "2022-08",
+    "days_since_reported": 1473,
     "minor_involved": true,
     "publisher": "Punjab-Haryana High Court",
     "verified": true,
     "first_published": "2026-08-12",
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
+  },
+  {
+    "id": "SKS-2022-TN-000003",
+    "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2022)",
+    "summary": "A case of aggravated penetrative assault on a child in Thiruvannamalai was recorded. A weapon or threat was involved. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TN",
+    "district": "Thiruvannamalai",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "IPC 450",
+      "IPC 376(2)(N)",
+      "IPC 366",
+      "IPC 506(1)",
+      "POCSO 5(L)",
+      "POCSO 6(1)",
+      "POCSO 5(J)(II)"
+    ],
+    "incident_reported_date": "2022-07",
+    "days_since_reported": 1504,
+    "minor_involved": true,
+    "publisher": "Madras High Court",
+    "verified": true,
+    "first_published": "2026-08-13",
+    "last_status_change": null,
+    "source_tier": 1,
+    "traced_to_court": null
+  },
+  {
+    "id": "SKS-2022-TN-000002",
+    "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2022)",
+    "summary": "A case of aggravated penetrative assault on a child in Thiruvannamalai, Tamil Nadu (2022). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "state": "TN",
+    "district": "Thiruvannamalai",
+    "category": "pocso",
+    "status": "UNDER_TRIAL",
+    "offence_sections": [
+      "IPC 450",
+      "IPC 376(2)(N)",
+      "IPC 366",
+      "IPC 506(1)",
+      "POCSO 5(L)",
+      "POCSO 6(1)",
+      "POCSO 5(J)(II)"
+    ],
+    "incident_reported_date": "2022-07",
+    "days_since_reported": 1504,
+    "minor_involved": true,
+    "publisher": "Madras High Court",
+    "verified": true,
+    "first_published": "2026-08-13",
     "last_status_change": null,
     "source_tier": 1,
     "traced_to_court": null
@@ -816,6 +941,7 @@
       "POCSO 10"
     ],
     "incident_reported_date": "2022-04",
+    "days_since_reported": 1595,
     "minor_involved": true,
     "publisher": "Madras High Court",
     "verified": true,
@@ -841,6 +967,7 @@
       "IPC 376AB"
     ],
     "incident_reported_date": "2021-11",
+    "days_since_reported": 1746,
     "minor_involved": true,
     "publisher": "Madhya Pradesh High Court",
     "verified": true,
@@ -860,11 +987,11 @@
     "offence_sections": [
       "IPC 341",
       "IPC 354(B)",
-      "POCSO 2012",
       "IPC 376AB",
       "IPC 511"
     ],
     "incident_reported_date": "2021-05",
+    "days_since_reported": 1930,
     "minor_involved": true,
     "publisher": "Madras High Court",
     "verified": true,
@@ -890,6 +1017,7 @@
       "3(1)(W)(I)"
     ],
     "incident_reported_date": "2021-05",
+    "days_since_reported": 1930,
     "minor_involved": true,
     "publisher": "Punjab-Haryana High Court",
     "verified": true,
@@ -912,6 +1040,7 @@
       "IPC 363"
     ],
     "incident_reported_date": "2019-04",
+    "days_since_reported": 2691,
     "minor_involved": true,
     "publisher": "Jharkhand High Court",
     "verified": true,
@@ -937,6 +1066,7 @@
       "IPC 363"
     ],
     "incident_reported_date": "2019-01",
+    "days_since_reported": 2781,
     "minor_involved": true,
     "publisher": "Madras High Court",
     "verified": true,
@@ -960,6 +1090,7 @@
       "POCSO 6"
     ],
     "incident_reported_date": "2018-07",
+    "days_since_reported": 2965,
     "minor_involved": true,
     "publisher": "Madhya Pradesh High Court",
     "verified": true,
@@ -980,6 +1111,7 @@
       "POCSO"
     ],
     "incident_reported_date": "2018",
+    "days_since_reported": null,
     "minor_involved": true,
     "publisher": "Delhi High Court",
     "verified": true,
@@ -989,101 +1121,25 @@
     "traced_to_court": null
   },
   {
-    "id": "SKS-2017-TN-000001",
-    "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2017)",
-    "summary": "Two people were accused of the aggravated penetrative assault on a child in Thiruvannamalai. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
+    "id": "SKS-2017-TN-000002",
+    "title": "Aggravated penetrative assault on a child — Coimbatore (2017)",
+    "summary": "One person was accused of the aggravated penetrative assault on a child in Coimbatore. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
     "state": "TN",
-    "district": "Thiruvannamalai",
+    "district": "Coimbatore",
     "category": "pocso",
     "status": "CONVICTED",
     "offence_sections": [
-      "IPC 451",
-      "IPC 354",
-      "POCSO 9(G)",
-      "POCSO 10",
-      "IPC 376(D)",
-      "IPC 511",
-      "POCSO 5(G)",
+      "POCSO 5(L)",
+      "POCSO 5(J)(II)",
       "POCSO 6",
-      "POCSO 18",
-      "IPC 506(II)"
+      "IPC 506(I)"
     ],
-    "incident_reported_date": "2017-04",
+    "incident_reported_date": "2017-05",
+    "days_since_reported": 3391,
     "minor_involved": true,
     "publisher": "Madras High Court",
     "verified": true,
-    "first_published": "2026-08-12",
-    "last_status_change": null,
-    "source_tier": 1,
-    "traced_to_court": null
-  },
-  {
-    "id": "SKS-2016-DL-000001",
-    "title": "Sexual assault of a child — Shahdara (2016)",
-    "summary": "Two people were arrested in Shahdara for the sexual assault of a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
-    "state": "DL",
-    "district": "Shahdara",
-    "category": "pocso",
-    "status": "CONVICTED",
-    "offence_sections": [
-      "IPC 354",
-      "IPC 354A",
-      "POCSO 10",
-      "POCSO 21"
-    ],
-    "incident_reported_date": "2016-08",
-    "minor_involved": true,
-    "publisher": "Delhi High Court",
-    "verified": true,
-    "first_published": "2026-08-12",
-    "last_status_change": null,
-    "source_tier": 1,
-    "traced_to_court": null
-  },
-  {
-    "id": "SKS-2014-ML-000001",
-    "title": "Sexual assault of a child — West Garo Hills (2014)",
-    "summary": "Three people were arrested in West Garo Hills for the sexual assault of a child. Bail was granted. Identifying details are withheld by law (POCSO s.23).",
-    "state": "ML",
-    "district": "West Garo Hills",
-    "category": "pocso",
-    "status": "UNDER_TRIAL",
-    "offence_sections": [
-      "IPC 354",
-      "IPC 34",
-      "IPC 376",
-      "POCSO 9",
-      "POCSO 10"
-    ],
-    "incident_reported_date": "2014-01",
-    "minor_involved": true,
-    "publisher": "High Court of Meghalaya",
-    "verified": true,
-    "first_published": "2026-08-12",
-    "last_status_change": null,
-    "source_tier": 1,
-    "traced_to_court": null
-  },
-  {
-    "id": "SKS-2014-HR-000001",
-    "title": "Aggravated penetrative assault on a child — Palwal (2014)",
-    "summary": "One person was arrested in Palwal for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
-    "state": "HR",
-    "district": "Palwal",
-    "category": "pocso",
-    "status": "CONVICTED",
-    "offence_sections": [
-      "IPC 376",
-      "IPC 376(2)(I)(J)(K)(N)",
-      "IPC 506",
-      "POCSO 4",
-      "POCSO 6"
-    ],
-    "incident_reported_date": "2014-01",
-    "minor_involved": true,
-    "publisher": "Punjab-Haryana High Court",
-    "verified": true,
-    "first_published": "2026-08-12",
+    "first_published": "2026-08-13",
     "last_status_change": null,
     "source_tier": 1,
     "traced_to_court": null

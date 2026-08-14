@@ -1,7 +1,7 @@
 [
   {
     "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "state": "MP",
@@ -42,97 +42,6 @@
       "verified": false,
       "title": "Aggravated penetrative assault on a child — Chhindwara (2026)",
       "summary": "One person was accused of the aggravated penetrative assault on a child in Chhindwara. The accused was convicted. An appeal was filed. The court imposed a sentence of 7 years. Identifying details are withheld by law (POCSO s.23)."
-    }
-  },
-  {
-    "reasons": [
-      "verify_incomplete"
-    ],
-    "record": {
-      "fir_ref": {
-        "station": "All Women Police Station Central, Coimbatore",
-        "number": "2/2017"
-      },
-      "state": "TN",
-      "district": "Coimbatore",
-      "incident_reported_date": "2017-05",
-      "offence_sections": [
-        "POCSO 5(L)",
-        "POCSO 5(J)(II)",
-        "POCSO 6",
-        "IPC 506(I)"
-      ],
-      "category": "pocso",
-      "minor_involved": true,
-      "status": "CONVICTED",
-      "accused_count": 1,
-      "weapon_or_threat": true,
-      "institutional_actions": [
-        "chargesheet_filed",
-        "convicted",
-        "appeal_filed"
-      ],
-      "court": {
-        "name": "Madras High Court",
-        "next_hearing": null
-      },
-      "confidence": 0.95,
-      "sources": [
-        {
-          "url": "https://indiankanoon.org/doc/82843941/",
-          "publisher": "Madras High Court",
-          "source_type": "court",
-          "retrieved": "2026-08-12"
-        }
-      ],
-      "verified": false,
-      "title": "Aggravated penetrative assault on a child — Coimbatore (2017)",
-      "summary": "One person was accused of the aggravated penetrative assault on a child in Coimbatore. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
-    }
-  },
-  {
-    "reasons": [
-      "verify_incomplete"
-    ],
-    "record": {
-      "fir_ref": {
-        "station": "Vanapuram Police Station",
-        "number": "147 of 2022"
-      },
-      "state": "TN",
-      "district": "Thiruvannamalai",
-      "incident_reported_date": "2022-07",
-      "offence_sections": [
-        "IPC 450",
-        "IPC 376(2)(N)",
-        "IPC 366",
-        "IPC 506(1)",
-        "POCSO 5(L)",
-        "POCSO 6(1)",
-        "POCSO 5(J)(II)"
-      ],
-      "category": "pocso",
-      "minor_involved": true,
-      "status": "UNDER_TRIAL",
-      "institutional_actions": [
-        "chargesheet_filed"
-      ],
-      "court": {
-        "name": "High Court of Judicature at Madras",
-        "next_hearing": null
-      },
-      "confidence": 1.0,
-      "sources": [
-        {
-          "url": "https://indiankanoon.org/doc/133566175/",
-          "publisher": "Madras High Court",
-          "source_type": "court",
-          "retrieved": "2026-08-12"
-        }
-      ],
-      "verified": false,
-      "title": "Aggravated penetrative assault on a child — Thiruvannamalai (2022)",
-      "summary": "A case of aggravated penetrative assault on a child in Thiruvannamalai, Tamil Nadu (2022). The case is under trial. Identifying details are withheld by law (POCSO s.23)."
     }
   },
   {
@@ -235,7 +144,7 @@
   },
   {
     "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "state": "MP",
@@ -293,6 +202,146 @@
         }
       ],
       "verified": false
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "cnr": "HRKH01-008267-2022",
+      "fir_ref": {
+        "station": "Kalayat",
+        "number": "395"
+      },
+      "state": "HR",
+      "district": "Kaithal",
+      "incident_reported_date": "2022-10",
+      "offence_sections": [
+        "IPC 365",
+        "IPC 366",
+        "IPC 376",
+        "IPC 376(3)",
+        "IPC 302",
+        "IPC 201",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "arrest_made",
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Punjab and Haryana High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/29815661/",
+          "publisher": "Punjab-Haryana High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-13"
+        }
+      ],
+      "verified": false,
+      "title": "Aggravated penetrative assault on a child — Kaithal (2022)",
+      "summary": "One person was arrested in Kaithal for the aggravated penetrative assault on a child. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Pichhore",
+        "number": "288/2013"
+      },
+      "state": "MP",
+      "district": "Shivpuri",
+      "incident_reported_date": "2013-07",
+      "offence_sections": [
+        "IPC 376",
+        "POCSO 3",
+        "POCSO 4"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "repeat_offence": true,
+      "institutional_actions": [
+        "arrest_made",
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Madhya Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/86538586/",
+          "publisher": "Madhya Pradesh High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-13"
+        }
+      ],
+      "verified": false,
+      "title": "Penetrative assault on a child — Shivpuri (2013)",
+      "summary": "One person was arrested in Shivpuri for the penetrative assault on a child. The accused is recorded as a repeat offender. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "cnr": "DLHC010265592026",
+      "fir_ref": {
+        "station": "Maidan Garhi",
+        "number": "201/2021"
+      },
+      "state": "DL",
+      "district": "Delhi",
+      "offence_sections": [
+        "IPC 376",
+        "POCSO 6",
+        "POCSO 9",
+        "POCSO 10",
+        "POCSO 21"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "court": {
+        "name": "High Court of Delhi"
+      },
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://delhihighcourt.nic.in/app/showFileJudgment/60810082026BA23342026_172642.pdf",
+          "publisher": "Delhi High Court",
+          "source_type": "court",
+          "retrieved": "2026-08-13"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": false,
+      "title": "Aggravated penetrative assault on a child — Delhi (2026)",
+      "summary": "One person was accused of the aggravated penetrative assault on a child in Delhi. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]
