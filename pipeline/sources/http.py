@@ -140,7 +140,16 @@ class PoliteClient:
         attempt = 0
         while True:
             await self._throttle(host)
-            response = await self._client.get(url, headers=headers)
+            try:
+                response = await self._client.get(url, headers=headers)
+            except httpx.TransportError:
+                # Transport-level failure (a peer that closed the connection mid-body /
+                # RemoteProtocolError, a timeout, a reset) — retry like a 5xx, then give up.
+                attempt += 1
+                if attempt > self._max_retries:
+                    raise
+                await self._sleep(self._transport_backoff(attempt))
+                continue
             if response.status_code == 429 or 500 <= response.status_code < 600:
                 attempt += 1
                 if attempt > self._max_retries:
@@ -170,7 +179,14 @@ class PoliteClient:
         attempt = 0
         while True:
             await self._throttle(host)
-            response = await self._client.post(url, data=data or {}, headers=headers or {})
+            try:
+                response = await self._client.post(url, data=data or {}, headers=headers or {})
+            except httpx.TransportError:
+                attempt += 1
+                if attempt > self._max_retries:
+                    raise
+                await self._sleep(self._transport_backoff(attempt))
+                continue
             if response.status_code == 429 or 500 <= response.status_code < 600:
                 attempt += 1
                 if attempt > self._max_retries:
@@ -225,6 +241,11 @@ class PoliteClient:
             if wait > 0:
                 await self._sleep(wait)
         self._last_request[host] = self._clock()
+
+    @staticmethod
+    def _transport_backoff(attempt: int) -> float:
+        """Exponential backoff for a transport error (no response, so no Retry-After)."""
+        return min(config.BACKOFF_BASE_S * 2.0 ** (attempt - 1), config.BACKOFF_MAX_S)
 
     @staticmethod
     def _backoff_seconds(attempt: int, response: httpx.Response) -> float:

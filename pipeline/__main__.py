@@ -136,7 +136,20 @@ async def _fetch_all(
     docs: list[RawDocument] = []
     prefilter: list[dict[str, Any]] = []
     for source in build_sources(client, fetched_at=fetched_at, court_only=court_only):
-        docs.extend(await source.fetch())
+        label = getattr(source, "SOURCE_LABEL", type(source).__name__)
+        try:
+            docs.extend(await source.fetch())
+        except Exception as exc:
+            # One source's failure (a truncated body / RemoteProtocolError, a timeout, a parse
+            # error) must NEVER abort the whole run and discard every other source's documents.
+            # Skip the failing source, keep what the others returned; the run still publishes and
+            # regenerates summary.json with a fresh timestamp. Mirrors the extractor's per-doc
+            # resilience. (This is exactly what stopped the daily scrape for days — issue #171.)
+            print(
+                f"source '{label}' failed, skipping: {type(exc).__name__}: {exc}",
+                file=sys.stderr,
+            )
+            continue
         stats = getattr(source, "stats", None)
         if isinstance(stats, dict) and stats:
             _collect_prefilter(prefilter, source, stats)

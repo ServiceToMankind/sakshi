@@ -163,6 +163,35 @@ def test_retry_exhausted_raises() -> None:
         _run(client.get("https://example.invalid/page"))
 
 
+def test_transport_error_retries_then_succeeds() -> None:
+    """A truncated body / peer-closed connection (RemoteProtocolError) is retried, not fatal."""
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/robots.txt":
+            return httpx.Response(200, text="User-agent: *\nAllow: /")
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise httpx.RemoteProtocolError("peer closed connection", request=request)
+        return httpx.Response(200, text="ok")
+
+    client = _client(handler, max_retries=2)
+    response = _run(client.get("https://example.invalid/page"))
+    assert response is not None and response.status_code == 200
+    assert calls["n"] == 2  # first attempt raised; the retry succeeded
+
+
+def test_transport_error_exhausted_raises() -> None:
+    def handler(request: httpx.Request) -> httpx.Response:
+        if request.url.path == "/robots.txt":
+            return httpx.Response(200, text="User-agent: *\nAllow: /")
+        raise httpx.ConnectError("connection reset", request=request)
+
+    client = _client(handler, max_retries=1)
+    with pytest.raises(httpx.TransportError):
+        _run(client.get("https://example.invalid/page"))
+
+
 def test_no_robots_check_when_disabled_and_context_manager() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, text="ok")
