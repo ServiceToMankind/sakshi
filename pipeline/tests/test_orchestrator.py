@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import asyncio
 import io
 import json
 from pathlib import Path
@@ -2709,3 +2710,32 @@ def test_verify_transient_error_holds_fresh_case_for_review_not_quarantine(
     for review_file in (tmp_path / "_review").glob("review-*.json"):
         for entry in json.loads(review_file.read_text()):
             assert entry["record"].get("cnr") != "C-TRANSIENT"
+
+
+def test_fetch_all_skips_a_failing_source(monkeypatch: pytest.MonkeyPatch) -> None:
+    """One source raising (a truncated body / RemoteProtocolError, a parse error) must NOT abort
+    the whole run or discard the other sources' documents — issue #171 (the daily scrape stalled
+    for days because one source's uncaught network error killed every run)."""
+
+    class _Good:
+        SOURCE_LABEL = "good"
+
+        async def fetch(self) -> list[RawDocument]:
+            return [
+                RawDocument(
+                    url="https://ex.invalid/ok",
+                    publisher="Good",
+                    fetched_at="2026-01-01",
+                    text="a rape case",
+                )
+            ]
+
+    class _Bad:
+        SOURCE_LABEL = "bad"
+
+        async def fetch(self) -> list[RawDocument]:
+            raise RuntimeError("peer closed connection without sending complete message body")
+
+    monkeypatch.setattr(orchestrator, "build_sources", lambda *a, **k: [_Bad(), _Good()])
+    docs, _prefilter = asyncio.run(orchestrator._fetch_all(None, "2026-01-01"))  # type: ignore[arg-type]
+    assert [d.url for d in docs] == ["https://ex.invalid/ok"]  # bad skipped, good kept

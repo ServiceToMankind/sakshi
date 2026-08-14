@@ -588,5 +588,8 @@ jobs:
             TITLE="Review queue over threshold — ${DATE}"
             BODY="The review queue holds ${{ steps.counts.outputs.review }} records (threshold 20) on ${DATE}, quarantined in data/_review/."
           fi
-          gh issue create --title "$TITLE" --body "$BODY" --label "pipeline" || \
-            echo "Could not open issue (label may be missing); continuing."
+          # Try WITH the label, but never let a missing/renamed label swallow the alert:
+          # fall back to creating the issue with no label so a failure is always surfaced.
+          gh issue create --title "$TITLE" --body "$BODY" --label "pipeline" \
+            || gh issue create --title "$TITLE" --body "$BODY" \
+            || echo "Could not open issue; continuing."
