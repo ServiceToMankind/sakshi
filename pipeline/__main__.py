@@ -1402,6 +1402,16 @@ def run(
     # ship id=null to recent.json and break the feed's case links.
     _write_recent(write_result.records, data_dir)
     _write_needs_review(needs_review_items, data_dir)
+    # A record pulled from publish because a DISTINCT case claimed the same id (the supervised
+    # split class) is quarantined for human resolution — the run no longer aborts on it (#171).
+    if write_result.id_collisions:
+        colliding = sorted({str(r.get("id", "")) for r in write_result.id_collisions})
+        _log(
+            report,
+            f"id collision: {len(write_result.id_collisions)} record(s) quarantined to _review "
+            f"(shared id(s) {colliding}); one kept per id, no duplicate shipped",
+        )
+        review = [*review, *write_result.id_collisions]
     _write_review(review, data_dir, run_date)
     _write_merge_review(write_result.records, data_dir, run_date)
     _write_coverage(write_result.records, data_dir, run_date)
