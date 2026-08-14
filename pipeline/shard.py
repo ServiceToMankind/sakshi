@@ -64,6 +64,11 @@ class WriteResult:
     # Callers that need the canonical published form (e.g. the recent-feed writer) must
     # use this, NOT the pre-write input, whose freshly-minted records have no id yet.
     records: list[dict[str, Any]] = field(default_factory=list)
+    # Records pulled from the publish set because a DISTINCT case resolved to an id another
+    # record also claimed (an anchor/serial collision — the "supervised split" class). One
+    # record keeps the id; these are quarantined so no duplicate id ever ships and the run
+    # still completes. The caller routes them to data/_review for human resolution.
+    id_collisions: list[dict[str, Any]] = field(default_factory=list)
 
 
 def _anchor_keys(record: dict[str, Any]) -> list[str]:
@@ -427,6 +432,45 @@ def _assert_unique_ids(records: list[dict[str, Any]]) -> None:
         raise ValueError(f"duplicate ids assigned to distinct cases: {dupes}")
 
 
+def _collision_keep_rank(record: dict[str, Any]) -> tuple[int, int, int]:
+    """Higher sorts first when choosing which of several id-colliding records to KEEP.
+
+    Prefer the court-anchored record (the re-checkable one), then a verified one, then the
+    more-populated one. A final stable text tie-break (applied by the caller) keeps the choice
+    deterministic across runs. This never *resolves* the split — it only picks a keeper so one
+    id ships; the losers are quarantined for a human.
+    """
+    court = 1 if any(s.get("source_type") == "court" for s in record.get("sources") or []) else 0
+    verified = 1 if record.get("verified") else 0
+    return (court, verified, len(record))
+
+
+def _resolve_id_collisions(
+    records: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Split ``records`` into ``(unique_by_id, quarantined)``.
+
+    When two DISTINCT cases were assigned the same id (an anchor/serial collision), keeping both
+    would ship a duplicate id — which breaks case links and double-counts. Instead of aborting
+    the whole run (the old behaviour, which froze the site for days), keep exactly one record per
+    id and hand the rest back to be quarantined for human resolution. Deterministic, so a given
+    input always yields the same keeper.
+    """
+    by_id: dict[str, list[dict[str, Any]]] = {}
+    for record in records:
+        by_id.setdefault(str(record.get("id", "")), []).append(record)
+    kept: list[dict[str, Any]] = []
+    quarantined: list[dict[str, Any]] = []
+    for group in by_id.values():
+        if len(group) == 1:
+            kept.append(group[0])
+            continue
+        ordered = sorted(group, key=lambda r: (_collision_keep_rank(r), _dumps(r)), reverse=True)
+        kept.append(ordered[0])
+        quarantined.extend(ordered[1:])
+    return kept, quarantined
+
+
 def _validate_all(records: list[dict[str, Any]]) -> None:
     schema = load_schema()
     errors: list[str] = []
@@ -656,6 +700,12 @@ def write_shards(
         records, data_dir, run_date, reserve=reserve
     )
 
+    # Two distinct cases can resolve to the same id (an anchor/serial collision — the supervised
+    # split class). Keep one per id and quarantine the rest so no duplicate id ships AND the run
+    # still completes; the caller routes the quarantined records to _review. _assert_unique_ids
+    # then stands as a defence-in-depth invariant that must always hold after this.
+    finalized, id_collisions = _resolve_id_collisions(finalized)
+
     # --- All gates run BEFORE any file is written. ---
     _assert_unique_ids(finalized)
     _validate_all(finalized)
@@ -713,6 +763,7 @@ def write_shards(
         traced_to_court=traced,
         shards=[entry["path"] for entry in manifest],
         records=finalized,
+        id_collisions=id_collisions,
     )
 
 

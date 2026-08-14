@@ -382,16 +382,37 @@ def test_distinct_courts_get_distinct_ids(tmp_path: Path) -> None:
     assert len(ids) == 2  # anon key includes court -> no collision
 
 
-def test_duplicate_explicit_ids_raise(tmp_path: Path) -> None:
+def test_duplicate_ids_are_quarantined_not_fatal(tmp_path: Path) -> None:
+    # Two DISTINCT cases (different CNRs) resolving to the same id: keep one, quarantine the
+    # other — the run no longer aborts (#171), and no duplicate id is ever written.
+    result = write_shards(
+        [
+            _record(cnr="C-1", id="SKS-2026-TG-000001"),
+            _record(cnr="C-2", id="SKS-2026-TG-000001"),
+        ],
+        tmp_path,
+        run_date="2026-07-09",
+    )
+    published_ids = [r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())]
+    assert published_ids == ["SKS-2026-TG-000001"]  # exactly one shipped
+    assert result.published == 1
+    assert [r["id"] for r in result.id_collisions] == ["SKS-2026-TG-000001"]  # the other parked
+
+
+def test_resolve_id_collisions_prefers_the_court_anchored_keeper() -> None:
+    from pipeline.shard import _resolve_id_collisions
+
+    media = {"id": "X", "sources": [{"source_type": "news_article"}]}
+    court = {"id": "X", "sources": [{"source_type": "court"}]}
+    kept, quarantined = _resolve_id_collisions([media, court])
+    assert kept == [court] and quarantined == [media]
+
+
+def test_assert_unique_ids_still_raises_as_defence() -> None:
+    from pipeline.shard import _assert_unique_ids
+
     with pytest.raises(ValueError, match="duplicate ids"):
-        write_shards(
-            [
-                _record(cnr="C-1", id="SKS-2026-TG-000001"),
-                _record(cnr="C-2", id="SKS-2026-TG-000001"),
-            ],
-            tmp_path,
-            run_date="2026-07-09",
-        )
+        _assert_unique_ids([{"id": "SKS-2026-TG-000001"}, {"id": "SKS-2026-TG-000001"}])
 
 
 def test_read_existing_raises_on_corrupt_shard(tmp_path: Path) -> None:
