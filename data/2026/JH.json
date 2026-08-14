@@ -1,12 +1,53 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 13,
+    "district": "Dumka",
+    "fir_ref": {
+      "number": "198/2025",
+      "station": "Dumka Town"
+    },
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-JH-000007",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 96",
+      "BNS 65(1)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/119254446/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Dumka for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Dumka (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 3,
     "category": "pocso",
     "confidence": 1.0,
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 165,
+    "days_since_reported": 166,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -49,7 +90,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 165,
+    "days_since_reported": 166,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -92,7 +133,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 165,
+    "days_since_reported": 166,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -127,9 +168,92 @@
     "category": "pocso",
     "confidence": 1.0,
     "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 166,
+    "district": "Garhwa",
+    "fir_ref": {
+      "number": "103/2025",
+      "station": "Dandai"
+    },
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-JH-000006",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 127(2)",
+      "BNS 115(2)",
+      "BNS 117(2)",
+      "BNS 64",
+      "BNS 332(B)",
+      "BNS 331(6)",
+      "BNS 351(2)",
+      "POCSO 4",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/117351378/"
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in Garhwa for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Garhwa (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Jharkhand at Ranchi"
+    },
+    "days_since_reported": 166,
+    "district": "Ranchi",
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-JH-000008",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "convicted",
+      "bail_denied",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376(D)",
+      "POCSO 6"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-08-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/31833199/"
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "A case of aggravated penetrative assault on a child in Ranchi was recorded. Bail was denied. The accused was convicted. An appeal was filed. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Ranchi (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 193,
+    "days_since_reported": 194,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -172,7 +296,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 193,
+    "days_since_reported": 194,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",

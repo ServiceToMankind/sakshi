@@ -46,56 +46,7 @@
   },
   {
     "reasons": [
-      "verify_incomplete"
-    ],
-    "record": {
-      "fir_ref": {
-        "station": "Dandai",
-        "number": "103/2025"
-      },
-      "state": "JH",
-      "district": "Garhwa",
-      "incident_reported_date": "2026-03",
-      "offence_sections": [
-        "BNS 127(2)",
-        "BNS 115(2)",
-        "BNS 117(2)",
-        "BNS 64",
-        "BNS 332(B)",
-        "BNS 331(6)",
-        "BNS 351(2)",
-        "POCSO 4",
-        "POCSO 6"
-      ],
-      "category": "pocso",
-      "minor_involved": true,
-      "status": "UNDER_TRIAL",
-      "accused_count": 1,
-      "institutional_actions": [
-        "arrest_made",
-        "bail_denied"
-      ],
-      "court": {
-        "name": "Jharkhand High Court",
-        "next_hearing": null
-      },
-      "confidence": 1.0,
-      "sources": [
-        {
-          "url": "https://indiankanoon.org/doc/117351378/",
-          "publisher": "Jharkhand High Court",
-          "source_type": "court",
-          "retrieved": "2026-08-12"
-        }
-      ],
-      "verified": false,
-      "title": "Aggravated penetrative assault on a child — Garhwa (2026)",
-      "summary": "One person was arrested in Garhwa for the aggravated penetrative assault on a child. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
-    }
-  },
-  {
-    "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "cnr": "DLHC012885792016",
@@ -206,57 +157,7 @@
   },
   {
     "reasons": [
-      "verify_incomplete"
-    ],
-    "record": {
-      "cnr": "HRKH01-008267-2022",
-      "fir_ref": {
-        "station": "Kalayat",
-        "number": "395"
-      },
-      "state": "HR",
-      "district": "Kaithal",
-      "incident_reported_date": "2022-10",
-      "offence_sections": [
-        "IPC 365",
-        "IPC 366",
-        "IPC 376",
-        "IPC 376(3)",
-        "IPC 302",
-        "IPC 201",
-        "POCSO 6"
-      ],
-      "category": "pocso",
-      "minor_involved": true,
-      "status": "APPEAL_PENDING",
-      "accused_count": 1,
-      "institutional_actions": [
-        "arrest_made",
-        "chargesheet_filed",
-        "convicted",
-        "appeal_filed"
-      ],
-      "court": {
-        "name": "Punjab and Haryana High Court",
-        "next_hearing": null
-      },
-      "confidence": 0.95,
-      "sources": [
-        {
-          "url": "https://indiankanoon.org/doc/29815661/",
-          "publisher": "Punjab-Haryana High Court",
-          "source_type": "court",
-          "retrieved": "2026-08-13"
-        }
-      ],
-      "verified": false,
-      "title": "Aggravated penetrative assault on a child — Kaithal (2022)",
-      "summary": "One person was arrested in Kaithal for the aggravated penetrative assault on a child. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
-    }
-  },
-  {
-    "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "fir_ref": {
@@ -302,7 +203,7 @@
   },
   {
     "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "cnr": "DLHC010265592026",

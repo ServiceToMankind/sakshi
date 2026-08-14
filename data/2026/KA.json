@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Bengaluru",
+    "first_published": "2026-08-14",
+    "id": "SKS-2026-KA-000001",
+    "incident_reported_date": "2026-08-14",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/prajwal-moved-to-general-cell-after-phone-found-in-prison-101786649643416.html"
+      }
+    ],
+    "state": "KA",
+    "status": "CONVICTED",
+    "summary": "A former member of parliament serving a life sentence for rape was shifted to a general cell in Bengaluru. Prison authorities moved him after finding a mobile phone and a pen drive during a raid.",
+    "title": "Former MP shifted to general prison cell in Bengaluru",
+    "verification_note": "The source confirms the rape case and conviction status of the accused in Bengaluru, Karnataka.",
+    "verified": true
+  }
+]

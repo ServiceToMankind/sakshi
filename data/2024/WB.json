@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 735,
+    "district": "Kolkata",
+    "first_published": "2026-08-14",
+    "id": "SKS-2024-WB-000001",
+    "incident_reported_date": "2024-08-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/eggs-muck-hurled-at-ex-tmc-mla-nirmal-ghosh-after-arrest-for-hurried-cremation-in-rg-kar-case-101786703435302.html"
+      }
+    ],
+    "state": "WB",
+    "status": "UNKNOWN",
+    "summary": "A former politician was arrested for allegedly using his influence to rush the cremation of a rape-murder victim. The incident took place in Kolkata. He allegedly ordered the cremation against the family's wishes.",
+    "title": "Former politician arrested over hurried cremation in RG Kar case",
+    "verification_note": "The source refers to events related to the widely reported RG Kar Hospital rape-murder case in Kolkata, West Bengal.",
+    "verified": true
+  }
+]
