@@ -1,5 +1,52 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC011021232025",
+    "confidence": 1.0,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3574,
+    "district": "New Delhi",
+    "fir_ref": {
+      "number": "419/2016",
+      "station": "Sagar Pur"
+    },
+    "first_published": "2026-08-15",
+    "id": "SKS-2016-DL-000002",
+    "incident_reported_date": "2016-11",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 6",
+      "POCSO 8",
+      "POCSO 10",
+      "IPC 376(2)(I)"
+    ],
+    "sentence_years": 14,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-15",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/130122058/"
+      }
+    ],
+    "state": "DL",
+    "status": "APPEAL_PENDING",
+    "summary": "One person was arrested in New Delhi for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. The court imposed a sentence of 14 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — New Delhi (2016)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "confidence": 1.0,
@@ -7,7 +54,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 3665,
+    "days_since_reported": 3666,
     "district": "Shahdara",
     "fir_ref": {
       "number": "678/2016",
