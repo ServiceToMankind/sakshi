@@ -1,6 +1,6 @@
 {
-  "aggravated_total": 32,
-  "generated_at": "2026-08-14T00:00:00Z",
+  "aggravated_total": 33,
+  "generated_at": "2026-08-15T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -38,6 +38,17 @@
       "under_trial_pct": 25
     },
     {
+      "acquittals": 1,
+      "convictions": 1,
+      "district": "New Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 0,
       "convictions": 1,
       "district": "Thiruvannamalai",
@@ -47,17 +58,6 @@
       "total": 3,
       "under_trial": 2,
       "under_trial_pct": 67
-    },
-    {
-      "acquittals": 1,
-      "convictions": 1,
-      "district": "New Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -131,10 +131,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 318,
+        "days": 319,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 318,
+      "median_pending_days": 319,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -586,12 +586,8 @@
     }
   ],
   "scale": {
-    "cumulative_total": 64,
+    "cumulative_total": 65,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-17"
-      },
       {
         "count": 0,
         "date": "2026-04-18"
@@ -1067,12 +1063,16 @@
       {
         "count": 10,
         "date": "2026-08-14"
+      },
+      {
+        "count": 1,
+        "date": "2026-08-15"
       }
     ],
     "this_week": 45
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 23,
+    "Aggravated penetrative assault on a child": 24,
     "Assault to outrage modesty": 2,
     "Child sexual offence": 8,
     "Gang rape": 1,
@@ -1083,7 +1083,7 @@
     "Sexual assault of a child": 3
   },
   "state_counts": {
-    "DL": 10,
+    "DL": 11,
     "HR": 7,
     "JH": 10,
     "KA": 1,
@@ -1099,7 +1099,7 @@
   },
   "status_counts": {
     "ACQUITTED": 2,
-    "APPEAL_PENDING": 8,
+    "APPEAL_PENDING": 9,
     "CONVICTED": 12,
     "FIR_FILED": 11,
     "QUASHED": 1,
@@ -1108,11 +1108,11 @@
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 318,
+      "days_since_reported": 319,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     }
   ],
-  "total": 64
+  "total": 65
 }
