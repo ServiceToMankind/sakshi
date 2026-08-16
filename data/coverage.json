@@ -1,9 +1,9 @@
 {
-  "generated": "2026-08-15",
+  "generated": "2026-08-16",
   "trackability": {
-    "total": 65,
-    "court_anchored": 30,
-    "rate": 0.4615
+    "total": 68,
+    "court_anchored": 31,
+    "rate": 0.4559
   },
   "states_covered": 15,
   "states_total": 36,
@@ -121,7 +121,7 @@
     },
     "MP": {
       "active_sources": 0,
-      "records": 7,
+      "records": 8,
       "declared_gap": false
     },
     "MZ": {
@@ -176,7 +176,7 @@
     },
     "UP": {
       "active_sources": 0,
-      "records": 2,
+      "records": 4,
       "declared_gap": false
     },
     "UT": {
