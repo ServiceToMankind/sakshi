@@ -1,0 +1,34 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "POCSO Court"
+    },
+    "days_since_reported": 1142,
+    "district": "Ballia",
+    "first_published": "2026-08-16",
+    "id": "SKS-2023-UP-000001",
+    "incident_reported_date": "2023-07",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sentence_years": 25,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-16",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/pocso-court-sentences-minor-boy-to-25-years-for-abducting-13-year-old-girl-2484633",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "UP",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Ballia. The accused was convicted. The court imposed a sentence of 25 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Ballia (2023)",
+    "verified": true
+  }
+]
