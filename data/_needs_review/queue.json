@@ -1,0 +1,30 @@
+[
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Erode",
+      "incident_reported_date": "2026-08-17",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "title": "Sexual assault reported in Erode district",
+      "summary": "An individual was sexually assaulted in Erode district. No details about the suspect or legal action are available in the initial report.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.dailythanthi.com/news/tamilnadu/elderly-woman-raped-in-remote-hill-village-anthiyur",
+          "publisher": "Daily Thanthi",
+          "source_type": "news_article",
+          "retrieved": "2026-08-17",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": false
+    }
+  }
+]

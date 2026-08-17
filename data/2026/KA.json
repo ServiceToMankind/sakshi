@@ -1,9 +1,38 @@
 [
   {
+    "accused_count": 7,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Unknown",
+    "first_published": "2026-08-17",
+    "id": "SKS-2026-KA-000002",
+    "incident_reported_date": "2026-08-17",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-17",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/7-held-in-karnataka-over-rape-abortion-of-woman-with-mental-illness-police-101786878743912.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "FIR_FILED",
+    "summary": "Police arrested seven people in Karnataka for the rape and forced abortion of a woman. The accused allegedly gave the woman abortion pills to terminate her pregnancy.",
+    "title": "Seven arrested in Karnataka for rape and forced abortion",
+    "verification_note": "The source confirms the arrest of multiple individuals in Karnataka for a rape offence.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",
