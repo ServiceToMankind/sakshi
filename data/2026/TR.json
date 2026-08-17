@@ -2,7 +2,7 @@
   {
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "West Tripura",
     "first_published": "2026-08-13",
     "id": "SKS-2026-TR-000001",
@@ -25,5 +25,32 @@
     "verification_note": "The source describes a specific alleged rape case in West Tripura, which is consistent with the candidate record.",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "accused_count": 6,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 16,
+    "district": "Gomati",
+    "first_published": "2026-08-17",
+    "id": "SKS-2026-TR-000002",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-17",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/minor-gang-raped-six-including-four-minors-held-in-tripura-police-101786875503045.html"
+      }
+    ],
+    "state": "TR",
+    "status": "FIR_FILED",
+    "summary": "Six people were arrested in Gomati for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Gomati (2026)",
+    "verified": true
   }
 ]

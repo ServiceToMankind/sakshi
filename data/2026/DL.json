@@ -1,13 +1,42 @@
 [
   {
     "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Delhi",
+    "first_published": "2026-08-17",
+    "id": "SKS-2026-DL-000013",
+    "incident_reported_date": "2026-08-17",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-17",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/drugged-threatened-to-be-killed-delhi-woman-raped-twice-by-man-she-befriended-on-social-media-101786890356940.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "A man allegedly drugged and raped a woman twice in Delhi. He threatened to kill her during the incident. No police or court actions are reported in the text.",
+    "title": "Man allegedly rapes woman in Delhi after drugging her",
+    "verification_note": "The source confirms a specific rape case reported in Delhi.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "harassment",
     "cnr": "DLHC010096292026",
     "confidence": 1.0,
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "New Delhi",
     "fir_ref": {
       "number": "28/2023",
@@ -43,7 +72,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -73,7 +102,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -104,7 +133,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "New Delhi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-DL-000012",
@@ -136,7 +165,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -167,7 +196,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -204,7 +233,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -234,7 +263,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

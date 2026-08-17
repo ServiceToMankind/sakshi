@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -47,7 +47,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
