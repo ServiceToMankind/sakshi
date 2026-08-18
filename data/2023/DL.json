@@ -1,0 +1,44 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010285972026",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Delhi"
+    },
+    "days_since_reported": 1113,
+    "district": "South Delhi",
+    "fir_ref": {
+      "number": "226/2023",
+      "station": "Safdarjung Enclave"
+    },
+    "first_published": "2026-08-18",
+    "id": "SKS-2023-DL-000001",
+    "incident_reported_date": "2023-08",
+    "institutional_actions": [
+      "arrest_made",
+      "suspension_ordered",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 506",
+      "POCSO 10"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-18",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59214082026CCP11322026_181600.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "ACQUITTED",
+    "summary": "One person was arrested in South Delhi for the sexual assault of a child. An official was suspended over the case. The accused was acquitted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — South Delhi (2023)",
+    "verified": true
+  }
+]

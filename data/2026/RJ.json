@@ -1,0 +1,28 @@
+[
+  {
+    "accused_count": 1,
+    "category": "harassment",
+    "confidence": 0.9,
+    "days_since_reported": 17,
+    "district": "Unknown",
+    "first_published": "2026-08-18",
+    "id": "SKS-2026-RJ-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-18",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/principals-face-blackened-with-ink-by-school-girls-in-rajasthan-over-molestation-charges-101786965106548.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "RJ",
+    "status": "UNKNOWN",
+    "summary": "A case of sexual harassment involving a minor in Unknown, Rajasthan (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual harassment involving a minor — Unknown (2026)",
+    "verified": true
+  }
+]
