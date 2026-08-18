@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 16,
+    "days_since_reported": 17,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -47,7 +47,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 16,
+    "days_since_reported": 17,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -67,6 +67,34 @@
     "status": "UNKNOWN",
     "summary": "A case of child sexual offence in Unknown, Tamil Nadu (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 17,
+    "district": "Salem",
+    "first_published": "2026-08-18",
+    "id": "SKS-2026-TN-000003",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-08-18",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/salem-4-arrested-for-gang-raping-13-year-old-girl-after-giving-her-alcohol",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "Four people were arrested in Salem for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Salem (2026)",
     "verified": true
   }
 ]
