@@ -1,6 +1,6 @@
 {
   "aggravated_total": 34,
-  "generated_at": "2026-08-18T00:00:00Z",
+  "generated_at": "2026-08-19T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -142,10 +142,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 322,
+        "days": 323,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 322,
+      "median_pending_days": 323,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -371,6 +371,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "RJ",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Bhupalpally",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "TG",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -662,17 +673,13 @@
       "month": "2026-07"
     },
     {
-      "count": 21,
+      "count": 22,
       "month": "2026-08"
     }
   ],
   "scale": {
-    "cumulative_total": 74,
+    "cumulative_total": 75,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-21"
-      },
       {
         "count": 0,
         "date": "2026-04-22"
@@ -1148,14 +1155,18 @@
       {
         "count": 3,
         "date": "2026-08-18"
+      },
+      {
+        "count": 1,
+        "date": "2026-08-19"
       }
     ],
-    "this_week": 54
+    "this_week": 26
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 25,
     "Assault to outrage modesty": 2,
-    "Child sexual offence": 8,
+    "Child sexual offence": 9,
     "Gang rape": 1,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
@@ -1173,7 +1184,7 @@
     "OD": 1,
     "PB": 1,
     "RJ": 1,
-    "TG": 11,
+    "TG": 12,
     "TN": 11,
     "TR": 2,
     "UP": 4,
@@ -1182,7 +1193,7 @@
   "status_counts": {
     "ACQUITTED": 3,
     "APPEAL_PENDING": 9,
-    "CONVICTED": 13,
+    "CONVICTED": 14,
     "FIR_FILED": 15,
     "QUASHED": 1,
     "UNDER_TRIAL": 23,
@@ -1190,11 +1201,11 @@
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 322,
+      "days_since_reported": 323,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     }
   ],
-  "total": 74
+  "total": 75
 }

@@ -6,7 +6,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -36,7 +36,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Madhapur"
@@ -63,9 +63,43 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "Bhupalpally District Court"
+    },
+    "days_since_reported": 18,
+    "district": "Bhupalpally",
+    "first_published": "2026-08-19",
+    "id": "SKS-2026-TG-000012",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-19",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/judge-jeevan-kumar-delivered-a-verdict-sentencing-the-accused-to-20-years-of-rigorous-imprisonment-in-a-case-2487535"
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Bhupalpally. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Bhupalpally (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -92,7 +126,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -119,7 +153,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -148,7 +182,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -175,7 +209,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -202,7 +236,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -232,7 +266,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -262,7 +296,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -290,7 +324,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",
