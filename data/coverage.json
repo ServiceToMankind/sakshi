@@ -1,9 +1,9 @@
 {
-  "generated": "2026-08-18",
+  "generated": "2026-08-19",
   "trackability": {
-    "total": 74,
+    "total": 75,
     "court_anchored": 32,
-    "rate": 0.4324
+    "rate": 0.4267
   },
   "states_covered": 16,
   "states_total": 36,
@@ -161,7 +161,7 @@
     },
     "TG": {
       "active_sources": 4,
-      "records": 11,
+      "records": 12,
       "declared_gap": false
     },
     "TN": {
