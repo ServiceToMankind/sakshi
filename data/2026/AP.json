@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 19,
+    "district": "Unknown",
+    "first_published": "2026-08-20",
+    "id": "SKS-2026-AP-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-20",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/father-rapes-daughter-forces-abortion-then-sells-baby-after-raping-her-again-in-chhattisgarhs-raipur-2488282",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AP",
+    "status": "UNKNOWN",
+    "summary": "Two people were accused of the child sexual offence in Unknown. A weapon or threat was involved. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
