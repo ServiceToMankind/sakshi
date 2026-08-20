@@ -1,0 +1,58 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 19,
+    "district": "Nagpur",
+    "first_published": "2026-08-20",
+    "id": "SKS-2026-MH-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-20",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/exserviceman-running-nagpur-military-school-held-for-sexual-abuse-of-minors-cops-101787153940864.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MH",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Nagpur for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Nagpur (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 19,
+    "district": "Pune",
+    "first_published": "2026-08-20",
+    "id": "SKS-2026-MH-000002",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-20",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/9yrold-girl-sexually-assaulted-murdered-in-pune-neighbour-held-govt-assures-strict-action-101787118575342.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MH",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Pune for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Pune (2026)",
+    "verified": true
+  }
+]

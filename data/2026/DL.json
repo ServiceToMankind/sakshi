@@ -2,8 +2,52 @@
   {
     "accused_count": 1,
     "category": "rape",
+    "cnr": "DLHC010264512026",
+    "confidence": 1.0,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "South West",
+    "fir_ref": {
+      "number": "159/2026",
+      "station": "Vasant Kunj North"
+    },
+    "first_published": "2026-08-20",
+    "id": "SKS-2026-DL-000014",
+    "incident_reported_date": "2026-08-20",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_granted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 506"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-20",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/60818082026BA23032026_175359.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "An accused allegedly established sexual relations with a colleague under a false promise of marriage in Delhi. The Delhi High Court granted bail to the accused. The police have already filed a chargesheet, and the trial is ongoing.",
+    "title": "Delhi High Court grants bail in marriage promise rape case",
+    "verification_note": "The candidate record is consistent with the High Court order concerning a bail application in a rape case under IPC Sections 376 and 506.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Delhi",
     "first_published": "2026-08-17",
     "id": "SKS-2026-DL-000013",
@@ -36,7 +80,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 5,
+    "days_since_reported": 6,
     "district": "New Delhi",
     "fir_ref": {
       "number": "28/2023",
@@ -72,7 +116,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -102,7 +146,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -133,7 +177,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "New Delhi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-DL-000012",
@@ -165,7 +209,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -196,7 +240,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -233,7 +277,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -263,7 +307,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

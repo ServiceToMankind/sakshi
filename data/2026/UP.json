@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -27,7 +27,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -56,7 +56,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

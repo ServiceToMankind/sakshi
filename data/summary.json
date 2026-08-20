@@ -1,6 +1,6 @@
 {
-  "aggravated_total": 34,
-  "generated_at": "2026-08-19T00:00:00Z",
+  "aggravated_total": 35,
+  "generated_at": "2026-08-20T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -142,10 +142,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 323,
+        "days": 324,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 323,
+      "median_pending_days": 324,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -160,6 +160,17 @@
       "pre_chargesheet": 1,
       "state": "UP",
       "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Unknown",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "AP",
+      "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
     },
@@ -184,6 +195,20 @@
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "South West",
+      "longest_pending": {
+        "days": 0,
+        "id": "SKS-2026-DL-000014"
+      },
+      "median_pending_days": 0,
+      "state": "DL",
+      "total": 1,
+      "under_trial": 1,
+      "under_trial_pct": 100
     },
     {
       "acquittals": 0,
@@ -232,6 +257,17 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Jamtara",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "JH",
+      "total": 1,
+      "under_trial": 1,
+      "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Seraikela Kharsawan",
       "longest_pending": null,
       "median_pending_days": null,
@@ -259,6 +295,30 @@
       "median_pending_days": null,
       "pre_chargesheet": 1,
       "state": "KA",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Nagpur",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "MH",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Pune",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "MH",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -629,7 +689,7 @@
       "month": "2025-08"
     },
     {
-      "count": 1,
+      "count": 2,
       "month": "2025-09"
     },
     {
@@ -673,17 +733,13 @@
       "month": "2026-07"
     },
     {
-      "count": 22,
+      "count": 26,
       "month": "2026-08"
     }
   ],
   "scale": {
-    "cumulative_total": 75,
+    "cumulative_total": 80,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-22"
-      },
       {
         "count": 0,
         "date": "2026-04-23"
@@ -1159,26 +1215,32 @@
       {
         "count": 1,
         "date": "2026-08-19"
+      },
+      {
+        "count": 5,
+        "date": "2026-08-20"
       }
     ],
     "this_week": 26
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 25,
+    "Aggravated penetrative assault on a child": 26,
     "Assault to outrage modesty": 2,
     "Child sexual offence": 9,
     "Gang rape": 1,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
-    "Rape": 4,
+    "Rape": 5,
     "Rape of a minor": 3,
     "Sexual assault of a child": 4
   },
   "state_counts": {
-    "DL": 13,
+    "AP": 1,
+    "DL": 14,
     "HR": 7,
-    "JH": 10,
+    "JH": 11,
     "KA": 2,
+    "MH": 2,
     "ML": 1,
     "MP": 8,
     "OD": 1,
@@ -1194,18 +1256,24 @@
     "ACQUITTED": 3,
     "APPEAL_PENDING": 9,
     "CONVICTED": 14,
-    "FIR_FILED": 15,
+    "FIR_FILED": 17,
     "QUASHED": 1,
-    "UNDER_TRIAL": 23,
-    "UNKNOWN": 10
+    "UNDER_TRIAL": 25,
+    "UNKNOWN": 11
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 323,
+      "days_since_reported": 324,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
+    },
+    {
+      "days_since_reported": 0,
+      "district": "South West",
+      "id": "SKS-2026-DL-000014",
+      "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 75
+  "total": 80
 }
