@@ -1,12 +1,45 @@
 [
   {
+    "accused_count": 33,
+    "category": "other",
+    "confidence": 0.9,
+    "court": {
+      "name": "Special court",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Hyderabad",
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-TG-000013",
+    "incident_reported_date": "2026-08-21",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-08-21",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/telangana/special-court-convicts-33-persons-in-human-trafficking-sexual-exploitation-case-in-hyderabad/article71366029.ece"
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "A special court in Hyderabad convicted 33 people for human trafficking and sexual exploitation. The court delivered the verdict after concluding the trial.",
+    "title": "Hyderabad special court convicts 33 in sexual exploitation case",
+    "verification_note": "The source confirms the conviction of 33 individuals in a human trafficking and sexual exploitation case in Hyderabad.",
+    "verified": true
+  },
+  {
     "category": "pocso",
     "confidence": 0.9,
     "court": {
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -36,7 +69,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Madhapur"
@@ -69,7 +102,7 @@
     "court": {
       "name": "Bhupalpally District Court"
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Bhupalpally",
     "first_published": "2026-08-19",
     "id": "SKS-2026-TG-000012",
@@ -99,7 +132,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -126,7 +159,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -153,7 +186,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -182,7 +215,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -209,7 +242,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -236,7 +269,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -266,7 +299,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -296,7 +329,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -324,7 +357,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",

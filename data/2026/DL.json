@@ -8,7 +8,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "South West",
     "fir_ref": {
       "number": "159/2026",
@@ -45,9 +45,50 @@
   },
   {
     "accused_count": 1,
+    "category": "harassment",
+    "cnr": "DLHC010115952026",
+    "confidence": 1.0,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 1,
+    "district": "East",
+    "fir_ref": {
+      "number": "450/2022",
+      "station": "Kalyan Puri"
+    },
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-DL-000015",
+    "incident_reported_date": "2026-08-20",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 354A",
+      "IPC 354D",
+      "IPC 341"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-08-21",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/60820082026CRLMM21972026_180620.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "A man faced charges for stalking and sexual harassment in East Delhi. The police registered a complaint case in 2022. The High Court of Delhi has now quashed the case because the parties settled their disputes.",
+    "title": "Delhi High Court quashes sexual harassment case after compromise",
+    "verification_note": "The Delhi High Court quashed the criminal complaint involving sexual harassment charges after the parties settled their disputes.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Delhi",
     "first_published": "2026-08-17",
     "id": "SKS-2026-DL-000013",
@@ -80,7 +121,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 6,
+    "days_since_reported": 7,
     "district": "New Delhi",
     "fir_ref": {
       "number": "28/2023",
@@ -116,7 +157,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -146,7 +187,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -177,7 +218,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "New Delhi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-DL-000012",
@@ -209,7 +250,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -240,7 +281,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -277,7 +318,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -307,7 +348,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

@@ -26,5 +26,70 @@
       ],
       "verified": false
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "court": {
+        "name": "High Court of Jammu & Kashmir and Ladakh"
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/jk-high-court-upholds-conviction-of-84-year-old-godman-for-rape-of-minor-girl-holds-evidence-sufficient-to-sustain-section-376-rpc-conviction-546682",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-21",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "One person was accused of the child sexual offence in Unknown. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "New Delhi",
+      "incident_reported_date": "2026-08-21",
+      "offence_sections": [],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Supreme Court forms committee to probe alleged molestation of protesters",
+      "summary": "The Supreme Court set up a committee to investigate allegations of police molestation of female protesters. The panel is led by a retired Supreme Court judge. The court ordered an interim report at the earliest.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/supreme-court-forms-5-member-committee-led-by-ex-sc-judge-subhash-reddy-to-probe-student-protest-violence-546666",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-21"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the source reports on a Supreme Court-appointed committee probing allegations of molestation of female protesters."
+    }
   }
 ]

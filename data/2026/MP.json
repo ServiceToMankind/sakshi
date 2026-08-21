@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -81,7 +81,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -116,7 +116,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -143,7 +143,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 172,
+    "days_since_reported": 173,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -184,7 +184,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 200,
+    "days_since_reported": 201,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -220,5 +220,38 @@
     "title": "Rape of a minor — Sagar (2026)",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 232,
+    "district": "Dhar",
+    "fir_ref": {
+      "number": "0009/2026",
+      "station": "Sardapur"
+    },
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-MP-000007",
+    "incident_reported_date": "2026-01",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-08-21",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/37723168/"
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "A case of child sexual offence in Dhar, Madhya Pradesh (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Dhar (2026)",
+    "verified": true
   }
 ]

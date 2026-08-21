@@ -1,9 +1,38 @@
 [
   {
     "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Mumbai",
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-MH-000003",
+    "incident_reported_date": "2026-08-21",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-21",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/mumbai/man-posing-as-transgender-enters-mumbai-flat-rapes-air-hostess-on-pretext-of-curing-evil-eye/articleshow/133383052.cms"
+      }
+    ],
+    "state": "MH",
+    "status": "FIR_FILED",
+    "summary": "A man gained entry to a flat by impersonating a transgender person to perform a ritual. He then sexually assaulted a resident and fled. The police tracked and arrested the accused in Mumbai.",
+    "title": "Mumbai police arrest man for sexually assaulting woman under guise of ritual",
+    "verification_note": "The source describes a specific sexual assault case with facts consistent with the candidate record.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Nagpur",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000001",
@@ -31,7 +60,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Pune",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000002",
