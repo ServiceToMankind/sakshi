@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -47,7 +47,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -73,7 +73,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -95,6 +95,66 @@
     "status": "FIR_FILED",
     "summary": "Four people were arrested in Salem for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Salem (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Tirunelveli POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 20,
+    "district": "Tirunelveli",
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-TN-000004",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-21",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/tirunelveli-pastor-sentenced-to-death-for-sexually-assaulting-four-minor-girls-by-pocso-court-2489186",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Tirunelveli. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tirunelveli (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 20,
+    "district": "UNKNOWN",
+    "first_published": "2026-08-21",
+    "id": "SKS-2026-TN-000005",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-08-21",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/4-minors-sexually-assaulted-priest-sentenced-to-death-vanathi-srinivasan-welcomes",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in UNKNOWN. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — UNKNOWN (2026)",
     "verified": true
   }
 ]
