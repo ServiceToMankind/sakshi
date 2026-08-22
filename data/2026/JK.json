@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 21,
+    "district": "Kishtwar",
+    "first_published": "2026-08-22",
+    "id": "SKS-2026-JK-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made",
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Amar Ujala",
+        "retrieved": "2026-08-22",
+        "source_type": "news_article",
+        "url": "https://www.amarujala.com/jammu/student-in-kishtwar-dies-after-condition-worsens-during-abortion-2026-08-22"
+      }
+    ],
+    "state": "JK",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Kishtwar for the child sexual offence. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kishtwar (2026)",
+    "verified": true
+  }
+]
