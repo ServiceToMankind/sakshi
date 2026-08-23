@@ -1,29 +1,31 @@
 {
-  "generated": "2026-08-22",
+  "generated": "2026-08-23",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
-      "prefilter_skipped": 10,
-      "extracted": 1,
+      "prefilter_skipped": 11,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 2,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.091
+      "prefilter_pass_rate": 0.0
     },
     "Daily Thanthi": {
       "documents": 40,
-      "prefilter_skipped": 40,
-      "extracted": 0,
+      "prefilter_skipped": 38,
+      "extracted": 2,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 3,
+      "published": 4,
       "needs_review": 1,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "id_collision": 1
+      },
+      "prefilter_pass_rate": 0.05
     },
     "Dainik Bhaskar": {
       "documents": 26,
@@ -38,7 +40,7 @@
       "prefilter_pass_rate": 0.154
     },
     "Delhi High Court": {
-      "documents": 11,
+      "documents": 10,
       "prefilter_skipped": 0,
       "extracted": 0,
       "out_of_scope": 0,
@@ -74,28 +76,28 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 15,
+      "documents": 14,
       "prefilter_skipped": 14,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 0,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.067
+      "prefilter_pass_rate": 0.0
     },
     "Hindustan Times": {
       "documents": 100,
-      "prefilter_skipped": 100,
+      "prefilter_skipped": 98,
       "extracted": 0,
-      "out_of_scope": 0,
+      "out_of_scope": 2,
       "failed": 0,
       "published": 12,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "prefilter_pass_rate": 0.02
     },
     "Jharkhand High Court": {
       "documents": 10,
@@ -111,15 +113,15 @@
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 59,
+      "prefilter_skipped": 58,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 2,
       "failed": 0,
       "published": 0,
       "needs_review": 2,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.017
+      "prefilter_pass_rate": 0.033
     },
     "Lokmat": {
       "documents": 10,
@@ -159,18 +161,17 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 197,
-      "extracted": 3,
-      "out_of_scope": 0,
+      "prefilter_skipped": 198,
+      "extracted": 1,
+      "out_of_scope": 1,
       "failed": 0,
       "published": 6,
       "needs_review": 0,
-      "quarantined": 2,
+      "quarantined": 1,
       "quarantine_reasons": {
-        "ambiguous_match": 1,
-        "unknown_state": 1
+        "schema_invalid": 1
       },
-      "prefilter_pass_rate": 0.015
+      "prefilter_pass_rate": 0.01
     },
     "Punjab-Haryana High Court": {
       "documents": 7,
@@ -198,15 +199,15 @@
     },
     "The Hindu": {
       "documents": 120,
-      "prefilter_skipped": 117,
+      "prefilter_skipped": 118,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 9,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.025
+      "prefilter_pass_rate": 0.017
     },
     "The Indian Express": {
       "documents": 0,
@@ -236,11 +237,11 @@
   "court_prefilter": [
     {
       "source": "Delhi High Court",
-      "listed": 425,
-      "fetched": 40,
+      "listed": 0,
+      "fetched": 0,
       "pdf_text_empty": 0,
-      "not_qualifying": 39,
-      "qualifying": 1
+      "not_qualifying": 0,
+      "qualifying": 0
     },
     {
       "source": "High Court of Jammu & Kashmir and Ladakh",

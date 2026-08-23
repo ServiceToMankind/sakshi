@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -46,26 +46,41 @@
   {
     "accused_count": 1,
     "category": "pocso",
-    "confidence": 0.9,
-    "days_since_reported": 21,
+    "confidence": 0.95,
+    "days_since_reported": 22,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
     "incident_reported_date": "2026-08",
-    "institutional_actions": [],
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "last_status_change": "2026-08-23",
     "minor_involved": true,
     "sources": [
       {
         "publisher": "Daily Thanthi",
-        "retrieved": "2026-08-14",
+        "retrieved": "2026-08-23",
         "source_type": "news_article",
-        "url": "https://www.dailythanthi.com/news/tamilnadu/sexual-harassment-of-4-year-old-girl-grandmother-hacks-worker-with-sickle",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/insta-habit-teenager-arrested-for-kidnapping-and-sexually-harassing-girl",
         "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",
-    "status": "UNKNOWN",
-    "summary": "A case of child sexual offence in Unknown, Tamil Nadu (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "status": "FIR_FILED",
+    "status_history": [
+      {
+        "date": "2026-08",
+        "source": 0,
+        "status": "UNKNOWN"
+      },
+      {
+        "date": "2026-08",
+        "source": 0,
+        "status": "FIR_FILED"
+      }
+    ],
+    "summary": "One person was arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Unknown (2026)",
     "verified": true
   },
@@ -73,7 +88,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -105,7 +120,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -133,7 +148,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -155,6 +170,34 @@
     "status": "CONVICTED",
     "summary": "One person was accused of the child sexual offence in UNKNOWN. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — UNKNOWN (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 22,
+    "district": "Thoothukudi",
+    "first_published": "2026-08-23",
+    "id": "SKS-2026-TN-000006",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-08-23",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/life-sentence-for-youth-who-sexually-assaulted-and-murdered-a-girl-in-sathankulam",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Thoothukudi. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Thoothukudi (2026)",
     "verified": true
   }
 ]
