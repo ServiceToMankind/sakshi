@@ -906,6 +906,12 @@
       "last_seen": "2026-07-19",
       "outcome": "not_a_case"
     },
+    "12af9351d40c17ce8b8ccb3dcaefd0ea99ec4160d29ad2ac8f656669078c7a4b": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
+      "outcome": "not_a_case"
+    },
     "12c2874eb9cfdbe3663c8c3c1e4baec179bb87710c2fcddafcfd78bcb45bbefb": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -2340,6 +2346,12 @@
       "last_seen": "2026-08-08",
       "outcome": "not_a_case"
     },
+    "31dd2ecef4ee67b70e7ce19947b5fe394e516cf93cd988162aa63c0c07bc0c56": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
+      "outcome": "not_a_case"
+    },
     "321a858282e292d5ff6c82194342b4e195d73111ef59e82398ff73343c9e80dd": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -2369,6 +2381,12 @@
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
+    },
+    "32ac1f94cc7b8c32ffd0bac27d95aca0c121e7429bfc6c8c31b77200839eb014": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
+      "outcome": "staged_pending"
     },
     "32b95a2a716ba2018921887a264dabc287a96808564e6efd6120c8011aee0b30": {
       "attempts": 0,
@@ -4698,6 +4716,12 @@
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
     },
+    "5d3a3d3929a6f8b347ce46216ea50742dc855374c575f74388380af7995acf60": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
+      "outcome": "staged_pending"
+    },
     "5d401c2f76c8892fd8a286fac58690d9de70c2cf002bb3b6cb5d91647e6757d2": {
       "attempts": 0,
       "first_seen": "2026-07-22",
@@ -4912,6 +4936,12 @@
       "attempts": 0,
       "first_seen": "2026-07-29",
       "last_seen": "2026-07-29",
+      "outcome": "not_a_case"
+    },
+    "61a9e4824fdaa35af7981bb1f58a10e3ab5810e7a5def113695dd4624476c0c0": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
       "outcome": "not_a_case"
     },
     "61c800fe8ad6a5da4c882789fa3a942e303c9b18c13b034f803af8bde5e11ace": {
@@ -5752,6 +5782,12 @@
       "attempts": 0,
       "first_seen": "2026-08-08",
       "last_seen": "2026-08-08",
+      "outcome": "not_a_case"
+    },
+    "718c90fb4e11dfea213d33530bf8247d849c3927fe4dc41b6976713a15a53c72": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
       "outcome": "not_a_case"
     },
     "719c6926c4982358e9b8ea703197ec25a619020171303261bf2145aea96664de": {
@@ -7983,8 +8019,8 @@
     "a0f6903a45422d977c3a94cbf6b1f42ba0024001258039e60685361ad4369ccf": {
       "attempts": 0,
       "first_seen": "2026-08-22",
-      "last_seen": "2026-08-22",
-      "outcome": "staged_pending"
+      "last_seen": "2026-08-23",
+      "outcome": "published"
     },
     "a0f6dabfdd2bc86f808739c3eb90e2e6e132ba3b5dc2134932991ef1fe9099ff": {
       "attempts": 0,
@@ -8284,6 +8320,12 @@
       "attempts": 0,
       "first_seen": "2026-07-24",
       "last_seen": "2026-07-24",
+      "outcome": "not_a_case"
+    },
+    "a85af16037e5aae4a538cf080427b48790e5f10cd786867124eacf88fd5f37a4": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
       "outcome": "not_a_case"
     },
     "a85d4389d922210f858b8636c490146f6db0b37cc5aeeaf1d1cffbd4dadf61ba": {
@@ -8962,6 +9004,12 @@
       "attempts": 0,
       "first_seen": "2026-07-26",
       "last_seen": "2026-07-26",
+      "outcome": "not_a_case"
+    },
+    "b67e3bd5f0047b35c42327ad404a1ec156afe1c6355a02ca3220778d8c0842d6": {
+      "attempts": 0,
+      "first_seen": "2026-08-23",
+      "last_seen": "2026-08-23",
       "outcome": "not_a_case"
     },
     "b69767f13e8405eccee6ec3a44dd43d9ed2308667bfa392fd17ced1eda8828e0": {
@@ -12291,8 +12339,8 @@
     "fa0354e8df93d79d513866861408011b2d7d0c09c6c18e57b80260fdc21d7a9d": {
       "attempts": 0,
       "first_seen": "2026-08-22",
-      "last_seen": "2026-08-22",
-      "outcome": "staged_pending"
+      "last_seen": "2026-08-23",
+      "outcome": "published"
     },
     "fa23e1d6f3b556abe23cab36a9e9831678ee0cd35cd20ea0098f4f0fe35ec2e9": {
       "attempts": 0,
