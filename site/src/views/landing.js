@@ -17,7 +17,10 @@ import {
   categoryLabel,
   formatNumber,
 } from '../format.js';
-import { recentCard } from './parts.js';
+import { recentCard, pagination } from './parts.js';
+
+// Recent-feed cards per page (client-side). Keeps the landing a bounded scroll as the feed fills.
+const FEED_PAGE_SIZE = 10;
 import { scaleDrumbeat } from './scorecards.js';
 
 function notice(kind, key) {
@@ -109,6 +112,8 @@ function recentFeed(records) {
   // no-results <li role="status">) convey the change concisely.
   const list = el('ul', { class: 'feed' });
   const count = el('p', { class: 'muted feed__count', 'aria-live': 'polite' });
+  const pager = el('div', { class: 'recent__pager' });
+  let page = 1;
 
   const allOpt = { value: '', label: t('filter_all') };
   const stateOpts = [
@@ -135,7 +140,10 @@ function recentFeed(records) {
 
   const draw = () => {
     const filtered = records.length ? filterRecent(records, filters) : [];
+    const totalPages = Math.max(1, Math.ceil(filtered.length / FEED_PAGE_SIZE));
+    if (page > totalPages) page = totalPages;
     clear(list);
+    clear(pager);
     if (!records.length) {
       count.textContent = '';
       list.append(
@@ -153,13 +161,22 @@ function recentFeed(records) {
       );
     } else {
       count.textContent = `${filtered.length} ${t('results_count')}`;
-      filtered.forEach((r) => list.append(recentCard(r)));
+      const startIx = (page - 1) * FEED_PAGE_SIZE;
+      filtered.slice(startIx, startIx + FEED_PAGE_SIZE).forEach((r) => list.append(recentCard(r)));
+      const nav = pagination(page, totalPages, (p) => {
+        page = p;
+        draw();
+        list.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+      });
+      if (nav) pager.append(nav);
     }
     applyI18n(list);
+    applyI18n(pager);
   };
 
   const onChange = (key, value) => {
     filters[key] = value;
+    page = 1; // any filter change returns to the first page
     draw();
   };
 
@@ -195,6 +212,7 @@ function recentFeed(records) {
                 filters.status = '';
                 filters.category = '';
                 search.value = '';
+                page = 1;
                 bar.querySelectorAll('select').forEach((s) => (s.value = ''));
                 draw();
               },
@@ -224,6 +242,7 @@ function recentFeed(records) {
     bar,
     count,
     list,
+    pager,
   ]);
 }
 

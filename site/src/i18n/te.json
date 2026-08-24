@@ -17,5 +17,12 @@
   "acct_title": "జవాబుదారీ రికార్డు",
   "acct_cta": "జవాబుదారీ రికార్డును తెరవండి",
   "acct_longest_title": "న్యాయం లేకుండా అత్యధిక కాలం",
-  "jur_col_pre_chargesheet": "% ఛార్జిషీట్‌కు ముందు"
+  "jur_col_pre_chargesheet": "% ఛార్జిషీట్‌కు ముందు",
+  "pager_label": "పేజీ విభజన",
+  "pager_prev": "మునుపటి పేజీ",
+  "pager_next": "తదుపరి పేజీ",
+  "pager_page": "పేజీ",
+  "showing": "చూపిస్తోంది",
+  "of": "లో",
+  "sort_pending": "ఎక్కువ కాలం పెండింగ్"
 }
