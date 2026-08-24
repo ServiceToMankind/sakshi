@@ -497,10 +497,12 @@ jobs:
             exit 1
           fi
           echo "merged PR #$PR into main."
-          # The GITHUB_TOKEN merge will not trigger deploy.yml's push event, so
-          # dispatch it explicitly (workflow_dispatch fires even from GITHUB_TOKEN).
-          gh workflow run deploy.yml --ref main || echo "::warning::deploy dispatch failed; a later run will redeploy."
-          echo "dispatched deploy.yml on main."
+          # The merge is authored by SCRAPE_BOT_TOKEN (a PAT), whose push to main DOES trigger
+          # deploy.yml's `push` event — so we do NOT dispatch a second deploy. Dispatching one
+          # raced the push-deploy and `cancel-in-progress: true` cancelled one of them, leaving a
+          # spurious "cancelled" (red ✗) run on every data commit. The push-deploy alone now runs.
+          # (If SCRAPE_BOT_TOKEN were ever unset, the merge above could not have landed on
+          # protected main via GITHUB_TOKEN in the first place, so there is nothing to cover for.)
 
       # Run logs + the review quarantine (both sanitized) for human inspection.
       - name: Upload run artifacts
