@@ -4128,6 +4128,12 @@
       "last_seen": "2026-07-16",
       "outcome": "out_of_scope"
     },
+    "52ecb93c63a27192a152d7a9cc4c2001edbd20b45be23563febcda7bd4697b2d": {
+      "attempts": 1,
+      "first_seen": "2026-08-24",
+      "last_seen": "2026-08-24",
+      "outcome": "failed"
+    },
     "53054831f492210295e4968f7517db29fa4cdfd4f766d53b2a9f54b9d4ddd662": {
       "attempts": 0,
       "first_seen": "2026-07-30",
