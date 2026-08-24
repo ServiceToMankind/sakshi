@@ -100,6 +100,20 @@ export function categoryLabel(category) {
   return CATEGORY_LABELS[category] || category || '—';
 }
 
+// The statutory withholding sentence every minor summary ends with (mirrors
+// pipeline/sanitize.py MINOR_WITHHELD_SENTENCE). List cards strip it — it repeats identically on
+// every minor card and the "Minor involved" badge already signals it; the case page keeps it as a
+// de-emphasised footnote.
+export const POCSO_WITHHELD_SENTENCE = 'Identifying details are withheld by law (POCSO s.23).';
+
+/** The summary with the statutory POCSO-withholding footnote removed (for compact list cards). */
+export function summaryBody(summary) {
+  const text = String(summary || '').trim();
+  return text.endsWith(POCSO_WITHHELD_SENTENCE)
+    ? text.slice(0, -POCSO_WITHHELD_SENTENCE.length).trim()
+    : text;
+}
+
 export function stateName(code) {
   return STATE_NAMES[code] || code;
 }

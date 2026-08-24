@@ -12,7 +12,14 @@
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
 import { loadCase } from '../data.js';
-import { formatDate, stateName, statusLabel, safeHttpUrl, relativeRecency } from '../format.js';
+import {
+  formatDate,
+  stateName,
+  statusLabel,
+  safeHttpUrl,
+  relativeRecency,
+  POCSO_WITHHELD_SENTENCE,
+} from '../format.js';
 import {
   statusBadge,
   minorBadge,
@@ -27,12 +34,9 @@ import { readAloudButton } from '../read-aloud.js';
 
 const REPO = 'https://github.com/ServiceToMankind/sakshi';
 
-// The statutory withholding sentence a minor's summary always ends with (mirrors
-// pipeline/sanitize.py MINOR_WITHHELD_SENTENCE). It is shown as a de-emphasised FOOTNOTE
-// rather than a sentence inside the summary prose (§6 readability) — display only; the
-// stored record text is unchanged, so the POCSO s.23 projection stands exactly as before.
-const POCSO_WITHHELD_SENTENCE = 'Identifying details are withheld by law (POCSO s.23).';
-
+// The statutory withholding sentence (POCSO_WITHHELD_SENTENCE, shared from format.js) is shown
+// here as a de-emphasised FOOTNOTE rather than a sentence inside the summary prose (§6
+// readability) — display only; the stored record text is unchanged.
 function summaryBodyAndFootnote(summary) {
   const text = String(summary || '').trim();
   if (text.endsWith(POCSO_WITHHELD_SENTENCE)) {

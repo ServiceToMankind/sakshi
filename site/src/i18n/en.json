@@ -58,7 +58,7 @@
   "activity_closed": "Closed",
   "minor_yes": "Yes",
   "minor_no": "No",
-  "sort_pending": "Most days since reported",
+  "sort_pending": "Longest pending",
   "sort_recent": "Most recent",
   "sort_oldest": "Oldest",
   "results_count": "cases",
@@ -147,5 +147,11 @@
   "acct_longest_lead": "Court-anchored cases still waiting for a verdict, counting live from the day each was reported. Only cases whose status can be re-checked appear here.",
   "acct_longest_empty": "No court-anchored pending case is currently tracked — an honest gap, not zero cases.",
   "acct_stalled_text": "of tracked cases are stalled before a chargesheet was filed.",
-  "jur_col_pre_chargesheet": "% pre-chargesheet"
+  "jur_col_pre_chargesheet": "% pre-chargesheet",
+  "pager_label": "Pagination",
+  "pager_prev": "Previous page",
+  "pager_next": "Next page",
+  "pager_page": "Page",
+  "showing": "Showing",
+  "of": "of"
 }

@@ -10,6 +10,7 @@ import {
   formatNumber,
   isActiveStatus,
   relativeRecency,
+  summaryBody,
 } from '../format.js';
 import { severityLabel, severityCode, isAggravated, isRepeatOffender } from '../severity.js';
 import { recordTier, hasCourtSource } from '../tier.js';
@@ -211,7 +212,9 @@ export function recentCard(record) {
           tracingMarker(record),
         ]),
         el('h3', { class: 'feed-card__title' }, record.title || record.id),
-        record.summary ? el('p', { class: 'feed-card__summary' }, record.summary) : null,
+        summaryBody(record.summary)
+          ? el('p', { class: 'feed-card__summary' }, summaryBody(record.summary))
+          : null,
         // Pendency ticker — consistent with the explore card (§3 "days without justice on
         // every court-anchored card"). Null for minors / resolved / media-with-no-days.
         daysTicker(record),
@@ -223,13 +226,15 @@ export function recentCard(record) {
 
 /** A tappable case card linking to the case detail route. */
 export function caseCard(record) {
+  // Compact, scannable meta: district + reported date only. The offence is already stated by the
+  // severity badge (top) and the plain-English summary; the raw charge codes + the statutory
+  // withholding line live on the case page, so a list card never repeats them.
+  const reported = record.incident_reported_date;
   const meta = [
-    el('span', {}, record.district || ''),
-    el('span', {}, categoryLabel(record.category)),
-    (record.offence_sections || []).length
-      ? el('span', {}, (record.offence_sections || []).join(', '))
-      : null,
+    record.district ? el('span', {}, record.district) : null,
+    reported ? el('time', { datetime: String(reported) }, formatDate(reported)) : null,
   ].filter(Boolean);
+  const body = summaryBody(record.summary);
 
   return el('li', { class: 'case-card' }, [
     el(
@@ -246,11 +251,48 @@ export function caseCard(record) {
           repeatOffenderBadge(record.offence_sections),
           record.minor_involved ? minorBadge() : null,
         ]),
-        el('p', { class: 'case-card__summary' }, record.summary || ''),
+        body ? el('p', { class: 'case-card__summary' }, body) : null,
         daysTicker(record),
-        el('div', { class: 'case-card__meta' }, meta),
+        meta.length ? el('div', { class: 'case-card__meta' }, meta) : null,
         el('span', { class: 'case-card__id' }, record.id),
-      ],
+      ].filter(Boolean),
     ),
+  ]);
+}
+
+/**
+ * A windowed pagination control: ‹ 1 … 4 5 6 … 20 ›. Returns null for a single page.
+ * `onSelect(page)` is called with the 1-based target page (the caller navigates or re-renders).
+ */
+export function pagination(current, totalPages, onSelect) {
+  if (totalPages <= 1) return null;
+  const cur = Math.min(Math.max(1, current), totalPages);
+  const pageBtn = (label, page, { disabled = false, isCurrent = false, aria } = {}) =>
+    el(
+      'button',
+      {
+        type: 'button',
+        class: `pager__btn${isCurrent ? ' is-current' : ''}`,
+        disabled: disabled || isCurrent,
+        'aria-current': isCurrent ? 'page' : null,
+        'aria-label': aria || null,
+        onclick: disabled || isCurrent ? null : () => onSelect(page),
+      },
+      label,
+    );
+  // Window: first, last, and cur±1, with … gaps.
+  const nums = [];
+  for (let p = 1; p <= totalPages; p += 1) {
+    if (p === 1 || p === totalPages || (p >= cur - 1 && p <= cur + 1)) nums.push(p);
+    else if (nums[nums.length - 1] !== '…') nums.push('…');
+  }
+  return el('nav', { class: 'pager', 'aria-label': t('pager_label') }, [
+    pageBtn('‹', cur - 1, { disabled: cur <= 1, aria: t('pager_prev') }),
+    ...nums.map((p) =>
+      p === '…'
+        ? el('span', { class: 'pager__gap', 'aria-hidden': 'true' }, '…')
+        : pageBtn(String(p), p, { isCurrent: p === cur, aria: `${t('pager_page')} ${p}` }),
+    ),
+    pageBtn('›', cur + 1, { disabled: cur >= totalPages, aria: t('pager_next') }),
   ]);
 }
