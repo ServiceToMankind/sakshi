@@ -1080,6 +1080,12 @@
       "last_seen": "2026-07-24",
       "outcome": "not_a_case"
     },
+    "1588b068b3a2b1b11fc301a69e21df4f109c954103750beab16d248c9c92656a": {
+      "attempts": 0,
+      "first_seen": "2026-08-25",
+      "last_seen": "2026-08-25",
+      "outcome": "staged_pending"
+    },
     "159c747755090950e16e3693e597411e979dc70777c0fc21aa6e2930d5c01d2f": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -3588,6 +3594,12 @@
       "last_seen": "2026-08-22",
       "outcome": "published"
     },
+    "494daf50d114bf8bc825d7184331375a840f76239dd800c2fa0ad65ae4488ca3": {
+      "attempts": 0,
+      "first_seen": "2026-08-25",
+      "last_seen": "2026-08-25",
+      "outcome": "not_a_case"
+    },
     "49ca589afec776a84d14f9d2d716391e4fe41c16179c0b40e4dcc91614dd80d9": {
       "attempts": 0,
       "first_seen": "2026-07-26",
@@ -4242,6 +4254,12 @@
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
     },
+    "550d89c696abca7bedb7fc892c1da1baae3d3d1bf2bc0139854b1cafa7a61479": {
+      "attempts": 0,
+      "first_seen": "2026-08-25",
+      "last_seen": "2026-08-25",
+      "outcome": "out_of_scope"
+    },
     "550e10f849f564077db038b499b42773b2bc952fd337a4ccca90905892356ea9": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -4871,6 +4889,12 @@
       "first_seen": "2026-07-19",
       "last_seen": "2026-07-19",
       "outcome": "not_a_case"
+    },
+    "5feb169f0dbc61ddad73c8c70ee2c452c47ef2be58c81ae702a0bacc42732769": {
+      "attempts": 0,
+      "first_seen": "2026-08-25",
+      "last_seen": "2026-08-25",
+      "outcome": "staged_pending"
     },
     "5ff2828c0ebfa809e9db0dd234f550918ecfd666b60760fd9224376d1f188d90": {
       "attempts": 0,
@@ -11362,6 +11386,12 @@
       "attempts": 0,
       "first_seen": "2026-07-23",
       "last_seen": "2026-07-23",
+      "outcome": "not_a_case"
+    },
+    "e5d05c4e5be48302939d2e01f69ba377ee33eb8ceae53fa297a069c3f13df6f1": {
+      "attempts": 0,
+      "first_seen": "2026-08-25",
+      "last_seen": "2026-08-25",
       "outcome": "not_a_case"
     },
     "e62d227e08fcf4cdd4bc8f7b0c2bc8f43adc66a71c863d9c4857bed82a830cdb": {
