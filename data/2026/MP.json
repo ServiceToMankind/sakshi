@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -75,13 +75,41 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 24,
+    "district": "Narmadapuram",
+    "first_published": "2026-08-25",
+    "id": "SKS-2026-MP-000008",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-25",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/17yearold-gangraped-in-mp-s-pachmarhi-3-arrested-police-101787584964055.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "Three people were arrested in Narmadapuram for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Narmadapuram (2026)",
+    "verified": true
+  },
+  {
     "category": "pocso",
     "confidence": 0.95,
     "court": {
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -116,7 +144,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -143,7 +171,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 176,
+    "days_since_reported": 177,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -184,7 +212,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 204,
+    "days_since_reported": 205,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -228,7 +256,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 235,
+    "days_since_reported": 236,
     "district": "Dhar",
     "fir_ref": {
       "number": "0009/2026",
