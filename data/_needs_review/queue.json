@@ -1,0 +1,109 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Unknown",
+      "incident_reported_date": "2026-08",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Gauhati High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gauhati-high-court/gauhati-high-court-prosecution-not-prove-appellant-knew-victim-minor-intended-sexual-intercourse-with-minor-547133",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-25"
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "One person was accused of the child sexual offence in Unknown. The accused was acquitted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Prayagraj",
+      "incident_reported_date": "2026-08",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-pocso-minor-victim-swab-kit-dna-lapses-547164",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-25"
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Prayagraj (2026)",
+      "summary": "A case of child sexual offence in Prayagraj, Uttar Pradesh (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Patna",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "acquitted"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Patna High Court",
+        "next_hearing": null
+      },
+      "offence_sections": [
+        "POCSO"
+      ],
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/patna-high-court/patna-high-court-pocso-presumptions-substitute-foundational-facts-presumption-of-innocence-547056",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-25"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Patna (2026)",
+      "summary": "One person was accused of the child sexual offence in Patna. The accused was convicted. The accused was acquitted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23)."
+    }
+  }
+]

@@ -2,7 +2,7 @@
   {
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "West Tripura",
     "first_published": "2026-08-13",
     "id": "SKS-2026-TR-000001",
@@ -30,7 +30,7 @@
     "accused_count": 6,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Gomati",
     "first_published": "2026-08-17",
     "id": "SKS-2026-TR-000002",
