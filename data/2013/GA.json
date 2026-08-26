@@ -1,0 +1,43 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 4661,
+    "district": "North Goa",
+    "first_published": "2026-08-26",
+    "id": "SKS-2013-GA-000001",
+    "incident_reported_date": "2013-11-21",
+    "institutional_actions": [
+      "acquitted",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": false,
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-26",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/news/surrender-within-two-weeks-supreme-court-tells-tarun-2493796"
+      },
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-08-26",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/tarun-tejpal-case-supreme-court-refuses-to-stay-bombay-hc-ruling/article68571024.ece"
+      }
+    ],
+    "state": "GA",
+    "status": "CONVICTED",
+    "summary": "The High Court in North Goa convicted a former media editor and sentenced him to ten years in prison for rape. The Supreme Court of India ordered him to surrender within two weeks.",
+    "title": "Supreme Court orders editor to surrender in Goa rape conviction",
+    "verification_note": "The source confirms the conviction of the accused in a 2013 sexual assault case in Goa, which is consistent with the candidate record.",
+    "verified": true
+  }
+]
