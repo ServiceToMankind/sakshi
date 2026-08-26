@@ -1,0 +1,32 @@
+[
+  {
+    "accused_count": 5,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Vadodara POCSO court"
+    },
+    "days_since_reported": 694,
+    "district": "Vadodara",
+    "first_published": "2026-08-26",
+    "id": "SKS-2024-GJ-000001",
+    "incident_reported_date": "2024-10",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-26",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/prosecution-seeks-death-penalty-for-5-convicts-in-2024-bhayli-gang-rape-case-101787656918824.html"
+      }
+    ],
+    "state": "GJ",
+    "status": "CONVICTED",
+    "summary": "Five people were accused of the child sexual offence in Vadodara. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Vadodara (2024)",
+    "verified": true
+  }
+]

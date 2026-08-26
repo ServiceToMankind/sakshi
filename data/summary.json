@@ -1,6 +1,6 @@
 {
   "aggravated_total": 35,
-  "generated_at": "2026-08-25T00:00:00Z",
+  "generated_at": "2026-08-26T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -153,14 +153,26 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 329,
+        "days": 330,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 329,
+      "median_pending_days": 330,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
       "under_trial_pct": 50
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Unknown",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 2,
+      "state": "TN",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -223,14 +235,36 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 5,
+        "days": 6,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 5,
+      "median_pending_days": 6,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
       "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "North Goa",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "GA",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Vadodara",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "GJ",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -655,18 +689,6 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "Unknown",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
-      "state": "TN",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
       "district": "Gomati",
       "longest_pending": null,
       "median_pending_days": null,
@@ -738,7 +760,7 @@
       "month": "2024-09"
     },
     {
-      "count": 0,
+      "count": 1,
       "month": "2024-10"
     },
     {
@@ -826,17 +848,13 @@
       "month": "2026-07"
     },
     {
-      "count": 36,
+      "count": 37,
       "month": "2026-08"
     }
   ],
   "scale": {
-    "cumulative_total": 91,
+    "cumulative_total": 94,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-04-28"
-      },
       {
         "count": 0,
         "date": "2026-04-29"
@@ -1312,14 +1330,18 @@
       {
         "count": 2,
         "date": "2026-08-25"
+      },
+      {
+        "count": 3,
+        "date": "2026-08-26"
       }
     ],
-    "this_week": 17
+    "this_week": 19
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 26,
     "Assault to outrage modesty": 3,
-    "Child sexual offence": 9,
+    "Child sexual offence": 10,
     "Gang rape": 1,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
@@ -1330,6 +1352,8 @@
   "state_counts": {
     "AP": 1,
     "DL": 16,
+    "GA": 1,
+    "GJ": 1,
     "HR": 7,
     "JH": 11,
     "JK": 1,
@@ -1341,7 +1365,7 @@
     "PB": 1,
     "RJ": 1,
     "TG": 14,
-    "TN": 14,
+    "TN": 15,
     "TR": 2,
     "UP": 4,
     "WB": 2
@@ -1349,25 +1373,25 @@
   "status_counts": {
     "ACQUITTED": 3,
     "APPEAL_PENDING": 9,
-    "CONVICTED": 18,
-    "FIR_FILED": 22,
+    "CONVICTED": 20,
+    "FIR_FILED": 23,
     "QUASHED": 2,
     "UNDER_TRIAL": 25,
     "UNKNOWN": 12
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 329,
+      "days_since_reported": 330,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 5,
+      "days_since_reported": 6,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 91
+  "total": 94
 }

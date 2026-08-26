@@ -105,5 +105,70 @@
       "title": "Child sexual offence — Patna (2026)",
       "summary": "One person was accused of the child sexual offence in Patna. The accused was convicted. The accused was acquitted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GA",
+      "district": "North Goa",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Supreme Court orders former editor to surrender for rape appeal",
+      "summary": "A court in North Goa convicted a media editor of rape. The Supreme Court ordered the editor to surrender within three weeks. The court will hear the appeal against his conviction.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/supreme-court-directs-convict-tarun-tejpal-to-surrender-within-2-weeks-547306",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-26"
+        }
+      ],
+      "incident_reported_date": "2026-08-26",
+      "verified": true,
+      "verification_note": "The source confirms the Supreme Court's proceedings regarding an appeal against a rape conviction in Goa."
+    }
+  },
+  {
+    "reasons": [
+      "confidence_below_auto"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Nalgonda",
+      "offence_sections": [],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "title": "Nursing staff protest alleged harassment by hospital official in Nalgonda",
+      "summary": "Nursing officers in Nalgonda staged a protest on Tuesday. They accused a deputy medical superintendent of harassing them over the last four years. The staff are demanding action against the official.",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/nalgonda/nursing-officers-lash-out-at-dr-nagesh-2493775",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-08-26"
+        }
+      ],
+      "incident_reported_date": "2026-08-26",
+      "verified": true,
+      "verification_note": "The source reports nursing officers protesting against harassment by a hospital official in Nalgonda, Telangana."
+    }
   }
 ]
