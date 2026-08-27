@@ -170,5 +170,74 @@
       "verified": true,
       "verification_note": "The source reports nursing officers protesting against harassment by a hospital official in Nalgonda, Telangana."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "MP",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Madhya Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madhya-pradesh-high-court/madhya-pradesh-high-court-upholds-acquittal-of-man-notes-victim-not-raising-an-alarm-as-highly-unnatural-547547",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-27"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "A case of child sexual offence in Unknown, Madhya Pradesh (2026). The accused was acquitted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "WB",
+      "district": "Kolkata",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "court": {
+        "name": "Calcutta High Court",
+        "next_hearing": null
+      },
+      "offence_sections": [
+        "POCSO"
+      ],
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/calcutta-high-court/minors-consent-cannot-mitigate-sexual-assault-under-pocso-act-calcutta-high-court-upholds-24-yr-old-mans-sentence-547530",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-27",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Kolkata (2026)",
+      "summary": "One person was accused of the child sexual offence in Kolkata. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

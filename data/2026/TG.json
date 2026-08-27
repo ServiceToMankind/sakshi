@@ -1,9 +1,65 @@
 [
   {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Narayanapet",
+    "first_published": "2026-08-27",
+    "id": "SKS-2026-TG-000015",
+    "incident_reported_date": "2026-08-27",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-27",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/miscreants-assault-woman-in-front-of-her-son-in-makthal-2495328",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "UNKNOWN",
+    "summary": "Miscreants sexually assaulted a sleeping woman and mutilated her private parts in Narayanapet. Local police have launched an investigation into the incident.",
+    "title": "Miscreants sexually assault and mutilate woman in Narayanapet",
+    "verification_note": "The source reports a specific case of sexual assault in Narayanapet district, Telangana, which is consistent with the candidate record.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Hyderabad",
+    "first_published": "2026-08-27",
+    "id": "SKS-2026-TG-000016",
+    "incident_reported_date": "2026-08-27",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-27",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/cinema/telugu-director-pavan-sadineni-arrested-by-golconda-police-over-cheating-and-sexual-exploitation-allegations-2495293"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "A film director allegedly sexually harassed a woman under the pretense of offering movie opportunities in Hyderabad. The police arrested the accused, and a court sent him to judicial custody.",
+    "title": "Hyderabad police arrest film director for sexual harassment",
+    "verification_note": "The source confirms the arrest of Telugu director Pavan Sadineni by Golconda police in Hyderabad for sexual harassment.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Yadadri Bhuvanagiri",
     "first_published": "2026-08-22",
     "id": "SKS-2026-TG-000014",
@@ -34,7 +90,7 @@
       "name": "Special court",
       "next_hearing": null
     },
-    "days_since_reported": 5,
+    "days_since_reported": 6,
     "district": "Hyderabad",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TG-000013",
@@ -66,7 +122,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -96,7 +152,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Madhapur"
@@ -129,7 +185,7 @@
     "court": {
       "name": "Bhupalpally District Court"
     },
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Bhupalpally",
     "first_published": "2026-08-19",
     "id": "SKS-2026-TG-000012",
@@ -159,7 +215,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -186,7 +242,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -213,7 +269,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -242,7 +298,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -269,7 +325,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -296,7 +352,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -326,7 +382,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -356,7 +412,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -384,7 +440,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",
