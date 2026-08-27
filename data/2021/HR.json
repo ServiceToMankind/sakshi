@@ -1,5 +1,55 @@
 [
   {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Punjab and Haryana High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1852,
+    "district": "Sonipat",
+    "fir_ref": {
+      "number": "467",
+      "station": "Kundli"
+    },
+    "first_published": "2026-08-27",
+    "id": "SKS-2021-HR-000002",
+    "incident_reported_date": "2021-08",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 6",
+      "IPC 302",
+      "IPC 328",
+      "IPC 376D",
+      "IPC 506",
+      "IPC 120",
+      "IPC 34",
+      "IPC 376DA",
+      "IPC 376AB"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-08-27",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/144236026/"
+      }
+    ],
+    "state": "HR",
+    "status": "APPEAL_PENDING",
+    "summary": "Four people were arrested in Sonipat for the gang rape involving a minor. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape involving a minor — Sonipat (2021)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
@@ -7,7 +57,7 @@
       "name": "Punjab and Haryana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 1943,
+    "days_since_reported": 1944,
     "district": "Palwal",
     "fir_ref": {
       "number": "144/2021",

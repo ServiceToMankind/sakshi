@@ -1,9 +1,34 @@
 [
   {
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Hathras",
+    "first_published": "2026-08-27",
+    "id": "SKS-2026-UP-000004",
+    "incident_reported_date": "2026-08-27",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-27",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/agra/living-in-jail-at-home-for-6-yrs-no-social-life-no-job-hathras-rape-victims-family/articleshow/133545779.cms"
+      }
+    ],
+    "state": "UP",
+    "status": "UNKNOWN",
+    "summary": "The Allahabad High Court ordered the relocation of a family following a rape case in Hathras. The family had faced severe financial distress and isolation under constant security. The relocation aims to provide them with better job opportunities.",
+    "title": "Allahabad HC orders relocation of family in Hathras rape case",
+    "verification_note": "The record is consistent with the source text describing the aftermath of the Hathras rape case in Uttar Pradesh.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -27,7 +52,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -56,7 +81,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",
