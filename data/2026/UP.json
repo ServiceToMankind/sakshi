@@ -2,7 +2,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -28,7 +28,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -52,7 +52,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -81,7 +81,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

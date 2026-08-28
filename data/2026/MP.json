@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -78,7 +78,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Narmadapuram",
     "first_published": "2026-08-25",
     "id": "SKS-2026-MP-000008",
@@ -109,7 +109,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -144,7 +144,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -171,7 +171,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 179,
+    "days_since_reported": 180,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -212,7 +212,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 207,
+    "days_since_reported": 208,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -256,7 +256,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 238,
+    "days_since_reported": 239,
     "district": "Dhar",
     "fir_ref": {
       "number": "0009/2026",

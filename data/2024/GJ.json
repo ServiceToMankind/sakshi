@@ -6,7 +6,7 @@
     "court": {
       "name": "Vadodara POCSO court"
     },
-    "days_since_reported": 695,
+    "days_since_reported": 696,
     "district": "Vadodara",
     "first_published": "2026-08-26",
     "id": "SKS-2024-GJ-000001",
@@ -27,6 +27,34 @@
     "status": "CONVICTED",
     "summary": "Five people were accused of the child sexual offence in Vadodara. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Vadodara (2024)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 737,
+    "district": "Rajkot",
+    "first_published": "2026-08-28",
+    "id": "SKS-2024-GJ-000002",
+    "incident_reported_date": "2024-08-21",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-28",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/rajkot/acquitted-of-2018-rape-murder-man-held-for-rape-murder-again/articleshow/133577373.cms"
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "Police arrested a suspect for allegedly raping and murdering a person in Rajkot district. The suspect is currently in police custody.",
+    "title": "Gujarat police arrest suspect for rape and murder",
+    "verification_note": "The source reports a real rape and murder case in Rajkot, Gujarat, with the arrest of the accused.",
     "verified": true
   }
 ]
