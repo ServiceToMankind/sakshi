@@ -466,6 +466,20 @@ canvas {
 .feed-card__source {
   font-style: italic;
 }
+/* Trust/provenance footer — verification + source tier, de-emphasised below the facts. The
+   badges here render one size smaller so they read as secondary and never dominate the card. */
+.feed-card__provenance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.15rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+.feed-card__provenance .badge {
+  font-size: 0.68rem;
+  padding: 0.1rem 0.45rem;
+}
 
 /* --- Landing: charts (below the feed; collapsed on mobile) --------------- */
 .charts-wrap {

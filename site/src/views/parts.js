@@ -203,13 +203,12 @@ export function recentCard(record) {
         'aria-label': `${record.title || record.id} — ${statusLabel(record.status)}`,
       },
       [
+        // Primary, scannable badges only: judicial status, charge-derived severity, minor flag.
         el('div', { class: 'feed-card__badges' }, [
           statusBadge(record.status),
           severityBadge(record.offence_sections),
           repeatOffenderBadge(record.offence_sections),
           record.minor_involved ? minorBadge() : null,
-          record.verified ? verifiedBadge() : null,
-          tracingMarker(record),
         ]),
         el('h3', { class: 'feed-card__title' }, record.title || record.id),
         summaryBody(record.summary)
@@ -219,9 +218,20 @@ export function recentCard(record) {
         // every court-anchored card"). Null for minors / resolved / media-with-no-days.
         daysTicker(record),
         el('div', { class: 'feed-card__meta' }, meta),
-      ],
+        // Provenance footer, de-emphasised: verification + source tier are trust signals,
+        // secondary to the case facts — so they sit below, not in the scan-line up top. This
+        // also stops the long "not yet traced to a court record" marker from dominating a card
+        // (especially on mobile, where it wrapped to two lines).
+        provenanceRow(record),
+      ].filter(Boolean),
     ),
   ]);
+}
+
+/** The de-emphasised trust/provenance row for a feed card, or null when there is nothing. */
+function provenanceRow(record) {
+  const items = [record.verified ? verifiedBadge() : null, tracingMarker(record)].filter(Boolean);
+  return items.length ? el('div', { class: 'feed-card__provenance' }, items) : null;
 }
 
 /** A tappable case card linking to the case detail route. */
