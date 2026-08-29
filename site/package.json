@@ -20,9 +20,7 @@
     "format": "prettier --write \"src/**/*.{js,json}\" \"styles/**/*.css\" index.html",
     "lighthouse": "lhci autorun"
   },
-  "dependencies": {
-    "chart.js": "^4.4.7"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@lhci/cli": "^0.14.0",

@@ -533,27 +533,32 @@ canvas {
   margin: 0 0 1rem;
   font-size: 1.05rem;
 }
-.donut-wrap {
+/* Status distribution: a horizontal proportional bar + a labelled legend (identity never
+   colour-alone). Hand-built — no charting library. */
+.status-viz {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
-  align-items: center;
 }
-@media (min-width: 40rem) {
-  .donut-wrap {
-    grid-template-columns: 16rem 1fr;
-  }
+.status-bar {
+  display: flex;
+  height: 1.5rem;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
 }
-.donut {
-  position: relative;
-  height: 15rem;
+.status-bar__seg {
+  min-width: 3px; /* a sliver stays visible even for a count of 1 */
+}
+.status-bar__seg + .status-bar__seg {
+  border-left: 2px solid var(--surface); /* 2px surface gap between fills */
 }
 .legend {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.4rem;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.35rem 1rem;
 }
 .legend__item {
   display: grid;
@@ -571,8 +576,37 @@ canvas {
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
 }
+/* 24-month trend area (hand-built SVG). */
 .trend {
-  height: 15rem;
+  display: grid;
+  gap: 0.25rem;
+}
+.trend-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.trend-svg__area {
+  fill: var(--accent-soft);
+}
+.trend-svg__line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.trend-svg__dot {
+  fill: var(--accent);
+  stroke: var(--surface-2);
+  stroke-width: 1.5;
+}
+.trend-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 /* --- State tile-grid ---------------------------------------------------- */

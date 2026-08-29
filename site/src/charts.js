@@ -1,33 +1,13 @@
-// Charts: count-up, a status donut and 24-month trend line (Chart.js, tree-shaken
-// to only the pieces we use), and a hand-built SVG state tile-grid (no heavy geo
-// library). Colors are read from CSS custom properties so charts are theme-aware.
+// Infographics: a count-up, a hand-built SVG state tile-grid, a horizontal status-distribution
+// bar, and a 24-month trend area — all hand-built SVG/HTML (no charting library), so the whole
+// set is light, theme-aware (colors read from CSS custom properties), and renders synchronously
+// with no post-load layout shift.
 
 import { el } from './dom.js';
 import { statusLabel, stateName } from './format.js';
 import { prefersReducedMotion } from './animations.js';
 
-// Chart.js is loaded lazily (its own chunk) so the initial paint — stat tiles and
-// the state tile-grid — is not blocked by charting code.
-let chartPromise = null;
-function getChart() {
-  if (!chartPromise) {
-    chartPromise = import('chart.js').then((m) => {
-      m.Chart.register(
-        m.ArcElement,
-        m.DoughnutController,
-        m.LineController,
-        m.LineElement,
-        m.PointElement,
-        m.LinearScale,
-        m.CategoryScale,
-        m.Filler,
-        m.Tooltip,
-      );
-      return m.Chart;
-    });
-  }
-  return chartPromise;
-}
+const SVG_NS = 'http://www.w3.org/2000/svg';
 
 function cssVar(name, fallback) {
   const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -70,73 +50,89 @@ export function countUp(node, target, durationMs = 900) {
   requestAnimationFrame(tick);
 }
 
-export async function renderDonut(canvas, statusCounts) {
+/**
+ * A horizontal status-distribution bar: one segment per status, width ∝ its share, in the
+ * reserved status palette. Identity is never colour-alone — the accompanying `statusLegend`
+ * labels every segment, and each segment carries a native `<title>` tooltip. Part-to-whole across
+ * many statuses reads more cleanly here than in a donut, and it costs no charting library.
+ */
+export function statusBar(statusCounts) {
   const entries = Object.entries(statusCounts).filter(([, n]) => n > 0);
-  const Chart = await getChart();
-  return new Chart(canvas, {
-    type: 'doughnut',
-    data: {
-      labels: entries.map(([s]) => statusLabel(s)),
-      datasets: [
-        {
-          data: entries.map(([, n]) => n),
-          backgroundColor: entries.map(([s]) => statusColor(s)),
-          borderColor: cssVar('--surface', '#fff'),
-          borderWidth: 2,
-        },
-      ],
-    },
-    options: {
-      cutout: '62%',
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: prefersReducedMotion() ? false : { duration: 700 },
-      plugins: {
-        legend: { display: false },
-        tooltip: { callbacks: { label: (c) => `${c.label}: ${c.formattedValue}` } },
-      },
-    },
-  });
+  // Each segment's flex-grow ∝ its count, so widths are proportional with no total to compute.
+  return el(
+    'div',
+    { class: 'status-bar', role: 'img', 'aria-label': 'Case status distribution' },
+    entries.map(([status, n]) =>
+      el('span', {
+        class: 'status-bar__seg',
+        title: `${statusLabel(status)}: ${n}`,
+        style: `flex-grow:${n};background:${statusColor(status)}`,
+      }),
+    ),
+  );
 }
 
-export async function renderTrend(canvas, monthly) {
-  const accent = cssVar('--accent', '#5b6cff');
-  const Chart = await getChart();
-  return new Chart(canvas, {
-    type: 'line',
-    data: {
-      labels: monthly.map((m) => m.month.slice(2)),
-      datasets: [
-        {
-          data: monthly.map((m) => m.count),
-          borderColor: accent,
-          backgroundColor: cssVar('--accent-soft', 'rgba(91,108,255,0.15)'),
-          fill: true,
-          tension: 0.35,
-          pointRadius: 0,
-          pointHoverRadius: 4,
-          borderWidth: 2,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: prefersReducedMotion() ? false : { duration: 700 },
-      plugins: { legend: { display: false }, tooltip: { intersect: false, mode: 'index' } },
-      scales: {
-        x: {
-          grid: { display: false },
-          ticks: { color: cssVar('--text-muted', '#888'), maxTicksLimit: 8 },
-        },
-        y: {
-          beginAtZero: true,
-          grid: { color: cssVar('--border', '#eee') },
-          ticks: { color: cssVar('--text-muted', '#888'), precision: 0 },
-        },
-      },
-    },
+/**
+ * A 24-month trend as a hand-built SVG area — accent stroke + soft fill, a baseline, a dot on the
+ * latest month, and one invisible hit-column per month carrying a `<title>` (month + count) so the
+ * whole set is hoverable natively with no JS. viewBox units are virtual; CSS sizes it responsively
+ * (non-scaling stroke keeps the line crisp at any width).
+ */
+export function trendChart(monthly) {
+  const data = monthly.map((m) => Number(m.count) || 0);
+  const W = 240;
+  const H = 60;
+  const pad = 4;
+  const n = data.length;
+  const max = Math.max(1, ...data);
+  const xAt = (i) => (n <= 1 ? W / 2 : pad + (i / (n - 1)) * (W - 2 * pad));
+  const yAt = (v) => H - pad - (v / max) * (H - 2 * pad);
+  const pts = data.map((v, i) => `${xAt(i).toFixed(1)},${yAt(v).toFixed(1)}`);
+
+  const svg = document.createElementNS(SVG_NS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('class', 'trend-svg');
+  svg.setAttribute('role', 'img');
+  svg.setAttribute('aria-label', 'Cases entering the record per month, last 24 months');
+
+  if (n > 1) {
+    const area = document.createElementNS(SVG_NS, 'path');
+    area.setAttribute('d', `M${xAt(0)},${H - pad} L${pts.join(' L')} L${xAt(n - 1)},${H - pad} Z`);
+    area.setAttribute('class', 'trend-svg__area');
+    const line = document.createElementNS(SVG_NS, 'path');
+    line.setAttribute('d', `M${pts.join(' L')}`);
+    line.setAttribute('class', 'trend-svg__line');
+    svg.append(area, line);
+  }
+  // Latest-month dot.
+  if (n) {
+    const dot = document.createElementNS(SVG_NS, 'circle');
+    dot.setAttribute('cx', xAt(n - 1));
+    dot.setAttribute('cy', yAt(data[n - 1]));
+    dot.setAttribute('r', 2.5);
+    dot.setAttribute('class', 'trend-svg__dot');
+    svg.append(dot);
+  }
+  // Invisible per-month hit columns with a native tooltip.
+  const colW = n ? (W - 2 * pad) / n : W;
+  monthly.forEach((m, i) => {
+    const hit = document.createElementNS(SVG_NS, 'rect');
+    hit.setAttribute('x', (xAt(i) - colW / 2).toFixed(1));
+    hit.setAttribute('y', '0');
+    hit.setAttribute('width', colW.toFixed(1));
+    hit.setAttribute('height', String(H));
+    hit.setAttribute('fill', 'transparent');
+    const title = document.createElementNS(SVG_NS, 'title');
+    title.textContent = `${m.month}: ${Number(m.count) || 0}`;
+    hit.append(title);
+    svg.append(hit);
   });
+
+  const axis = el('div', { class: 'trend-axis', 'aria-hidden': 'true' }, [
+    el('span', {}, monthly.length ? monthly[0].month : ''),
+    el('span', {}, monthly.length ? monthly[monthly.length - 1].month : ''),
+  ]);
+  return el('div', { class: 'trend' }, [svg, axis]);
 }
 
 // Approximate geographic tile positions [col, row]. Not to scale — a recognizable

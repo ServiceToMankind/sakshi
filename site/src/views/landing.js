@@ -7,7 +7,7 @@
 import { el, clear } from '../dom.js';
 import { t, applyI18n } from '../i18n/index.js';
 import { loadSummary, loadRecent } from '../data.js';
-import { renderDonut, renderTrend, renderStateGrid, statusLegend } from '../charts.js';
+import { statusBar, trendChart, renderStateGrid, statusLegend } from '../charts.js';
 import {
   ACTIVE_STATUSES,
   CLOSED_STATUSES,
@@ -246,25 +246,22 @@ function recentFeed(records) {
   ]);
 }
 
-// --- Charts (below the feed; collapsed by default on mobile) --------------
+// --- Infographics (below the feed; collapsed by default on mobile) ---------
+// All hand-built SVG/HTML — they render synchronously, so there is no canvas to size after mount
+// and no post-load layout shift; the <details> just collapses them on narrow screens.
 function chartsSection(statusCounts, stateCounts, monthly) {
-  const donutCanvas = el('canvas', { 'aria-hidden': 'true' });
-  const trendCanvas = el('canvas', { role: 'img', 'aria-label': t('section_trend') });
   const gridWrap = el('div', { class: 'state-grid-wrap' });
-  renderStateGrid(gridWrap, stateCounts); // synchronous SVG — no post-load layout shift
+  renderStateGrid(gridWrap, stateCounts);
 
   const wide = window.matchMedia?.('(min-width: 48rem)').matches ?? true;
-  const details = el('details', { class: 'charts', open: wide }, [
+  return el('details', { class: 'charts', open: wide }, [
     el('summary', { class: 'charts__summary' }, [
       el('span', { 'data-i18n': 'section_charts' }, t('section_charts')),
     ]),
     el('div', { class: 'charts__body' }, [
       el('section', { class: 'panel' }, [
         el('h3', { class: 'panel__title', 'data-i18n': 'section_status' }, t('section_status')),
-        el('div', { class: 'donut-wrap' }, [
-          el('div', { class: 'donut' }, donutCanvas),
-          statusLegend(statusCounts),
-        ]),
+        el('div', { class: 'status-viz' }, [statusBar(statusCounts), statusLegend(statusCounts)]),
       ]),
       el('section', { class: 'panel' }, [
         el('h3', { class: 'panel__title', 'data-i18n': 'section_states' }, t('section_states')),
@@ -272,26 +269,10 @@ function chartsSection(statusCounts, stateCounts, monthly) {
       ]),
       el('section', { class: 'panel' }, [
         el('h3', { class: 'panel__title', 'data-i18n': 'section_trend' }, t('section_trend')),
-        el('div', { class: 'trend' }, trendCanvas),
+        trendChart(monthly),
       ]),
     ]),
   ]);
-
-  // Canvas charts need a laid-out (non-display:none) canvas to size correctly, so
-  // render them only once the <details> is actually open — immediately when open
-  // at mount (desktop), or on first expand (mobile).
-  let drawn = false;
-  const drawCharts = () => {
-    if (drawn || !details.isConnected) return;
-    drawn = true;
-    renderDonut(donutCanvas, statusCounts);
-    renderTrend(trendCanvas, monthly);
-  };
-  details.addEventListener('toggle', () => {
-    if (details.open) drawCharts();
-  });
-
-  return { details, drawCharts, isOpen: () => details.open };
 }
 
 export async function renderLanding() {
@@ -366,20 +347,8 @@ export async function renderLanding() {
         t('acct_cta'),
       ),
     ]),
-    el('section', { class: 'charts-wrap reveal' }, [charts.details]),
+    el('section', { class: 'charts-wrap reveal' }, [charts]),
   ]);
-
-  // If the charts panel is open at mount (desktop), draw once the node is laid
-  // out. The router mounts inside document.startViewTransition, which defers the
-  // mount past the first frame — so retry (bounded) until the node is connected,
-  // otherwise the desktop donut/trend canvases stay blank at their default size.
-  let tries = 0;
-  const drawWhenReady = () => {
-    if (!charts.isOpen()) return;
-    if (node.isConnected) charts.drawCharts();
-    else if (tries++ < 30) requestAnimationFrame(drawWhenReady);
-  };
-  requestAnimationFrame(drawWhenReady);
 
   return node;
 }
