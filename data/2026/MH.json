@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Mumbai",
     "first_published": "2026-08-21",
     "id": "SKS-2026-MH-000003",
@@ -32,7 +32,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Nagpur",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000001",
@@ -60,7 +60,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Pune",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000002",
@@ -82,6 +82,36 @@
     "status": "FIR_FILED",
     "summary": "One person was arrested in Pune for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Pune (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 28,
+    "district": "Thane",
+    "first_published": "2026-08-29",
+    "id": "SKS-2026-MH-000004",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-08-29",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/maharashtra-ashram-school-cook-accused-of-harassing-22-girls-2496638",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MH",
+    "status": "UNKNOWN",
+    "summary": "One person was accused of the child sexual offence in Thane. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Thane (2026)",
     "verified": true
   }
 ]
