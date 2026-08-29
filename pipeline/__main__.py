@@ -285,10 +285,20 @@ RECENT_FEED_SIZE = 50
 
 
 def _write_recent(records: list[dict[str, Any]], data_dir: Path) -> None:
-    """Write data/recent.json — the latest published records for the landing feed."""
+    """Write data/recent.json — the latest published records for the landing feed.
+
+    Ordered by when a case was LISTED (``first_published`` — write-once, = the run date a new
+    case entered the record), NEWEST FIRST — so the feed is "recently listed", not "recent
+    incident". A backfilled case with an old incident date but a recent listing still surfaces at
+    the top. Ties break on incident date then id, both descending, for a stable order.
+    """
     ordered = sorted(
         records,
-        key=lambda r: (str(r.get("incident_reported_date", "")), str(r.get("id", ""))),
+        key=lambda r: (
+            str(r.get("first_published", "")),
+            str(r.get("incident_reported_date", "")),
+            str(r.get("id", "")),
+        ),
         reverse=True,
     )
     feed = [
