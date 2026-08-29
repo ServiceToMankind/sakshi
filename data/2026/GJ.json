@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 28,
+    "district": "Surat",
+    "first_published": "2026-08-29",
+    "id": "SKS-2026-GJ-000001",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-29",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/surat/good-touch-bad-touch-session-leads-to-disclosure-of-rape-of-two-minor-sisters/articleshow/133599338.cms"
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Surat for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Surat (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

@@ -1,8 +1,35 @@
 [
   {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 1,
+    "days_since_reported": 0,
+    "district": "Firozabad",
+    "first_published": "2026-08-29",
+    "id": "SKS-2026-UP-000005",
+    "incident_reported_date": "2026-08-29",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Amar Ujala",
+        "retrieved": "2026-08-29",
+        "source_type": "news_article",
+        "url": "https://www.amarujala.com/photo-gallery/uttar-pradesh/agra/lover-turned-into-brute-after-taking-potency-enhancing-drug-had-relations-with-her-lover-2026-08-29"
+      }
+    ],
+    "state": "UP",
+    "status": "UNKNOWN",
+    "summary": "An individual was sexually assaulted and killed in a hotel room after resisting forced relations. The Firozabad police solved the case following the suspect's confession.",
+    "title": "Man confesses to sexual assault and murder in Firozabad hotel",
+    "verification_note": "The source describes a case of sexual assault and murder in Firozabad, Uttar Pradesh, which is consistent with the candidate record.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 2,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -28,7 +55,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -52,7 +79,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 58,
+    "days_since_reported": 59,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -81,7 +108,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 58,
+    "days_since_reported": 59,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

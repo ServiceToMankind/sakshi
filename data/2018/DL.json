@@ -27,5 +27,33 @@
     "summary": "A case of child sexual offence in South Delhi, Delhi (2018). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — South Delhi (2018)",
     "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "district": "Delhi",
+    "first_published": "2026-08-29",
+    "id": "SKS-2018-DL-000002",
+    "incident_reported_date": "2018",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-08-29",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/delhi/a-pocso-case-a-man-in-coma-a-murdered-model-delhi-gym-trainer-imrans-trail-of-violence-across-8-years/articleshow/133604273.cms"
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "One person was accused of the child sexual offence in Delhi. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2018)",
+    "verified": true
   }
 ]
