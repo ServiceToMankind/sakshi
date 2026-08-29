@@ -1445,8 +1445,19 @@ canvas {
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--surface);
   box-shadow: var(--shadow);
+  /* Pure-CSS scrolling shadows (Lea Verou): a shadow appears at whichever edge has more content
+     to scroll and fades away at the ends — so on mobile the horizontal overflow is discoverable,
+     with no JS. The surface-coloured `local` covers ride with the content to mask the shadow at
+     each end; the shadow gradients stay fixed to the container. */
+  background:
+    linear-gradient(to right, var(--surface) 30%, transparent) 0 0 / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 30%, transparent) 100% 0 / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.28), transparent) 0 0 / 0.85rem 100%
+      no-repeat,
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.28), transparent) 100% 0 / 0.85rem
+      100% no-repeat,
+    var(--surface);
 }
 .scorecard {
   width: 100%;
@@ -1671,6 +1682,14 @@ canvas {
 }
 .cov-table-wrap {
   overflow-x: auto;
+  /* Scrolling shadows (see .scorecard-wrap) so the mobile horizontal overflow is discoverable. */
+  background:
+    linear-gradient(to right, var(--bg) 30%, transparent) 0 0 / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--bg) 30%, transparent) 100% 0 / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, 0.28), transparent) 0 0 / 0.85rem 100%
+      no-repeat,
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, 0.28), transparent) 100% 0 / 0.85rem
+      100% no-repeat;
 }
 .cov-table {
   width: 100%;
