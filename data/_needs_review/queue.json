@@ -239,5 +239,35 @@
       "title": "Child sexual offence — Kolkata (2026)",
       "summary": "One person was accused of the child sexual offence in Kolkata. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Kishtwar",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "court": {
+        "name": "Jammu & Kashmir and Ladakh High Court",
+        "next_hearing": null
+      },
+      "institutional_actions": [],
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/jk-high-court-to-hear-plea-seeking-crime-branch-probe-into-minors-rape-abortion-death-in-kishtwar-547787",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-30"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Kishtwar (2026)",
+      "summary": "A case of child sexual offence in Kishtwar, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

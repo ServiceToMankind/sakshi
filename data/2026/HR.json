@@ -1,8 +1,36 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 29,
+    "district": "Palwal",
+    "first_published": "2026-08-30",
+    "id": "SKS-2026-HR-000002",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-30",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/30-year-old-man-arrested-for-allegedly-raping-11-year-old-girl-in-haryanas-palwal-101788061192195.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "HR",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Palwal for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Palwal (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",
