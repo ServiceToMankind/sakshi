@@ -4,6 +4,35 @@
     "category": "rape",
     "confidence": 0.95,
     "days_since_reported": 0,
+    "district": "Gautam Buddha Nagar",
+    "first_published": "2026-08-30",
+    "id": "SKS-2026-UP-000006",
+    "incident_reported_date": "2026-08-30",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-30",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/cities/noida-news/greater-noida-rape-murder-main-accused-shot-dead-in-police-encounter-while-recreating-crime-scene-101788062421518.html"
+      }
+    ],
+    "state": "UP",
+    "status": "CLOSED",
+    "summary": "The police shot dead the main accused of a rape and murder case in Greater Noida. The accused allegedly fired at officers with a hidden gun during a crime scene recreation.",
+    "title": "Greater Noida rape-murder accused shot dead in police encounter",
+    "verification_note": "The record is consistent with the source text describing a rape-murder case in Greater Noida, Uttar Pradesh.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 1,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -29,7 +58,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -55,7 +84,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -79,7 +108,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -108,7 +137,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",
