@@ -3112,7 +3112,7 @@
       "attempts": 0,
       "first_seen": "2026-08-30",
       "last_seen": "2026-08-30",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "3fea7f9079e56d31c2b58622a64610d235ca4a6c94c9e6eb4692f4d1052caffd": {
       "attempts": 0,
@@ -10972,7 +10972,7 @@
       "attempts": 0,
       "first_seen": "2026-08-30",
       "last_seen": "2026-08-30",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "db8b74fd73c24a664c6afe9b062c98f464353c8135746cb3f6b6df866ea1c9c2": {
       "attempts": 0,
