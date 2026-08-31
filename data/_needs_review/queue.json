@@ -1,0 +1,62 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "WB",
+      "district": "Kolkata",
+      "category": "rape",
+      "status": "UNDER_TRIAL",
+      "minor_involved": false,
+      "accused_count": 1,
+      "court": {
+        "name": "Calcutta High Court",
+        "next_hearing": null
+      },
+      "title": "Calcutta HC declines urgent hearing for cricketer in rape case",
+      "summary": "A state cricketer faces allegations in a rape case in Kolkata. The Calcutta High Court declined to grant an urgent hearing to the accused cricketer. The case is currently pending in court.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/calcutta-high-court/calcutta-high-court-declines-urgent-hearing-to-bengal-cricketer-abhishek-porel-in-alleged-rape-case-547833",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-31"
+        }
+      ],
+      "incident_reported_date": "2026-08-31",
+      "verified": true,
+      "verification_note": "The source report confirms a legal proceeding in the Calcutta High Court regarding an alleged rape case, consistent with the record."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Kishtwar",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "court": {
+        "name": "Jammu & Kashmir and Ladakh High Court"
+      },
+      "institutional_actions": [],
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/jk-high-court-to-hear-plea-seeking-crime-branch-probe-into-minors-rape-abortion-death-in-kishtwar-547787",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-08-31"
+        }
+      ],
+      "incident_reported_date": "2026-08",
+      "verified": true,
+      "title": "Child sexual offence — Kishtwar (2026)",
+      "summary": "A case of child sexual offence in Kishtwar, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
+  }
+]
