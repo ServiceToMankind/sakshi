@@ -1,6 +1,6 @@
 {
   "aggravated_total": 36,
-  "generated_at": "2026-08-30T00:00:00Z",
+  "generated_at": "2026-08-31T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -8,10 +8,11 @@
       "district": "Delhi",
       "longest_pending": null,
       "median_pending_days": null,
+      "pre_chargesheet": 1,
       "state": "DL",
-      "total": 8,
+      "total": 10,
       "under_trial": 3,
-      "under_trial_pct": 38
+      "under_trial_pct": 30
     },
     {
       "acquittals": 0,
@@ -21,9 +22,9 @@
       "median_pending_days": null,
       "pre_chargesheet": 4,
       "state": "TG",
-      "total": 6,
+      "total": 7,
       "under_trial": 1,
-      "under_trial_pct": 17
+      "under_trial_pct": 14
     },
     {
       "acquittals": 0,
@@ -153,10 +154,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 334,
+        "days": 335,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 334,
+      "median_pending_days": 335,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -235,10 +236,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 10,
+        "days": 11,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 10,
+      "median_pending_days": 11,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
@@ -678,10 +679,34 @@
     },
     {
       "acquittals": 0,
+      "convictions": 0,
+      "district": "Chennai",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TN",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
       "convictions": 1,
       "district": "Coimbatore",
       "longest_pending": null,
       "median_pending_days": null,
+      "state": "TN",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Kanyakumari",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
       "state": "TN",
       "total": 1,
       "under_trial": 0,
@@ -938,17 +963,13 @@
       "month": "2026-07"
     },
     {
-      "count": 45,
+      "count": 50,
       "month": "2026-08"
     }
   ],
   "scale": {
-    "cumulative_total": 105,
+    "cumulative_total": 110,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-05-03"
-      },
       {
         "count": 0,
         "date": "2026-05-04"
@@ -1424,14 +1445,18 @@
       {
         "count": 2,
         "date": "2026-08-30"
+      },
+      {
+        "count": 10,
+        "date": "2026-08-31"
       }
     ],
-    "this_week": 16
+    "this_week": 26
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 26,
     "Assault to outrage modesty": 3,
-    "Child sexual offence": 12,
+    "Child sexual offence": 14,
     "Gang rape": 2,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
@@ -1441,7 +1466,7 @@
   },
   "state_counts": {
     "AP": 1,
-    "DL": 17,
+    "DL": 19,
     "GA": 1,
     "GJ": 3,
     "HR": 9,
@@ -1454,8 +1479,8 @@
     "OD": 1,
     "PB": 1,
     "RJ": 1,
-    "TG": 16,
-    "TN": 15,
+    "TG": 17,
+    "TN": 17,
     "TR": 2,
     "UP": 7,
     "WB": 2
@@ -1465,24 +1490,24 @@
     "APPEAL_PENDING": 10,
     "CLOSED": 1,
     "CONVICTED": 20,
-    "FIR_FILED": 27,
+    "FIR_FILED": 30,
     "QUASHED": 2,
     "UNDER_TRIAL": 25,
-    "UNKNOWN": 17
+    "UNKNOWN": 19
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 334,
+      "days_since_reported": 335,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 10,
+      "days_since_reported": 11,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 105
+  "total": 110
 }

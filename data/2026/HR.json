@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Palwal",
     "first_published": "2026-08-30",
     "id": "SKS-2026-HR-000002",
@@ -30,7 +30,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 60,
+    "days_since_reported": 61,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",

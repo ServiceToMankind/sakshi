@@ -7,7 +7,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -47,7 +47,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -88,7 +88,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -120,7 +120,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -148,7 +148,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -176,7 +176,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Thoothukudi",
     "first_published": "2026-08-23",
     "id": "SKS-2026-TN-000006",
@@ -204,7 +204,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Unknown",
     "first_published": "2026-08-26",
     "id": "SKS-2026-TN-000007",
@@ -228,6 +228,65 @@
     "status": "FIR_FILED",
     "summary": "One person was arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 30,
+    "district": "Chennai",
+    "first_published": "2026-08-31",
+    "id": "SKS-2026-TN-000008",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-08-31",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/tamil-nadu-businessman-84-two-aides-held-in-minor-sexual-assault-case-police-101788090914277.html"
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "Three people were arrested in Chennai for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Chennai (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 30,
+    "district": "Kanyakumari",
+    "first_published": "2026-08-31",
+    "id": "SKS-2026-TN-000009",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-08-31",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/kanyakumari-5-year-old-girl-sexually-assaulted-fisherman-arrested-under-pocso",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Kanyakumari for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kanyakumari (2026)",
     "verified": true
   }
 ]
