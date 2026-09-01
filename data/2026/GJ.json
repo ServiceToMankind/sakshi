@@ -1,9 +1,37 @@
 [
   {
+    "accused_count": 5,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "UNKNOWN",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-GJ-000002",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/5-sentenced-to-life-for-rape-of-minor-girl-on-navratri-in-gujarat-after-two-years-each-fined-rs-50000-101788171247251.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GJ",
+    "status": "CONVICTED",
+    "summary": "Five people were accused of the child sexual offence in UNKNOWN. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — UNKNOWN (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",
