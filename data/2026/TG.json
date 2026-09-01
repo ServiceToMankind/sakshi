@@ -1,8 +1,126 @@
 [
   {
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Hyderabad",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-TG-000018",
+    "incident_reported_date": "2026-09-01",
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Hyderabad/candlelight-vigil-held-in-hyderabad-for-21-year-old-nurse-who-was-raped-and-murdered-nurses-demand-action-against-private-hospital/article71412045.ece",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "UNKNOWN",
+    "summary": "An attacker raped and killed [occupation withheld] in Hyderabad. Colleagues held a candlelight vigil to demand action against a private hospital.",
+    "title": "Nurses protest in Hyderabad after colleague is raped and murdered",
+    "verification_note": "The source reports a genuine rape and murder case of a nurse in Hyderabad, which is consistent with the record.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Telangana"
+    },
+    "days_since_reported": 0,
+    "district": "Rangareddy",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-TG-000019",
+    "incident_reported_date": "2026-09-01",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/no-potency-test-on-trainee-ips-uday-krishna-reddy-until-2499349"
+      }
+    ],
+    "state": "TG",
+    "status": "UNDER_TRIAL",
+    "summary": "A suspended trainee IPS officer challenged a court order allowing a potency test in a sexual assault case. The High Court paused the test until the next hearing.",
+    "title": "Telangana HC reviews potency test order for suspended trainee IPS",
+    "verification_note": "The source confirms a sexual assault case involving a suspended trainee IPS officer with proceedings in the Telangana High Court and Rajendranagar court.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Sircilla POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Sircilla",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-TG-000020",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/20-years-in-prison-in-pocso-case-2-2499180"
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Sircilla. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Sircilla (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Rangareddy",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-TG-000021",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/rangareddy/man-sentenced-to-20-years-in-prison-for-assaulting-girl-2498871",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Rangareddy. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Rangareddy (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Narayanapet",
     "first_published": "2026-08-27",
     "id": "SKS-2026-TG-000015",
@@ -31,7 +149,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Hyderabad",
     "first_published": "2026-08-27",
     "id": "SKS-2026-TG-000016",
@@ -59,7 +177,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 9,
+    "days_since_reported": 10,
     "district": "Yadadri Bhuvanagiri",
     "first_published": "2026-08-22",
     "id": "SKS-2026-TG-000014",
@@ -90,7 +208,7 @@
       "name": "Special court",
       "next_hearing": null
     },
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Hyderabad",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TG-000013",
@@ -122,7 +240,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -152,7 +270,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Madhapur"
@@ -185,7 +303,7 @@
     "court": {
       "name": "Bhupalpally District Court"
     },
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Bhupalpally",
     "first_published": "2026-08-19",
     "id": "SKS-2026-TG-000012",
@@ -216,7 +334,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Hyderabad",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TG-000017",
@@ -240,7 +358,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -267,7 +385,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -294,7 +412,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -323,7 +441,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -350,7 +468,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -377,7 +495,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -407,7 +525,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -437,7 +555,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -465,7 +583,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",

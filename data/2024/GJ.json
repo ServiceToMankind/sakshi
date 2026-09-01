@@ -1,12 +1,41 @@
 [
   {
     "accused_count": 5,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 697,
+    "district": "Vadodara",
+    "first_published": "2026-09-01",
+    "id": "SKS-2024-GJ-000003",
+    "incident_reported_date": "2024-10-04",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/5-convicts-in-2024-bhayli-gang-rape-case-get-life-imprisonment-101788174691284.html"
+      }
+    ],
+    "state": "GJ",
+    "status": "CONVICTED",
+    "summary": "A court sentenced five men to life imprisonment for gang rape in Vadodara. The prosecution had requested either the death penalty or life imprisonment for the convicts.",
+    "title": "Five men sentenced to life imprisonment in Bhayli gang rape case",
+    "verification_note": "The record is verified as it accurately reflects the conviction in the 2024 Bhayli gang rape case in Vadodara, Gujarat.",
+    "verified": true
+  },
+  {
+    "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
     "court": {
       "name": "Vadodara POCSO court"
     },
-    "days_since_reported": 699,
+    "days_since_reported": 700,
     "district": "Vadodara",
     "first_published": "2026-08-26",
     "id": "SKS-2024-GJ-000001",
@@ -33,7 +62,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 740,
+    "days_since_reported": 741,
     "district": "Rajkot",
     "first_published": "2026-08-28",
     "id": "SKS-2024-GJ-000002",

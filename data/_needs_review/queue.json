@@ -58,5 +58,33 @@
       "title": "Child sexual offence — Kishtwar (2026)",
       "summary": "A case of child sexual offence in Kishtwar, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "confidence_below_auto"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "UNKNOWN",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "title": "Police dispute jurisdiction over moving bus gangrape",
+      "summary": "A gangrape occurred on a moving sleeper bus traveling 47 kilometers. The Uttar Pradesh and Delhi police departments are currently disputing jurisdiction over the case.",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "url": "https://www.hindustantimes.com/india-news/greater-noida-delhi-gang-rape-bus-minor-kashmere-gate-pari-chowk-up-delhi-police-latest-news-today-101788233980742.html",
+          "publisher": "Hindustan Times",
+          "source_type": "news_article",
+          "retrieved": "2026-09-01"
+        }
+      ],
+      "incident_reported_date": "2026-09-01",
+      "verified": true,
+      "verification_note": "The source reports a genuine bus gangrape case involving a jurisdictional dispute between UP and Delhi police."
+    }
   }
 ]

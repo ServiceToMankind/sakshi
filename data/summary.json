@@ -1,6 +1,6 @@
 {
   "aggravated_total": 36,
-  "generated_at": "2026-08-31T00:00:00Z",
+  "generated_at": "2026-09-01T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -10,9 +10,9 @@
       "median_pending_days": null,
       "pre_chargesheet": 1,
       "state": "DL",
-      "total": 10,
+      "total": 11,
       "under_trial": 3,
-      "under_trial_pct": 30
+      "under_trial_pct": 27
     },
     {
       "acquittals": 0,
@@ -22,9 +22,9 @@
       "median_pending_days": null,
       "pre_chargesheet": 4,
       "state": "TG",
-      "total": 7,
+      "total": 8,
       "under_trial": 1,
-      "under_trial_pct": 14
+      "under_trial_pct": 12
     },
     {
       "acquittals": 0,
@@ -52,6 +52,18 @@
     {
       "acquittals": 0,
       "convictions": 1,
+      "district": "Rangareddy",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TG",
+      "total": 3,
+      "under_trial": 1,
+      "under_trial_pct": 33
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
       "district": "Thiruvannamalai",
       "longest_pending": null,
       "median_pending_days": null,
@@ -67,6 +79,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 2,
+      "district": "Vadodara",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "GJ",
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -154,10 +177,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 335,
+        "days": 336,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 335,
+      "median_pending_days": 336,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -171,6 +194,18 @@
       "median_pending_days": null,
       "pre_chargesheet": 2,
       "state": "TN",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Gautam Buddha Nagar",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "UP",
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -211,6 +246,18 @@
     },
     {
       "acquittals": 0,
+      "convictions": 0,
+      "district": "North Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "DL",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
       "convictions": 1,
       "district": "Shahdara",
       "longest_pending": null,
@@ -236,10 +283,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 11,
+        "days": 12,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 11,
+      "median_pending_days": 12,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
@@ -283,7 +330,7 @@
     {
       "acquittals": 0,
       "convictions": 1,
-      "district": "Vadodara",
+      "district": "UNKNOWN",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "GJ",
@@ -645,11 +692,10 @@
     },
     {
       "acquittals": 0,
-      "convictions": 0,
-      "district": "Rangareddy",
+      "convictions": 1,
+      "district": "Sircilla",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 1,
       "state": "TG",
       "total": 1,
       "under_trial": 0,
@@ -816,17 +862,6 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "Gautam Buddha Nagar",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "UP",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
       "district": "Hathras",
       "longest_pending": null,
       "median_pending_days": null,
@@ -871,11 +906,7 @@
   ],
   "monthly_trend": [
     {
-      "count": 0,
-      "month": "2024-09"
-    },
-    {
-      "count": 1,
+      "count": 2,
       "month": "2024-10"
     },
     {
@@ -965,15 +996,15 @@
     {
       "count": 50,
       "month": "2026-08"
+    },
+    {
+      "count": 8,
+      "month": "2026-09"
     }
   ],
   "scale": {
-    "cumulative_total": 110,
+    "cumulative_total": 119,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-05-04"
-      },
       {
         "count": 0,
         "date": "2026-05-05"
@@ -1449,9 +1480,13 @@
       {
         "count": 10,
         "date": "2026-08-31"
+      },
+      {
+        "count": 11,
+        "date": "2026-09-01"
       }
     ],
-    "this_week": 26
+    "this_week": 35
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 26,
@@ -1466,9 +1501,9 @@
   },
   "state_counts": {
     "AP": 1,
-    "DL": 19,
+    "DL": 21,
     "GA": 1,
-    "GJ": 3,
+    "GJ": 5,
     "HR": 9,
     "JH": 11,
     "JK": 1,
@@ -1479,35 +1514,35 @@
     "OD": 1,
     "PB": 1,
     "RJ": 1,
-    "TG": 17,
+    "TG": 21,
     "TN": 17,
     "TR": 2,
-    "UP": 7,
+    "UP": 8,
     "WB": 2
   },
   "status_counts": {
     "ACQUITTED": 3,
     "APPEAL_PENDING": 10,
     "CLOSED": 1,
-    "CONVICTED": 20,
-    "FIR_FILED": 30,
+    "CONVICTED": 24,
+    "FIR_FILED": 32,
     "QUASHED": 2,
-    "UNDER_TRIAL": 25,
-    "UNKNOWN": 19
+    "UNDER_TRIAL": 26,
+    "UNKNOWN": 21
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 335,
+      "days_since_reported": 336,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 11,
+      "days_since_reported": 12,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 110
+  "total": 119
 }

@@ -1,12 +1,66 @@
 [
   {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "North Delhi",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-DL-000019",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/minor-girl-raped-inside-moving-bus-on-noida-delhi-journey/article71410233.ece",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Two people were arrested in North Delhi for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Delhi (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Delhi",
+    "first_published": "2026-09-01",
+    "id": "SKS-2026-DL-000020",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-01",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/greater-noida-delhi-gang-rape-minor-pari-chowk-kashmere-gate-delhi-police-up-police-101788226668795.html"
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.95,
     "court": {
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 6,
+    "days_since_reported": 7,
     "district": "Delhi",
     "first_published": "2026-08-25",
     "id": "SKS-2026-DL-000016",
@@ -38,7 +92,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "South West",
     "fir_ref": {
       "number": "159/2026",
@@ -82,7 +136,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "East",
     "fir_ref": {
       "number": "450/2022",
@@ -118,7 +172,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 14,
+    "days_since_reported": 15,
     "district": "Delhi",
     "first_published": "2026-08-17",
     "id": "SKS-2026-DL-000013",
@@ -151,7 +205,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "New Delhi",
     "fir_ref": {
       "number": "28/2023",
@@ -187,7 +241,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -217,7 +271,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -248,7 +302,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "New Delhi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-DL-000012",
@@ -277,7 +331,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Delhi",
     "first_published": "2026-08-31",
     "id": "SKS-2026-DL-000017",
@@ -306,7 +360,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Delhi",
     "first_published": "2026-08-31",
     "id": "SKS-2026-DL-000018",
@@ -340,7 +394,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 37,
+    "days_since_reported": 38,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -371,7 +425,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -408,7 +462,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -438,7 +492,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",
