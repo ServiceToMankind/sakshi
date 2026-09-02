@@ -1,9 +1,38 @@
 [
   {
+    "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Surat",
+    "first_published": "2026-09-02",
+    "id": "SKS-2026-GJ-000003",
+    "incident_reported_date": "2026-09-02",
+    "institutional_actions": [
+      "sit_formed"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-02",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/surat/mystery-surrounds-surat-techies-death-strangled-with-drawstring-charger-wire-smothered-with-plastic-bags/articleshow/133695039.cms"
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "An attacker strangled and sexually assaulted a resident inside a home in Surat. The police formed a special investigation team to identify the suspect.",
+    "title": "Police form special team to investigate Surat sexual assault and murder",
+    "verification_note": "The source confirms a reported case of sexual assault and death in Surat, Gujarat.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "UNKNOWN",
     "first_published": "2026-09-01",
     "id": "SKS-2026-GJ-000002",
@@ -31,7 +60,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 31,
+    "days_since_reported": 32,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",

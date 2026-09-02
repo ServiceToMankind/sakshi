@@ -1,9 +1,35 @@
 [
   {
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Gautam Buddh Nagar",
+    "first_published": "2026-09-02",
+    "id": "SKS-2026-UP-000009",
+    "incident_reported_date": "2026-09-02",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-09-02",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/noida-delhi-bus-gang-rape-case-vehicle-had-challans-worth-63000-pending-over-permit-safety-and-speed-violations/article71415177.ece"
+      }
+    ],
+    "state": "UP",
+    "status": "UNKNOWN",
+    "summary": "An assault occurred inside a sleeper bus operating between Noida and Delhi. Police are investigating the case after jurisdictional coordination issues. The vehicle involved had multiple unpaid traffic violations.",
+    "title": "Police investigate gang-rape inside Noida-Delhi sleeper bus",
+    "verification_note": "Approved as the source reports on a genuine Noida-Delhi bus gang-rape case involving Gautam Buddh Nagar jurisdiction.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-01",
     "id": "SKS-2026-UP-000007",
@@ -26,10 +52,34 @@
     "weapon_or_threat": true
   },
   {
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 1,
+    "district": "Noida",
+    "first_published": "2026-09-02",
+    "id": "SKS-2026-UP-000008",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-02",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/8-challans-in-july-no-background-check-of-accused-shocking-details-emerge-in-noida-bus-rape-case-101788281213282.html"
+      }
+    ],
+    "state": "UP",
+    "status": "UNKNOWN",
+    "summary": "A case of rape involving a minor in Noida, Uttar Pradesh (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Noida (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-08-30",
     "id": "SKS-2026-UP-000006",
@@ -58,7 +108,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -84,7 +134,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 5,
+    "days_since_reported": 6,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -110,7 +160,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 31,
+    "days_since_reported": 32,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -134,7 +184,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 62,
+    "days_since_reported": 63,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -163,7 +213,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 62,
+    "days_since_reported": 63,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

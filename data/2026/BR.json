@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 1,
+    "district": "Unknown",
+    "first_published": "2026-09-02",
+    "id": "SKS-2026-BR-000001",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-02",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/two-arrested-for-gangraping-minor-girl-in-bihar-s-aurangabad-one-absconding-101788247624977.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "BR",
+    "status": "FIR_FILED",
+    "summary": "Three people were arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  }
+]
