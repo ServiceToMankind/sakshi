@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-02",
+  "generated": "2026-09-03",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
@@ -27,7 +27,7 @@
     },
     "Dainik Bhaskar": {
       "documents": 26,
-      "prefilter_skipped": 23,
+      "prefilter_skipped": 24,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -35,7 +35,7 @@
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.115
+      "prefilter_pass_rate": 0.077
     },
     "Delhi High Court": {
       "documents": 10,
@@ -74,8 +74,8 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 39,
-      "prefilter_skipped": 39,
+      "documents": 37,
+      "prefilter_skipped": 37,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -87,17 +87,18 @@
     },
     "Hindustan Times": {
       "documents": 100,
-      "prefilter_skipped": 95,
-      "extracted": 4,
+      "prefilter_skipped": 97,
+      "extracted": 3,
       "out_of_scope": 0,
       "failed": 0,
       "published": 24,
       "needs_review": 1,
-      "quarantined": 2,
+      "quarantined": 3,
       "quarantine_reasons": {
-        "ambiguous_match": 2
+        "unverified": 2,
+        "id_collision": 1
       },
-      "prefilter_pass_rate": 0.05
+      "prefilter_pass_rate": 0.03
     },
     "Jharkhand High Court": {
       "documents": 10,
@@ -113,15 +114,15 @@
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 57,
+      "prefilter_skipped": 58,
       "extracted": 0,
-      "out_of_scope": 3,
+      "out_of_scope": 2,
       "failed": 0,
       "published": 0,
       "needs_review": 2,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.05
+      "prefilter_pass_rate": 0.033
     },
     "Lokmat": {
       "documents": 10,
@@ -138,10 +139,10 @@
     "Madhya Pradesh High Court": {
       "documents": 10,
       "prefilter_skipped": 0,
-      "extracted": 0,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 8,
+      "published": 9,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
@@ -161,15 +162,15 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 200,
-      "extracted": 0,
+      "prefilter_skipped": 199,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 14,
+      "published": 15,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "prefilter_pass_rate": 0.005
     },
     "Punjab-Haryana High Court": {
       "documents": 8,
@@ -182,6 +183,18 @@
       "quarantined": 0,
       "quarantine_reasons": {},
       "prefilter_pass_rate": 1.0
+    },
+    "Sakal": {
+      "documents": 1,
+      "prefilter_skipped": 1,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.0
     },
     "Telangana High Court": {
       "documents": 2,
@@ -197,17 +210,15 @@
     },
     "The Hindu": {
       "documents": 120,
-      "prefilter_skipped": 115,
-      "extracted": 2,
+      "prefilter_skipped": 117,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 14,
       "needs_review": 0,
-      "quarantined": 1,
-      "quarantine_reasons": {
-        "ambiguous_match": 1
-      },
-      "prefilter_pass_rate": 0.042
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.025
     },
     "The Indian Express": {
       "documents": 0,
@@ -222,18 +233,16 @@
       "prefilter_pass_rate": null
     },
     "The Times of India": {
-      "documents": 45,
-      "prefilter_skipped": 42,
-      "extracted": 2,
-      "out_of_scope": 1,
+      "documents": 46,
+      "prefilter_skipped": 46,
+      "extracted": 0,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 8,
       "needs_review": 0,
-      "quarantined": 1,
-      "quarantine_reasons": {
-        "ambiguous_match": 1
-      },
-      "prefilter_pass_rate": 0.067
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.0
     }
   },
   "court_prefilter": [
