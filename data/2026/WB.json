@@ -3,11 +3,39 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Kolkata",
+    "first_published": "2026-09-04",
+    "id": "SKS-2026-WB-000002",
+    "incident_reported_date": "2026-09-04",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-04",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/rg-kar-rape-murder-bengal-s-ex-panihati-chairman-held-over-hasty-cremation-101788433263566.html"
+      }
+    ],
+    "state": "WB",
+    "status": "UNDER_TRIAL",
+    "summary": "Police arrested a former municipal chairman for his role in the hasty cremation of [occupation withheld] who was raped and murdered. The investigation is ongoing in Kolkata.",
+    "title": "Former municipal chairman arrested in Kolkata rape-murder probe",
+    "verification_note": "The source confirms an arrest related to the RG Kar rape-murder case in Kolkata, West Bengal.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
     "court": {
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 20,
+    "days_since_reported": 21,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",

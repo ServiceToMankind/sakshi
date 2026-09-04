@@ -7,7 +7,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -51,7 +51,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -78,7 +78,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "Narmadapuram",
     "first_published": "2026-08-25",
     "id": "SKS-2026-MP-000008",
@@ -109,7 +109,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "Indore",
     "first_published": "2026-09-03",
     "id": "SKS-2026-MP-000009",
@@ -138,7 +138,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 64,
+    "days_since_reported": 65,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -173,7 +173,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 64,
+    "days_since_reported": 65,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -200,7 +200,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 186,
+    "days_since_reported": 187,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -241,7 +241,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 214,
+    "days_since_reported": 215,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -285,7 +285,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 245,
+    "days_since_reported": 246,
     "district": "Dhar",
     "fir_ref": {
       "number": "0009/2026",

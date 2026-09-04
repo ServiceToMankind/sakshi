@@ -1,9 +1,37 @@
 [
   {
+    "accused_count": 2,
+    "category": "harassment",
+    "confidence": 1.0,
+    "days_since_reported": 0,
+    "district": "Buxar",
+    "first_published": "2026-09-04",
+    "id": "SKS-2026-BR-000002",
+    "incident_reported_date": "2026-09-04",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-04",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/bihar-education-department-suspends-two-teachers-in-buxar-over-molestation-video-allegations-101788447379916.html"
+      }
+    ],
+    "state": "BR",
+    "status": "UNKNOWN",
+    "summary": "The Bihar education department suspended two teachers in Buxar. The suspension followed a complaint of molestation and filming.",
+    "title": "Bihar education department suspends two Buxar teachers over molestation allegations",
+    "verification_note": "The source confirms the suspension of two teachers in Buxar, Bihar, following molestation allegations.",
+    "verified": true
+  },
+  {
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -25,6 +53,34 @@
     "status": "FIR_FILED",
     "summary": "Three people were arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 3,
+    "district": "Buxar",
+    "first_published": "2026-09-04",
+    "id": "SKS-2026-BR-000003",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-04",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/bihar-2-government-school-teachers-suspended-over-sexual-abuse-claims-in-buxar-101788437464921.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "BR",
+    "status": "UNKNOWN",
+    "summary": "Two people were accused of the child sexual offence in Buxar. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Buxar (2026)",
     "verified": true
   }
 ]

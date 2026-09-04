@@ -86,5 +86,35 @@
       "verified": true,
       "verification_note": "The source reports a genuine bus gangrape case involving a jurisdictional dispute between UP and Delhi police."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Ahmedabad",
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "court": {
+        "name": "Gujarat High Court"
+      },
+      "title": "Asaram seeks temporary bail from Gujarat High Court in rape case",
+      "summary": "An accused moved the Gujarat High Court for relief. The person is seeking temporary bail in a 2013 rape case. The court is yet to decide on the application.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/rajasthan-high-court/gujarat-high-court-asaram-temporary-bail-2013-rape-case-548434",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-04"
+        }
+      ],
+      "incident_reported_date": "2026-09-04",
+      "verified": true,
+      "verification_note": "The source confirms the accused has approached the Gujarat High Court for bail in a 2013 rape case."
+    }
   }
 ]
