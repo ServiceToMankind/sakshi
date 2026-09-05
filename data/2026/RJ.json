@@ -1,9 +1,36 @@
 [
   {
+    "category": "other",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Banswara",
+    "first_published": "2026-09-05",
+    "id": "SKS-2026-RJ-000002",
+    "incident_reported_date": "2026-09-05",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-05",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/horrific-assault-in-rajasthan-tribal-woman-shaved-stripped-and-paraded-naked-in-banswara-10-booked-2502618",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "RJ",
+    "status": "UNKNOWN",
+    "summary": "A group of people brutally attacked, shaved, and stripped a person naked in Banswara. They then paraded the person through the village. The incident came to light after a video emerged online.",
+    "title": "Person stripped and paraded naked in Banswara",
+    "verification_note": "The source reports a genuine case where a woman was stripped and paraded in Banswara, Rajasthan.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",

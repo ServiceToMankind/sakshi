@@ -116,5 +116,73 @@
       "verified": true,
       "verification_note": "The source confirms the accused has approached the Gujarat High Court for bail in a 2013 rape case."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "ACQUITTED",
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "title": "Delhi HC rules DNA evidence cannot prove consent in rape cases",
+      "summary": "The Delhi High Court upheld the acquittal of a person accused of rape. The court stated that DNA evidence proves sexual intercourse but does not show whether it was consensual.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/delhi-high-court/rape-acquittal-dna-proves-sexual-intercourse-not-consent-548609",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-05"
+        }
+      ],
+      "incident_reported_date": "2026-09-05",
+      "verified": true,
+      "verification_note": "The record is consistent with the source text reporting on a Delhi High Court judgment upholding an acquittal in a rape case."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-09",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-pocso-fir-minor-changing-room-548581",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-05"
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "A case of child sexual offence in Unknown, Gujarat (2026). The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

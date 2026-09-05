@@ -1,0 +1,53 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madurai Bench of Madras High Court"
+    },
+    "days_since_reported": 4844,
+    "district": "Ramanathapuram",
+    "fir_ref": {
+      "number": "5/2013",
+      "station": "All Women Police Station, Ramanathapuram"
+    },
+    "first_published": "2026-09-05",
+    "id": "SKS-2013-TN-000001",
+    "incident_reported_date": "2013-06",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 448",
+      "IPC 450",
+      "IPC 506(I)",
+      "IPC 506(II)",
+      "IPC 376",
+      "POCSO 3(A)",
+      "POCSO 4",
+      "POCSO 5(L)",
+      "POCSO 6"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-09-05",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/163513637/"
+      }
+    ],
+    "state": "TN",
+    "status": "ACQUITTED",
+    "summary": "One person was arrested in Ramanathapuram for the aggravated penetrative assault on a child. A weapon or threat was involved. Police have filed a chargesheet. The accused was convicted. The accused was acquitted. An appeal was filed. The court imposed a sentence of 10 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Ramanathapuram (2013)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

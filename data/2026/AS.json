@@ -1,0 +1,34 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 4,
+    "district": "Sivasagar",
+    "first_published": "2026-09-05",
+    "id": "SKS-2026-AS-000001",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO",
+      "BNS"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-05",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/two-held-for-raping-15-year-old-girl-in-assam-s-sivasagar-found-pregnant-police-101788530668991.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AS",
+    "status": "FIR_FILED",
+    "summary": "Two people were arrested in Sivasagar for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Sivasagar (2026)",
+    "verified": true
+  }
+]
