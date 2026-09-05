@@ -1,9 +1,35 @@
 [
   {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 1.0,
+    "days_since_reported": 0,
+    "district": "Unknown",
+    "first_published": "2026-09-05",
+    "id": "SKS-2026-OD-000002",
+    "incident_reported_date": "2026-09-05",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-05",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/railway-employee-lures-odisha-passenger-with-confirmed-ticket-promise-rapes-her-101788498261322.html"
+      }
+    ],
+    "state": "OD",
+    "status": "UNKNOWN",
+    "summary": "A railway valve operator allegedly lured a passenger with a confirmed ticket promise and raped her. The railway administration dismissed the employee from service and withheld his pension benefits.",
+    "title": "Railway employee dismissed after passenger rape allegation",
+    "verification_note": "The source describes a genuine case of rape involving a railway employee and a passenger.",
+    "verified": true
+  },
+  {
     "accused_count": 6,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Cuttack",
     "first_published": "2026-08-12",
     "id": "SKS-2026-OD-000001",
