@@ -1,0 +1,40 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1466,
+    "district": "Rewa",
+    "first_published": "2026-09-06",
+    "id": "SKS-2022-MP-000001",
+    "incident_reported_date": "2022-09",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 366",
+      "POCSO 5(L)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-09-06",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/51953473/"
+      }
+    ],
+    "state": "MP",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the aggravated penetrative assault on a child in Rewa. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Rewa (2022)",
+    "verified": true
+  }
+]

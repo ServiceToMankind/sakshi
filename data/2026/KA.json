@@ -1,9 +1,37 @@
 [
   {
+    "category": "harassment",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Bengaluru",
+    "first_published": "2026-09-06",
+    "id": "SKS-2026-KA-000003",
+    "incident_reported_date": "2026-09-06",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-06",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/bengaluru-woman-held-captive-for-4-days-assaulted-and-filmed-semi-naked-over-unpaid-loan-2503144",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "UNKNOWN",
+    "summary": "Kidnappers abducted a woman in Bengaluru and filmed semi-nude videos of her over an unpaid debt. The abductors held her captive for four days.",
+    "title": "Bengaluru woman kidnapped and filmed semi-nude over unpaid debt",
+    "verification_note": "The source confirms the kidnapping and sexual harassment of a woman who was filmed semi-nude in Bengaluru, Karnataka.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 7,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Unknown",
     "first_published": "2026-08-17",
     "id": "SKS-2026-KA-000002",
@@ -32,7 +60,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",

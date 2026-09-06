@@ -1,0 +1,32 @@
+[
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 827,
+    "district": "Delhi",
+    "first_published": "2026-09-06",
+    "id": "SKS-2024-DL-000001",
+    "incident_reported_date": "2024-06",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-06",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/swatantra-bhardwaj-detained-right-wing-after-big-cjp-protest-pocso-case-filed-jantar-mantar-protest-sanjay-azad-101788570983585.html"
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "An arrest was made in Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2024)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
