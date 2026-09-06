@@ -813,8 +813,8 @@
     "0fd8efdaadd6f5eec35ddac01c4bf9256806f6187563724644a2bb3ea971f9b0": {
       "attempts": 0,
       "first_seen": "2026-09-05",
-      "last_seen": "2026-09-05",
-      "outcome": "staged_pending"
+      "last_seen": "2026-09-06",
+      "outcome": "published"
     },
     "0fdc71d5b2b71fd622bd40806e8f8b9d43533f34165a9f901acf9aeef5c45631": {
       "attempts": 0,
@@ -861,8 +861,8 @@
     "10b0f6aabb97478865c0867743a46fa100051d6f0714867dc7b64745c603799c": {
       "attempts": 0,
       "first_seen": "2026-09-05",
-      "last_seen": "2026-09-05",
-      "outcome": "staged_pending"
+      "last_seen": "2026-09-06",
+      "outcome": "published"
     },
     "10b50a9686247a618bc2185a24b16db4677545fe80b4dc2586999d922ef97b2f": {
       "attempts": 0,
@@ -2946,6 +2946,12 @@
       "last_seen": "2026-07-24",
       "outcome": "not_a_case"
     },
+    "3b7692338f822687f16d1b174c00ec2e4f737056cb90ab021073a417357eb0f4": {
+      "attempts": 0,
+      "first_seen": "2026-09-06",
+      "last_seen": "2026-09-06",
+      "outcome": "staged_pending"
+    },
     "3bb9ad7c95aa843c9b770e6f926ab12d1ca2610593020cf94f288130d871b1f8": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -3815,6 +3821,12 @@
       "first_seen": "2026-07-18",
       "last_seen": "2026-07-19",
       "outcome": "not_a_case"
+    },
+    "4a7d513cc050f71b6a727ddce85d5272fe253f397a5b2ab09fb672d59c651126": {
+      "attempts": 0,
+      "first_seen": "2026-09-06",
+      "last_seen": "2026-09-06",
+      "outcome": "staged_pending"
     },
     "4a85f26f17c762f3f968a199121203e25bbc6aa0d0d0a10bd94cf32540964660": {
       "attempts": 0,
@@ -4954,6 +4966,12 @@
       "attempts": 0,
       "first_seen": "2026-07-23",
       "last_seen": "2026-07-23",
+      "outcome": "not_a_case"
+    },
+    "5e5a33b2f3e685387617c8425a94b22008aa6ee90e0fa87fff20d17c8d9ce601": {
+      "attempts": 0,
+      "first_seen": "2026-09-06",
+      "last_seen": "2026-09-06",
       "outcome": "not_a_case"
     },
     "5e67e01c395b1cfba6dd4c01a1041ecac812bca98fb6bd8d7b354b4aa2831416": {
@@ -6258,6 +6276,12 @@
       "last_seen": "2026-07-20",
       "outcome": "not_a_case"
     },
+    "76e68c8537aaf3593b5582369372cd0fd94776ede019cdb10bf6c03299ee65c8": {
+      "attempts": 0,
+      "first_seen": "2026-09-06",
+      "last_seen": "2026-09-06",
+      "outcome": "staged_pending"
+    },
     "770af5442a2a1be5b31d6f2b777012c296d1c0b39900f3b3cc1e22b686dd2e0b": {
       "attempts": 0,
       "first_seen": "2026-08-05",
@@ -6477,8 +6501,8 @@
     "7ac5a2d917b609071e9058cc1becb1e1d4d0fc4486c48fae29bf3cb36f1f287e": {
       "attempts": 0,
       "first_seen": "2026-09-05",
-      "last_seen": "2026-09-05",
-      "outcome": "staged_pending"
+      "last_seen": "2026-09-06",
+      "outcome": "published"
     },
     "7acb39d84d8a6cc83f9d3afe0da30bc69aa2cb33b517a38a64c07989b212412b": {
       "attempts": 0,
@@ -9741,8 +9765,8 @@
     "beb83d2d0c6b5f7f65a58cd6297e873ba667fc47284d3d06b255f68b1438bb2f": {
       "attempts": 0,
       "first_seen": "2026-09-05",
-      "last_seen": "2026-09-05",
-      "outcome": "staged_pending"
+      "last_seen": "2026-09-06",
+      "outcome": "published"
     },
     "bec81b3b205ebedd46f633fa5b49051b96f7da22ebf2048b319629a93b28aed9": {
       "attempts": 0,
@@ -10113,8 +10137,8 @@
     "c56130f740c9b85cea538d7168996469480c270de04f00e785c27ba0927ed4a4": {
       "attempts": 0,
       "first_seen": "2026-09-05",
-      "last_seen": "2026-09-05",
-      "outcome": "staged_pending"
+      "last_seen": "2026-09-06",
+      "outcome": "published"
     },
     "c585fd57bb581281ed125e65e8676507f9a6d0e3a4012d705d0fc845030d9489": {
       "attempts": 0,
@@ -11093,6 +11117,12 @@
       "first_seen": "2026-07-28",
       "last_seen": "2026-07-28",
       "outcome": "not_a_case"
+    },
+    "d9df7b4fefc232aad9c0198afecd0de708bb2f4daebe2fede460c85c06f41062": {
+      "attempts": 0,
+      "first_seen": "2026-09-06",
+      "last_seen": "2026-09-06",
+      "outcome": "staged_pending"
     },
     "d9f476451559294e431c89f8267353fdee3a33b241f7f3a41949154117878ffa": {
       "attempts": 0,
