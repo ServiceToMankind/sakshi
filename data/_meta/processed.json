@@ -7548,6 +7548,12 @@
       "last_seen": "2026-08-04",
       "outcome": "not_a_case"
     },
+    "8e8831aaf75a9d3975fa6636a634293e27cac61d4cb58dfce2aa9f2661814452": {
+      "attempts": 0,
+      "first_seen": "2026-09-07",
+      "last_seen": "2026-09-07",
+      "outcome": "not_a_case"
+    },
     "8e9e4dd550be844f8258820ee08cf2cfae50980f69dcab7ea91ca33daef25ba3": {
       "attempts": 0,
       "first_seen": "2026-08-22",
@@ -8537,6 +8543,12 @@
       "first_seen": "2026-07-31",
       "last_seen": "2026-07-31",
       "outcome": "not_a_case"
+    },
+    "a59a61241c18f486be34d0e2a91daef20b77a2aaacef31fa1df52737b66e1a5c": {
+      "attempts": 0,
+      "first_seen": "2026-09-07",
+      "last_seen": "2026-09-07",
+      "outcome": "staged_pending"
     },
     "a5ac48a89ce3c572169aefe4c05cc526f0322e6797ffa2fd4e1e98b5071ef6cb": {
       "attempts": 0,
@@ -10416,6 +10428,12 @@
       "last_seen": "2026-08-08",
       "outcome": "not_a_case"
     },
+    "ca67d39e636a3f547c2fc820e1a136f9ae7a89f88dcbc7ca3e684fea3b25452c": {
+      "attempts": 0,
+      "first_seen": "2026-09-07",
+      "last_seen": "2026-09-07",
+      "outcome": "staged_pending"
+    },
     "ca6d3a01c8f76a765bc8ade40570fb0503e8fde04fcd12e6c3e1b9a82a7b818b": {
       "attempts": 0,
       "first_seen": "2026-08-03",
@@ -11038,6 +11056,12 @@
       "attempts": 0,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
+      "outcome": "not_a_case"
+    },
+    "d830f2a20e36e0fafeb4e6c04aab8fcf62ae9881d4cae4ac9d2643203d98728d": {
+      "attempts": 0,
+      "first_seen": "2026-09-07",
+      "last_seen": "2026-09-07",
       "outcome": "not_a_case"
     },
     "d87351fcc1abad505a4ad341dac54180247fc956d1f53a2eb5d1ba56ce9ee03b": {
@@ -12443,6 +12467,12 @@
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
+    },
+    "f35de9f783a55bb955116cc885978ff2d0c551abc7c7b51faa984bddbe991c69": {
+      "attempts": 0,
+      "first_seen": "2026-09-07",
+      "last_seen": "2026-09-07",
+      "outcome": "out_of_scope"
     },
     "f39fb980f79663a1a436ea0d640bf16c795faebe54f3608090020c050d342ad4": {
       "attempts": 0,
