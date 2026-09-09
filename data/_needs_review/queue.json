@@ -28,5 +28,42 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "One person was arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 4,
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "offence_sections": [
+        "POCSO"
+      ],
+      "court": {
+        "name": "Jammu & Kashmir and Ladakh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/jk-high-court-denies-bail-to-four-accused-in-gang-rape-of-15-year-old-says-unrebutted-pocso-presumption-weighs-against-release-549186",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-09",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "Four people were accused of the child sexual offence in Unknown. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

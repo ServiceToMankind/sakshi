@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Unknown",
     "first_published": "2026-09-05",
     "id": "SKS-2026-OD-000002",
@@ -26,10 +26,38 @@
     "verified": true
   },
   {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 8,
+    "district": "Unknown",
+    "first_published": "2026-09-09",
+    "id": "SKS-2026-OD-000003",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-09",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/16-year-old-tribal-girl-from-jharkhand-raped-at-odisha-shelter-home-watchman-and-juvenile-held-crime-gangrape-101788883534189.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "OD",
+    "status": "FIR_FILED",
+    "summary": "Two people were arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 6,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Cuttack",
     "first_published": "2026-08-12",
     "id": "SKS-2026-OD-000001",
