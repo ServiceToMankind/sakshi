@@ -3,7 +3,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Unknown",
     "first_published": "2026-09-06",
     "id": "SKS-2026-TN-000010",
@@ -28,6 +28,33 @@
     "verified": true
   },
   {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 8,
+    "district": "UNKNOWN",
+    "first_published": "2026-09-09",
+    "id": "SKS-2026-TN-000011",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-09-09",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/rowdy-who-gang-raped-a-plus-2-student-gets-death-sentence-2-get-jail"
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "Three people were accused of the child sexual offence in UNKNOWN. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — UNKNOWN (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
@@ -35,7 +62,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -75,7 +102,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -116,7 +143,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -148,7 +175,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -176,7 +203,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -204,7 +231,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Thoothukudi",
     "first_published": "2026-08-23",
     "id": "SKS-2026-TN-000006",
@@ -232,7 +259,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Unknown",
     "first_published": "2026-08-26",
     "id": "SKS-2026-TN-000007",
@@ -262,7 +289,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Chennai",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000008",
@@ -290,7 +317,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Kanyakumari",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000009",
