@@ -65,5 +65,41 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "Four people were accused of the child sexual offence in Unknown. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-pocso-death-penalty-set-aside-accused-sexually-assaulted-5-minors-549370",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-10"
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "One person was accused of the child sexual offence in Unknown. The accused was acquitted. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
