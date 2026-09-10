@@ -2,7 +2,7 @@
   {
     "category": "other",
     "confidence": 0.95,
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Banswara",
     "first_published": "2026-09-05",
     "id": "SKS-2026-RJ-000002",
@@ -27,10 +27,36 @@
     "weapon_or_threat": true
   },
   {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 9,
+    "district": "Kota",
+    "first_published": "2026-09-10",
+    "id": "SKS-2026-RJ-000003",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-10",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/only-said-2-words-uncle-and-finger-toddler-molested-at-play-school-in-rajasthans-kota-101789008881650.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "RJ",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Kota, Rajasthan (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kota (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",

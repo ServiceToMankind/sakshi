@@ -1,8 +1,39 @@
 [
   {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.9,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Unknown",
+    "first_published": "2026-09-10",
+    "id": "SKS-2026-KA-000004",
+    "incident_reported_date": "2026-09-10",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-10",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/woman-subjected-to-involuntary-sex-by-husband-undoubtedly-a-victim-supreme-court-grapples-with-marital-rape-exception-101789003307199.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "UNDER_TRIAL",
+    "summary": "A man allegedly subjected a woman to involuntary sex in Karnataka. The Supreme Court of India is currently reviewing the case to address marital rape.",
+    "title": "Supreme Court reviews Karnataka marital rape case",
+    "verification_note": "The source reports on a real, specific case from Karnataka regarding marital rape charges currently before the Supreme Court.",
+    "verified": true
+  },
+  {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Bengaluru",
     "first_published": "2026-09-06",
     "id": "SKS-2026-KA-000003",
@@ -31,7 +62,7 @@
     "accused_count": 7,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Unknown",
     "first_published": "2026-08-17",
     "id": "SKS-2026-KA-000002",
@@ -60,7 +91,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",
