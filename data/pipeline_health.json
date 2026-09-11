@@ -1,17 +1,17 @@
 {
-  "generated": "2026-09-10",
+  "generated": "2026-09-11",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
-      "prefilter_skipped": 11,
+      "prefilter_skipped": 9,
       "extracted": 0,
-      "out_of_scope": 0,
+      "out_of_scope": 2,
       "failed": 0,
       "published": 3,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "prefilter_pass_rate": 0.182
     },
     "Daily Thanthi": {
       "documents": 40,
@@ -21,8 +21,10 @@
       "failed": 0,
       "published": 9,
       "needs_review": 1,
-      "quarantined": 0,
-      "quarantine_reasons": {},
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "schema_invalid": 1
+      },
       "prefilter_pass_rate": 0.025
     },
     "Dainik Bhaskar": {
@@ -74,30 +76,28 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 41,
-      "prefilter_skipped": 41,
+      "documents": 35,
+      "prefilter_skipped": 34,
+      "extracted": 1,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 1,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.029
+    },
+    "Hindustan Times": {
+      "documents": 100,
+      "prefilter_skipped": 100,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 0,
+      "published": 34,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
       "prefilter_pass_rate": 0.0
-    },
-    "Hindustan Times": {
-      "documents": 100,
-      "prefilter_skipped": 96,
-      "extracted": 3,
-      "out_of_scope": 1,
-      "failed": 0,
-      "published": 34,
-      "needs_review": 0,
-      "quarantined": 1,
-      "quarantine_reasons": {
-        "unverified": 1
-      },
-      "prefilter_pass_rate": 0.04
     },
     "Jharkhand High Court": {
       "documents": 0,
@@ -113,17 +113,15 @@
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 56,
-      "extracted": 2,
+      "prefilter_skipped": 57,
+      "extracted": 1,
       "out_of_scope": 2,
       "failed": 0,
       "published": 0,
-      "needs_review": 2,
-      "quarantined": 1,
-      "quarantine_reasons": {
-        "ambiguous_match": 1
-      },
-      "prefilter_pass_rate": 0.067
+      "needs_review": 3,
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.05
     },
     "Lokmat": {
       "documents": 10,
@@ -163,15 +161,17 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 199,
-      "extracted": 0,
+      "prefilter_skipped": 198,
+      "extracted": 1,
       "out_of_scope": 1,
       "failed": 0,
       "published": 18,
       "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.005
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "unverified": 1
+      },
+      "prefilter_pass_rate": 0.01
     },
     "Punjab-Haryana High Court": {
       "documents": 0,
@@ -184,6 +184,18 @@
       "quarantined": 0,
       "quarantine_reasons": {},
       "prefilter_pass_rate": null
+    },
+    "Sakal": {
+      "documents": 1,
+      "prefilter_skipped": 1,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.0
     },
     "Telangana High Court": {
       "documents": 0,
@@ -222,16 +234,16 @@
       "prefilter_pass_rate": null
     },
     "The Times of India": {
-      "documents": 46,
-      "prefilter_skipped": 45,
+      "documents": 43,
+      "prefilter_skipped": 43,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 9,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.022
+      "prefilter_pass_rate": 0.0
     }
   },
   "court_prefilter": [
