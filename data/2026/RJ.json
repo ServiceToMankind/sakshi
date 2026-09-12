@@ -2,7 +2,7 @@
   {
     "category": "other",
     "confidence": 0.95,
-    "days_since_reported": 6,
+    "days_since_reported": 7,
     "district": "Banswara",
     "first_published": "2026-09-05",
     "id": "SKS-2026-RJ-000002",
@@ -29,7 +29,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Kota",
     "first_published": "2026-09-10",
     "id": "SKS-2026-RJ-000003",
@@ -56,7 +56,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 41,
+    "days_since_reported": 42,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",

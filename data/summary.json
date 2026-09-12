@@ -1,6 +1,6 @@
 {
   "aggravated_total": 38,
-  "generated_at": "2026-09-11T00:00:00Z",
+  "generated_at": "2026-09-12T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -281,10 +281,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 346,
+        "days": 347,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 346,
+      "median_pending_days": 347,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -372,6 +372,17 @@
       "under_trial_pct": 0
     },
     {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Durg",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "CT",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 1,
       "convictions": 0,
       "district": "East",
@@ -421,10 +432,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 22,
+        "days": 23,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 22,
+      "median_pending_days": 23,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
@@ -851,6 +862,18 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Unknown",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TG",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Warangal",
       "longest_pending": null,
       "median_pending_days": null,
@@ -876,6 +899,18 @@
       "district": "Coimbatore",
       "longest_pending": null,
       "median_pending_days": null,
+      "state": "TN",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Kallakurichi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
       "state": "TN",
       "total": 1,
       "under_trial": 0,
@@ -1133,17 +1168,13 @@
       "month": "2026-08"
     },
     {
-      "count": 30,
+      "count": 32,
       "month": "2026-09"
     }
   ],
   "scale": {
-    "cumulative_total": 145,
+    "cumulative_total": 148,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-05-15"
-      },
       {
         "count": 0,
         "date": "2026-05-16"
@@ -1619,9 +1650,13 @@
       {
         "count": 1,
         "date": "2026-09-11"
+      },
+      {
+        "count": 4,
+        "date": "2026-09-12"
       }
     ],
-    "this_week": 17
+    "this_week": 16
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 28,
@@ -1638,6 +1673,7 @@
     "AP": 1,
     "AS": 1,
     "BR": 3,
+    "CT": 1,
     "DL": 25,
     "GA": 1,
     "GJ": 6,
@@ -1651,8 +1687,8 @@
     "OD": 3,
     "PB": 1,
     "RJ": 3,
-    "TG": 22,
-    "TN": 22,
+    "TG": 23,
+    "TN": 23,
     "TR": 2,
     "UP": 10,
     "WB": 3
@@ -1661,25 +1697,25 @@
     "ACQUITTED": 4,
     "APPEAL_PENDING": 10,
     "CLOSED": 1,
-    "CONVICTED": 26,
-    "FIR_FILED": 40,
+    "CONVICTED": 27,
+    "FIR_FILED": 42,
     "QUASHED": 2,
     "UNDER_TRIAL": 28,
     "UNKNOWN": 34
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 346,
+      "days_since_reported": 347,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 22,
+      "days_since_reported": 23,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 145
+  "total": 148
 }
