@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "district": "Durg",
+    "first_published": "2026-09-12",
+    "id": "SKS-2025-CT-000001",
+    "incident_reported_date": "2025",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-12",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/rarest-of-rare-chhattisgarh-man-sentenced-to-death-for-raping-killing-girl-101789111087850.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "CT",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the rape involving a minor in Durg. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Durg (2025)",
+    "verified": true
+  }
+]
