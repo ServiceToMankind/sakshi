@@ -4828,7 +4828,7 @@
       "attempts": 0,
       "first_seen": "2026-09-13",
       "last_seen": "2026-09-13",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "5a2d04f8972c8b27ab6a05150712ea7c3d5a6786cd1a7dbfcecaebbf77ab81e0": {
       "attempts": 0,
@@ -10042,7 +10042,7 @@
       "attempts": 0,
       "first_seen": "2026-09-13",
       "last_seen": "2026-09-13",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "c12f8a21922a40847e1c0569270839c2379fa3b25bb0b9518281841281a10e70": {
       "attempts": 0,
