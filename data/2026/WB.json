@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Kolkata",
     "first_published": "2026-09-04",
     "id": "SKS-2026-WB-000002",
@@ -35,7 +35,7 @@
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",

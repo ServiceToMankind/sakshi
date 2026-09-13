@@ -2,8 +2,38 @@
   {
     "accused_count": 1,
     "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Mumbai",
+    "first_published": "2026-09-13",
+    "id": "SKS-2026-MH-000005",
+    "incident_reported_date": "2026-09-13",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "sentence_years": 1,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-13",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/mumbai/slipped-and-fell-on-saleswoman-then-kissed-her-twice-mumbai-man-gets-1-year-jail/articleshow/134172064.cms"
+      }
+    ],
+    "state": "MH",
+    "status": "CONVICTED",
+    "summary": "A cleaner forcibly kissed [occupation withheld] in Mumbai. A local court convicted the cleaner and sentenced him to one year in prison.",
+    "title": "Mumbai court sentences cleaner to prison for sexual assault",
+    "verification_note": "The source confirms the conviction of a man in Mumbai for sexual assault involving criminal force and sexual overtures.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Mumbai",
     "first_published": "2026-08-21",
     "id": "SKS-2026-MH-000003",
@@ -32,7 +62,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 42,
+    "days_since_reported": 43,
     "district": "Nagpur",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000001",
@@ -60,7 +90,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 42,
+    "days_since_reported": 43,
     "district": "Pune",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000002",
@@ -88,7 +118,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 42,
+    "days_since_reported": 43,
     "district": "Thane",
     "first_published": "2026-08-29",
     "id": "SKS-2026-MH-000004",
