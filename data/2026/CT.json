@@ -1,0 +1,32 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Fast Track Court"
+    },
+    "days_since_reported": 12,
+    "district": "Unknown",
+    "first_published": "2026-09-13",
+    "id": "SKS-2026-CT-000001",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-13",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/child-raped-toilet-cleaner-poured-on-her-man-gets-death-in-rarest-case-in-chhattisgarhs-durg-district-2509576"
+      }
+    ],
+    "state": "CT",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Unknown. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  }
+]
