@@ -1,9 +1,38 @@
 [
   {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Dibrugarh",
+    "first_published": "2026-09-14",
+    "id": "SKS-2026-AS-000002",
+    "incident_reported_date": "2026-09-14",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/assam-man-23-held-for-rape-murder-of-woman-over-alleged-affair-police-101789313210747.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AS",
+    "status": "FIR_FILED",
+    "summary": "A man allegedly raped and killed a woman in Dibrugarh. Police arrested the accused.",
+    "title": "Assam man arrested for rape and murder in Dibrugarh",
+    "verification_note": "The source confirms a case of rape and murder in Dibrugarh, Assam, with the suspect apprehended.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Sivasagar",
     "first_published": "2026-09-05",
     "id": "SKS-2026-AS-000001",
