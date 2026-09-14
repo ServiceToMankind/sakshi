@@ -1,0 +1,32 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "court": {
+        "name": "High Court of Jammu & Kashmir and Ladakh",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/lack-of-remedy-under-mtp-act-does-not-bar-constitutional-remedy-jk-high-court-allows-minor-rape-survivor-to-terminate-26-week-pregnancy-549880",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-14"
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "A case of child sexual offence in Unknown, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
+  }
+]
