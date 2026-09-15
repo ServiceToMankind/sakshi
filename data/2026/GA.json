@@ -1,0 +1,63 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Goa court",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Goa",
+    "first_published": "2026-09-15",
+    "id": "SKS-2026-GA-000001",
+    "incident_reported_date": "2026-09-15",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-15",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/ex-tehelka-editor-tarun-tejpal-surrenders-before-goa-court-after-2013-sexual-assault-conviction-supreme-court-order-101789372667024.html"
+      }
+    ],
+    "state": "GA",
+    "status": "CONVICTED",
+    "summary": "An editor was convicted of sexual assault and rape in Goa. The convicted editor recently surrendered to the local court.",
+    "title": "Ex-editor surrenders before Goa court following conviction in rape case",
+    "verification_note": "The record is consistent with the source text describing a sexual assault case in Goa.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "North Goa",
+    "first_published": "2026-09-15",
+    "id": "SKS-2026-GA-000002",
+    "incident_reported_date": "2026-09-15",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-15",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/tarun-tejpal-surrendered-in-goa-shifted-to-central-jail-2510815"
+      }
+    ],
+    "state": "GA",
+    "status": "CONVICTED",
+    "summary": "A former magazine editor surrendered to the police in Goa after being found guilty in a rape case. The Supreme Court ordered his surrender, and authorities shifted him to a central jail. He is currently held in jail.",
+    "title": "Former magazine editor surrenders to Goa police in rape case",
+    "verification_note": "Approved as the source describes a real, specific reported rape case involving Tarun Tejpal in Goa.",
+    "verified": true
+  }
+]
