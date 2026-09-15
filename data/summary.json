@@ -1,6 +1,6 @@
 {
   "aggravated_total": 38,
-  "generated_at": "2026-09-14T00:00:00Z",
+  "generated_at": "2026-09-15T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -102,6 +102,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 2,
+      "district": "North Goa",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "GA",
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -293,10 +304,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 349,
+        "days": 350,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 349,
+      "median_pending_days": 350,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -467,10 +478,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 25,
+        "days": 26,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 25,
+      "median_pending_days": 26,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
@@ -490,7 +501,7 @@
     {
       "acquittals": 0,
       "convictions": 1,
-      "district": "North Goa",
+      "district": "Goa",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "GA",
@@ -1191,17 +1202,13 @@
       "month": "2026-08"
     },
     {
-      "count": 35,
+      "count": 37,
       "month": "2026-09"
     }
   ],
   "scale": {
-    "cumulative_total": 151,
+    "cumulative_total": 153,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-05-18"
-      },
       {
         "count": 0,
         "date": "2026-05-19"
@@ -1677,9 +1684,13 @@
       {
         "count": 1,
         "date": "2026-09-14"
+      },
+      {
+        "count": 2,
+        "date": "2026-09-15"
       }
     ],
-    "this_week": 13
+    "this_week": 15
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 28,
@@ -1698,7 +1709,7 @@
     "BR": 3,
     "CT": 2,
     "DL": 25,
-    "GA": 1,
+    "GA": 3,
     "GJ": 6,
     "HR": 9,
     "JH": 11,
@@ -1720,7 +1731,7 @@
     "ACQUITTED": 4,
     "APPEAL_PENDING": 10,
     "CLOSED": 1,
-    "CONVICTED": 29,
+    "CONVICTED": 31,
     "FIR_FILED": 43,
     "QUASHED": 2,
     "UNDER_TRIAL": 28,
@@ -1728,17 +1739,17 @@
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 349,
+      "days_since_reported": 350,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 25,
+      "days_since_reported": 26,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 151
+  "total": 153
 }
