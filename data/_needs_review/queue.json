@@ -28,5 +28,74 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "A case of child sexual offence in Unknown, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "WB",
+      "district": "South 24 Parganas",
+      "incident_reported_date": "2026-09-17",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Calcutta High Court",
+        "next_hearing": null
+      },
+      "title": "Calcutta HC seeks report on alleged encounter of rape accused",
+      "summary": "The Calcutta High Court has demanded a probe report into the alleged police encounter killing of a rape-murder accused. The incident occurred in South 24 Parganas district.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/calcutta-high-court/calcutta-high-court-seeks-status-report-on-probe-into-alleged-police-encounter-killing-of-baruipur-rape-murder-accused-550341",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-17"
+        }
+      ],
+      "verified": true,
+      "verification_note": "The source confirms a genuine case of rape and murder in Baruipur, South 24 Parganas, and the core details of the candidate record are consistent."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Lalitpur",
+      "category": "rape",
+      "minor_involved": false,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "arrest_made",
+        "convicted",
+        "acquitted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "title": "Allahabad HC acquits Uttar Pradesh man after twenty years in prison",
+      "summary": "An innocent man spent twenty years in prison over a false rape allegation. A dispute over land in Lalitpur led to the complaint. The trial court sentenced the man to life imprisonment. The Allahabad High Court later acquitted him. The man is now free.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.bhaskar.com/bhaskar-khaas/blackboard/news/lalitpur-vishnu-tiwari-fake-rape-case-story-land-dispute-sc-st-act-139053724.html",
+          "publisher": "Dainik Bhaskar",
+          "source_type": "news_article",
+          "retrieved": "2026-09-17"
+        }
+      ],
+      "incident_reported_date": "2026-09-17",
+      "verified": false
+    }
   }
 ]

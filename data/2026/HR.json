@@ -1,9 +1,38 @@
 [
   {
     "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Rohtak",
+    "first_published": "2026-09-17",
+    "id": "SKS-2026-HR-000003",
+    "incident_reported_date": "2026-09-17",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-17",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh/ram-rahim-returns-to-sunaria-jail-after-21-day-furlough/articleshow/134295680.cms"
+      }
+    ],
+    "state": "HR",
+    "status": "CONVICTED",
+    "summary": "A convicted man returned to Sunaria jail after his twenty-one-day furlough ended. He is currently serving a prison sentence for rape.",
+    "title": "Rape convict returns to Sunaria jail after 21-day furlough",
+    "verification_note": "The source confirms the return of the rape convict to Sunaria jail in Rohtak, Haryana, which is consistent with the recorded facts.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 47,
     "district": "Palwal",
     "first_published": "2026-08-30",
     "id": "SKS-2026-HR-000002",
@@ -30,7 +59,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 76,
+    "days_since_reported": 78,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",
