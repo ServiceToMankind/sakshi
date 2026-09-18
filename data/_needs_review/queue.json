@@ -64,7 +64,7 @@
   },
   {
     "reasons": [
-      "verify_incomplete"
+      "unverified_held"
     ],
     "record": {
       "state": "UP",

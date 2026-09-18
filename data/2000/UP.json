@@ -1,0 +1,41 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 1.0,
+    "court": {
+      "name": "Allahabad High Court"
+    },
+    "days_since_reported": 9496,
+    "district": "Lalitpur",
+    "first_published": "2026-09-18",
+    "id": "SKS-2000-UP-000001",
+    "incident_reported_date": "2000-09-18",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted",
+      "acquitted"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-09-18",
+        "source_type": "news_article",
+        "url": "https://www.bhaskar.com/bhaskar-khaas/blackboard/news/lalitpur-vishnu-tiwari-fake-rape-case-story-land-dispute-sc-st-act-139053724.html"
+      },
+      {
+        "publisher": "BBC News",
+        "retrieved": "2026-09-18",
+        "source_type": "news_article",
+        "url": "https://www.bbc.com/news/world-asia-india-56334515"
+      }
+    ],
+    "state": "UP",
+    "status": "ACQUITTED",
+    "summary": "The Allahabad High Court acquitted a Lalitpur man who served twenty years in prison on false rape charges. The court noted that medical reports showed no physical evidence and witness statements did not align.",
+    "title": "Allahabad HC acquits Lalitpur man after twenty years in jail",
+    "verification_note": "Approved as the candidate record matches the genuine, widely-reported case of wrongful prosecution and subsequent acquittal of an accused by the High Court.",
+    "verified": true
+  }
+]
