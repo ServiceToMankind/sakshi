@@ -1,0 +1,27 @@
+[
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 1114,
+    "district": "Khammam",
+    "first_published": "2026-09-19",
+    "id": "SKS-2023-TG-000001",
+    "incident_reported_date": "2023-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-19",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/sexual-assault-victim-threatened-at-nims-2514265"
+      }
+    ],
+    "state": "TG",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Khammam, Telangana (2023). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Khammam (2023)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
