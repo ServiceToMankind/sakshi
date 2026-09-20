@@ -1,0 +1,33 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court"
+    },
+    "days_since_reported": 323,
+    "district": "Gautam Buddha Nagar",
+    "first_published": "2026-09-20",
+    "id": "SKS-2025-UP-000001",
+    "incident_reported_date": "2025-11",
+    "institutional_actions": [
+      "convicted",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-09-20",
+        "source_type": "news_article",
+        "url": "https://www.bhaskar.com/bhaskar-khaas/bhaskar-explainer/news/surendra-koli-nithari-case-death-greater-noida-jail-suicide-139081578.html"
+      }
+    ],
+    "state": "UP",
+    "status": "ACQUITTED",
+    "summary": "One person was accused of the child sexual offence in Gautam Buddha Nagar. The accused was convicted. The accused was acquitted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Gautam Buddha Nagar (2025)",
+    "verified": true
+  }
+]

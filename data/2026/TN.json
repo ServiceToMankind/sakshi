@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Chennai",
     "first_published": "2026-09-11",
     "id": "SKS-2026-TN-000013",
@@ -30,7 +30,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 9,
+    "days_since_reported": 10,
     "district": "Tiruppur",
     "first_published": "2026-09-10",
     "id": "SKS-2026-TN-000012",
@@ -58,7 +58,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Unknown",
     "first_published": "2026-09-06",
     "id": "SKS-2026-TN-000010",
@@ -99,7 +99,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "UNKNOWN",
     "first_published": "2026-09-09",
     "id": "SKS-2026-TN-000011",
@@ -126,7 +126,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Kallakurichi",
     "first_published": "2026-09-12",
     "id": "SKS-2026-TN-000014",
@@ -155,32 +155,44 @@
   {
     "accused_count": 1,
     "category": "pocso",
-    "confidence": 0.95,
-    "days_since_reported": 18,
+    "confidence": 0.9,
+    "days_since_reported": 19,
     "district": "Unknown",
     "first_published": "2026-09-19",
     "id": "SKS-2026-TN-000015",
     "incident_reported_date": "2026-09",
     "institutional_actions": [
-      "convicted"
+      "arrest_made"
     ],
+    "last_status_change": "2026-09-20",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
     ],
-    "sentence_years": 20,
     "sources": [
       {
         "publisher": "Daily Thanthi",
-        "retrieved": "2026-09-19",
+        "retrieved": "2026-09-20",
         "source_type": "news_article",
-        "url": "https://www.dailythanthi.com/news/tamilnadu/rape-of-8-year-old-girl-pocso-convict-gets-20-years-in-prison",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/cleaning-supervisor-arrested-under-pocso-for-sexually-assaulting-10-year-old-girl",
         "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",
-    "status": "CONVICTED",
-    "summary": "One person was accused of the child sexual offence in Unknown. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "status": "FIR_FILED",
+    "status_history": [
+      {
+        "date": "2026-09",
+        "source": 0,
+        "status": "CONVICTED"
+      },
+      {
+        "date": "2026-09",
+        "source": 0,
+        "status": "FIR_FILED"
+      }
+    ],
+    "summary": "One person was arrested in Unknown for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Unknown (2026)",
     "verified": true
   },
@@ -192,7 +204,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -232,7 +244,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -273,7 +285,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -305,7 +317,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -333,7 +345,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -361,7 +373,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Thoothukudi",
     "first_published": "2026-08-23",
     "id": "SKS-2026-TN-000006",
@@ -389,7 +401,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Unknown",
     "first_published": "2026-08-26",
     "id": "SKS-2026-TN-000007",
@@ -419,7 +431,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Chennai",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000008",
@@ -447,7 +459,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Kanyakumari",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000009",
