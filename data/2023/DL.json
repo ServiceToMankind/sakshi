@@ -2,7 +2,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 1114,
+    "days_since_reported": 1115,
     "district": "Outer Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000002",
@@ -26,9 +26,9 @@
   },
   {
     "accused_count": 4,
-    "category": "pocso",
+    "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 1114,
+    "days_since_reported": 1115,
     "district": "Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000003",
@@ -40,24 +40,25 @@
     "sources": [
       {
         "publisher": "The Hindu",
-        "retrieved": "2026-09-19",
+        "retrieved": "2026-09-20",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/four-including-three-juveniles-arrested-for-rape-and-murder-of-minor-girl-in-delhis-swaroop-nagar/article71479244.ece",
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-girl-raped-stabbed-to-death-police-three-minors-among-four-held/article71478180.ece",
         "url_carries_identifying_slug": true
       },
       {
         "publisher": "The Hindu",
-        "retrieved": "2026-09-19",
+        "retrieved": "2026-09-20",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/body-of-minor-girl-found-in-delhis-swaroop-nagar-four-held/article67317772.ece",
+        "url": "https://www.thehindu.com/news/cities/Delhi/girl-raped-stabbed-to-death-in-delhi-three-minors-among-four-held/article67318047.ece",
         "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in Delhi for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2023)",
-    "verified": true
+    "summary": "Four people were arrested in Delhi for the rape involving a minor. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Delhi (2023)",
+    "verified": true,
+    "weapon_or_threat": true
   },
   {
     "accused_count": 1,
@@ -67,7 +68,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 1145,
+    "days_since_reported": 1146,
     "district": "South Delhi",
     "fir_ref": {
       "number": "226/2023",

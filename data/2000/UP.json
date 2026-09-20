@@ -6,7 +6,7 @@
     "court": {
       "name": "Allahabad High Court"
     },
-    "days_since_reported": 9497,
+    "days_since_reported": 9498,
     "district": "Lalitpur",
     "first_published": "2026-09-18",
     "id": "SKS-2000-UP-000001",
@@ -29,6 +29,12 @@
         "retrieved": "2026-09-18",
         "source_type": "news_article",
         "url": "https://www.bbc.com/news/world-asia-india-56334515"
+      },
+      {
+        "publisher": "NDTV",
+        "retrieved": "2026-09-20",
+        "source_type": "news_article",
+        "url": "https://www.ndtv.com/india-news/vishnu-tiwari-wrongly-jailed-for-20-years-in-rape-case-walks-out-of-up-prison-2383184"
       }
     ],
     "state": "UP",
