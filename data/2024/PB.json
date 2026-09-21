@@ -1,0 +1,30 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 697,
+    "district": "Rupnagar",
+    "first_published": "2026-09-21",
+    "id": "SKS-2024-PB-000001",
+    "incident_reported_date": "2024-10-24",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-21",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/rape-case-against-punjabs-akali-dal-leader-amarjit-singh-chawla-2515407"
+      }
+    ],
+    "state": "PB",
+    "status": "FIR_FILED",
+    "summary": "A political leader allegedly confined and raped a woman at a pilgrim guest house. The incident occurred in Rupnagar district. Police registered a case following her complaint.",
+    "title": "Rape case registered against Akali Dal leader in Rupnagar",
+    "verification_note": "The source confirms a rape case was registered against an Akali Dal leader in Anandpur Sahib, Rupnagar district, Punjab.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
