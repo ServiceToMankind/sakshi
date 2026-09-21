@@ -2820,6 +2820,12 @@
       "last_seen": "2026-08-14",
       "outcome": "published"
     },
+    "3716950afbb915e9b37aa02b786875096f2ac6e9017d6ae16f0b06379ff6f88c": {
+      "attempts": 0,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-09-21",
+      "outcome": "staged_pending"
+    },
     "375dddc434493d72e28a6d376e53a619037375c8f7ce5e19f005abe445648fee": {
       "attempts": 0,
       "first_seen": "2026-07-19",
@@ -6070,6 +6076,12 @@
       "attempts": 0,
       "first_seen": "2026-08-08",
       "last_seen": "2026-08-08",
+      "outcome": "not_a_case"
+    },
+    "6ecb4e81c55fba6f6bfedad13a625d8203068ec9c6225fe0d467c76960665878": {
+      "attempts": 0,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-09-21",
       "outcome": "not_a_case"
     },
     "6ef43f4bff14b6da6659d3de9a5c0c9a5643a7f9684c19c0239582cfa9303816": {
@@ -10998,11 +11010,23 @@
       "last_seen": "2026-08-22",
       "outcome": "published"
     },
+    "cf67a611a9808bed4f5512ffd1303ff99df1c7290e08e93e5a721e7f4ed028f7": {
+      "attempts": 0,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-09-21",
+      "outcome": "staged_pending"
+    },
     "cf7c908c7c46293296f706d26a16a7a4f0d955cf0edb314fd7439998f739f008": {
       "attempts": 0,
       "first_seen": "2026-07-23",
       "last_seen": "2026-07-23",
       "outcome": "not_a_case"
+    },
+    "cf8d7279a9dfa44fb5d2ec2dfe118cf9ab57561351552f4d7446618837382cee": {
+      "attempts": 0,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-09-21",
+      "outcome": "staged_pending"
     },
     "cf903355f4918ea70bd12da152c4385cae40347eb6a9e505f35cb36424d2f90f": {
       "attempts": 0,
@@ -12652,6 +12676,12 @@
       "attempts": 1,
       "first_seen": "2026-07-19",
       "last_seen": "2026-07-19",
+      "outcome": "not_a_case"
+    },
+    "f0e2d6344f896b7e479a6b628e44fbecc67aa1701307b7c8caff2347e7238317": {
+      "attempts": 0,
+      "first_seen": "2026-09-21",
+      "last_seen": "2026-09-21",
       "outcome": "not_a_case"
     },
     "f0e7b9f109ceaca8cf7d1d8b438376dc1982c6a239d77dbaf427589ddd03df97": {
