@@ -3,7 +3,7 @@
     "accused_count": 2,
     "category": "harassment",
     "confidence": 1.0,
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000002",
@@ -31,7 +31,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 20,
+    "days_since_reported": 21,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -59,7 +59,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 20,
+    "days_since_reported": 21,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000003",
@@ -82,5 +82,33 @@
     "summary": "Two people were accused of the child sexual offence in Buxar. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Buxar (2026)",
     "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 21,
+    "district": "Jamui",
+    "first_published": "2026-09-22",
+    "id": "SKS-2026-BR-000004",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-22",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/patriarchy-not-culture-rahul-gandhi-demands-pocso-action-over-mob-harassment-in-bihar-jamui-viral-video-101789981412268.html"
+      }
+    ],
+    "state": "BR",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Jamui, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Jamui (2026)",
+    "verified": true,
+    "weapon_or_threat": true
   }
 ]

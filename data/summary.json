@@ -1,6 +1,6 @@
 {
   "aggravated_total": 38,
-  "generated_at": "2026-09-21T00:00:00Z",
+  "generated_at": "2026-09-22T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 0,
@@ -74,12 +74,35 @@
       "under_trial_pct": 0
     },
     {
+      "acquittals": 1,
+      "convictions": 0,
+      "district": "South Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 0,
       "convictions": 1,
       "district": "Bengaluru",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "KA",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Chennai",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 2,
+      "state": "TN",
       "total": 3,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -114,17 +137,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "BR",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 1,
-      "convictions": 0,
-      "district": "South Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -292,14 +304,14 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "Chennai",
+      "district": "Salem",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 2,
+      "pre_chargesheet": 1,
       "state": "TN",
       "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
+      "under_trial": 1,
+      "under_trial_pct": 50
     },
     {
       "acquittals": 0,
@@ -328,10 +340,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 356,
+        "days": 357,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 356,
+      "median_pending_days": 357,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -402,6 +414,17 @@
       "median_pending_days": null,
       "pre_chargesheet": 1,
       "state": "AS",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Jamui",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "BR",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -513,10 +536,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 32,
+        "days": 33,
         "id": "SKS-2026-DL-000014"
       },
-      "median_pending_days": 32,
+      "median_pending_days": 33,
       "state": "DL",
       "total": 1,
       "under_trial": 1,
@@ -1032,18 +1055,6 @@
     },
     {
       "acquittals": 0,
-      "convictions": 0,
-      "district": "Salem",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
-      "state": "TN",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
       "convictions": 1,
       "district": "Tirunelveli",
       "longest_pending": null,
@@ -1270,17 +1281,13 @@
       "month": "2026-08"
     },
     {
-      "count": 43,
+      "count": 47,
       "month": "2026-09"
     }
   ],
   "scale": {
-    "cumulative_total": 165,
+    "cumulative_total": 169,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-05-25"
-      },
       {
         "count": 0,
         "date": "2026-05-26"
@@ -1756,14 +1763,18 @@
       {
         "count": 3,
         "date": "2026-09-21"
+      },
+      {
+        "count": 6,
+        "date": "2026-09-22"
       }
     ],
-    "this_week": 14
+    "this_week": 18
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 28,
     "Assault to outrage modesty": 3,
-    "Child sexual offence": 19,
+    "Child sexual offence": 21,
     "Gang rape": 2,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
@@ -1774,9 +1785,9 @@
   "state_counts": {
     "AP": 1,
     "AS": 2,
-    "BR": 3,
+    "BR": 4,
     "CT": 2,
-    "DL": 28,
+    "DL": 29,
     "GA": 3,
     "GJ": 6,
     "HR": 10,
@@ -1790,7 +1801,7 @@
     "PB": 2,
     "RJ": 3,
     "TG": 26,
-    "TN": 24,
+    "TN": 26,
     "TR": 2,
     "UP": 12,
     "WB": 3
@@ -1802,22 +1813,22 @@
     "CONVICTED": 33,
     "FIR_FILED": 47,
     "QUASHED": 2,
-    "UNDER_TRIAL": 28,
-    "UNKNOWN": 38
+    "UNDER_TRIAL": 29,
+    "UNKNOWN": 41
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 356,
+      "days_since_reported": 357,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 32,
+      "days_since_reported": 33,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     }
   ],
-  "total": 165
+  "total": 169
 }
