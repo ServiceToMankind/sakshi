@@ -1,0 +1,68 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "offence_sections": [
+        "POCSO"
+      ],
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "court": {
+        "name": "High Court of Jammu & Kashmir and Ladakh",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/bail-during-investigation-in-pocso-case-where-child-was-assaulted-in-close-relatives-house-is-too-premature-jk-high-court-cancels-bail-551100",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-22",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "One person was accused of the child sexual offence in Unknown. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "confidence_below_auto"
+    ],
+    "record": {
+      "state": "TG",
+      "district": "Not Specified",
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "title": "BRS leader demands action against CM follower for harassing woman",
+      "summary": "A political leader demanded punishment for an associate of the Chief Minister who allegedly harassed a woman. The woman was seeking an appointment for an advertising contract.",
+      "confidence": 0.8,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/telangana/rsp-demands-action-over-alleged-harassment-of-woman-2516690",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-09-22",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-09-22",
+      "verified": true,
+      "verification_note": "The source reports a specific harassment case involving a woman, consistent with the record details."
+    }
+  }
+]
