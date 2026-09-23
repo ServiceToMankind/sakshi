@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Chennai",
     "first_published": "2026-09-11",
     "id": "SKS-2026-TN-000013",
@@ -30,7 +30,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 12,
+    "days_since_reported": 13,
     "district": "Tiruppur",
     "first_published": "2026-09-10",
     "id": "SKS-2026-TN-000012",
@@ -58,7 +58,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Unknown",
     "first_published": "2026-09-06",
     "id": "SKS-2026-TN-000010",
@@ -99,7 +99,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "UNKNOWN",
     "first_published": "2026-09-09",
     "id": "SKS-2026-TN-000011",
@@ -126,7 +126,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Kallakurichi",
     "first_published": "2026-09-12",
     "id": "SKS-2026-TN-000014",
@@ -156,7 +156,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Unknown",
     "first_published": "2026-09-19",
     "id": "SKS-2026-TN-000015",
@@ -197,31 +197,45 @@
     "verified": true
   },
   {
-    "accused_count": 3,
+    "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Chennai",
     "first_published": "2026-09-22",
     "id": "SKS-2026-TN-000016",
     "incident_reported_date": "2026-09",
-    "institutional_actions": [],
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "last_status_change": "2026-09-23",
     "minor_involved": true,
     "offence_sections": [
       "POCSO"
     ],
-    "repeat_offence": true,
     "sources": [
       {
         "publisher": "Hindustan Times",
-        "retrieved": "2026-09-22",
+        "retrieved": "2026-09-23",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/tvk-ministers-accuse-previous-govt-of-covering-up-veeramani-case-dmk-hits-back-101790018688218.html"
+        "url": "https://www.hindustantimes.com/india-news/one-more-held-in-veeramani-pocso-case-probe-on-property-sale-underway-cops-101790077619408.html"
       }
     ],
     "state": "TN",
-    "status": "UNKNOWN",
-    "summary": "Three people were accused of the child sexual offence in Chennai. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "status": "FIR_FILED",
+    "status_history": [
+      {
+        "date": "2026-09",
+        "source": 0,
+        "status": "UNKNOWN"
+      },
+      {
+        "date": "2026-09",
+        "source": 0,
+        "status": "FIR_FILED"
+      }
+    ],
+    "summary": "Four people were arrested in Chennai for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Chennai (2026)",
     "verified": true
   },
@@ -232,7 +246,7 @@
     "court": {
       "name": "POCSO Court"
     },
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Salem",
     "first_published": "2026-09-22",
     "id": "SKS-2026-TN-000017",
@@ -261,7 +275,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -301,7 +315,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -342,7 +356,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -374,7 +388,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -402,7 +416,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -430,7 +444,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Thoothukudi",
     "first_published": "2026-08-23",
     "id": "SKS-2026-TN-000006",
@@ -458,7 +472,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Unknown",
     "first_published": "2026-08-26",
     "id": "SKS-2026-TN-000007",
@@ -488,7 +502,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Chennai",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000008",
@@ -516,7 +530,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Kanyakumari",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000009",

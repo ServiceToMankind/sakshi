@@ -3,7 +3,7 @@
     "accused_count": 2,
     "category": "harassment",
     "confidence": 1.0,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000002",
@@ -31,7 +31,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -59,7 +59,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000003",
@@ -86,7 +86,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Jamui",
     "first_published": "2026-09-22",
     "id": "SKS-2026-BR-000004",
@@ -110,5 +110,28 @@
     "title": "Child sexual offence — Jamui (2026)",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 22,
+    "district": "Jamui",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-BR-000005",
+    "incident_reported_date": "2026-09",
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/prashant-kishor-jan-suraaj-party-jd-u-leader-jamui-harassment-case-remark-bihar-news-nandan-yadav-101790068259391.html"
+      }
+    ],
+    "state": "BR",
+    "status": "UNKNOWN",
+    "summary": "A case of sexual assault involving a minor in Jamui, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Jamui (2026)",
+    "verified": true
   }
 ]

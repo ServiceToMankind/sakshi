@@ -1,9 +1,89 @@
 [
   {
+    "accused_count": 3,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "South East",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-DL-000028",
+    "incident_reported_date": "2026-09-23",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/temple-visit-fake-cops-threats-with-knife-and-gun-shocking-details-in-kalkaji-gangrape-case-101790077603517.html"
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Three men posing as police officers threatened people with weapons and committed gang rape in Delhi. The police arrested all three accused men.",
+    "title": "Delhi police arrest three men in Kalkaji gang rape case",
+    "verification_note": "The source confirms a gangrape case in Kalkaji, Delhi, with three accused arrested by the police.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "South Delhi",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-DL-000029",
+    "incident_reported_date": "2026-09-23",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Amar Ujala",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.amarujala.com/delhi-ncr/after-molesting-a-female-student-the-accused-pushed-her-off-the-scooter-and-dragged-her-for-100-meters-2026-09-23"
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "An accused person harassed a student and dragged her with a scooter. The South Delhi police registered an FIR ten days after the incident.",
+    "title": "Delhi Police file FIR ten days after [occupation withheld] is harassed and dragged",
+    "verification_note": "The source confirms a reported case of sexual harassment in South Delhi with an FIR registered.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Delhi",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-DL-000030",
+    "incident_reported_date": "2026-09-23",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/astha-kunj-park-gang-rape-lsr-suspends-classes-students-consider-leaving-delhi-amid-safety-fears/article71496925.ece"
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "A gang rape occurred near a college campus in Delhi. The college suspended classes and police engaged in an encounter with the accused near the site.",
+    "title": "Delhi college suspends classes following gang rape near campus",
+    "verification_note": "The source reports a genuine gang-rape case in Delhi consistent with the candidate record.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "South West Delhi",
     "first_published": "2026-09-07",
     "id": "SKS-2026-DL-000022",
@@ -30,7 +110,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 15,
+    "days_since_reported": 16,
     "district": "New Delhi",
     "first_published": "2026-09-07",
     "id": "SKS-2026-DL-000023",
@@ -56,7 +136,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "North Delhi",
     "first_published": "2026-09-01",
     "id": "SKS-2026-DL-000019",
@@ -85,7 +165,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Delhi",
     "first_published": "2026-09-01",
     "id": "SKS-2026-DL-000020",
@@ -125,7 +205,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Delhi",
     "first_published": "2026-09-05",
     "id": "SKS-2026-DL-000021",
@@ -155,7 +235,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "North West Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2026-DL-000024",
@@ -184,7 +264,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "South Delhi",
     "first_published": "2026-09-22",
     "id": "SKS-2026-DL-000025",
@@ -208,13 +288,71 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 22,
+    "district": "South East Delhi",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-DL-000026",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/delhi/safety-security-paramount-lady-shri-ram-college-cancels-classes-goes-online-after-kalkaji-mandir-gang-rape-case/articleshow/134417900.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Three people were arrested in South East Delhi for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — South East Delhi (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 22,
+    "district": "New Delhi",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-DL-000027",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh/kazakh-cycling-coach-faces-fir-for-minors-rape/articleshow/134412936.cms"
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "One person was accused of the child sexual offence in New Delhi. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026)",
+    "verified": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.95,
     "court": {
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Delhi",
     "first_published": "2026-08-25",
     "id": "SKS-2026-DL-000016",
@@ -246,7 +384,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "South West",
     "fir_ref": {
       "number": "159/2026",
@@ -290,7 +428,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 33,
+    "days_since_reported": 34,
     "district": "East",
     "fir_ref": {
       "number": "450/2022",
@@ -326,7 +464,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 36,
+    "days_since_reported": 37,
     "district": "Delhi",
     "first_published": "2026-08-17",
     "id": "SKS-2026-DL-000013",
@@ -359,7 +497,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "New Delhi",
     "fir_ref": {
       "number": "28/2023",
@@ -395,7 +533,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Delhi",
     "first_published": "2026-08-06",
     "id": "SKS-2026-DL-000009",
@@ -425,7 +563,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Delhi",
     "first_published": "2026-08-08",
     "id": "SKS-2026-DL-000010",
@@ -456,7 +594,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "New Delhi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-DL-000012",
@@ -485,7 +623,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Delhi",
     "first_published": "2026-08-31",
     "id": "SKS-2026-DL-000017",
@@ -514,7 +652,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Delhi",
     "first_published": "2026-08-31",
     "id": "SKS-2026-DL-000018",
@@ -548,7 +686,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Delhi",
     "first_published": "2026-07-25",
     "id": "SKS-2026-DL-000008",
@@ -579,7 +717,7 @@
       "name": "High Court",
       "next_hearing": null
     },
-    "days_since_reported": 83,
+    "days_since_reported": 84,
     "district": "Delhi",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000004",
@@ -616,7 +754,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 83,
+    "days_since_reported": 84,
     "district": "South District",
     "first_published": "2026-07-19",
     "id": "SKS-2026-DL-000006",
@@ -646,7 +784,7 @@
     "court": {
       "name": "Delhi High Court"
     },
-    "days_since_reported": 83,
+    "days_since_reported": 84,
     "district": "Delhi",
     "first_published": "2026-07-24",
     "id": "SKS-2026-DL-000007",

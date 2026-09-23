@@ -2,8 +2,38 @@
   {
     "accused_count": 1,
     "category": "rape",
+    "confidence": 1.0,
+    "days_since_reported": 0,
+    "district": "Sirsa",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-HR-000004",
+    "incident_reported_date": "2026-09-23",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "repeat_offence": true,
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.bhaskar.com/db-original/news/ram-rahim-night-show-dera-sacha-sauda-furlough-lifestyle-rubru-concert-sirsa-police-139118025.html"
+      }
+    ],
+    "state": "HR",
+    "status": "CONVICTED",
+    "summary": "A convicted sect leader serving a twenty-year sentence for rape held a massive music event in Sirsa while on furlough. Local authorities did not monitor the gathering despite a large crowd.",
+    "title": "Convicted sect leader holds public concert in Sirsa during furlough",
+    "verification_note": "The source confirms the conviction of the accused for two rape cases associated with his Dera Sacha Sauda ashram in Sirsa, Haryana.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 5,
+    "days_since_reported": 6,
     "district": "Rohtak",
     "first_published": "2026-09-17",
     "id": "SKS-2026-HR-000003",
@@ -29,10 +59,36 @@
     "verified": true
   },
   {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 22,
+    "district": "Faridabad",
+    "first_published": "2026-09-23",
+    "id": "SKS-2026-HR-000005",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-23",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/news/girl-gang-raped-on-her-17th-birthday-at-a-delhi-park-by-three-men-2517425",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "HR",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Faridabad, Haryana (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Faridabad (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Palwal",
     "first_published": "2026-08-30",
     "id": "SKS-2026-HR-000002",
@@ -59,7 +115,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 83,
+    "days_since_reported": 84,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",
