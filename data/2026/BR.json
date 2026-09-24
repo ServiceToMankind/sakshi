@@ -1,9 +1,38 @@
 [
   {
+    "accused_count": 4,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Samastipur",
+    "first_published": "2026-09-24",
+    "id": "SKS-2026-BR-000006",
+    "incident_reported_date": "2026-09-24",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-24",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/patna/after-jamui-another-girl-molested-on-camera-in-samastipur-4-nabbed/articleshow/134450762.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "BR",
+    "status": "FIR_FILED",
+    "summary": "Police arrested four men after a video surfaced showing them harassing a girl in public. The incident took place on Dam Bypass Road in Samastipur.",
+    "title": "Four arrested for harassing girl on camera in Samastipur",
+    "verification_note": "The source confirms the harassment incident and the subsequent arrests in Samastipur, Bihar.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "harassment",
     "confidence": 1.0,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000002",
@@ -31,7 +60,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -59,7 +88,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000003",
@@ -86,7 +115,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Jamui",
     "first_published": "2026-09-22",
     "id": "SKS-2026-BR-000004",
@@ -114,7 +143,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Jamui",
     "first_published": "2026-09-23",
     "id": "SKS-2026-BR-000005",

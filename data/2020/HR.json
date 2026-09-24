@@ -1,0 +1,37 @@
+[
+  {
+    "accused_count": 4,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 2200,
+    "district": "Gurugram",
+    "first_published": "2026-09-24",
+    "id": "SKS-2020-HR-000001",
+    "incident_reported_date": "2020-09-15",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-09-24",
+        "source_type": "news_article",
+        "url": "https://www.bhaskar.com/bhaskar-khaas/blackboard/news/gurgaon-hit-and-run-lady-biker-shivani-chouhan-story-kalyan-bainsla-pune-bhopal-victims-139129260.html",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "NDTV",
+        "retrieved": "2026-09-24",
+        "source_type": "news_article",
+        "url": "https://www.ndtv.com/gurugram-news/gurugram-female-biker-allegedly-chased-hit-by-car-case-filed-2296767"
+      }
+    ],
+    "state": "HR",
+    "status": "FIR_FILED",
+    "summary": "Four men in a car chased and harassed a biker in Gurugram before ramming the motorcycle. The police registered an FIR against the accused, and the investigation is underway.",
+    "title": "Gurugram Police register FIR after men stalk and hit biker",
+    "verification_note": "The source report describes a genuine incident of road harassment and stalking of a female biker in Gurugram, consistent with the record details.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

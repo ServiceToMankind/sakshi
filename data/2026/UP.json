@@ -1,8 +1,37 @@
 [
   {
+    "accused_count": 4,
+    "category": "rape",
+    "confidence": 1.0,
+    "days_since_reported": 0,
+    "district": "Amroha",
+    "first_published": "2026-09-24",
+    "id": "SKS-2026-UP-000010",
+    "incident_reported_date": "2026-09-24",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-24",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/2-up-cops-2-crpf-personnel-held-for-gangrape-of-woman-in-amroha-101790188497140.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "UP",
+    "status": "FIR_FILED",
+    "summary": "Two state police officers and two central paramilitary personnel allegedly committed gang rape in Amroha. Police arrested all four accused. The case is under investigation.",
+    "title": "Four security personnel arrested for gang rape in Amroha",
+    "verification_note": "The source confirms the reported gangrape case in Amroha, Uttar Pradesh, and the arrest of the accused.",
+    "verified": true
+  },
+  {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Gautam Buddh Nagar",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000009",
@@ -29,7 +58,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-01",
     "id": "SKS-2026-UP-000007",
@@ -54,7 +83,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Noida",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000008",
@@ -79,7 +108,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-08-30",
     "id": "SKS-2026-UP-000006",
@@ -108,7 +137,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -134,7 +163,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -160,7 +189,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 53,
+    "days_since_reported": 54,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -184,7 +213,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 84,
+    "days_since_reported": 85,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -213,7 +242,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 84,
+    "days_since_reported": 85,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",
