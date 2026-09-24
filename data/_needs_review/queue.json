@@ -94,5 +94,109 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "A case of child sexual offence in Unknown, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "CH",
+      "district": "Unknown",
+      "category": "sexual_assault",
+      "status": "UNKNOWN",
+      "minor_involved": false,
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "court": {
+        "name": "Punjab and Haryana High Court",
+        "next_hearing": null
+      },
+      "title": "Punjab and Haryana HC denies anticipatory bail to molestation accused",
+      "summary": "The Punjab and Haryana High Court denied anticipatory bail to a man accused of molestation. The court described the allegations as horrific.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/punjab-and-haryana-high-court/punjab-haryana-high-court-dismisses-pre-arrest-bail-of-63-year-old-accused-of-molesting-niece-551508",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-24",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-09-24",
+      "verified": true,
+      "verification_note": "Approved as the source describes a genuine sexual assault case where the High Court denied anticipatory bail."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "HP",
+      "district": "Unknown",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "institutional_actions": [
+        "convicted"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Himachal Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/himachal-pradesh-high-court/himachal-pradesh-high-court-upholds-20year-sentence-despite-no-injuries-551450",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-24"
+        }
+      ],
+      "incident_reported_date": "2023-09",
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2023)",
+      "summary": "A case of child sexual offence in Unknown was recorded. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "MH",
+      "district": "Mumbai",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Bombay High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/bombay-high-court/lone-instagram-chat-cannot-be-sole-material-deny-bail-551454",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-24"
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Mumbai (2026)",
+      "summary": "One person was accused of the child sexual offence in Mumbai. Bail was granted. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

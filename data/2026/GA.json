@@ -7,7 +7,7 @@
       "name": "Goa court",
       "next_hearing": null
     },
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000001",
@@ -36,7 +36,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "North Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000002",
