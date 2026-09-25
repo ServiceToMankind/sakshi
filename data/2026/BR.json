@@ -3,7 +3,7 @@
     "accused_count": 4,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "Samastipur",
     "first_published": "2026-09-24",
     "id": "SKS-2026-BR-000006",
@@ -32,7 +32,7 @@
     "accused_count": 2,
     "category": "harassment",
     "confidence": 1.0,
-    "days_since_reported": 20,
+    "days_since_reported": 21,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000002",
@@ -60,7 +60,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -88,7 +88,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000003",
@@ -115,7 +115,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Jamui",
     "first_published": "2026-09-22",
     "id": "SKS-2026-BR-000004",
@@ -141,26 +141,78 @@
     "weapon_or_threat": true
   },
   {
-    "category": "sexual_assault",
+    "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Jamui",
     "first_published": "2026-09-23",
     "id": "SKS-2026-BR-000005",
     "incident_reported_date": "2026-09",
+    "institutional_actions": [],
     "minor_involved": true,
     "sources": [
       {
-        "publisher": "Hindustan Times",
-        "retrieved": "2026-09-23",
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-25",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/prashant-kishor-jan-suraaj-party-jd-u-leader-jamui-harassment-case-remark-bihar-news-nandan-yadav-101790068259391.html"
+        "url": "https://www.ntnews.com/national/harassment-incidents-involving-minors-spark-outrage-in-bihar-2519164"
       }
     ],
     "state": "BR",
     "status": "UNKNOWN",
-    "summary": "A case of sexual assault involving a minor in Jamui, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Sexual assault involving a minor — Jamui (2026)",
+    "summary": "A case of child sexual offence in Jamui, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Jamui (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 6,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 24,
+    "district": "Banka",
+    "first_published": "2026-09-25",
+    "id": "SKS-2026-BR-000007",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-25",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/patna/bihar-shocker-after-jamui-samastipur-another-girl-harassed-in-public-at-tourist-site/articleshow/134473904.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "BR",
+    "status": "FIR_FILED",
+    "summary": "A case of child sexual offence in Banka, Bihar (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Banka (2026)",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 24,
+    "district": "Samastipur",
+    "first_published": "2026-09-25",
+    "id": "SKS-2026-BR-000008",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-25",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/news/bihar-shaken-by-assault-video-all-accused-arrested-within-six-hours-2519169"
+      }
+    ],
+    "state": "BR",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Samastipur, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Samastipur (2026)",
     "verified": true
   }
 ]

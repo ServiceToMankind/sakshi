@@ -1,0 +1,38 @@
+[
+  {
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Bombay High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3738,
+    "district": "Ahmednagar",
+    "first_published": "2026-09-25",
+    "id": "SKS-2016-MH-000001",
+    "incident_reported_date": "2016-07",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "LiveLaw",
+        "retrieved": "2026-09-25",
+        "source_type": "legal_press",
+        "url": "https://www.livelaw.in/high-court/bombay-high-court/2016-kopardi-gang-rape-case-bombay-high-court-judges-to-visit-spot-of-incident-before-hearing-final-arguments-in-death-reference-551727"
+      },
+      {
+        "publisher": "The Indian Express",
+        "retrieved": "2026-09-25",
+        "source_type": "news_article",
+        "url": "https://indianexpress.com/article/cities/mumbai/kopardi-rape-case-bombay-hc-judges-visit-crime-scene-8956103/"
+      }
+    ],
+    "state": "MH",
+    "status": "APPEAL_PENDING",
+    "summary": "A case of rape involving a minor in Ahmednagar, Maharashtra (2016). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Ahmednagar (2016)",
+    "verified": true
+  }
+]

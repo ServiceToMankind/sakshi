@@ -198,5 +198,41 @@
       "title": "Child sexual offence — Mumbai (2026)",
       "summary": "One person was accused of the child sexual offence in Mumbai. Bail was granted. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Unknown",
+      "incident_reported_date": "2026-09",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-pocso-absence-of-genital-injury-no-conclusion-absence-sexual-abuse-551730",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-25"
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "One person was accused of the child sexual offence in Unknown. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
