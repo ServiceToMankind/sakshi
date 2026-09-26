@@ -3,7 +3,7 @@
     "accused_count": 4,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 1,
+    "days_since_reported": 2,
     "district": "Samastipur",
     "first_published": "2026-09-24",
     "id": "SKS-2026-BR-000006",
@@ -32,7 +32,7 @@
     "accused_count": 2,
     "category": "harassment",
     "confidence": 1.0,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000002",
@@ -60,7 +60,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Unknown",
     "first_published": "2026-09-02",
     "id": "SKS-2026-BR-000001",
@@ -88,7 +88,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Buxar",
     "first_published": "2026-09-04",
     "id": "SKS-2026-BR-000003",
@@ -115,7 +115,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Jamui",
     "first_published": "2026-09-22",
     "id": "SKS-2026-BR-000004",
@@ -143,7 +143,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Jamui",
     "first_published": "2026-09-23",
     "id": "SKS-2026-BR-000005",
@@ -168,7 +168,7 @@
     "accused_count": 6,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Banka",
     "first_published": "2026-09-25",
     "id": "SKS-2026-BR-000007",
@@ -193,7 +193,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Samastipur",
     "first_published": "2026-09-25",
     "id": "SKS-2026-BR-000008",
@@ -213,6 +213,34 @@
     "status": "UNKNOWN",
     "summary": "A case of child sexual offence in Samastipur, Bihar (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Samastipur (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.9,
+    "days_since_reported": 25,
+    "district": "Patna",
+    "first_published": "2026-09-26",
+    "id": "SKS-2026-BR-000009",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-26",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/firagainst-official-in-bihar-cm-s-office-over-social-media-post-revealing-jamui-survivor-s-identity-101790394270455.html"
+      }
+    ],
+    "state": "BR",
+    "status": "FIR_FILED",
+    "summary": "A case of child sexual offence in Patna, Bihar (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Patna (2026)",
     "verified": true
   }
 ]

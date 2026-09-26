@@ -4,10 +4,44 @@
     "category": "rape",
     "confidence": 0.95,
     "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Unknown",
+    "first_published": "2026-09-26",
+    "id": "SKS-2026-GA-000003",
+    "incident_reported_date": "2026-09-26",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": false,
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-09-26",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/sc-seeks-goa-response-to-tarun-tejpal-challenging-conviction-in-rape-case-101790319553790.html"
+      }
+    ],
+    "state": "GA",
+    "status": "APPEAL_PENDING",
+    "summary": "An accused challenged his rape conviction in court. The Supreme Court directed him to surrender to serve a ten-year prison sentence. The court is now seeking a response from the state.",
+    "title": "Supreme Court seeks response on appeal against rape conviction in Goa",
+    "verification_note": "The source describes a genuine, in-scope appeal in a rape case in Goa, consistent with the record.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
       "name": "Goa court",
       "next_hearing": null
     },
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000001",
@@ -36,7 +70,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "North Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000002",
