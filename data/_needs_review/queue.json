@@ -234,5 +234,102 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "One person was accused of the child sexual offence in Unknown. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "confidence_below_auto"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Unknown",
+      "incident_reported_date": "2026-09",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "confidence": 0.8,
+      "sources": [
+        {
+          "url": "https://www.hindustantimes.com/india-news/tn-minister-alleges-settlement-efforts-to-cover-up-veeramani-pocso-case-101790406847564.html",
+          "publisher": "Hindustan Times",
+          "source_type": "news_article",
+          "retrieved": "2026-09-27"
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "A case of child sexual offence in Unknown, Tamil Nadu (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "category": "rape",
+      "minor_involved": false,
+      "status": "ACQUITTED",
+      "court": {
+        "name": "Delhi High Court"
+      },
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "title": "Delhi High Court overturns rape conviction after thirteen years",
+      "summary": "The Delhi High Court overturned a rape conviction in Delhi because forensic evidence contradicted the allegations. The court cleared the accused man of all charges thirteen years after the trial court verdict.",
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/delhi-high-court/forensic-evidence-positively-contradicted-prosecutrixs-version-delhi-high-court-overturns-rape-conviction-after-13-years-551980",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-27"
+        }
+      ],
+      "incident_reported_date": "2026-09-27",
+      "verified": true,
+      "verification_note": "The record's core details are consistent with the reported case of the Delhi High Court overturning a rape conviction."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Delhi Court",
+        "next_hearing": null
+      },
+      "title": "Delhi court to hear appeal against acquittal in sexual harassment case",
+      "summary": "A Delhi court will hear an appeal against the acquittal of an accused in a sexual harassment case. Athletes filed the challenge against the earlier ruling.",
+      "confidence": 1.0,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/news-updates/delhi-court-to-hear-on-monday-women-wrestlers-appeal-against-acquittal-of-brij-bhushan-sharan-singh-in-sexual-harassment-case-551898",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-27",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-09-27",
+      "verified": true,
+      "verification_note": "The source confirms an appeal pending in a sexual harassment case in Delhi."
+    }
   }
 ]

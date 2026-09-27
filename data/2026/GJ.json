@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Surat",
     "first_published": "2026-09-02",
     "id": "SKS-2026-GJ-000003",
@@ -32,7 +32,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "UNKNOWN",
     "first_published": "2026-09-01",
     "id": "SKS-2026-GJ-000002",
@@ -57,10 +57,37 @@
     "verified": true
   },
   {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 26,
+    "district": "Unknown",
+    "first_published": "2026-09-27",
+    "id": "SKS-2026-GJ-000004",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-27",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/rajkot/school-principal-booked-for-raping-13-year-old-girl-in-kutch/articleshow/134509710.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "Four people were accused of the child sexual offence in Unknown. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",

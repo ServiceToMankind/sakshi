@@ -7,7 +7,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "Unknown",
     "first_published": "2026-09-26",
     "id": "SKS-2026-GA-000003",
@@ -41,7 +41,7 @@
       "name": "Goa court",
       "next_hearing": null
     },
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000001",
@@ -70,7 +70,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "North Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000002",

@@ -1,9 +1,35 @@
 [
   {
+    "category": "harassment",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Meerut",
+    "first_published": "2026-09-27",
+    "id": "SKS-2026-UP-000012",
+    "incident_reported_date": "2026-09-27",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-27",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/sisters-harassed-in-meeruts-lalkurti-market-waited-2-hours-for-police-after-dialling-number-112-2-men-arrested-2520577"
+      }
+    ],
+    "state": "UP",
+    "status": "UNKNOWN",
+    "summary": "Harassers targeted two people in a market in Meerut. The local police arrived two hours after being called to the scene.",
+    "title": "Police face criticism for delayed response to Meerut harassment incident",
+    "verification_note": "The source reports an incident of harassment against two sisters in Meerut, UP, which is consistent with the record.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 0,
+    "days_since_reported": 1,
     "district": "Lucknow",
     "fir_ref": {
       "station": "Mohanlalganj"
@@ -36,7 +62,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Amroha",
     "first_published": "2026-09-24",
     "id": "SKS-2026-UP-000010",
@@ -64,7 +90,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Gautam Buddh Nagar",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000009",
@@ -91,7 +117,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-01",
     "id": "SKS-2026-UP-000007",
@@ -116,7 +142,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Noida",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000008",
@@ -141,7 +167,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-08-30",
     "id": "SKS-2026-UP-000006",
@@ -170,7 +196,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -196,7 +222,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -222,7 +248,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -246,7 +272,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 87,
+    "days_since_reported": 88,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -275,7 +301,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 87,
+    "days_since_reported": 88,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",
