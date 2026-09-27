@@ -1,9 +1,35 @@
 [
   {
+    "category": "pocso",
+    "confidence": 0.9,
+    "court": {
+      "name": "High Court of Jammu & Kashmir and Ladakh"
+    },
+    "days_since_reported": 26,
+    "district": "Unknown",
+    "first_published": "2026-09-27",
+    "id": "SKS-2026-JK-000002",
+    "incident_reported_date": "2026-09",
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-09-27",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/news/jk-high-court-allows-abortion-beyond-24-week-limit-in-exceptional-case-2520911"
+      }
+    ],
+    "state": "JK",
+    "status": "UNKNOWN",
+    "summary": "A case of child sexual offence in Unknown, Jammu & Kashmir (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Unknown (2026)",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Kishtwar",
     "first_published": "2026-08-22",
     "id": "SKS-2026-JK-000001",
