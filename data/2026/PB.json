@@ -3,6 +3,32 @@
     "category": "rape",
     "confidence": 0.9,
     "days_since_reported": 0,
+    "district": "Kapurthala",
+    "first_published": "2026-09-28",
+    "id": "SKS-2026-PB-000003",
+    "incident_reported_date": "2026-09-28",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-09-28",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh/we-have-a-serious-problem-cjp-founder-1st-reaction-on-lpu-unrest-questions-women-safety-on-campus/articleshow/134531719.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "PB",
+    "status": "UNKNOWN",
+    "summary": "Police are investigating allegations of a rape committed on a university campus in Punjab. [occupation withheld] protests, but the university administration has denied the claims as rumors.",
+    "title": "Protests erupt at Punjab university over alleged rape",
+    "verification_note": "The source reports on a police investigation into an alleged sexual assault on a university campus in Punjab.",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.9,
+    "days_since_reported": 1,
     "district": "Jalandhar",
     "first_published": "2026-09-27",
     "id": "SKS-2026-PB-000002",
@@ -28,7 +54,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Patiala",
     "first_published": "2026-09-23",
     "id": "SKS-2026-PB-000001",

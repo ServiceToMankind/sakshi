@@ -1,0 +1,37 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Delhi Court",
+        "next_hearing": null
+      },
+      "title": "Delhi court issues notice to accused in harassment case appeal",
+      "summary": "A Delhi court issued a notice to an accused person on an appeal against his acquittal. The appeal relates to a sexual harassment case.",
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/news-updates/brij-bhushan-sharan-singh-sexual-harassment-acquittal-appeal-notice-issued-552027",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-28"
+        }
+      ],
+      "incident_reported_date": "2026-09-28",
+      "verified": true,
+      "verification_note": "The source confirms a sexual harassment appeal is pending in a Delhi court."
+    }
+  }
+]
