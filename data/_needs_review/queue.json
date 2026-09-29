@@ -4,34 +4,34 @@
       "live_blog_only"
     ],
     "record": {
-      "state": "DL",
-      "district": "Delhi",
-      "category": "harassment",
-      "minor_involved": false,
-      "status": "APPEAL_PENDING",
-      "accused_count": 1,
-      "institutional_actions": [
-        "acquitted",
-        "appeal_filed"
+      "state": "KA",
+      "district": "Unknown",
+      "incident_reported_date": "2026-09",
+      "offence_sections": [
+        "POCSO"
       ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
       "court": {
-        "name": "Delhi Court",
+        "name": "Karnataka High Court",
         "next_hearing": null
       },
-      "title": "Delhi court issues notice to accused in harassment case appeal",
-      "summary": "A Delhi court issued a notice to an accused person on an appeal against his acquittal. The appeal relates to a sexual harassment case.",
-      "confidence": 0.9,
+      "confidence": 0.95,
       "sources": [
         {
-          "url": "https://www.livelaw.in/news-updates/brij-bhushan-sharan-singh-sexual-harassment-acquittal-appeal-notice-issued-552027",
+          "url": "https://www.livelaw.in/high-court/karnataka-high-court/karnataka-high-court-quashed-pocso-proceedings-against-father-552178",
           "publisher": "LiveLaw",
           "source_type": "legal_press",
-          "retrieved": "2026-09-28"
+          "retrieved": "2026-09-29",
+          "url_carries_identifying_slug": true
         }
       ],
-      "incident_reported_date": "2026-09-28",
       "verified": true,
-      "verification_note": "The source confirms a sexual harassment appeal is pending in a Delhi court."
+      "title": "Child sexual offence — Unknown (2026)",
+      "summary": "A case of child sexual offence in Unknown, Karnataka (2026). The case was quashed. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]
