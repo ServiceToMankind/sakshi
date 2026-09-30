@@ -33,5 +33,38 @@
       "title": "Child sexual offence — Unknown (2026)",
       "summary": "A case of child sexual offence in Unknown, Karnataka (2026). The case was quashed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Chennai",
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "sit_formed"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.9,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-gem-veeramani-pocso-dmk-plea-sit-summon-cm-vijay-aadhav-arjuna-ctr-nirmal-kumar-552299",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-09-30"
+        }
+      ],
+      "incident_reported_date": "2026-09",
+      "verified": true,
+      "title": "Child sexual offence — Chennai (2026)",
+      "summary": "One person was accused of the child sexual offence in Chennai. A special investigation team was formed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
