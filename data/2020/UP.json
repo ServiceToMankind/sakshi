@@ -1,0 +1,46 @@
+[
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 1.0,
+    "court": {
+      "name": "Special POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 2160,
+    "district": "Kanpur",
+    "first_published": "2026-10-01",
+    "id": "SKS-2020-UP-000001",
+    "incident_reported_date": "2020-11",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-10-01",
+        "source_type": "news_article",
+        "url": "https://www.bhaskar.com/bhaskar-khaas/blackboard/news/kanpur-diwali-rape-murder-story-black-magic-ghatampur-village-girl-heart-139206584.html",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "NDTV",
+        "retrieved": "2026-10-01",
+        "source_type": "news_article",
+        "url": "https://www.ndtv.com/india-news/4-get-life-term-for-killing-6-year-old-for-occult-ritual-in-up-4654924",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "UP",
+    "status": "CONVICTED",
+    "summary": "Four people were arrested in Kanpur for the child sexual offence. A weapon or threat was involved. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Kanpur (2020)",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
