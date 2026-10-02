@@ -1,0 +1,29 @@
+[
+  {
+    "accused_count": 7,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Thrissur",
+    "first_published": "2026-10-02",
+    "id": "SKS-2026-KL-000001",
+    "incident_reported_date": "2026-10-02",
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-02",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/keralam-wife-hires-men-to-abduct-husband-rape-girlfriend-101790876959944.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KL",
+    "status": "UNKNOWN",
+    "summary": "A six-member gang allegedly abducted and raped a woman in Thrissur. A woman reportedly hired the gang to carry out the attack.",
+    "title": "Police report abduction and rape of woman in Thrissur",
+    "verification_note": "The source describes a genuine case of abduction and rape in Thrissur, Kerala, consistent with the candidate record.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
