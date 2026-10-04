@@ -1,9 +1,37 @@
 [
   {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Kamrup Metropolitan",
+    "first_published": "2026-10-04",
+    "id": "SKS-2026-AS-000003",
+    "incident_reported_date": "2026-10-04",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-04",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/news/woman-assaulted-and-stripped-at-assam-nightclub-2526551",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AS",
+    "status": "UNKNOWN",
+    "summary": "Bouncers stripped and assaulted a woman at a nightclub in Kamrup Metropolitan district. Video footage of the incident went viral on social media.",
+    "title": "Bouncers assault and disrobe woman at Assam nightclub",
+    "verification_note": "The source confirms an incident of sexual assault and physical abuse against a woman at a club in Khanapara, Kamrup Metropolitan, Assam.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Dibrugarh",
     "first_published": "2026-09-14",
     "id": "SKS-2026-AS-000002",
@@ -32,7 +60,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 32,
+    "days_since_reported": 33,
     "district": "Sivasagar",
     "first_published": "2026-09-05",
     "id": "SKS-2026-AS-000001",
