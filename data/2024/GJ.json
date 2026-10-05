@@ -3,7 +3,7 @@
     "accused_count": 5,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 730,
+    "days_since_reported": 731,
     "district": "Vadodara",
     "first_published": "2026-09-01",
     "id": "SKS-2024-GJ-000003",
@@ -35,7 +35,7 @@
     "court": {
       "name": "Vadodara POCSO court"
     },
-    "days_since_reported": 733,
+    "days_since_reported": 734,
     "district": "Vadodara",
     "first_published": "2026-08-26",
     "id": "SKS-2024-GJ-000001",
@@ -62,7 +62,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 774,
+    "days_since_reported": 775,
     "district": "Rajkot",
     "first_published": "2026-08-28",
     "id": "SKS-2024-GJ-000002",
