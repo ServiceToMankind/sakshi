@@ -1,9 +1,66 @@
 [
   {
     "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Kolkata",
+    "first_published": "2026-10-05",
+    "id": "SKS-2026-WB-000003",
+    "incident_reported_date": "2026-10-05",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-10-05",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/kolkata/noida-sex-pest-held-at-kolkata-hotel-after-brazil-match/articleshow/134684550.cms"
+      }
+    ],
+    "state": "WB",
+    "status": "FIR_FILED",
+    "summary": "A man allegedly molested two women in a Kolkata hotel lobby. Police arrested the suspect after reviewing CCTV footage. Investigation into the incident is ongoing.",
+    "title": "Noida man arrested for molesting two women in Kolkata hotel",
+    "verification_note": "Approved as the source confirms a molestation incident in Kolkata and the candidate details are consistent.",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 4,
+    "district": "Darjeeling",
+    "first_published": "2026-10-05",
+    "id": "SKS-2026-WB-000004",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-05",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/shop-owner-brothers-held-for-repeatedly-raping-teen-in-darjeeling-cops-say-survivor-pregnant-blackmailed-with-videos-101791169718559.html"
+      }
+    ],
+    "state": "WB",
+    "status": "FIR_FILED",
+    "summary": "An arrest was made in Darjeeling for the child sexual offence. A weapon or threat was involved. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Darjeeling (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Kolkata",
     "first_published": "2026-09-04",
     "id": "SKS-2026-WB-000002",
@@ -35,7 +92,7 @@
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 51,
+    "days_since_reported": 52,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",
