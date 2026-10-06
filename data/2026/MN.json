@@ -1,0 +1,38 @@
+[
+  {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Unknown",
+    "first_published": "2026-10-06",
+    "id": "SKS-2026-MN-000001",
+    "incident_reported_date": "2026-10-06",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-06",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/sc-asks-cbi-trial-court-to-ensure-examination-of-victim-witnesses-in-manipur-sexual-violence-case-101791186014422.html"
+      },
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-10-06",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/sc-asks-cbi-trial-court-to-ensure-examination-of-victim-witnesses-in-manipur-sexual-violence-case/article68713437.ece"
+      }
+    ],
+    "state": "MN",
+    "status": "UNDER_TRIAL",
+    "summary": "The Supreme Court directed the CBI and the trial court to ensure the swift examination of witnesses. The case involves allegations of sexual violence in Manipur.",
+    "title": "SC orders timely examination of witnesses in Manipur sexual violence case",
+    "verification_note": "The source confirms the Supreme Court's directives regarding the examination of victim-witnesses in the Manipur sexual violence case.",
+    "verified": true
+  }
+]

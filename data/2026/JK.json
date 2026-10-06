@@ -5,7 +5,7 @@
     "court": {
       "name": "High Court of Jammu & Kashmir and Ladakh"
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Unknown",
     "first_published": "2026-09-27",
     "id": "SKS-2026-JK-000002",
@@ -29,7 +29,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 65,
+    "days_since_reported": 66,
     "district": "Kishtwar",
     "first_published": "2026-08-22",
     "id": "SKS-2026-JK-000001",
