@@ -1,0 +1,38 @@
+[
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Delhi Court",
+        "next_hearing": null
+      },
+      "title": "Delhi court grants accused time to respond to harassment appeal",
+      "summary": "A Delhi court gave the accused time to respond to an appeal challenging his acquittal in a sexual harassment case. The complainants filed the appeal against the acquittal.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/news-updates/delhi-court-grants-time-to-brij-bhushan-sharan-singh-to-respond-to-women-wrestlers-appeal-against-acquittal-in-sexual-harassment-case-553853",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-09",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-10-09",
+      "verified": true,
+      "verification_note": "Approved as the source confirms an appeal is pending in a sexual harassment case in Delhi."
+    }
+  }
+]
