@@ -1,17 +1,17 @@
 {
-  "generated": "2026-10-09",
+  "generated": "2026-10-10",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
-      "prefilter_skipped": 10,
+      "prefilter_skipped": 11,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 7,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.091
+      "prefilter_pass_rate": 0.0
     },
     "BBC News": {
       "documents": 0,
@@ -27,36 +27,35 @@
     },
     "Daily Thanthi": {
       "documents": 40,
-      "prefilter_skipped": 37,
-      "extracted": 3,
+      "prefilter_skipped": 40,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 16,
+      "published": 15,
       "needs_review": 0,
-      "quarantined": 3,
+      "quarantined": 1,
       "quarantine_reasons": {
-        "unverified": 1,
-        "id_collision": 2
+        "id_collision": 1
       },
-      "prefilter_pass_rate": 0.075
+      "prefilter_pass_rate": 0.0
     },
     "Dainik Bhaskar": {
-      "documents": 26,
-      "prefilter_skipped": 21,
-      "extracted": 1,
-      "out_of_scope": 0,
+      "documents": 25,
+      "prefilter_skipped": 19,
+      "extracted": 0,
+      "out_of_scope": 1,
       "failed": 0,
       "published": 7,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.192
+      "prefilter_pass_rate": 0.24
     },
     "Delhi High Court": {
       "documents": 4,
       "prefilter_skipped": 0,
-      "extracted": 3,
-      "out_of_scope": 1,
+      "extracted": 0,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 13,
       "needs_review": 0,
@@ -77,28 +76,30 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 21,
-      "prefilter_skipped": 21,
-      "extracted": 0,
+      "documents": 31,
+      "prefilter_skipped": 30,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 2,
+      "published": 3,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "prefilter_pass_rate": 0.032
     },
     "Hindustan Times": {
       "documents": 100,
-      "prefilter_skipped": 98,
-      "extracted": 0,
-      "out_of_scope": 2,
+      "prefilter_skipped": 97,
+      "extracted": 2,
+      "out_of_scope": 1,
       "failed": 0,
-      "published": 61,
+      "published": 62,
       "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.02
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "ambiguous_match": 1
+      },
+      "prefilter_pass_rate": 0.03
     },
     "Jharkhand High Court": {
       "documents": 0,
@@ -114,17 +115,15 @@
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 58,
-      "extracted": 2,
-      "out_of_scope": 0,
+      "prefilter_skipped": 59,
+      "extracted": 0,
+      "out_of_scope": 1,
       "failed": 0,
       "published": 2,
       "needs_review": 1,
-      "quarantined": 1,
-      "quarantine_reasons": {
-        "schema_invalid": 1
-      },
-      "prefilter_pass_rate": 0.033
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.017
     },
     "Lokmat": {
       "documents": 10,
@@ -176,15 +175,17 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 200,
-      "extracted": 0,
-      "out_of_scope": 0,
+      "prefilter_skipped": 194,
+      "extracted": 2,
+      "out_of_scope": 4,
       "failed": 0,
-      "published": 38,
+      "published": 39,
       "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "ambiguous_match": 1
+      },
+      "prefilter_pass_rate": 0.03
     },
     "Punjab-Haryana High Court": {
       "documents": 0,
@@ -197,6 +198,18 @@
       "quarantined": 0,
       "quarantine_reasons": {},
       "prefilter_pass_rate": null
+    },
+    "Sakal": {
+      "documents": 1,
+      "prefilter_skipped": 1,
+      "extracted": 0,
+      "out_of_scope": 0,
+      "failed": 0,
+      "published": 0,
+      "needs_review": 0,
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.0
     },
     "Telangana High Court": {
       "documents": 0,
@@ -212,15 +225,18 @@
     },
     "The Hindu": {
       "documents": 120,
-      "prefilter_skipped": 118,
-      "extracted": 0,
-      "out_of_scope": 1,
+      "prefilter_skipped": 116,
+      "extracted": 3,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 27,
       "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.017
+      "quarantined": 3,
+      "quarantine_reasons": {
+        "ambiguous_match": 2,
+        "unknown_state": 1
+      },
+      "prefilter_pass_rate": 0.033
     },
     "The Indian Express": {
       "documents": 0,
@@ -235,22 +251,22 @@
       "prefilter_pass_rate": null
     },
     "The Times of India": {
-      "documents": 41,
-      "prefilter_skipped": 41,
-      "extracted": 0,
+      "documents": 47,
+      "prefilter_skipped": 46,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 19,
+      "published": 20,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "prefilter_pass_rate": 0.021
     }
   },
   "court_prefilter": [
     {
       "source": "Delhi High Court",
-      "listed": 444,
+      "listed": 454,
       "fetched": 40,
       "pdf_text_empty": 0,
       "not_qualifying": 36,

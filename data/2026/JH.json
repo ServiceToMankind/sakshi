@@ -1,5 +1,31 @@
 [
   {
+    "category": "sexual_assault",
+    "confidence": 0.9,
+    "days_since_reported": 0,
+    "district": "Latehar",
+    "first_published": "2026-10-10",
+    "id": "SKS-2026-JH-000009",
+    "incident_reported_date": "2026-10-10",
+    "minor_involved": false,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-10",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/jharkhand-tribal-woman-alleges-brutal-custodial-assault-101791540742669.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNKNOWN",
+    "summary": "A woman was beaten and sexually harassed while in police custody. Policemen were accused of committing the abuse inside a police station in Latehar district. The victim also reported receiving caste-based slurs during the attack. The current legal status of the case is unknown.",
+    "title": "Woman alleges custodial sexual harassment by police in Latehar",
+    "verification_note": "Approved as the source describes a specific reported case of custodial sexual harassment in Latehar, Jharkhand consistent with the record.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
@@ -7,7 +33,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 69,
+    "days_since_reported": 70,
     "district": "Dumka",
     "fir_ref": {
       "number": "198/2025",
@@ -47,7 +73,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 222,
+    "days_since_reported": 223,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -90,7 +116,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 222,
+    "days_since_reported": 223,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -133,7 +159,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 222,
+    "days_since_reported": 223,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -171,7 +197,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 222,
+    "days_since_reported": 223,
     "district": "Garhwa",
     "fir_ref": {
       "number": "103/2025",
@@ -216,7 +242,7 @@
     "court": {
       "name": "High Court of Jharkhand at Ranchi"
     },
-    "days_since_reported": 222,
+    "days_since_reported": 223,
     "district": "Ranchi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-JH-000008",
@@ -253,7 +279,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 250,
+    "days_since_reported": 251,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -296,7 +322,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 250,
+    "days_since_reported": 251,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",
