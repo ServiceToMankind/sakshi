@@ -44,7 +44,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-08-17",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/minor-gang-raped-six-including-four-minors-held-in-tripura-police-101786875503045.html"
+        "url": "https://www.hindustantimes.com/india-news/minor-gang-raped-six-including-four-minors-held-in-tripura-police-101786875503045.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TR",

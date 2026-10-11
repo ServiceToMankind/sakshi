@@ -36,7 +36,8 @@
         "publisher": "Punjab-Haryana High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/2004465/"
+        "url": "https://indiankanoon.org/doc/2004465/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "HR",

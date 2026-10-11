@@ -20,7 +20,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-08-26",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/prosecution-seeks-death-penalty-for-5-convicts-in-2024-bhayli-gang-rape-case-101787656918824.html"
+        "url": "https://www.hindustantimes.com/india-news/prosecution-seeks-death-penalty-for-5-convicts-in-2024-bhayli-gang-rape-case-101787656918824.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "GJ",

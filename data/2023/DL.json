@@ -93,7 +93,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-08-18",
         "source_type": "court",
-        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59214082026CCP11322026_181600.pdf"
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59214082026CCP11322026_181600.pdf",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -140,7 +141,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-10-09",
         "source_type": "court",
-        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59206102026BA32532026_175018.pdf"
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59206102026BA32532026_175018.pdf",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

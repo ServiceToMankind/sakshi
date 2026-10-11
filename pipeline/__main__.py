@@ -653,14 +653,17 @@ def _flag_identifying_sources(record: dict[str, Any]) -> dict[str, Any]:
     """Mark each source whose URL slug states a withheld detail (§5) so the site renders the
     domain — never the raw slug — and tucks it behind an expander. Set after project_to_schema
     so the flag is schema-valid; idempotent; the URL itself is kept (a citation is verifiable).
+    Every source on a child's case is marked: its link can name a village, a school or the
+    accused, any of which can identify the child (issue #255).
     """
     sources = record.get("sources")
     if not sources:
         return record
+    child = record.get("minor_involved") is True
     flagged = []
     for source in sources:
         updated = dict(source)
-        if url_carries_identifying_slug(str(updated.get("url", ""))):
+        if child or url_carries_identifying_slug(str(updated.get("url", ""))):
             updated["url_carries_identifying_slug"] = True
         else:
             updated.pop("url_carries_identifying_slug", None)
@@ -1108,7 +1111,8 @@ def run(
         # Re-apply the place/institution rule to records already on the site, so a rule added
         # later (issue #255) cleans every published case, not only new ones. It never adds detail.
         existing = [
-            scrub_place_fields(_canonicalize_state(r)) for r in _load_existing_published(data_dir)
+            _flag_identifying_sources(scrub_place_fields(_canonicalize_state(r)))
+            for r in _load_existing_published(data_dir)
         ]
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
@@ -1119,7 +1123,10 @@ def run(
         staged_carryover = _load_staged_carryover()
         if _staged_archive() is None:
             staged_carryover += _load_needs_review_queue(data_dir)
-        staged_carryover = [scrub_place_fields(_canonicalize_state(r)) for r in staged_carryover]
+        staged_carryover = [
+            _flag_identifying_sources(scrub_place_fields(_canonicalize_state(r)))
+            for r in staged_carryover
+        ]
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)

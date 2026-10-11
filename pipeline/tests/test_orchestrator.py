@@ -2959,3 +2959,15 @@ def test_live_adult_record_of_a_childs_incident_is_held_until_approved(tmp_path:
     )
     published_urls = [s["url"] for r in json.loads(shard.read_text()) for s in r["sources"]]
     assert adult_url in published_urls  # approved, back on the site
+
+
+def test_every_link_on_a_childs_case_is_treated_as_sensitive() -> None:
+    """Issue #255: a child's case link can name the village, school or accused, so every
+    source on a child's record is marked, even a link that looks clean."""
+    out = orchestrator._flag_identifying_sources(
+        {
+            "minor_involved": True,
+            "sources": [{"url": "https://ex.invalid/court-order-on-bail", "publisher": "X"}],
+        }
+    )
+    assert out["sources"][0]["url_carries_identifying_slug"] is True

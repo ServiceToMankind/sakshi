@@ -360,7 +360,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-01",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/telangana/20-years-in-prison-in-pocso-case-2-2499180"
+        "url": "https://www.ntnews.com/telangana/20-years-in-prison-in-pocso-case-2-2499180",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -457,7 +458,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-23",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/hyderabad/pocso-accused-escapes-from-erragadda-mental-hospital-2517686"
+        "url": "https://www.ntnews.com/hyderabad/pocso-accused-escapes-from-erragadda-mental-hospital-2517686",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -487,7 +489,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-27",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/telangana/pocso-case-against-gudimalla-pd-shafiq-ahmed-2520968"
+        "url": "https://www.ntnews.com/telangana/pocso-case-against-gudimalla-pd-shafiq-ahmed-2520968",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -664,7 +667,8 @@
         "publisher": "Telangana High Court",
         "retrieved": "2026-08-01",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/150255030/"
+        "url": "https://indiankanoon.org/doc/150255030/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -694,7 +698,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-08-12",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/hyderabad/g-basketball-association-suspends-prithviswar-reddy-pocso-case-suchi-2480843"
+        "url": "https://www.ntnews.com/hyderabad/g-basketball-association-suspends-prithviswar-reddy-pocso-case-suchi-2480843",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -728,7 +733,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-08-19",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/telangana/judge-jeevan-kumar-delivered-a-verdict-sentencing-the-accused-to-20-years-of-rigorous-imprisonment-in-a-case-2487535"
+        "url": "https://www.ntnews.com/telangana/judge-jeevan-kumar-delivered-a-verdict-sentencing-the-accused-to-20-years-of-rigorous-imprisonment-in-a-case-2487535",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -753,7 +759,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-08-31",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/hyderabad/asaduddin-owaisi-must-give-justice-to-victims-of-mla-mirza-rahmat-beg-says-rs-praveen-kumar-2497926"
+        "url": "https://www.ntnews.com/hyderabad/asaduddin-owaisi-must-give-justice-to-victims-of-mla-mirza-rahmat-beg-says-rs-praveen-kumar-2497926",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
@@ -987,7 +994,8 @@
         "publisher": "Telangana High Court",
         "retrieved": "2026-07-19",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/132641412/"
+        "url": "https://indiankanoon.org/doc/132641412/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",

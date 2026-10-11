@@ -39,7 +39,8 @@
         "publisher": "Punjab-Haryana High Court",
         "retrieved": "2026-08-27",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/144236026/"
+        "url": "https://indiankanoon.org/doc/144236026/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "HR",
@@ -86,7 +87,8 @@
         "publisher": "Punjab-Haryana High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/75690978/"
+        "url": "https://indiankanoon.org/doc/75690978/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "HR",

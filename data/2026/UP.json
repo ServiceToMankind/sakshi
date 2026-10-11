@@ -157,7 +157,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-09-01",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/misled-into-boarding-bus-received-death-threat-what-survivor-told-cops-on-gangrape-in-greater-noida-delhi-101788232272940.html"
+        "url": "https://www.hindustantimes.com/india-news/misled-into-boarding-bus-received-death-threat-what-survivor-told-cops-on-gangrape-in-greater-noida-delhi-101788232272940.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",
@@ -182,7 +183,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-09-02",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/8-challans-in-july-no-background-check-of-accused-shocking-details-emerge-in-noida-bus-rape-case-101788281213282.html"
+        "url": "https://www.hindustantimes.com/india-news/8-challans-in-july-no-background-check-of-accused-shocking-details-emerge-in-noida-bus-rape-case-101788281213282.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",
@@ -212,7 +214,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-10-11",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/meerut/fresh-fir-against-swatantra-bhardwaj-under-pocso-act-how-influencer-tried-to-evade-police-in-up/articleshow/133783607.cms"
+        "url": "https://timesofindia.indiatimes.com/city/meerut/fresh-fir-against-swatantra-bhardwaj-under-pocso-act-how-influencer-tried-to-evade-police-in-up/articleshow/133783607.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",
@@ -293,7 +296,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-08-27",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/agra/living-in-jail-at-home-for-6-yrs-no-social-life-no-job-hathras-rape-victims-family/articleshow/133545779.cms"
+        "url": "https://timesofindia.indiatimes.com/city/agra/living-in-jail-at-home-for-6-yrs-no-social-life-no-job-hathras-rape-victims-family/articleshow/133545779.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",
@@ -319,7 +323,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-08-16",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/trending/uttar-pradesh-teen-alleges-sexual-harassment-during-rapido-ride-records-video-company-permanently-bars-driver-101786787368978.html"
+        "url": "https://www.hindustantimes.com/trending/uttar-pradesh-teen-alleges-sexual-harassment-during-rapido-ride-records-video-company-permanently-bars-driver-101786787368978.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",

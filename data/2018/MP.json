@@ -29,7 +29,8 @@
         "publisher": "Madhya Pradesh High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/156404247/"
+        "url": "https://indiankanoon.org/doc/156404247/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "MP",

@@ -19,7 +19,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-09-06",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/swatantra-bhardwaj-detained-right-wing-after-big-cjp-protest-pocso-case-filed-jantar-mantar-protest-sanjay-azad-101788570983585.html"
+        "url": "https://www.hindustantimes.com/india-news/swatantra-bhardwaj-detained-right-wing-after-big-cjp-protest-pocso-case-filed-jantar-mantar-protest-sanjay-azad-101788570983585.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

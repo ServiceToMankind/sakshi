@@ -130,7 +130,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-08-29",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/surat/good-touch-bad-touch-session-leads-to-disclosure-of-rape-of-two-minor-sisters/articleshow/133599338.cms"
+        "url": "https://timesofindia.indiatimes.com/city/surat/good-touch-bad-touch-session-leads-to-disclosure-of-rape-of-two-minor-sisters/articleshow/133599338.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "GJ",

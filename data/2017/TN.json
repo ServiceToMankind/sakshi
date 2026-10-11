@@ -33,7 +33,8 @@
         "publisher": "Madras High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/82843941/"
+        "url": "https://indiankanoon.org/doc/82843941/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",
@@ -84,7 +85,8 @@
         "publisher": "Madras High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/16665435/"
+        "url": "https://indiankanoon.org/doc/16665435/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",

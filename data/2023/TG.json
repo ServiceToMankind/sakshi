@@ -14,7 +14,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-19",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/telangana/sexual-assault-victim-threatened-at-nims-2514265"
+        "url": "https://www.ntnews.com/telangana/sexual-assault-victim-threatened-at-nims-2514265",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TG",
