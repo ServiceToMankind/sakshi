@@ -41,10 +41,12 @@ if str(_REPO_ROOT) not in sys.path:  # pragma: no cover - import-time path shim
     sys.path.insert(0, str(_REPO_ROOT))
 
 from pipeline.pii_constants import (  # noqa: E402
+    OCCUPATION_SCANNED_FIELDS,
     is_forbidden_key,
     is_free_text_key,
     is_occupation_scanned_key,
     matched_age_patterns,
+    matched_place_details,
     matched_value_patterns,
     matched_victim_occupation,
 )
@@ -83,6 +85,11 @@ def _occupation_reason(matched: str) -> str:
     return f"value reveals victim occupation/institution ('{matched}')"
 
 
+def _place_reason(name: str) -> str:
+    """Human-readable reason for a place or institution name in an adult case's text."""
+    return f"adult case text names a place below district level or an institution ({name})"
+
+
 def _multilingual_reason(label: str) -> str:
     """Human-readable reason string for a §4e multilingual identity marker."""
     return f"value carries multilingual identity marker ({label})"
@@ -96,6 +103,16 @@ def scan_value(value: Any, path: str, *, scan_ages: bool = False) -> Iterator[Fi
     age-expression patterns (applied to published shards, not the review queue).
     """
     if isinstance(value, dict):
+        # Issue #255: an adult case's title/summary must not name a place below its district
+        # or an institution. Needs the record's district, so it is checked at record level.
+        if scan_ages and value.get("minor_involved") is False:
+            district = str(value.get("district") or "")
+            for field in sorted(OCCUPATION_SCANNED_FIELDS):
+                text = value.get(field)
+                if isinstance(text, str):
+                    for name in matched_place_details(text, district):
+                        loc = f"{path}.{field}" if path else field
+                        yield Finding(loc, loc, _place_reason(name))
         for key, child in value.items():
             child_path = f"{path}.{key}" if path else key
             if is_forbidden_key(str(key)):

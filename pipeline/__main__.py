@@ -47,7 +47,7 @@ from pipeline.offence_filter import media_offence_hit
 from pipeline.offence_sections import normalize_sections
 from pipeline.provenance import classify_source_type, record_tier
 from pipeline.readability import readability_violations
-from pipeline.sanitize import sanitize_record, sanitize_string
+from pipeline.sanitize import sanitize_record, sanitize_string, scrub_place_fields
 from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
@@ -1079,7 +1079,11 @@ def run(
         # Canonicalise state codes (TS->TG, ...) on load so a state is never split across
         # two codes in ids/shards/scorecards. An existing record whose state changes has
         # its id cleared so write_shards re-mints a matching one (see _canonicalize_state).
-        existing = [_canonicalize_state(r) for r in _load_existing_published(data_dir)]
+        # Re-apply the place/institution rule to records already on the site, so a rule added
+        # later (issue #255) cleans every published case, not only new ones. It never adds detail.
+        existing = [
+            scrub_place_fields(_canonicalize_state(r)) for r in _load_existing_published(data_dir)
+        ]
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
@@ -1089,7 +1093,7 @@ def run(
         staged_carryover = _load_staged_carryover()
         if _staged_archive() is None:
             staged_carryover += _load_needs_review_queue(data_dir)
-        staged_carryover = [_canonicalize_state(r) for r in staged_carryover]
+        staged_carryover = [scrub_place_fields(_canonicalize_state(r)) for r in staged_carryover]
         # A staged_pending record that has since reached main settles now, so it is
         # not needlessly re-extracted; one that hasn't stays pending and re-surfaces.
         ledger.confirm_published(existing_urls, run_date)
