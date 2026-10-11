@@ -244,6 +244,15 @@ def test_fetch_non_200_listing_yields_zero() -> None:
     src = HcJudgmentsSource(client, (court,), pdf_to_text_fn=_text_for)
     assert _run(src.fetch()) == []
     assert src.stats["HC"]["listed"] == 0
+    assert src.stats["HC"]["listing_error"] == 503  # a broken portal is visible, not silent
+
+
+def test_fetch_unchanged_listing_is_not_an_error() -> None:
+    court = HcCourt("HC", f"{_BASE}/l", _BASE)
+    client = _FakeClient({f"{_BASE}/l": httpx.Response(304, text="")})
+    src = HcJudgmentsSource(client, (court,), pdf_to_text_fn=_text_for)
+    assert _run(src.fetch()) == []
+    assert "listing_error" not in src.stats["HC"]  # 304 = unchanged since last run
 
 
 def test_fetch_skips_non_200_pdf() -> None:

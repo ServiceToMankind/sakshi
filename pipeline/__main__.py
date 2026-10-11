@@ -102,6 +102,7 @@ class RunReport:
     needs_review_reasons: dict[str, int] = field(default_factory=dict)
     prefilter_skipped: int = 0  # §2: media docs skipped by the offence-language pre-filter
     health: dict[str, Any] = field(default_factory=dict)  # §3 ops: per-source funnel
+    source_alerts: list[str] = field(default_factory=list)  # court sources that ERRORED
     logs: list[str] = field(default_factory=list)
 
 
@@ -125,6 +126,30 @@ def _collect_prefilter(
     else:
         label = getattr(source, "SOURCE_LABEL", type(source).__name__)
         prefilter.append({"source": str(label), **stats})
+
+
+def source_alerts(court_prefilter: list[dict[str, Any]]) -> list[str]:
+    """Human-readable alerts for court sources that ERRORED this run (counts/status codes only).
+
+    A source that is rejecting our credentials or whose listing errors must never look like a
+    quiet day: these lines go to the run log, the run report and the ops heartbeat.
+    """
+    alerts: list[str] = []
+    for row in court_prefilter:
+        name = str(row.get("source", "?"))
+        search_errors = int(row.get("search_errors", 0) or 0)
+        doc_errors = int(row.get("doc_errors", 0) or 0)
+        if search_errors or doc_errors:
+            status = int(row.get("error_status", 0) or 0)
+            alerts.append(
+                f"{name}: HTTP {status or '?'} on {search_errors} search(es) and "
+                f"{doc_errors} document fetch(es)"
+                + (" — the API token/credit was rejected" if status in (401, 403) else "")
+            )
+        listing_error = int(row.get("listing_error", 0) or 0)
+        if listing_error:
+            alerts.append(f"{name}: judgment listing returned HTTP {listing_error}")
+    return alerts
 
 
 async def _fetch_all(
@@ -881,7 +906,12 @@ def _render_report(report: RunReport, run_date: str) -> str:
         f"{table('Held for review (why)', report.needs_review_reasons)}\n"
         f"{table('Review queue (reasons)', report.review_reasons)}\n"
         f"{_render_health(report.health)}\n"
-        "> **Auto-eligible** records (non-minor, no named accused, durable source, "
+        + (
+            "### ⚠️ Source alerts\n\n" + "".join(f"- {a}\n" for a in report.source_alerts) + "\n"
+            if report.source_alerts
+            else ""
+        )
+        + "> **Auto-eligible** records (non-minor, no named accused, durable source, "
         "confidence ≥ 0.85) publish to the site on merge. **Held-for-review** records "
         "(`data/_needs_review/queue.json`) are minors, named accused, live-blog-only, "
         "or the 0.80-0.84 band - a human promotes them; they never auto-publish. Every "
@@ -914,7 +944,9 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"BUDGET_EXHAUSTED={1 if report.budget_exhausted else 0}\n"
         f"SUBMISSIONS={report.submissions}\n"
         f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
-        f"TRACED_TO_COURT={report.traced_to_court}\n",
+        f"TRACED_TO_COURT={report.traced_to_court}\n"
+        # 0/1 only — the alert TEXT lives in source_funnel.json (never shell-sourced).
+        f"SOURCE_ALERT={1 if report.source_alerts else 0}\n",
         encoding="utf-8",
     )
     # The per-source funnel + court pre-filter are JSON (braces/quotes/colons) that would break
@@ -925,6 +957,7 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
             {
                 "by_publisher": report.health.get("by_publisher", {}),
                 "court_prefilter": report.health.get("court_prefilter", []),
+                "source_alerts": report.source_alerts,
             },
             indent=2,
         ),
@@ -1013,6 +1046,9 @@ def run(
             raw_docs, court_prefilter = docs, []
         else:
             raw_docs, court_prefilter = _fetch_documents(run_date, court_only=is_refresh)
+        report.source_alerts = source_alerts(court_prefilter)
+        for alert in report.source_alerts:
+            _log(report, f"SOURCE ALERT: {alert}")
         # Skip documents already settled in prior runs so the budget goes to the
         # backlog TAIL — turns provider degradation into delay, not lost coverage.
         ledger = load_ledger(data_dir)

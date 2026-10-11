@@ -2802,3 +2802,35 @@ def test_id_collision_records_write_to_review_with_a_reason(tmp_path: Path) -> N
     payload = json.loads((tmp_path / "_review" / "review-2026-08-14.json").read_text())
     assert payload[0]["reason"] == "id_collision"
     assert payload[0]["record"]["id"] == "SKS-2026-DL-000009"
+
+
+def test_source_alerts_flag_rejected_tokens_and_broken_listings_only() -> None:
+    """Court sources that ERRORED become alerts; a merely quiet source does not."""
+    alerts = orchestrator.source_alerts(
+        [
+            {"source": "Indian Kanoon", "hits": 0, "search_errors": 1, "error_status": 403},
+            {"source": "Delhi High Court", "listed": 0, "listing_error": 502},
+            {"source": "High Court of Meghalaya", "listed": 0, "fetched": 0},  # quiet, not broken
+            {"source": "IK doc", "search_errors": 0, "doc_errors": 2, "error_status": 0},
+        ]
+    )
+    assert alerts == [
+        "Indian Kanoon: HTTP 403 on 1 search(es) and 0 document fetch(es)"
+        " — the API token/credit was rejected",
+        "Delhi High Court: judgment listing returned HTTP 502",
+        "IK doc: HTTP ? on 0 search(es) and 2 document fetch(es)",
+    ]
+
+
+def test_source_alerts_reach_the_report_logs_and_summary_env(tmp_path: Path) -> None:
+    report = orchestrator.RunReport()
+    report.source_alerts = ["Indian Kanoon: HTTP 403 on 1 search(es) and 0 document fetch(es)"]
+    orchestrator._write_logs(report, tmp_path, "2026-10-11")
+    assert "SOURCE_ALERT=1" in (tmp_path / "run_summary.env").read_text()
+    assert "Source alerts" in (tmp_path / "run_report.md").read_text()
+    funnel = json.loads((tmp_path / "source_funnel.json").read_text())
+    assert funnel["source_alerts"] == report.source_alerts
+    quiet = tmp_path / "quiet"
+    orchestrator._write_logs(orchestrator.RunReport(), quiet, "2026-10-11")
+    assert "SOURCE_ALERT=0" in (quiet / "run_summary.env").read_text()
+    assert "Source alerts" not in (quiet / "run_report.md").read_text()
