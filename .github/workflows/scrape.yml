@@ -212,10 +212,10 @@ jobs:
         id: counts
         if: always()
         run: |
-          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; COST=0; BUDGET_EXHAUSTED=0
+          NEW=0; UPDATED=0; REVIEW=0; PUBLISHED=0; COST=0; BUDGET_EXHAUSTED=0; SOURCE_ALERT=0
           [ -f logs/run_summary.env ] && . logs/run_summary.env
           for k in new:$NEW updated:$UPDATED review:$REVIEW published:$PUBLISHED \
-                   budget_exhausted:$BUDGET_EXHAUSTED; do
+                   budget_exhausted:$BUDGET_EXHAUSTED source_alert:$SOURCE_ALERT; do
             echo "${k%%:*}=${k#*:}" >> "$GITHUB_OUTPUT"
           done
 
@@ -584,6 +584,26 @@ jobs:
           # Traced-to-court (§3) — the highest-value event: an untracked case entering the
           # judicial record. Shown only when it happened this run.
           [ "${TRACED_TO_COURT:-0}" != "0" ] && SUB="${SUB}$(printf '\n- 🏛️ traced to court (§3): **%s** media record(s) gained a court source' "$TRACED_TO_COURT")"
+          # Court sources that ERRORED (rejected token, broken listing) — counts/status codes only,
+          # read from JSON (never shell-sourced). Indian Kanoon 403'd for a month unnoticed.
+          SRC_ALERTS="$(jq -r '(.source_alerts // []) | join("; ")' logs/source_funnel.json 2>/dev/null | cut -c1-300)"
+          [ -n "$SRC_ALERTS" ] && SUB="${SUB}$(printf '\n- ⚠️ **source alerts:** %s' "$SRC_ALERTS")"
+          # Bot-token expiry (the auto-merge depends on it; CONTRIBUTING documents the outage it
+          # causes). GitHub reports a PAT's expiry in a response header — surface it daily and
+          # open/refresh one issue inside the last 7 days. No header (GITHUB_TOKEN) => skipped.
+          TOKEN_EXP="$(curl -sI -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/rate_limit \
+            | tr -d '\r' | awk -F': ' 'tolower($1)=="github-authentication-token-expiration"{print $2}')"
+          if [ -n "$TOKEN_EXP" ] && EXP_TS="$(date -d "$TOKEN_EXP" +%s 2>/dev/null)"; then
+            TOKEN_DAYS=$(( (EXP_TS - $(date +%s)) / 86400 ))
+            TNOTE=""; [ "$TOKEN_DAYS" -le 14 ] && TNOTE=" ⚠️ **rotate SCRAPE_BOT_TOKEN now**"
+            SUB="${SUB}$(printf '\n- bot token expires: %s (%s days)%s' "${TOKEN_EXP%% *}" "$TOKEN_DAYS" "$TNOTE")"
+            if [ "$TOKEN_DAYS" -le 7 ]; then
+              TBODY="SCRAPE_BOT_TOKEN expires ${TOKEN_EXP} (${TOKEN_DAYS} days). When it lapses the auto-merge stops and the site goes stale — rotate it (see CONTRIBUTING.md, bot-token expiry)."
+              TOPEN="$(gh issue list --label pipeline --state open --search 'in:title "Bot token expiring"' --json number --jq '.[0].number' 2>/dev/null || true)"
+              if [ -n "$TOPEN" ]; then gh issue comment "$TOPEN" --body "$TBODY" || true
+              else gh issue create --title "Bot token expiring — ${TOKEN_EXP%% *}" --body "$TBODY" --label pipeline || true; fi
+            fi
+          fi
           URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           BODY="$(printf '**%s** · [run](%s) · trigger: %s\n- scope: %s\n- docs: fetched **%s** · processed %s (skipped %s settled) · ledger %s settled / %s pending / %s total\n- extract: %s extracted · %s in-scope · **%s** auto-published · **%s** held · %s quarantined · %s out-of-scope%s\n- needs-review queue: **%s**%s%s%s\n- cost: $%s · status: **%s**%s' \
             "$(date +%F)" "$URL" "${{ github.event_name }}" "$SCOPE" \
@@ -594,7 +614,7 @@ jobs:
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
 
       - name: Open issue on failure, large review queue, or budget exhaustion
-        if: always() && (failure() || cancelled() || fromJSON(steps.counts.outputs.review || '0') > 20 || steps.counts.outputs.budget_exhausted == '1')
+        if: always() && (failure() || cancelled() || fromJSON(steps.counts.outputs.review || '0') > 20 || steps.counts.outputs.budget_exhausted == '1' || steps.counts.outputs.source_alert == '1')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -609,6 +629,14 @@ jobs:
             # One open issue per failure STREAK: comment on it rather than opening a duplicate
             # every day (2026-10-07..11 opened four identical issues for one root cause).
             OPEN="$(gh issue list --label pipeline --state open --search 'in:title "Pipeline run failed"' --json number --jq '.[0].number' 2>/dev/null || true)"
+            if [ -n "$OPEN" ]; then
+              gh issue comment "$OPEN" --body "$BODY" && exit 0
+            fi
+          elif [ "${{ steps.counts.outputs.source_alert }}" = "1" ]; then
+            TITLE="Court source failing — ${DATE}"
+            ALERTS="$(jq -r '(.source_alerts // [])[] | "- " + .' logs/source_funnel.json 2>/dev/null | cut -c1-300)"
+            BODY="$(printf 'A court source errored on %s (the run itself continued; media sources were unaffected):\n%s\n\nA 401/403 means the API token or prepaid credit was rejected — renew it and update the repo secret. See the [run](%s).' "$DATE" "$ALERTS" "$RUN_URL")"
+            OPEN="$(gh issue list --label pipeline --state open --search 'in:title "Court source failing"' --json number --jq '.[0].number' 2>/dev/null || true)"
             if [ -n "$OPEN" ]; then
               gh issue comment "$OPEN" --body "$BODY" && exit 0
             fi

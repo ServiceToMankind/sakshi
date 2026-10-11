@@ -161,7 +161,14 @@ def test_fetch_prefilters_hits_and_fetches_only_qualifying_bodies() -> None:
         "https://api.indiankanoon.org/search/",
         "https://api.indiankanoon.org/doc/12345/",
     ]
-    assert source.stats == {"hits": 2, "qualifying": 1, "fetched": 1}
+    assert source.stats == {
+        "hits": 2,
+        "qualifying": 1,
+        "fetched": 1,
+        "search_errors": 0,
+        "doc_errors": 0,
+        "error_status": 0,
+    }
 
 
 def test_fetch_skips_non_200_search() -> None:
@@ -169,13 +176,40 @@ def test_fetch_skips_non_200_search() -> None:
     source = IndianKanoonSource(poster, queries=("q",), fetched_at="2026-07-10", token="t")
     assert _run(source.fetch()) == []
     assert source.stats["hits"] == 0
+    assert source.stats["search_errors"] == 1 and source.stats["error_status"] == 503
+
+
+def test_rejected_token_stops_after_one_search_and_is_recorded() -> None:
+    """A 403 (token/credit rejected — the 2026-09-10..10-11 outage) is recorded, not read as a
+    quiet day, and the source stops instead of paying for every remaining query."""
+    poster = _FakePoster(_SEARCH_JSON, _DOC_JSON, search_status=403)
+    source = IndianKanoonSource(
+        poster, queries=("q1", "q2", "q3"), fetched_at="2026-07-10", token="t"
+    )
+    assert _run(source.fetch()) == []
+    assert poster.calls == ["https://api.indiankanoon.org/search/"]  # one call, then stop
+    assert source.stats["search_errors"] == 1 and source.stats["error_status"] == 403
+
+
+def test_transient_search_error_does_not_stop_later_queries() -> None:
+    poster = _FakePoster(_SEARCH_JSON, _DOC_JSON, search_status=503)
+    source = IndianKanoonSource(poster, queries=("q1", "q2"), fetched_at="2026-07-10", token="t")
+    _run(source.fetch())
+    assert source.stats["search_errors"] == 2  # a 503 is retried on the next query
 
 
 def test_fetch_skips_non_200_doc() -> None:
     poster = _FakePoster(_SEARCH_JSON, _DOC_JSON, doc_status=404)
     source = IndianKanoonSource(poster, queries=("q",), fetched_at="2026-07-10", token="t")
     assert _run(source.fetch()) == []
-    assert source.stats == {"hits": 2, "qualifying": 1, "fetched": 0}  # qualified, but body 404
+    assert source.stats == {  # qualified, but the body 404'd
+        "hits": 2,
+        "qualifying": 1,
+        "fetched": 0,
+        "search_errors": 0,
+        "doc_errors": 1,
+        "error_status": 404,
+    }
 
 
 def test_fetch_respects_per_run_doc_budget(monkeypatch: pytest.MonkeyPatch) -> None:

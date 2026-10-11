@@ -157,7 +157,18 @@ class IndianKanoonSource:
         self._publisher = publisher
         self._fetched_at = fetched_at or date.today().isoformat()
         self._token = token if token is not None else _api_token()
-        self.stats: dict[str, int] = {"hits": 0, "qualifying": 0, "fetched": 0}
+        # COUNTS ONLY (never text). ``search_errors``/``doc_errors`` count non-200 responses and
+        # ``error_status`` keeps the last such HTTP status, so a rejected token is LOUD in the
+        # run report + heartbeat instead of reading as "0 hits" (2026-09-10..10-11: every search
+        # returned 403 for a month and the source looked merely quiet).
+        self.stats: dict[str, int] = {
+            "hits": 0,
+            "qualifying": 0,
+            "fetched": 0,
+            "search_errors": 0,
+            "doc_errors": 0,
+            "error_status": 0,
+        }
 
     async def fetch(self) -> list[RawDocument]:
         """Search each query, statute-pre-filter each hit, then fetch the judgment body for
@@ -177,6 +188,11 @@ class IndianKanoonSource:
                 _SEARCH_URL, data={"formInput": query, "pagenum": "0"}, headers=headers
             )
             if response is None or response.status_code != 200:
+                self.stats["search_errors"] += 1
+                if response is not None:
+                    self.stats["error_status"] = int(response.status_code)
+                    if response.status_code in (401, 403):
+                        break  # a rejected token rejects every query — stop, report once
                 continue
             for hit in parse_search_hits(response.text):
                 if len(docs) >= config.IK_MAX_DOCS_PER_RUN:
@@ -187,6 +203,9 @@ class IndianKanoonSource:
                 self.stats["qualifying"] += 1
                 doc = await self._client.post(_DOC_URL.format(tid=hit["tid"]), headers=headers)
                 if doc is None or doc.status_code != 200:
+                    self.stats["doc_errors"] += 1
+                    if doc is not None:
+                        self.stats["error_status"] = int(doc.status_code)
                     continue
                 self.stats["fetched"] += 1  # a billed doc fetch
                 text = self._judgment_text(doc.text, hit)
