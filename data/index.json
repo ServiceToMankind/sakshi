@@ -191,7 +191,7 @@
       "year": "2024"
     },
     {
-      "bytes": 3204,
+      "bytes": 3229,
       "path": "2024/GJ.json",
       "records": 3,
       "state": "GJ",
@@ -212,7 +212,7 @@
       "year": "2024"
     },
     {
-      "bytes": 1192,
+      "bytes": 1228,
       "path": "2024/WB.json",
       "records": 1,
       "state": "WB",
@@ -282,9 +282,9 @@
       "year": "2026"
     },
     {
-      "bytes": 46534,
+      "bytes": 42030,
       "path": "2026/DL.json",
-      "records": 41,
+      "records": 37,
       "state": "DL",
       "year": "2026"
     },
@@ -380,9 +380,9 @@
       "year": "2026"
     },
     {
-      "bytes": 35974,
+      "bytes": 34931,
       "path": "2026/TG.json",
-      "records": 34,
+      "records": 33,
       "state": "TG",
       "year": "2026"
     },

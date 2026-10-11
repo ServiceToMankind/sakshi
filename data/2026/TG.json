@@ -163,6 +163,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
+    "corrected": true,
     "days_since_reported": 20,
     "district": "Rangareddy",
     "fir_ref": {
@@ -186,7 +187,7 @@
     "state": "TG",
     "status": "FIR_FILED",
     "summary": "Police arrested and remanded [occupation withheld]-wrestler in Rangareddy following allegations of sexual exploitation. The accused is now in custody.",
-    "title": "Actor-wrestler remanded in Gachibowli sexual exploitation case",
+    "title": "Actor-wrestler remanded in Rangareddy sexual exploitation case",
     "verification_note": "Approved as the source confirms the arrest and remand of the accused by Gachibowli police in a sexual exploitation case.",
     "verified": true
   },
@@ -221,32 +222,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 38,
-    "district": "Bhadradri Kothagudem",
-    "first_published": "2026-09-03",
-    "id": "SKS-2026-TG-000022",
-    "incident_reported_date": "2026-09-03",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "offence_sections": [],
-    "sources": [
-      {
-        "publisher": "Namasthe Telangana",
-        "retrieved": "2026-09-03",
-        "source_type": "news_article",
-        "url": "https://www.ntnews.com/khammam/badradri-kothagudem/mp-vaddiraju-consoles-sirishas-family-2500748"
-      }
-    ],
-    "state": "TG",
-    "status": "UNKNOWN",
-    "summary": "[occupation withheld] from Bhadradri Kothagudem was raped and killed. A Member of Parliament visited her family to offer support.",
-    "title": "MP visits family of [occupation withheld] who was raped and murdered",
-    "verification_note": "The source reports on a genuine case of sexual assault and murder of a nurse, which is consistent with the record.",
-    "verified": true
-  },
-  {
-    "category": "rape",
-    "confidence": 0.9,
+    "corrected": true,
     "days_since_reported": 40,
     "district": "Hyderabad",
     "first_published": "2026-09-01",
@@ -264,8 +240,8 @@
     ],
     "state": "TG",
     "status": "UNKNOWN",
-    "summary": "An attacker raped and killed [occupation withheld] in Hyderabad. Colleagues held a candlelight vigil to demand action against a private hospital.",
-    "title": "Nurses protest in Hyderabad after colleague is raped and murdered",
+    "summary": "An attacker raped and killed [occupation withheld] in Hyderabad. A candlelight vigil was held to demand action.",
+    "title": "Candlelight vigil in Hyderabad after rape and murder",
     "verification_note": "The source reports a genuine rape and murder case of a nurse in Hyderabad, which is consistent with the record.",
     "verified": true
   },

@@ -91,7 +91,7 @@
       "month": "2026-08"
     },
     {
-      "count": 90,
+      "count": 85,
       "month": "2026-09"
     },
     {
@@ -100,7 +100,7 @@
     }
   ],
   "scale": {
-    "cumulative_total": 236,
+    "cumulative_total": 231,
     "daily": [
       {
         "count": 0,
@@ -601,7 +601,7 @@
     "AS": 3,
     "BR": 11,
     "CT": 2,
-    "DL": 51,
+    "DL": 47,
     "GA": 4,
     "GJ": 7,
     "HR": 14,
@@ -616,7 +616,7 @@
     "OD": 3,
     "PB": 5,
     "RJ": 3,
-    "TG": 35,
+    "TG": 34,
     "TN": 33,
     "TR": 2,
     "UP": 17,
@@ -628,10 +628,10 @@
     "CHARGESHEETED": 1,
     "CLOSED": 1,
     "CONVICTED": 36,
-    "FIR_FILED": 74,
+    "FIR_FILED": 73,
     "QUASHED": 2,
-    "UNDER_TRIAL": 40,
-    "UNKNOWN": 63
+    "UNDER_TRIAL": 39,
+    "UNKNOWN": 60
   },
   "top_longest_pending": [
     {
@@ -659,5 +659,5 @@
       "incident_reported_date": "2026-10-07"
     }
   ],
-  "total": 236
+  "total": 231
 }

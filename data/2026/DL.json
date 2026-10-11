@@ -279,36 +279,6 @@
     "verified": true
   },
   {
-    "category": "rape",
-    "confidence": 0.9,
-    "court": {
-      "name": "Supreme Court of India",
-      "next_hearing": null
-    },
-    "days_since_reported": 13,
-    "district": "South East Delhi",
-    "first_published": "2026-09-28",
-    "id": "SKS-2026-DL-000036",
-    "incident_reported_date": "2026-09-28",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "offence_sections": [],
-    "sources": [
-      {
-        "publisher": "Hindustan Times",
-        "retrieved": "2026-09-28",
-        "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/public-spaces-cant-be-zones-of-high-risk-supreme-court-takes-cognisance-of-kalkaji-other-recent-rape-cases-101790572200677.html"
-      }
-    ],
-    "state": "DL",
-    "status": "UNKNOWN",
-    "summary": "The Supreme Court took suo motu cognisance of a gangrape in a Delhi park. The court stated that public spaces must not be high-risk zones.",
-    "title": "Supreme Court takes cognisance of Delhi park gangrape",
-    "verification_note": "The record is consistent with the source reporting on the Supreme Court taking cognisance of the Kalkaji gangrape case.",
-    "verified": true
-  },
-  {
     "category": "harassment",
     "confidence": 0.95,
     "days_since_reported": 14,
@@ -332,93 +302,6 @@
     "summary": "Unidentified men in an SUV followed and tried to pull two college students into their vehicle in Delhi. The police registered an FIR and are currently investigating the incident.",
     "title": "Delhi Police register FIR after college students allege sexual harassment",
     "verification_note": "The source confirms that an FIR has been registered regarding the sexual harassment of college students in Delhi.",
-    "verified": true,
-    "weapon_or_threat": true
-  },
-  {
-    "category": "rape",
-    "confidence": 0.9,
-    "days_since_reported": 16,
-    "district": "Southeast Delhi",
-    "first_published": "2026-09-25",
-    "id": "SKS-2026-DL-000032",
-    "incident_reported_date": "2026-09-25",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "offence_sections": [],
-    "sources": [
-      {
-        "publisher": "The Hindu",
-        "retrieved": "2026-09-25",
-        "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/aastha-kunj-gang-rape-area-was-already-a-delhi-police-dark-spot-but-lighting-gaps-remained/article71506949.ece"
-      }
-    ],
-    "state": "DL",
-    "status": "UNKNOWN",
-    "summary": "A gang rape occurred in a park in Southeast Delhi. Police surveys had previously flagged the poorly lit area as a dark spot with non-functional streetlights.",
-    "title": "Delhi Police surveys highlight dark spots near Aastha Kunj gang rape site",
-    "verification_note": "The record is consistent with the source reporting on the gang rape case in Southeast Delhi.",
-    "verified": true
-  },
-  {
-    "accused_count": 1,
-    "category": "rape",
-    "confidence": 0.95,
-    "court": {
-      "name": "Delhi Court",
-      "next_hearing": null
-    },
-    "days_since_reported": 16,
-    "district": "South East Delhi",
-    "first_published": "2026-09-25",
-    "id": "SKS-2026-DL-000033",
-    "incident_reported_date": "2026-09-25",
-    "institutional_actions": [
-      "arrest_made"
-    ],
-    "minor_involved": false,
-    "sources": [
-      {
-        "publisher": "The Hindu",
-        "retrieved": "2026-09-25",
-        "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-court-remands-kalkaji-rape-accused-to-14-day-judicial-custody/article71504603.ece"
-      }
-    ],
-    "state": "DL",
-    "status": "UNDER_TRIAL",
-    "summary": "A Delhi court sent an accused person to judicial custody for fourteen days. The individual faces charges of rape in Delhi.",
-    "title": "Delhi court remands rape accused to judicial custody",
-    "verification_note": "The source confirms a rape accused in Kalkaji, South East Delhi, was remanded to judicial custody, which is consistent with the record.",
-    "verified": true
-  },
-  {
-    "accused_count": 3,
-    "category": "rape",
-    "confidence": 0.95,
-    "days_since_reported": 18,
-    "district": "South East",
-    "first_published": "2026-09-23",
-    "id": "SKS-2026-DL-000028",
-    "incident_reported_date": "2026-09-23",
-    "institutional_actions": [
-      "arrest_made"
-    ],
-    "minor_involved": false,
-    "sources": [
-      {
-        "publisher": "Hindustan Times",
-        "retrieved": "2026-09-23",
-        "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/temple-visit-fake-cops-threats-with-knife-and-gun-shocking-details-in-kalkaji-gangrape-case-101790077603517.html"
-      }
-    ],
-    "state": "DL",
-    "status": "FIR_FILED",
-    "summary": "Three men posing as police officers threatened people with weapons and committed gang rape in Delhi. The police arrested all three accused men.",
-    "title": "Delhi police arrest three men in Kalkaji gang rape case",
-    "verification_note": "The source confirms a gangrape case in Kalkaji, Delhi, with three accused arrested by the police.",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -477,6 +360,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
+    "corrected": true,
     "days_since_reported": 34,
     "district": "South West Delhi",
     "first_published": "2026-09-07",
@@ -496,7 +380,7 @@
     "state": "DL",
     "status": "UNKNOWN",
     "summary": "[occupation withheld] allegedly made inappropriate remarks with sexual connotations to students during oral examinations in South West Delhi. Students accused the professor of sexual harassment.",
-    "title": "JNU [occupation withheld] accused of sexual harassment during examinations",
+    "title": "University [occupation withheld] in Delhi accused of sexual harassment during examinations",
     "verification_note": "The source reports a specific case of sexual harassment allegations against a JNU professor in South West Delhi.",
     "verified": true
   },
@@ -504,6 +388,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
+    "corrected": true,
     "days_since_reported": 34,
     "district": "New Delhi",
     "first_published": "2026-09-07",
@@ -522,7 +407,7 @@
     "state": "DL",
     "status": "UNKNOWN",
     "summary": "Ten university students filed [occupation withheld] of sexual harassment. The students submitted their complaint to university authorities in New Delhi.",
-    "title": "Ten JNU students accuse [occupation withheld] of sexual harassment",
+    "title": "Ten university students in Delhi accuse [occupation withheld] of sexual harassment",
     "verification_note": "The source confirms a sexual harassment complaint filed by 10 students against a professor at JNU in New Delhi.",
     "verified": true
   },

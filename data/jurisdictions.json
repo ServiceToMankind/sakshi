@@ -115,17 +115,6 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "South East Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 3,
-      "under_trial": 1,
-      "under_trial_pct": 33
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
       "district": "Gurugram",
       "longest_pending": null,
       "median_pending_days": null,
@@ -693,10 +682,9 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "South East",
+      "district": "South East Delhi",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 1,
       "state": "DL",
       "total": 1,
       "under_trial": 0,
@@ -706,17 +694,6 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "South West Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Southeast Delhi",
       "longest_pending": null,
       "median_pending_days": null,
       "state": "DL",
@@ -1182,17 +1159,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "RJ",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Bhadradri Kothagudem",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "TG",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0

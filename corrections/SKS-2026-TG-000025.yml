@@ -1,0 +1,11 @@
+record_id: SKS-2026-TG-000025
+overrides:
+  title: 'Actor-wrestler remanded in Rangareddy sexual exploitation case'
+reason: >
+  Title named a sub-district locality; CLAUDE.md §1a — district is the finest locality ever published. Replaced with the record's district.
+resolution: >
+  Retire once the deterministic prose scrub covers this class (sub-district / institution
+  names in non-minor prose — the residual CLAUDE.md §1a asks to tighten via a
+  human-approved issue).
+author: claude-code health review (operator ratification requested)
+date: "2026-10-11"
