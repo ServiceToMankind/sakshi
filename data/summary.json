@@ -1,16 +1,16 @@
 {
   "aggravated_total": 40,
-  "generated_at": "2026-10-09T00:00:00Z",
+  "generated_at": "2026-10-11T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 1,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 2,
+        "days": 4,
         "id": "SKS-2026-DL-000044"
       },
-      "median_pending_days": 2,
+      "median_pending_days": 4,
       "pre_chargesheet": 4,
       "state": "DL",
       "total": 21,
@@ -256,10 +256,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1475,
+        "days": 1477,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 762,
+      "median_pending_days": 764,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -488,10 +488,10 @@
       "convictions": 1,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 374,
+        "days": 376,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 374,
+      "median_pending_days": 376,
       "state": "TN",
       "total": 2,
       "under_trial": 1,
@@ -1486,14 +1486,6 @@
     "daily": [
       {
         "count": 0,
-        "date": "2026-06-12"
-      },
-      {
-        "count": 0,
-        "date": "2026-06-13"
-      },
-      {
-        "count": 0,
         "date": "2026-06-14"
       },
       {
@@ -1963,9 +1955,17 @@
       {
         "count": 4,
         "date": "2026-10-09"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-10"
+      },
+      {
+        "count": 0,
+        "date": "2026-10-11"
       }
     ],
-    "this_week": 19
+    "this_week": 13
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 29,
@@ -2017,25 +2017,25 @@
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 1475,
+      "days_since_reported": 1477,
       "district": "South West",
       "id": "SKS-2022-DL-000001",
       "incident_reported_date": "2022-09-25"
     },
     {
-      "days_since_reported": 374,
+      "days_since_reported": 376,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 50,
+      "days_since_reported": 52,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     },
     {
-      "days_since_reported": 2,
+      "days_since_reported": 4,
       "district": "Delhi",
       "id": "SKS-2026-DL-000044",
       "incident_reported_date": "2026-10-07"
