@@ -171,7 +171,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "A case of rape involving a minor in South Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In October 2026, three people were accused of the rape involving a minor in South Delhi, Delhi. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape involving a minor — South Delhi (2026)",
     "verified": true
   },
@@ -196,7 +196,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "A case of child sexual offence in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In October 2026, a case of child sexual offence was registered in Delhi. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Delhi (2026)",
     "verified": true
   },
@@ -228,8 +228,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "Two people were accused of the child sexual offence in Delhi. A weapon or threat was involved. The accused is recorded as a repeat offender. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In October 2026, two people were accused of the child sexual offence in Delhi. A weapon was used or a threat was made. The accused is recorded as a repeat offender. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — on trial",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -443,8 +443,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Two people were arrested in North Delhi for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — North Delhi (2026)",
+    "summary": "In September 2026, two people were arrested in North Delhi, Delhi for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Delhi (2026) — FIR filed",
     "verified": true
   },
   {
@@ -483,7 +483,7 @@
         "status": "UNKNOWN"
       }
     ],
-    "summary": "Four people were accused of the child sexual offence in Delhi. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In September 2026, four people were accused of the child sexual offence in Delhi. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Delhi (2026)",
     "verified": true,
     "weapon_or_threat": true
@@ -513,8 +513,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "A case of child sexual offence in Delhi, Delhi (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In September 2026, one person was accused of the child sexual offence in Delhi. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — FIR filed",
     "verified": true
   },
   {
@@ -542,8 +542,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in North West Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — North West Delhi (2026)",
+    "summary": "In September 2026, four people were arrested in North West Delhi, Delhi for the child sexual offence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North West Delhi (2026) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -569,7 +569,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "Three people were accused of the child sexual offence in South Delhi. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In September 2026, three people were accused of the child sexual offence in South Delhi, Delhi. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — South Delhi (2026)",
     "verified": true,
     "weapon_or_threat": true
@@ -609,7 +609,7 @@
         "status": "UNKNOWN"
       }
     ],
-    "summary": "Three people were accused of the child sexual offence in South East Delhi. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In September 2026, three people were accused of the child sexual offence in South East Delhi, Delhi. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — South East Delhi (2026)",
     "verified": true,
     "weapon_or_threat": true
@@ -641,8 +641,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "One person was accused of the child sexual offence in New Delhi. An official was suspended over the case. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — New Delhi (2026)",
+    "summary": "In September 2026, one person was accused of the child sexual offence in New Delhi, Delhi. An official was suspended over the case. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026) — FIR filed",
     "verified": true
   },
   {
@@ -672,8 +672,8 @@
     ],
     "state": "DL",
     "status": "CONVICTED",
-    "summary": "One person was accused of the child sexual offence in New Delhi. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — New Delhi (2026)",
+    "summary": "In September 2026, one person was accused of the child sexual offence in New Delhi, Delhi. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026) — convicted",
     "verified": true
   },
   {
@@ -703,8 +703,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "A case of child sexual offence in New Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — New Delhi (2026)",
+    "summary": "In September 2026, one person was accused of the child sexual offence in New Delhi, Delhi. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026) — on trial",
     "verified": true
   },
   {
@@ -738,8 +738,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in Outer North for the aggravated penetrative assault on a child. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — Outer North (2026)",
+    "summary": "In September 2026, four people were arrested in Outer North, Delhi for the aggravated penetrative assault on a child. The charges also include murder and destroying evidence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Outer North (2026) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -771,8 +771,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Three people were arrested in Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In September 2026, three people were arrested in Delhi for the child sexual offence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -804,8 +804,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Two people were arrested in North Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — North Delhi (2026)",
+    "summary": "In September 2026, two people were arrested in North Delhi, Delhi for the child sexual offence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Delhi (2026) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -840,8 +840,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in Delhi for the aggravated penetrative assault on a child. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
+    "summary": "In September 2026, four people were arrested in Delhi for the aggravated penetrative assault on a child. The charges also include murder and destroying evidence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Delhi (2026) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -1052,7 +1052,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "A case of sexual assault involving a minor in Delhi, Delhi (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In August 2026, a case of sexual assault involving a minor was registered in Delhi. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Sexual assault involving a minor — Delhi (2026)",
     "verified": true
   },
@@ -1085,8 +1085,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "A case of child sexual offence in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In August 2026, one person was accused of the child sexual offence in Delhi. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — on trial",
     "verified": true
   },
   {
@@ -1117,8 +1117,8 @@
     ],
     "state": "DL",
     "status": "CONVICTED",
-    "summary": "One person was accused of the child sexual offence in New Delhi. The accused was convicted. The court imposed a sentence of 10 years. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — New Delhi (2026)",
+    "summary": "In August 2026, one person was accused of the child sexual offence in New Delhi, Delhi. The accused was convicted and sentenced to 10 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — New Delhi (2026) — convicted, 10 years",
     "verified": true
   },
   {
@@ -1145,7 +1145,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "Two people were arrested in Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In August 2026, two people were arrested in Delhi for the child sexual offence. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Delhi (2026)",
     "verified": true,
     "weapon_or_threat": true
@@ -1177,8 +1177,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in Delhi for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In August 2026, four people were arrested in Delhi for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — FIR filed",
     "verified": true
   },
   {
@@ -1245,8 +1245,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "A case of aggravated penetrative assault on a child in Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
+    "summary": "In July 2026, a case of aggravated penetrative assault on a child was registered in Delhi. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Delhi (2026) — on trial",
     "verified": true
   },
   {
@@ -1277,8 +1277,8 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "A case of child sexual offence in South District, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — South District (2026)",
+    "summary": "In July 2026, a case of child sexual offence was registered in South District, Delhi. An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — South District (2026) — appeal pending",
     "verified": true
   },
   {
@@ -1309,8 +1309,8 @@
     ],
     "state": "DL",
     "status": "APPEAL_PENDING",
-    "summary": "A case of child sexual offence in Delhi, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Child sexual offence — Delhi (2026)",
+    "summary": "In July 2026, a case of child sexual offence was registered in Delhi. An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026) — appeal pending",
     "verified": true
   },
   {
@@ -1354,8 +1354,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "One person was arrested in South-East for the aggravated penetrative assault on a child. Police have filed a chargesheet. Bail was granted. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — South-East (2026)",
+    "summary": "In March 2026, one person was arrested in South-East, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping. Police have filed a chargesheet. Bail was granted. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South-East (2026) — on trial",
     "verified": true
   }
 ]
