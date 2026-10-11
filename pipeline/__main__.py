@@ -198,6 +198,32 @@ def _illustrative_cost(docs: list[RawDocument]) -> float:
     return config.estimate_cost_usd(input_tokens, output_tokens)
 
 
+def _drop_null_anchor_fields(record: dict[str, Any]) -> dict[str, Any]:
+    """Drop null keys inside the FIR and court objects, and the object itself if nothing is left.
+
+    The model sometimes knows the police station but not the FIR number and sends
+    ``fir_ref: {"station": "...", "number": null}``. The schema wants those keys to be
+    strings or absent, so that one null used to send the whole case to review as
+    "schema_invalid" — a real case missing from the site for want of a number.
+    """
+    out = dict(record)
+    fir = out.get("fir_ref")
+    if isinstance(fir, dict):
+        fir = {k: v for k, v in fir.items() if v is not None}
+        if fir:
+            out["fir_ref"] = fir
+        else:
+            out.pop("fir_ref")
+    court = out.get("court")
+    if isinstance(court, dict) and court.get("name") is None:
+        court = {k: v for k, v in court.items() if k != "name"}
+        if any(v is not None for v in court.values()):
+            out["court"] = court
+        else:
+            out.pop("court")
+    return out
+
+
 def _drop_null_top_level(record: dict[str, Any]) -> dict[str, Any]:
     """Drop TOP-LEVEL keys whose value is null.
 
@@ -1235,7 +1261,8 @@ def run(
     # schema allow-list so no unknown key can survive to a shard OR the review queue.
     case_schema = load_schema()
     sanitized = [
-        _drop_null_top_level(_finalize_for_disk(record, case_schema)) for record in in_scope
+        _drop_null_anchor_fields(_drop_null_top_level(_finalize_for_disk(record, case_schema)))
+        for record in in_scope
     ]
     # Route any freshly-extracted record that STILL fails the schema (a required field
     # the model could not supply, an out-of-enum value) to human review, rather than
