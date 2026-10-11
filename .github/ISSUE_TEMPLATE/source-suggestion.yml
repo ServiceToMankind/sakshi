@@ -1,15 +1,16 @@
 name: Source suggestion
-description: Suggest a new data source for the pipeline to aggregate.
+description: Suggest a new public source for the pipeline to read.
 title: "source: "
 labels: ["source-suggestion", "triage"]
 body:
   - type: markdown
     attributes:
       value: >-
-        Sakshi aggregates from **official/structured** records first (eCourts &
-        NJDG, High Court judgment portals, Indian Kanoon per ToS, NCRB, PIB /
-        police press releases) and, secondarily, from **RSS of established
-        media outlets**. We do **not** scrape social media.
+        Sakshi reads **official, structured** records first (court records such as
+        High Court judgment pages, and Indian Kanoon through its API and terms) and,
+        after that, **RSS feeds from established news outlets**. Government sources
+        such as police or PIB press releases are welcome suggestions too. We do
+        **not** scrape social media.
   - type: input
     id: source-name
     attributes:
@@ -37,20 +38,20 @@ body:
   - type: input
     id: rss-url
     attributes:
-      label: RSS/feed or API endpoint
-      description: If this is a media source or exposes a structured feed/API, link it here.
+      label: RSS feed or API address
+      description: If it's a news source, or it offers a structured feed or API, link it here.
       placeholder: https://.../rss
     validations:
       required: false
   - type: textarea
     id: robots-tos
     attributes:
-      label: robots.txt / Terms of Service note
+      label: robots.txt and terms of service
       description: >-
-        What do the site's robots.txt and ToS permit? Link them. Sakshi
-        respects robots.txt, rate-limits to <= 1 request / 2s per host, and
-        identifies itself honestly. Sources that forbid automated access will
-        not be added.
+        What do the site's robots.txt and terms allow? Please link them. Sakshi
+        follows robots.txt, makes at most 1 request every 2 seconds to a site,
+        and says honestly who it is. I won't add a source that forbids automated
+        access.
     validations:
       required: true
   - type: textarea
@@ -58,9 +59,9 @@ body:
     attributes:
       label: Why is this source credible?
       description: >-
-        Explain the provenance and reliability — who publishes it, editorial
-        standards, whether records are primary (court orders) or secondary
-        (reporting).
+        Tell me where it comes from and how reliable it is: who publishes it,
+        their editorial standards, and whether the records are primary (court
+        orders) or secondary (reporting).
     validations:
       required: true
   - type: checkboxes
@@ -68,7 +69,7 @@ body:
     attributes:
       label: Confirmations
       options:
-        - label: This is not a social-media source.
+        - label: This isn't a social-media source.
           required: true
-        - label: To the best of my knowledge, automated access is permitted by the source's robots.txt and ToS.
+        - label: As far as I know, the source's robots.txt and terms allow automated access.
           required: true

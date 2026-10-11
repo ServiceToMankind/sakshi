@@ -385,7 +385,7 @@ def _source_text_for(record: dict[str, Any], source_text_by_url: dict[str, str])
 
 
 def default_verify_client(model_id: str) -> VerificationClient:  # pragma: no cover - live SDK
-    """Build the real verifier (gemini-2.5-flash, structured-JSON). Tests inject their own
+    """Build the real verifier (gemini-3.5-flash, structured-JSON). Tests inject their own
     client, so this is never exercised offline.
 
     Uses ``response_mime_type=application/json`` to FORCE a valid JSON verdict. Google

@@ -1,62 +1,71 @@
-# §2 media offence-language pre-filter — recall measurement
+# The news offence-word filter — how much it catches
 
-The media pre-filter's job is to skip *obviously irrelevant* documents so we don't pay an LLM
-to read them, while **never discarding a true sexual-offence report** (the operator's red
-line). Gemini's `in_scope` gate makes the actual scope decision. So the filter is tuned for
-**high recall / low precision**.
+The news pre-filter's job is to skip documents that *obviously* have nothing to do with
+sexual offences, so we don't pay an AI model to read them, while **never throwing away a
+real sexual-offence report**. That's my red line. Gemini's `in_scope` check makes the
+actual decision about scope, so the filter is tuned to **catch everything (high recall),
+even if it lets through a lot that isn't relevant (low precision)**.
 
-## Why the old filter was wrong for media
+## Why the old filter was wrong for news
 
-The old ordering hint (`_OFFENCE_HINTS`) was **English-only** and **section-anchored-ish**
-(`rape`, `sexual`, `assault`, `376`, `354`, …). Two structural failures on media:
+The old ordering hint (`_OFFENCE_HINTS`) was **English only** and leaned on **section
+numbers** (`rape`, `sexual`, `assault`, `376`, `354`, and so on). It failed on news in two
+basic ways:
 
-1. **Newspapers report the offence, not the statute**, so the section anchoring is moot; and
-2. **it cannot match any non-English script at all** — every Telugu / Hindi / Tamil / Marathi
-   crime feed scored **zero by construction**.
+1. **Newspapers describe the offence, not the section of the law**, so matching on
+   section numbers doesn't help; and
+2. **it couldn't match any non-English script at all**, so every Telugu, Hindi, Tamil and
+   Marathi crime feed scored **zero, every time**.
 
-It was also only a *sort*, not a skip, so regional docs sank to the bottom and a
-wall-clock-bounded run never reached them.
+It also only *sorted* documents rather than skipping any, so regional documents sank to
+the bottom, and a run with a time limit never got to them.
 
 ## The new filter
 
-- **Court sources (tier 1)** keep the statute pre-filter unchanged (a judgment cites its
-  sections; it gates per-document billing).
-- **Media sources (tier 2/3)** run `pipeline.offence_filter.media_offence_hit`: a curated
-  English offence-term set (word-boundaried) **plus native-script offence terms** for Hindi,
-  Telugu, Marathi and Tamil, built and adversarially reviewed by native-language sub-editors
-  (one agent per language). Native terms match as substrings; roman terms are word-boundaried
-  (so "rape" ≠ "grape", and bare "minor" is not a term). Pure person-nouns (girl/boy/student/
-  woman/minor) were removed — they add no recall (a real headline carries an offence word too)
-  and only add false positives.
+- **Court sources (tier 1)** keep the section-number pre-filter as it was (a judgment
+  cites its sections, and the filter decides which documents we pay to fetch).
+- **News sources (tier 2 and 3)** use `pipeline.offence_filter.media_offence_hit`: a
+  chosen set of English offence words (matched as whole words) **plus offence words in
+  native scripts** for Hindi, Telugu, Marathi and Tamil. The word lists were drafted and
+  checked one language at a time, by AI reviewers working as native-language
+  sub-editors. Native-script words match anywhere in the text; English words match only as
+  whole words (so "rape" doesn't match "grape", and "minor" on its own isn't a word we
+  look for). Words that only describe a person (girl, boy, student, woman, minor) were
+  removed: they don't catch anything extra (a real headline always has an offence word
+  too), and they only add false alarms.
 
-## Measurement (2026-08-12)
+## Measurement (12 August 2026)
 
-**1064 live documents** fetched from the enabled media feeds. A stratified set of 175 (every
-regional doc + every doc either filter flagged + a deterministic unflagged sample) was
-blind-labelled for "is this a sexual-offence report?". Result over the labelled clear
-positives:
+I fetched **1,064 live documents** from the feeds that were switched on. A set of 175 of
+them (every regional document, every document either filter flagged, and a fixed sample of
+unflagged ones) was labelled without knowing which filter had flagged it, for "is this a
+sexual-offence report?". Here's how the filters did on the clear positives:
 
 | Filter | Recall (clear positives) | Recall on regional | Pass rate (of 1064) |
 |---|---:|---:|---:|
 | **Old** (English `_OFFENCE_HINTS`) | 14/16 = **88%** | **0/3 = 0%** | 3.0% |
 | **New** (tiered, trimmed) | 16/16 = **100%** | 2/3 | **1.7%** |
 
-- The new filter recalls **every** clear sexual-offence report, **including the regional ones
-  the old filter structurally cannot match**, at a *lower* pass rate (it drops the old filter's
-  noisy bare `assault`/`abuse`/`harass`, which matched non-sexual crime).
-- The two non-recalled items are POCSO-**adjacent** secondary matters (a doctor's failure to
-  report a minor's pregnancy; a pregnancy-diagnosis dispute) — not primary offence reports;
-  Gemini's scope gate would reject them regardless.
+- The new filter catches **every** clear sexual-offence report, **including the regional
+  ones the old filter could never match**, while letting *fewer* documents through (it
+  drops the old filter's noisy bare `assault`, `abuse` and `harass`, which matched other
+  crimes).
+- The two reports it didn't catch are secondary matters *close to* POCSO (a doctor not
+  reporting a child's pregnancy; a dispute over a pregnancy diagnosis), not reports of the
+  offence itself. Gemini's scope check would have turned them away anyway.
 
 ## Cost
 
-Pass rate **1.7%**. At ~600 crime-feed documents/day and ~$0.008/document, that is
-**≈ $2.4/month** against the $10 cap — no cap raise needed. The per-source pass rate is
-reported every run in `data/pipeline_health.json` and the heartbeat, and the §6 silent-nothing
-guard fails the run loudly if >50 documents clear the pre-filter but 0 candidates come back.
+A pass rate of **1.7%**. At about 600 crime-feed documents a day and about $0.008 per
+document, that's **roughly $2.40 a month**, well under the $10 cap, so the cap doesn't
+need raising. The pass rate for each source is reported every run in
+`data/pipeline_health.json` and in the heartbeat. A separate check fails the run loudly if
+more than 50 documents get through the pre-filter but no cases come back, so a broken
+step can't hide behind a quiet day.
 
-## Enabling more languages
+## Turning on more languages
 
-A media feed in a language **not** in `offence_filter.LANGUAGES_WITH_TERMS` (currently Hindi,
-Telugu, Marathi, Tamil) must stay `enabled: false` — enabling it would produce silent zeros.
-Bengali, Malayalam, Kannada and Gujarati stay disabled until their term sets are built + measured.
+A news feed in a language that **isn't** in `offence_filter.LANGUAGES_WITH_TERMS` (at the
+moment Hindi, Telugu, Marathi and Tamil) must stay `enabled: false`. Turning it on would
+just produce zeros without anyone noticing. Bengali, Malayalam, Kannada and Gujarati stay
+switched off until their word lists are built and measured.

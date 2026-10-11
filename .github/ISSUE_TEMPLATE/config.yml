@@ -1,29 +1,30 @@
-# Sakshi issue-tracker configuration
-# This tracker is for the software and the public data record ONLY.
-# It is NOT a channel for personal help, emergencies, or reporting a crime.
+# Sakshi issue-tracker settings.
+# This tracker is only for the software and the public data record.
+# It is NOT the place for personal help, emergencies, or reporting a crime.
 blank_issues_enabled: false
 contact_links:
   - name: In danger now? Police emergency — 112
     url: https://ncw.nic.in/
     about: >-
-      If you or someone else is in immediate danger, call 112. This issue
-      tracker is not monitored for emergencies and must never be used to
-      report a crime or seek help.
+      If you or someone else is in immediate danger, call 112. Nobody watches
+      this issue tracker for emergencies, so please never use it to report a
+      crime or ask for help.
   - name: National Women's Helpline — 181
     url: https://ncwapps.nic.in/
     about: >-
-      For support, counselling, or assistance, call 181 (24x7). Please do not
-      open an issue here for personal help.
+      For support, counselling, or help, call 181 (24x7). Please don't open an
+      issue here for personal help.
   - name: Cyber Crime helpline — 1930
     url: https://cybercrime.gov.in/
-    about: Report online/financial cyber crime by calling 1930 or via the portal.
+    about: Report online or financial cyber crime by calling 1930 or through the portal.
   - name: NCW complaint portal
     url: https://ncwapps.nic.in/
     about: >-
-      File a formal complaint with the National Commission for Women. This is
-      the correct place for personal complaints — not this issue tracker.
-  - name: Report a security vulnerability
+      File a formal complaint with the National Commission for Women. That is
+      the right place for personal complaints, not this issue tracker.
+  - name: Report a security problem
     url: https://github.com/ServiceToMankind/sakshi/security/policy
     about: >-
-      Do NOT open a public issue for security problems. Follow SECURITY.md to
-      report vulnerabilities (including any suspected PII exposure) privately.
+      Please DON'T open a public issue for a security problem. Follow
+      SECURITY.md to tell me privately, including if you think personal data
+      has been exposed.

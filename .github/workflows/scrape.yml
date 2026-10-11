@@ -81,7 +81,7 @@ jobs:
       # verify line only when $VERIFY_ENABLED=true) observe the same value.
       VERIFY_ENABLED: ${{ vars.VERIFY_ENABLED || '' }}
       VERIFY_MAX_USD: ${{ vars.VERIFY_MAX_USD || '' }}
-      # Verifier model override (repo var). Empty => config default (gemini-2.5-flash).
+      # Verifier model override (repo var). Empty => config default (gemini-3.5-flash).
       VERIFY_MODEL: ${{ vars.VERIFY_MODEL || '' }}
 
     steps:

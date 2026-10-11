@@ -7,45 +7,45 @@ body:
     attributes:
       value: >-
         Suggest an improvement to the pipeline, tooling, or site. Please keep
-        the project's tone in mind: restrained, dignified, memorial-grade — a
-        civic-accountability record, not a marketing product.
+        the project's tone in mind: quiet and dignified, like a memorial. This
+        is a public record kept for accountability, not a product to market.
   - type: checkboxes
     id: preflight
     attributes:
       label: Before you file
       options:
-        - label: This is a feature idea, not a bug or a data correction.
+        - label: This is an idea for a feature, not a bug or a data correction.
           required: true
-        - label: I searched existing issues and this is not a duplicate.
+        - label: I searched the existing issues and this isn't a duplicate.
           required: true
   - type: textarea
     id: problem
     attributes:
       label: Problem or motivation
-      description: What need or gap does this address? Who benefits?
+      description: What need or gap does this address? Who does it help?
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
       label: Proposed solution
-      description: Describe what you would like to see.
+      description: Describe what you'd like to see.
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
+      label: Alternatives you considered
     validations:
       required: false
   - type: checkboxes
     id: guardrails
     attributes:
-      label: Guardrail awareness
+      label: The rules that can't change
       options:
         - label: >-
-            My proposal does not weaken the Phase 0 guardrails (victim PII is
-            never ingested, presumption of innocence, sanitize/pii_guard,
-            additionalProperties:false) and does not add a frontend framework
-            to the static site.
+            My idea doesn't weaken the core privacy rules (no victim data is ever
+            collected, the accused are presumed innocent, sanitize and pii_guard
+            stay in place, additionalProperties:false stays) and doesn't add a
+            frontend framework to the static site.
           required: true

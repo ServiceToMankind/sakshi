@@ -1,152 +1,143 @@
-# Data Correction & Removal Requests
+# Asking for a correction or a removal
 
 Sakshi — *Because the record must not forget.*
 
-The record must be accurate, and it must be fair. This document explains how to
-ask us to correct or remove data, what we will do, and how quickly. We take
-these requests seriously and respond with care.
+The record has to be accurate, and it has to be fair. This page explains how to ask me
+to correct or remove something, what I'll do, and how quickly. I take every one of these
+requests seriously.
 
-Sakshi is an open-source, static public-accountability record of **publicly
-reported** sexual-assault cases in India, aggregated from public judicial
-records and credible media. It is **not** a crime-rate statistic, **not** legal
-advice, and **not** a substitute for official NCRB data. Every published data
-point carries a citable public source.
+Sakshi is an open-source, static record of **publicly reported** sexual-offence cases in
+India, gathered from public court records and credible media. It is **not** a crime
+statistic, **not** legal advice, and **not** a substitute for official NCRB data. Every
+published fact carries a public source you can check.
 
 ---
 
-## A note on victim safety, first
+## First, about victims' safety
 
-**We never ingest victim-identifying data at all** — it is not merely redacted.
-Victim and survivor names, photos, addresses, family-member names,
-school/workplace, exact ages, and any re-identifying detail are never written to
-disk, committed, logged, or cached, and never enter git history. This is a
-hard, automated guarantee enforced at the code level (see `sanitize.py` and
-`pii_guard.py`), in keeping with Section 72 of the Bharatiya Nyaya Sanhita 2023
+**We never collect anything that identifies a victim.** It isn't collected and then
+hidden; it is never collected at all. Victim and survivor names, photos, addresses,
+family members' names, school or workplace, exact ages, and any other detail that could
+identify them are never written to disk, committed, logged or cached, and never enter
+git history. The code enforces this automatically (see `pipeline/sanitize.py` and
+`scripts/pii_guard.py`), in line with Section 72 of the Bharatiya Nyaya Sanhita 2023
 (formerly IPC 228A) and Section 23 of the POCSO Act 2012.
 
-Because such data is **structurally incapable of existing in our system**, it
-cannot leak from us. If you believe you have found victim-identifying
-information anywhere in this project, treat it as a security incident and report
-it immediately per [SECURITY.md](./SECURITY.md) — we will treat it as a
-top-severity issue.
+Because the system is built so this data has nowhere to live, it shouldn't be able to
+leak from us. If you think you've found anything that identifies a victim anywhere in
+this project, please treat it as a security incident and report it straight away as
+described in [SECURITY.md](./SECURITY.md). I'll treat it as the most serious kind of
+problem.
 
 ---
 
-## What we correct
+## What I'll correct
 
-We welcome and act on requests to fix the public record, including:
+I welcome requests to fix the public record, including:
 
-* **Factual errors** — wrong district, wrong court, wrong offence sections,
-  wrong FIR/CNR reference, mis-parsed dates, or an incorrectly linked source.
-* **Status updates** — a case whose judicial status has changed (for example,
-  moved from `UNDER_TRIAL` to `ACQUITTED`, `CONVICTED`, `QUASHED`, `CLOSED`, or
-  `APPEAL_PENDING`) and where our record is stale.
-* **Mis-attribution of an accused** — a name or label attached to the wrong
-  case, or an accused name that does not appear in an official court record.
-* **Duplicate or merged records** that should be split, or split records that
-  should be merged.
+* **Factual errors**: the wrong district, court, offence sections or FIR/CNR reference,
+  a date read wrongly, or a source linked to the wrong case.
+* **Status updates**: a case whose court status has changed (for example from
+  `UNDER_TRIAL` to `ACQUITTED`, `CONVICTED`, `QUASHED`, `CLOSED` or `APPEAL_PENDING`)
+  where our record is out of date.
+* **An accused attached to the wrong case**: a name or label on the wrong record, or an
+  accused name that doesn't appear in an official court record.
+* **Records wrongly merged or split**: two cases joined into one that should be
+  separate, or one case split into two that should be joined.
 
-## How a correction is applied
+## How a correction is made
 
-Humans never hand-edit the `data/` tree — the pipeline regenerates it. A
-confirmed correction is applied in one of two ways:
+Nobody edits the `data/` folder by hand; the pipeline rebuilds it. Once I've confirmed a
+correction, I make it in one of two ways:
 
-1. **Re-extraction (preferred).** Where the corrected fact is in a live public
-   source, we re-run the pipeline against that source and the record updates
-   itself — every field stays traceable to a citation.
-2. **A reviewed correction file** (`corrections/<record-id>.yml`) for fixes the
-   pipeline cannot make on its own: an over-merge it cannot re-split, or a
-   summary whose source article has rolled off the feed and cannot be
-   re-extracted. Each correction file is committed to git, keyed by the record
-   `id`, and records **who** authored it, **when**, **why**, and the **evidence**
-   relied on — so every correction is auditable. A correction can either:
-   * **quarantine** the record (route it out of the public site into review), or
-   * **override specific fields** (for example, fix a district or advance a
-     status). Overrides are applied *before* the sanitizer and validator run, so
-     a corrected value still passes every guardrail; a correction can **never**
-     set a victim-identifying field, an `id`, or the `minor_involved` flag (those
-     are refused outright). A corrected record is shown with a **“Corrected”**
-     marker, and the reasoning lives in the committed correction file.
+1. **Reading the source again (preferred).** If the corrected fact is in a public source
+   that's still online, the pipeline reads it again and the record updates itself. Every
+   field stays linked to a citation.
+2. **A reviewed correction file** (`corrections/<record-id>.yml`) for fixes the pipeline
+   can't make on its own: two cases it merged and can't separate again, or a summary
+   whose source article has dropped off the feed and can't be read again. Each correction
+   file is committed to git, named after the record's `id`, and records **who** wrote
+   it, **when**, **why**, and the **evidence** it relies on, so every correction can be
+   checked. A correction can either:
+   * **quarantine** the record (take it off the public site and into review), or
+   * **override specific fields** (for example, fix a district or move a status
+     forward). Overrides are applied *before* the sanitizer and validator run, so a
+     corrected value still has to pass every check. A correction can **never** set a
+     field that identifies a victim, an `id`, or the `minor_involved` flag; those are
+     refused outright. A corrected record shows a **"Corrected"** label on the site, and
+     the reason lives in the committed correction file.
 
-Correction files are validated against
-[`schemas/correction.schema.json`](./schemas/correction.schema.json) and
-described in [`corrections/README.md`](./corrections/README.md).
+Correction files are checked against
+[`schemas/correction.schema.json`](./schemas/correction.schema.json) and explained in
+[`corrections/README.md`](./corrections/README.md).
 
-## Removal-on-request policy
+## When I'll remove a record
 
-We support removal of a case record in the following circumstances:
+I'll remove a case record in these situations:
 
-1. **Acquitted or quashed cases.** Where the public court record shows a final
-   status of `ACQUITTED` or `QUASHED`, the person named or referenced may request
-   removal of the record. Acquittals and quashings are always rendered with equal
-   prominence to other statuses; removal on request is offered in addition, in
-   recognition of the presumption of innocence and the harm of a lingering
-   record.
-2. **Court-ordered removal.** Where any court of competent jurisdiction orders
-   removal, redaction, or de-indexing of a matter, we will comply. Please include
-   a reference to the order.
-3. **Any suspected victim-identifying content.** Removed immediately and without
-   precondition (see the note above).
+1. **Acquitted or quashed cases.** If the public court record shows a final status of
+   `ACQUITTED` or `QUASHED`, the person named or referred to can ask for the record to be
+   removed. Acquittals and quashed cases are always shown with the same prominence as
+   every other status. Removal on request is offered on top of that, because of the
+   presumption of innocence and the harm a lingering record can do.
+2. **A court orders it.** If any court with the authority to do so orders a matter
+   removed, redacted or de-indexed, I'll comply. Please include a reference to the order.
+3. **Anything that might identify a victim.** Removed immediately, no conditions (see
+   the note above).
 
-Removal is honored even though our sources are public: the goal of this project
-is civic accountability, not perpetual exposure of individuals cleared by the
-courts.
+I honour removals even though our sources are public. The point of this project is
+accountability, not keeping people the courts have cleared in the public eye forever.
 
-## How to file a request
+## How to send a request
 
-Choose whichever is easier for you:
+Use whichever is easier for you:
 
-* **GitHub issue (preferred for corrections):** open an issue using the
-  **data-correction** template in this repository. The template prompts you for
-  the fields we need.
-* **Email (preferred for removals or anything sensitive):**
+* **A GitHub issue (best for corrections):** open an issue with the
+  **Data correction / removal** form in this repository. It asks for everything I need.
+* **Email (best for removals or anything sensitive):**
   **contact@stmorg.in**.
 
-You do not need a GitHub account to email us. You do not need to be a lawyer,
-and you do not need to explain more than you are comfortable sharing.
+You don't need a GitHub account to email. You don't need to be a lawyer, and you don't
+need to explain more than you're comfortable sharing.
 
 ## What to include
 
-To let us act quickly and verify against the source, please include as much of
-the following as you have:
+So I can act quickly and check against the source, please include as much of this as
+you have:
 
-* **The case identifier** — our `id` (format `SKS-YYYY-XX-NNNNNN`), **or** the
-  **CNR**, **or** the **FIR number + police station + district**.
-* **What is wrong**, or **what you are asking us to remove**, in a sentence or
-  two.
-* **A source or reference** — for a status update, a link or citation to the
-  court record; for a court-ordered removal, a reference to the order. If you
-  cannot provide one, tell us anyway and we will verify against the official
-  record ourselves.
+* **Which case**: our `id` (format `SKS-YYYY-XX-NNNNNN`), **or** the **CNR**, **or** the
+  **FIR number, police station and district**.
+* **What's wrong**, or **what you'd like removed**, in a sentence or two.
+* **A source or reference**: for a status update, a link to or citation of the court
+  record; for a court-ordered removal, a reference to the order. If you don't have one,
+  tell me anyway and I'll check the official record myself.
 
-Please do **not** include any victim-identifying detail in your request. We do
-not need it and we will not store it.
+Please **don't** include anything that identifies a victim in your request. I don't need
+it and I won't store it.
 
-## Our service level
+## How quickly I'll respond
 
-* **Acknowledgement:** within **3 business days** of receiving your request.
-* **Suspected victim-identifying content or a valid court order:** actioned as
-  soon as possible, and always within **72 hours** of confirmation — these
-  jump the queue.
-* **Corrections and status updates:** verified against the source and, where
-  confirmed, reflected in the next scheduled data run, typically within **7
-  business days**.
-* **Acquitted/quashed removal requests:** reviewed and, where confirmed,
-  actioned within **7 business days**.
+* **Acknowledgement:** within **3 business days** of getting your request.
+* **Anything that might identify a victim, or a valid court order:** handled as soon as
+  possible, and always within **72 hours** of confirming it. These go to the front of the
+  queue.
+* **Corrections and status updates:** checked against the source and, if confirmed,
+  reflected in the next scheduled data run, usually within **7 business days**.
+* **Removal requests for acquitted or quashed cases:** reviewed and, if confirmed, acted
+  on within **7 business days**.
 
-We will tell you what we did. If we decline a request, we will explain why and
-tell you how to escalate.
+I'll tell you what I did. If I turn a request down, I'll explain why and tell you how to
+take it further.
 
-## Escalation
+## Taking it further
 
-If you are not satisfied with our response, or we have not replied within the
-timelines above:
+If you're not happy with my response, or I haven't replied within the times above:
 
-1. Reply to your original email or issue asking for escalation, or write again
+1. Reply to your original email or issue and ask for it to be escalated, or write again
    to **contact@stmorg.in** with "ESCALATION" in the subject line.
-2. For a security or PII concern, follow [SECURITY.md](./SECURITY.md) directly.
-3. You retain every legal remedy otherwise available to you; nothing in this
-   document limits your rights.
+2. For a security or personal-data concern, go straight to [SECURITY.md](./SECURITY.md).
+3. You keep every legal remedy you'd otherwise have. Nothing on this page limits your
+   rights.
 
-We would rather correct the record than defend an error. Thank you for helping
-us keep it accurate and fair.
+I'd rather correct the record than defend a mistake. Thank you for helping keep it
+accurate and fair.

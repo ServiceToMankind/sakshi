@@ -2,23 +2,23 @@
 
 > Sakshi — Because the record must not forget.
 
-Thank you for helping build a permanent, dignified public-accountability record.
-Before you write a line of code, read this document in full, along with
-[`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) and the **Phase 0 guardrails** in
-[`CLAUDE.md`](./CLAUDE.md). The guardrails are legally mandatory. They override
-every other consideration in this repository, including your own convenience and
-any suggestion an AI assistant makes.
+Thank you for wanting to help. Before you write any code, please read this whole page,
+the [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md), and the core privacy rules in
+[`CLAUDE.md`](./CLAUDE.md) (that file calls them the Phase 0 guardrails). Those rules
+are required by law. They come before everything else in this repository, including
+convenience and anything an AI assistant suggests.
 
-Sakshi tracks *publicly reported* sexual-assault cases across India. Because of
-what this data is, contribution here carries obligations most projects do not
-have. We hold two hard lines above all else:
+Sakshi keeps a record of *publicly reported* sexual-offence cases in India. Because of
+what this data is, contributing here comes with duties most projects don't have. Two
+lines matter more than anything else:
 
-1. **Victim identity is never ingested** — not redacted, not encrypted, *never
-   written to disk in any form*. (BNS 2023 s.72; POCSO 2012 s.23.)
-2. **An accused person is presumed innocent.** Names appear only from official
-   court records, never from media alone.
+1. **The victim's identity is never collected.** Not redacted, not encrypted: *never
+   written to disk in any form*. (Section 72, Bharatiya Nyaya Sanhita 2023; Section 23,
+   POCSO Act 2012.)
+2. **An accused person is presumed innocent.** Names come only from official court
+   records, never from the media alone.
 
-If a change would weaken either line, it does not get merged. Full stop.
+If a change weakens either line, I won't merge it. That's final.
 
 ---
 
@@ -28,14 +28,13 @@ If a change would weaken either line, it does not get merged. Full stop.
 - **Data** (everything under `data/`) is licensed **Open Database License (ODbL)
   v1.0**.
 
-By opening a pull request you agree your contribution is offered under these
-licenses.
+When you open a pull request, you agree to offer your contribution under these licenses.
 
 ---
 
-## 1. Local setup
+## 1. Setting up on your machine
 
-Sakshi is **Python 3.12**, fully typed, with a static (no-framework) frontend.
+Sakshi is **Python 3.12**, fully typed, with a static website that uses no framework.
 
 ### Clone
 
@@ -46,17 +45,17 @@ cd sakshi
 
 ### Python environment
 
-Use **either** `uv` (preferred, fast) **or** the standard library `venv`.
+Use **either** `uv` (faster) **or** the standard `venv`.
 
-**Option A — uv**
+**Option A: uv**
 
 ```bash
-uv venv
+uv venv --python 3.12
 source .venv/bin/activate
 uv pip install -e ".[dev]"
 ```
 
-**Option B — python -m venv**
+**Option B: python -m venv**
 
 ```bash
 python3.12 -m venv .venv
@@ -64,10 +63,12 @@ source .venv/bin/activate
 pip install -e ".[dev]"
 ```
 
+`make setup` does option B and installs the site's packages in one step.
+
 ### Secrets: `GEMINI_API_KEY`
 
-Extraction uses Gemini against **already-public** text only. The key lives in a
-local `.env` file that is **git-ignored and never committed**.
+The pipeline uses Gemini, and only ever on text that is **already public**. The key
+lives in a local `.env` file that git ignores. It is **never committed**.
 
 ```bash
 cp .env.example .env
@@ -75,14 +76,17 @@ cp .env.example .env
 # GEMINI_API_KEY=your-key-here
 ```
 
-- `.env` is in `.gitignore`. Do not remove it from there.
-- Never paste a real key into code, tests, issues, PRs, or commit messages.
-- If you ever commit a key by accident, treat it as compromised: rotate it
-  immediately and tell a maintainer.
+- `.env` is listed in `.gitignore`. Please don't remove it from there.
+- Never paste a real key into code, tests, issues, PRs or commit messages.
+- If you ever commit a key by accident, treat it as stolen: replace it straight away and
+  tell a maintainer. `make check` runs `scripts/secret_guard.py`, which fails if a key
+  shows up in any tracked file.
 
-### Frontend
+### The website
 
-The site is Vite + vanilla JS + a lightweight chart library. No React, no Vue.
+The site is Vite and plain JavaScript. No React, no Vue, and no chart library: the
+charts are hand-drawn SVG in `site/src/charts.js`, and the site has no runtime
+dependencies at all.
 
 ```bash
 cd site
@@ -96,237 +100,275 @@ npm run dev
 make check
 ```
 
-`make check` runs: `ruff` + `mypy --strict` + `pytest` (>=85% pipeline coverage,
-**100% on `sanitize.py` and `pii_guard.py`**) + JSON Schema validation of all
-shards + `pii_guard` + the `summary.json` size assertion + `eslint` + `prettier`.
-Lighthouse CI runs on the built site via `make lighthouse` and in the deploy
-pipeline. CI enforces all of this on every PR.
+`make check` runs `ruff`, `mypy --strict`, `pytest` (at least 85% coverage of the
+pipeline, and **100% on `sanitize.py` and `pii_guard.py`**), schema validation of every
+data file, the `summary.json` size limit, `pii_guard`, the readability check
+(`scripts/readability_guard.py`), the key scan (`scripts/secret_guard.py`), the count
+check (`scripts/counts_guard.py`), `eslint` and `prettier`. Lighthouse runs on the built
+site through `make lighthouse` and in the deploy pipeline. CI runs all of this on every
+pull request.
 
 ---
 
-## Operations — repo secrets & the scrape job
+## Running it day to day: secrets and the scheduled job
 
-The scheduled scrape (`.github/workflows/scrape.yml`) reads these **repository
-secrets**. Each is optional; the job degrades safely when one is absent.
+The scheduled job (`.github/workflows/scrape.yml`) reads these **repository secrets**.
+Each one is optional; the job carries on safely without it.
 
-| Secret | Purpose | Scope | Owner | Expiry |
+| Secret | What it's for | What it may access | Who holds it | Expiry |
 |---|---|---|---|---|
-| `GEMINI_API_KEY` | Extraction (Gemini over already-public text). | Gemini API only. | Maintainers (org). | Rotate on suspicion; no fixed expiry. |
-| `SCRAPE_BOT_TOKEN` | Push `data-staging` + open/update the review PR **as a real actor** so the PR's CI runs automatically. | A fine-grained PAT (or GitHub App token) with **Contents: read/write** + **Pull requests: read/write** on this repo only. Nothing else. | A maintainer or a dedicated `sakshi-bot` machine account. | ≤90 days; rotate before expiry and update the secret. |
-| `INDIANKANOON_API_TOKEN` | Enable the Indian Kanoon court-record source. | Indian Kanoon API only (paid; accept their ToS first). | Maintainer who accepted the ToS. | Per Indian Kanoon; rotate on suspicion. |
+| `GEMINI_API_KEY` | Extraction (Gemini over already-public text). | The Gemini API only. | Maintainers (org). | Replace if you suspect a leak; no fixed expiry. |
+| `SCRAPE_BOT_TOKEN` | Pushes `data-staging` and opens or updates the data PR **as a real account**, so the PR's checks run on their own. | A fine-grained PAT (or GitHub App token) with **Contents: read/write** and **Pull requests: read/write** on this repo only. Nothing else. | A maintainer or a dedicated `sakshi-bot` account. | 90 days or less; renew before it expires and update the secret. |
+| `INDIANKANOON_API_TOKEN` | Turns on the Indian Kanoon court-record source. | The Indian Kanoon API only (paid; accept their terms first). | The maintainer who accepted the terms. | Set by Indian Kanoon; replace if you suspect a leak. |
 
-**Why `SCRAPE_BOT_TOKEN` exists:** a push made with the default `GITHUB_TOKEN`
-cannot trigger another workflow (GitHub's recursion guard), so the staged-review
-PR's checks park as *"Action required"* and must be approved by hand every run.
-Pushing/opening the PR with a real-actor token makes that CI run automatically.
-Until the secret is set, the workflow falls back to `GITHUB_TOKEN` and a maintainer
-approves the staged PR's CI manually.
+**Why `SCRAPE_BOT_TOKEN` exists.** A push made with GitHub's built-in `GITHUB_TOKEN`
+can't start another workflow (GitHub blocks that to stop loops). Without a real-account
+token, the data PR's checks sit at *"Action required"* and someone has to approve them
+by hand on every run. With the token set, they run on their own. Until it is set, the
+workflow falls back to `GITHUB_TOKEN` and a maintainer approves the checks manually.
 
-**Symptom of an EXPIRED `SCRAPE_BOT_TOKEN`:** the staged-review PR is opened by
-`github-actions[bot]` (not the bot actor), its required checks never run (they park
-at *"Action required"*), and the PR shows **`mergeable: MERGEABLE`, state `BLOCKED`**
-— it cannot merge because the required checks are missing, so `main` stops receiving
-data and the site shows *"generated over 48 hours ago"*. **Recovery:** mint a fresh
-fine-grained PAT (Contents + Pull requests, read/write, this repo only), update the
-`SCRAPE_BOT_TOKEN` secret, and re-run the scrape. As a one-time unblock a maintainer
-may `gh pr merge <n> --admin` **after** verifying the staged data locally
-(`scripts/pii_guard.py` + jsonschema validation) and noting the admin bypass in the PR.
+**How to tell the `SCRAPE_BOT_TOKEN` has expired.** The data PR is opened by
+`github-actions[bot]` instead of the bot account. Its required checks never run (they sit
+at *"Action required"*), and the PR shows **`mergeable: MERGEABLE`, state `BLOCKED`**. It
+can't merge because the required checks are missing, so `main` stops getting new data and
+the site says it was *"last generated over 48 hours ago"*. **To fix it:** create a new
+fine-grained PAT (Contents and Pull requests, read/write, this repo only), update the
+`SCRAPE_BOT_TOKEN` secret, and run the job again. As a one-off, a maintainer may run
+`gh pr merge <n> --admin`, but only **after** checking the staged data locally
+(`scripts/pii_guard.py` and schema validation) and noting the admin merge in the PR.
 
-**Merge discipline for data PRs:** once `SCRAPE_BOT_TOKEN` is set and staged-PR CI
-runs on its own, **data-review PRs merge only through the normal reviewed path**
-(required checks green + human review). Admin bypass is for emergencies only and
-every use must be noted in the PR.
+The daily heartbeat (below) shows the token's expiry date, and in its last week the job
+opens an issue titled "Bot token expiring" so it doesn't catch anyone by surprise.
+
+**How data PRs get merged.** The repository variable `LAUNCH_MODE` decides this:
+
+- `staged` (the default): each run pushes to `data-staging` and opens or updates a PR to
+  `main`. Nothing is published until a person reviews and merges it.
+- `auto`: the run opens the same PR, then re-runs the full `make check` on exactly that
+  data inside the job. Only if every check passes does it mark the PR's two required
+  checks as passed and merge it, then start the deploy. If anything fails, nothing is
+  published and the PR stays open for a person.
+
+An admin merge that skips the required checks is for emergencies only, and every use
+must be noted in the PR.
 
 ### The processed-document ledger (the `ledger-state` branch)
 
-`data/_meta/processed.json` is the processed-document ledger — **operational
-metadata only** (a `sha256(url)` per document + outcome + dates; never a URL,
-never PII). It persists on a dedicated, **unprotected** `ledger-state` branch so
-coverage accounting works across runs independently of when data-review PRs merge.
-`main` is never touched: `github-actions[bot]` cannot bypass its protection (GitHub
-rejects adding the built-in Actions integration to a ruleset bypass — HTTP 422),
-and an unprotected side-branch avoids needing to.
+`data/_meta/processed.json` is the processed-document ledger. It is **bookkeeping
+only**: a `sha256(url)` for each document, what happened to it, and dates. It never
+holds a URL and never holds personal data. It lives on its own **unprotected**
+`ledger-state` branch so the pipeline remembers what it has already handled from one run
+to the next, however long the data PRs take to merge. `main` is never touched:
+`github-actions[bot]` can't be given a way around `main`'s protection (GitHub refuses to
+add the built-in Actions app to a ruleset bypass, with an HTTP 422), and a separate,
+unprotected branch avoids needing one.
 
-- Each run **restores** the ledger from `ledger-state` before extraction and
-  **persists** the updated ledger back afterwards, both via the GitHub Contents
-  API — `github-actions[bot]` / `GITHUB_TOKEN` is enough, no bypass.
-- `ledger-state` is **never merged**; it is a storage branch, not code. Do not open
-  PRs from it. The reviewed data PR excludes `data/_meta`.
-- **Fenced three ways** before every persist: (a) validated against
-  `schemas/ledger.schema.json` — `sha256` keys, an outcome enum, ISO dates,
-  `additionalProperties:false` — and scanned for URL-shaped strings; (b) `pii_guard`
-  over `data/_meta/`; (c) the Contents API writes exactly one path, so it is
-  structurally incapable of touching anything but `data/_meta/processed.json`.
-- **Widening the launch window resets coverage:** a sexual-offence case outside the
-  current `LAUNCH_STATES`/`LAUNCH_LOOKBACK_DAYS` is settled `out_of_window` (skipped
-  from now on under that fixed window). If you later widen the states or lookback,
-  **delete the `ledger-state` branch** so those documents are re-examined.
+- Each run **loads** the ledger from `ledger-state` before extraction and **saves** it
+  back afterwards, both through the GitHub Contents API. `github-actions[bot]` /
+  `GITHUB_TOKEN` is enough for that; no bypass needed.
+- `ledger-state` is **never merged**. It is a storage branch, not code. Please don't open
+  PRs from it. The data PR leaves out `data/_meta`, except the case-number counter
+  `data/_meta/serials.json`, which has to reach `main` so an old case number is never
+  given to a new case.
+- **Three checks run before every save:** (a) the ledger is validated against
+  `schemas/ledger.schema.json` (`sha256` keys, a fixed list of outcomes, ISO dates,
+  `additionalProperties: false`) and scanned for anything that looks like a URL;
+  (b) `pii_guard` runs over `data/_meta/`; (c) the Contents API call writes exactly one
+  path, so it can't touch anything except `data/_meta/processed.json`.
+- **Widening the window starts coverage over.** A sexual-offence case outside the current
+  `LAUNCH_STATES` / `LAUNCH_LOOKBACK_DAYS` is marked `out_of_window` and skipped from then
+  on under that window. If you later widen the states or the lookback, **delete the
+  `ledger-state` branch** so those documents are looked at again.
 
-### Run modes, the monthly budget cap, and corrections
+### Run modes, the monthly spending cap, and corrections
 
-- **`discover` vs `refresh` (`--mode`, `PIPELINE_MODE`).** The daily run is
-  `discover`: it fetches every enabled source and may create new records. The
-  weekly `refresh` fetches **court sources only** and is **update-only** — it
-  advances an existing record's status (appending one `status_history` point and
-  bumping `last_status_change`) but **never creates a record and never rewrites a
-  non-minor record's reviewed narrative** (a court judgment is a high-PII source,
-  not a text to republish; a new narrative belongs to `discover` + review).
-- **Monthly Gemini spend cap (`MONTHLY_MAX_USD`, default $10).** Cumulative spend
-  per calendar month is tracked in `data/_meta/spend.json` (aggregate dollars
-  only — never case content), persisted on the `ledger-state` branch like the
-  document ledger. When a run starts and the month is already at the cap it makes
-  **no new Gemini calls** (a clean abort, not a silent partial run), still
-  regenerates existing records, shows month-to-date in the heartbeat, and opens an
-  ops issue. A new month resets it. Raise the cap by setting the repo variable.
-- **Corrections (`corrections/<record-id>.yml`).** The only sanctioned way a human
-  changes a published record — never by hand-editing `data/`. A correction can
-  `quarantine` a record (route it to `_review`) or `override` specific fields;
-  overrides are applied before sanitize (so they still pass every gate) and can
-  never set a victim field, `id`, or `minor_involved`. See
+- **`discover` and `refresh` (`--mode`, `PIPELINE_MODE`).** The daily run (06:00 IST) is
+  `discover`: it reads every enabled source and may add new records. The weekly run
+  (Sunday, 07:00 IST) is `refresh`: it reads **court sources only** and only **updates**.
+  It moves an existing record's status forward (adding one point to `status_history` and
+  updating `last_status_change`), but it **never creates a record and never rewrites the
+  reviewed summary of an adult's case**. A court judgment is a source full of personal
+  detail, not text to republish; a new summary belongs to `discover` and its review.
+- **Monthly Gemini spending cap (`MONTHLY_MAX_USD`, default $10).** The month's total
+  spend is tracked in `data/_meta/spend.json` (dollar totals only, never case content)
+  and saved on the `ledger-state` branch like the document ledger. If a run starts and
+  the month is already at the cap, it makes **no new Gemini calls** (it stops cleanly
+  rather than doing half a run), still rebuilds the existing records, shows the
+  month-to-date figure in the heartbeat, and opens an issue. The count starts again each
+  month. The pipeline reads the cap from the `MONTHLY_MAX_USD` environment variable, but
+  `scrape.yml` doesn't pass a repository variable through to it yet. So for now, raising
+  the cap for the daily job means changing `DEFAULT_MONTHLY_MAX_USD` in
+  `pipeline/config.py`, or adding `MONTHLY_MAX_USD` to the job's `env:` block.
+- **Corrections (`corrections/<record-id>.yml`).** This is the only approved way for a
+  person to change a published record. Never by editing `data/` by hand. A correction can
+  `quarantine` a record (take it off the site and into review) or `override` specific
+  fields. Overrides are applied before the sanitizer, so they still go through every
+  check, and they can never set a victim field, the `id`, or `minor_involved`. See
   [`TAKEDOWN.md`](./TAKEDOWN.md) and [`corrections/README.md`](./corrections/README.md).
   Adding a correction is a **data change** and goes through a reviewed PR.
 
-### Daily review procedure (rehearsal + cron period)
+### Checking on the daily run
 
-Every scrape run posts one **heartbeat** comment to the pinned ops-log issue
-(number in the `OPS_ISSUE` repo variable) — cron and manual, empty or not.
+Every run of the scheduled job posts one **heartbeat** comment on the pinned ops-log
+issue (its number is in the `OPS_ISSUE` repository variable). It does this for scheduled
+and manual runs, whether or not anything was found.
 
-- **Review the heartbeat daily.** It carries date, run link, docs
-  (fetched/processed/skipped-settled/ledger settled), extract counts
-  (extracted/in-scope/published/quarantined/out-of-scope), cost, and status
-  (`ok`/`truncated`/`aborted`/`RUN FAILED`) with any provider `error_samples`.
-  No PII — counts and a run URL only.
-- **A cron day with no comment is itself the alert** — the run did not fire.
-- **Review the data-review PR whenever one exists.** The standing orders (empty
-  days, a publishable record, a guardrail failure, provider aborts) and the
-  launch-eligibility definition live in that pinned issue.
+- **Read the heartbeat every day.** It shows the date, a link to the run, document counts
+  (fetched, processed, skipped because already settled, and the ledger totals), extraction
+  counts (extracted, in scope, published, held, quarantined, out of scope), cost,
+  month-to-date spend, the size of the held queue, any court source that returned errors,
+  the bot token's expiry, and a status (`ok`, `truncated`, `aborted`, `RUN FAILED`) with
+  sample provider errors. It holds no personal data, just counts and a link.
+- **A scheduled day with no comment is itself the warning**: it means the run didn't
+  start.
+- **Look at the data PR whenever there is one.** What to do on an empty day, when a
+  record is ready to publish, when a check fails, or when the provider stops a run, is
+  written in that pinned issue.
+
+The job also opens an issue on its own when a run fails or is cancelled, when a court
+source returns errors, when the monthly budget runs out, or when more than 20 records
+land in `data/_review/` in one run.
 
 ---
 
-## 2. The data lifecycle
+## 2. How data moves through Sakshi
 
-Data flows in one direction, from public sources to published shards. Every
-record is traceable to a citable public source, and **PII is stripped before
-anything touches disk**. Humans never hand-edit `data/`; the entire tree is
-regenerated idempotently each run.
+Data flows one way, from public sources to the published files. Every record can be
+traced to a public source you can cite, and **personal data is stripped before anything
+touches disk**. Nobody edits `data/` by hand; the whole tree is rebuilt the same way on
+every run.
 
 ```
    PUBLIC SOURCES                                            PUBLISHED (GitHub Pages)
-   official first, media second                              read-only, regenerated each run
- ┌──────────────────────────┐                              ┌──────────────────────────────┐
- │ eCourts / NJDG           │                              │ data/summary.json  (<50 KB)   │
- │ High Court portals       │                              │ data/index.json    (manifest) │
- │ Indian Kanoon (per ToS)  │                              │ data/{YYYY}/{STATE}.json      │
- │ NCRB / PIB / police PR   │                              └──────────────────────────────┘
- │ RSS of established media  │                                            ▲
- └────────────┬─────────────┘                                            │
-              │                                                          │
-              ▼                                                          │
-  ┌───────────────────────┐   robots.txt honored, honest UA,             │
-  │ FETCH                 │   <=1 req / 2s per host, ETag cache,          │
-  │ pipeline/sources/*    │   exponential backoff on 429/5xx             │
-  │ Source.fetch()        │                                              │
-  │  -> [RawDocument]     │                                              │
-  └──────────┬────────────┘                                              │
-             │  RawDocument(url, publisher, fetched_at, text)            │
-             ▼                                                           │
-  ┌───────────────────────┐   Gemini, response_schema-constrained,      │
-  │ EXTRACT               │   victim ALWAYS null by construction;        │
-  │ extract/gemini.py     │   confidence required                        │
-  └──────────┬────────────┘                                              │
-             │  extraction.schema.json (structurally cannot hold PII)    │
-             ▼                                                           │
-  ┌───────────────────────┐   *** LAST GATE BEFORE DISK ***              │
-  │ SANITIZE              │   regex + NER PII strip on EVERY string      │
-  │ sanitize.py           │   field; 100% branch coverage                │
-  └──────────┬────────────┘                                              │
-             ▼                                                           │
-  ┌───────────────────────┐   exact on CNR/FIR; fuzzy on                 │
-  │ DEDUPE                │   district/date±3d/sections/court;           │
-  │ dedupe.py             │   court beats media, newer status wins;      │
-  └──────────┬────────────┘   ambiguous -> data/_review/                 │
-             ▼                                                           │
-  ┌───────────────────────┐   jsonschema every record, assign IDs,      │
-  │ VALIDATE & SHARD      │   atomic temp->validate->rename;             │
-  │                       │   pii_guard as FINAL assertion ─────────────►│
-  └──────────┬────────────┘                                             (write)
+   court records first, media second                         read-only, rebuilt each run
+ ┌──────────────────────────────┐                          ┌──────────────────────────────┐
+ │ Indian Kanoon (paid API)     │                          │ data/summary.json (<50 KB)   │
+ │ High Court judgment pages    │                          │ data/index.json   (file list)│
+ │ eCourts (hand-found links)   │                          │ data/recent.json, and others │
+ │ RSS of established media     │                          │ data/{YYYY}/{STATE}.json     │
+ │ case-submission issues       │                          └──────────────────────────────┘
+ └──────────────┬───────────────┘                                         ▲
+                │                                                         │
+                ▼                                                         │
+  ┌───────────────────────┐   reads robots.txt, honest User-Agent,        │
+  │ FETCH                 │   1 request / 2s per site, ETag cache,        │
+  │ pipeline/sources/*    │   backs off on 429 and 5xx errors             │
+  │ Source.fetch()        │                                               │
+  │  -> [RawDocument]     │                                               │
+  └──────────┬────────────┘                                               │
+             │  RawDocument(url, publisher, fetched_at, text)             │
+             ▼                                                            │
+  ┌───────────────────────┐   Gemini fills a fixed form; victim is        │
+  │ EXTRACT               │   ALWAYS null by design; a confidence         │
+  │ extract/gemini.py     │   score is required                           │
+  └──────────┬────────────┘                                               │
+             │  extraction.schema.json (has no room for personal data)    │
+             ▼                                                            │
+  ┌───────────────────────┐   a second Gemini check against the source    │
+  │ VERIFY                │   (when VERIFY_ENABLED is on); approves,      │
+  │ verify.py             │   fixes a few facts, or turns a case away     │
+  └──────────┬────────────┘                                               │
+             ▼                                                            │
+  ┌───────────────────────┐   *** LAST GATE BEFORE DISK ***               │
+  │ SANITIZE              │   drops forbidden fields, regex-redacts       │
+  │ sanitize.py           │   personal data in EVERY text field;          │
+  │                       │   100% branch coverage                        │
+  └──────────┬────────────┘                                               │
+             ▼                                                            │
+  ┌───────────────────────┐   exact on CNR/FIR; close match on            │
+  │ DEDUPE                │   district/date ±3 days/charges/court;        │
+  │ dedupe.py             │   court beats media, furthest status wins;    │
+  └──────────┬────────────┘   unsure -> data/_review/                     │
+             ▼                                                            │
+  ┌───────────────────────┐   schema check on every record, IDs,          │
+  │ VALIDATE & SHARD      │   write to temp file -> check -> rename;      │
+  │                       │   pii_guard as the FINAL check ──────────────►│
+  └──────────┬────────────┘                                            (write)
              ▼
-  ┌───────────────────────┐   confidence < 0.8  OR  ambiguous merge
-  │ data/_review/         │   -> quarantined, excluded from Pages,
-  │ (human review queue)  │      never auto-published
+  ┌───────────────────────┐   confidence < 0.8  OR  unsure match
+  │ data/_review/         │   -> held back, not committed, not on
+  │ (for a person to see) │      the site, never published on its own
   └───────────────────────┘
 
-  COMMIT: Action commits data/ ("data: daily update YYYY-MM-DD (+N new, ~M updated)"),
-          auto-opens an issue on failure or if the review queue exceeds 20.
+  COMMIT: the job commits data/ ("data: daily update YYYY-MM-DD (+N new, ~M updated)"),
+          and opens an issue if a run fails or more than 20 records need review.
 ```
 
-Two things to internalize from this diagram:
+Two things to take away from this:
 
-- **`sanitize.py` is the last gate before disk.** Nothing reaches `data/`
-  without passing through it. `pii_guard` then runs again as a final assertion.
-- **`data/_review/` is a dead end for anything uncertain** (confidence < 0.8 or
-  ambiguous dedup). It is excluded from Pages and only a human moves records out
-  of it.
+- **`sanitize.py` is the last gate before disk.** Nothing reaches `data/` without going
+  through it. `pii_guard` then checks everything again at the end.
+- **`data/_review/` is where anything uncertain stops** (confidence below 0.8, or an
+  unclear match). It's never on the site, and only a person moves a record out of it.
+
+The sanitizer works by fixed rules and regular expressions. It doesn't use a
+name-recognition (NER) model. On top of dropping forbidden fields and redacting Aadhaar,
+phone, email and PAN patterns, it removes any non-English script, clears victim
+occupations and certain romanised Indian-language words (family terms, village office
+titles, words for a place smaller than a district) out of titles and summaries, and
+rewrites a child's case into a fixed minimal form.
 
 ---
 
-## 3. Adding a new source module
+## 3. Adding a new source
 
-Sources live in **`pipeline/sources/`**. Prefer official/structured sources
-first; media is RSS of established outlets only. **No social-media scraping.**
+Sources live in **`pipeline/sources/`**. Official, structured sources come first. Media
+means RSS feeds of established outlets only. **No social-media scraping.**
 
-### The interface contract
+### What a source has to do
 
-A source is a class (or module) that exposes a single method:
+A source is a class with one method:
 
 ```python
 async def fetch(self) -> list[RawDocument]: ...
 ```
 
-`RawDocument` carries exactly four things: `url`, `publisher`, `fetched_at`,
-and `text`. A source's only job is to return well-formed `RawDocument`s from a
-public source. It does **not** extract fields, classify, dedupe, or write to
-disk — later stages own all of that.
+`RawDocument` (in `pipeline/sources/base.py`) holds exactly four things: `url`,
+`publisher`, `fetched_at` and `text`. A source's only job is to return well-formed
+`RawDocument`s from a public source. It does **not** pull out fields, classify, dedupe or
+write to disk. Later steps handle all of that.
 
 ### Skeleton
 
 ```python
 # pipeline/sources/example_highcourt.py
-from pipeline.types import RawDocument
+from pipeline.sources.base import RawDocument
+from pipeline.sources.http import HttpGetter
 
 
 class ExampleHighCourtSource:
     """Fetches public cause lists from the Example High Court portal."""
 
-    host = "example-hc.gov.in"
+    def __init__(self, client: HttpGetter) -> None:
+        self._client = client  # the shared polite client; never make your own
 
     async def fetch(self) -> list[RawDocument]:
         docs: list[RawDocument] = []
-        # ... polite httpx calls here ...
+        # ... polite calls through self._client here ...
         return docs
 ```
 
 ### Rules every source must follow
 
-- **Respect `robots.txt`.** Do not fetch disallowed paths.
-- **Honest User-Agent** naming the project and repo URL.
-- **Rate-limit to <= 1 request / 2 s per host.** Use the shared politeness
-  helper; do not roll your own faster path.
-- **Cache** with ETag / Last-Modified where the server supports it.
-- **Back off exponentially** on `429`/`5xx`.
-- **Only public data.** If access requires a login, a paywall bypass, or
-  anything a member of the public could not lawfully read, it is out of scope.
-- **Respect source ToS** (e.g. Indian Kanoon via their API/ToS).
-- Add tests with **clearly synthetic** fixtures (`"district": "TESTVILLE"`).
-  Never commit a real case record, even as a fixture.
+- **Respect `robots.txt`.** Don't fetch paths it disallows.
+- **Use an honest User-Agent** that names the project and links the repo.
+- **At most 1 request every 2 seconds per site.** Use the shared polite client in
+  `pipeline/sources/http.py` (`PoliteClient`). Don't write your own faster path.
+- **Cache** with ETag / Last-Modified when the site supports it.
+- **Back off** more and more on `429` and `5xx` errors.
+- **Public data only.** If it needs a login, gets around a paywall, or is something a
+  member of the public couldn't lawfully read, it's out. Never get around a CAPTCHA.
+- **Follow the source's terms** (for example, Indian Kanoon through its API and terms).
+- Add tests with **obviously fake** fixtures (`"district": "TESTVILLE"`). Never commit a
+  real case record, not even as a fixture.
 
-Register the source where the pipeline discovers sources (see existing entries
-in `pipeline/sources/`), and add a short note in your PR describing the source,
-its access terms, and why it qualifies.
+Hook your source up in `pipeline/sources/registry.py` (`build_sources`), add an entry
+under the right state (or `national:`) in `sources.yml`, and in your PR write a short
+note about the source, its terms of access, and why it qualifies.
 
 ---
 
-## 4. Commit convention
+## 4. Commit messages
 
 We use **[Conventional Commits](https://www.conventionalcommits.org/)**.
 
@@ -344,85 +386,83 @@ test(pii_guard): cover PAN regex boundary cases
 chore(deps): bump rapidfuzz to 3.9
 ```
 
-### DO NOT add a Claude / AI co-author trailer
+### Don't add a Claude or AI co-author line
 
-**Org policy:** never add a `Co-Authored-By: Claude` trailer (or any AI
-co-author trailer) to a commit, and never put such a trailer in documentation or
-commit-message examples. If your tooling adds one automatically, remove it before
-you push. This applies even when an AI assistant wrote most of the change.
+**Org policy:** never add a `Co-Authored-By: Claude` line (or any AI co-author line) to a
+commit, and never put one in documentation or commit-message examples. If your tools add
+one automatically, remove it before you push. This holds even when an AI assistant wrote
+most of the change.
 
 ---
 
 ## 5. Pull request checklist
 
-Before you request review, confirm **every** item:
+Before you ask for a review, please check **every** item:
 
 - [ ] `make check` passes locally.
-- [ ] Tests pass and coverage holds (>=85% pipeline; **100% on `sanitize.py`
+- [ ] Tests pass and coverage holds (85% or more on the pipeline; **100% on `sanitize.py`
       and `pii_guard.py`**).
 - [ ] Types are clean under **`mypy --strict`**.
-- [ ] **`pii_guard` is green.**
-- [ ] **No hand edits to `data/`.** The tree is machine-generated; if your
-      change affects data, it must flow through the pipeline.
-- [ ] `additionalProperties: false` stays `false` at **every** object level in
-      every schema. You did not loosen it.
-- [ ] **`sanitize.py`, `pii_guard.py`, and the forbidden-field list are
-      untouched** — unless you are acting on a specific, human-approved issue
-      that authorizes the change (link it in the PR).
-- [ ] Any new fixtures are clearly synthetic and contain **no PII** and no real
+- [ ] **`pii_guard` passes.**
+- [ ] **Nothing under `data/` was edited by hand.** The pipeline writes that tree; if
+      your change affects data, it has to come through the pipeline.
+- [ ] `additionalProperties: false` is still `false` at **every** level of every schema.
+- [ ] **`sanitize.py`, `pii_guard.py` and the forbidden-field list are unchanged**, unless
+      a specific, human-approved issue allows the change (link it in the PR).
+- [ ] Any new fixtures are obviously fake and contain **no personal data** and no real
       case data.
-- [ ] No secrets, keys, or `.env` contents committed.
-- [ ] No Claude/AI co-author trailer on any commit.
+- [ ] No secrets, keys or `.env` contents are committed.
+- [ ] No Claude/AI co-author line on any commit.
 - [ ] Commits follow Conventional Commits.
 
-PRs that touch a guardrail file without a linked approving issue will be closed
-with a request to open that issue first. This is not personal; it is how we keep
-the guardrails auditable.
+If a PR touches one of the protected files without a linked, approved issue, I'll close
+it and ask you to open that issue first. It isn't personal. It's how we keep every change
+to these rules on the record.
 
 ---
 
-## 6. Review SLAs
+## 6. How quickly you'll hear back
 
-We aim to be predictable so contributors are not left waiting.
+I want you to know what to expect, so nobody is left waiting.
 
 | Change type | First maintainer response |
 | --- | --- |
-| Guardrail-touching (`sanitize.py`, `pii_guard.py`, forbidden list, schemas) | within **2 business days**, reviewed by a maintainer who did **not** author the change |
-| New source module | within **3 business days** |
-| Frontend / docs / tooling | within **5 business days** |
-| Security or PII concern | **same day** — see below |
+| Touches a protected file (`sanitize.py`, `pii_guard.py`, the forbidden list, schemas) | within **2 business days**, reviewed by a maintainer who did **not** write the change |
+| New source | within **3 business days** |
+| Website, docs or tooling | within **5 business days** |
+| Security or personal-data concern | **same day**, see below |
 
-**Security / PII fast path.** If you believe PII has been or could be published,
-do **not** open a public PR describing the leak. Contact a maintainer privately
-(see `SECURITY.md`) so it can be handled immediately. Suspected published victim
-identity is a same-day, drop-everything issue.
+**Security and personal-data concerns.** If you think personal data has been published,
+or could be, please **don't** open a public PR describing the leak. Contact a maintainer
+privately (see `SECURITY.md`) so it can be handled right away. A suspected published
+victim identity is a same-day, drop-everything problem.
 
-Takedown and correction requests are handled per [`TAKEDOWN.md`](./TAKEDOWN.md),
-including removal-on-request for acquitted/quashed cases.
+Corrections and takedown requests are handled as described in
+[`TAKEDOWN.md`](./TAKEDOWN.md), including removal on request for acquitted or quashed
+cases.
 
 ---
 
-## 7. Vibe-coder onboarding
+## 7. New here and using an AI assistant?
 
-New here and leaning on an AI assistant? Welcome. Read this section carefully —
-it exists so that AI-assisted contributions come out consistent with the rest of
-the codebase instead of subtly wrong.
+Welcome. Please read this part carefully. It's here so that AI-assisted changes fit the
+rest of the code instead of being quietly wrong.
 
-### What Sakshi actually is, in plain language
+### What Sakshi actually is
 
-Sakshi is a **fully static** website backed by **JSON files in git**. There is no
-live server, no database at runtime, no user accounts. Once a day, an automated
-pipeline reads public court records and reputable news, extracts a few neutral
-facts about each *publicly reported* case, strips anything that could identify a
-victim, deduplicates, validates, and writes plain JSON into `data/`. GitHub Pages
-serves that JSON, and the browser draws charts and tables from it.
+Sakshi is a **fully static** website backed by **JSON files in git**. There is no live
+server, no database and no user accounts. Once a day, a program reads public court
+records and reputable news, pulls out a few neutral facts about each *publicly reported*
+case, strips anything that could identify a victim, removes duplicates, checks the
+result, and writes plain JSON into `data/`. GitHub Pages serves that JSON, and your
+browser draws the charts and tables from it.
 
-So there are really two worlds:
+So there are really two halves:
 
 ```
    ┌───────────────────────────────┐        ┌──────────────────────────────┐
    │  THE PIPELINE (Python)        │        │  THE SITE (static frontend)  │
-   │  pipeline/ , extract/ ,       │  ───►  │  site/ : Vite + vanilla JS   │
+   │  pipeline/ , extract/ ,       │  ───►  │  site/ : Vite + plain JS     │
    │  sanitize.py , pii_guard.py   │  data/ │  reads data/*.json only      │
    │  runs on a schedule / CI      │  JSON  │  no framework, no backend    │
    └───────────────────────────────┘        └──────────────────────────────┘
@@ -432,60 +472,57 @@ So there are really two worlds:
               summary.json  ·  index.json  ·  {YYYY}/{STATE}.json
 ```
 
-The `data/` directory is the contract between the two worlds. The pipeline is the
-**only** writer. The site is a **reader**. You almost never edit `data/` by hand —
-if you feel the urge to, stop, because that is a sign you are solving the problem
-in the wrong place.
+`data/` is the agreement between the two halves. The pipeline is the **only** thing that
+writes it. The site only **reads** it. If you ever feel the urge to edit `data/` by
+hand, stop: it means you're fixing the problem in the wrong place.
 
 ### Where things live
 
-- `pipeline/sources/` — one module per public source, each exposing
+- `pipeline/sources/`: one module per public source, each with
   `fetch() -> list[RawDocument]`.
-- `extract/gemini.py` — turns public text into structured, schema-constrained
-  fields (victim always `null`).
-- `sanitize.py` — the last PII gate before disk. **Guardrail file.**
-- `pii_guard.py` — the final assertion that no PII slipped through. **Guardrail
-  file.**
-- `schemas/case.schema.json` — the single source of truth for a record's shape.
-- `schemas/extraction.schema.json` — the pre-sanitized Gemini response shape,
-  structurally incapable of holding victim data.
-- `data/` — machine-generated JSON. Do not hand-edit.
-- `site/` — the static frontend.
+- `pipeline/extract/gemini.py`: turns public text into structured fields in a fixed form
+  (the victim is always `null`).
+- `pipeline/sanitize.py`: the last personal-data gate before disk. **Protected file.**
+- `scripts/pii_guard.py`: the final check that no personal data slipped through.
+  **Protected file.**
+- `schemas/case.schema.json`: the one true shape of a record.
+- `schemas/extraction.schema.json`: the form Gemini fills in, which has no place to put
+  victim data.
+- `data/`: machine-written JSON. Don't edit it by hand.
+- `site/`: the static website.
 
 ### Things AI assistants get wrong here
 
-AI assistants are trained on generic web projects and will confidently suggest
-things that are correct elsewhere and **wrong here**. Watch for all of these and
-reject them:
+AI assistants learned from ordinary web projects. They will confidently suggest things
+that are right elsewhere and **wrong here**. Watch for all of these and say no:
 
-1. **Hand-editing `data/`.** Assistants love to "just fix the JSON." Never. The
-   pipeline regenerates `data/` idempotently; a hand edit is overwritten and, worse,
-   bypasses validation and PII checks. Fix the pipeline instead.
-2. **Storing PII in fixtures.** An assistant will happily invent a realistic
-   victim name, age, or address to make a test "look real." That is exactly what
-   this project forbids. Fixtures must be obviously synthetic (`"district":
-   "TESTVILLE"`) and contain no real or realistic personal data.
-3. **Adding frameworks to the static site.** Suggestions to "just add React" or
-   pull in a heavy dependency break the no-framework, Lighthouse >=95 constraint.
-   The site stays Vite + vanilla JS + a lightweight chart library.
-4. **Bypassing `sanitize.py`.** Any path that writes to `data/` *must* go through
-   sanitize. An assistant proposing a shortcut that writes records directly is
-   introducing a PII leak. There are no exceptions and no "fast paths."
-5. **Loosening `additionalProperties: false`.** When a field "doesn't validate,"
-   an assistant's reflex is to relax the schema. Do not. `additionalProperties`
-   stays `false` at every object level — it is part of how forbidden fields are
-   made impossible. Fix the data or add the field deliberately.
-6. **Editing the guardrail files** (`sanitize.py`, `pii_guard.py`, the
-   forbidden-field list) without a human-approved issue. These files are the legal
-   backbone of the project. Changes require a linked, approved issue and review by
-   a maintainer who did not author the change.
+1. **Editing `data/` by hand.** Assistants love to "just fix the JSON." Never. The
+   pipeline rebuilds `data/` every run, so a hand edit gets overwritten, and worse, it
+   skips validation and the personal-data checks. Fix the pipeline instead.
+2. **Personal data in fixtures.** An assistant will happily make up a realistic victim
+   name, age or address so a test "looks real." That is exactly what this project
+   forbids. Fixtures must be obviously fake (`"district": "TESTVILLE"`) and contain no
+   real or realistic personal data.
+3. **Adding frameworks to the site.** "Just add React" or a heavy dependency breaks the
+   no-framework rule and the Lighthouse target of 95. The site stays Vite and plain
+   JavaScript, with hand-drawn charts.
+4. **Getting around `sanitize.py`.** Anything that writes to `data/` *must* go through
+   the sanitizer. An assistant suggesting a shortcut that writes records directly is
+   suggesting a personal-data leak. There are no exceptions and no "fast paths."
+5. **Loosening `additionalProperties: false`.** When a field "doesn't validate," an
+   assistant's reflex is to relax the schema. Don't. `additionalProperties` stays
+   `false` at every level, because it's part of how forbidden fields are made
+   impossible. Fix the data, or add the field on purpose.
+6. **Editing the protected files** (`sanitize.py`, `pii_guard.py`, the forbidden-field
+   list) without a human-approved issue. These files are the legal backbone of the
+   project. Changing them needs a linked, approved issue and a review by a maintainer who
+   didn't write the change.
 
-Also: **never let an assistant add a `Co-Authored-By: Claude` trailer** to your
-commits. Remove it if it appears.
+Also: **never let an assistant add a `Co-Authored-By: Claude` line** to your commits.
+Remove it if it appears.
 
-When in doubt, re-read the Phase 0 guardrails in `CLAUDE.md` and ask in an issue
-before you build. Getting it right slowly is always better than getting it wrong
-fast here.
+When in doubt, read the rules in `CLAUDE.md` again and ask in an issue before you build.
+Here, getting it right slowly is always better than getting it wrong quickly.
 
 ---
 
@@ -500,6 +537,6 @@ If you or someone you know needs help:
 
 ---
 
-This is a civic-accountability record of publicly reported cases, compiled from public
-judicial records and credible media. It is not a substitute for official crime statistics
-such as NCRB data. Contribute with the care the subject demands.
+This is a record of publicly reported cases, gathered from public court records and
+credible media. It is not a substitute for official crime statistics such as NCRB data.
+Please contribute with the care the subject deserves.
