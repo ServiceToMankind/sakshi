@@ -2834,3 +2834,43 @@ def test_source_alerts_reach_the_report_logs_and_summary_env(tmp_path: Path) -> 
     orchestrator._write_logs(orchestrator.RunReport(), quiet, "2026-10-11")
     assert "SOURCE_ALERT=0" in (quiet / "run_summary.env").read_text()
     assert "Source alerts" not in (quiet / "run_report.md").read_text()
+
+
+def test_null_fir_number_is_dropped_not_quarantined(tmp_path: Path) -> None:
+    """A station without an FIR number used to fail the schema and send the case to review."""
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/fir-without-number",
+            publisher="eCourts",  # a court document, so the media keyword pre-filter is skipped
+            fetched_at="2026-10-10",
+            text="Synthetic TESTVILLE court order under BNS 70(1).",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "rape",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "CONVICTED",
+            "minor_involved": False,
+            "fir_ref": {"station": "TESTVILLE", "number": None},
+            "court": {"name": None},
+            "offence_sections": ["BNS 70(1)"],
+            "incident_reported_date": "2026-10-10",
+            "in_scope": True,
+            "confidence": 0.9,
+        }
+    )
+    report = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-10-10",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert report.published == 1 and report.review == 0
+    rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
+    assert rec["fir_ref"] == {"station": "TESTVILLE"}
+    assert "court" not in rec
