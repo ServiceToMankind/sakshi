@@ -1,5 +1,33 @@
 [
   {
+    "accused_count": 1,
+    "category": "harassment",
+    "confidence": 0.95,
+    "corrected": true,
+    "days_since_reported": 1,
+    "district": "New Delhi",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000049",
+    "incident_reported_date": "2026-10-10",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/delhi/what-11-jnu-students-alleged-against-professor-bimol-akoijam-sexually-suggestive-remarks-during-vivas-inappropriate-advances-at-on-campus-residence/articleshow/134845934.cms"
+      }
+    ],
+    "state": "DL",
+    "status": "UNKNOWN",
+    "summary": "[occupation withheld] made sexually suggestive remarks and inappropriate advances toward students in New Delhi. The university internal complaints committee investigated the allegations and recommended major penalties. The university subsequently dismissed [occupation withheld] from service.",
+    "title": "University in Delhi dismisses [occupation withheld] over students' harassment complaints",
+    "verification_note": "The source reports sexual harassment allegations against a JNU professor and university disciplinary action, matching the record.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "rape",
     "cnr": "DLHC010217022026",
@@ -330,31 +358,6 @@
     "verification_note": "The source confirms a reported case of sexual harassment in South Delhi with an FIR registered.",
     "verified": true,
     "weapon_or_threat": true
-  },
-  {
-    "category": "rape",
-    "confidence": 0.9,
-    "days_since_reported": 18,
-    "district": "Delhi",
-    "first_published": "2026-09-23",
-    "id": "SKS-2026-DL-000030",
-    "incident_reported_date": "2026-09-23",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "sources": [
-      {
-        "publisher": "The Hindu",
-        "retrieved": "2026-09-23",
-        "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/astha-kunj-park-gang-rape-lsr-suspends-classes-students-consider-leaving-delhi-amid-safety-fears/article71496925.ece"
-      }
-    ],
-    "state": "DL",
-    "status": "UNKNOWN",
-    "summary": "A gang rape occurred near a college campus in Delhi. The college suspended classes and police engaged in an encounter with the accused near the site.",
-    "title": "Delhi college suspends classes following gang rape near campus",
-    "verification_note": "The source reports a genuine gang-rape case in Delhi consistent with the candidate record.",
-    "verified": true
   },
   {
     "accused_count": 1,
@@ -694,6 +697,143 @@
     "summary": "A case of child sexual offence in New Delhi, Delhi (2026). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — New Delhi (2026)",
     "verified": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Outer North",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000047",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 103(1)",
+      "BNS 238(A)",
+      "BNS 65(1)",
+      "BNS 3(5)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/delhi/3-minors-among-4-held-for-rape-murder-of-16-yr-old/articleshow/134318668.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Four people were arrested in Outer North for the aggravated penetrative assault on a child. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Outer North (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Delhi",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000048",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS",
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/delhi/safety-security-paramount-lady-shri-ram-college-cancels-classes-goes-online-after-kalkaji-mandir-gang-rape-case/articleshow/134417900.cms",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Three people were arrested in Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Delhi (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "North Delhi",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000050",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS",
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/greater-noida-delhi-gang-rape-minor-pari-chowk-kashmere-gate-delhi-police-up-police-101788226668795.html"
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Two people were arrested in North Delhi for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Delhi (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Delhi",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000051",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 103(1)",
+      "BNS 238(A)",
+      "BNS 65(1)",
+      "BNS 3(5)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/cities/Delhi/four-including-three-juveniles-arrested-for-rape-and-murder-of-minor-girl-in-delhis-swaroop-nagar/article71479244.ece",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "FIR_FILED",
+    "summary": "Four people were arrested in Delhi for the aggravated penetrative assault on a child. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Delhi (2026)",
+    "verified": true,
+    "weapon_or_threat": true
   },
   {
     "category": "sexual_assault",
@@ -1157,6 +1297,50 @@
     "status": "APPEAL_PENDING",
     "summary": "A case of child sexual offence in Delhi, Delhi (2026). An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Delhi (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010307312026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 224,
+    "district": "South-East",
+    "fir_ref": {
+      "number": "149/2026",
+      "station": "Okhla Industrial Area"
+    },
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-DL-000046",
+    "incident_reported_date": "2026-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_denied",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 137(2)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-11",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59205102026BA27402026_205230.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "One person was arrested in South-East for the aggravated penetrative assault on a child. Police have filed a chargesheet. Bail was granted. Bail was denied. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South-East (2026)",
     "verified": true
   }
 ]

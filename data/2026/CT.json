@@ -1,5 +1,36 @@
 [
   {
+    "accused_count": 2,
+    "category": "acid_attack",
+    "confidence": 0.95,
+    "days_since_reported": 5,
+    "district": "Balod",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-CT-000002",
+    "incident_reported_date": "2026-10-06",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/stalker-friend-held-after-woman-22-attacked-with-acid-in-chhattisgarh-s-balod-police-101791287719846.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "CT",
+    "status": "FIR_FILED",
+    "summary": "Two men allegedly carried out an acid attack following a rejected marriage proposal in Balod district. Police investigated the incident using surveillance footage and technical evidence. Authorities arrested both suspects and recovered the acid used in the crime. The accused remain in custody as the case proceeds.",
+    "title": "Police arrest two men following acid attack in Chhattisgarh's Balod",
+    "verification_note": "The reported acid attack case in Balod, Chhattisgarh is consistent with the candidate record details.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,

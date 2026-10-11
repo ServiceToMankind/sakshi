@@ -1,6 +1,33 @@
 [
   {
     "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "Hyderabad",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TG-000035",
+    "incident_reported_date": "2026-10-11",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/hyderabad/case-registered-against-di-balaswamy-at-saidabad-police-station-2533941"
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "A detective inspector allegedly committed repeated sexual assault under the false promise of marriage. The officer serves in Hyderabad district. Saidabad police registered a case following a complaint. Police have launched an investigation into the matter.",
+    "title": "Hyderabad police register case against detective inspector for sexual assault",
+    "verification_note": "The record accurately reflects the reported case of sexual assault registered at Saidabad police station in Hyderabad.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 1.0,
     "days_since_reported": 5,
@@ -102,6 +129,39 @@
     "summary": "A case of sexual harassment involving a minor in Warangal, Telangana (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Sexual harassment involving a minor — Warangal (2026)",
     "verified": true
+  },
+  {
+    "accused_count": 8,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 10,
+    "district": "Hyderabad",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TG-000037",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS",
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/telangana/eight-arrested-for-trafficking-sexually-exploiting-minor-girl-in-hyderabad/article71569155.ece",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "Eight people were arrested in Hyderabad for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Hyderabad (2026)",
+    "verified": true,
+    "weapon_or_threat": true
   },
   {
     "accused_count": 1,
@@ -700,6 +760,43 @@
     "status": "UNKNOWN",
     "summary": "A case of child sexual offence in Hyderabad, Telangana (2026). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Hyderabad (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "LB Nagar Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 71,
+    "district": "Rangareddy",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TG-000036",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/rangareddy/man-sentenced-to-20-years-in-prison-for-assaulting-girl-2498871",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "One person was accused of the child sexual offence in Rangareddy. Police have filed a chargesheet. The accused was convicted. The court imposed a sentence of 20 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Rangareddy (2026)",
     "verified": true
   },
   {

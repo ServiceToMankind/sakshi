@@ -1,9 +1,9 @@
 {
   "generated": "2026-10-11",
   "trackability": {
-    "total": 231,
-    "court_anchored": 41,
-    "rate": 0.1775
+    "total": 251,
+    "court_anchored": 42,
+    "rate": 0.1673
   },
   "states_covered": 24,
   "states_total": 36,
@@ -31,7 +31,7 @@
     },
     "BR": {
       "active_sources": 0,
-      "records": 11,
+      "records": 12,
       "declared_gap": false
     },
     "CH": {
@@ -41,12 +41,12 @@
     },
     "CT": {
       "active_sources": 0,
-      "records": 2,
+      "records": 3,
       "declared_gap": false
     },
     "DL": {
       "active_sources": 3,
-      "records": 47,
+      "records": 52,
       "declared_gap": false
     },
     "DN": {
@@ -61,7 +61,7 @@
     },
     "GJ": {
       "active_sources": 0,
-      "records": 7,
+      "records": 8,
       "declared_gap": false
     },
     "HP": {
@@ -76,7 +76,7 @@
     },
     "JH": {
       "active_sources": 0,
-      "records": 11,
+      "records": 12,
       "declared_gap": false
     },
     "JK": {
@@ -161,12 +161,12 @@
     },
     "TG": {
       "active_sources": 4,
-      "records": 34,
+      "records": 38,
       "declared_gap": false
     },
     "TN": {
       "active_sources": 2,
-      "records": 33,
+      "records": 39,
       "declared_gap": false
     },
     "TR": {
@@ -176,7 +176,7 @@
     },
     "UP": {
       "active_sources": 0,
-      "records": 17,
+      "records": 18,
       "declared_gap": false
     },
     "UT": {

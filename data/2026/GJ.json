@@ -1,5 +1,34 @@
 [
   {
+    "accused_count": 9,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 4,
+    "district": "Surendranagar",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-GJ-000005",
+    "incident_reported_date": "2026-10-07",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/woman-gang-raped-in-gujarat-in-the-name-of-purification-2530883",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "Seven men sexually assaulted a woman during a ritual. Police registered a case against nine people in Surendranagar district. The action follows a complaint lodged with the police. The investigation is under way.",
+    "title": "Nine booked after woman gang-raped during ritual in Gujarat",
+    "verification_note": "The record correctly reflects a reported gang rape case registered by the police in Surendranagar, Gujarat.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,

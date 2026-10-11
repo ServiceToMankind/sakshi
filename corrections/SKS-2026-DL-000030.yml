@@ -1,0 +1,13 @@
+record_id: SKS-2026-DL-000030
+quarantine: true
+author: KiranPranay
+date: "2026-10-11"
+reason: >
+  This article is about the same South East Delhi case as SKS-2026-DL-000025, where the
+  victim is a child. Here it was saved as an adult case, so it carried a written summary
+  and a location close to the scene. For a child's case we only ever show the short,
+  fixed summary — the POCSO Act (section 23) forbids anything that could identify them.
+  The case itself stays on the site under its child-case records.
+resolution: >
+  Remove this file once the pipeline treats every article about one incident as a
+  child's case when any of them says the victim is a child.

@@ -1,0 +1,10 @@
+record_id: SKS-2026-DL-000049
+author: KiranPranay
+date: "2026-10-11"
+overrides:
+  title: "University in Delhi dismisses [occupation withheld] over students' harassment complaints"
+reason: >
+  The title named the university the students attend. We never name a victim's school,
+  college or workplace, so I replaced it with "university in Delhi". Nothing else changed.
+resolution: >
+  Remove this file once the pipeline removes institution names from titles on its own.
