@@ -1,11 +1,9 @@
 record_id: SKS-2026-TG-000025
+author: KiranPranay
+date: "2026-10-11"
 overrides:
   title: 'Actor-wrestler remanded in Rangareddy sexual exploitation case'
 reason: >
-  Title named a sub-district locality; CLAUDE.md §1a — district is the finest locality ever published. Replaced with the record's district.
+  The title named the neighbourhood where it happened. The district is the most precise place we ever show, so I replaced it with the district. Nothing else changed.
 resolution: >
-  Retire once the deterministic prose scrub covers this class (sub-district / institution
-  names in non-minor prose — the residual CLAUDE.md §1a asks to tighten via a
-  human-approved issue).
-author: claude-code health review (operator ratification requested)
-date: "2026-10-11"
+  Remove this file once the pipeline removes place names below district level on its own.

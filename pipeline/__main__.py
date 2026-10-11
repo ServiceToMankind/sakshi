@@ -102,7 +102,7 @@ class RunReport:
     needs_review_reasons: dict[str, int] = field(default_factory=dict)
     prefilter_skipped: int = 0  # §2: media docs skipped by the offence-language pre-filter
     health: dict[str, Any] = field(default_factory=dict)  # §3 ops: per-source funnel
-    source_alerts: list[str] = field(default_factory=list)  # court sources that ERRORED
+    source_alerts: list[str] = field(default_factory=list)  # court sources that returned errors
     logs: list[str] = field(default_factory=list)
 
 
@@ -129,10 +129,10 @@ def _collect_prefilter(
 
 
 def source_alerts(court_prefilter: list[dict[str, Any]]) -> list[str]:
-    """Human-readable alerts for court sources that ERRORED this run (counts/status codes only).
+    """Plain alerts for court sources that returned errors this run (numbers and codes only).
 
-    A source that is rejecting our credentials or whose listing errors must never look like a
-    quiet day: these lines go to the run log, the run report and the ops heartbeat.
+    A source that rejects our API key, or whose judgment list fails to load, should never look
+    like a quiet day, so these lines go into the run log, the run report and the daily heartbeat.
     """
     alerts: list[str] = []
     for row in court_prefilter:
@@ -740,11 +740,10 @@ def _load_needs_review_queue(base_dir: Path) -> list[dict[str, Any]]:
 
 
 def _staged_archive() -> Path | None:
-    """The restored data-staging archive (``STAGED_DIR``), or None if unset OR absent.
+    """The copy of data-staging restored for this run, or None if there isn't one.
 
-    The workflow exports ``STAGED_DIR`` even when there was no data-staging branch to
-    archive, so "set" is not "present": only an EXISTING archive replaces the committed
-    needs-review queue as the held-record carryover source.
+    The workflow sets ``STAGED_DIR`` even when there was no data-staging branch to copy, so
+    we check that the folder really exists before using it in place of the held queue on main.
     """
     staged_dir = os.environ.get("STAGED_DIR", "").strip()
     if not staged_dir or not Path(staged_dir).exists():
@@ -757,10 +756,9 @@ def _load_staged_carryover() -> list[dict[str, Any]]:
     re-fetch or re-extraction.
 
     The scrape workflow archives the data-staging branch's shards into ``STAGED_DIR``
-    before the run (both launch modes — auto mode also publishes through data-staging);
-    folding them back into dedupe means a force-pushed staging branch can never destroy
-    the only copy — even if the source doc rolled off the feed, its re-extraction failed,
-    or the publish gate blocked the run. No archive (first run, tests) => none.
+    before the run, in both launch modes. Folding them back in means these records survive
+    even if their article dropped off the feed, re-reading it failed, or the last run was
+    blocked before publishing. No copy (first run, tests) means nothing to bring back.
     """
     base = _staged_archive()
     if base is None:
@@ -971,7 +969,7 @@ def _write_logs(report: RunReport, logs_dir: Path, run_date: str) -> None:
         f"SUBMISSIONS={report.submissions}\n"
         f"SUBMISSIONS_PUBLISHED={report.submissions_published}\n"
         f"TRACED_TO_COURT={report.traced_to_court}\n"
-        # 0/1 only — the alert TEXT lives in source_funnel.json (never shell-sourced).
+        # Just 0 or 1 here. The alert text goes in source_funnel.json, which the shell never runs.
         f"SOURCE_ALERT={1 if report.source_alerts else 0}\n",
         encoding="utf-8",
     )
@@ -1085,11 +1083,9 @@ def run(
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
-        # Held (needs-review) records re-enter too. When a data-staging archive exists
-        # (_load_staged_carryover, a superset of main) it already restores the held queue;
-        # with no archive, the committed queue on main (data_dir) is the only carryover
-        # path. Load exactly ONE source — loading both would double-feed each held record
-        # and spam _review with self-matches.
+        # Held records come back too. If we have the data-staging copy, it already includes
+        # them; if not, we read the held queue on main. Only one of the two, never both, or
+        # each held record would be counted twice and clutter the review queue.
         staged_carryover = _load_staged_carryover()
         if _staged_archive() is None:
             staged_carryover += _load_needs_review_queue(data_dir)

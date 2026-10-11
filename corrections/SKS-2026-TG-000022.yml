@@ -1,12 +1,11 @@
 record_id: SKS-2026-TG-000022
+author: KiranPranay
+date: "2026-10-11"
 quarantine: true
 reason: >
-  The record's only source URL carries what appears to be the victim's given name in its
-  slug, so the published record (JSON + link target) discloses victim identity (BNS 2023
-  s.72; CLAUDE.md §1 — names are never written or committed). The visible title/summary
-  are clean, but there is no slug-free source to keep the record citable.
+  The only source link for this case appears to contain the victim's name. The law (BNS
+  section 72) forbids revealing a victim's identity, and we never publish it, so this
+  record is off the site until we find a source whose link doesn't name the victim.
 resolution: >
-  Restore by re-sourcing this case from an article whose URL does not identify the victim
-  (then delete this file), or by an operator-approved slug-stripping policy for citations.
-author: claude-code health review (operator ratification requested)
-date: "2026-10-11"
+  Remove this file once the case is re-sourced from an article whose link doesn't identify
+  the victim.

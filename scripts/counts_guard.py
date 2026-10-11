@@ -79,9 +79,9 @@ def check_counts(data_dir: Path) -> list[str]:
     except FileNotFoundError:
         pass
 
-    # 4. scorecard universe: every (state, district) with records has exactly ONE row in
-    #    jurisdictions.json, its total matches the shards, and the rows sum to the shard total
-    #    — else the scorecard silently drops (or double-counts) real cases.
+    # 4. Every district with published cases has exactly one row in jurisdictions.json, with
+    #    the right count, and all rows add up to the total. Otherwise the scorecard quietly
+    #    misses (or double-counts) real cases.
     findings.extend(_check_scorecard(data_dir, shard_records, shard_total))
 
     # 5. coverage: a state with published records is COVERED by definition (records OR a source),

@@ -1,12 +1,10 @@
 record_id: SKS-2026-TG-000018
+author: KiranPranay
+date: "2026-10-11"
 overrides:
   title: 'Candlelight vigil in Hyderabad after rape and murder'
   summary: 'An attacker raped and killed [occupation withheld] in Hyderabad. A candlelight vigil was held to demand action.'
 reason: >
-  Title and summary together revealed the victim's occupation and workplace type (§4d victim-occupation scrub; CLAUDE.md §1 — no victim workplace). Removed the occupational and workplace references; no fact added.
+  The title and summary together gave away the victim's job and workplace. We never publish a victim's workplace, so I removed those words. Nothing new was added.
 resolution: >
-  Retire once the deterministic prose scrub covers this class (sub-district / institution
-  names in non-minor prose — the residual CLAUDE.md §1a asks to tighten via a
-  human-approved issue).
-author: claude-code health review (operator ratification requested)
-date: "2026-10-11"
+  Remove this file once the pipeline removes hints about a victim's job or workplace on its own.

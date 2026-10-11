@@ -225,8 +225,8 @@ class HcJudgmentsSource:
             "qualifying": 0,
         }
         response = await self._client.get(court.listing_url)
-        # None -> robots-disallowed; non-200 (incl. 304 unchanged) -> nothing this run. A real
-        # error (not 304) is recorded so a broken portal is visible, not a silent zero.
+        # None means robots.txt said no; anything other than 200 means nothing new this run.
+        # A real error (anything but 304 "unchanged") is noted, so a broken court site shows.
         if response is None or response.status_code != 200:
             if response is not None and response.status_code != 304:
                 stat["listing_error"] = int(response.status_code)
