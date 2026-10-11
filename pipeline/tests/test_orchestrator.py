@@ -2874,3 +2874,88 @@ def test_null_fir_number_is_dropped_not_quarantined(tmp_path: Path) -> None:
     rec = json.loads((tmp_path / "2026" / "TG.json").read_text())[0]
     assert rec["fir_ref"] == {"station": "TESTVILLE"}
     assert "court" not in rec
+
+
+def _one_doc_run(tmp_path: Path, url: str, payload: dict[str, object], run_date: str) -> object:
+    doc = [RawDocument(url=url, publisher="The Hindu", fetched_at=run_date, text="a rape case")]
+    return orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date=run_date,
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(json.dumps(payload)),
+    )
+
+
+def test_live_adult_record_of_a_childs_incident_is_held_until_approved(tmp_path: Path) -> None:
+    """Issue #255: when a child's case of the same incident turns up, an adult record that is
+    already on the site is held for review (never left up with an adult-style summary), and
+    approving it puts it back."""
+    adult_url = "https://ex.invalid/news/men-held-in-fakepurkunj-gangrape"
+    adult = {
+        "category": "rape",
+        "state": "TG",
+        "district": "TESTVILLE",
+        "status": "FIR_FILED",
+        "minor_involved": False,
+        "incident_reported_date": "2026-09-20",
+        "offence_sections": ["BNS 70(1)"],
+        "in_scope": True,
+        "confidence": 0.95,
+    }
+    _one_doc_run(tmp_path, adult_url, adult, "2026-09-21")
+    shard = tmp_path / "2026" / "TG.json"
+    assert [s["url"] for s in json.loads(shard.read_text())[0]["sources"]] == [adult_url]
+
+    child = {
+        **adult,
+        "category": "pocso",
+        "minor_involved": True,
+        "incident_reported_date": "2026-09",
+    }
+    _one_doc_run(
+        tmp_path,
+        "https://ex.invalid/news/minor-assaulted-near-fakepurkunj-park",
+        child,
+        "2026-09-22",
+    )
+    published_urls = [
+        s["url"]
+        for r in (json.loads(shard.read_text()) if shard.exists() else [])
+        for s in r["sources"]
+    ]
+    assert adult_url not in published_urls  # off the site
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    held = [item for item in queue if item["reasons"] == ["possible_child_case"]]
+    assert len(held) == 1
+    # The held queue is public in the repo, so the waiting copy is in the child-safe form.
+    assert held[0]["record"]["minor_involved"] is True
+    assert held[0]["record"]["title"] == "Gang rape involving a minor — TESTVILLE (2026)"
+
+    # It stays held on the next run even though its child-safe copy no longer links.
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-09-23",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(json.dumps(adult)),
+    )
+    queue = json.loads((tmp_path / "_needs_review" / "queue.json").read_text())
+    assert [item["reasons"] for item in queue].count(["possible_child_case"]) == 1
+
+    _write_approved(tmp_path, [adult_url])
+    orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-09-24",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(json.dumps(adult)),
+    )
+    published_urls = [s["url"] for r in json.loads(shard.read_text()) for s in r["sources"]]
+    assert adult_url in published_urls  # approved, back on the site
