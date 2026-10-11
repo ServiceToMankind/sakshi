@@ -65,12 +65,13 @@ Hard rules:
   · "title": <=90 chars, factual, active voice, NO sensationalism and NO legal
     boilerplate. e.g. "Delhi HC stays trial in matrimonial-dispute rape FIR".
   · "summary": a plain-English ACCOUNT a general reader can follow — 3 to 5 short
-    declarative sentences (aim for <=70 words total; keep EVERY sentence under 25 words),
+    declarative sentences (aim for 50 to 90 words; keep EVERY sentence under 25 words),
     active voice, low-literacy-friendly. Tell the reader, in this order and ONLY from what
     the text states:
       (1) WHAT happened — the act, stated plainly and with real weight;
-      (2) WHO acted — the accused's PUBLIC ROLE or office if the text gives it (e.g.
-          "a police constable", "a school-bus driver", "a head teacher"), stated
+      (2) WHO acted — HOW MANY people were accused, and the accused's PUBLIC ROLE or
+          office if the text gives it (e.g. "four men", "a police constable", "a
+          school-bus driver"), stated
           NON-RELATIONALLY: never "the victim's ...", never how the accused knew the
           victim, and never the accused's NAME here;
       (3) WHERE — the DISTRICT only (never finer);
