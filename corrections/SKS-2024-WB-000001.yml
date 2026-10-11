@@ -1,0 +1,11 @@
+record_id: SKS-2024-WB-000001
+overrides:
+  title: 'Former politician arrested over hurried cremation in Kolkata rape-murder case'
+reason: >
+  Title named the victim's workplace institution (CLAUDE.md §1 — no victim workplace; §1a — no institution names). Replaced with the city.
+resolution: >
+  Retire once the deterministic prose scrub covers this class (sub-district / institution
+  names in non-minor prose — the residual CLAUDE.md §1a asks to tighten via a
+  human-approved issue).
+author: claude-code health review (operator ratification requested)
+date: "2026-10-11"

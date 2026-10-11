@@ -1,0 +1,11 @@
+record_id: SKS-2026-DL-000022
+overrides:
+  title: 'University [occupation withheld] in Delhi accused of sexual harassment during examinations'
+reason: >
+  Title named the complainants' own institution (CLAUDE.md §1a — no institution names; §1 — no victim school/workplace). Generalised to 'university'.
+resolution: >
+  Retire once the deterministic prose scrub covers this class (sub-district / institution
+  names in non-minor prose — the residual CLAUDE.md §1a asks to tighten via a
+  human-approved issue).
+author: claude-code health review (operator ratification requested)
+date: "2026-10-11"
