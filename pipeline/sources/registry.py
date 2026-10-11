@@ -7,6 +7,7 @@ with no endpoints simply yields nothing, and an rss entry with no URL is skipped
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -57,11 +58,13 @@ def build_sources(
     fetched_at: str | None = None,
     configs: list[dict[str, Any]] | None = None,
     court_only: bool = False,
+    seen: Callable[[str], bool] | None = None,
 ) -> list[Source]:
     """Instantiate the ENABLED sources from config (defaults to sources.yml).
 
     ``court_only`` (the weekly ``refresh`` mode, §2) restricts to court-record sources — the
     ones that carry re-checkable judicial status — and skips the media discovery feeds.
+    ``seen`` tells a paid source (Indian Kanoon) which documents earlier runs already handled.
     """
     resolved = configs if configs is not None else load_source_configs()
     sources: list[Source] = []
@@ -92,6 +95,7 @@ def build_sources(
                     queries=queries,
                     publisher=publisher or "Indian Kanoon",
                     fetched_at=fetched_at,
+                    seen=seen,
                 )
             )
         elif kind == "hc_judgments":

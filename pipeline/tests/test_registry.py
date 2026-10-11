@@ -143,3 +143,16 @@ def test_load_source_configs_by_state_and_legacy(tmp_path: Any) -> None:
 
 def test_load_source_configs_missing_file(tmp_path: Any) -> None:
     assert registry.load_source_configs(tmp_path / "nope.yml") == []
+
+
+def test_indian_kanoon_gets_the_already_handled_check() -> None:
+    """The run hands Indian Kanoon a way to tell which judgments it already handled, so it
+    doesn't pay to download them again."""
+    handled = {"https://indiankanoon.org/doc/7/"}
+    configs = [{"id": "ik", "type": "indiankanoon", "enabled": True, "queries": ["q"]}]
+    (ik,) = registry.build_sources(
+        _FakeClient(), fetched_at="2026-10-11", configs=configs, seen=handled.__contains__
+    )
+    assert isinstance(ik, IndianKanoonSource)
+    assert ik._seen("https://indiankanoon.org/doc/7/") is True
+    assert ik._seen("https://indiankanoon.org/doc/8/") is False
