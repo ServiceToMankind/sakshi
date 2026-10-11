@@ -106,8 +106,11 @@ check.
 Records that passed every check but aren't allowed to publish without a person looking
 first (`pipeline/gates.py`). For example: a case that names an accused, even from a court
 record; a case whose only source is a live blog; one whose confidence is between 0.80 and
-0.85; one where POCSO charges don't match the minor flag; or a child's case that the
-verification step hasn't approved.
+0.85; one where POCSO charges don't match the minor flag; a child's case that the
+verification step hasn't approved; or an adult record that looks like part of the same
+incident as a child's case (`possible_child_case`). That last kind is stored only in the
+child-safe form, because this folder is public in the repository, and it stays held until
+I approve it.
 - `queue.json` is the current held list. Each record in it has been through the sanitizer
   and `pii_guard` like any other. It is committed to git so the data PR shows it, but the
   deploy **never copies it to the website**.

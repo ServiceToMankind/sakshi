@@ -115,6 +115,13 @@ expressions. It does not use a name-recognition (NER) model. It also clears vict
 occupations and certain romanised Indian-language words (family terms, village office
 titles, words for a locality smaller than a district) out of titles and summaries.
 
+In an adult case's title and summary, it also replaces the name of a neighbourhood, a
+police-station area or a landmark with the district, and the name of a university,
+college, hospital or school with a plain word ("a university"). If an adult record looks
+like part of the same incident as a child's case, it is held back for me to check, and
+it is kept only in the child-safe form while it waits. On a child's case, every source
+link is treated as sensitive: the site shows only the publisher's name.
+
 ---
 
 ## The rules I will not bend

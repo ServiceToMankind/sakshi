@@ -20,11 +20,8 @@ dependencies = [
     "jsonschema>=4.22",       # draft-2020-12 record validation
     "python-dotenv>=1.0",     # load GEMINI_API_KEY from .env (never committed)
     "pyyaml>=6.0",            # sources.yml (per-source kill switch)
-    # NER for the sanitize.py PII gate is OPTIONAL and pluggable. The regex gate is
-    # always on; for named-entity stripping install one of the following extras:
-    #   spaCy         -> pip install "spacy>=3.7" && python -m spacy download en_core_web_sm
-    #   Presidio      -> pip install "presidio-analyzer>=2.2"
-    # Kept out of the hard dependency set so CI stays fast and offline-friendly.
+    # sanitize.py uses fixed rules and regular expressions only. A name-recognition (NER)
+    # model is not wired in today; the "ner" extra below is kept for trying one later.
 ]
 
 [project.optional-dependencies]
