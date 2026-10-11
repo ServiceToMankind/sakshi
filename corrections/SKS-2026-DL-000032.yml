@@ -1,16 +1,13 @@
 record_id: SKS-2026-DL-000032
+author: KiranPranay
+date: "2026-10-11"
 quarantine: true
 reason: >
-  Minor's case published as an ADULT record. This article is one of eight published
-  records for a single South East Delhi incident; the incident's own primary report
-  (SKS-2026-DL-000025) records the victim as a minor, and DL-000026/040/042 are minor
-  records for the same incident. Published as non-minor, this record carried a
-  model-written title and summary with a sub-district locality and particulars of the
-  act — exactly what CLAUDE.md §1a forbids for a minor (a minor's title/summary is a
-  deterministic projection, never model-written; POCSO Act 2012 s.23). The case itself
-  stays on the site via the deterministic minor records.
+  This article is about the same South East Delhi case as SKS-2026-DL-000025, where the
+  victim is a child. Here it was saved as an adult case, so it carried a written summary
+  with the location and details of what happened. For a child's case we only ever show
+  the short, fixed summary, because the POCSO Act (section 23) forbids anything that could
+  identify them. The case itself stays on the site under its child-case records.
 resolution: >
-  Retire once dedupe propagates minor_involved across records of one incident (the
-  minor flag must win) and this source is merged into the minor record as a source.
-author: claude-code health review (operator ratification requested)
-date: "2026-10-11"
+  Remove this file once the pipeline treats every article about one incident as a child's
+  case when any of them says the victim is a child.

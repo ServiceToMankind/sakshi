@@ -157,10 +157,9 @@ class IndianKanoonSource:
         self._publisher = publisher
         self._fetched_at = fetched_at or date.today().isoformat()
         self._token = token if token is not None else _api_token()
-        # COUNTS ONLY (never text). ``search_errors``/``doc_errors`` count non-200 responses and
-        # ``error_status`` keeps the last such HTTP status, so a rejected token is LOUD in the
-        # run report + heartbeat instead of reading as "0 hits" (2026-09-10..10-11: every search
-        # returned 403 for a month and the source looked merely quiet).
+        # Numbers only, never text. We also count failed searches and downloads and keep the
+        # last error code, so a rejected API key shows up in the report and the heartbeat.
+        # From September to October 2026 every search was refused and it looked like "0 hits".
         self.stats: dict[str, int] = {
             "hits": 0,
             "qualifying": 0,
@@ -192,7 +191,7 @@ class IndianKanoonSource:
                 if response is not None:
                     self.stats["error_status"] = int(response.status_code)
                     if response.status_code in (401, 403):
-                        break  # a rejected token rejects every query — stop, report once
+                        break  # a rejected key fails every search, so stop after the first
                 continue
             for hit in parse_search_hits(response.text):
                 if len(docs) >= config.IK_MAX_DOCS_PER_RUN:

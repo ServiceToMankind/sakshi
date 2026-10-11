@@ -49,10 +49,9 @@ __all__ = [
     "write_shards",
 ]
 
-# The per-(state, district) scorecard lives in its OWN file, never in summary.json: it grows
-# with every district India has (~780), so inside the 50 KB summary it had to be capped — and
-# a cap silently dropped real records' districts (and, once, a whole state) from the scorecard.
-# Uncapped here, every published record is counted in exactly one row.
+# The district scorecard has its own file. It grows with every district we cover (India has
+# about 780), so it can't live inside the small summary.json. When it did, it was cut off at
+# 120 rows and some real cases quietly went missing from the scorecard.
 JURISDICTIONS_FILENAME = "jurisdictions.json"
 
 SUMMARY_MAX_BYTES = config.SUMMARY_MAX_BYTES
@@ -358,16 +357,12 @@ def _assign_ids(
         )
     known_ids = set(idx.all_ids)  # ids that existed BEFORE this run (for new-vs-recheck)
     _seed_from_carryover(records, idx.key_to_id, idx.max_serial, idx.all_ids)
-    # Ids already held by a record IN THIS BATCH. Dedupe ran before us: if it had judged a fresh
-    # record the same case as a batch record it would have MERGED them into one. So a fresh
-    # record matching a batch-held id on the ANONYMOUS fallback anchor alone (state|district|
-    # date|sections|court — e.g. two "Unknown"-district POCSO cases in the same month) is a
-    # DISTINCT case and must mint its own id. Reusing it fused two cases onto one id; the
-    # collision resolver then quarantined one — a real case vanished and the permalink pointed
-    # at a different case (13 ids, 2026-08..10). Exact anchors (CNR/FIR) keep the conservative
-    # collision path: a shared CNR is a strong same-case signal for a human to resolve. So does
-    # a re-extraction of the SAME article (a shared source URL) — e.g. a staged record's doc
-    # re-surfacing while the record itself is carried over — never a second id for one article.
+    # Case IDs already used by a record in this run. By the time we get here, the duplicate
+    # check has already merged the records it thinks are the same case. So if a new record
+    # only matches an existing one on the loose fallback key (same state, district and month,
+    # with no FIR or court number), it is a different case and gets its own ID. Reusing the ID
+    # used to swap one case for another (13 cases between August and October 2026). A shared
+    # FIR or court number, or the very same article, still counts as the same case.
     held_urls: dict[str, set[str]] = {}
     for held in records:
         if _ID_RE.match(str(held.get("id", ""))):
@@ -391,7 +386,7 @@ def _assign_ids(
                 and reused in held_urls
                 and not (_source_urls(record) & held_urls[reused])
             ):
-                reused = None  # a distinct case per dedupe — never take another case's id
+                reused = None  # a different case, so it gets its own ID
             if reused is not None:
                 record_id = reused
             else:
@@ -665,12 +660,12 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
             "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
         }
         # Stalled pre-chargesheet count (%-of-total computed on the client). Emitted only when
-        # non-zero so it stays SPARSE — an all-zero field on every row would only add bytes.
+        # non-zero, so rows without any don't carry an extra zero.
         if pre_chargesheet:
             card["pre_chargesheet"] = pre_chargesheet
         cards.append(card)
-    # Worst-first (highest caseload — the "shame table" order). NEVER capped: every published
-    # record must be counted in exactly one row (scripts/counts_guard asserts it).
+    # Busiest districts first. There is no cap, so every published case is counted in exactly
+    # one row (scripts/counts_guard.py checks this).
     cards.sort(key=lambda c: (-int(c["total"]), str(c["state"]), str(c["district"])))
     return cards
 

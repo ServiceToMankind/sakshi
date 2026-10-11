@@ -202,7 +202,7 @@ sakshi/
 ├── data/                        # generated — never hand-edited
 │   ├── summary.json             # < 50 KB (CI-asserted)
 │   ├── index.json               # shard manifest
-│   ├── jurisdictions.json       # full per-district scorecard (uncapped)
+│   ├── jurisdictions.json       # scorecard for every district (no cap)
 │   ├── _review/                 # low-confidence / ambiguous (not published)
 │   └── {YYYY}/{STATE}.json      # full records, sorted by date desc
 ├── site/                        # Vite + vanilla JS static frontend

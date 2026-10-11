@@ -145,14 +145,11 @@ jobs:
             echo "no spend ledger yet; starting fresh."
           fi
 
-      # Restore the PRIOR staged (not-yet-on-main) records from data-staging into a
-      # side dir, so the pipeline folds them back into the tree even if their source
-      # rolled off the feed or fails re-extraction — a force-push can never lose them.
-      # BOTH modes: auto mode also publishes through data-staging (PR + in-job gate), so
-      # a run whose gate fails leaves its new records ONLY there. Without this restore
-      # the next run force-pushed over them (2026-10-07..11: ~19 extracted cases lost to
-      # a count-guard failure). After a successful merge data-staging == main, so the
-      # restore is a no-op; corrections (takedowns) still apply to carried records.
+      # Bring back the records from earlier runs that never reached main (they wait on
+      # data-staging), so a blocked run can't lose them, even after the news article has
+      # dropped off the feed. This used to run only in staged mode, which is how the cases
+      # found on 7-11 October 2026 were lost. After a normal publish data-staging matches
+      # main, so this changes nothing; corrections and takedowns still apply.
       - name: Restore staged carryover from data-staging
         if: env.DRY_RUN != 'true'
         run: |
@@ -313,10 +310,10 @@ jobs:
           DATE="$(date +%F)"; BRANCH="data-staging"
           git checkout -B "$BRANCH"
           git add data/
-          # The ledger lives on the ledger-state branch, never in the review PR —
-          # keep data/_meta out so the PR shows only reviewable case data. EXCEPT the
-          # serial high-water-mark (#29): it must reach main or a freed serial can be
-          # re-minted (it only changes when a new id is minted, so it adds no churn).
+          # The ledger lives on the ledger-state branch, never in the review PR, so keep
+          # data/_meta out. The one exception is the case-number counter (serials.json): it
+          # has to reach main so an old case number is never given to a new case. It only
+          # changes when a new case is added.
           git reset -q -- data/_meta 2>/dev/null || true
           git add data/_meta/serials.json 2>/dev/null || true
           if git diff --cached --quiet; then
@@ -374,9 +371,9 @@ jobs:
           DATE="$(date +%F)"; BRANCH="data-staging"
           git checkout -B "$BRANCH"
           git add data/
-          # The ledger is never part of the published tree — keep data/_meta out, EXCEPT
-          # the serial high-water-mark (#29), which must reach main so a freed serial is
-          # never re-minted (it changes only when a new id is minted — no daily churn).
+          # The ledger is never published, so keep data/_meta out. The one exception is the
+          # case-number counter (serials.json): it has to reach main so an old case number is
+          # never given to a new case. It only changes when a new case is added.
           git reset -q -- data/_meta 2>/dev/null || true
           git add data/_meta/serials.json 2>/dev/null || true
           if git diff --cached --quiet; then
@@ -438,13 +435,13 @@ jobs:
           VERIFY_MODEL: ""
           GEMINI_MODELS: ""
         run: |
-          set -o pipefail  # the gate's verdict is make's exit status, not tee's
+          set -o pipefail  # a failed check must fail this step, not just get copied to the log
           python -m pip install -e '.[dev]'
           ( cd site && npm ci --no-audit --no-fund )
           if ! make check PY=python 2>&1 | tee "$RUNNER_TEMP/gate_output.txt"; then
-            # A PII-free summary for the failure issue: only the failing make TARGET names and
-            # the count guard's findings (aggregate counts/state codes/ids by construction).
-            # NEVER other guard output — a pii_guard finding could quote the offending value.
+            # Keep a short note of which check failed, for the issue we open: only the check
+            # names and the count check's numbers. Never copy other checks' output, because
+            # the privacy check's message could include the very text it caught.
             {
               grep -oE '\[Makefile:[0-9]+: [a-z-]+\]' "$RUNNER_TEMP/gate_output.txt" | sed -E 's/.*: ([a-z-]+)\]/failed gate: \1/' | grep -v ': check$' | sort -u
               sed -n '/^COUNT GUARD FAILED/,/^[^ ]/p' "$RUNNER_TEMP/gate_output.txt" | grep '^  ' | cut -c1-300
@@ -584,21 +581,20 @@ jobs:
           # Traced-to-court (§3) — the highest-value event: an untracked case entering the
           # judicial record. Shown only when it happened this run.
           [ "${TRACED_TO_COURT:-0}" != "0" ] && SUB="${SUB}$(printf '\n- 🏛️ traced to court (§3): **%s** media record(s) gained a court source' "$TRACED_TO_COURT")"
-          # Court sources that ERRORED (rejected token, broken listing) — counts/status codes only,
-          # read from JSON (never shell-sourced). Indian Kanoon 403'd for a month unnoticed.
+          # Show court sources that returned errors, like a rejected API key. Indian Kanoon was
+          # turning us away for a month and it simply looked like a quiet day.
           SRC_ALERTS="$(jq -r '(.source_alerts // []) | join("; ")' logs/source_funnel.json 2>/dev/null | cut -c1-300)"
           [ -n "$SRC_ALERTS" ] && SUB="${SUB}$(printf '\n- ⚠️ **source alerts:** %s' "$SRC_ALERTS")"
-          # Bot-token expiry (the auto-merge depends on it; CONTRIBUTING documents the outage it
-          # causes). GitHub reports a PAT's expiry in a response header — surface it daily and
-          # open/refresh one issue inside the last 7 days. No header (GITHUB_TOKEN) => skipped.
+          # Show when the bot token expires (GitHub sends the date with each API reply), and
+          # open an issue in its last week: publishing stops when it expires.
           TOKEN_EXP="$(curl -sI -H "Authorization: Bearer $GH_TOKEN" https://api.github.com/rate_limit \
             | tr -d '\r' | awk -F': ' 'tolower($1)=="github-authentication-token-expiration"{print $2}')"
           if [ -n "$TOKEN_EXP" ] && EXP_TS="$(date -d "$TOKEN_EXP" +%s 2>/dev/null)"; then
             TOKEN_DAYS=$(( (EXP_TS - $(date +%s)) / 86400 ))
-            TNOTE=""; [ "$TOKEN_DAYS" -le 14 ] && TNOTE=" ⚠️ **rotate SCRAPE_BOT_TOKEN now**"
+            TNOTE=""; [ "$TOKEN_DAYS" -le 14 ] && TNOTE=" ⚠️ **renew the bot token soon**"
             SUB="${SUB}$(printf '\n- bot token expires: %s (%s days)%s' "${TOKEN_EXP%% *}" "$TOKEN_DAYS" "$TNOTE")"
             if [ "$TOKEN_DAYS" -le 7 ]; then
-              TBODY="SCRAPE_BOT_TOKEN expires ${TOKEN_EXP} (${TOKEN_DAYS} days). When it lapses the auto-merge stops and the site goes stale — rotate it (see CONTRIBUTING.md, bot-token expiry)."
+              TBODY="The bot token (SCRAPE_BOT_TOKEN) expires on ${TOKEN_EXP} (${TOKEN_DAYS} days). After that the daily updates stop publishing. Create a new token and update the secret; CONTRIBUTING.md explains how."
               TOPEN="$(gh issue list --label pipeline --state open --search 'in:title "Bot token expiring"' --json number --jq '.[0].number' 2>/dev/null || true)"
               if [ -n "$TOPEN" ]; then gh issue comment "$TOPEN" --body "$TBODY" || true
               else gh issue create --title "Bot token expiring — ${TOKEN_EXP%% *}" --body "$TBODY" --label pipeline || true; fi
@@ -624,10 +620,10 @@ jobs:
             TITLE="Pipeline run failed — ${DATE}"
             BODY="The pipeline run on ${DATE} ended **${{ job.status }}**. See the run logs artifact and the [run](${RUN_URL})."
             if [ -s logs/gate_failure.txt ]; then
-              BODY="$(printf '%s\n\nThe publish gate (`make check` on the staged tree) failed — nothing was published; the staged records persist on `data-staging` and are carried into the next run:\n```\n%s\n```' "$BODY" "$(cat logs/gate_failure.txt)")"
+              BODY="$(printf '%s\n\nNothing was published because one of the checks failed. The cases found in this run are kept on `data-staging` and will be tried again in the next run:\n```\n%s\n```' "$BODY" "$(cat logs/gate_failure.txt)")"
             fi
-            # One open issue per failure STREAK: comment on it rather than opening a duplicate
-            # every day (2026-10-07..11 opened four identical issues for one root cause).
+            # If a failure issue is already open, add to it instead of opening a new one
+            # every day (in October 2026 one bug opened four identical issues).
             OPEN="$(gh issue list --label pipeline --state open --search 'in:title "Pipeline run failed"' --json number --jq '.[0].number' 2>/dev/null || true)"
             if [ -n "$OPEN" ]; then
               gh issue comment "$OPEN" --body "$BODY" && exit 0
@@ -635,7 +631,7 @@ jobs:
           elif [ "${{ steps.counts.outputs.source_alert }}" = "1" ]; then
             TITLE="Court source failing — ${DATE}"
             ALERTS="$(jq -r '(.source_alerts // [])[] | "- " + .' logs/source_funnel.json 2>/dev/null | cut -c1-300)"
-            BODY="$(printf 'A court source errored on %s (the run itself continued; media sources were unaffected):\n%s\n\nA 401/403 means the API token or prepaid credit was rejected — renew it and update the repo secret. See the [run](%s).' "$DATE" "$ALERTS" "$RUN_URL")"
+            BODY="$(printf 'A court source returned errors on %s. The run still published the news-based cases.\n%s\n\nA 401 or 403 error usually means the API key was refused or the account is out of credit. Fix it with the provider, then update the repo secret. See the [run](%s).' "$DATE" "$ALERTS" "$RUN_URL")"
             OPEN="$(gh issue list --label pipeline --state open --search 'in:title "Court source failing"' --json number --jq '.[0].number' 2>/dev/null || true)"
             if [ -n "$OPEN" ]; then
               gh issue comment "$OPEN" --body "$BODY" && exit 0

@@ -122,7 +122,7 @@ export async function renderAccountability() {
   } catch {
     coverage = null;
   }
-  // A missing/unreadable scorecard file degrades to "no scorecard section", never a blank page.
+  // If the scorecard file is missing, we just leave that section out; the page still loads.
   let jurisdictions = [];
   try {
     jurisdictions = await loadJurisdictions();

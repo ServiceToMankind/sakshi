@@ -1,7 +1,6 @@
-// Data layer: base-path-aware fetch of summary.json, the shard manifest, the
-// jurisdiction scorecard, and per-state shards, with an in-memory cache and typed
-// errors so views can render precise empty/degraded states. Nothing here mutates
-// data; it only reads.
+// Loads the site's data files (the summary, the list of shards, the district scorecard
+// and each state's cases), keeps them in memory, and reports clear errors so a page can
+// say exactly what's missing. It only reads; it never changes anything.
 
 const BASE = import.meta.env.BASE_URL || '/';
 const DATA = `${BASE}data`;
@@ -50,9 +49,9 @@ export function loadIndex() {
 }
 
 /**
- * The full per-(state, district) scorecard (data/jurisdictions.json), worst-first and
- * uncapped — every published record is counted in exactly one row. Kept out of
- * summary.json so the landing payload stays small however many districts are covered.
+ * The scorecard for every district (data/jurisdictions.json), busiest first, with no cap,
+ * so every published case is counted once. It lives in its own file so the home page
+ * stays fast however many districts we cover.
  */
 export async function loadJurisdictions() {
   const doc = await getJSON(`${DATA}/jurisdictions.json`);
