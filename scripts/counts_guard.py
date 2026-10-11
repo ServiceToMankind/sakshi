@@ -5,9 +5,10 @@ A published record must be counted in EVERY aggregate the site renders, or the b
 This asserts, over the committed ``data/`` tree:
 
   summary.total == sum(shard records) == index record total == recent-feed universe
-                == scorecard universe (summary.jurisdictions) == coverage record total
+                == scorecard universe (jurisdictions.json) == coverage record total
 
-plus the per-state and per-status breakdowns, that every state with published records is
+plus the per-state and per-status breakdowns, that every (state, district) with published
+records has exactly one scorecard row whose total matches the shards, that every state is
 COVERED (never shown as a gap just because its records arrived via a national source such as
 Indian Kanoon rather than a per-state feed), and that summary.json + index.json carry a
 non-empty ``generated_at`` so the "Last updated" footer always populates.
@@ -78,12 +79,10 @@ def check_counts(data_dir: Path) -> list[str]:
     except FileNotFoundError:
         pass
 
-    # 4. scorecard universe: every state with records has a jurisdiction row (else the
-    #    scorecard silently drops that state's cases).
-    jur_states = {str(j.get("state", "")) for j in (summary.get("jurisdictions") or [])}
-    missing_jur = {s for s in shard_states if s and s not in jur_states}
-    if missing_jur:
-        findings.append(f"scorecard missing state(s) that have records: {sorted(missing_jur)}")
+    # 4. scorecard universe: every (state, district) with records has exactly ONE row in
+    #    jurisdictions.json, its total matches the shards, and the rows sum to the shard total
+    #    — else the scorecard silently drops (or double-counts) real cases.
+    findings.extend(_check_scorecard(data_dir, shard_records, shard_total))
 
     # 5. coverage: a state with published records is COVERED by definition (records OR a source),
     #    and its record count matches the shards — never hidden because it lacked a per-state feed.
@@ -116,6 +115,43 @@ def check_counts(data_dir: Path) -> list[str]:
                 f"{name} has no generated_at — the 'Last updated' footer would be empty"
             )
 
+    return findings
+
+
+def _check_scorecard(
+    data_dir: Path, shard_records: list[dict[str, Any]], shard_total: int
+) -> list[str]:
+    """Disagreements between the jurisdiction scorecard and the shards (empty = agree)."""
+    try:
+        rows = _load(data_dir / "jurisdictions.json").get("jurisdictions") or []
+    except FileNotFoundError:
+        return (
+            ["jurisdictions.json is missing — the scorecard would count no records"]
+            if shard_total
+            else []
+        )
+    findings: list[str] = []
+    expected = Counter((str(r.get("state", "")), str(r.get("district", ""))) for r in shard_records)
+    seen: Counter[tuple[str, str]] = Counter()
+    for row in rows:
+        key = (str(row.get("state", "")), str(row.get("district", "")))
+        seen[key] += 1
+        want = expected.get(key, 0)
+        if int(row.get("total", 0)) != want:
+            findings.append(f"scorecard row {key} total={row.get('total')} != shard count={want}")
+    duplicated = sorted(k for k, n in seen.items() if n > 1)
+    if duplicated:
+        findings.append(f"scorecard has duplicate row(s): {duplicated[:5]}")
+    missing = sorted(k for k in expected if k not in seen)
+    if missing:
+        states = sorted({state for state, _ in missing})
+        findings.append(
+            f"scorecard missing {len(missing)} district(s) that have records "
+            f"(states {states}): {missing[:5]}"
+        )
+    scorecard_total = sum(int(row.get("total", 0)) for row in rows)
+    if scorecard_total != shard_total:
+        findings.append(f"scorecard total={scorecard_total} != shard records={shard_total}")
     return findings
 
 

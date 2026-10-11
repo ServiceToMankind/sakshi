@@ -16,6 +16,13 @@ def test_summary_budget_constant_is_50kb() -> None:
     assert SUMMARY_MAX_BYTES == 50 * 1024
 
 
+def _jurisdictions(data_dir: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = json.loads((data_dir / "jurisdictions.json").read_text())[
+        "jurisdictions"
+    ]
+    return rows
+
+
 def _record(**overrides: Any) -> dict[str, Any]:
     base: dict[str, Any] = {
         "title": "Sexual assault case — TESTVILLE (2026)",
@@ -90,7 +97,7 @@ def test_summary_accountability_severity_and_jurisdictions(tmp_path: Path) -> No
     assert summary["severity_counts"]["Rape"] == 1
     assert summary["aggravated_total"] == 1  # only the BNS 70(2) case is aggravated
 
-    juris = {(j["state"], j["district"]): j for j in summary["jurisdictions"]}
+    juris = {(j["state"], j["district"]): j for j in _jurisdictions(tmp_path)}
     testville = juris[("TG", "TESTVILLE")]  # C-1 (under trial) + C-3 (acquitted)
     assert testville["total"] == 2
     assert testville["under_trial"] == 1 and testville["acquittals"] == 1
@@ -115,7 +122,7 @@ def test_summary_minor_jurisdiction_has_no_day_precise_pendency(tmp_path: Path) 
         ),
     )
     write_shards([minor], tmp_path, run_date="2026-07-09")
-    juris = json.loads((tmp_path / "summary.json").read_text())["jurisdictions"][0]
+    juris = _jurisdictions(tmp_path)[0]
     assert juris["median_pending_days"] is None and juris["longest_pending"] is None
 
 
@@ -130,7 +137,7 @@ def test_pendency_requires_a_court_anchor(tmp_path: Path) -> None:
     summary = json.loads((tmp_path / "summary.json").read_text())
     assert rec["days_since_reported"] == 25  # elapsed time IS stored...
     assert summary["top_longest_pending"] == []  # ...but never a pendency claim
-    assert summary["jurisdictions"][0]["median_pending_days"] is None
+    assert _jurisdictions(tmp_path)[0]["median_pending_days"] is None
 
     # The SAME record WITH a CNR is trackable, so pendency returns (fresh tree).
     fresh = tmp_path / "anchored"
@@ -138,22 +145,40 @@ def test_pendency_requires_a_court_anchor(tmp_path: Path) -> None:
     write_shards([anchored], fresh, run_date="2026-07-09")
     summary2 = json.loads((fresh / "summary.json").read_text())
     assert [p["id"] for p in summary2["top_longest_pending"]] == ["SKS-2026-TG-000001"]
-    assert summary2["jurisdictions"][0]["median_pending_days"] == 25
+    assert _jurisdictions(fresh)[0]["median_pending_days"] == 25
 
 
-def test_summary_jurisdictions_are_capped_and_trim_by_status(tmp_path: Path) -> None:
-    """jurisdictions is the only unbounded summary section — cap it (worst-first) so
-    summary.json can never overflow SUMMARY_MAX_BYTES and abort the run, and drop the
-    unused by_status dict to keep cards lean."""
+def test_jurisdictions_are_uncapped_and_outside_the_summary_budget(tmp_path: Path) -> None:
+    """The scorecard counts EVERY district — a cap once dropped a whole state's records and
+    blocked publication (2026-10). It lives in jurisdictions.json, so however many districts
+    are covered, summary.json stays within SUMMARY_MAX_BYTES; cards stay lean (no by_status)."""
     recs = [
         _record(cnr=f"C-{i}", district=f"DISTRICT-{i:03d}", offence_sections=["IPC 376"])
-        for i in range(200)
+        for i in range(800)  # more districts than India has (~780)
     ]
     write_shards(recs, tmp_path, run_date="2026-07-09")
+    rows = _jurisdictions(tmp_path)
+    assert len(rows) == 800
+    assert sum(r["total"] for r in rows) == 800
+    assert "by_status" not in rows[0]  # trimmed
     summary = json.loads((tmp_path / "summary.json").read_text())
-    assert len(summary["jurisdictions"]) == 120  # _MAX_JURISDICTIONS
-    assert "by_status" not in summary["jurisdictions"][0]  # trimmed
+    assert "jurisdictions" not in summary
     assert (tmp_path / "summary.json").stat().st_size < SUMMARY_MAX_BYTES
+
+
+def test_jurisdictions_rank_worst_first(tmp_path: Path) -> None:
+    recs = [
+        _record(cnr="C-1", district="FAKEPUR"),
+        _record(cnr="C-2", district="TESTVILLE"),
+        _record(cnr="C-3", district="TESTVILLE"),
+    ]
+    write_shards(recs, tmp_path, run_date="2026-07-09")
+    doc = json.loads((tmp_path / "jurisdictions.json").read_text())
+    assert doc["generated_at"] == "2026-07-09T00:00:00Z"
+    assert [(r["district"], r["total"]) for r in doc["jurisdictions"]] == [
+        ("TESTVILLE", 2),
+        ("FAKEPUR", 1),
+    ]
 
 
 def test_summary_scale_accumulates_ingestion_across_runs(tmp_path: Path) -> None:

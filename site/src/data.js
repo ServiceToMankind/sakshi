@@ -1,6 +1,7 @@
-// Data layer: base-path-aware fetch of summary.json, the shard manifest, and
-// per-state shards, with an in-memory cache and typed errors so views can render
-// precise empty/degraded states. Nothing here mutates data; it only reads.
+// Data layer: base-path-aware fetch of summary.json, the shard manifest, the
+// jurisdiction scorecard, and per-state shards, with an in-memory cache and typed
+// errors so views can render precise empty/degraded states. Nothing here mutates
+// data; it only reads.
 
 const BASE = import.meta.env.BASE_URL || '/';
 const DATA = `${BASE}data`;
@@ -46,6 +47,16 @@ export function loadRecent() {
 
 export function loadIndex() {
   return getJSON(`${DATA}/index.json`);
+}
+
+/**
+ * The full per-(state, district) scorecard (data/jurisdictions.json), worst-first and
+ * uncapped — every published record is counted in exactly one row. Kept out of
+ * summary.json so the landing payload stays small however many districts are covered.
+ */
+export async function loadJurisdictions() {
+  const doc = await getJSON(`${DATA}/jurisdictions.json`);
+  return Array.isArray(doc.jurisdictions) ? doc.jurisdictions : [];
 }
 
 /** Per-state coverage + the trackability rate (data/coverage.json, §3). */
