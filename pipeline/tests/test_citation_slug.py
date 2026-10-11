@@ -47,3 +47,20 @@ def test_query_and_host_are_ignored() -> None:
     """Only the PATH is scanned — a host or query string never triggers the flag."""
     assert url_carries_identifying_slug("https://girl.example.invalid/doc/123") is False
     assert url_carries_identifying_slug("https://example.invalid/doc/123?ref=girl") is False
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "https://example.invalid/assault-near-fakepur-kunj-park",  # neighbourhood word
+        "https://example.invalid/news/fake-nagar-woman-case",
+        "https://example.invalid/mandir-premises-case-filed",
+        "https://example.invalid/ashram-head-arrested",
+        "https://example.invalid/university-professor-suspended",
+        "https://example.invalid/mp-consoles-fakename-family",  # "family" next to a name
+    ],
+)
+def test_place_institution_and_family_words_are_flagged(url: str) -> None:
+    """Issue #255: these words in a link usually point to where it happened or who the
+    victim's family is, so the link is shown only as the publisher's name."""
+    assert url_carries_identifying_slug(url) is True

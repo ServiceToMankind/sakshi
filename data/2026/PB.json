@@ -40,7 +40,8 @@
         "publisher": "Amar Ujala",
         "retrieved": "2026-09-27",
         "source_type": "news_article",
-        "url": "https://www.amarujala.com/punjab/jalandhar/female-student-sexual-harassment-lovely-professional-university-uproar-among-students-over-rumors-of-suicide-2026-09-27"
+        "url": "https://www.amarujala.com/punjab/jalandhar/female-student-sexual-harassment-lovely-professional-university-uproar-among-students-over-rumors-of-suicide-2026-09-27",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "PB",

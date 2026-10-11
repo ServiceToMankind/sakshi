@@ -35,7 +35,8 @@
         "publisher": "Jharkhand High Court",
         "retrieved": "2026-08-20",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/195593805/"
+        "url": "https://indiankanoon.org/doc/195593805/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "JH",

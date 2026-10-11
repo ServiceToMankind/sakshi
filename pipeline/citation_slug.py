@@ -43,7 +43,10 @@ _IDENTIFYING = re.compile(
     r"guardian|relatives?|husband|maternal|paternal|caretaker|caregiver|warden|principal|"
     r"priest|"
     # institution / sub-district-scale locality
-    r"school|college|hostel|orphanage|madrasa|convent|tuition|anganwadi|creche"
+    r"school|college|hostel|orphanage|madrasa|convent|tuition|anganwadi|creche|"
+    r"university|vidyalaya|hospital|ashram|"
+    # neighbourhood-style place words and family (issue #255)
+    r"nagar|colony|vihar|kunj|puram|mohalla|basti|mandir|temple|masjid|village|gaon|family"
     r")\b",
     re.I,
 )

@@ -51,7 +51,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-13",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/national/child-raped-toilet-cleaner-poured-on-her-man-gets-death-in-rarest-case-in-chhattisgarhs-durg-district-2509576"
+        "url": "https://www.ntnews.com/national/child-raped-toilet-cleaner-poured-on-her-man-gets-death-in-rarest-case-in-chhattisgarhs-durg-district-2509576",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "CT",

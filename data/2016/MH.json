@@ -20,13 +20,15 @@
         "publisher": "LiveLaw",
         "retrieved": "2026-09-25",
         "source_type": "legal_press",
-        "url": "https://www.livelaw.in/high-court/bombay-high-court/2016-kopardi-gang-rape-case-bombay-high-court-judges-to-visit-spot-of-incident-before-hearing-final-arguments-in-death-reference-551727"
+        "url": "https://www.livelaw.in/high-court/bombay-high-court/2016-kopardi-gang-rape-case-bombay-high-court-judges-to-visit-spot-of-incident-before-hearing-final-arguments-in-death-reference-551727",
+        "url_carries_identifying_slug": true
       },
       {
         "publisher": "The Indian Express",
         "retrieved": "2026-09-25",
         "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/mumbai/kopardi-rape-case-bombay-hc-judges-visit-crime-scene-8956103/"
+        "url": "https://indianexpress.com/article/cities/mumbai/kopardi-rape-case-bombay-hc-judges-visit-crime-scene-8956103/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "MH",

@@ -157,7 +157,8 @@
         "publisher": "The Indian Express",
         "retrieved": "2026-07-14",
         "source_type": "news_article",
-        "url": "https://indianexpress.com/article/cities/delhi/gurgaon-child-sexual-assault-case-parents-challenge-sit-probe-in-court-10782114/"
+        "url": "https://indianexpress.com/article/cities/delhi/gurgaon-child-sexual-assault-case-parents-challenge-sit-probe-in-court-10782114/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "HR",

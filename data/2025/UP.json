@@ -21,7 +21,8 @@
         "publisher": "Dainik Bhaskar",
         "retrieved": "2026-09-20",
         "source_type": "news_article",
-        "url": "https://www.bhaskar.com/bhaskar-khaas/bhaskar-explainer/news/surendra-koli-nithari-case-death-greater-noida-jail-suicide-139081578.html"
+        "url": "https://www.bhaskar.com/bhaskar-khaas/bhaskar-explainer/news/surendra-koli-nithari-case-death-greater-noida-jail-suicide-139081578.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "UP",

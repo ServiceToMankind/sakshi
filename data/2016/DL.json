@@ -36,7 +36,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-08-15",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/130122058/"
+        "url": "https://indiankanoon.org/doc/130122058/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -82,7 +83,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75512082026CRLA5732026_194524.pdf"
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75512082026CRLA5732026_194524.pdf",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

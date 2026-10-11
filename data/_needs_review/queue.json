@@ -23,7 +23,8 @@
           "publisher": "Hindustan Times",
           "retrieved": "2026-09-01",
           "source_type": "news_article",
-          "url": "https://www.hindustantimes.com/india-news/5-convicts-in-2024-bhayli-gang-rape-case-get-life-imprisonment-101788174691284.html"
+          "url": "https://www.hindustantimes.com/india-news/5-convicts-in-2024-bhayli-gang-rape-case-get-life-imprisonment-101788174691284.html",
+          "url_carries_identifying_slug": true
         }
       ],
       "state": "GJ",
@@ -59,7 +60,8 @@
           "url": "https://www.ntnews.com/andhrapradesh-news/son-in-law-arrested-for-threatening-mother-in-law-in-chittoor-district-2531178",
           "publisher": "Namasthe Telangana",
           "source_type": "news_article",
-          "retrieved": "2026-10-11"
+          "retrieved": "2026-10-11",
+          "url_carries_identifying_slug": true
         }
       ],
       "verified": false,

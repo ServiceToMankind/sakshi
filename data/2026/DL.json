@@ -165,7 +165,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-10-04",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/dda-moves-to-secure-aastha-kunj-weeks-after-rape-tenders-cctv-floodlights-101791022969469.html"
+        "url": "https://www.hindustantimes.com/india-news/dda-moves-to-secure-aastha-kunj-weeks-after-rape-tenders-cctv-floodlights-101791022969469.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -189,7 +190,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-10-05",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/after-gangrape-dda-identifies-30-cctv-locations-at-aastha-kunj-101791113586587.html"
+        "url": "https://www.hindustantimes.com/india-news/after-gangrape-dda-identifies-30-cctv-locations-at-aastha-kunj-101791113586587.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -220,7 +222,8 @@
         "publisher": "Dainik Bhaskar",
         "retrieved": "2026-10-09",
         "source_type": "news_article",
-        "url": "https://www.bhaskar.com/db-original/news/delhi-ashram-rape-story-virendra-dev-dixit-adhyatmik-vishwa-vidyalaya-sexual-assault-amol-kokane-139284420.html"
+        "url": "https://www.bhaskar.com/db-original/news/delhi-ashram-rape-story-virendra-dev-dixit-adhyatmik-vishwa-vidyalaya-sexual-assault-amol-kokane-139284420.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -404,7 +407,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-07",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/national/10-new-delhi-jnu-students-allege-sexual-harassment-by-professor-university-icc-begins-probe-2503867"
+        "url": "https://www.ntnews.com/national/10-new-delhi-jnu-students-allege-sexual-harassment-by-professor-university-icc-begins-probe-2503867",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -461,7 +465,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-09-20",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/delhi-teen-gangrape-murder-police-assumed-genitals-were-chopped-off-body-mistaken-for-a-mans-swaroop-nagar-minor-101789782131074.html"
+        "url": "https://www.hindustantimes.com/india-news/delhi-teen-gangrape-murder-police-assumed-genitals-were-chopped-off-body-mistaken-for-a-mans-swaroop-nagar-minor-101789782131074.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -531,7 +536,8 @@
         "publisher": "Dainik Bhaskar",
         "retrieved": "2026-09-19",
         "source_type": "news_article",
-        "url": "https://www.bhaskar.com/bhaskar-khaas/bhaskar-explainer/news/delhi-gang-rape-murder-case-explained-juveniles-sexual-crime-posco-records-swaroop-nagar-139071000.html"
+        "url": "https://www.bhaskar.com/bhaskar-khaas/bhaskar-explainer/news/delhi-gang-rape-murder-case-explained-juveniles-sexual-crime-posco-records-swaroop-nagar-139071000.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -585,7 +591,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-09-24",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/delhi/police-probe-if-aastha-kunj-park-was-hunting-ground-of-rape-accused/articleshow/134449043.cms"
+        "url": "https://timesofindia.indiatimes.com/city/delhi/police-probe-if-aastha-kunj-park-was-hunting-ground-of-rape-accused/articleshow/134449043.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -628,7 +635,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-09-23",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/chandigarh/kazakh-cycling-coach-faces-fir-for-minors-rape/articleshow/134412936.cms"
+        "url": "https://timesofindia.indiatimes.com/city/chandigarh/kazakh-cycling-coach-faces-fir-for-minors-rape/articleshow/134412936.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -689,7 +697,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-09-27",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/no-personal-law-immunity-from-pocso-case-for-sex-with-minor-wife-delhi-hc-101790449839959.html"
+        "url": "https://www.hindustantimes.com/india-news/no-personal-law-immunity-from-pocso-case-for-sex-with-minor-wife-delhi-hc-101790449839959.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -789,7 +798,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-10-11",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/greater-noida-delhi-gang-rape-minor-pari-chowk-kashmere-gate-delhi-police-up-police-101788226668795.html"
+        "url": "https://www.hindustantimes.com/india-news/greater-noida-delhi-gang-rape-minor-pari-chowk-kashmere-gate-delhi-police-up-police-101788226668795.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -1036,7 +1046,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-08-06",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/158939006/"
+        "url": "https://indiankanoon.org/doc/158939006/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -1068,7 +1079,8 @@
         "publisher": "The Hindu",
         "retrieved": "2026-08-08",
         "source_type": "news_article",
-        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-hc-refuses-to-quash-case-against-doctor-for-aborting-minors-pregnancy-not-reporting-it/article71313447.ece"
+        "url": "https://www.thehindu.com/news/cities/Delhi/delhi-hc-refuses-to-quash-case-against-doctor-for-aborting-minors-pregnancy-not-reporting-it/article71313447.ece",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -1259,7 +1271,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-07-19",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/141261189/"
+        "url": "https://indiankanoon.org/doc/141261189/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -1290,7 +1303,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-07-24",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/81023124/"
+        "url": "https://indiankanoon.org/doc/81023124/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -1334,7 +1348,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-10-11",
         "source_type": "court",
-        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59205102026BA27402026_205230.pdf"
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59205102026BA27402026_205230.pdf",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

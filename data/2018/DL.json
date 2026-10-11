@@ -19,7 +19,8 @@
         "publisher": "Delhi High Court",
         "retrieved": "2026-07-19",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/141261189/"
+        "url": "https://indiankanoon.org/doc/141261189/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",
@@ -47,7 +48,8 @@
         "publisher": "The Times of India",
         "retrieved": "2026-08-29",
         "source_type": "news_article",
-        "url": "https://timesofindia.indiatimes.com/city/delhi/a-pocso-case-a-man-in-coma-a-murdered-model-delhi-gym-trainer-imrans-trail-of-violence-across-8-years/articleshow/133604273.cms"
+        "url": "https://timesofindia.indiatimes.com/city/delhi/a-pocso-case-a-man-in-coma-a-murdered-model-delhi-gym-trainer-imrans-trail-of-violence-across-8-years/articleshow/133604273.cms",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "DL",

@@ -46,7 +46,8 @@
         "publisher": "Hindustan Times",
         "retrieved": "2026-10-05",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/shop-owner-brothers-held-for-repeatedly-raping-teen-in-darjeeling-cops-say-survivor-pregnant-blackmailed-with-videos-101791169718559.html"
+        "url": "https://www.hindustantimes.com/india-news/shop-owner-brothers-held-for-repeatedly-raping-teen-in-darjeeling-cops-say-survivor-pregnant-blackmailed-with-videos-101791169718559.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "WB",

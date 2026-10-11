@@ -33,13 +33,15 @@
         "publisher": "Madras High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/133566175/"
+        "url": "https://indiankanoon.org/doc/133566175/",
+        "url_carries_identifying_slug": true
       },
       {
         "publisher": "Madras High Court",
         "retrieved": "2026-08-13",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/120858260/"
+        "url": "https://indiankanoon.org/doc/120858260/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",
@@ -82,7 +84,8 @@
         "publisher": "Madras High Court",
         "retrieved": "2026-08-13",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/133566175/"
+        "url": "https://indiankanoon.org/doc/133566175/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",
@@ -132,7 +135,8 @@
         "publisher": "Madras High Court",
         "retrieved": "2026-08-12",
         "source_type": "court",
-        "url": "https://indiankanoon.org/doc/139824707/"
+        "url": "https://indiankanoon.org/doc/139824707/",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "TN",

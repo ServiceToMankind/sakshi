@@ -16,7 +16,8 @@
         "publisher": "Namasthe Telangana",
         "retrieved": "2026-09-27",
         "source_type": "news_article",
-        "url": "https://www.ntnews.com/news/jk-high-court-allows-abortion-beyond-24-week-limit-in-exceptional-case-2520911"
+        "url": "https://www.ntnews.com/news/jk-high-court-allows-abortion-beyond-24-week-limit-in-exceptional-case-2520911",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "JK",
@@ -44,7 +45,8 @@
         "publisher": "Amar Ujala",
         "retrieved": "2026-08-22",
         "source_type": "news_article",
-        "url": "https://www.amarujala.com/jammu/student-in-kishtwar-dies-after-condition-worsens-during-abortion-2026-08-22"
+        "url": "https://www.amarujala.com/jammu/student-in-kishtwar-dies-after-condition-worsens-during-abortion-2026-08-22",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "JK",
