@@ -1634,6 +1634,56 @@ def test_held_record_persists_in_auto_mode_without_staged_dir(
     )
 
 
+def test_held_record_persists_when_staged_dir_is_set_but_absent(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The workflow exports STAGED_DIR even when there was no data-staging branch to archive
+    (both launch modes restore carryover now). "Set" is not "present": with no archive on
+    disk the committed queue on data_dir must still carry a held record forward."""
+    monkeypatch.setenv("STAGED_DIR", str(tmp_path / "no-such-archive" / "data"))
+    doc = [
+        RawDocument(
+            url="https://ex.invalid/held-absent-archive",
+            publisher="eCourts",
+            fetched_at="2026-07-09",
+            text="a rape case",
+        )
+    ]
+    payload = json.dumps(
+        {
+            "category": "pocso",
+            "state": "TG",
+            "district": "TESTVILLE",
+            "status": "UNDER_TRIAL",
+            "minor_involved": True,
+            "cnr": "C-HELD-2",
+            "in_scope": True,
+            "confidence": 0.95,
+        }
+    )
+    logs = tmp_path / "logs"
+    r1 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-09",
+        out=io.StringIO(),
+        docs=doc,
+        extract_client=_FakeGemini(payload),
+    )
+    assert r1.needs_review == 1
+    r2 = orchestrator.run(
+        dry_run=False,
+        data_dir=tmp_path,
+        logs_dir=logs,
+        run_date="2026-07-10",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(payload),
+    )
+    assert r2.needs_review == 1
+
+
 def test_review_doc_not_settled_by_collision_with_published(tmp_path: Path) -> None:
     """A quarantined review doc whose sanitised url collides with an on-main published
     record must still re-surface, not settle 'published' and vanish."""

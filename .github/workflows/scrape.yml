@@ -148,9 +148,13 @@ jobs:
       # Restore the PRIOR staged (not-yet-on-main) records from data-staging into a
       # side dir, so the pipeline folds them back into the tree even if their source
       # rolled off the feed or fails re-extraction — a force-push can never lose them.
-      # Staged mode only (auto mode commits straight to main).
+      # BOTH modes: auto mode also publishes through data-staging (PR + in-job gate), so
+      # a run whose gate fails leaves its new records ONLY there. Without this restore
+      # the next run force-pushed over them (2026-10-07..11: ~19 extracted cases lost to
+      # a count-guard failure). After a successful merge data-staging == main, so the
+      # restore is a no-op; corrections (takedowns) still apply to carried records.
       - name: Restore staged carryover from data-staging
-        if: env.DRY_RUN != 'true' && env.LAUNCH_MODE != 'auto'
+        if: env.DRY_RUN != 'true'
         run: |
           STAGED="${RUNNER_TEMP}/staged"
           mkdir -p "$STAGED"
@@ -310,8 +314,11 @@ jobs:
           git checkout -B "$BRANCH"
           git add data/
           # The ledger lives on the ledger-state branch, never in the review PR —
-          # keep data/_meta out so the PR shows only reviewable case data.
+          # keep data/_meta out so the PR shows only reviewable case data. EXCEPT the
+          # serial high-water-mark (#29): it must reach main or a freed serial can be
+          # re-minted (it only changes when a new id is minted, so it adds no churn).
           git reset -q -- data/_meta 2>/dev/null || true
+          git add data/_meta/serials.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No data changes to stage — nothing to review."
             exit 0
@@ -367,8 +374,11 @@ jobs:
           DATE="$(date +%F)"; BRANCH="data-staging"
           git checkout -B "$BRANCH"
           git add data/
-          # The ledger is never part of the published tree — keep data/_meta out.
+          # The ledger is never part of the published tree — keep data/_meta out, EXCEPT
+          # the serial high-water-mark (#29), which must reach main so a freed serial is
+          # never re-minted (it changes only when a new id is minted — no daily churn).
           git reset -q -- data/_meta 2>/dev/null || true
+          git add data/_meta/serials.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No data changes to publish — skipping checks, merge, and deploy."
             echo "changed=false" >> "$GITHUB_OUTPUT"
@@ -428,9 +438,17 @@ jobs:
           VERIFY_MODEL: ""
           GEMINI_MODELS: ""
         run: |
+          set -o pipefail  # the gate's verdict is make's exit status, not tee's
           python -m pip install -e '.[dev]'
           ( cd site && npm ci --no-audit --no-fund )
-          if ! make check PY=python; then
+          if ! make check PY=python 2>&1 | tee "$RUNNER_TEMP/gate_output.txt"; then
+            # A PII-free summary for the failure issue: only the failing make TARGET names and
+            # the count guard's findings (aggregate counts/state codes/ids by construction).
+            # NEVER other guard output — a pii_guard finding could quote the offending value.
+            {
+              grep -oE '\[Makefile:[0-9]+: [a-z-]+\]' "$RUNNER_TEMP/gate_output.txt" | sed -E 's/.*: ([a-z-]+)\]/failed gate: \1/' | grep -v ': check$' | sort -u
+              sed -n '/^COUNT GUARD FAILED/,/^[^ ]/p' "$RUNNER_TEMP/gate_output.txt" | grep '^  ' | cut -c1-300
+            } > logs/gate_failure.txt || true
             echo "::error::make check FAILED on the staged tree — NOT publishing. PR #${{ steps.publish_stage.outputs.pr_number }} left open for a human."
             exit 1
           fi
@@ -545,6 +563,7 @@ jobs:
             ERRS="$(jq -r '(.error_samples // []) | join(" | ")' logs/gemini_cost.json | cut -c1-200)"
           fi
           [ "${{ job.status }}" = "failure" ] && STATUS="RUN FAILED"
+          [ "${{ job.status }}" = "cancelled" ] && STATUS="RUN CANCELLED (timeout?)"
           INSCOPE=$((PUBLISHED + NEEDS_REVIEW + REVIEW))
           SCOPE="states=${LAUNCH_STATES:-<UNSET!>} · lookback=${LAUNCH_LOOKBACK_DAYS:-<none>}d"
           # Verifier line (guardrail L) — shown only when the verifier ran this cycle.
@@ -575,14 +594,24 @@ jobs:
           gh issue comment "${{ vars.OPS_ISSUE }}" --body "$BODY"
 
       - name: Open issue on failure, large review queue, or budget exhaustion
-        if: always() && (failure() || fromJSON(steps.counts.outputs.review || '0') > 20 || steps.counts.outputs.budget_exhausted == '1')
+        if: always() && (failure() || cancelled() || fromJSON(steps.counts.outputs.review || '0') > 20 || steps.counts.outputs.budget_exhausted == '1')
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           DATE="$(date +%F)"
-          if [ "${{ job.status }}" = "failure" ]; then
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          if [ "${{ job.status }}" = "failure" ] || [ "${{ job.status }}" = "cancelled" ]; then
             TITLE="Pipeline run failed — ${DATE}"
-            BODY="The pipeline failed on ${DATE}. See the run logs artifact and the [run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+            BODY="The pipeline run on ${DATE} ended **${{ job.status }}**. See the run logs artifact and the [run](${RUN_URL})."
+            if [ -s logs/gate_failure.txt ]; then
+              BODY="$(printf '%s\n\nThe publish gate (`make check` on the staged tree) failed — nothing was published; the staged records persist on `data-staging` and are carried into the next run:\n```\n%s\n```' "$BODY" "$(cat logs/gate_failure.txt)")"
+            fi
+            # One open issue per failure STREAK: comment on it rather than opening a duplicate
+            # every day (2026-10-07..11 opened four identical issues for one root cause).
+            OPEN="$(gh issue list --label pipeline --state open --search 'in:title "Pipeline run failed"' --json number --jq '.[0].number' 2>/dev/null || true)"
+            if [ -n "$OPEN" ]; then
+              gh issue comment "$OPEN" --body "$BODY" && exit 0
+            fi
           elif [ "${{ steps.counts.outputs.budget_exhausted }}" = "1" ]; then
             TITLE="Monthly Gemini budget exhausted — ${DATE}"
             BODY="The monthly Gemini spend cap has been reached, so the ${DATE} run made NO new paid calls (extraction skipped — no records lost, existing data regenerated). Extraction resumes automatically next calendar month, or raise MONTHLY_MAX_USD to lift the cap. See the [run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
