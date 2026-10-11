@@ -23,6 +23,7 @@ import os
 import sys
 import tempfile
 from collections import Counter
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date
 from functools import reduce
@@ -153,14 +154,17 @@ def source_alerts(court_prefilter: list[dict[str, Any]]) -> list[str]:
 
 
 async def _fetch_all(
-    client: PoliteClient, fetched_at: str, court_only: bool = False
+    client: PoliteClient,
+    fetched_at: str,
+    court_only: bool = False,
+    seen: Callable[[str], bool] | None = None,
 ) -> tuple[list[RawDocument], list[dict[str, Any]]]:
     """Fetch from every ENABLED source (sources.yml) with one polite client, collecting each
     source's pre-filter stats for the health accounting. ``court_only`` (refresh mode)
     restricts to court-record sources."""
     docs: list[RawDocument] = []
     prefilter: list[dict[str, Any]] = []
-    for source in build_sources(client, fetched_at=fetched_at, court_only=court_only):
+    for source in build_sources(client, fetched_at=fetched_at, court_only=court_only, seen=seen):
         label = getattr(source, "SOURCE_LABEL", type(source).__name__)
         try:
             docs.extend(await source.fetch())
@@ -182,11 +186,11 @@ async def _fetch_all(
 
 
 def _fetch_documents(
-    fetched_at: str, court_only: bool = False
+    fetched_at: str, court_only: bool = False, seen: Callable[[str], bool] | None = None
 ) -> tuple[list[RawDocument], list[dict[str, Any]]]:  # pragma: no cover - network I/O
     async def _go() -> tuple[list[RawDocument], list[dict[str, Any]]]:
         async with PoliteClient() as client:
-            return await _fetch_all(client, fetched_at, court_only=court_only)
+            return await _fetch_all(client, fetched_at, court_only=court_only, seen=seen)
 
     return asyncio.run(_go())
 
@@ -1066,16 +1070,20 @@ def run(
         report.estimated_usd = _illustrative_cost(raw_docs)
         _log(report, f"dry-run: {len(extractions)} fixture extractions (no network, no Gemini)")
     else:
+        # Skip documents already settled in prior runs so the budget goes to the
+        # backlog TAIL — turns provider degradation into delay, not lost coverage. Loaded
+        # before fetching so a paid source (Indian Kanoon) can skip judgments we already handled.
+        ledger = load_ledger(data_dir)
         if docs is not None:
             raw_docs, court_prefilter = docs, []
         else:
-            raw_docs, court_prefilter = _fetch_documents(run_date, court_only=is_refresh)
+            settled = ledger
+            raw_docs, court_prefilter = _fetch_documents(
+                run_date, court_only=is_refresh, seen=lambda url: not settled.should_process(url)
+            )
         report.source_alerts = source_alerts(court_prefilter)
         for alert in report.source_alerts:
             _log(report, f"SOURCE ALERT: {alert}")
-        # Skip documents already settled in prior runs so the budget goes to the
-        # backlog TAIL — turns provider degradation into delay, not lost coverage.
-        ledger = load_ledger(data_dir)
         # Canonicalise state codes (TS->TG, ...) on load so a state is never split across
         # two codes in ids/shards/scorecards. An existing record whose state changes has
         # its id cleared so write_shards re-mints a matching one (see _canonicalize_state).

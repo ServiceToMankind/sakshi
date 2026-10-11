@@ -28,7 +28,7 @@ from __future__ import annotations
 import json
 import os
 import re
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from datetime import date
 
 from pipeline import config
@@ -39,6 +39,7 @@ from pipeline.sources.http import HttpPoster
 __all__ = [
     "IndianKanoonSource",
     "hit_qualifies",
+    "newest_first",
     "parse_search_hits",
     "render_judgment_text",
 ]
@@ -63,6 +64,15 @@ _OFFENCE_KEYWORDS_RE = re.compile(
 def _api_token() -> str | None:
     token = os.environ.get("INDIANKANOON_API_TOKEN", "").strip()
     return token or None
+
+
+def newest_first(query: str) -> str:
+    """Ask Indian Kanoon for the newest judgments first, unless the query already sorts.
+
+    Without this, results come in "relevance" order, and we only read the first page or two,
+    so the same older judgments came back every day and new ones could be missed.
+    """
+    return query if "sortby:" in query else f"{query} sortby:mostrecent"
 
 
 def hit_qualifies(text: str) -> bool:
@@ -151,9 +161,12 @@ class IndianKanoonSource:
         publisher: str = "Indian Kanoon",
         fetched_at: str | None = None,
         token: str | None = None,
+        seen: Callable[[str], bool] | None = None,
     ) -> None:
         self._client = client
         self._queries = queries
+        # Tells us a judgment was already handled in an earlier run, so we don't pay for it again.
+        self._seen = seen or (lambda _url: False)
         self._publisher = publisher
         self._fetched_at = fetched_at or date.today().isoformat()
         self._token = token if token is not None else _api_token()
@@ -167,6 +180,8 @@ class IndianKanoonSource:
             "search_errors": 0,
             "doc_errors": 0,
             "error_status": 0,
+            "already_seen": 0,
+            "pages": 0,
         }
 
     async def fetch(self) -> list[RawDocument]:
@@ -183,20 +198,40 @@ class IndianKanoonSource:
         for query in self._queries:
             if len(docs) >= config.IK_MAX_DOCS_PER_RUN:
                 break
+            if await self._search(newest_first(query), headers, docs) == "stop":
+                break
+        return docs[: config.IK_MAX_DOCS_PER_RUN]
+
+    async def _search(self, query: str, headers: dict[str, str], docs: list[RawDocument]) -> str:
+        """Read one court's results newest first, page by page. We stop at the first page that
+        has a judgment we've already handled (everything after it is older), at an empty page,
+        at the page limit, or when the run's download budget is used up. Returns "stop" if the
+        API refused us, so the remaining courts aren't tried either."""
+        for page in range(config.IK_MAX_PAGES_PER_QUERY):
             response = await self._client.post(
-                _SEARCH_URL, data={"formInput": query, "pagenum": "0"}, headers=headers
+                _SEARCH_URL, data={"formInput": query, "pagenum": str(page)}, headers=headers
             )
             if response is None or response.status_code != 200:
                 self.stats["search_errors"] += 1
                 if response is not None:
                     self.stats["error_status"] = int(response.status_code)
                     if response.status_code in (401, 403):
-                        break  # a rejected key fails every search, so stop after the first
-                continue
-            for hit in parse_search_hits(response.text):
+                        return "stop"  # a rejected key fails every search, so stop here
+                return "next"
+            hits = parse_search_hits(response.text)
+            if not hits:
+                return "next"
+            self.stats["pages"] += 1
+            reached_seen = False
+            for hit in hits:
                 if len(docs) >= config.IK_MAX_DOCS_PER_RUN:
-                    break
+                    return "next"
                 self.stats["hits"] += 1
+                url = f"https://indiankanoon.org/doc/{hit['tid']}/"
+                if self._seen(url):
+                    self.stats["already_seen"] += 1
+                    reached_seen = True
+                    continue  # handled in an earlier run; don't pay to download it again
                 if not hit_qualifies(f"{hit['title']} {hit['headline']}"):
                     continue  # pre-filter: skip the paid doc fetch for an off-topic hit
                 self.stats["qualifying"] += 1
@@ -212,13 +247,15 @@ class IndianKanoonSource:
                     continue
                 docs.append(
                     RawDocument(
-                        url=f"https://indiankanoon.org/doc/{hit['tid']}/",
+                        url=url,
                         publisher=_doc_publisher(hit["docsource"], self._publisher),
                         fetched_at=self._fetched_at,
                         text=text,
                     )
                 )
-        return docs[: config.IK_MAX_DOCS_PER_RUN]
+            if reached_seen:
+                return "next"  # newest first, so everything older has been handled too
+        return "next"
 
     def _judgment_text(self, payload: str, hit: dict[str, str]) -> str:
         """Parse a /doc/ payload to judgment text, falling back to the hit's docsource/date

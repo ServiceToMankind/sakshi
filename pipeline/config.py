@@ -49,6 +49,10 @@ LIVE_BLOG_CONFIDENCE_CAP: Final[float] = 0.79
 # (the shared PoliteClient additionally honours 2s/host + 429 Retry-After). Keep
 # conservative; raise only with an eye on the bill.
 IK_MAX_DOCS_PER_RUN: Final[int] = 100
+# Searches are sorted newest first, and we read back up to this many pages of 10 results per
+# court, stopping early at a page we have already seen in full. One page a day is usual; the
+# extra pages let the first run after an outage catch up on what it missed.
+IK_MAX_PAGES_PER_QUERY: Final[int] = 5
 # Max characters of an Indian Kanoon JUDGMENT body kept in memory (HIGH-PII bound + Gemini
 # cost cap). A judgment is fetched from /doc/{tid}/ only after its search hit clears the local
 # statute pre-filter, so only qualifying documents are billed. Generous enough to hold the

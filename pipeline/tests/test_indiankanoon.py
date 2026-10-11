@@ -17,6 +17,7 @@ import pytest
 from pipeline.sources.indiankanoon import (
     IndianKanoonSource,
     hit_qualifies,
+    newest_first,
     parse_search_hits,
     render_judgment_text,
 )
@@ -55,14 +56,27 @@ _DOC_JSON = json.dumps(
 
 
 class _FakePoster:
-    """Maps a URL to (status, text). /doc/ URLs share one canned doc unless overridden."""
+    """Maps a URL to (status, text). /doc/ URLs share one canned doc unless overridden.
 
-    def __init__(self, search: str, doc: str, *, search_status: int = 200, doc_status: int = 200):
-        self._search = search
+    Like the real API, each search page returns different results: ``pages`` lists the result
+    payload per page number, and any page past the end comes back empty.
+    """
+
+    def __init__(
+        self,
+        search: str,
+        doc: str,
+        *,
+        search_status: int = 200,
+        doc_status: int = 200,
+        pages: list[str] | None = None,
+    ):
+        self._pages = pages if pages is not None else [search]
         self._doc = doc
         self._search_status = search_status
         self._doc_status = doc_status
         self.calls: list[str] = []
+        self.search_forms: list[dict[str, str]] = []
 
     async def post(
         self,
@@ -73,7 +87,11 @@ class _FakePoster:
     ) -> httpx.Response:
         self.calls.append(url)
         if url.endswith("/search/"):
-            return httpx.Response(self._search_status, text=self._search)
+            form = dict(data or {})
+            self.search_forms.append(form)
+            page = int(form.get("pagenum", "0"))
+            text = self._pages[page] if page < len(self._pages) else json.dumps({"docs": []})
+            return httpx.Response(self._search_status, text=text)
         return httpx.Response(self._doc_status, text=self._doc)
 
 
@@ -156,10 +174,12 @@ def test_fetch_prefilters_hits_and_fetches_only_qualifying_bodies() -> None:
     assert docs[0].url == "https://indiankanoon.org/doc/12345/"
     assert docs[0].publisher == "Delhi High Court"  # docsource -> court-grade (tier 1)
     assert "Section 376 IPC" in docs[0].text  # the JUDGMENT body, not a metadata snippet
-    # 1 search + 1 doc fetch (the off-topic hit 999 was NOT fetched -> not billed).
+    # Page 1: 1 search + 1 doc fetch (the off-topic hit 999 was NOT fetched -> not billed).
+    # Nothing on it was seen before, so we look at page 2, which is empty, and stop.
     assert poster.calls == [
         "https://api.indiankanoon.org/search/",
         "https://api.indiankanoon.org/doc/12345/",
+        "https://api.indiankanoon.org/search/",
     ]
     assert source.stats == {
         "hits": 2,
@@ -168,6 +188,8 @@ def test_fetch_prefilters_hits_and_fetches_only_qualifying_bodies() -> None:
         "search_errors": 0,
         "doc_errors": 0,
         "error_status": 0,
+        "already_seen": 0,
+        "pages": 1,
     }
 
 
@@ -209,6 +231,8 @@ def test_fetch_skips_non_200_doc() -> None:
         "search_errors": 0,
         "doc_errors": 1,
         "error_status": 404,
+        "already_seen": 0,
+        "pages": 1,
     }
 
 
@@ -246,3 +270,61 @@ def test_fetch_non_dict_doc_payload_skipped() -> None:
     source = IndianKanoonSource(poster, queries=("q",), fetched_at="2026-07-10", token="t")
     assert _run(source.fetch()) == []
     assert source.stats["fetched"] == 1
+
+
+def _hits_page(*tids: int) -> str:
+    return json.dumps(
+        {
+            "docs": [
+                {
+                    "tid": tid,
+                    "title": "State vs Accused",
+                    "docsource": "Delhi High Court",
+                    "publishdate": "2026-10-01",
+                    "headline": "conviction under BNS 64 (rape)",
+                }
+                for tid in tids
+            ]
+        }
+    )
+
+
+def test_searches_ask_for_the_newest_judgments_first() -> None:
+    poster = _FakePoster(_SEARCH_JSON, _DOC_JSON)
+    source = IndianKanoonSource(
+        poster, queries=("q doctypes:delhi",), fetched_at="2026-10-11", token="t"
+    )
+    _run(source.fetch())
+    assert poster.search_forms[0]["formInput"] == "q doctypes:delhi sortby:mostrecent"
+    assert newest_first("q sortby:leastrecent") == "q sortby:leastrecent"  # an explicit sort wins
+
+
+def test_already_handled_judgments_are_not_paid_for_again_and_paging_stops() -> None:
+    """Newest first: once a page has a judgment we handled before, everything after it is
+    older, so we stop there. We never pay to download a handled judgment twice."""
+    poster = _FakePoster(
+        "", _DOC_JSON, pages=[_hits_page(1, 2), _hits_page(3, 4), _hits_page(5, 6)]
+    )
+    handled = {"https://indiankanoon.org/doc/4/"}
+    source = IndianKanoonSource(
+        poster, queries=("q",), fetched_at="2026-10-11", token="t", seen=handled.__contains__
+    )
+    docs = _run(source.fetch())
+    assert [d.url for d in docs] == [
+        "https://indiankanoon.org/doc/1/",
+        "https://indiankanoon.org/doc/2/",
+        "https://indiankanoon.org/doc/3/",
+    ]
+    assert len(poster.search_forms) == 2  # page 3 is never requested
+    assert "https://api.indiankanoon.org/doc/4/" not in poster.calls
+    assert source.stats["already_seen"] == 1 and source.stats["pages"] == 2
+
+
+def test_paging_stops_at_the_page_limit(monkeypatch: pytest.MonkeyPatch) -> None:
+    from pipeline import config
+
+    monkeypatch.setattr(config, "IK_MAX_PAGES_PER_QUERY", 2)
+    poster = _FakePoster("", _DOC_JSON, pages=[_hits_page(1), _hits_page(2), _hits_page(3)])
+    source = IndianKanoonSource(poster, queries=("q",), fetched_at="2026-10-11", token="t")
+    _run(source.fetch())
+    assert len(poster.search_forms) == 2
