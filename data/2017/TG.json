@@ -1,0 +1,37 @@
+[
+  {
+    "accused_count": 4,
+    "category": "rape",
+    "confidence": 0.95,
+    "corrected": true,
+    "court": {
+      "name": "Karimnagar SC/ST Special Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3502,
+    "district": "Karimnagar",
+    "first_published": "2026-10-11",
+    "id": "SKS-2017-TG-000001",
+    "incident_reported_date": "2017-03-10",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/four-mans-sentenced-to-20-year-rigorous-imprisonment-2532790"
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "Four persons attacked and gang-raped a woman. The accused included a labor supplier and an auto driver. The incident took place in Karimnagar district. Police registered a case and investigated the crime. A special court convicted all four accused and sentenced them to 20 years in prison.",
+    "title": "Karimnagar court sentences four to 20 years in prison for gang rape",
+    "verification_note": "The source confirms the conviction of four individuals in a 2017 gang rape case by the Karimnagar SC/ST Special Court.",
+    "verified": true
+  }
+]

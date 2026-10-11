@@ -297,5 +297,37 @@
     "summary": "A case of child sexual offence in Patna, Bihar (2026). An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Patna (2026)",
     "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Jamui",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-BR-000012",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO",
+      "BNS"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/prashant-kishor-jan-suraaj-party-jd-u-leader-jamui-harassment-case-remark-bihar-news-nandan-yadav-101790068259391.html"
+      }
+    ],
+    "state": "BR",
+    "status": "FIR_FILED",
+    "summary": "An arrest was made in Jamui for the child sexual offence. A weapon or threat was involved. A special investigation team was formed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Jamui (2026)",
+    "verified": true,
+    "weapon_or_threat": true
   }
 ]

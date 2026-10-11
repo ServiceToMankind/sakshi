@@ -1,0 +1,10 @@
+record_id: SKS-2017-TG-000001
+author: KiranPranay
+date: "2026-10-11"
+overrides:
+  summary: "Four persons attacked and gang-raped a woman. The accused included a labor supplier and an auto driver. The incident took place in Karimnagar district. Police registered a case and investigated the crime. A special court convicted all four accused and sentenced them to 20 years in prison."
+reason: >
+  The summary named the town where the police station is. The district is the most
+  precise place we ever show, so I removed the town's name. Nothing else changed.
+resolution: >
+  Remove this file once the pipeline removes place names below district level on its own.

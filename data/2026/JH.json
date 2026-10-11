@@ -1,5 +1,36 @@
 [
   {
+    "accused_count": 6,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 2,
+    "district": "Latehar",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-JH-000009",
+    "incident_reported_date": "2026-10-09",
+    "institutional_actions": [
+      "sit_formed"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/jharkhand-tribal-woman-alleges-brutal-custodial-assault-101791540742669.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNKNOWN",
+    "summary": "Police personnel allegedly sexually harassed and assaulted a woman inside a police station in Latehar. The Jharkhand Police formed an internal investigation team to probe the incident. The matter remains under police investigation.",
+    "title": "Police personnel in Latehar accused of custodial sexual harassment",
+    "verification_note": "Approved as the source describes a reported case of custodial sexual harassment in Latehar, Jharkhand consistent with the candidate record.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,

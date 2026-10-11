@@ -70,6 +70,144 @@
   },
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Erode Women's Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 10,
+    "district": "Erode",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000026",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/5-years-in-prison-for-worker-who-sexually-harassed-girl-erode-womens-court-verdict",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was arrested in Erode for the child sexual offence. Police have filed a chargesheet. The accused was convicted. The court imposed a sentence of 5 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Erode (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 10,
+    "district": "Sivaganga",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000027",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/sivagangai-elderly-man-arrested-for-sexually-harassing-a-school-student-under-pocso",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Sivaganga for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Sivaganga (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 10,
+    "district": "Chennai",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000028",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/r-veeramani-booked-under-goondas-act-as-fourth-case-lodged-against-him-says-crime-branch-101790881521683.html"
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "Four people were arrested in Chennai for the child sexual offence. The accused is recorded as a repeat offender. A special investigation team was formed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Chennai (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Tiruvallur Special POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 10,
+    "district": "Tiruvallur",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000030",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 28,
+    "sources": [
+      {
+        "publisher": "Hindu Tamil Thisai",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindutamil.in/news/crime/elderly-person-got-28-years-imprisonment-for-sexual-harassment-case"
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "One person was arrested in Tiruvallur for the child sexual offence. A weapon or threat was involved. The accused was convicted. The court imposed a sentence of 28 years. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tiruvallur (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
     "days_since_reported": 30,
@@ -484,6 +622,72 @@
     "status": "UNDER_TRIAL",
     "summary": "One person was arrested in Tirunelveli for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Tirunelveli (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Tiruchirappalli",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000025",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/16-year-old-girl-raped-in-school-building",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "Four people were arrested in Tiruchirappalli for the child sexual offence. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tiruchirappalli (2026)",
+    "verified": true
+  },
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 40,
+    "district": "Chennai",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-TN-000029",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/tvk-ministers-accuse-previous-govt-of-covering-up-veeramani-case-dmk-hits-back-101790018688218.html"
+      }
+    ],
+    "state": "TN",
+    "status": "UNDER_TRIAL",
+    "summary": "Three people were arrested in Chennai for the child sexual offence. The accused is recorded as a repeat offender. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Chennai (2026)",
     "verified": true
   },
   {

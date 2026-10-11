@@ -1,5 +1,5 @@
 {
-  "aggravated_total": 40,
+  "aggravated_total": 43,
   "generated_at": "2026-10-11T00:00:00Z",
   "monthly_trend": [
     {
@@ -67,7 +67,7 @@
       "month": "2026-02"
     },
     {
-      "count": 6,
+      "count": 7,
       "month": "2026-03"
     },
     {
@@ -87,20 +87,20 @@
       "month": "2026-07"
     },
     {
-      "count": 51,
+      "count": 52,
       "month": "2026-08"
     },
     {
-      "count": 85,
+      "count": 92,
       "month": "2026-09"
     },
     {
-      "count": 19,
+      "count": 29,
       "month": "2026-10"
     }
   ],
   "scale": {
-    "cumulative_total": 231,
+    "cumulative_total": 251,
     "daily": [
       {
         "count": 0,
@@ -579,16 +579,16 @@
         "date": "2026-10-10"
       },
       {
-        "count": 0,
+        "count": 21,
         "date": "2026-10-11"
       }
     ],
-    "this_week": 13
+    "this_week": 34
   },
   "severity_counts": {
-    "Aggravated penetrative assault on a child": 29,
+    "Aggravated penetrative assault on a child": 32,
     "Assault to outrage modesty": 3,
-    "Child sexual offence": 33,
+    "Child sexual offence": 45,
     "Gang rape": 3,
     "Gang rape of a minor": 1,
     "Penetrative assault on a child": 4,
@@ -599,13 +599,13 @@
   "state_counts": {
     "AP": 1,
     "AS": 3,
-    "BR": 11,
-    "CT": 2,
-    "DL": 47,
+    "BR": 12,
+    "CT": 3,
+    "DL": 52,
     "GA": 4,
-    "GJ": 7,
+    "GJ": 8,
     "HR": 14,
-    "JH": 11,
+    "JH": 12,
     "JK": 2,
     "KA": 5,
     "KL": 1,
@@ -616,10 +616,10 @@
     "OD": 3,
     "PB": 5,
     "RJ": 3,
-    "TG": 34,
-    "TN": 33,
+    "TG": 38,
+    "TN": 39,
     "TR": 2,
-    "UP": 17,
+    "UP": 18,
     "WB": 5
   },
   "status_counts": {
@@ -627,11 +627,11 @@
     "APPEAL_PENDING": 12,
     "CHARGESHEETED": 1,
     "CLOSED": 1,
-    "CONVICTED": 36,
-    "FIR_FILED": 73,
+    "CONVICTED": 40,
+    "FIR_FILED": 86,
     "QUASHED": 2,
-    "UNDER_TRIAL": 39,
-    "UNKNOWN": 60
+    "UNDER_TRIAL": 41,
+    "UNKNOWN": 61
   },
   "top_longest_pending": [
     {
@@ -659,5 +659,5 @@
       "incident_reported_date": "2026-10-07"
     }
   ],
-  "total": 231
+  "total": 251
 }

@@ -193,6 +193,37 @@
   },
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 40,
+    "district": "Bulandshahr",
+    "first_published": "2026-10-11",
+    "id": "SKS-2026-UP-000014",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "The Times of India",
+        "retrieved": "2026-10-11",
+        "source_type": "news_article",
+        "url": "https://timesofindia.indiatimes.com/city/meerut/fresh-fir-against-swatantra-bhardwaj-under-pocso-act-how-influencer-tried-to-evade-police-in-up/articleshow/133783607.cms"
+      }
+    ],
+    "state": "UP",
+    "status": "FIR_FILED",
+    "summary": "One person was arrested in Bulandshahr for the child sexual offence. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Bulandshahr (2026)",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
     "days_since_reported": 42,
