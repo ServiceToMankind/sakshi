@@ -101,6 +101,10 @@ def _anchor_keys(record: dict[str, Any]) -> list[str]:
     ]
 
 
+def _source_urls(record: dict[str, Any]) -> set[str]:
+    return {str(s.get("url", "")) for s in record.get("sources") or [] if s.get("url")}
+
+
 def _year(record: dict[str, Any], run_date: str) -> str:
     reported = str(record.get("incident_reported_date", ""))
     if len(reported) >= 4 and reported[:4].isdigit():
@@ -354,6 +358,20 @@ def _assign_ids(
         )
     known_ids = set(idx.all_ids)  # ids that existed BEFORE this run (for new-vs-recheck)
     _seed_from_carryover(records, idx.key_to_id, idx.max_serial, idx.all_ids)
+    # Ids already held by a record IN THIS BATCH. Dedupe ran before us: if it had judged a fresh
+    # record the same case as a batch record it would have MERGED them into one. So a fresh
+    # record matching a batch-held id on the ANONYMOUS fallback anchor alone (state|district|
+    # date|sections|court — e.g. two "Unknown"-district POCSO cases in the same month) is a
+    # DISTINCT case and must mint its own id. Reusing it fused two cases onto one id; the
+    # collision resolver then quarantined one — a real case vanished and the permalink pointed
+    # at a different case (13 ids, 2026-08..10). Exact anchors (CNR/FIR) keep the conservative
+    # collision path: a shared CNR is a strong same-case signal for a human to resolve. So does
+    # a re-extraction of the SAME article (a shared source URL) — e.g. a staged record's doc
+    # re-surfacing while the record itself is carried over — never a second id for one article.
+    held_urls: dict[str, set[str]] = {}
+    for held in records:
+        if _ID_RE.match(str(held.get("id", ""))):
+            held_urls.setdefault(str(held["id"]), set()).update(_source_urls(held))
     run_day = date.fromisoformat(run_date)
     new = material = rechecked = traced = 0
     finalized: list[dict[str, Any]] = []
@@ -366,6 +384,14 @@ def _assign_ids(
         else:
             anchors = _anchor_keys(record)
             reused = next((idx.key_to_id[key] for key in anchors if key in idx.key_to_id), None)
+            weak_only = all(key.startswith("anon:") for key in anchors)
+            if (
+                reused is not None
+                and weak_only
+                and reused in held_urls
+                and not (_source_urls(record) & held_urls[reused])
+            ):
+                reused = None  # a distinct case per dedupe — never take another case's id
             if reused is not None:
                 record_id = reused
             else:
@@ -375,6 +401,7 @@ def _assign_ids(
                 record_id = f"SKS-{year}-{state}-{serial:06d}"
                 for key in anchors:
                     idx.key_to_id.setdefault(key, record_id)
+            held_urls.setdefault(record_id, set()).update(_source_urls(record))
         record["id"] = record_id
         prior = idx.by_id.get(record_id)
 
