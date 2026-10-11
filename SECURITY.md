@@ -2,111 +2,110 @@
 
 Sakshi — *Because the record must not forget.*
 
-We are grateful to security researchers who help us protect this project and,
-above all, the people it touches. This document explains how to report a
-vulnerability and what you can expect from us in return.
+I'm grateful to anyone who helps protect this project and, above all, the people it
+touches. This page explains how to report a security problem and what you can expect
+from me in return.
 
 ---
 
-## Report privately — never in a public issue
+## Please report privately, never in a public issue
 
-**Do not open a public GitHub issue, pull request, or discussion for a security
-vulnerability.** Public disclosure before a fix puts people at risk.
+**Don't open a public GitHub issue, pull request or discussion about a security
+problem.** Making it public before it's fixed puts people at risk.
 
-Instead, email **contact@stmorg.in** with the details. Please use a
-subject line beginning with `SECURITY:`.
+Instead, email **contact@stmorg.in** with the details, and start the subject line with
+`SECURITY:`.
 
-If you wish to encrypt your report, say so in a first, contentless email and we
-will arrange a secure channel.
+If you'd like to encrypt your report, send a first email saying so (with no details in
+it), and I'll set up a secure channel with you.
 
 ### What to include
 
-* A description of the issue and its impact.
-* Step-by-step reproduction, proof-of-concept, or the affected file/endpoint.
-* The commit hash, URL, or deployed version affected, if known.
+* What the problem is and what harm it could do.
+* Step-by-step instructions to reproduce it, a proof of concept, or the affected file or
+  page.
+* The commit hash, URL or deployed version affected, if you know it.
 
-Please do **not** include any real victim-identifying data in your report. If
-your finding *is* exposed personal data, describe **where** it appears and
-**how** to reach it, but do not paste the data itself.
-
----
-
-## Scope
-
-In scope:
-
-* **The data pipeline** — fetching, extraction (`extract/`), sanitization
-  (`sanitize.py`), the PII guard (`pii_guard.py`), deduplication, validation,
-  sharding, and the GitHub Actions that run them. Bypasses of the sanitizer or
-  PII guard are especially important.
-* **The static site** — the built frontend hosted on GitHub Pages, its service
-  worker, and any client-side logic.
-* **Supply chain** — dependency, build, or CI configuration issues that could
-  lead to compromise or to PII disclosure.
-* **Secrets handling** — any path by which `GEMINI_API_KEY` or another secret
-  could be exposed.
-
-### Accidental PII exposure is top severity
-
-Any pathway by which victim- or survivor-identifying information could be
-ingested, stored, logged, cached, committed, or served — whether or not it has
-actually happened — is treated as a **top-severity security *and* legal
-incident**. This project's core legal guarantee is that such data is never
-ingested (per Section 72 of the Bharatiya Nyaya Sanhita 2023 and Section 23 of
-the POCSO Act 2012). A break in that guarantee takes priority over every other
-class of report and will be actioned immediately.
-
-Out of scope:
-
-* The content of published court records or media sources themselves (for the
-  public record, use [TAKEDOWN.md](./TAKEDOWN.md) instead).
-* Findings that require physical access, social engineering of maintainers, or
-  denial-of-service via volumetric traffic.
-* Reports from automated scanners with no demonstrated impact.
+Please **don't** include any real victim-identifying data in your report. If what you
+found *is* exposed personal data, tell me **where** it appears and **how** to reach it,
+but don't paste the data itself.
 
 ---
 
-## Our response
+## What's covered
 
-* **Acknowledgement:** within **3 business days**.
-* **Triage and initial assessment:** within **7 business days**, including a
-  severity rating and expected remediation timeline.
-* **Suspected PII exposure:** actioned immediately on confirmation, ahead of the
-  timelines above.
-* **Fix and disclosure:** we aim to remediate valid vulnerabilities within **90
-  days**, and sooner for high-severity issues. We will keep you updated on
-  progress and coordinate public disclosure with you once a fix is available.
+Covered:
 
-We will credit you for your report if you would like to be credited, and respect
-your preference to remain anonymous otherwise.
+* **The data pipeline**: fetching, extraction (`pipeline/extract/`), the sanitizer
+  (`pipeline/sanitize.py`), the final personal-data check (`scripts/pii_guard.py`),
+  deduplication, validation, writing the data files, and the GitHub Actions that run
+  them. A way around the sanitizer or `pii_guard` matters most of all.
+* **The static site**: the built website on GitHub Pages, its service worker, and any
+  code that runs in the browser.
+* **The supply chain**: problems with dependencies, the build or CI setup that could lead
+  to a compromise or to personal data getting out.
+* **Secrets**: any way `GEMINI_API_KEY`, `SCRAPE_BOT_TOKEN`, `INDIANKANOON_API_TOKEN` or
+  another secret could be exposed.
 
----
+### Personal data getting out is the most serious problem
 
-## Safe harbor
+Any way that information identifying a victim or survivor could be taken in, stored,
+logged, cached, committed or served, whether or not it has actually happened, is treated
+as the **most serious kind of security *and* legal incident**. The core legal promise of
+this project is that such data is never collected (under Section 72 of the Bharatiya
+Nyaya Sanhita 2023 and Section 23 of the POCSO Act 2012). Anything that breaks that
+promise comes before every other kind of report and is dealt with immediately.
 
-We consider good-faith security research to be a valued contribution, not a
-hostile act. If you make a good-faith effort to comply with this policy, we will:
+Not covered:
 
-* Not pursue or support any legal action against you for your research.
-* Work with you to understand and resolve the issue quickly.
-* Recognize your contribution.
-
-Good faith means: you avoid privacy violations and harm to people and the
-service; you do not access, modify, exfiltrate, or retain data beyond the
-minimum needed to demonstrate the issue; you do not intentionally access any
-victim-identifying data; you give us a reasonable time to remediate before any
-public disclosure; and you do not exploit the issue beyond proof of concept.
-
-If you are uncertain whether an action is authorized, ask us first at
-**contact@stmorg.in**. We would rather answer a question than see a
-person put at risk.
+* What published court records or news sources themselves say (for the public record,
+  use [TAKEDOWN.md](./TAKEDOWN.md) instead).
+* Anything that needs physical access, tricking maintainers, or flooding the site with
+  traffic.
+* Reports from automated scanners that don't show any real impact.
 
 ---
 
-## For non-security concerns
+## What I'll do
+
+* **Acknowledge** your report within **3 business days**.
+* **Assess** it within **7 business days**, including how serious it is and when I expect
+  to fix it.
+* **Suspected exposure of personal data:** dealt with immediately once confirmed, ahead
+  of the times above.
+* **Fix and disclosure:** I aim to fix real problems within **90 days**, and sooner for
+  serious ones. I'll keep you updated and agree with you on when to make it public once a
+  fix is out.
+
+I'll credit you for the report if you'd like that, and respect your wish to stay
+anonymous if you don't.
+
+---
+
+## Safe harbour
+
+I see good-faith security research as a real contribution, not an attack. If you make a
+good-faith effort to follow this policy, I will:
+
+* Not take or support any legal action against you for your research.
+* Work with you to understand and fix the problem quickly.
+* Recognise your contribution.
+
+Good faith means: you avoid privacy violations and harm to people and the service; you
+don't access, change, copy out or keep data beyond the minimum needed to show the
+problem; you don't deliberately access any victim-identifying data; you give me a
+reasonable time to fix it before saying anything publicly; and you don't use the problem
+beyond a proof of concept.
+
+If you're not sure whether something is allowed, ask me first at **contact@stmorg.in**.
+I'd much rather answer a question than see someone put at risk.
+
+---
+
+## For anything that isn't a security problem
 
 * To correct or remove a **data record**, see [TAKEDOWN.md](./TAKEDOWN.md).
 * For **conduct** concerns, see
   [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
 
-Thank you for helping us keep the record accurate, fair, and safe.
+Thank you for helping keep the record accurate, fair and safe.

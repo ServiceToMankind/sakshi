@@ -1,25 +1,28 @@
 name: Case submission
-description: Tell us about a publicly reported sexual-offence case we may have missed. A submission is a LEAD, never a published record.
+description: Tell me about a publicly reported sexual-offence case the record may have missed. A submission is a LEAD, never a published record.
 title: "case: "
 labels: ["case-submission", "triage"]
 body:
   - type: markdown
     attributes:
       value: >-
-        Thank you for helping the record be complete. Submit the **public source URL**
-        and a few non-identifying facts. Your submission becomes a **candidate** in the
-        next run and passes through **every** guardrail — extraction, grounded
-        verification, the minor projection, PII stripping. It is **never** published as-is.
+        Thank you for helping make the record complete. Please send the **public source
+        URL** and a few facts that don't identify anyone. The next daily run reads your link
+        as a **lead**, and it goes through **every** check a news article or court record
+        goes through: extraction, a second check against the source, the special handling
+        for children's cases, and removal of personal data. It is **never** published as
+        you typed it.
 
 
-        **Do NOT include any victim-identifying detail** — no names, ages, photos,
-        addresses, family, school, or "near X". We never ingest those (BNS s.72 /
-        POCSO s.23), and we do not need them. Submit the public URL; the pipeline reads it.
+        **Please DON'T include anything that could identify a victim**: no names, ages,
+        photos, addresses, family, school, or "near X". We never collect those (Section 72,
+        BNS; Section 23, POCSO), and we don't need them. Just send the public URL; the
+        pipeline reads it.
   - type: input
     id: source_url
     attributes:
       label: Public source URL
-      description: A court record, judgment, or an established news outlet's article. Not social media.
+      description: A court record, a judgment, or an article from an established news outlet. Not social media.
       placeholder: https://...
     validations:
       required: true
@@ -40,8 +43,9 @@ body:
   - type: input
     id: incident_date
     attributes:
+      # Keep this label exactly as it is: pipeline/submissions.py reads the issue by it.
       label: Reported month (YYYY-MM) or date (YYYY-MM-DD)
-      description: When the case was publicly reported/registered, if you know it.
+      description: When the case was publicly reported or registered, if you know.
       placeholder: 2026-07
     validations:
       required: false
@@ -50,7 +54,7 @@ body:
     attributes:
       label: Confirmations
       options:
-        - label: The URL is a PUBLIC source (court record or established media), not social media.
+        - label: The URL is a PUBLIC source (a court record or established media), not social media.
           required: true
-        - label: I have NOT included any victim-identifying detail in this submission.
+        - label: I have NOT included anything that could identify a victim.
           required: true

@@ -1,379 +1,427 @@
-# Launch Review — Sākshī supervised pipeline
+# Launch review — the supervised pipeline
 
-> Evidence-based launch-readiness review. Every claim below cites the code, test,
-> PR, or staged-run stat that establishes it. Nothing here is aspirational — if an
-> item is not yet met, it says so. Real data ships only after a human merges a
-> staged review PR.
+> This is the review I wrote when Sakshi first went live, in July 2026. Every claim
+> below points to the code, test, PR or run that backs it up. Nothing here is a hope: if
+> something wasn't done yet, it says so. At launch, real data only reached the site after
+> a person merged a staged review PR.
+>
+> It is kept as a record of how launch went. Some things have changed since, and those
+> are listed in [What has changed since launch](#what-has-changed-since-launch) at the
+> end.
 
-**Status:** 🟢 LIVE with 4 operator-approved records. Supervised / staged:
-`LAUNCH_MODE=staged`, **`PUBLISH_APPROVED_ONLY=true`** (only records on the approval
-allowlist publish), **daily cron enabled** (06:00 IST), scope **ALL states, no
-incident-age window** (`LAUNCH_STATES=ALL`, `LAUNCH_LOOKBACK_DAYS` unset), flash model.
-Nothing publishes without an explicit operator approval. Unattended `auto` still
-blocked pending `SCRAPE_BOT_TOKEN` (see §Standing operations).
-
----
-
-## Launch night — 2026-07-14 (real first run)
-
-The site is **live** at https://sakshi.stmorg.in/ and the pipeline runs end-to-end on
-real data. Guardrail summary of what shipped this session:
-
-- **Record-loss fix (PR #27).** A published record settles `published` only once it is
-  confirmed on `main`; until then it is `staged_pending` and re-surfaces every run, so a
-  force-pushed staging branch can never destroy the only copy. Three adversarial review
-  rounds. Fixed the 4-day loss of 3 records.
-- **Graduated auto-publish gate (PR #28).** A record AUTO-publishes only if non-minor
-  **and** no accused named **and** durably sourced (court/news_article/press_release)
-  **and** confidence ≥ 0.85 **and** no POCSO→non-minor mismatch. Everything else —
-  minors, named accused, live-blog-only, the 0.80–0.84 band — is **held** in
-  `data/_needs_review/queue.json` (never on the public site, carried over so never lost,
-  re-split each run so a court update can promote it). Three adversarial review rounds
-  caught 15+ real defects (incl. a minor's day-precise detail auto-publishing, id-fusion
-  between distinct cases) — all fixed with regression tests. Minor determination fails
-  **closed**: absent/None/POCSO ⇒ treated as minor (projected + held).
-- **Deploy guardrail (PR #28).** The Pages deploy excludes `_needs_review` + `_meta`;
-  held records (incl. named accused) are **not web-reachable** — verified
-  `GET /data/_needs_review/queue.json` → 404.
-- **Scope guard (PR #28).** A run refuses to start unless `LAUNCH_STATES` explicitly
-  resolves (never silently unscoped). The heartbeat shows scope, auto-published, held,
-  and needs-review queue depth (⚠ > 25) every day on ops issue #24.
-
-### First real records LIVE (2026-07-15)
-Fetched **520** media documents; extracted real sexual-offence cases — the available
-city-media is dominated by **minor/POCSO** cases, which the gate correctly holds
-(minors are never auto-published, POCSO s.23). The operator reviewed the held queue and
-**approved 4 cases** (DL/HR/TG/UP); they are now **live** at https://sakshi.stmorg.in,
-each projected to the non-identifying minimal shape (state/district/**year**/offence/
-status + POCSO template, no name/age/address). `pii_guard` + schema validation clean.
-
-Publication mechanics (this launch):
-- **Approval allowlist** (`data/_needs_review/approved.json`, by raw source URL): a
-  held record whose URL is approved is published, still projected — approval never
-  un-projects. Same-article duplicates are merged only within the approved set.
-- **`PUBLISH_APPROVED_ONLY=true`** (supervised): during the launch, even an
-  auto-publish-eligible (adult) record is HELD unless approved, so nothing reaches the
-  site without an explicit operator approval. A fresh run auto-cleared 3 unreviewed
-  adult cases (one with mismatched sections — a likely misclassification); this flag
-  holds them. Set it `false` to resume normal auto-publish of the safe class.
-- Both went through three adversarial review rounds; the promotion path re-runs the
-  full last gate (coerce-minor → sanitize/project → withhold names) on every promoted
-  record.
-
-### Known follow-ups
-- **Issue #29** — id reuse via serial-HWM regression (edge case; not triggered by the
-  media-only launch).
-- Age-based review-queue warning (> 7 days) — needs a `first_seen` per held record;
-  depth-based (> 25) already ships.
-- Court sources (eCourts / Indian Kanoon) remain unwired (CAPTCHA / paid token); all
-  current data is media-sourced, so accused names are always withheld.
-
-## Standing operations & enabling unattended auto
-
-The daily cron runs **staged**: it opens/updates the data-review PR; a human merge
-publishes. **Unattended `auto` is blocked because `github-actions[bot]` cannot bypass the
-`main-protection` ruleset** (PR + `Python checks (3.12)` + `Frontend checks` required).
-To enable it: provision an **admin PAT / GitHub-App token as the `SCRAPE_BOT_TOKEN`
-secret** (the workflow already prefers it), then set `LAUNCH_MODE=auto`; the next cron
-will auto-commit ONLY the graduated-gate auto-eligible class and deploy. Until then, the
-staged-PR → human-merge model is the safe standing operation.
+**Status at launch:** live, with 4 records I had approved. The pipeline ran supervised
+and staged: `LAUNCH_MODE=staged` and **`PUBLISH_APPROVED_ONLY=true`** (only records on
+the approval list published), **the daily run switched on** (06:00 IST), covering **every
+state with no limit on how old a case could be** (`LAUNCH_STATES=ALL`,
+`LAUNCH_LOOKBACK_DAYS` unset), on the flash model. Nothing published without my explicit
+approval. Running fully on its own (`auto`) was still blocked until `SCRAPE_BOT_TOKEN` was
+in place (see [Running it day to day](#running-it-day-to-day-and-turning-on-auto)).
 
 ---
 
-## A. Phase 0 — victim identity is never ingested (BNS s.72)
+## Launch night — 14 July 2026 (the first real run)
 
-- The extraction schema (`schemas/extraction.schema.json`) is structurally
-  incapable of holding victim identity: no victim/name/address/contact fields, and
-  a required `victim` const that must be `null`. `additionalProperties:false` at
-  every object level.
-- `pipeline/sanitize.py` (the last gate) drops every forbidden field name and
-  redacts PII value-patterns before disk; `scripts/pii_guard.py` re-asserts over
-  the written tree.
-- **Evidence:** `sanitize.py` + `pii_guard.py` held at **100% branch coverage**
+The site went **live** at https://sakshi.stmorg.in/ and the pipeline ran end to end on
+real data. What shipped that session to keep things safe:
+
+- **Records can no longer be lost (PR #27).** A published record only counts as
+  `published` once it is confirmed on `main`. Until then it's `staged_pending` and comes
+  back every run, so a force-pushed staging branch can never wipe out the only copy. It
+  went through three rounds of adversarial review, and it fixed the four-day loss of 3
+  records.
+- **A graded publishing gate (PR #28).** A record publishes on its own only if it is
+  about an adult, **and** no accused is named, **and** it has a lasting source (court,
+  news article or press release), **and** confidence is at least 0.85, **and** POCSO
+  charges don't contradict the minor flag. Everything else (children's cases, named
+  accused, live-blog-only, the 0.80–0.84 band) is **held** in
+  `data/_needs_review/queue.json`: never on the public site, carried over so it's never
+  lost, and re-checked every run so a court update can move it forward. Three rounds of
+  adversarial review caught more than 15 real defects (including a child's day-precise
+  date about to publish on its own, and two distinct cases being fused under one ID). All
+  were fixed with regression tests. Deciding whether a case involves a child **fails
+  safe**: if it's missing, empty or the charges are POCSO, it's treated as a child's case
+  (reduced to the minimal form and held).
+- **The deploy leaves held records out (PR #28).** The Pages deploy skips `_needs_review`
+  and `_meta`, so held records (including any named accused) **can't be reached on the
+  web**. I checked: `GET /data/_needs_review/queue.json` returns 404.
+- **The run has to know its scope (PR #28).** A run refuses to start unless
+  `LAUNCH_STATES` is set explicitly, so it's never silently unscoped. Every day the
+  heartbeat on ops issue #24 shows the scope, how many records auto-published, how many
+  were held, and how deep the needs-review queue is (with a warning above 25).
+
+### The first real records went live (15 July 2026)
+The run fetched **520** news documents and found real sexual-offence cases. The city
+news available was mostly about **children / POCSO** cases, which the gate rightly held
+(children's cases are never auto-published; Section 23, POCSO). I reviewed the held
+queue and **approved 4 cases** (DL/HR/TG/UP). They went **live** at
+https://sakshi.stmorg.in, each in the minimal form that identifies no one
+(state/district/**year**/offence/status and the POCSO wording, with no name, age or
+address). `pii_guard` and schema validation were clean.
+
+How publishing worked at launch:
+- **The approval list** (`data/_needs_review/approved.json`, by source URL): a held
+  record whose URL I've approved is published, still in its reduced form. Approval never
+  undoes that. Copies of the same article are merged only within the approved set.
+- **`PUBLISH_APPROVED_ONLY=true`** (supervised): during launch, even a record that
+  qualified to auto-publish (an adult's case) was HELD unless I approved it, so nothing
+  reached the site without my explicit approval. A fresh run would otherwise have
+  auto-published 3 unreviewed adult cases (one with charges that didn't fit, likely
+  misclassified); this flag held them. Setting it to `false` lets the safe class
+  auto-publish again.
+- Both went through three rounds of adversarial review. Every record that gets promoted
+  goes through the full last gate again (treat-as-child check, then sanitize and reduce,
+  then withhold names).
+
+### Still to do after launch
+- **Issue #29**: an edge case where a case ID could be reused (not triggered by the
+  news-only launch).
+- A warning when a held record has waited more than 7 days. That needs a `first_seen`
+  date per held record; the warning by queue depth (more than 25) already shipped.
+- Court sources (eCourts / Indian Kanoon) weren't connected yet (one is behind a CAPTCHA,
+  the other needs a paid token). All data at launch came from the media, so accused names
+  were always withheld.
+
+## Running it day to day, and turning on `auto`
+
+At launch the daily run was **staged**: it opened or updated the data-review PR, and a
+person merging it was what published. **Running unattended in `auto` was blocked because
+`github-actions[bot]` can't get around the `main-protection` ruleset** (which requires a
+PR plus the `Python checks (3.12)` and `Frontend checks` checks). The plan to enable it:
+provide **an admin PAT or GitHub App token as the `SCRAPE_BOT_TOKEN` secret** (the
+workflow already prefers it), then set `LAUNCH_MODE=auto`. The next scheduled run would
+then auto-commit ONLY the class the graded gate allows, and deploy. Until then, staged PR
+plus a human merge was the safe way to run it.
+
+---
+
+## A. The victim's identity is never collected (Section 72, BNS)
+
+- The extraction schema (`schemas/extraction.schema.json`) has no place to hold a
+  victim's identity: no victim, name, address or contact fields, and a required `victim`
+  field that must be `null`. `additionalProperties: false` is set at every level.
+- `pipeline/sanitize.py` (the last gate) drops every forbidden field name and redacts
+  personal-data patterns before anything is written; `scripts/pii_guard.py` checks the
+  written files again.
+- **Evidence:** `sanitize.py` and `pii_guard.py` held at **100% branch coverage**
   (`make check`); `test_orchestrator.py::test_assert_no_pii_blocks_planted_leak`.
 
-## B. Minor protection — POCSO s.23 (issue #7, PR #8)
+## B. Protecting children — Section 23, POCSO (issue #7, PR #8)
 
-- **Two independent layers.** (1) `sanitize.project_minor_record` structurally
-  replaces a minor case's summary with a fixed template and truncates
-  date/`pending_days`/`next_hearing`/history to a non-identifying granularity.
-  (2) `case.schema.json` `allOf/if-then-else` on `minor_involved` rejects any
-  non-projected minor record at validation. Both must fail for a leak to ship.
-- Defence in depth: age-expression detection quarantines a non-minor record whose
-  free text still states an age (`age_detail_present`); `pii_guard` asserts no
-  **published** shard carries an age.
-- **Evidence:** `test_sanitize.py` (incl. the synthetic-ified shape of the first
-  leaking record), `test_validate.py` (minor conditional), `test_pii_guard.py`
-  (age scan). Verified live: a real minor/live-blog record was projected AND
-  quarantined, never published.
+- **Two separate layers.** (1) `sanitize.project_minor_record` replaces a child's case
+  summary with fixed wording and cuts the date, `pending_days`, `next_hearing` and history
+  down to a level that identifies no one. (2) `case.schema.json` uses an
+  `allOf/if-then-else` on `minor_involved` to reject any child's record that hasn't been
+  reduced, at validation. Both would have to fail for a leak to ship.
+- A further layer: spotting age expressions quarantines an adult's record whose text
+  still states an age (`age_detail_present`), and `pii_guard` checks that no
+  **published** file carries an age.
+- **Evidence:** `test_sanitize.py` (including a made-up version of the shape of the first
+  leaking record), `test_validate.py` (the minor rule), `test_pii_guard.py` (the age
+  scan). Checked live: a real child's / live-blog record was reduced AND quarantined, and
+  never published.
 
 ## C. Accused names only from court records (PR #15)
 
-- Media-sourced records carry `name_public_court_record: null`; names are unioned
-  only from official court sources in `dedupe.merge_records`. As a deterministic,
-  model-independent backstop, `validate.withhold_unsourced_accused_names` nulls any
-  accused name on a record lacking BOTH a court name and a case anchor (CNR/FIR) —
-  so a bare index entry or media item can never publish a name.
-- **Evidence:** the first published-candidate record (media) had `accused: null`;
-  `test_validate.py::test_withhold_unsourced_accused_names`;
+- Records from the media carry `name_public_court_record: null`. Names are only added
+  from official court sources, in `dedupe.merge_records`. As a fixed backstop that
+  doesn't depend on the model, `validate.withhold_unsourced_accused_names` blanks any
+  accused name on a record that has NEITHER a court name NOR a case reference (CNR/FIR),
+  so a bare index entry or news item can never publish a name.
+- **Evidence:** the first record that could have published (from the media) had
+  `accused: null`; `test_validate.py::test_withhold_unsourced_accused_names`;
   `test_dedupe.py::test_merge_unions_sources_and_remaps_status_history`.
 
-## D. Case-anchored deduplication (never identity)
+## D. Matching on the case, never the person
 
-- Matches on CNR, year-qualified FIR, station, district, date, court — never on
-  victim identity. **Evidence:** `test_dedupe.py` (exact/strong/weak/fuzzy, FIR-year).
+- Matches on CNR, FIR with year, police station, district, date and court, never on
+  anything about the victim. **Evidence:** `test_dedupe.py` (exact, strong, weak and
+  close matches, FIR year).
 
-## E. Confidence quarantine
+## E. Low confidence goes to quarantine
 
-- Records with `confidence < 0.8` are routed to `data/_review`, never published.
-  **Evidence:** `test_dedupe.py::test_low_confidence_goes_to_review`; verified live.
+- Records with `confidence < 0.8` go to `data/_review` and are never published.
+  **Evidence:** `test_dedupe.py::test_low_confidence_goes_to_review`; checked live.
 
-## F. Source provenance (issue #7, PR #8 / #11)
+## F. Where a source came from (issue #7, PR #8 / #11)
 
-- Each source is stamped `court | news_article | live_blog | press_release`. A
-  record whose only provenance is a rolling live-blog is capped at `confidence
-  0.79` and auto-quarantined — a mutable, URL-decaying page is not durable enough
-  for a permanent public claim.
-- **Evidence:** `test_provenance.py`, `test_gemini.py`; verified live — a real
-  live-blog case (source_type=live_blog, confidence 0.79) was quarantined.
+- Each source is labelled `court | news_article | live_blog | press_release`. A record
+  whose only source is a rolling live blog is capped at `confidence 0.79` and quarantined
+  automatically. A page that keeps changing and whose URL decays isn't solid enough for a
+  permanent public claim.
+- **Evidence:** `test_provenance.py`, `test_gemini.py`; checked live: a real live-blog
+  case (source_type=live_blog, confidence 0.79) was quarantined.
 
-## G. Out-of-scope offence rejection (PR #10)
+## G. Turning away cases that aren't sexual offences (PR #10)
 
-- This record tracks **sexual offences only**. Two independent layers: (a) the
-  extractor emits a required `in_scope` boolean and drops non-sexual cases
-  pre-sanitize (counted `rejected_out_of_scope`); (b) `dedupe` quarantines
-  (`scope_review`) any record whose cited `offence_sections` reference no
-  qualifying BNS 63-79 / POCSO / IPC 354,375-377,509 statute.
-- **Evidence:** the cheque-bounce shape (`NI Act 138`) is rejected by BOTH layers
-  independently (`test_gemini.py::test_extract_rejects_out_of_scope_offence`,
-  `test_dedupe.py::test_out_of_scope_offence_is_quarantined`); run stats report
+- This record covers **sexual offences only**. Two separate layers: (a) the extractor
+  returns a required `in_scope` yes/no and drops other cases before the sanitizer
+  (counted as `rejected_out_of_scope`); (b) `dedupe` quarantines (`scope_review`) any
+  record whose `offence_sections` cite no qualifying BNS 63–79 / POCSO / IPC
+  354, 375–377, 509 section.
+- **Evidence:** a cheque-bounce case (`NI Act 138`) is turned away by BOTH layers on their
+  own (`test_gemini.py::test_extract_rejects_out_of_scope_offence`,
+  `test_dedupe.py::test_out_of_scope_offence_is_quarantined`); the run stats report
   `rejected_out_of_scope` in `run.log` / `run_report.md` / `run_summary.env`.
 
-## H. Resilience (PRs #3, #5, #6)
+## H. Staying up when the provider struggles (PRs #3, #5, #6)
 
-- Pinned model chain with provider failover; bounded per-call timeout + circuit
-  breaker; a hard 40-min wall-clock budget so a run always finishes inside its
-  60-min job window. **Evidence:** every recent staged run completed (graceful
-  truncation under provider degradation, never a job kill); `test_gemini.py`.
+- A fixed list of models to fall back on, a time limit on each call and a circuit
+  breaker, and a hard 40-minute budget so a run always finishes inside its 60-minute job.
+  **Evidence:** every recent staged run finished (it trims gracefully when the provider is
+  struggling, and the job is never killed); `test_gemini.py`.
 
-## I. Staged-launch mechanism
+## I. How staging worked
 
-- Each run commits `data/` to `data-staging` and opens/updates a review PR to
-  `main`; auto-publish is skipped unless `LAUNCH_MODE=auto`. `data/_review` is
-  gitignored (unreviewed data is never committed); quarantined records ride in the
-  run artifact. Nothing reaches the live site without a human merge.
+- Each run committed `data/` to `data-staging` and opened or updated a review PR to
+  `main`. Auto-publishing was skipped unless `LAUNCH_MODE=auto`. `data/_review` is in
+  `.gitignore` (unreviewed data is never committed); quarantined records travel with the
+  run's logs instead. Nothing reached the live site without a human merge.
 - **Evidence:** review PR #4; `scrape.yml`.
 
-## J. Court-source accessibility (PR #11, #15)
+## J. Which court sources we could reach (PR #11, #15)
 
-- Direct eCourts case-search is **CAPTCHA-gated → unavailable** (we never bypass a
-  CAPTCHA); consumed only via operator-resolved endpoints. NJDG is stats-only.
-  Indian Kanoon (documented API, court-record mirror) is **fully wired** — per-run
-  cost budget, and the provenance ruling that its *docsource* (the court) confers
-  court-grade while an IK-indexed news item stays media-grade — but **disabled**
-  pending an operator token + ToS decision. Accused names publish only with a court
-  name **and** a case anchor (`validate.withhold_unsourced_accused_names`). RSS
-  intake moved to DL+TG crime/city section feeds. **Evidence:** `sources.yml`,
-  `test_indiankanoon.py`, `test_provenance.py`, `test_validate.py`.
+- Searching eCourts directly is **behind a CAPTCHA, so it's out** (we never get around a
+  CAPTCHA). It's only used through endpoints someone has found by hand. NJDG only has
+  statistics. Indian Kanoon (a documented API that mirrors court records) was **fully
+  connected**, with a cost budget per run and a rule that a judgment's *docsource* (the
+  court) counts as a court record while a news item indexed on Indian Kanoon still counts
+  as media. It was **switched off** until I had a token and had decided on their terms.
+  Accused names publish only with a court name **and** a case reference
+  (`validate.withhold_unsourced_accused_names`). News intake moved to the Delhi and
+  Telangana crime and city feeds. **Evidence:** `sources.yml`, `test_indiankanoon.py`,
+  `test_provenance.py`, `test_validate.py`.
 
-## K. Coverage under provider degradation (PR #13)
+## K. Not losing ground when the provider struggles (PR #13)
 
-- A committed, PII-safe processed-document ledger (`data/_meta/processed.json`,
-  keyed by `sha256(url)`) lets a truncated run skip already-settled documents so its
-  next 40-min budget goes to the backlog tail — "delay, not loss". Only terminal
-  outcomes (`published`/`out_of_scope`/`not_a_case`) settle; a quarantined or
-  scope-filtered document is never settled and re-surfaces next run. Failing docs
-  retry 3 runs, then park as `failed_permanent` with the URL logged for review.
-- **Persisted on a dedicated unprotected `ledger-state` branch** (restored before
-  each run, persisted after), so cross-run coverage accounting works regardless of
-  PR-merge timing without touching protected `main` (`github-actions[bot]` cannot be
-  granted ruleset bypass — GitHub 422). Fenced three independent ways: (a) validated
-  against `schemas/ledger.schema.json` (sha256 keys, outcome enum, ISO dates,
-  `additionalProperties:false`) + a no-URL scan; (b) `pii_guard` over `data/_meta/`;
-  (c) the Contents API writes exactly one path. A scope-filtered case settles
-  `out_of_window` (terminal for coverage); quarantined docs never settle. Provider
-  errors are captured per run (`error_samples`) so an abort is diagnosable
-  (429 RESOURCE_EXHAUSTED vs 503 UNAVAILABLE).
-- **Evidence:** `test_ledger.py`, `test_orchestrator.py` (settled-skip +
-  quarantine-re-surface), `test_validate.py::test_validate_ledger_*`. Hardened by a
-  14-agent adversarial review that caught and fixed three high-severity data-loss
-  paths in the first cut.
+- A committed processed-document ledger with no personal data
+  (`data/_meta/processed.json`, keyed by `sha256(url)`) lets a cut-short run skip
+  documents it has already settled, so the next 40-minute budget goes to the rest. Delay,
+  not loss. Only final outcomes (`published`/`out_of_scope`/`not_a_case`) count as
+  settled; a quarantined or filtered-out document is never settled and comes back next
+  run. Documents that keep failing are retried for 3 runs, then parked as
+  `failed_permanent` with the URL logged for review.
+- **Kept on its own unprotected `ledger-state` branch** (loaded before each run, saved
+  after), so it works however long PRs take to merge, without touching protected `main`
+  (`github-actions[bot]` can't be given a ruleset bypass; GitHub returns 422). Protected
+  three separate ways: (a) validated against `schemas/ledger.schema.json` (sha256 keys,
+  a fixed list of outcomes, ISO dates, `additionalProperties: false`) plus a scan for
+  URLs; (b) `pii_guard` over `data/_meta/`; (c) the Contents API writes exactly one path.
+  A case outside the scope is settled as `out_of_window` (final, for coverage);
+  quarantined documents never settle. Provider errors are recorded each run
+  (`error_samples`) so it's clear why a run stopped (429 RESOURCE_EXHAUSTED or 503
+  UNAVAILABLE).
+- **Evidence:** `test_ledger.py`, `test_orchestrator.py` (settled documents skipped,
+  quarantined ones coming back), `test_validate.py::test_validate_ledger_*`. A review by
+  14 adversarial agents caught and fixed three serious ways of losing data in the first
+  version.
 
 ---
 
-## L. Grounded verification before publish (issue #41, PRs #42 / #43 / #44)
+## L. Checking each case against its source before it publishes (issue #41, PRs #42 / #43 / #44)
 
-The bridge that lets records publish WITHOUT a human reading each one first, while
-keeping every Phase 0 guardrail intact. A second, stronger model
-(`gemini-2.5-pro` + Google Search grounding, config-pinned) re-checks each in-scope
-candidate against its cited source BEFORE publish and stamps `verified`.
+This is what lets records publish WITHOUT a person reading each one first, while keeping
+every privacy rule intact. At launch, a second, stronger model (`gemini-2.5-pro` with
+Google Search grounding, set in config) re-checked each in-scope case against its cited
+source BEFORE publishing and marked it `verified`.
 
-- **What the verifier may do:** (a) confirm the source text supports every field;
-  (b) re-check scope (a real, specific reported sexual-offence case — not a
-  commentary/trend/editorial piece); (c) run one grounded search and attach a second
-  corroborating source; (d) emit `verified` + a one-sentence `verification_note`, or
-  DEMOTE (`verified:false`). It may correct only a small set of FACTUAL fields
+- **What the check may do:** (a) confirm the source text supports every field;
+  (b) re-check scope (a real, specific reported sexual-offence case, not commentary, a
+  trend piece or an editorial); (c) run one search and attach a second source that backs
+  it up; (d) return `verified` and a one-sentence `verification_note`, or turn the case
+  down (`verified:false`). It may only correct a small set of FACTUAL fields
   (`CORRECTABLE_FIELDS` in `pipeline/verify.py`).
-- **What it can NEVER do** (deterministic gates are supreme): it cannot touch
-  `minor_involved`, `accused`, `id`, a source URL, or a minor's deterministic
-  `title`/`summary`. A verifier that believes `minor_involved` is wrong must DEMOTE,
-  not flip it. A minor's content is never model-written; the verifier only decides
-  whether the *projected* minor record is publishable, never what it says.
-- **Publish rules (verifier-live, `VERIFY_ENABLED=true`):**
-  - A FRESH record must be `verified:true` to publish; otherwise it is quarantined to
-    `data/_review/` with the verifier's note — never onto the site.
-  - A verified record still passes the full last gate + the graduated auto-publish
-    gate **minus** `minor_involved`: a verified **minor** DOES publish (its
-    title/summary are deterministic, non-identifying — POCSO s.23 projection), but a
-    **named (court) accused** still routes to the human queue (defamation), as do
-    `pocso_minor_mismatch`, live-blog-only, and sub-threshold confidence.
-  - Every published record is re-run through `coerce_minor → sanitize/project →
-    withhold-unsourced-names`, so a dedupe merge that flips `minor_involved` after the
-    per-candidate sanitize is re-projected to the minimal shape before it reaches
-    either a shard **or** `data/recent.json`.
-  - **Grandfathering:** a record already live on the site is never unpublished by the
-    verifier flip — even if its source has rolled off the feed and it cannot be
-    re-verified this run (record-loss guardrail). Only genuinely fresh cases face the
-    verified-gate.
-  - **Carryover never lost:** the verifier runs only on fresh candidates, so a
-    carried-over held record can never earn `verified`. It is therefore HELD (kept in
-    the review queue), never swept to the `_review` quarantine — only a *purely-fresh*
-    candidate the verifier declines is quarantined. Human approval is honoured in
-    verifier-live mode exactly as in the supervised phase.
-- **Hardened by a 3-lens adversarial review** (PII-leak, record-loss, verifier-logic)
-  which found and fixed: a minor's model-written `verification_note` reaching the shard
-  un-scanned (stripped now; canonical fix tracked in issue #44); the verifier flip
-  sweeping the entire held queue into `_review` (permanent loss); dead approval logic
-  under the verifier; `verified` lost across a dedupe merge; the corroborating source's
-  empty date quarantining verified records; truthy-coerced `verified`; an unbounded
-  per-call cost; and non-http `second_source` URLs. All with regression tests.
-- **OPEN OPERATOR DECISION — require corroboration for unattended publish?** The
-  verifier is designed to attach a grounded second source. Today a *single-source*
-  fresh verified record still auto-publishes (per the "verified + gates → publish"
-  spec). A stronger anti-fabrication / anti-injection posture is to HOLD any fresh
-  verified record with `< 2` independent sources for human review (no record is lost —
-  it just waits). This trades auto-publish reach (nil when grounding is unavailable)
-  for stronger corroboration. Not enforced yet; decide before flipping to auto. The
-  source text is already fenced as untrusted data in the verifier prompt, and non-http
-  corroborating URLs are rejected at ingestion.
-- **OPERATOR NOTE — `verified` OR-fold across a merge.** A case is verified if ANY copy
-  in its dedupe cluster was verified (so a fresh verified copy is never lost to a
-  budget/no-source skip on another copy). A benign corner: a record previously verified
-  and HELD *only* for `live_blog_only`, if a fresh copy the verifier declined this run
-  adds a durable source, merges to `verified:True` with no remaining hold and
-  auto-publishes — even though its freshest verdict was "not verified." It leaks nothing
-  (the publish form is re-projected and unsourced names withheld) and loses/duplicates
-  nothing; it is a policy nuance to be aware of, not a guardrail breach. A fix-verification
-  pass confirmed the record-loss fixes introduce no new loss/duplication/leak.
-- **Fail-safety & cost:** every error path (unparseable verdict, provider exception,
-  missing source text, budget exhausted) leaves a record `verified:false`
-  (quarantined) — fail-closed. Runs only on in-scope candidates (a handful/day) under
-  a hard per-run USD cap (`VERIFY_MAX_USD`, default $0.50); a candidate not verified
-  within budget stays quarantined. The daily heartbeat carries a `verify (guardrail
-  L)` line (verified / demoted / est. $).
-- **Evidence:** `test_verify.py` (parse/apply/budget/error/no-source paths),
-  `test_orchestrator.py` (verified minor publishes, unverified quarantined, named
-  accused held, legacy live record grandfathered across a verifier flip,
-  POCSO-nonminor fail-closed coerced to a projected minor). Hardened by a 3-lens
-  adversarial review (PII-leak, record-loss, verifier-logic) before merge.
+- **What it can NEVER do** (the fixed rules always win): it can't touch `minor_involved`,
+  `accused`, `id`, a source URL, or a child's fixed `title`/`summary`. If it thinks
+  `minor_involved` is wrong, it must turn the case down, not change the flag. A child's
+  case text is never written by a model; the check only decides whether the *reduced*
+  record can publish, never what it says.
+- **Publishing rules when the check is on (`VERIFY_ENABLED=true`):**
+  - A NEW record must be `verified:true` to publish. Otherwise it goes to `data/_review/`
+    with the check's note, never onto the site.
+  - A verified record still goes through the full last gate and the graded publishing
+    gate, **except** the `minor_involved` rule: a verified **child's** case DOES publish
+    (its title and summary are fixed and identify no one, as Section 23 of POCSO
+    requires), but a **named accused (from a court)** still goes to me for review (because
+    of defamation), and so do `pocso_minor_mismatch`, live-blog-only and low confidence.
+  - Every published record goes through `coerce_minor`, then sanitize and reduce, then
+    withhold-unsourced-names again, so if a merge flips `minor_involved` after the
+    per-case sanitize, the record is reduced to the minimal form before it reaches either
+    a data file **or** `data/recent.json`.
+  - **Records already live stay live:** turning on the check never unpublishes a record
+    that's already on the site, even if its source has dropped off the feed and it can't
+    be checked again this run (so records aren't lost). Only genuinely new cases face the
+    check.
+  - **Held records are never lost:** the check only runs on new cases, so a held record
+    carried over from before can never become `verified`. It stays HELD in the review
+    queue and is never swept into `_review`; only a *brand-new* case the check turns down
+    is quarantined. My approvals work with the check on exactly as they did in the
+    supervised phase.
+- **Reviewed adversarially from three angles** (personal-data leaks, losing records, the
+  check's own logic), which found and fixed: a child's model-written `verification_note`
+  reaching the data file without being scanned (now removed; the proper fix was tracked in
+  issue #44); turning on the check sweeping the whole held queue into `_review`
+  (permanent loss); approval logic that had stopped working with the check on; `verified`
+  being lost when records merged; the second source's empty date quarantining verified
+  records; `verified` being read as true from any non-empty value; no limit on cost per
+  call; and second-source URLs that weren't http. All have regression tests.
+- **A decision I hadn't made yet: should unattended publishing need a second source?**
+  The check was designed to attach a second source from its search. At launch, a *single
+  source* new verified record still auto-published ("verified plus the gates means
+  publish"). A stronger defence against made-up or manipulated cases would HOLD any new
+  verified record with fewer than 2 independent sources for review (nothing is lost; it
+  just waits). That trades away auto-publishing (none at all when search isn't available)
+  for stronger backing. It wasn't enforced yet, and I meant to decide before switching to
+  `auto`. The source text is already marked as untrusted data in the check's prompt, and
+  second-source URLs that aren't http are rejected when they come in.
+- **Something to be aware of: `verified` carries across a merge.** A case counts as
+  verified if ANY copy in its group was verified (so a new verified copy isn't lost because
+  another copy hit the budget or had no source). One harmless corner: a record verified
+  earlier and HELD *only* because it was `live_blog_only` can pick up a lasting source from
+  a new copy the check turned down this run, merge to `verified:True` with nothing left
+  holding it, and auto-publish, even though its latest verdict was "not verified." It
+  leaks nothing (the published form is reduced again and unsourced names are withheld) and
+  loses or duplicates nothing. It's a policy detail, not a broken rule. A follow-up review
+  confirmed the record-loss fixes didn't add any new loss, duplication or leak.
+- **Failing safe, and cost:** every error (an answer it can't read, a provider error,
+  missing source text, budget used up) leaves a record `verified:false` (quarantined).
+  It only runs on in-scope cases (a handful a day) under a hard cap per run
+  (`VERIFY_MAX_USD`, default $0.50); a case not checked within budget stays quarantined.
+  The daily heartbeat has a `verify` line (verified / turned down / estimated $).
+- **Evidence:** `test_verify.py` (reading answers, applying them, budget, errors, no
+  source), `test_orchestrator.py` (a verified child's case publishes, an unverified one is
+  quarantined, a named accused is held, a record already live stays live when the check
+  is turned on, a POCSO case marked adult is safely treated as a child's case and
+  reduced). Reviewed adversarially from the same three angles before merging.
 
-## M. Refresh is a STATUS-only update — never a narrative rewrite (§2 temporal integrity)
+## M. The weekly refresh only updates status, never rewrites a summary
 
-The weekly `refresh` run (court-sources only, `--mode refresh`) exists to advance an
-existing record's judicial status, not to rediscover cases or rewrite prose. Two
-properties are now **verified against a fixture**, each independently guarded:
+The weekly `refresh` run (court sources only, `--mode refresh`) exists to move an
+existing record's court status forward, not to find new cases or rewrite text. Two things
+are now **tested against a fixture**, each guarded separately:
 
-- **A status change is recorded once, in both temporal fields.** When a court source
-  reports a materially advanced status on an existing record, `shard._record_status_transition`
-  appends exactly one `status_history` point (seeding the prior status as the timeline
-  origin if the history was empty) and `last_status_change` bumps to the run date; a
-  re-sighting at the same status appends nothing (idempotent — the entry carries forward
-  on disk). A non-status material change (a section correction) bumps the stamp only.
-  `first_published` stays write-once. Before this, a status advance changed the `status`
-  field but left `status_history` empty — the timeline never recorded when justice moved.
-- **The reviewed narrative is frozen.** `_preserve_refresh_narrative` restores each
-  refreshed **non-minor** record's `title`/`summary` to the text already on the site, so
-  a fresh court **judgment**'s model prose can never overwrite the vetted summary
-  (`dedupe._order` makes the court copy primary, which otherwise wins the merge). This is
-  the §1b rule made mechanical: a judgment is a HIGH-PII *source*, not a text to
-  republish; a genuinely new narrative belongs to the daily `discover` run and its review.
-  Minor summaries are deterministic projections and are left to re-project (never model
-  prose), so they are exempt.
-- **Refresh never creates a record.** A brand-new case a court source surfaces during
-  refresh is dropped (discovery is the daily run's job).
+- **A status change is recorded once, in both date fields.** When a court source reports
+  that an existing record's status has really moved on, `shard._record_status_transition`
+  adds exactly one `status_history` point (adding the previous status as the starting
+  point if the history was empty) and sets `last_status_change` to the run date. Seeing
+  the same status again adds nothing (the entry just carries forward). A change that
+  isn't about status (a corrected section) only updates the date. `first_published` is
+  written once and never changes. Before this, a status change updated the `status`
+  field but left `status_history` empty, so the timeline never showed when justice moved.
+- **The reviewed summary stays as it is.** `_preserve_refresh_narrative` puts back each
+  refreshed **adult's** `title`/`summary` as it already appears on the site, so a new
+  court **judgment**'s model-written text can never replace the reviewed summary
+  (`dedupe._order` makes the court copy the main one, which would otherwise win the
+  merge). This puts into code the rule that a judgment is a *source* full of personal
+  detail, not text to republish. A genuinely new summary belongs to the daily `discover`
+  run and its review. Children's summaries are fixed wording that gets rebuilt (never
+  model text), so they're left alone.
+- **Refresh never creates a record.** A new case that a court source turns up during a
+  refresh is dropped (finding cases is the daily run's job).
 - **Evidence:** `test_orchestrator.py::test_refresh_status_change_is_status_only_never_narrative`
-  (one append, one bump, no rewrite, no new record — proven to FAIL if either guard is
-  removed), `::test_refresh_mode_never_creates_a_new_record`, `test_shard.py`.
+  (one addition, one date change, no rewrite, no new record; shown to FAIL if either guard
+  is removed), `::test_refresh_mode_never_creates_a_new_record`, `test_shard.py`.
 
-## N. Monthly Gemini spend cap (cost governance)
+## N. A monthly cap on Gemini spending
 
-A cumulative per-calendar-month USD cap (`config.monthly_max_usd`, env `MONTHLY_MAX_USD`,
-default $10) bounds spend across every run in a month, above the existing per-run token
-cap. The month-to-date total persists in `data/_meta/spend.json` on the `ledger-state`
-branch (aggregate dollars only — structurally incapable of holding case content or PII).
-When a run starts and the month is already at the cap, it makes **no new Gemini calls**
-(a clean abort, not a silent partial extraction), still regenerates existing records for
-free, and surfaces `⚠ Monthly budget EXHAUSTED` in the heartbeat + opens an ops issue. A
-new month resets it.
+A running cap per calendar month (`config.monthly_max_usd`, env `MONTHLY_MAX_USD`,
+default $10) limits spending across every run in a month, on top of the existing token
+cap per run. The month-to-date total is kept in `data/_meta/spend.json` on the
+`ledger-state` branch (dollar totals only, with no room for case content or personal
+data). If a run starts and the month is already at the cap, it makes **no new Gemini
+calls** (it stops cleanly instead of extracting half the documents), still rebuilds the
+existing records for free, says the budget is exhausted in the heartbeat, and opens an
+issue. A new month starts the count again.
 
-- **Evidence:** `test_spend.py` (accumulate / month-buckets / corrupt-file /
-  aggregate-only), `test_orchestrator.py::test_monthly_budget_exhausted_makes_no_paid_calls`
-  (an exploding client proves zero paid calls when the cap is met) and
+- **Evidence:** `test_spend.py` (adding up, monthly buckets, a corrupt file, totals only),
+  `test_orchestrator.py::test_monthly_budget_exhausted_makes_no_paid_calls` (a client that
+  blows up on any call shows zero paid calls are made at the cap) and
   `::test_monthly_budget_under_cap_runs_and_records_spend`.
 
 ---
 
 ## Staged-run evidence
 
-_Two-state (TG, DL), 30-day scope, `staged` mode. Every run finished inside its
-job window (the wall-clock budget truncates gracefully under provider load — never
-a job kill)._
+_Two states (TG, DL), 30-day scope, `staged` mode. Every run finished inside its job time
+(the time budget trims gracefully under provider load; the job was never killed)._
 
 | run | sources | fetched | extracted | published | review | cost | note |
 |---|---|---|---|---|---|---|---|
-| `29099657465` | national RSS | 260 | 16 | 0 | 1 | $0.087 | truncated; live-blog quarantined |
-| `29104649205` | crime/city RSS | 520 | 0 | 0 | 0 | $0.045 | truncated; 1 out-of-scope rejected |
-| `29110062044` | crime/city RSS | 520 | 0 | 0 | 0 | $0.000 | **aborted** (quota/free-tier, pre-billing-fix) |
-| `29112065032` | crime/city RSS | 520 | 6 | 0 | 0 | $0.413 | **full coverage** (billing fixed); 0 in TG/DL·30d |
+| `29099657465` | national RSS | 260 | 16 | 0 | 1 | $0.087 | trimmed; live blog quarantined |
+| `29104649205` | crime/city RSS | 520 | 0 | 0 | 0 | $0.045 | trimmed; 1 out-of-scope case turned away |
+| `29110062044` | crime/city RSS | 520 | 0 | 0 | 0 | $0.000 | **stopped** (quota / free tier, before the billing fix) |
+| `29112065032` | crime/city RSS | 520 | 6 | 0 | 0 | $0.413 | **full coverage** (billing fixed); 0 in TG/DL in 30 days |
 
-The billing fix restored the key: run `29112065032` processed the **entire** 520-doc
-set (not truncated, not aborted) at `serviceTier: standard`, extracting 6 real
-sexual-offence cases — **none in the TG/DL 30-day window** → 0 published. Only
-13/520 calls hit transient `503`/`504` blips (captured in `error_samples`), handled
-by the resilience without aborting. This is **full-coverage empty run #1** toward
-the launch-eligibility target. **Zero court-sourced records** — eCourts is
-CAPTCHA-gated and Indian Kanoon is disabled, so court records await an operator
-credential (§J).
+Fixing billing brought the key back: run `29112065032` processed the **whole** set of
+520 documents (not trimmed, not stopped) at `serviceTier: standard`, and found 6 real
+sexual-offence cases, **none in the TG/DL 30-day window**, so 0 published. Only 13 of the
+520 calls hit brief `503`/`504` errors (recorded in `error_samples`), which the fallbacks
+handled without stopping. That was **the first full-coverage empty run** towards the
+launch target. **No court-sourced records**: eCourts is behind a CAPTCHA and Indian
+Kanoon was switched off, so court records were waiting on a credential from me (see J).
 
 ---
 
-## Operator decisions required before flipping to `auto`
+## What I needed to decide before switching to `auto`
 
-1. **Indian Kanoon**: accept ToS + provision `INDIANKANOON_API_TOKEN`, then enable
-   `indian-kanoon` in `sources.yml` — the primary legitimate court-record path.
-2. **eCourts endpoints**: supply official-API / manually-resolved DL+TG endpoints
-   (or a robots-permitted High Court judgment listing) — direct search stays off
+1. **Indian Kanoon**: accept the terms, provide `INDIANKANOON_API_TOKEN`, then turn on
+   `indian-kanoon` in `sources.yml`. This is the main legitimate route to court records.
+2. **eCourts endpoints**: provide official-API or hand-found DL and TG endpoints (or a
+   High Court judgment listing that robots.txt allows). Searching directly stays off
    (CAPTCHA).
-3. **CI approval friction — wired (PR #14), awaits secret**: the scrape job now
-   pushes/opens the staged PR with `SCRAPE_BOT_TOKEN` (fine-grained PAT / App token)
-   so its CI runs automatically; it falls back to `GITHUB_TOKEN` (today's manual
-   approval) until the secret is set. Provision it per CONTRIBUTING.md §Operations.
-4. **Human review of every staged record** remains mandatory. Do not enable the
-   schedule or `LAUNCH_MODE=auto` until this review is signed off.
+3. **Approving CI by hand: wired up (PR #14), waiting for the secret.** The scheduled job
+   now pushes and opens the staged PR with `SCRAPE_BOT_TOKEN` (a fine-grained PAT or App
+   token) so its checks run on their own. Until the secret is set it falls back to
+   `GITHUB_TOKEN` (approving by hand, as at launch). Set it up as described in
+   CONTRIBUTING.md, under "Running it day to day".
+4. **A person reviewing every staged record** was still required. The plan was not to
+   turn on the schedule or `LAUNCH_MODE=auto` until that review was signed off.
 
-## Launch-eligibility target (not yet met)
+## The launch target (not met at the time)
 
-Per the pre-launch plan, `auto` is gated on either **≥1 published** court-sourced or
-news_article record in the TG/DL·30-day window, **or three consecutive
-full-coverage runs** (the ledger shows the whole fetch set settled) proving the
-window is genuinely empty. No run has yet completed full coverage under a healthy
-provider; the ledger now makes spaced runs converge on that answer.
+Under the pre-launch plan, `auto` waited for either **at least 1 published**
+court-sourced or news-article record in the TG/DL 30-day window, **or three
+full-coverage runs in a row** (the ledger shows the whole fetched set settled) proving
+the window really was empty. No run had yet reached full coverage with a healthy
+provider; the ledger now lets runs spaced apart arrive at that answer.
 
 ## Sign-off
 
-- [ ] Phase 0 guardrails (A–B) reviewed against code + tests.
-- [ ] Accused-name, dedup, confidence, provenance, scope gates (C–G) reviewed.
-- [ ] Resilience + staged mechanism (H–I) reviewed.
-- [ ] Court-source plan (J) + coverage ledger (K) + operator decisions accepted.
-- [ ] Launch-eligibility target met (≥1 published, or 3 full-coverage empty runs).
-- [ ] At least one full staged review PR inspected record-by-record.
+- [ ] Privacy rules (A–B) checked against the code and tests.
+- [ ] Accused names, matching, confidence, sources and scope (C–G) checked.
+- [ ] Staying up and staging (H–I) checked.
+- [ ] Court-source plan (J), coverage ledger (K) and the decisions above accepted.
+- [ ] Launch target met (at least 1 published, or 3 full-coverage empty runs).
+- [ ] At least one full staged review PR checked record by record.
+
+---
+
+## What has changed since launch
+
+These are later changes that are visible in the code today. The review above is left as
+it was written.
+
+- **Court records are connected.** Indian Kanoon is turned on in `sources.yml` (since
+  12 August 2026), with searches for the Delhi, Telangana, Punjab & Haryana, Madhya
+  Pradesh, Madras and Jharkhand High Courts. The judgment pages of the Delhi, J&K and
+  Ladakh, and Meghalaya High Courts are read directly (`hc_judgments` sources in
+  `sources.yml`).
+- **Different models.** The gemini-2.5 models stopped being available to new keys
+  (`pipeline/config.py`). Extraction now uses `gemini-3.5-flash`, falling back to
+  `gemini-3.5-flash-lite` (`DEFAULT_GEMINI_MODELS` in `pipeline/config.py`, and
+  `extraction.models` in `sources.yml`).
+- **The verification check changed.** It now uses `gemini-3.5-flash` rather than
+  `gemini-2.5-pro`, which was retired (`DEFAULT_VERIFY_MODEL` in `pipeline/config.py`).
+  It also no longer uses Google Search grounding: answers with grounding weren't valid
+  JSON, which turned down almost every case. It now judges each case against the source
+  text it's given (`default_verify_client` in `pipeline/verify.py`). It can still
+  attach a second source if it names one.
+- **`auto` doesn't need an admin token.** In `auto` mode the scheduled job opens its own
+  PR, re-runs the full `make check` on exactly that data, and only then marks the two
+  required checks as passed and merges, without bypassing the ruleset. If anything fails,
+  nothing publishes and the PR stays open (`.github/workflows/scrape.yml`).
+- **Regional-language news.** Hindi, Telugu, Marathi and Tamil feeds are turned on in
+  `sources.yml`. Bengali, Gujarati, Kannada and Malayalam feeds are set up but switched
+  off.
+- **Issue #29 is fixed.** The highest case number used for each year and state is kept in
+  `data/_meta/serials.json`, so a case number is never reused (PR #145, and PR #254 made
+  sure the file reaches `main`).

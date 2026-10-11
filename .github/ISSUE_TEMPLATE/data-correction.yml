@@ -1,37 +1,37 @@
 name: Data correction / removal
-description: Correct or request removal of a published case record.
+description: Ask for a published case record to be corrected or removed.
 title: "data: correction to "
 labels: ["data-correction", "triage"]
 body:
   - type: markdown
     attributes:
       value: >-
-        Use this form to correct a factual error in a published record, to
-        update a judicial status, or to request removal.
+        Use this form to fix a factual mistake in a published record, update
+        a court status, or ask for a record to be removed.
 
-        **Removal policy.** Records for cases that ended in **acquittal** or
-        were **quashed** may be removed on request. Other removals are
-        considered case by case; see `TAKEDOWN.md`.
+        **When I remove records.** Records for cases that ended in **acquittal**
+        or were **quashed** can be removed on request. Other removals are
+        considered one by one; see `TAKEDOWN.md`.
 
-        **Absolute rule.** Never include victim-identifying information. Sakshi
-        never ingests victim names, ages (beyond "minor"), addresses, family
-        members, schools, workplaces, photos, or any re-identifying detail.
-        Anything you submit here is public.
+        **One absolute rule.** Never include anything that could identify a
+        victim. Sakshi never collects victim names, ages (beyond "minor"),
+        addresses, family members, schools, workplaces, photos, or any other
+        identifying detail. Everything you write here is public.
   - type: checkboxes
     id: pii-affirmation
     attributes:
-      label: PII affirmation (required)
+      label: Confirm there's no personal data (required)
       options:
         - label: >-
-            I affirm this request contains NO victim-identifying information
+            I confirm this request contains NOTHING that could identify a victim
             (no names, addresses, ages beyond "minor", family/school/workplace
-            details, photos, contact details, or IDs).
+            details, photos, contact details, or ID numbers).
           required: true
   - type: input
     id: record-id
     attributes:
       label: Sakshi record ID
-      description: The SKS-... id shown on the case detail page, if you have it.
+      description: The SKS-... ID shown on the case page, if you have it.
       placeholder: SKS-2026-TG-000123
     validations:
       required: false
@@ -40,8 +40,8 @@ body:
     attributes:
       label: CNR or FIR reference
       description: >-
-        If you do not have the SKS id, give the court case number (CNR) or the
-        FIR reference (station + number) so we can locate the record.
+        If you don't have the SKS ID, give the court case number (CNR) or the
+        FIR reference (police station and number) so I can find the record.
       placeholder: "CNR: TSHC01-004321-2026  —  or FIR: Begumpet PS 112/2026"
     validations:
       required: false
@@ -61,7 +61,7 @@ body:
     id: whats-wrong
     attributes:
       label: What is wrong
-      description: Describe the specific field or fact that is incorrect or should be removed.
+      description: Tell me which field or fact is wrong, or what should be removed.
     validations:
       required: true
   - type: textarea
@@ -69,8 +69,8 @@ body:
     attributes:
       label: Correct value
       description: >-
-        What the record should say instead. For a removal request, state the
-        basis (e.g. acquitted on <date> by <court>).
+        What the record should say instead. For a removal, say why (for
+        example, acquitted on <date> by <court>).
     validations:
       required: true
   - type: input
@@ -78,9 +78,9 @@ body:
     attributes:
       label: Public source URL
       description: >-
-        A citable public source supporting the correction — an official court
-        record/order (preferred) or an established media report. Nothing is
-        changed without a source.
+        A public source that backs up the correction: an official court record
+        or order (best), or a report from an established news outlet. I don't
+        change anything without a source.
       placeholder: https://...
     validations:
       required: true

@@ -1,5 +1,5 @@
 name: Bug report (code or site)
-description: Report a defect in the Sakshi pipeline, tooling, or website.
+description: Report something broken in the Sakshi pipeline, tooling, or website.
 title: "bug: "
 labels: ["bug", "triage"]
 body:
@@ -7,15 +7,15 @@ body:
     attributes:
       value: >-
         Thank you for helping keep the record accurate. This form is for
-        defects in the **software** — the data pipeline, schemas, tooling, or
+        problems with the **software**: the data pipeline, schemas, tooling, or
         the website.
 
-        - To correct or remove a **data record**, use the "Data correction /
+        - To correct or remove a **data record**, please use the "Data correction /
           removal" form instead.
 
-        - For anything involving **victim-identifying information** or a
-          suspected PII leak, do **not** file a public issue — follow
-          `SECURITY.md` to report it privately.
+        - If it involves **anything that could identify a victim**, or you think
+          personal data has leaked, please **don't** file a public issue. Follow
+          `SECURITY.md` to tell me privately.
   - type: checkboxes
     id: preflight
     attributes:
@@ -23,14 +23,14 @@ body:
       options:
         - label: This is a code or site bug, not a data correction or a request for personal help.
           required: true
-        - label: This report contains no victim-identifying information of any kind.
+        - label: This report contains nothing that could identify a victim.
           required: true
-        - label: I searched existing issues and this is not a duplicate.
+        - label: I searched the existing issues and this isn't a duplicate.
           required: true
   - type: dropdown
     id: area
     attributes:
-      label: Affected area
+      label: What part is affected?
       options:
         - Website / frontend
         - Data pipeline (fetch / extract / sanitize / dedupe)
@@ -44,7 +44,7 @@ body:
     id: what-happened
     attributes:
       label: What happened
-      description: A clear, concise description of the defect.
+      description: A short, clear description of the problem.
     validations:
       required: true
   - type: textarea
@@ -57,7 +57,7 @@ body:
     id: repro
     attributes:
       label: Steps to reproduce
-      description: Numbered steps. Include the command run or the page/URL involved.
+      description: Numbered steps. Include the command you ran or the page/URL involved.
       placeholder: |
         1. Go to '...'
         2. Click on '...'
@@ -67,8 +67,8 @@ body:
   - type: textarea
     id: environment
     attributes:
-      label: Environment
-      description: Browser + version, OS, and/or Python version and commit SHA.
+      label: Your setup
+      description: Browser and version, operating system, and/or Python version and commit.
       placeholder: |
         - Browser: Firefox 128
         - OS: Ubuntu 24.04
@@ -80,8 +80,8 @@ body:
     attributes:
       label: Logs or screenshots
       description: >-
-        Paste relevant logs or attach screenshots. Redact anything that could
-        identify a victim before pasting.
+        Paste any relevant logs or attach screenshots. Please remove anything
+        that could identify a victim before pasting.
       render: shell
     validations:
       required: false

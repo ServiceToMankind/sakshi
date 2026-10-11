@@ -1,53 +1,74 @@
-# Feed expansion — regional-language press (§4d, DRAFT)
+# Adding feeds — regional-language press (draft, August 2026)
 
-**The single biggest coverage gap.** Most sexual-offence cases in India are reported in the
-vernacular press and never appear in English. An English-only source list structurally cannot
-see most of the country.
+**This is the biggest gap in our coverage.** Most sexual-offence cases in India are
+reported in the regional-language press and never appear in English. A list of English
+sources alone simply can't see most of the country.
 
-**Every feed ships `enabled: false`, and there is a HARD gate before any is enabled.**
+**Every feed was added switched off (`enabled: false`), with a firm condition to meet
+before any of them could be turned on.**
 
-## ⛔ Enablement gate (§4e) — do NOT skip
+> **Update:** the multilingual personal-data guard described below was wired in later
+> (issue #136; see `docs/multilingual-pii-guard-proposal.md`). On 12 August 2026 I turned
+> on the Hindi, Telugu, Marathi and Tamil feeds in `sources.yml`. The Bengali, Gujarati,
+> Kannada and Malayalam feeds are set up but still switched off, because the offence
+> filter doesn't have word lists for those languages yet (see
+> `docs/offence-filter-recall.md`).
 
-No non-English source may be flipped to `enabled: true` until, **for that language**:
+## ⛔ The condition for turning a language on (don't skip it)
 
-1. The **multilingual PII guard** (`pipeline/pii_multilingual.py`, §4e) is **wired** into the
-   protected gates — `dedupe.has_identity_detail` + `scripts/pii_guard` + `sanitize` — via a
-   **human-approved issue** (CLAUDE.md §2). See `docs/multilingual-pii-guard-proposal.md`.
-2. Extraction is **asserted** to output English for that script (assert, don't assume).
-3. That language's native-script age patterns + romanized kinship/office/geo terms are tuned,
-   and **fixture records prove the guard FIRES at 100% branch coverage**.
+No non-English source may be set to `enabled: true` until, **for that language**:
 
-Until all three hold, the language's feeds stay disabled. Every active identity gate is an
-English regex today; enabling a regional source before the guard fires runs the pipeline with
-the **identity floor disabled** for its input — a Phase-0 breach.
+1. The **multilingual personal-data guard** (`pipeline/pii_multilingual.py`) is **wired**
+   into the protected checks (`dedupe.has_identity_detail`, `scripts/pii_guard` and
+   `sanitize`) through a **human-approved issue** (CLAUDE.md, section 2). See
+   `docs/multilingual-pii-guard-proposal.md`.
+2. It's **tested** that extraction returns English for that script (tested, not assumed).
+3. That language's native-script age patterns and romanised family, office and place
+   words are tuned, and **test records prove the guard catches them, with 100% branch
+   coverage**.
 
-## Hindi — wired (disabled), robots verified 2026-08-03
+Until all three are true, that language's feeds stay off. At the time of writing, every
+active identity check was an English regular expression. Turning on a regional source
+before the guard catches anything would run the pipeline with the **identity protections
+switched off** for that input. That would break the core privacy rules.
+
+## Hindi — set up (switched off), robots.txt checked 3 August 2026
 
 | Outlet | Feed URL | robots | feed |
 |---|---|---|---|
 | Dainik Bhaskar | `https://www.bhaskar.com/rss-v1--category-4587.xml` | ALLOW | 200 XML |
 | Amar Ujala | `https://www.amarujala.com/rss/breaking-news.xml` | ALLOW | 200 XML |
 
-Excluded (this pass): Navbharat Times (robots allow, feed URL 404 — needs the correct path).
+Left out this time: Navbharat Times (robots.txt allows it, but the feed URL returns 404;
+it needs the right address).
 
-## Other languages — candidate outlets (feed URLs to confirm; one PR per language)
+## Other languages — possible outlets (feed URLs still to confirm; one PR per language)
 
-Wire each **only** alongside that language's §4e guard extension + fixtures.
+Add each one **only** together with that language's extension to the guard and its tests.
 
-- **Telugu:** Eenadu, Andhra Jyothi, Namasthe Telangana. (Eenadu robots ALLOW but the tried
-  feed URL was non-XML — find the correct RSS.)
-- **Tamil:** Daily Thanthi, Dinamalar, Dinamani. (Dinamani robots **DISALLOW**.)
-- **Marathi:** Lokmat, Sakal, Loksatta. (Lokmat robots ALLOW; feed URL to confirm.)
-- **Bengali:** Anandabazar Patrika (robots **DISALLOW**), Bartaman.
-- **Malayalam:** Malayala Manorama, Mathrubhumi. (Mathrubhumi robots ALLOW; feed URL to confirm.)
-- **Kannada:** Prajavani (robots **DISALLOW**), Vijaya Karnataka.
-- **Gujarati:** Divya Bhaskar (robots ALLOW; feed URL to confirm), Gujarat Samachar.
+- **Telugu:** Eenadu, Andhra Jyothi, Namasthe Telangana. (Eenadu's robots.txt allows it,
+  but the feed URL I tried wasn't XML; I need the right RSS address.)
+- **Tamil:** Daily Thanthi, Dinamalar, Dinamani. (Dinamani's robots.txt **DISALLOWS**.)
+- **Marathi:** Lokmat, Sakal, Loksatta. (Lokmat's robots.txt allows it; feed URL to confirm.)
+- **Bengali:** Anandabazar Patrika (robots.txt **DISALLOWS**), Bartaman.
+- **Malayalam:** Malayala Manorama, Mathrubhumi. (Mathrubhumi's robots.txt allows it;
+  feed URL to confirm.)
+- **Kannada:** Prajavani (robots.txt **DISALLOWS**), Vijaya Karnataka.
+- **Gujarati:** Divya Bhaskar (robots.txt allows it; feed URL to confirm), Gujarat Samachar.
 - **Odia:** Sambad, Dharitri. **Punjabi:** Ajit, Jagbani. **Assamese:** Asomiya Pratidin.
 
-A `robots DISALLOW` is final — the pipeline never fetches a disallowed URL. Feed-URL discovery
-for several outlets needs their homepage's `<link rel="alternate" type="application/rss+xml">`
-or a published feed index; the values above are candidates, not confirmed, except where noted.
+A robots.txt DISALLOW is final: the pipeline never fetches a disallowed URL. Finding the
+feed address for several outlets needs their homepage's
+`<link rel="alternate" type="application/rss+xml">` or a published list of feeds. The
+outlets above are candidates, not confirmed, except where I've said otherwise.
 
-## Coverage honesty (§7)
-Once a language is enabled, extend the Coverage page with **per-language** coverage so a reader
-can see that (e.g.) Odisha is thin because we read one Odia outlet — not because Odisha is safe.
+> **Update:** the regional outlets that ended up in `sources.yml` are Dainik Bhaskar and
+> Amar Ujala (Hindi), Namasthe Telangana and the Telugu daily Sakshi, Lokmat and Sakal
+> (Marathi), Daily Thanthi and Hindu Tamil Thisai (Tamil), all switched on; and Ei Samay
+> and Sangbad Pratidin (Bengali), Divya Bhaskar (Gujarati), Kannada Prabha (Kannada) and
+> Mathrubhumi (Malayalam), all switched off.
+
+## Being honest about coverage
+Once a language is on, the Coverage page should show coverage **per language**, so a
+reader can see that (for example) Odisha looks thin because we read only one Odia outlet,
+not because Odisha is safe.
