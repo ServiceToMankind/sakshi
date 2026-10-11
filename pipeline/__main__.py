@@ -688,19 +688,32 @@ def _load_needs_review_queue(base_dir: Path) -> list[dict[str, Any]]:
     return records
 
 
+def _staged_archive() -> Path | None:
+    """The restored data-staging archive (``STAGED_DIR``), or None if unset OR absent.
+
+    The workflow exports ``STAGED_DIR`` even when there was no data-staging branch to
+    archive, so "set" is not "present": only an EXISTING archive replaces the committed
+    needs-review queue as the held-record carryover source.
+    """
+    staged_dir = os.environ.get("STAGED_DIR", "").strip()
+    if not staged_dir or not Path(staged_dir).exists():
+        return None
+    return Path(staged_dir)
+
+
 def _load_staged_carryover() -> list[dict[str, Any]]:
     """Prior STAGED (not-yet-on-main) records, restored so they persist regardless of
     re-fetch or re-extraction.
 
     The scrape workflow archives the data-staging branch's shards into ``STAGED_DIR``
-    before the run; folding them back into dedupe means a force-pushed staging branch
-    can never destroy the only copy — even if the source doc rolled off the feed or
-    its re-extraction failed. Absent ``STAGED_DIR`` (auto mode, tests) => none.
+    before the run (both launch modes — auto mode also publishes through data-staging);
+    folding them back into dedupe means a force-pushed staging branch can never destroy
+    the only copy — even if the source doc rolled off the feed, its re-extraction failed,
+    or the publish gate blocked the run. No archive (first run, tests) => none.
     """
-    staged_dir = os.environ.get("STAGED_DIR", "").strip()
-    if not staged_dir or not Path(staged_dir).exists():
+    base = _staged_archive()
+    if base is None:
         return []
-    base = Path(staged_dir)
     records: list[dict[str, Any]] = []
     for shard in iter_shard_files(base):
         records.extend(json.loads(shard.read_text(encoding="utf-8")))
@@ -1010,13 +1023,13 @@ def run(
         existing_urls = _record_urls(existing)  # canonical (stored URLs are sanitised)
         # Prior staged records persist even if their source rolled off the feed or
         # fails re-extraction — so a force-pushed staging branch never loses them.
-        # Held (needs-review) records re-enter too. In STAGED mode the archive
-        # (_load_staged_carryover, a superset of main) already restores the held queue;
-        # in AUTO mode there is no archive, so the committed queue on main (data_dir) is
-        # the only carryover path. Load exactly ONE source — loading both in staged mode
-        # would double-feed each held record and spam _review with self-matches.
+        # Held (needs-review) records re-enter too. When a data-staging archive exists
+        # (_load_staged_carryover, a superset of main) it already restores the held queue;
+        # with no archive, the committed queue on main (data_dir) is the only carryover
+        # path. Load exactly ONE source — loading both would double-feed each held record
+        # and spam _review with self-matches.
         staged_carryover = _load_staged_carryover()
-        if not os.environ.get("STAGED_DIR", "").strip():
+        if _staged_archive() is None:
             staged_carryover += _load_needs_review_queue(data_dir)
         staged_carryover = [_canonicalize_state(r) for r in staged_carryover]
         # A staged_pending record that has since reached main settles now, so it is
