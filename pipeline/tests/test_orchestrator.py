@@ -2933,7 +2933,9 @@ def test_live_adult_record_of_a_childs_incident_is_held_until_approved(tmp_path:
     assert len(held) == 1
     # The held queue is public in the repo, so the waiting copy is in the child-safe form.
     assert held[0]["record"]["minor_involved"] is True
-    assert held[0]["record"]["title"] == "Gang rape involving a minor — TESTVILLE (2026)"
+    assert (
+        held[0]["record"]["title"] == "Gang rape involving a minor — TESTVILLE (2026) — FIR filed"
+    )
 
     # It stays held on the next run even though its child-safe copy no longer links.
     orchestrator.run(

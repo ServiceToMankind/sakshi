@@ -20,7 +20,7 @@
     ],
     "state": "DL",
     "status": "UNKNOWN",
-    "summary": "A case of rape involving a minor in Outer Delhi, Delhi (2023). The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "summary": "In September 2023, a case of rape involving a minor was registered in Outer Delhi, Delhi. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
     "title": "Rape involving a minor — Outer Delhi (2023)",
     "verified": true
   },
@@ -55,8 +55,8 @@
     ],
     "state": "DL",
     "status": "FIR_FILED",
-    "summary": "Four people were arrested in Delhi for the rape involving a minor. A weapon or threat was involved. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Rape involving a minor — Delhi (2023)",
+    "summary": "In September 2023, four people were arrested in Delhi for the rape involving a minor. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Delhi (2023) — FIR filed",
     "verified": true,
     "weapon_or_threat": true
   },
@@ -99,8 +99,8 @@
     ],
     "state": "DL",
     "status": "ACQUITTED",
-    "summary": "One person was arrested in South Delhi for the sexual assault of a child. An official was suspended over the case. The accused was acquitted. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Sexual assault of a child — South Delhi (2023)",
+    "summary": "In August 2023, one person was arrested in South Delhi, Delhi for the sexual assault of a child. The charges also include criminal intimidation. An official was suspended over the case. The accused was acquitted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — South Delhi (2023) — acquitted",
     "verified": true
   },
   {
@@ -147,8 +147,8 @@
     ],
     "state": "DL",
     "status": "UNDER_TRIAL",
-    "summary": "A case of aggravated penetrative assault on a child in North-West, Delhi (2023). The case is under trial. Identifying details are withheld by law (POCSO s.23).",
-    "title": "Aggravated penetrative assault on a child — North-West (2023)",
+    "summary": "In July 2023, police made an arrest in North-West, Delhi over the aggravated penetrative assault on a child. The charges also include kidnapping, hiding a kidnapped person, drugging and failing to report the offence. Police have filed a chargesheet. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — North-West (2023) — on trial",
     "verified": true
   }
 ]

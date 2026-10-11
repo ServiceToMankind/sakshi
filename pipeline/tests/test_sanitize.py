@@ -252,7 +252,8 @@ def test_minor_summary_uses_structured_composer_when_facts_resolve() -> None:
     }
     clean = sanitize_record(rec)
     assert clean["summary"].startswith(
-        "Three people were arrested in Kothagudem for the aggravated penetrative assault"
+        "In 2026, three people were arrested in Kothagudem, Telangana for the aggravated "
+        "penetrative assault"
     )
     assert "Police have filed a chargesheet." in clean["summary"]
     assert clean["summary"].endswith("Identifying details are withheld by law (POCSO s.23).")
@@ -472,7 +473,7 @@ def test_minor_summary_uses_full_state_name_not_code() -> None:
     assert "Haryana" in summary and ", HR" not in summary
     # Title falls back to the full state name when a district is absent.
     no_district = {**record, "district": ""}
-    assert minor_title(no_district).endswith("— Haryana (2026)")
+    assert minor_title(no_district).endswith("— Haryana (2026) — on trial")
 
 
 def test_minor_status_history_keeps_court_date_day_precision() -> None:
@@ -523,3 +524,36 @@ def test_scrub_place_fields_leaves_a_child_case_and_missing_fields_alone() -> No
     assert scrub_place_fields(minor) is minor  # a child's text is already the fixed wording
     no_summary = {"minor_involved": False, "district": "TESTVILLE", "title": "A case"}
     assert scrub_place_fields(no_summary) == no_summary
+
+
+def test_child_case_title_says_where_the_case_stands() -> None:
+    """#267: a child's title names the offence, place, year and where the case stands."""
+    from pipeline.sanitize import minor_title
+
+    base = {
+        "minor_involved": True,
+        "category": "pocso",
+        "state": "TG",
+        "district": "TESTVILLE",
+        "incident_reported_date": "2026",
+        "offence_sections": ["POCSO 6"],
+    }
+    assert minor_title({**base, "status": "CONVICTED", "sentence_years": 20}).endswith(
+        "— TESTVILLE (2026) — convicted, 20 years"
+    )
+    assert minor_title({**base, "status": "CONVICTED", "sentence_years": 1}).endswith(
+        "convicted, 1 year"
+    )
+    assert minor_title({**base, "status": "CONVICTED", "sentence_years": True}).endswith(
+        "— convicted"
+    )
+    assert minor_title(
+        {**base, "status": "ACQUITTED", "institutional_actions": ["convicted", "appeal_filed"]}
+    ).endswith("— acquitted on appeal")
+    assert minor_title({**base, "status": "ACQUITTED"}).endswith("— acquitted")
+    assert minor_title({**base, "status": "UNKNOWN"}).endswith("(2026)")
+    crowded = {**base, "district": "A Very Long District Name Indeed", "status": "UNDER_TRIAL"}
+    assert "on trial" not in minor_title(crowded) and len(minor_title(crowded)) <= 90
+    assert minor_title({**base, "district": "Unknown", "status": "FIR_FILED"}).endswith(
+        "— Telangana (2026) — FIR filed"
+    )

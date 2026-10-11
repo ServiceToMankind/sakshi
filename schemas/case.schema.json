@@ -224,8 +224,8 @@
     },
     "summary": {
       "type": "string",
-      "maxLength": 400,
-      "description": "Plain-English neutral summary (<=2 sentences), no victim details. When minor_involved is true BOTH title and summary are generated DETERMINISTICALLY by pipeline.sanitize.project_minor_record from allowed fields only (enforced by the conditional below); the model-written narrative is never published for a minor case."
+      "maxLength": 700,
+      "description": "Plain-English neutral summary (up to 4 short sentences: what happened, where, and what the police and courts did — #267), no victim details. When minor_involved is true BOTH title and summary are generated DETERMINISTICALLY by pipeline.sanitize.project_minor_record from allowed fields only (enforced by the conditional below); the model-written narrative is never published for a minor case."
     },
     "sources": {
       "type": "array",

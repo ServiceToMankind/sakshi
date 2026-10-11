@@ -133,8 +133,8 @@
     },
     "summary": {
       "type": "string",
-      "maxLength": 400,
-      "description": "Plain-English neutral summary in SIMPLE declarative English: <=2 sentences, active voice, NO legalese (say 'the court paused the trial while it reviews the FIR', not 'stayed proceedings concerning an FIR alleging'), do not define anything by section number alone. Must contain NO victim details."
+      "maxLength": 700,
+      "description": "Plain-English neutral summary in SIMPLE declarative English: 3 or 4 short sentences, active voice, NO legalese (say 'the court paused the trial while it reviews the FIR', not 'stayed proceedings concerning an FIR alleging'), do not define anything by section number alone. Must contain NO victim details."
     },
     "confidence": {
       "type": "number",

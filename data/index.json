@@ -16,35 +16,35 @@
       "year": "2013"
     },
     {
-      "bytes": 1622,
+      "bytes": 1723,
       "path": "2013/TN.json",
       "records": 1,
       "state": "TN",
       "year": "2013"
     },
     {
-      "bytes": 1444,
+      "bytes": 1564,
       "path": "2014/HR.json",
       "records": 1,
       "state": "HR",
       "year": "2014"
     },
     {
-      "bytes": 1246,
+      "bytes": 1312,
       "path": "2014/ML.json",
       "records": 1,
       "state": "ML",
       "year": "2014"
     },
     {
-      "bytes": 2941,
+      "bytes": 3145,
       "path": "2016/DL.json",
       "records": 2,
       "state": "DL",
       "year": "2016"
     },
     {
-      "bytes": 1398,
+      "bytes": 1444,
       "path": "2016/MH.json",
       "records": 1,
       "state": "MH",
@@ -58,35 +58,35 @@
       "year": "2017"
     },
     {
-      "bytes": 2958,
+      "bytes": 3250,
       "path": "2017/TN.json",
       "records": 2,
       "state": "TN",
       "year": "2017"
     },
     {
-      "bytes": 1936,
+      "bytes": 2015,
       "path": "2018/DL.json",
       "records": 2,
       "state": "DL",
       "year": "2018"
     },
     {
-      "bytes": 1231,
+      "bytes": 1268,
       "path": "2018/MP.json",
       "records": 1,
       "state": "MP",
       "year": "2018"
     },
     {
-      "bytes": 1220,
+      "bytes": 1319,
       "path": "2019/JH.json",
       "records": 1,
       "state": "JH",
       "year": "2019"
     },
     {
-      "bytes": 1469,
+      "bytes": 1618,
       "path": "2019/TN.json",
       "records": 1,
       "state": "TN",
@@ -100,28 +100,28 @@
       "year": "2020"
     },
     {
-      "bytes": 1484,
+      "bytes": 1539,
       "path": "2020/UP.json",
       "records": 1,
       "state": "UP",
       "year": "2020"
     },
     {
-      "bytes": 2877,
+      "bytes": 3197,
       "path": "2021/HR.json",
       "records": 2,
       "state": "HR",
       "year": "2021"
     },
     {
-      "bytes": 1631,
+      "bytes": 1768,
       "path": "2021/MP.json",
       "records": 1,
       "state": "MP",
       "year": "2021"
     },
     {
-      "bytes": 1300,
+      "bytes": 1439,
       "path": "2021/TN.json",
       "records": 1,
       "state": "TN",
@@ -135,77 +135,77 @@
       "year": "2022"
     },
     {
-      "bytes": 1446,
+      "bytes": 1603,
       "path": "2022/HR.json",
       "records": 1,
       "state": "HR",
       "year": "2022"
     },
     {
-      "bytes": 1152,
+      "bytes": 1277,
       "path": "2022/MP.json",
       "records": 1,
       "state": "MP",
       "year": "2022"
     },
     {
-      "bytes": 1211,
+      "bytes": 1312,
       "path": "2022/PB.json",
       "records": 1,
       "state": "PB",
       "year": "2022"
     },
     {
-      "bytes": 4327,
+      "bytes": 4657,
       "path": "2022/TN.json",
       "records": 3,
       "state": "TN",
       "year": "2022"
     },
     {
-      "bytes": 4945,
+      "bytes": 5320,
       "path": "2023/DL.json",
       "records": 4,
       "state": "DL",
       "year": "2023"
     },
     {
-      "bytes": 1214,
+      "bytes": 1330,
       "path": "2023/HR.json",
       "records": 1,
       "state": "HR",
       "year": "2023"
     },
     {
-      "bytes": 910,
+      "bytes": 977,
       "path": "2023/TG.json",
       "records": 1,
       "state": "TG",
       "year": "2023"
     },
     {
-      "bytes": 1073,
+      "bytes": 1120,
       "path": "2023/UP.json",
       "records": 1,
       "state": "UP",
       "year": "2023"
     },
     {
-      "bytes": 1065,
+      "bytes": 1127,
       "path": "2024/DL.json",
       "records": 1,
       "state": "DL",
       "year": "2024"
     },
     {
-      "bytes": 2103,
+      "bytes": 2144,
       "path": "2024/GJ.json",
       "records": 2,
       "state": "GJ",
       "year": "2024"
     },
     {
-      "bytes": 1220,
+      "bytes": 1290,
       "path": "2024/JH.json",
       "records": 1,
       "state": "JH",
@@ -226,21 +226,21 @@
       "year": "2024"
     },
     {
-      "bytes": 964,
+      "bytes": 1001,
       "path": "2025/CT.json",
       "records": 1,
       "state": "CT",
       "year": "2025"
     },
     {
-      "bytes": 2370,
+      "bytes": 2646,
       "path": "2025/HR.json",
       "records": 2,
       "state": "HR",
       "year": "2025"
     },
     {
-      "bytes": 1304,
+      "bytes": 1454,
       "path": "2025/JH.json",
       "records": 1,
       "state": "JH",
@@ -254,42 +254,42 @@
       "year": "2025"
     },
     {
-      "bytes": 1108,
+      "bytes": 1149,
       "path": "2025/UP.json",
       "records": 1,
       "state": "UP",
       "year": "2025"
     },
     {
-      "bytes": 1067,
+      "bytes": 1138,
       "path": "2026/AP.json",
       "records": 1,
       "state": "AP",
       "year": "2026"
     },
     {
-      "bytes": 3214,
+      "bytes": 3277,
       "path": "2026/AS.json",
       "records": 3,
       "state": "AS",
       "year": "2026"
     },
     {
-      "bytes": 12438,
+      "bytes": 12838,
       "path": "2026/BR.json",
       "records": 12,
       "state": "BR",
       "year": "2026"
     },
     {
-      "bytes": 2419,
+      "bytes": 2462,
       "path": "2026/CT.json",
       "records": 2,
       "state": "CT",
       "year": "2026"
     },
     {
-      "bytes": 48969,
+      "bytes": 50379,
       "path": "2026/DL.json",
       "records": 42,
       "state": "DL",
@@ -303,35 +303,35 @@
       "year": "2026"
     },
     {
-      "bytes": 5396,
+      "bytes": 5555,
       "path": "2026/GJ.json",
       "records": 5,
       "state": "GJ",
       "year": "2026"
     },
     {
-      "bytes": 6227,
+      "bytes": 6414,
       "path": "2026/HR.json",
       "records": 6,
       "state": "HR",
       "year": "2026"
     },
     {
-      "bytes": 11045,
+      "bytes": 11907,
       "path": "2026/JH.json",
       "records": 9,
       "state": "JH",
       "year": "2026"
     },
     {
-      "bytes": 1943,
+      "bytes": 2039,
       "path": "2026/JK.json",
       "records": 2,
       "state": "JK",
       "year": "2026"
     },
     {
-      "bytes": 5643,
+      "bytes": 5675,
       "path": "2026/KA.json",
       "records": 5,
       "state": "KA",
@@ -345,7 +345,7 @@
       "year": "2026"
     },
     {
-      "bytes": 6349,
+      "bytes": 6589,
       "path": "2026/MH.json",
       "records": 6,
       "state": "MH",
@@ -359,63 +359,63 @@
       "year": "2026"
     },
     {
-      "bytes": 9715,
+      "bytes": 10405,
       "path": "2026/MP.json",
       "records": 9,
       "state": "MP",
       "year": "2026"
     },
     {
-      "bytes": 3272,
+      "bytes": 3326,
       "path": "2026/OD.json",
       "records": 3,
       "state": "OD",
       "year": "2026"
     },
     {
-      "bytes": 3334,
+      "bytes": 3380,
       "path": "2026/PB.json",
       "records": 3,
       "state": "PB",
       "year": "2026"
     },
     {
-      "bytes": 3107,
+      "bytes": 3156,
       "path": "2026/RJ.json",
       "records": 3,
       "state": "RJ",
       "year": "2026"
     },
     {
-      "bytes": 38800,
+      "bytes": 39715,
       "path": "2026/TG.json",
       "records": 36,
       "state": "TG",
       "year": "2026"
     },
     {
-      "bytes": 32370,
+      "bytes": 34000,
       "path": "2026/TN.json",
       "records": 30,
       "state": "TN",
       "year": "2026"
     },
     {
-      "bytes": 2097,
+      "bytes": 2159,
       "path": "2026/TR.json",
       "records": 2,
       "state": "TR",
       "year": "2026"
     },
     {
-      "bytes": 15652,
+      "bytes": 15922,
       "path": "2026/UP.json",
       "records": 14,
       "state": "UP",
       "year": "2026"
     },
     {
-      "bytes": 4547,
+      "bytes": 4625,
       "path": "2026/WB.json",
       "records": 4,
       "state": "WB",

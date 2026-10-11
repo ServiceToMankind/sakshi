@@ -62,17 +62,6 @@ _CATEGORY_LABEL = {
     "harassment": "Sexual harassment",
     "other": "Sexual offence",
 }
-_STATUS_PHRASE = {
-    "FIR_FILED": "An FIR has been filed",
-    "CHARGESHEETED": "A chargesheet has been filed",
-    "UNDER_TRIAL": "The case is under trial",
-    "CONVICTED": "The accused was convicted",
-    "ACQUITTED": "The accused was acquitted",
-    "APPEAL_PENDING": "An appeal is pending",
-    "CLOSED": "The case is closed",
-    "QUASHED": "The case was quashed",
-    "UNKNOWN": "The case status is not yet known",
-}
 # One human sentence: the gap is legal compliance, not missing data.
 MINOR_WITHHELD_SENTENCE = "Identifying details are withheld by law (POCSO s.23)."
 
@@ -99,40 +88,72 @@ def _minor_offence_phrase(record: dict[str, Any]) -> str:
     return f"{phrase} involving a minor"
 
 
+# A few words on where a child's case stands, for the end of its title (#267).
+_TITLE_STATUS = {
+    "FIR_FILED": "FIR filed",
+    "CHARGESHEETED": "chargesheet filed",
+    "UNDER_TRIAL": "on trial",
+    "CONVICTED": "convicted",
+    "ACQUITTED": "acquitted",
+    "APPEAL_PENDING": "appeal pending",
+    "CLOSED": "case closed",
+    "QUASHED": "case quashed",
+}
+
+
+def _minor_place(record: dict[str, Any]) -> str:
+    """The district, or the state when the district is missing or recorded as "Unknown"."""
+    district = str(record.get("district") or "").strip()
+    if district and district.lower() != "unknown":
+        return district
+    return state_name(str(record.get("state") or ""))
+
+
+def _title_status(record: dict[str, Any]) -> str:
+    """ "convicted, 10 years", "acquitted on appeal", "on trial", or "" when unknown."""
+    status = str(record.get("status", "")).upper()
+    phrase = _TITLE_STATUS.get(status, "")
+    actions = record.get("institutional_actions") or []
+    years = record.get("sentence_years")
+    if status == "CONVICTED" and isinstance(years, int) and not isinstance(years, bool):
+        phrase += f", {years} year{'' if years == 1 else 's'}"
+    elif status == "ACQUITTED" and "convicted" in actions and "appeal_filed" in actions:
+        phrase = "acquitted on appeal"
+    return phrase
+
+
 def minor_title(record: dict[str, Any]) -> str:
-    """Deterministic, non-identifying title for a minor case (allowed fields only)."""
+    """Deterministic, non-identifying title for a minor case (allowed fields only): the
+    offence, the district (or state), the year, and where the case stands."""
     year = _case_year(record)
-    where = str(record.get("district") or "").strip() or state_name(str(record.get("state") or ""))
+    where = _minor_place(record)
     parts = [_minor_offence_phrase(record)]
     if where:
         parts.append(f"— {where}")
     if year:
         parts.append(f"({year})")
-    return " ".join(parts)[:90]
+    title = " ".join(parts)
+    status = _title_status(record)
+    if status and len(f"{title} — {status}") <= 90:
+        title = f"{title} — {status}"
+    return title[:90]
 
 
 def minor_summary(record: dict[str, Any]) -> str:
     """Deterministic, non-identifying summary for a minor case (allowed fields only).
 
-    States the plain-language offence (from public charges), location, year, and judicial
-    status — the exact set §1a permits for a minor — then the statutory withholding
-    sentence. No model text, no age, no sub-district, no accused.
+    A short news brief built only from structured facts (#267): when and where, how many
+    were accused, the charges in plain words, then what the police and courts did. Then the
+    legal withholding sentence. No model text, no age, no place below district, no accused.
     """
     offence = _minor_offence_phrase(record)
     offence_lc = offence[0].lower() + offence[1:]
-    district = str(record.get("district", "")).strip()
-    # Richer composition from STRUCTURED facts (§6b) when >=2 resolve; else the flat template.
-    composed = _compose_minor_summary(record, offence_lc, f" in {district}" if district else "")
-    if composed is not None:
-        return f"{composed} {MINOR_WITHHELD_SENTENCE}"
-    year = _case_year(record)
-    location = ", ".join(
-        part for part in (district, state_name(str(record.get("state", "")))) if part
-    )
-    phrase = _STATUS_PHRASE.get(str(record.get("status", "")).upper(), _STATUS_PHRASE["UNKNOWN"])
-    where = f" in {location}" if location else ""
-    reported = f" ({year})" if year else ""
-    return f"A case of {offence_lc}{where}{reported}. {phrase}. {MINOR_WITHHELD_SENTENCE}"
+    place = _minor_place(record)
+    state = state_name(str(record.get("state") or ""))
+    # "Gurugram, Haryana": some district names exist in more than one state.
+    where = f"{place}, {state}" if place and state and place != state else place
+    body = _compose_minor_summary(record, offence_lc, f" in {where}" if where else "")
+    return f"{body} {MINOR_WITHHELD_SENTENCE}"
 
 
 def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
