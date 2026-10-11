@@ -1,6 +1,40 @@
 [
   {
     "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "accused_count": 5,
+      "category": "rape",
+      "confidence": 0.95,
+      "corrected": true,
+      "days_since_reported": null,
+      "district": "Vadodara",
+      "first_published": "2026-09-01",
+      "id": "SKS-2024-GJ-000003",
+      "incident_reported_date": "2024-10",
+      "institutional_actions": [
+        "convicted"
+      ],
+      "minor_involved": true,
+      "offence_sections": [],
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-09-01",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/5-convicts-in-2024-bhayli-gang-rape-case-get-life-imprisonment-101788174691284.html"
+        }
+      ],
+      "state": "GJ",
+      "status": "CONVICTED",
+      "summary": "Five people were accused of the rape involving a minor in Vadodara. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Rape involving a minor — Vadodara (2024)",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
       "unverified_held"
     ],
     "record": {

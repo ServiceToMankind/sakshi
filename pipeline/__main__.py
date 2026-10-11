@@ -42,6 +42,7 @@ from pipeline.districts import canonical_district
 from pipeline.extract.gemini import ExtractionClient, extract
 from pipeline.gates import auto_publish_eligible, has_pocso_signal
 from pipeline.health import build_pipeline_health
+from pipeline.incident_link import possible_child_cases
 from pipeline.ledger import Ledger, load_ledger, save_ledger
 from pipeline.merge_review import find_candidate_matches
 from pipeline.offence_filter import media_offence_hit
@@ -572,6 +573,23 @@ def _load_approved(base_dir: Path) -> set[str]:
     if not isinstance(urls, list):
         return set()
     return {str(url).strip() for url in urls if str(url).strip()}
+
+
+def _held_as_possible_child_case(base_dir: Path) -> set[str]:
+    """Source links of records already waiting in the held queue as possible child cases.
+
+    Once held, such a record is stored in the child-safe form, so the link that flagged it
+    may no longer show up. Remembering its sources keeps it held until a person approves it.
+    """
+    queue = base_dir / NEEDS_REVIEW_RELPATH
+    if not queue.exists():
+        return set()
+    urls: set[str] = set()
+    for item in json.loads(queue.read_text(encoding="utf-8")):
+        if isinstance(item, dict) and "possible_child_case" in (item.get("reasons") or []):
+            record = item.get("record") or {}
+            urls |= {str(s.get("url", "")).strip() for s in record.get("sources") or []}
+    return urls
 
 
 def _is_approved(record: dict[str, Any], approved: set[str]) -> bool:
@@ -1419,7 +1437,20 @@ def run(
     auto_eligible: list[dict[str, Any]] = []
     needs_review_items: list[tuple[dict[str, Any], list[str]]] = []
     to_promote: list[dict[str, Any]] = []
-    for record in published:
+    # An adult record that looks like part of a child's incident waits for review, even if it
+    # is already on the site (issue #255): a child's case must never carry an adult summary.
+    # The held queue is a public file in the repo, so the waiting copy is stored in the
+    # child-safe form, and it stays held on later runs until someone approves it.
+    child_linked = possible_child_cases(published)
+    still_waiting = _held_as_possible_child_case(_staged_archive() or data_dir)
+    for position, record in enumerate(published):
+        waiting = any(
+            str(s.get("url", "")).strip() in still_waiting for s in record.get("sources") or []
+        )
+        if (position in child_linked or waiting) and not _is_approved(record, approved):
+            child_safe = _finalize_for_disk({**record, "minor_involved": True}, case_schema)
+            needs_review_items.append((child_safe, ["possible_child_case"]))
+            continue
         if verified_mode:
             # A dedupe merge can flip minor_involved AFTER the per-candidate sanitize
             # pass, so re-run the FULL last gate here (idempotent otherwise) so any merged

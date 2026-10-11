@@ -279,17 +279,6 @@
     },
     {
       "acquittals": 0,
-      "convictions": 2,
-      "district": "Vadodara",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "GJ",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
       "convictions": 0,
       "district": "Faridabad",
       "longest_pending": null,
@@ -813,6 +802,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
+      "state": "GJ",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Vadodara",
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "GJ",
       "total": 1,
       "under_trial": 0,

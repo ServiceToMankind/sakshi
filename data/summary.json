@@ -100,7 +100,7 @@
     }
   ],
   "scale": {
-    "cumulative_total": 251,
+    "cumulative_total": 250,
     "daily": [
       {
         "count": 0,
@@ -603,7 +603,7 @@
     "CT": 3,
     "DL": 52,
     "GA": 4,
-    "GJ": 8,
+    "GJ": 7,
     "HR": 14,
     "JH": 12,
     "JK": 2,
@@ -627,7 +627,7 @@
     "APPEAL_PENDING": 12,
     "CHARGESHEETED": 1,
     "CLOSED": 1,
-    "CONVICTED": 40,
+    "CONVICTED": 39,
     "FIR_FILED": 86,
     "QUASHED": 2,
     "UNDER_TRIAL": 41,
@@ -659,5 +659,5 @@
       "incident_reported_date": "2026-10-07"
     }
   ],
-  "total": 251
+  "total": 250
 }
