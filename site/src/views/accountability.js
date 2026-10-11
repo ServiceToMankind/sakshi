@@ -7,7 +7,7 @@
 
 import { el } from '../dom.js';
 import { t } from '../i18n/index.js';
-import { loadSummary, loadCoverage } from '../data.js';
+import { loadSummary, loadCoverage, loadJurisdictions } from '../data.js';
 import { formatNumber, stateName } from '../format.js';
 import { scaleDrumbeat, jurisdictionScorecard, offenderScorecard } from './scorecards.js';
 
@@ -122,6 +122,13 @@ export async function renderAccountability() {
   } catch {
     coverage = null;
   }
+  // A missing/unreadable scorecard file degrades to "no scorecard section", never a blank page.
+  let jurisdictions = [];
+  try {
+    jurisdictions = await loadJurisdictions();
+  } catch {
+    jurisdictions = [];
+  }
 
   return el('div', { class: 'view view--accountability' }, [
     el('section', { class: 'lead reveal' }, [
@@ -131,7 +138,7 @@ export async function renderAccountability() {
     stalledHeadline(summary.status_counts),
     scaleDrumbeat(summary),
     longestSpotlight(summary.top_longest_pending),
-    jurisdictionScorecard(summary.jurisdictions, coverage),
+    jurisdictionScorecard(jurisdictions, coverage),
     offenderScorecard(),
   ]);
 }

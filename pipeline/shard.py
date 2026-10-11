@@ -2,7 +2,8 @@
 
 Regenerates the ``data/`` tree from the given records: assigns deterministic,
 never-reused IDs, validates every record against ``schemas/case.schema.json``,
-and writes per-year/state shards plus ``summary.json`` and ``index.json``.
+and writes per-year/state shards plus ``summary.json``, ``index.json`` and
+``jurisdictions.json`` (the full per-district scorecard).
 
 Safety of a re-run:
 - Every gate (unique IDs, schema validation, summary size budget) runs BEFORE any
@@ -38,10 +39,21 @@ from pipeline.validate import iter_shard_files, load_schema, validate_record
 
 # Accountability-layer summary bounds (keep summary.json within its byte budget).
 _SCALE_DAYS = 120  # length of the daily-ingestion heat strip retained in summary.json
-_MAX_JURISDICTIONS = 120  # cap the (worst-first) scorecard so summary.json can't overflow
 _CLOSED_STATUSES = frozenset({"CONVICTED", "ACQUITTED", "QUASHED", "CLOSED"})
 
-__all__ = ["SHARD_SPLIT_BYTES", "SUMMARY_MAX_BYTES", "WriteResult", "write_shards"]
+__all__ = [
+    "JURISDICTIONS_FILENAME",
+    "SHARD_SPLIT_BYTES",
+    "SUMMARY_MAX_BYTES",
+    "WriteResult",
+    "write_shards",
+]
+
+# The per-(state, district) scorecard lives in its OWN file, never in summary.json: it grows
+# with every district India has (~780), so inside the 50 KB summary it had to be capped — and
+# a cap silently dropped real records' districts (and, once, a whole state) from the scorecard.
+# Uncapped here, every published record is counted in exactly one row.
+JURISDICTIONS_FILENAME = "jurisdictions.json"
 
 SUMMARY_MAX_BYTES = config.SUMMARY_MAX_BYTES
 SHARD_SPLIT_BYTES = config.SHARD_SPLIT_BYTES
@@ -555,7 +567,6 @@ def _build_summary(
         # --- accountability layer (aggregate/public only; see CLAUDE.md §1a) ---
         "severity_counts": severity_counts,
         "aggravated_total": aggravated_total,
-        "jurisdictions": _jurisdiction_scorecards(records),
         "scale": _scale_block(data_dir, run_date, new_count, len(records)),
     }
 
@@ -627,16 +638,14 @@ def _jurisdiction_scorecards(records: list[dict[str, Any]]) -> list[dict[str, An
             "longest_pending": {"id": longest[1], "days": longest[0]} if longest else None,
         }
         # Stalled pre-chargesheet count (%-of-total computed on the client). Emitted only when
-        # non-zero so it stays SPARSE — jurisdictions is the size-capped section and the
-        # summary.json budget is tight; an all-zero field on every row would waste the budget.
+        # non-zero so it stays SPARSE — an all-zero field on every row would only add bytes.
         if pre_chargesheet:
             card["pre_chargesheet"] = pre_chargesheet
         cards.append(card)
-    # Worst-first, then CAP: jurisdictions is the only unbounded summary section, so an
-    # uncapped list would eventually push summary.json past SUMMARY_MAX_BYTES and abort
-    # the whole run. The cap keeps the highest-caseload ("shame table") districts.
+    # Worst-first (highest caseload — the "shame table" order). NEVER capped: every published
+    # record must be counted in exactly one row (scripts/counts_guard asserts it).
     cards.sort(key=lambda c: (-int(c["total"]), str(c["state"]), str(c["district"])))
-    return cards[:_MAX_JURISDICTIONS]
+    return cards
 
 
 def _scale_block(data_dir: Path, run_date: str, new_count: int, total: int) -> dict[str, Any]:
@@ -737,6 +746,12 @@ def write_shards(
     if summary_bytes > SUMMARY_MAX_BYTES:
         raise ValueError(f"summary.json is {summary_bytes} bytes (budget {SUMMARY_MAX_BYTES})")
     files.append((data_dir / "summary.json", summary_text))
+
+    jurisdictions_doc = {
+        "generated_at": f"{run_date}T00:00:00Z",
+        "jurisdictions": _jurisdiction_scorecards(finalized),
+    }
+    files.append((data_dir / JURISDICTIONS_FILENAME, _dumps(jurisdictions_doc)))
 
     manifest.sort(key=lambda entry: entry["path"])
     index_doc = {"generated_at": f"{run_date}T00:00:00Z", "shards": manifest}
