@@ -125,7 +125,6 @@ def build_sources(
                     client,
                     feeds=feeds,
                     fetched_at=fetched_at,
-                    fetch_body=config.article_body_enabled(),
                 )
             )
 

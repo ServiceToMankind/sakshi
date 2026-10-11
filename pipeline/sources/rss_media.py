@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import re
 import xml.etree.ElementTree as ET
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 
@@ -33,7 +34,14 @@ _WS_RE = re.compile(r"\s+")
 # <script>/<style> blocks carry no article text — drop their CONTENT before stripping tags.
 _SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.I | re.S)
 
-__all__ = ["DEFAULT_FEEDS", "Feed", "RssMediaSource", "extract_article_text", "parse_feed"]
+__all__ = [
+    "DEFAULT_FEEDS",
+    "Feed",
+    "RssMediaSource",
+    "extract_article_text",
+    "fetch_article_bodies",
+    "parse_feed",
+]
 
 
 def extract_article_text(html: str) -> str:
@@ -175,3 +183,14 @@ class RssMediaSource:
         return RawDocument(
             url=doc.url, publisher=doc.publisher, fetched_at=doc.fetched_at, text=combined
         )
+
+
+async def fetch_article_bodies(
+    client: HttpGetter, docs: Sequence[RawDocument]
+) -> list[RawDocument]:
+    """Read the full article behind each of ``docs`` (news items that passed the offence
+    filter), keeping each item's own text when the site's robots.txt says no or the page
+    can't be read. Only these few items are fetched, not every item in every feed.
+    """
+    reader = RssMediaSource(client, feeds=(), fetch_body=True)
+    return [await reader._augment_with_body(doc) for doc in docs]

@@ -75,6 +75,10 @@ jobs:
       # Optional ops override of the pinned model chain (comma-separated). Empty =>
       # the pinned chain in sources.yml (extraction.models). No code change needed.
       GEMINI_MODELS: ${{ vars.GEMINI_MODELS || '' }}
+      # Read the whole article (not just the feed's two-line blurb) for the few news items
+      # that pass the offence filter, so each record can say what happened (#267). On by
+      # default; set the repo variable FETCH_ARTICLE_BODY to 'false' to switch it off.
+      FETCH_ARTICLE_BODY: ${{ vars.FETCH_ARTICLE_BODY || 'true' }}
       # Verifier (guardrail L). The pipeline reads VERIFY_ENABLED / VERIFY_MAX_USD
       # from the environment (pipeline/config.py). Set at job level so BOTH the
       # `Run pipeline` step and the `Post ops heartbeat` step (which prints a
@@ -434,6 +438,7 @@ jobs:
           VERIFY_MAX_USD: ""
           VERIFY_MODEL: ""
           GEMINI_MODELS: ""
+          FETCH_ARTICLE_BODY: ""
         run: |
           set -o pipefail  # a failed check must fail this step, not just get copied to the log
           python -m pip install -e '.[dev]'
