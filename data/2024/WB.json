@@ -3,6 +3,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
+    "corrected": true,
     "days_since_reported": 793,
     "district": "Kolkata",
     "first_published": "2026-08-14",
@@ -23,7 +24,7 @@
     "state": "WB",
     "status": "UNKNOWN",
     "summary": "A former politician was arrested for allegedly using his influence to rush the cremation of a rape-murder victim. The incident took place in Kolkata. He allegedly ordered the cremation against the family's wishes.",
-    "title": "Former politician arrested over hurried cremation in RG Kar case",
+    "title": "Former politician arrested over hurried cremation in Kolkata rape-murder case",
     "verification_note": "The source refers to events related to the widely reported RG Kar Hospital rape-murder case in Kolkata, West Bengal.",
     "verified": true
   }

@@ -3,6 +3,7 @@
     "accused_count": 5,
     "category": "rape",
     "confidence": 0.95,
+    "corrected": true,
     "days_since_reported": 737,
     "district": "Vadodara",
     "first_published": "2026-09-01",
@@ -24,7 +25,7 @@
     "state": "GJ",
     "status": "CONVICTED",
     "summary": "A court sentenced five men to life imprisonment for gang rape in Vadodara. The prosecution had requested either the death penalty or life imprisonment for the convicts.",
-    "title": "Five men sentenced to life imprisonment in Bhayli gang rape case",
+    "title": "Five men sentenced to life imprisonment in Vadodara gang rape case",
     "verification_note": "The record is verified as it accurately reflects the conviction in the 2024 Bhayli gang rape case in Vadodara, Gujarat.",
     "verified": true
   },
