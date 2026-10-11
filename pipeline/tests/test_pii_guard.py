@@ -257,3 +257,30 @@ def test_main_diff_with_explicit_paths_scans_both(
     monkeypatch.setattr(pii_guard, "_staged_diff", lambda: "+clean")
     _write_json(tmp_path / "bad.json", {"victim_name": "SHOULD NOT PERSIST"})
     assert pii_guard.main(["--diff", str(tmp_path)]) == 1
+
+
+def test_scan_value_flags_a_place_or_institution_in_adult_case_text() -> None:
+    record = {
+        "minor_involved": False,
+        "district": "TESTVILLE",
+        "title": "Two arrested in Fakepur gang rape case",
+        "summary": "Students of Fakeland University protested.",
+    }
+    findings = list(pii_guard.scan_value([record], "", scan_ages=True))
+    reasons = " | ".join(f.reason for f in findings)
+    assert "Fakepur" in reasons and "Fakeland University" in reasons
+    assert any(f.path == "[0].title" for f in findings)
+    # A bare record (no surrounding list) reports the field name alone.
+    bare = list(pii_guard.scan_value(record, "", scan_ages=True))
+    assert any(f.path == "title" for f in bare)
+
+
+def test_scan_value_place_check_skips_children_quarantine_and_non_text() -> None:
+    child = {"minor_involved": True, "district": "TESTVILLE", "title": "Fakepur gang rape case"}
+    assert list(pii_guard.scan_value(child, "", scan_ages=True)) == []
+    adult = {"minor_involved": False, "district": "TESTVILLE", "title": "Fakepur gang rape case"}
+    assert list(pii_guard.scan_value(adult, "", scan_ages=False)) == []  # the _review queue
+    no_text = {"minor_involved": False, "district": "TESTVILLE", "title": 7}
+    assert list(pii_guard.scan_value(no_text, "", scan_ages=True)) == []
+    clean = {"minor_involved": False, "district": "TESTVILLE", "title": "Arrest in TESTVILLE"}
+    assert list(pii_guard.scan_value(clean, "", scan_ages=True)) == []

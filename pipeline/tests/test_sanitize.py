@@ -22,6 +22,7 @@ from pipeline.sanitize import (
     contains_pii,
     sanitize_record,
     sanitize_string,
+    scrub_place_fields,
 )
 
 # --- Constants layer ---------------------------------------------------------
@@ -499,3 +500,26 @@ def test_minor_status_history_keeps_court_date_day_precision() -> None:
     dates = {e["status"]: e["date"] for e in projected["status_history"]}
     assert dates["FIR_FILED"] == "2026-06"  # non-court date truncated to month
     assert dates["CONVICTED"] == "2026-07-30"  # court date keeps day precision
+
+
+def test_sanitize_replaces_sub_district_places_and_institutions_in_adult_text() -> None:
+    """Issue #255: an adult case's title/summary never names a place below its district or
+    an institution. The place becomes the record's own district; the institution a plain word."""
+    record = {
+        "minor_involved": False,
+        "district": "TESTVILLE",
+        "title": "Two arrested in Fakepur gang rape case",
+        "summary": "Fakepur police registered a case. Students of Fakeland University protested.",
+    }
+    cleaned = sanitize_record(record)
+    assert cleaned["title"] == "Two arrested in TESTVILLE gang rape case"
+    assert cleaned["summary"] == (
+        "TESTVILLE police registered a case. Students of a university protested."
+    )
+
+
+def test_scrub_place_fields_leaves_a_child_case_and_missing_fields_alone() -> None:
+    minor = {"minor_involved": True, "district": "TESTVILLE", "title": "Fakepur gang rape case"}
+    assert scrub_place_fields(minor) is minor  # a child's text is already the fixed wording
+    no_summary = {"minor_involved": False, "district": "TESTVILLE", "title": "A case"}
+    assert scrub_place_fields(no_summary) == no_summary

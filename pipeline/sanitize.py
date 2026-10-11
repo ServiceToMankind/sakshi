@@ -30,6 +30,7 @@ from pipeline.pii_constants import (
     PII_VALUE_PATTERNS,
     is_forbidden_key,
     matched_value_patterns,
+    scrub_place_details,
     scrub_victim_occupation,
 )
 from pipeline.pii_multilingual import scrub_multilingual_pii, scrub_native_script
@@ -43,6 +44,7 @@ __all__ = [
     "project_minor_record",
     "sanitize_record",
     "sanitize_string",
+    "scrub_place_fields",
 ]
 
 # Fixed marker left in free text where a PII-shaped span was removed. It must not
@@ -156,6 +158,7 @@ def sanitize_record(record: dict[str, Any]) -> dict[str, Any]:
         # ACCUSED's public occupation. Minors skip this: their title/summary are already
         # replaced wholesale by project_minor_record, so no victim occupation can survive.
         cleaned = _scrub_occupation_fields(cleaned)
+        cleaned = scrub_place_fields(cleaned)
         if not str(cleaned.get("title", "")).strip():
             # No model title (older record / omission): deterministic non-identifying fallback.
             cleaned["title"] = _nonminor_title(cleaned)
@@ -185,6 +188,25 @@ def _scrub_occupation_fields(record: dict[str, Any]) -> dict[str, Any]:
         value = cleaned.get(field)
         if isinstance(value, str):
             cleaned[field] = scrub_victim_occupation(value)
+    return cleaned
+
+
+def scrub_place_fields(record: dict[str, Any]) -> dict[str, Any]:
+    """Take neighbourhood, police-station-area and institution names out of an adult case's
+    title and summary (issue #255), putting the record's own district in their place.
+
+    The pipeline also runs this over records already on the site, so a rule added later
+    reaches every published case, not only new ones. A child's case is left alone: its title
+    and summary are already the fixed, district-only wording.
+    """
+    if record.get("minor_involved") is True:
+        return record
+    district = str(record.get("district") or "")
+    cleaned = dict(record)
+    for field in sorted(OCCUPATION_SCANNED_FIELDS):
+        value = cleaned.get(field)
+        if isinstance(value, str):
+            cleaned[field] = scrub_place_details(value, district)
     return cleaned
 
 

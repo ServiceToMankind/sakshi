@@ -355,3 +355,470 @@ def matched_age_patterns(value: str) -> list[str]:
 def is_free_text_key(key: str) -> bool:
     """True if ``key`` names a narrative free-text field that should be age-scanned."""
     return key in FREE_TEXT_FIELD_NAMES
+
+
+# --- Places below district level, and institutions (issue #255) ---------------
+# For an adult case we write a short summary, but the district is the most precise place we
+# ever show. Titles and summaries sometimes named a neighbourhood, a park, a police-station
+# area, or the university or hospital where the victim studied or worked. These rules take
+# such names out of the text. Wherever a place name stood, the record's own district goes in
+# (always true, and never more precise), and a named institution becomes "a university",
+# "a hospital" and so on. Both sanitize.py and pii_guard.py use them, so the guard can only
+# complain about something the sanitizer would have removed.
+
+# Places that are fine to name: states and union territories, the big cities that cover
+# millions of people, and districts whose names happen to end in words like "Nagar".
+KNOWN_PLACES: Final[frozenset[str]] = frozenset(
+    name.lower()
+    for name in (
+        # States, union territories and the country.
+        "Andhra Pradesh",
+        "Arunachal Pradesh",
+        "Assam",
+        "Bihar",
+        "Chhattisgarh",
+        "Goa",
+        "Gujarat",
+        "Haryana",
+        "Himachal Pradesh",
+        "Jharkhand",
+        "Karnataka",
+        "Kerala",
+        "Madhya Pradesh",
+        "Maharashtra",
+        "Manipur",
+        "Meghalaya",
+        "Mizoram",
+        "Nagaland",
+        "Odisha",
+        "Orissa",
+        "Punjab",
+        "Rajasthan",
+        "Sikkim",
+        "Tamil Nadu",
+        "Telangana",
+        "Tripura",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "West Bengal",
+        "Bengal",
+        "Delhi",
+        "Andaman and Nicobar Islands",
+        "Chandigarh",
+        "Jammu and Kashmir",
+        "Jammu",
+        "Kashmir",
+        "Ladakh",
+        "Lakshadweep",
+        "Puducherry",
+        "Pondicherry",
+        "India",
+        # Big cities.
+        "New Delhi",
+        "Mumbai",
+        "Kolkata",
+        "Chennai",
+        "Bengaluru",
+        "Bangalore",
+        "Hyderabad",
+        "Secunderabad",
+        "Cyberabad",
+        "Pune",
+        "Ahmedabad",
+        "Surat",
+        "Jaipur",
+        "Lucknow",
+        "Kanpur",
+        "Noida",
+        "Greater Noida",
+        "Ghaziabad",
+        "Gurugram",
+        "Gurgaon",
+        "Faridabad",
+        "Patna",
+        "Bhopal",
+        "Indore",
+        "Nagpur",
+        "Visakhapatnam",
+        "Vijayawada",
+        "Thane",
+        "Navi Mumbai",
+        "Kochi",
+        "Thiruvananthapuram",
+        "Coimbatore",
+        "Madurai",
+        "Guwahati",
+        "Bhubaneswar",
+        "Cuttack",
+        "Ranchi",
+        "Raipur",
+        "Dehradun",
+        "Shimla",
+        "Srinagar",
+        "Amritsar",
+        "Ludhiana",
+        "Jalandhar",
+        "Mohali",
+        "Varanasi",
+        "Prayagraj",
+        "Allahabad",
+        "Agra",
+        "Meerut",
+        "Mysuru",
+        "Mangaluru",
+        "Vadodara",
+        "Rajkot",
+        "Gwalior",
+        "Jabalpur",
+        "Jodhpur",
+        "Udaipur",
+        "Kota",
+        "Warangal",
+        "Tirupati",
+        "Salem",
+        "Tiruchirappalli",
+        "Panaji",
+        "Imphal",
+        "Shillong",
+        "Aizawl",
+        "Kohima",
+        "Agartala",
+        "Gangtok",
+        "Itanagar",
+        "Howrah",
+        "Siliguri",
+        "Asansol",
+        "Durgapur",
+        # Districts whose names end in a locality word.
+        "Gautam Buddh Nagar",
+        "Gautam Buddha Nagar",
+        "Ambedkar Nagar",
+        "Sant Kabir Nagar",
+        "Sant Ravidas Nagar",
+        "Sri Ganganagar",
+        "Yamuna Nagar",
+        "Gandhi Nagar",
+        "Shaheed Bhagat Singh Nagar",
+        "Sahibzada Ajit Singh Nagar",
+    )
+)
+
+# Well-known institutions usually written as a short name, and what we write instead:
+# (with an article, used on its own) and (without one, used before a noun, as in
+# "university students").
+_INSTITUTION_SHORT_NAMES: Final[dict[str, tuple[str, str]]] = {
+    "JNU": ("a university", "university"),
+    "BHU": ("a university", "university"),
+    "AMU": ("a university", "university"),
+    "JMI": ("a university", "university"),
+    "AIIMS": ("a hospital", "hospital"),
+    "PGIMER": ("a hospital", "hospital"),
+    "JIPMER": ("a hospital", "hospital"),
+    "KGMU": ("a hospital", "hospital"),
+    "RG Kar": ("a hospital", "hospital"),
+    "IIT": ("an institute", "institute"),
+    "IIM": ("an institute", "institute"),
+    "NIT": ("an institute", "institute"),
+    "IIIT": ("an institute", "institute"),
+    "IISc": ("an institute", "institute"),
+    "LSR": ("a college", "college"),
+    "SRCC": ("a college", "college"),
+}
+
+# The last word of a named institution ("Lady Shri Ram College") and its plain replacement.
+_INSTITUTION_TYPES: Final[dict[str, tuple[str, str]]] = {
+    "University": ("a university", "university"),
+    "College": ("a college", "college"),
+    "Hospital": ("a hospital", "hospital"),
+    "School": ("a school", "school"),
+    "Institute": ("an institute", "institute"),
+    "Academy": ("an academy", "academy"),
+    "Vidyalaya": ("a school", "school"),
+    "Mahavidyalaya": ("a college", "college"),
+    "Polytechnic": ("a college", "college"),
+}
+
+# When one of these follows the institution's name, the name is being used like an
+# adjective ("JNU students"), so the replacement drops its article.
+_INSTITUTION_FOLLOWERS: Final[frozenset[str]] = frozenset(
+    {
+        "student",
+        "students",
+        "professor",
+        "professors",
+        "teacher",
+        "teachers",
+        "staff",
+        "campus",
+        "hostel",
+        "faculty",
+        "doctor",
+        "doctors",
+        "nurse",
+        "nurses",
+        "official",
+        "officials",
+        "authorities",
+        "administration",
+        "management",
+        "employee",
+        "employees",
+        "case",
+        "vice-chancellor",
+        "registrar",
+        "principal",
+        "dean",
+        "director",
+    }
+)
+
+# Words that end a neighbourhood-style name ("Lajpat Nagar", "Aastha Kunj").
+_LOCALITY_ENDINGS: Final[tuple[str, ...]] = (
+    "Nagar",
+    "Colony",
+    "Vihar",
+    "Kunj",
+    "Puram",
+    "Pally",
+    "Palli",
+    "Gaon",
+    "Ganj",
+    "Bagh",
+    "Enclave",
+    "Chowk",
+    "Mohalla",
+    "Basti",
+    "Tola",
+    "Peth",
+    "Wadi",
+    "Pada",
+    "Mandi",
+    "Bazaar",
+    "Market",
+    "Park",
+    "Mandir",
+    "Temple",
+    "Masjid",
+    "Ashram",
+    "Village",
+)
+
+# Capitalised everyday words that can sit before "police" or "case" without being a place.
+_NOT_A_PLACE: Final[frozenset[str]] = frozenset(
+    {
+        "the",
+        "a",
+        "an",
+        "this",
+        "that",
+        "these",
+        "those",
+        "local",
+        "city",
+        "state",
+        "district",
+        "railway",
+        "railways",
+        "government",
+        "cyber",
+        "women",
+        "traffic",
+        "special",
+        "rural",
+        "urban",
+        "metro",
+        "border",
+        "armed",
+        "all",
+        "its",
+        "their",
+        "his",
+        "her",
+        "our",
+        "when",
+        "after",
+        "before",
+        "and",
+        "but",
+        "in",
+        "on",
+        "at",
+        "for",
+        "from",
+        "by",
+        "with",
+        "no",
+        "any",
+        "both",
+        "neither",
+        "either",
+        "several",
+        "many",
+        "more",
+        "most",
+        "other",
+        "senior",
+        "junior",
+        "then",
+        "later",
+        "also",
+        "however",
+        "nor",
+        "not",
+        "only",
+        "every",
+        "each",
+        "such",
+        "one",
+        "two",
+        "three",
+        "four",
+        "five",
+        "six",
+        "seven",
+        "eight",
+        "nine",
+        "ten",
+        "some",
+        "police",
+        "national",
+        "central",
+        "indian",
+        "south",
+        "north",
+        "east",
+        "west",
+        "we",
+        "they",
+        "it",
+        "there",
+        "where",
+        "while",
+        "since",
+        "though",
+        "although",
+        "as",
+        "if",
+        "said",
+        "following",
+        "high",
+        "supreme",
+        "sessions",
+        "fast-track",
+        "pocso",
+    }
+)
+
+_CAP_WORD = r"[A-Z][\w'-]*"
+_SHORT_NAME_RE: Final[re.Pattern[str]] = re.compile(
+    r"\b(" + "|".join(re.escape(n) for n in _INSTITUTION_SHORT_NAMES) + r")\b"
+)
+_NAMED_INSTITUTION_RE: Final[re.Pattern[str]] = re.compile(
+    r"\b((?:" + _CAP_WORD + r"\s+){1,5})(" + "|".join(_INSTITUTION_TYPES) + r")\b"
+    r"(?:\s+of\s+(?:" + _CAP_WORD + r")(?:\s+" + _CAP_WORD + r"){0,3})?"
+)
+_PLACE_POLICE_RE: Final[re.Pattern[str]] = re.compile(
+    r"\b(" + _CAP_WORD + r"(?:\s+" + _CAP_WORD + r"){0,2})(\s+[Pp]olice)\b"
+)
+_PLACE_CASE_RE: Final[re.Pattern[str]] = re.compile(
+    r"\b(" + _CAP_WORD + r"(?:\s+" + _CAP_WORD + r"){0,2})"
+    r"(\s+(?:gang[\s-]?rape|rape(?:-murder)?|sexual\s+(?:assault|exploitation|harassment|abuse)"
+    r"|molestation|harassment|murder|POCSO|acid\s+attack)\s+case)\b"
+)
+_LOCALITY_RE: Final[re.Pattern[str]] = re.compile(
+    r"\b((?:" + _CAP_WORD + r"\s+){1,3}(?:" + "|".join(_LOCALITY_ENDINGS) + r"))\b"
+)
+_NEAR_NAMED_PLACE_RE: Final[re.Pattern[str]] = re.compile(
+    r"\bnear\s+(?:the\s+)?(" + _CAP_WORD + r"(?:\s+" + _CAP_WORD + r"){0,3})"
+)
+
+
+def _is_known_place(name: str, district: str) -> bool:
+    """True if ``name`` is the record's own district (or part of it), a state, or a big city."""
+    lowered = " ".join(name.lower().split())
+    own = " ".join(district.lower().split())
+    if lowered in KNOWN_PLACES:
+        return True
+    return bool(own) and (lowered in own or own in lowered)
+
+
+def _place_name(words: str) -> str:
+    """Drop everyday leading words ("The", "Local") so only a possible place name remains."""
+    parts = words.split()
+    while parts and parts[0].lower() in _NOT_A_PLACE:
+        parts = parts[1:]
+    return " ".join(parts)
+
+
+def _starts_sentence(text: str, start: int) -> bool:
+    before = text[:start].rstrip()
+    return not before or before.endswith((".", "!", "?", ":"))
+
+
+def _generic(forms: tuple[str, str], text: str, end: int, start: int) -> str:
+    """Pick "a university" or "university" (before a noun), capitalised at a sentence start."""
+    following = text[end:].lstrip().split(" ", 1)[0].strip(",.;:").lower()
+    phrase = forms[1] if following in _INSTITUTION_FOLLOWERS else forms[0]
+    return phrase[0].upper() + phrase[1:] if _starts_sentence(text, start) else phrase
+
+
+def _place_edits(text: str, district: str) -> tuple[str, list[str]]:
+    """Apply every place and institution rule to ``text``; return (new text, names removed)."""
+    removed: list[str] = []
+    where = district.strip()
+
+    def short_name(m: re.Match[str]) -> str:
+        removed.append(m.group(1))
+        return _generic(_INSTITUTION_SHORT_NAMES[m.group(1)], m.string, m.end(), m.start())
+
+    def named_institution(m: re.Match[str]) -> str:
+        name = _place_name(m.group(1))
+        if not name:
+            return m.group(0)  # just "The University", nothing that names it
+        removed.append(f"{name} {m.group(2)}".strip())
+        lead = m.group(1)[: len(m.group(1)) - len(m.group(1).lstrip())]
+        kept = m.group(1).strip()[: len(m.group(1).strip()) - len(name)]
+        forms = _INSTITUTION_TYPES[m.group(2)]
+        return lead + kept + _generic(forms, m.string, m.end(), m.start() + len(kept))
+
+    def place_before(m: re.Match[str]) -> str:
+        name = _place_name(m.group(1))
+        if not name or not where or _is_known_place(name, where):
+            return m.group(0)
+        removed.append(name)
+        return m.group(1)[: len(m.group(1)) - len(name)] + where + m.group(2)
+
+    def locality(m: re.Match[str]) -> str:
+        name = _place_name(m.group(1))
+        if len(name.split()) < 2 or not where or _is_known_place(name, where):
+            return m.group(0)
+        removed.append(name)
+        return m.group(1)[: len(m.group(1)) - len(name)] + where
+
+    def near_named(m: re.Match[str]) -> str:
+        if not where or _is_known_place(m.group(1), where):
+            return m.group(0)
+        removed.append(m.group(1))
+        return f"in {where}"
+
+    out = _SHORT_NAME_RE.sub(short_name, text)
+    out = _NAMED_INSTITUTION_RE.sub(named_institution, out)
+    out = _PLACE_POLICE_RE.sub(place_before, out)
+    out = _PLACE_CASE_RE.sub(place_before, out)
+    out = _LOCALITY_RE.sub(locality, out)
+    out = _NEAR_NAMED_PLACE_RE.sub(near_named, out)
+    return out, removed
+
+
+def scrub_place_details(text: str, district: str) -> str:
+    """Take sub-district place names and institution names out of an adult case's text.
+
+    A place name becomes the record's own district, and a named institution becomes a plain
+    word ("a university"). Running it twice changes nothing more.
+    """
+    return _place_edits(text, district)[0]
+
+
+def matched_place_details(text: str, district: str) -> list[str]:
+    """The place or institution names :func:`scrub_place_details` would remove (pii_guard)."""
+    return _place_edits(text, district)[1]
