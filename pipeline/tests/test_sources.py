@@ -7,6 +7,7 @@ from typing import Any
 
 from pipeline import config
 from pipeline.sources import ecourts, rss_media
+from pipeline.sources.base import RawDocument
 from pipeline.sources.rss_media import Feed, RssMediaSource, parse_feed
 
 _RSS = """<?xml version="1.0"?>
@@ -229,3 +230,29 @@ def test_ecourts_endpoints_from_env(monkeypatch: Any) -> None:
     monkeypatch.setenv("ECOURTS_ENDPOINTS", "https://e.invalid/a, https://e.invalid/b")
     source = ecourts.EcourtsSource(_FakeClient({}))
     assert _run(source.fetch()) == []  # both endpoints miss the empty fake client
+
+
+def test_fetch_article_bodies_reads_only_the_given_items() -> None:
+    """The run hands over only the few news items that passed the offence filter; each gets
+    its full article, and a page robots.txt won't let us read keeps its own text."""
+    readable = RawDocument(
+        url="https://example.invalid/news/1",
+        publisher="A",
+        fetched_at="2026-07-09",
+        text="TESTVILLE blurb",
+    )
+    blocked = RawDocument(
+        url="https://example.invalid/news/2",
+        publisher="B",
+        fetched_at="2026-07-09",
+        text="other blurb",
+    )
+    client = _FakeClient(
+        {
+            "https://example.invalid/news/1": _Resp(200, _ARTICLE_HTML),
+            "https://example.invalid/news/2": None,  # robots.txt says no
+        }
+    )
+    out = _run(rss_media.fetch_article_bodies(client, [readable, blocked]))
+    assert "Full article body about a TESTVILLE trial." in out[0].text
+    assert out[1] is blocked

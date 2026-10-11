@@ -54,6 +54,7 @@ from pipeline.shard import WriteResult, write_shards
 from pipeline.sources.base import RawDocument
 from pipeline.sources.http import PoliteClient
 from pipeline.sources.registry import build_sources, load_source_configs
+from pipeline.sources.rss_media import fetch_article_bodies
 from pipeline.states import CANONICAL_STATES, normalize_state
 from pipeline.validate import (
     iter_shard_files,
@@ -194,6 +195,44 @@ def _fetch_documents(
             return await _fetch_all(client, fetched_at, court_only=court_only, seen=seen)
 
     return asyncio.run(_go())
+
+
+def _fetch_article_bodies(docs: list[RawDocument]) -> list[RawDocument]:  # pragma: no cover
+    async def _go() -> list[RawDocument]:
+        async with PoliteClient() as client:
+            return await fetch_article_bodies(client, docs)
+
+    return asyncio.run(_go())
+
+
+# A news feed item's own text is just a headline and a line or two. Anything longer is
+# already the full text (a court judgment, a community submission's page).
+_BLURB_MAX_CHARS = 2000
+
+
+def _with_full_articles(
+    to_process: list[RawDocument],
+    raw_docs: list[RawDocument],
+    fetch: Callable[[list[RawDocument]], list[RawDocument]],
+    is_court: Callable[[RawDocument], bool],
+) -> tuple[list[RawDocument], list[RawDocument], int]:
+    """Swap in the full article for each news item we are about to read.
+
+    Only items that passed the offence filter are fetched, so we load a handful of pages a
+    day, not every item in every feed. The fuller text replaces the blurb in both lists, so
+    the extractor and the verifier read the same thing. Returns the two lists and how many
+    articles were actually read in full.
+    """
+    blurbs = [d for d in to_process if not is_court(d) and len(d.text) < _BLURB_MAX_CHARS]
+    if not blurbs:
+        return to_process, raw_docs, 0
+    fuller = {d.url: d for d in fetch(blurbs)}
+    read = sum(1 for d in blurbs if len(fuller.get(d.url, d).text) > len(d.text))
+    return (
+        [fuller.get(d.url, d) for d in to_process],
+        [fuller.get(d.url, d) for d in raw_docs],
+        read,
+    )
 
 
 def _illustrative_cost(docs: list[RawDocument]) -> float:
@@ -1151,6 +1190,13 @@ def run(
                 prefilter_skipped_urls.add(doc.url)
         # Court docs first (highest-value tier-1 yield); stable within each group.
         to_process.sort(key=lambda d: 0 if _is_court_doc(d) else 1)
+        # Read the whole article, not just the feed's blurb, for the news items we're about
+        # to extract, so the record can say what happened (#267). Live runs only.
+        if docs is None and config.article_body_enabled():
+            to_process, raw_docs, read_in_full = _with_full_articles(
+                to_process, raw_docs, _fetch_article_bodies, _is_court_doc
+            )
+            _log(report, f"read the full article for {read_in_full} news item(s)")
         report.prefilter_skipped = len(prefilter_skipped_urls)
         report.processed = len(to_process)
         report.skipped_settled = len(raw_docs) - len(ledger_ready)

@@ -44,6 +44,7 @@ def _default_scope(monkeypatch: pytest.MonkeyPatch) -> None:
         "LAUNCH_MODE",
         "LAUNCH_LOOKBACK_DAYS",
         "GEMINI_MODELS",
+        "FETCH_ARTICLE_BODY",
     ):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("LAUNCH_STATES", "ALL")
@@ -2971,3 +2972,47 @@ def test_every_link_on_a_childs_case_is_treated_as_sensitive() -> None:
         }
     )
     assert out["sources"][0]["url_carries_identifying_slug"] is True
+
+
+def test_full_articles_replace_blurbs_for_news_items_only() -> None:
+    """#267: only short news blurbs are swapped for the full article, in both the list we
+    extract from and the list the verifier reads; court text and long pages stay as they are."""
+    blurb = RawDocument(
+        url="https://ex.invalid/a", publisher="The Hindu", fetched_at="2026-10-11", text="short"
+    )
+    court = RawDocument(
+        url="https://ex.invalid/c", publisher="eCourts", fetched_at="2026-10-11", text="order"
+    )
+    page = RawDocument(
+        url="https://ex.invalid/p", publisher="X", fetched_at="2026-10-11", text="x" * 3000
+    )
+    asked: list[str] = []
+
+    def fetch(docs: list[RawDocument]) -> list[RawDocument]:
+        asked.extend(d.url for d in docs)
+        return [
+            RawDocument(
+                url=d.url,
+                publisher=d.publisher,
+                fetched_at=d.fetched_at,
+                text=d.text + " full story",
+            )
+            for d in docs
+        ]
+
+    def is_court(d: RawDocument) -> bool:
+        return d.publisher == "eCourts"
+
+    to_process, raw_docs, read = orchestrator._with_full_articles(
+        [blurb, court, page], [blurb, court, page], fetch, is_court
+    )
+    assert asked == ["https://ex.invalid/a"]
+    assert read == 1
+    assert to_process[0].text == raw_docs[0].text == "short full story"
+    assert to_process[1] is court and to_process[2] is page
+    # Nothing to fetch: lists come back unchanged.
+    assert orchestrator._with_full_articles([court], [court], fetch, is_court) == (
+        [court],
+        [court],
+        0,
+    )
