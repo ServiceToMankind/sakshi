@@ -499,3 +499,65 @@ def test_traced_to_court_set_when_media_record_gains_a_court_source(tmp_path: Pa
     r3 = write_shards([with_court], tmp_path, run_date="2026-08-01")
     assert r3.records[0]["traced_to_court"] == "2026-07-25"  # write-once, carried forward
     assert r3.traced_to_court == 0  # not counted again
+
+
+def _weak_minor(url: str) -> dict[str, Any]:
+    """A typical weak-anchor minor record: no CNR/FIR, month-precise date, no sections/court."""
+    return _record(
+        district="Unknown",
+        category="pocso",
+        minor_involved=True,
+        incident_reported_date="2026-09",
+        title="Child sexual offence — Unknown (2026)",
+        summary="A case of child sexual offence in Unknown, TG (2026). Identifying details are "
+        "withheld by law (POCSO s.23).",
+        sources=[{"url": url, "publisher": "The Hindu", "retrieved": "2026-09-20"}],
+    )
+
+
+def test_distinct_weak_anchor_case_never_takes_a_published_id(tmp_path: Path) -> None:
+    """Two cases dedupe judged DISTINCT can share the anonymous fallback anchor (same state,
+    district 'Unknown', month, no sections, no court). The new case must mint its own id — it
+    used to reuse the published case's id, collide, and the resolver quarantined one of them:
+    a real case vanished and its permalink pointed at a different case (13 ids, 2026-08..10)."""
+    write_shards([_weak_minor("https://example.invalid/case-a")], tmp_path, run_date="2026-09-20")
+    published = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    assert [r["id"] for r in published] == ["SKS-2026-TG-000001"]
+
+    result = write_shards(
+        [published[0], _weak_minor("https://example.invalid/case-b")],
+        tmp_path,
+        run_date="2026-09-21",
+    )
+    records = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    by_url = {r["sources"][0]["url"]: r["id"] for r in records}
+    assert by_url == {
+        "https://example.invalid/case-a": "SKS-2026-TG-000001",  # permalink unchanged
+        "https://example.invalid/case-b": "SKS-2026-TG-000002",  # its own id
+    }
+    assert result.id_collisions == [] and result.new == 1
+
+
+def test_exact_anchor_collision_is_still_quarantined_not_minted(tmp_path: Path) -> None:
+    """A shared CNR/FIR is a strong same-case signal: keep the conservative behaviour (one
+    keeper, the other quarantined for a human) rather than publishing the case twice."""
+    write_shards([_record(cnr="CNR-X")], tmp_path, run_date="2026-07-09")
+    published = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    other = _record(cnr="CNR-X", district="OTHERVILLE")
+    result = write_shards([published[0], other], tmp_path, run_date="2026-07-10")
+    assert len(result.id_collisions) == 1
+
+
+def test_re_extracted_same_article_does_not_mint_a_second_id(tmp_path: Path) -> None:
+    """The SAME article re-extracted (a shared source URL) while its record is carried over is
+    one case: it must not mint a second id (it takes the conservative collision path)."""
+    write_shards([_weak_minor("https://example.invalid/case-a")], tmp_path, run_date="2026-09-20")
+    published = json.loads((tmp_path / "2026" / "TG.json").read_text())
+    result = write_shards(
+        [published[0], _weak_minor("https://example.invalid/case-a")],
+        tmp_path,
+        run_date="2026-09-21",
+    )
+    ids = [r["id"] for r in json.loads((tmp_path / "2026" / "TG.json").read_text())]
+    assert ids == ["SKS-2026-TG-000001"] and result.new == 0
+    assert len(result.id_collisions) == 1  # held for a human, never published twice
