@@ -2,12 +2,420 @@
   {
     "accused_count": 1,
     "category": "pocso",
+    "cnr": "MPHC010681762026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Jabalpur",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Narsinghpur",
+    "fir_ref": {
+      "number": "154/2026",
+      "station": "Gotegaon"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000011",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 137(2)",
+      "BNS 96",
+      "BNS 64(2)(M)",
+      "BNS 65(1)",
+      "POCSO 5(L)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/89640570/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, one person was arrested in Narsinghpur, Madhya Pradesh for the aggravated penetrative assault on a child. The charges also include kidnapping and procuring a minor. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Narsinghpur (2026) — on trial",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Dewas",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000013",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted",
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 366",
+      "IPC 376(2)(I)",
+      "IPC 506",
+      "POCSO 5(M)",
+      "POCSO 6",
+      "3(2)(VA)",
+      "3(2)(V)"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/188820276/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "CONVICTED",
+    "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Dewas, Madhya Pradesh. The charges also include kidnapping, abduction and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was first acquitted, and later convicted on appeal and sentenced to 10 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Dewas (2026) — convicted, 10 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "pocso",
+    "cnr": "MPHC020398592026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Indore",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-MP-000017",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/125021287/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNKNOWN",
+    "summary": "In October 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026)",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 24,
+    "district": "Indore",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MP-000023",
+    "incident_reported_date": "2026-09-23",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/188265286/"
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "The Madhya Pradesh High Court allowed a pregnancy termination request for a rape survivor. A medical board in Indore evaluated the health status and confirmed the pregnancy could be safely ended at 22 weeks. A criminal case regarding the assault is registered with the police. The court directed authorities to preserve medical and DNA evidence for the investigation.",
+    "title": "Madhya Pradesh HC permits rape survivor to terminate 22-week pregnancy",
+    "verification_note": "Approved as the source describes a genuine High Court order directing medical termination of pregnancy in a reported sexual assault case.",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.92,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 26,
+    "district": "Alirajpur",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-MP-000019",
+    "incident_reported_date": "2026-09-21",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/198828530/"
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "A sexual assault resulted in an unwanted pregnancy. Police registered a formal criminal case regarding the offence. The matter arose in Alirajpur district. A district medical board examined the survivor and confirmed that pregnancy termination was safe. The High Court granted permission for the medical procedure and ordered the preservation of DNA samples for trial.",
+    "title": "Madhya Pradesh HC permits pregnancy termination for sexual assault survivor",
+    "verification_note": "Approved as the high court order regarding medical termination of pregnancy in a rape case aligns with the recorded core facts.",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Indore",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000012",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/188265286/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In September 2026, a case of rape involving a minor was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Indore (2026) — FIR filed",
+    "unparsed_sections": [
+      "POCSO Rules 2020 Rule 6(6)",
+      "MTP Act 1971 Section 3"
+    ],
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Indore",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000014",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/129719826/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In September 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Ratlam",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MP-000015",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/162989628/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In September 2026, a case of child sexual offence was registered in Ratlam, Madhya Pradesh. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Ratlam (2026) — on trial",
+    "unparsed_sections": [
+      "POCSO Act, 2012"
+    ],
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Indore",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-MP-000018",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "3(2B)",
+      "5(1)",
+      "POCSO 6(6)"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/188265286/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In September 2026, a case of aggravated penetrative assault on a child was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Indore (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Ratlam",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-MP-000020",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/162989628/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNKNOWN",
+    "summary": "In September 2026, a case of child sexual offence was registered in Ratlam, Madhya Pradesh. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Ratlam (2026)",
+    "verified": true
+  },
+  {
+    "category": "rape",
+    "cnr": "MPHC020393102026",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Indore",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MP-000022",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/129428342/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In September 2026, a case of rape involving a minor was registered in Indore, Madhya Pradesh. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Indore (2026) — on trial",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 46,
+    "district": "Indore",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MP-000024",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/129719826/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In September 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
     "confidence": 0.95,
     "court": {
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -52,7 +460,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -79,7 +487,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Narmadapuram",
     "first_published": "2026-08-25",
     "id": "SKS-2026-MP-000008",
@@ -110,7 +518,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Indore",
     "first_published": "2026-09-03",
     "id": "SKS-2026-MP-000009",
@@ -134,13 +542,156 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "MPHC010691412026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Jabalpur",
+      "next_hearing": null
+    },
+    "days_since_reported": 77,
+    "district": "Anuppur",
+    "fir_ref": {
+      "number": "210/2026",
+      "station": "Rajendra Gram"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000010",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(2)(M)",
+      "BNS 296",
+      "BNS 351(3)",
+      "POCSO 5",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/147727943/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In August 2026, one person was arrested in Anuppur, Madhya Pradesh for the aggravated penetrative assault on a child. The charges also include criminal intimidation and obscene acts in public. A weapon was used or a threat was made. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Anuppur (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 77,
+    "district": "Indore",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-MP-000016",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/23004093/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In August 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "category": "pocso",
     "confidence": 0.95,
     "court": {
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 102,
+    "days_since_reported": 77,
+    "district": "Indore",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-MP-000021",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/23004093/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In August 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026) — FIR filed",
+    "unparsed_sections": [
+      "POCSO Rules 2020 Rule 6(6)",
+      "MTP Act 1971 Section 3(2)"
+    ],
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 77,
+    "district": "Indore",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MP-000025",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/23004093/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "FIR_FILED",
+    "summary": "In August 2026, a case of child sexual offence was registered in Indore, Madhya Pradesh. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Indore (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Indore",
+      "next_hearing": null
+    },
+    "days_since_reported": 108,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -176,7 +727,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 102,
+    "days_since_reported": 108,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -204,7 +755,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 224,
+    "days_since_reported": 230,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -246,7 +797,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 252,
+    "days_since_reported": 258,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -291,7 +842,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 283,
+    "days_since_reported": 289,
     "district": "Dhar",
     "fir_ref": {
       "number": "0009/2026",

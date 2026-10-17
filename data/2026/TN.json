@@ -3,7 +3,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Unknown",
     "first_published": "2026-10-02",
     "id": "SKS-2026-TN-000023",
@@ -42,7 +42,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Unknown",
     "first_published": "2026-10-06",
     "id": "SKS-2026-TN-000024",
@@ -77,7 +77,7 @@
       "name": "Erode Women's Court",
       "next_hearing": null
     },
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Erode",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000026",
@@ -111,7 +111,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Sivaganga",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000027",
@@ -142,7 +142,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Chennai",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000028",
@@ -179,7 +179,7 @@
       "name": "Tiruvallur Special POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 10,
+    "days_since_reported": 16,
     "district": "Tiruvallur",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000030",
@@ -210,10 +210,278 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 7,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 16,
+    "district": "Chennai",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-TN-000032",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-12",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/gem-chairman-veeramani-booked-in-6th-pocso-case-over-abuse-of-minor-girls-101791732733272.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, seven people were arrested in Chennai, Tamil Nadu for the child sexual offence. The accused is recorded as a repeat offender. A special investigation team was formed. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Chennai (2026) — FIR filed",
+    "unparsed_sections": [
+      "POCSO Act, 2012"
+    ],
+    "verified": true
+  },
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Tiruvannamalai",
+    "fir_ref": {
+      "number": "28/2015",
+      "station": "Tiruvannamalai AWPS"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-TN-000033",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(L)",
+      "POCSO 6(1)",
+      "IPC 376(2)(N)"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/2040460/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "APPEAL_PENDING",
+    "summary": "In October 2026, three people were accused of the aggravated penetrative assault on a child in Tiruvannamalai, Tamil Nadu. A weapon was used or a threat was made. Bail was denied. The accused were convicted and sentenced each to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Tiruvannamalai (2026) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Chengalpattu",
+    "fir_ref": {
+      "number": "17/2025",
+      "station": "AWPS - Pallavaram"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-TN-000034",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(L)",
+      "POCSO 5(G)",
+      "POCSO 5(J)(II)",
+      "POCSO 6(1)",
+      "67B",
+      "BNS 74",
+      "BNS 332(B)",
+      "BNS 351(2)",
+      "BNS 115(2)"
+    ],
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/13281056/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, two people were arrested in Chengalpattu, Tamil Nadu for the aggravated penetrative assault on a child. The charges also include causing hurt, house trespass and criminal intimidation. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Chengalpattu (2026) — on trial",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Cuddalore Special POCSO Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Cuddalore",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-TN-000035",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-13",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/cuddalore-20-years-in-prison-for-an-elderly-man-who-raped-a-girl",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "In October 2026, one person was arrested in Cuddalore, Tamil Nadu for the child sexual offence. A weapon was used or a threat was made. The accused was convicted and sentenced to 20 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Cuddalore (2026) — convicted, 20 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 7,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 16,
+    "district": "Chennai",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-TN-000036",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/r-veeramani-booked-in-7th-pocso-case-10-victims-identified-cop-101791904005510.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, seven people were arrested in Chennai, Tamil Nadu for the child sexual offence. The accused is recorded as a repeat offender. A special investigation team was formed. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Chennai (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "POCSO Special Court, Tiruvannamalai",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Tiruvannamalai",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-TN-000037",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-14",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/20-years-in-prison-for-youth-who-raped-girl",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "In October 2026, one person was arrested in Tiruvannamalai, Tamil Nadu for the child sexual offence. The accused was convicted and sentenced to 20 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tiruvannamalai (2026) — convicted, 20 years",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 16,
+    "district": "Tiruvallur",
+    "fir_ref": {
+      "station": "Ambattur Industrial Estate"
+    },
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-TN-000038",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-14",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/daughter-sexually-abused-brother-who-brutally-murdered-brother-surrenders-to-police",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, one person was arrested in Tiruvallur, Tamil Nadu for the child sexual offence. The accused is recorded as a repeat offender. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tiruvallur (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 36,
     "district": "Chennai",
     "first_published": "2026-09-11",
     "id": "SKS-2026-TN-000013",
@@ -240,7 +508,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 31,
+    "days_since_reported": 37,
     "district": "Tiruppur",
     "first_published": "2026-09-10",
     "id": "SKS-2026-TN-000012",
@@ -268,7 +536,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Unknown",
     "first_published": "2026-09-06",
     "id": "SKS-2026-TN-000010",
@@ -310,7 +578,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "UNKNOWN",
     "first_published": "2026-09-09",
     "id": "SKS-2026-TN-000011",
@@ -338,7 +606,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Kallakurichi",
     "first_published": "2026-09-12",
     "id": "SKS-2026-TN-000014",
@@ -368,7 +636,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Unknown",
     "first_published": "2026-09-19",
     "id": "SKS-2026-TN-000015",
@@ -412,7 +680,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Chennai",
     "first_published": "2026-09-22",
     "id": "SKS-2026-TN-000016",
@@ -459,7 +727,7 @@
     "court": {
       "name": "POCSO Court"
     },
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Salem",
     "first_published": "2026-09-22",
     "id": "SKS-2026-TN-000017",
@@ -485,7 +753,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Tirunelveli",
     "first_published": "2026-09-27",
     "id": "SKS-2026-TN-000018",
@@ -515,7 +783,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "UNKNOWN",
     "first_published": "2026-09-28",
     "id": "SKS-2026-TN-000019",
@@ -543,7 +811,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Not Stated",
     "first_published": "2026-09-29",
     "id": "SKS-2026-TN-000020",
@@ -577,7 +845,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Chennai",
     "first_published": "2026-09-30",
     "id": "SKS-2026-TN-000021",
@@ -608,7 +876,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Tirunelveli",
     "first_published": "2026-09-30",
     "id": "SKS-2026-TN-000022",
@@ -639,7 +907,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Tiruchirappalli",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000025",
@@ -674,7 +942,7 @@
       "name": "POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Chennai",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TN-000029",
@@ -710,7 +978,7 @@
       "name": "Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Tiruvarur",
     "fir_ref": {
       "number": "2671/2020",
@@ -751,7 +1019,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Unknown",
     "first_published": "2026-08-14",
     "id": "SKS-2026-TN-000002",
@@ -792,7 +1060,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Salem",
     "first_published": "2026-08-18",
     "id": "SKS-2026-TN-000003",
@@ -824,7 +1092,7 @@
       "name": "Tirunelveli POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Tirunelveli",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000004",
@@ -852,7 +1120,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "UNKNOWN",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TN-000005",
@@ -880,7 +1148,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Thoothukudi",
     "first_published": "2026-08-23",
     "id": "SKS-2026-TN-000006",
@@ -908,7 +1176,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Unknown",
     "first_published": "2026-08-26",
     "id": "SKS-2026-TN-000007",
@@ -939,7 +1207,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Chennai",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000008",
@@ -968,7 +1236,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 71,
+    "days_since_reported": 77,
     "district": "Kanyakumari",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TN-000009",
@@ -994,5 +1262,50 @@
     "summary": "In August 2026, one person was arrested in Kanyakumari, Tamil Nadu for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Kanyakumari (2026) — FIR filed",
     "verified": true
+  },
+  {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 77,
+    "district": "Tiruvannamalai",
+    "fir_ref": {
+      "number": "28/2015",
+      "station": "Tiruvannamalai AWPS Police Station"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-TN-000031",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "convicted",
+      "bail_denied",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(L)",
+      "POCSO 6(1)",
+      "IPC 376(2)(N)"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/2040460/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "APPEAL_PENDING",
+    "summary": "In August 2026, three people were accused of the aggravated penetrative assault on a child in Tiruvannamalai, Tamil Nadu. A weapon was used or a threat was made. Bail was denied. The accused were convicted and sentenced each to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Tiruvannamalai (2026) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
   }
 ]

@@ -6,7 +6,7 @@
     "court": {
       "name": "Mahila Court, Tiruvannamalai"
     },
-    "days_since_reported": 376,
+    "days_since_reported": 382,
     "district": "Tiruvannamalai",
     "fir_ref": {
       "number": "68/2025",
@@ -41,6 +41,54 @@
     "summary": "The Madras High Court directed all special courts in Tamil Nadu to complete rape trials within the statutory two-month timeline. The order came during a petition by a woman who was raped by two police constables in Tiruvannamalai.",
     "title": "Madras HC directs speedy trials in rape and POCSO cases",
     "verification_note": "The source confirms a genuine case of custodial rape under trial at the Mahila Court in Tiruvannamalai.",
+    "verified": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 503,
+    "district": "Chengalpattu",
+    "fir_ref": {
+      "number": "17/2025",
+      "station": "AWPS - Pallavaram Police Station"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2025-TN-000002",
+    "incident_reported_date": "2025-06",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(L)",
+      "POCSO 5(G)",
+      "POCSO 5(J)(II)",
+      "POCSO 6(1)",
+      "67B",
+      "BNS 74",
+      "BNS 332(B)",
+      "BNS 351(2)",
+      "BNS 115(2)"
+    ],
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/13281056/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "UNDER_TRIAL",
+    "summary": "In June 2025, two people were arrested in Chengalpattu, Tamil Nadu for the aggravated penetrative assault on a child. The charges also include causing hurt, house trespass and criminal intimidation. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Chengalpattu (2025) — on trial",
     "verified": true
   }
 ]

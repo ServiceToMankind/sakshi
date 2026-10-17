@@ -1,0 +1,52 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Madhya Pradesh at Jabalpur",
+      "next_hearing": null
+    },
+    "days_since_reported": 3851,
+    "district": "Mandla",
+    "fir_ref": {
+      "number": "77/2016",
+      "station": "Niwas"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2016-MP-000001",
+    "incident_reported_date": "2016-04",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "appeal_filed",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 366",
+      "IPC 376",
+      "IPC 376(2)(N)",
+      "POCSO 4",
+      "POCSO 6",
+      "IPC 376(2)(I)",
+      "POCSO 3",
+      "POCSO 5(J-II)",
+      "IPC 366A"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/110124166/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "ACQUITTED",
+    "summary": "In April 2016, one person was accused of the aggravated penetrative assault on a child in Mandla, Madhya Pradesh. The charges also include kidnapping, abduction and procuring a minor. Police have filed a chargesheet. The accused was acquitted. An appeal against the acquittal has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Mandla (2016) — acquitted",
+    "verified": true
+  }
+]

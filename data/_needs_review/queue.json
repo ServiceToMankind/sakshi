@@ -4,6 +4,37 @@
       "possible_child_case"
     ],
     "record": {
+      "category": "harassment",
+      "confidence": 0.9,
+      "days_since_reported": null,
+      "district": "Hyderabad",
+      "first_published": "2026-10-05",
+      "id": "SKS-2026-TG-000032",
+      "incident_reported_date": "2026-10",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "offence_sections": [],
+      "sources": [
+        {
+          "publisher": "Namasthe Telangana",
+          "retrieved": "2026-10-05",
+          "source_type": "news_article",
+          "url": "https://www.ntnews.com/cinema/ai-video-content-is-equal-to-like-sexula-assault-says-janhvi-kapoor-2527576",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "TG",
+      "status": "FIR_FILED",
+      "summary": "In October 2026, a case of sexual harassment involving a minor was registered in Hyderabad, Telangana. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Sexual harassment involving a minor — Hyderabad (2026) — FIR filed",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "accused_count": 5,
       "category": "rape",
       "confidence": 0.95,
@@ -67,6 +98,264 @@
       "verified": false,
       "title": "Child sexual offence — Chittoor (2026) — FIR filed",
       "summary": "In October 2026, one person was arrested in Chittoor, Andhra Pradesh for the child sexual offence. A weapon was used or a threat was made. The accused is recorded as a repeat offender. An FIR has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "unverified_held"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Jharda",
+        "number": "78/2018"
+      },
+      "state": "MP",
+      "district": "Ujjain",
+      "offence_sections": [
+        "IPC 376(3)",
+        "IPC 354",
+        "IPC 323",
+        "IPC 506",
+        "POCSO 8"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Madhya Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.98,
+      "sources": [
+        {
+          "url": "https://indiankanoon.org/doc/65923477/",
+          "publisher": "Madhya Pradesh High Court",
+          "source_type": "court",
+          "retrieved": "2026-10-13",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-10",
+      "verified": false,
+      "title": "Rape of a minor — Ujjain (2026) — convicted, 20 years",
+      "summary": "In October 2026, one person was accused of the rape of a minor in Ujjain, Madhya Pradesh. The charges also include causing hurt and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Unspecified",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-illiteracy-social-realities-law-commission-pocso-act-minor-couples-554167",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-12",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unspecified (2026) — on trial",
+      "summary": "In October 2026, one person was accused of the child sexual offence in Unspecified, Uttar Pradesh. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+      "unparsed_sections": [
+        "POCSO Act 2012"
+      ]
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed",
+        "acquitted"
+      ],
+      "sentence_years": 10,
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/supreme-court/supreme-court-acquits-man-pocso-case-victim-failure-identify-unexplained-delay-fir-554140",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-12",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Meghalaya (2026) — acquitted on appeal",
+      "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Meghalaya. The accused was convicted and sentenced to 10 years in prison, and later acquitted on appeal. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Koyambedu All Women Police Station"
+      },
+      "state": "TN",
+      "district": "Chennai",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "arrest_made",
+        "convicted"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Chennai Mahila Court",
+        "next_hearing": null
+      },
+      "title": "Rape involving a minor — Chennai (2026) — convicted, 20 years",
+      "summary": "In October 2026, one person was arrested in Chennai, Tamil Nadu for the rape involving a minor. A weapon was used or a threat was made. The accused was convicted and sentenced to 20 years in prison. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.hindutamil.in/news/crime/youth-sentenced-to-20-years-of-rigorous-imprisonment-sexual-assault-on-college-student",
+          "publisher": "Hindu Tamil Thisai",
+          "source_type": "news_article",
+          "retrieved": "2026-10-13",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Shahapura Police Station"
+      },
+      "state": "KA",
+      "district": "Shahapura",
+      "incident_reported_date": "2026-10-15",
+      "offence_sections": [
+        "IPC 376(2)(N)",
+        "IPC 377",
+        "IPC 504",
+        "IPC 506"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "repeat_offence": true,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "court": {
+        "name": "Karnataka High Court",
+        "next_hearing": null
+      },
+      "title": "Karnataka HC denies anticipatory bail to lawyer accused of repeated rape",
+      "summary": "A man allegedly committed repeated rape, unnatural sexual assault, and blackmail. One accused person, a practicing advocate, faces charges in the case. The police registered a case at Shahapura Police Station in Karnataka. The Karnataka High Court rejected the accused person's anticipatory bail plea. The investigation into the allegations remains under way.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/karnataka-high-court/karnataka-hc-denies-anticipatory-bail-to-advocate-accused-of-rape-unnatural-offence-caste-based-abuse-554841",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-16"
+        }
+      ],
+      "verified": true,
+      "verification_note": "The candidate record is consistent with the reported Karnataka High Court order refusing anticipatory bail in a rape case registered at Shahapura Police Station."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Chennai",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO 7",
+        "POCSO 8",
+        "POCSO 15(1)",
+        "POCSO 21(1)",
+        "IPC 354(A)",
+        "IPC 354(C)",
+        "IPC 201",
+        "IPC 120(B)",
+        "66(E)",
+        "67(B)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 3,
+      "institutional_actions": [
+        "arrest_made",
+        "sit_formed"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-gem-veeramani-pocso-fresh-plea-cbi-probe-not-entertained-555077",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-17",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Sexual assault of a child — Chennai (2026) — on trial",
+      "summary": "In October 2026, three people were arrested in Chennai, Tamil Nadu for the sexual assault of a child. The charges also include destroying evidence, criminal conspiracy, child sexual abuse material and failing to report the offence. A special investigation team was formed. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]

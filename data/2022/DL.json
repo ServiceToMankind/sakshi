@@ -7,7 +7,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1477,
+    "days_since_reported": 1483,
     "district": "South West",
     "fir_ref": {
       "number": "377/2022",
@@ -44,5 +44,55 @@
     "verification_note": "The candidate record accurately represents the genuine sexual assault case under FIR 377/2022 from PS Safdarjung Enclave as detailed in the High Court order.",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010045962026",
+    "confidence": 0.98,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1691,
+    "district": "Central",
+    "fir_ref": {
+      "number": "290/2022",
+      "station": "Burari"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2022-DL-000002",
+    "incident_reported_date": "2022-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 342",
+      "IPC 451",
+      "IPC 376",
+      "IPC 376AB",
+      "IPC 376(2)(N)",
+      "POCSO 6"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/135495585/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "APPEAL_PENDING",
+    "summary": "In March 2022, one person was arrested in Central, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping, wrongful confinement and house trespass. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Central (2022) — appeal pending",
+    "verified": true
   }
 ]
