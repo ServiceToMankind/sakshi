@@ -1,8 +1,37 @@
 [
   {
+    "accused_count": 1,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 2,
+    "district": "Cachar",
+    "first_published": "2026-10-16",
+    "id": "SKS-2026-AS-000005",
+    "incident_reported_date": "2026-10-15",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-16",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/assam-university-assistant-professor-booked-for-molesting-woman-researcher-in-bengaluru-police-101792075098839.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AS",
+    "status": "FIR_FILED",
+    "summary": "Police registered a case following an allegation of sexual harassment during an academic event. One university assistant [occupation withheld] was accused in the case. The complaint was submitted to police in Cachar district. Law enforcement and an internal university committee launched separate investigations. The probe into the allegations remains under way.",
+    "title": "University professor booked over sexual harassment complaint in Cachar",
+    "verification_note": "The core details regarding the reported sexual harassment incident in Cachar district are consistent with the source text.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 7,
+    "days_since_reported": 13,
     "district": "Kamrup Metropolitan",
     "first_published": "2026-10-04",
     "id": "SKS-2026-AS-000003",
@@ -31,7 +60,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 33,
     "district": "Dibrugarh",
     "first_published": "2026-09-14",
     "id": "SKS-2026-AS-000002",
@@ -60,7 +89,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 46,
     "district": "Sivasagar",
     "first_published": "2026-09-05",
     "id": "SKS-2026-AS-000001",
@@ -86,6 +115,44 @@
     "status": "FIR_FILED",
     "summary": "In September 2026, two people were arrested in Sivasagar, Assam for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Child sexual offence — Sivasagar (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 5,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Juvenile Justice Board, Hailakandi",
+      "next_hearing": null
+    },
+    "days_since_reported": 77,
+    "district": "Hailakandi",
+    "first_published": "2026-10-15",
+    "id": "SKS-2026-AS-000004",
+    "incident_reported_date": "2026-08",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 65(1)",
+      "BNS 103(1)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-15",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/assams-juvenile-justice-board-allows-17-year-old-rape-accused-to-be-tried-as-an-adult-101791978900019.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AS",
+    "status": "CHARGESHEETED",
+    "summary": "In August 2026, five people were accused of the aggravated penetrative assault on a child in Hailakandi, Assam. The charges also include murder. A special investigation team was formed. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Hailakandi (2026) — chargesheet filed",
     "verified": true
   }
 ]

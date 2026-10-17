@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-11",
+  "generated": "2026-10-17",
   "trackability": {
-    "total": 250,
-    "court_anchored": 42,
-    "rate": 0.168
+    "total": 309,
+    "court_anchored": 73,
+    "rate": 0.2362
   },
   "states_covered": 24,
   "states_total": 36,
@@ -26,7 +26,7 @@
     },
     "AS": {
       "active_sources": 0,
-      "records": 3,
+      "records": 5,
       "declared_gap": false
     },
     "BR": {
@@ -46,7 +46,7 @@
     },
     "DL": {
       "active_sources": 3,
-      "records": 52,
+      "records": 61,
       "declared_gap": false
     },
     "DN": {
@@ -71,12 +71,12 @@
     },
     "HR": {
       "active_sources": 0,
-      "records": 14,
+      "records": 17,
       "declared_gap": false
     },
     "JH": {
       "active_sources": 0,
-      "records": 12,
+      "records": 24,
       "declared_gap": false
     },
     "JK": {
@@ -86,7 +86,7 @@
     },
     "KA": {
       "active_sources": 0,
-      "records": 5,
+      "records": 6,
       "declared_gap": false
     },
     "KL": {
@@ -106,7 +106,7 @@
     },
     "MH": {
       "active_sources": 2,
-      "records": 7,
+      "records": 8,
       "declared_gap": false
     },
     "ML": {
@@ -116,12 +116,12 @@
     },
     "MN": {
       "active_sources": 0,
-      "records": 1,
+      "records": 2,
       "declared_gap": false
     },
     "MP": {
       "active_sources": 0,
-      "records": 12,
+      "records": 30,
       "declared_gap": false
     },
     "MZ": {
@@ -151,7 +151,7 @@
     },
     "RJ": {
       "active_sources": 0,
-      "records": 3,
+      "records": 4,
       "declared_gap": false
     },
     "SK": {
@@ -166,7 +166,7 @@
     },
     "TN": {
       "active_sources": 2,
-      "records": 39,
+      "records": 50,
       "declared_gap": false
     },
     "TR": {

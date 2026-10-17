@@ -1,0 +1,92 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 5068,
+    "district": "Ramgarh",
+    "fir_ref": {
+      "number": "348/2012",
+      "station": "Ramgarh P.S."
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2012-JH-000001",
+    "incident_reported_date": "2012-12",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed",
+      "acquitted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 511",
+      "POCSO 10"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/89575087/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "ACQUITTED",
+    "summary": "In December 2012, one person was accused of the sexual assault of a child in Ramgarh, Jharkhand. The charges also include attempting the offence. Police have filed a chargesheet. The accused was convicted and sentenced to 5 years in prison, and later acquitted on appeal. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Ramgarh (2012) — acquitted on appeal",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 5068,
+    "district": "Ramgarh",
+    "fir_ref": {
+      "number": "348/2012",
+      "station": "Ramgarh"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2012-JH-000002",
+    "incident_reported_date": "2012-12",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted",
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 10",
+      "IPC 376",
+      "IPC 511"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/89575087/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "ACQUITTED",
+    "summary": "In December 2012, one person was accused of the sexual assault of a child in Ramgarh, Jharkhand. The charges also include attempting the offence. Police have filed a chargesheet. The accused was convicted and sentenced to 5 years in prison, and later acquitted on appeal. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Ramgarh (2012) — acquitted on appeal",
+    "verified": true
+  }
+]

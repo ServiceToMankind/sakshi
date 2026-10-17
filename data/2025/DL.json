@@ -1,0 +1,94 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "cnr": "DLHC010124992026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 411,
+    "district": "North East",
+    "fir_ref": {
+      "number": "461/2025",
+      "station": "Jyoti Nagar"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2025-DL-000001",
+    "incident_reported_date": "2025-09",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 137(2)",
+      "BNS 64(1)",
+      "BNS 351(2)",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59212102026BA12412026_201507.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "In September 2025, two people were arrested in North East, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping and criminal intimidation. A weapon was used or a threat was made. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — North East (2025) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "cnr": "DLHC010351762026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 512,
+    "district": "East",
+    "fir_ref": {
+      "number": "234/2025",
+      "station": "Pandav Nagar"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2025-DL-000002",
+    "incident_reported_date": "2025-05-23",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_granted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 62",
+      "BNS 74",
+      "BNS 76"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59212102026BA30972026_180928.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "A man allegedly dragged someone into a room, attempted to disrobe the person, and tried to assault them. Police in East district registered a case, arrested one man, and filed a chargesheet. The accused remained in custody while main witnesses gave testimony in court. The Delhi High Court granted bail to the accused after key witnesses completed their statements. The trial continues in the district court.",
+    "title": "Delhi High Court grants bail in attempted rape case",
+    "verification_note": "The candidate record is consistent with the High Court order regarding a reported sexual offence case.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
