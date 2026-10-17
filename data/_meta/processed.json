@@ -3330,6 +3330,12 @@
       "last_seen": "2026-07-19",
       "outcome": "not_a_case"
     },
+    "39290d25bb3b9d9ff626aed2999c91a2d7690a7826b764051aa5f0e760bb7c51": {
+      "attempts": 0,
+      "first_seen": "2026-10-17",
+      "last_seen": "2026-10-17",
+      "outcome": "staged_pending"
+    },
     "39343afd023639ef39ca137a1b302251b2e789b601cbf252eb69272dc933c126": {
       "attempts": 0,
       "first_seen": "2026-07-23",
