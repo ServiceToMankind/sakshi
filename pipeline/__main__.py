@@ -1434,9 +1434,13 @@ def run(
     # the site (same id, or a shared exact anchor after the court re-query merged into it); any
     # brand-new case a court source surfaced is DROPPED here — discovery is the daily run's job.
     if is_refresh:
-        existing_ids = {str(r["id"]) for r in existing if r.get("id")}
+        # "Known" means on the site OR found by an earlier daily run and still waiting to
+        # publish (carried over from data-staging). Refresh only stops NEW discoveries; it
+        # used to drop the waiting ones too, which lost a week of cases on 2026-10-18.
+        known = existing + staged_carryover
+        existing_ids = {str(r["id"]) for r in known if r.get("id")}
         existing_anchors: set[str] = set()
-        for record in existing:
+        for record in known:
             existing_anchors |= exact_anchor_keys(record)
         kept = [
             r

@@ -45,6 +45,7 @@ def _default_scope(monkeypatch: pytest.MonkeyPatch) -> None:
         "LAUNCH_LOOKBACK_DAYS",
         "GEMINI_MODELS",
         "FETCH_ARTICLE_BODY",
+        "STAGED_DIR",
     ):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("LAUNCH_STATES", "ALL")
@@ -3018,3 +3019,44 @@ def test_full_articles_replace_blurbs_for_news_items_only() -> None:
         [court],
         0,
     )
+
+
+def test_refresh_keeps_cases_still_waiting_on_data_staging(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """The weekly refresh only stops NEW discoveries. A case an earlier daily run found, still
+    waiting on data-staging to publish, must come through it untouched. On 2026-10-18 a late
+    refresh run dropped a week of waiting cases."""
+    import shutil
+
+    main = tmp_path / "main"
+    staged = tmp_path / "staged" / "data"
+    _seed_anchored_record(main)
+    shutil.copytree(main, staged)
+    # A daily run found a new case; it is waiting on data-staging, not on main yet.
+    orchestrator.run(
+        dry_run=False,
+        data_dir=staged,
+        logs_dir=tmp_path / "logs",
+        run_date="2026-07-20",
+        out=io.StringIO(),
+        docs=fixture_raw_documents(),
+        extract_client=_FakeGemini(_new_case_payload()),
+    )
+    assert "C-BRAND-NEW" in {
+        r.get("cnr") for r in json.loads((staged / "2026" / "TG.json").read_text())
+    }
+
+    monkeypatch.setenv("STAGED_DIR", str(staged))
+    orchestrator.run(
+        dry_run=False,
+        data_dir=main,
+        logs_dir=tmp_path / "logs2",
+        run_date="2026-07-21",
+        out=io.StringIO(),
+        docs=[],
+        extract_client=_FakeGemini(_new_case_payload()),
+        mode="refresh",
+    )
+    cnrs = {r.get("cnr") for r in json.loads((main / "2026" / "TG.json").read_text())}
+    assert {"C-EXISTING", "C-BRAND-NEW"} <= cnrs
