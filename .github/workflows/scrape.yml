@@ -439,17 +439,21 @@ jobs:
           VERIFY_MODEL: ""
           GEMINI_MODELS: ""
           FETCH_ARTICLE_BODY: ""
+          # The staging restore sets STAGED_DIR for the whole job. The tests must not see it,
+          # or they load the real waiting cases instead of their own test data (2026-10-12..18).
+          STAGED_DIR: ""
         run: |
           set -o pipefail  # a failed check must fail this step, not just get copied to the log
           python -m pip install -e '.[dev]'
           ( cd site && npm ci --no-audit --no-fund )
           if ! make check PY=python 2>&1 | tee "$RUNNER_TEMP/gate_output.txt"; then
             # Keep a short note of which check failed, for the issue we open: only the check
-            # names and the count check's numbers. Never copy other checks' output, because
-            # the privacy check's message could include the very text it caught.
+            # names, the count check's numbers and the names of failing tests. Never copy other
+            # checks' output, because the privacy check's message could include the text it caught.
             {
               grep -oE '\[Makefile:[0-9]+: [a-z-]+\]' "$RUNNER_TEMP/gate_output.txt" | sed -E 's/.*: ([a-z-]+)\]/failed gate: \1/' | grep -v ': check$' | sort -u
               sed -n '/^COUNT GUARD FAILED/,/^[^ ]/p' "$RUNNER_TEMP/gate_output.txt" | grep '^  ' | cut -c1-300
+              grep -E '^FAILED pipeline/tests/' "$RUNNER_TEMP/gate_output.txt" | sed -E 's/ - .*//' | sort -u | head -10
             } > logs/gate_failure.txt || true
             echo "::error::make check FAILED on the staged tree — NOT publishing. PR #${{ steps.publish_stage.outputs.pr_number }} left open for a human."
             exit 1
