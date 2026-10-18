@@ -3060,3 +3060,19 @@ def test_refresh_keeps_cases_still_waiting_on_data_staging(
     )
     cnrs = {r.get("cnr") for r in json.loads((main / "2026" / "TG.json").read_text())}
     assert {"C-EXISTING", "C-BRAND-NEW"} <= cnrs
+
+
+def test_paid_source_skips_settled_and_waiting_documents_but_retries_failures() -> None:
+    """Indian Kanoon must not download a judgment again once it is settled, or while its case
+    is waiting to publish (carried over from data-staging); a failed one is still retried."""
+    from pipeline.ledger import Ledger
+
+    ledger = Ledger()
+    ledger.record("https://ex.invalid/settled", "published", "2026-10-12")
+    ledger.record("https://ex.invalid/waiting", "staged_pending", "2026-10-12")
+    ledger.record("https://ex.invalid/failed-once", "failed", "2026-10-12")
+    seen = orchestrator._already_handled(ledger)
+    assert seen("https://ex.invalid/settled") is True
+    assert seen("https://ex.invalid/waiting") is True
+    assert seen("https://ex.invalid/failed-once") is False
+    assert seen("https://ex.invalid/new") is False
