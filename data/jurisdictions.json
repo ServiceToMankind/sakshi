@@ -22,11 +22,11 @@
       "district": "Hyderabad",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 8,
+      "pre_chargesheet": 7,
       "state": "TG",
-      "total": 13,
+      "total": 12,
       "under_trial": 2,
-      "under_trial_pct": 15
+      "under_trial_pct": 17
     },
     {
       "acquittals": 1,

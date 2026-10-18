@@ -263,6 +263,16 @@ _EVERYDAY_WORDS = frozenset(
         "today",
         "yesterday",
         "congress",
+        "content",
+        "video",
+        "videos",
+        "viral",
+        "social",
+        "media",
+        "morphed",
+        "deepfake",
+        "images",
+        "photo",
     ]
 )
 # Common surnames also turn up in links (of the accused, officials, reporters).

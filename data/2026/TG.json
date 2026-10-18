@@ -56,32 +56,6 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 6,
-    "district": "Hyderabad",
-    "first_published": "2026-10-05",
-    "id": "SKS-2026-TG-000032",
-    "incident_reported_date": "2026-10-05",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "offence_sections": [],
-    "sources": [
-      {
-        "publisher": "Namasthe Telangana",
-        "retrieved": "2026-10-05",
-        "source_type": "news_article",
-        "url": "https://www.ntnews.com/cinema/ai-video-content-is-equal-to-like-sexula-assault-says-janhvi-kapoor-2527576"
-      }
-    ],
-    "state": "TG",
-    "status": "FIR_FILED",
-    "summary": "The Hyderabad police registered a case regarding a morphed AI video of [occupation withheld]. Cyber crime officials are currently investigating the matter.",
-    "title": "Hyderabad police register case over morphed AI video",
-    "verification_note": "The record is verified as Hyderabad cyber crime police registered a case regarding an AI-generated video targeting an actress.",
-    "verified": true
-  },
-  {
-    "category": "harassment",
-    "confidence": 0.9,
     "days_since_reported": 10,
     "district": "Rangareddy",
     "first_published": "2026-10-04",
