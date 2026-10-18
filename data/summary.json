@@ -95,12 +95,12 @@
       "month": "2026-09"
     },
     {
-      "count": 29,
+      "count": 28,
       "month": "2026-10"
     }
   ],
   "scale": {
-    "cumulative_total": 250,
+    "cumulative_total": 249,
     "daily": [
       {
         "count": 0,
@@ -616,7 +616,7 @@
     "OD": 3,
     "PB": 5,
     "RJ": 3,
-    "TG": 38,
+    "TG": 37,
     "TN": 39,
     "TR": 2,
     "UP": 18,
@@ -628,7 +628,7 @@
     "CHARGESHEETED": 1,
     "CLOSED": 1,
     "CONVICTED": 39,
-    "FIR_FILED": 86,
+    "FIR_FILED": 85,
     "QUASHED": 2,
     "UNDER_TRIAL": 41,
     "UNKNOWN": 61
@@ -659,5 +659,5 @@
       "incident_reported_date": "2026-10-07"
     }
   ],
-  "total": 250
+  "total": 249
 }

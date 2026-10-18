@@ -46,11 +46,14 @@ def test_no_link_across_states_or_far_apart_in_time() -> None:
 def test_everyday_words_short_words_and_district_names_do_not_link() -> None:
     everyday = _record(False, "https://example.invalid/news/minor-assaulted-near-park-police")
     short = _record(False, "https://example.invalid/news/cops-held-fake")
+    content = _record(False, "https://example.invalid/news/morphed-video-content-viral")
+    child_content = _record(True, "https://example.invalid/news/explicit-content-shared")
     child_with_district = _record(True, "https://example.invalid/testville-otherdistrict-case")
     other = _record(
         False, "https://example.invalid/otherdistrict-case", district="Otherdistrict Rural"
     )
     assert possible_child_cases([CHILD, everyday, short]) == set()
+    assert possible_child_cases([child_content, content]) == set()  # "content" is everyday
     assert possible_child_cases([child_with_district, other]) == set()
 
 

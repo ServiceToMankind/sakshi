@@ -1,0 +1,12 @@
+record_id: SKS-2026-MP-000023
+author: KiranPranay
+date: "2026-10-18"
+overrides:
+  title: "Madhya Pradesh HC orders evidence kept safe in Indore rape case"
+  summary: "A rape case was registered with the police in Indore district. The Madhya Pradesh High Court passed an order in the case. It directed the authorities to preserve medical and DNA evidence for the investigation."
+reason: >
+  The title and summary described the survivor's pregnancy and medical examination. That is
+  about the victim's health, which we never publish. I rewrote them to say only what the
+  court did in the case. No fact was added.
+resolution: >
+  Remove this file once the pipeline keeps a victim's health details out of summaries on its own.

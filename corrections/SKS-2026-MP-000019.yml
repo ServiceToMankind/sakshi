@@ -1,0 +1,12 @@
+record_id: SKS-2026-MP-000019
+author: KiranPranay
+date: "2026-10-18"
+overrides:
+  title: "Madhya Pradesh HC orders DNA evidence preserved in Alirajpur sexual assault case"
+  summary: "Police registered a criminal case over a sexual assault in Alirajpur district. The Madhya Pradesh High Court passed an order in the case. It directed that DNA samples be preserved for the trial."
+reason: >
+  The title and summary described the survivor's pregnancy and medical examination. That is
+  about the victim's health, which we never publish. I rewrote them to say only what the
+  court did in the case. No fact was added.
+resolution: >
+  Remove this file once the pipeline keeps a victim's health details out of summaries on its own.
