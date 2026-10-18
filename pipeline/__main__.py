@@ -197,6 +197,17 @@ def _fetch_documents(
     return asyncio.run(_go())
 
 
+def _already_handled(ledger: Ledger) -> Callable[[str], bool]:
+    """Tell a paid source (Indian Kanoon) which documents not to download again.
+
+    That's every document an earlier run settled, and also one whose case is still waiting
+    to publish: its record is carried over from data-staging, so downloading it again buys
+    nothing. While publishing was blocked (2026-10-12..14) we paid for the same 38 judgments
+    three days running. A document whose extraction failed is still retried.
+    """
+    return lambda url: ledger.is_pending(url) or not ledger.should_process(url)
+
+
 def _fetch_article_bodies(docs: list[RawDocument]) -> list[RawDocument]:  # pragma: no cover
     async def _go() -> list[RawDocument]:
         async with PoliteClient() as client:
@@ -1137,9 +1148,8 @@ def run(
         if docs is not None:
             raw_docs, court_prefilter = docs, []
         else:
-            settled = ledger
             raw_docs, court_prefilter = _fetch_documents(
-                run_date, court_only=is_refresh, seen=lambda url: not settled.should_process(url)
+                run_date, court_only=is_refresh, seen=_already_handled(ledger)
             )
         report.source_alerts = source_alerts(court_prefilter)
         for alert in report.source_alerts:
