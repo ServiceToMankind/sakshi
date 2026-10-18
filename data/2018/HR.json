@@ -1,0 +1,103 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Punjab and Haryana High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3212,
+    "district": "Panipat",
+    "fir_ref": {
+      "number": "009",
+      "station": "Matlauda"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2018-HR-000001",
+    "incident_reported_date": "2018-01",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 302",
+      "IPC 376A",
+      "IPC 376D",
+      "IPC 363",
+      "IPC 366A",
+      "IPC 201",
+      "POCSO 6",
+      "IPC 366"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/141219614/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "HR",
+    "status": "APPEAL_PENDING",
+    "summary": "In January 2018, two people were arrested in Panipat, Haryana for the gang rape involving a minor. The charges also include murder, kidnapping, abduction, procuring a minor and destroying evidence. A weapon was used or a threat was made. Police have filed a chargesheet. The accused were convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape involving a minor — Panipat (2018) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Punjab and Haryana",
+      "next_hearing": null
+    },
+    "days_since_reported": 3212,
+    "district": "Panipat",
+    "fir_ref": {
+      "number": "009/2018",
+      "station": "Matlauda"
+    },
+    "first_published": "2026-10-14",
+    "id": "SKS-2018-HR-000002",
+    "incident_reported_date": "2018-01",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 302",
+      "IPC 201",
+      "IPC 366A",
+      "IPC 34",
+      "IPC 376A",
+      "IPC 363",
+      "IPC 366",
+      "IPC 376D",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Punjab-Haryana High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/141219614/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "HR",
+    "status": "APPEAL_PENDING",
+    "summary": "In January 2018, two people were arrested in Panipat, Haryana for the gang rape involving a minor. The charges also include murder, kidnapping, abduction, procuring a minor and destroying evidence. A weapon was used or a threat was made. Police have filed a chargesheet. The accused were convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape involving a minor — Panipat (2018) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

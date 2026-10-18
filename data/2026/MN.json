@@ -6,7 +6,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 5,
+    "days_since_reported": 12,
     "district": "Unknown",
     "first_published": "2026-10-06",
     "id": "SKS-2026-MN-000001",
@@ -33,6 +33,38 @@
     "summary": "The Supreme Court directed the CBI and the trial court to ensure the swift examination of witnesses. The case involves allegations of sexual violence in Manipur.",
     "title": "SC orders timely examination of witnesses in Manipur sexual violence case",
     "verification_note": "The source confirms the Supreme Court's directives regarding the examination of victim-witnesses in the Manipur sexual violence case.",
+    "verified": true
+  },
+  {
+    "accused_count": 13,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 17,
+    "district": "Bishnupur",
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-MN-000002",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO",
+      "BNS"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/manipur-police-arrest-13-including-a-minor-for-circulating-non-consensual-explicit-videos-of-women-101791905446652.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MN",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, 13 people were arrested in Bishnupur, Manipur for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Bishnupur (2026) — FIR filed",
     "verified": true
   }
 ]

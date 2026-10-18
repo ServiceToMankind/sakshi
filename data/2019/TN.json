@@ -2,12 +2,60 @@
   {
     "accused_count": 1,
     "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 2513,
+    "district": "Thoothukudi",
+    "fir_ref": {
+      "number": "179/2019",
+      "station": "Nalattinpudur Police Station"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2019-TN-000002",
+    "incident_reported_date": "2019-12",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 5(L)",
+      "POCSO 5(J)(II)",
+      "POCSO 6",
+      "IPC 452",
+      "IPC 506(I)"
+    ],
+    "repeat_offence": true,
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/137693664/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "APPEAL_PENDING",
+    "summary": "In December 2019, one person was accused of the aggravated penetrative assault on a child in Thoothukudi, Tamil Nadu. The charges also include house trespass and criminal intimidation. A weapon was used or a threat was made. The accused is recorded as a repeat offender. Bail was granted. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Thoothukudi (2019) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
     "confidence": 1.0,
     "court": {
       "name": "Madurai Bench of Madras High Court",
       "next_hearing": null
     },
-    "days_since_reported": 2840,
+    "days_since_reported": 2847,
     "district": "Thoothukudi",
     "fir_ref": {
       "number": "1/2019",
