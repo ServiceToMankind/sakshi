@@ -1,0 +1,46 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010419992026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 2026,
+    "district": "Outer District",
+    "fir_ref": {
+      "number": "129/2021",
+      "station": "Paschim Vihar East"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2021-DL-000001",
+    "incident_reported_date": "2021-04",
+    "institutional_actions": [
+      "chargesheet_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 328",
+      "IPC 379",
+      "IPC 506",
+      "POCSO 4"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59212102026CRLMM66012026_205400.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "In April 2021, one person was accused of the penetrative assault on a child in Outer District, Delhi. The charges also include drugging and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The case was quashed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Outer District (2021) — case quashed",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

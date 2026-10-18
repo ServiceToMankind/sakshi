@@ -3,7 +3,7 @@
     "accused_count": 9,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 4,
+    "days_since_reported": 11,
     "district": "Surendranagar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-GJ-000005",
@@ -30,9 +30,43 @@
   },
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 17,
+    "district": "Amreli",
+    "fir_ref": {
+      "station": "Jafrabad Police Station"
+    },
+    "first_published": "2026-10-18",
+    "id": "SKS-2026-GJ-000006",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-18",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/government-school-teacher-rapes-girl-molests-3-others-in-gujarat-arrested-2538908",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GJ",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, one person was arrested in Amreli, Gujarat for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Amreli (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 39,
+    "days_since_reported": 46,
     "district": "Surat",
     "first_published": "2026-09-02",
     "id": "SKS-2026-GJ-000003",
@@ -61,7 +95,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 47,
     "district": "UNKNOWN",
     "first_published": "2026-09-01",
     "id": "SKS-2026-GJ-000002",
@@ -89,7 +123,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 47,
     "district": "Unknown",
     "first_published": "2026-09-27",
     "id": "SKS-2026-GJ-000004",
@@ -116,7 +150,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 78,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",

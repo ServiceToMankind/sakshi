@@ -3,7 +3,7 @@
     "accused_count": 6,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 2,
+    "days_since_reported": 9,
     "district": "Latehar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-JH-000009",
@@ -38,7 +38,371 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 17,
+    "district": "Latehar",
+    "fir_ref": {
+      "number": "08/2017",
+      "station": "Chandwa"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000010",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "convicted",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 4"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/51831360/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/18129529/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In October 2026, one person was accused of the penetrative assault on a child in Latehar, Jharkhand. Bail was denied. The accused was convicted and sentenced to 10 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Latehar (2026) — appeal pending",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Garhwa",
+    "fir_ref": {
+      "number": "07/2023",
+      "station": "Ranka"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000012",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 4(2)",
+      "3(1)(W)(I)(II)",
+      "3(2)(V)"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/154789669/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In October 2026, one person was accused of the penetrative assault on a child in Garhwa, Jharkhand. Bail was granted. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Garhwa (2026) — appeal pending",
+    "verified": true
+  },
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Chatra",
+    "fir_ref": {
+      "number": "10/2026",
+      "station": "Lawalong"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000013",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 96",
+      "BNS 70(2)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/180417866/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/63418196/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, two people were accused of the gang rape of a minor in Chatra, Jharkhand. The charges also include procuring a minor. A weapon was used or a threat was made. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape of a minor — Chatra (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Godda",
+    "fir_ref": {
+      "number": "17/2026",
+      "station": "Rajabhitha"
+    },
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-JH-000017",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 69",
+      "BNS 351(2)",
+      "BNS 352",
+      "POCSO 6",
+      "BNS 64(2)(M)",
+      "BNS 3(5)"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-13",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/23024739/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Godda, Jharkhand. The charges also include criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Godda (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Garhwa",
+    "fir_ref": {
+      "number": "07/2023",
+      "station": "Ranka P.S."
+    },
+    "first_published": "2026-10-14",
+    "id": "SKS-2026-JH-000018",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 4(2)",
+      "3(1)(W)(I)(II)",
+      "3(2)(V)"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/154789669/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In October 2026, one person was accused of the penetrative assault on a child in Garhwa, Jharkhand. Bail was granted. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Garhwa (2026) — appeal pending",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 47,
+    "district": "West Singhbhum",
+    "fir_ref": {
+      "number": "19/2018",
+      "station": "Noamundi"
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000011",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376(2)(I)",
+      "POCSO 6"
+    ],
+    "sentence_years": 14,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/184056483/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In September 2026, one person was accused of the aggravated penetrative assault on a child in West Singhbhum, Jharkhand. Bail was denied. The accused was convicted and sentenced to 14 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — West Singhbhum (2026) — appeal pending",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 47,
+    "district": "Godda",
+    "fir_ref": {
+      "number": "17/2026",
+      "station": "Rajabhitha P.S."
+    },
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000014",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 69",
+      "BNS 64(2)(M)",
+      "BNS 352",
+      "BNS 351(2)",
+      "BNS 3(5)",
+      "POCSO 6",
+      "BNS 64(1)"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/23024739/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "In September 2026, one person was accused of the aggravated penetrative assault on a child in Godda, Jharkhand. The charges also include criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Godda (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 47,
+    "district": "Ranchi",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000015",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "convicted",
+      "bail_denied",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 351(3)",
+      "BNS 127(2)",
+      "POCSO 4(1)",
+      "POCSO 6(1)"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/4793743/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In September 2026, one person was accused of the aggravated penetrative assault on a child in Ranchi, Jharkhand. The charges also include wrongful confinement and criminal intimidation. Bail was denied. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Ranchi (2026) — appeal pending",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 78,
     "district": "Dumka",
     "fir_ref": {
       "number": "198/2025",
@@ -73,13 +437,48 @@
     "verified": true
   },
   {
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 109,
+    "district": "Ranchi",
+    "first_published": "2026-10-12",
+    "id": "SKS-2026-JH-000016",
+    "incident_reported_date": "2026-07",
+    "institutional_actions": [
+      "bail_denied",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO 8"
+    ],
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-12",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/49330375/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "APPEAL_PENDING",
+    "summary": "In July 2026, a case of sexual assault of a child was registered in Ranchi, Jharkhand. Bail was denied. An appeal is pending. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Ranchi (2026) — appeal pending",
+    "verified": true
+  },
+  {
     "accused_count": 3,
     "category": "pocso",
     "confidence": 1.0,
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 224,
+    "days_since_reported": 231,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -123,7 +522,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 224,
+    "days_since_reported": 231,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -167,7 +566,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 224,
+    "days_since_reported": 231,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -206,7 +605,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 224,
+    "days_since_reported": 231,
     "district": "Garhwa",
     "fir_ref": {
       "number": "103/2025",
@@ -252,7 +651,7 @@
     "court": {
       "name": "High Court of Jharkhand at Ranchi"
     },
-    "days_since_reported": 224,
+    "days_since_reported": 231,
     "district": "Ranchi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-JH-000008",
@@ -290,7 +689,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 252,
+    "days_since_reported": 259,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -334,7 +733,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 252,
+    "days_since_reported": 259,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",

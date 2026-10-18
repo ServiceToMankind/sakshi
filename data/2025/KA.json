@@ -1,0 +1,37 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Fast Track Special Court-1, Mysuru",
+      "next_hearing": null
+    },
+    "days_since_reported": 382,
+    "district": "Mysuru",
+    "first_published": "2026-10-18",
+    "id": "SKS-2025-KA-000001",
+    "incident_reported_date": "2025-10",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-18",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/mysuru-court-sentences-man-to-death-for-rape-and-murder-of-9-year-old-during-2025-dasara-festival-101792232208642.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "CONVICTED",
+    "summary": "In October 2025, one person was arrested in Mysuru, Karnataka for the child sexual offence. Police have filed a chargesheet. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Mysuru (2025) — convicted",
+    "verified": true
+  }
+]

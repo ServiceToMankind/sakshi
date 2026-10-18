@@ -1,13 +1,87 @@
 [
   {
     "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "court": {
+      "name": "Additional Chief Metropolitan Magistrate Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 6,
+    "district": "Bengaluru",
+    "first_published": "2026-10-13",
+    "id": "SKS-2026-KA-000006",
+    "incident_reported_date": "2026-10-12",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "BNS 69",
+      "BNS 351",
+      "BNS 352"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-13",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/bengaluru-mutt-head-arrested-over-sexual-exploitation-allegations-101791803250074.html"
+      }
+    ],
+    "state": "KA",
+    "status": "FIR_FILED",
+    "summary": "Police arrested a religious leader in Bengaluru following allegations of sexual exploitation and death threats. Authorities registered a case under sections of the Bharatiya Nyaya Sanhita. A magistrate court remanded the accused to 14 days of judicial custody. Police are currently verifying recorded audio and video evidence.",
+    "title": "Bengaluru mutt head arrested over sexual exploitation allegations",
+    "verification_note": "The core facts regarding the reported sexual offence case and registered BNS sections in Bengaluru are consistent with the source text.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Fast Track Special Court-1",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Mysuru",
+    "first_published": "2026-10-18",
+    "id": "SKS-2026-KA-000007",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-18",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/mysuru-court-sentences-man-to-death-for-rape-and-murder-of-9-year-old-during-2025-dasara-festival-101792232208642.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "CONVICTED",
+    "summary": "In October 2026, one person was arrested in Mysuru, Karnataka for the child sexual offence. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Mysuru (2026) — convicted",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.9,
     "court": {
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 31,
+    "days_since_reported": 38,
     "district": "Unknown",
     "first_published": "2026-09-10",
     "id": "SKS-2026-KA-000004",
@@ -33,7 +107,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 35,
+    "days_since_reported": 42,
     "district": "Bengaluru",
     "first_published": "2026-09-06",
     "id": "SKS-2026-KA-000003",
@@ -62,7 +136,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 40,
+    "days_since_reported": 47,
     "district": "Bengaluru",
     "first_published": "2026-09-21",
     "id": "SKS-2026-KA-000005",
@@ -91,7 +165,7 @@
     "accused_count": 7,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 55,
+    "days_since_reported": 62,
     "district": "Unknown",
     "first_published": "2026-08-17",
     "id": "SKS-2026-KA-000002",
@@ -120,7 +194,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 58,
+    "days_since_reported": 65,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",

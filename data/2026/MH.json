@@ -1,9 +1,73 @@
 [
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Malegaon Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 17,
+    "district": "Nashik",
+    "first_published": "2026-10-17",
+    "id": "SKS-2026-MH-000007",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-17",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/malegaon-court-awards-death-sentence-to-man-convicted-of-raping-murdering-4-year-old-girl-101792131947747.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MH",
+    "status": "CONVICTED",
+    "summary": "In October 2026, one person was arrested in Nashik, Maharashtra for the child sexual offence. Police have filed a chargesheet. The accused was convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Nashik (2026) — convicted",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 17,
+    "district": "Nagpur",
+    "first_published": "2026-10-18",
+    "id": "SKS-2026-MH-000008",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-18",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/nagpur-minor-gives-birth-after-alleged-sexual-abuse-by-man-she-met-at-school-pocso-act-case-filed-2538862",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MH",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, one person was accused of the child sexual offence in Nagpur, Maharashtra. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Nagpur (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 28,
+    "days_since_reported": 35,
     "district": "Mumbai",
     "first_published": "2026-09-13",
     "id": "SKS-2026-MH-000005",
@@ -33,7 +97,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 47,
     "district": "Unknown",
     "first_published": "2026-09-25",
     "id": "SKS-2026-MH-000006",
@@ -62,7 +126,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 51,
+    "days_since_reported": 58,
     "district": "Mumbai",
     "first_published": "2026-08-21",
     "id": "SKS-2026-MH-000003",
@@ -91,7 +155,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 78,
     "district": "Nagpur",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000001",
@@ -119,7 +183,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 78,
     "district": "Pune",
     "first_published": "2026-08-20",
     "id": "SKS-2026-MH-000002",
@@ -147,7 +211,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 78,
     "district": "Thane",
     "first_published": "2026-08-29",
     "id": "SKS-2026-MH-000004",
