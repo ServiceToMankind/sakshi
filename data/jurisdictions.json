@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-18T00:00:00Z",
+  "generated_at": "2026-10-19T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 11,
+        "days": 12,
         "id": "SKS-2026-DL-000044"
       },
-      "median_pending_days": 11,
+      "median_pending_days": 12,
       "pre_chargesheet": 7,
       "state": "DL",
       "total": 27,
@@ -58,11 +58,11 @@
       "district": "Chennai",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 6,
+      "pre_chargesheet": 7,
       "state": "TN",
-      "total": 8,
+      "total": 9,
       "under_trial": 2,
-      "under_trial_pct": 25
+      "under_trial_pct": 22
     },
     {
       "acquittals": 0,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 383,
+        "days": 384,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 383,
+      "median_pending_days": 384,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -207,6 +207,18 @@
       "total": 3,
       "under_trial": 0,
       "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Chatra",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "JH",
+      "total": 3,
+      "under_trial": 1,
+      "under_trial_pct": 33
     },
     {
       "acquittals": 0,
@@ -328,10 +340,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 513,
+        "days": 514,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 513,
+      "median_pending_days": 514,
       "state": "DL",
       "total": 2,
       "under_trial": 1,
@@ -342,10 +354,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1484,
+        "days": 1485,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 771,
+      "median_pending_days": 772,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -396,17 +408,6 @@
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 1,
-      "district": "Chatra",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "JH",
-      "total": 2,
-      "under_trial": 1,
-      "under_trial_pct": 50
     },
     {
       "acquittals": 0,

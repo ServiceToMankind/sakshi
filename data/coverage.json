@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-18",
+  "generated": "2026-10-19",
   "trackability": {
-    "total": 319,
+    "total": 321,
     "court_anchored": 73,
-    "rate": 0.2288
+    "rate": 0.2274
   },
   "states_covered": 24,
   "states_total": 36,
@@ -76,7 +76,7 @@
     },
     "JH": {
       "active_sources": 0,
-      "records": 24,
+      "records": 25,
       "declared_gap": false
     },
     "JK": {
@@ -166,7 +166,7 @@
     },
     "TN": {
       "active_sources": 2,
-      "records": 50,
+      "records": 51,
       "declared_gap": false
     },
     "TR": {
