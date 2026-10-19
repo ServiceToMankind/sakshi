@@ -369,5 +369,48 @@
       "verified": true,
       "verification_note": "Approved as the source details a Kerala High Court judgment ordering a retrial in an attempt-to-rape case."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Not specified",
+      "incident_reported_date": "2026-10-17",
+      "offence_sections": [
+        "IPC 323",
+        "IPC 354",
+        "IPC 452",
+        "IPC 511",
+        "IPC 376"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Kerala High Court",
+        "next_hearing": null
+      },
+      "title": "Kerala High Court orders retrial in attempt to rape case",
+      "summary": "A man armed with a knife trespassed into a house and attempted to commit sexual assault. The trial court in Kerala convicted him only on lesser charges of assault and hurt. The man appealed his conviction to the High Court. The High Court set aside the conviction and ordered a complete retrial based on the testimony. The trial court will now rehear both sides and issue a new judgment.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/kerala-high-court/kerala-high-court-retrial-suo-motu-revision-convict-appeal-555113",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-19"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the source describes a genuine Kerala High Court order directing a re-trial in an attempt to rape case."
+    }
   }
 ]

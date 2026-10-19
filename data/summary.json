@@ -1,6 +1,6 @@
 {
   "aggravated_total": 73,
-  "generated_at": "2026-10-18T00:00:00Z",
+  "generated_at": "2026-10-19T00:00:00Z",
   "monthly_trend": [
     {
       "count": 0,
@@ -95,17 +95,13 @@
       "month": "2026-09"
     },
     {
-      "count": 63,
+      "count": 65,
       "month": "2026-10"
     }
   ],
   "scale": {
-    "cumulative_total": 319,
+    "cumulative_total": 321,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-06-21"
-      },
       {
         "count": 0,
         "date": "2026-06-22"
@@ -581,14 +577,18 @@
       {
         "count": 74,
         "date": "2026-10-18"
+      },
+      {
+        "count": 2,
+        "date": "2026-10-19"
       }
     ],
-    "this_week": 74
+    "this_week": 76
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 51,
     "Assault to outrage modesty": 4,
-    "Child sexual offence": 55,
+    "Child sexual offence": 57,
     "Gang rape": 6,
     "Gang rape of a minor": 2,
     "Penetrative assault on a child": 10,
@@ -607,7 +607,7 @@
     "GA": 4,
     "GJ": 8,
     "HR": 18,
-    "JH": 24,
+    "JH": 25,
     "JK": 2,
     "KA": 8,
     "KL": 1,
@@ -619,7 +619,7 @@
     "PB": 5,
     "RJ": 4,
     "TG": 39,
-    "TN": 50,
+    "TN": 51,
     "TR": 2,
     "UP": 19,
     "WB": 5
@@ -630,42 +630,42 @@
     "CHARGESHEETED": 2,
     "CLOSED": 1,
     "CONVICTED": 48,
-    "FIR_FILED": 107,
+    "FIR_FILED": 109,
     "QUASHED": 4,
     "UNDER_TRIAL": 57,
     "UNKNOWN": 65
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 1484,
+      "days_since_reported": 1485,
       "district": "South West",
       "id": "SKS-2022-DL-000001",
       "incident_reported_date": "2022-09-25"
     },
     {
-      "days_since_reported": 513,
+      "days_since_reported": 514,
       "district": "East",
       "id": "SKS-2025-DL-000002",
       "incident_reported_date": "2025-05-23"
     },
     {
-      "days_since_reported": 383,
+      "days_since_reported": 384,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 59,
+      "days_since_reported": 60,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     },
     {
-      "days_since_reported": 11,
+      "days_since_reported": 12,
       "district": "Delhi",
       "id": "SKS-2026-DL-000044",
       "incident_reported_date": "2026-10-07"
     }
   ],
-  "total": 319
+  "total": 321
 }
