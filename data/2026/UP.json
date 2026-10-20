@@ -7,7 +7,7 @@
       "name": "Allahabad High Court",
       "next_hearing": null
     },
-    "days_since_reported": 1,
+    "days_since_reported": 2,
     "district": "Bareilly",
     "fir_ref": {
       "station": "Izzatnagar"
@@ -41,7 +41,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-30",
     "id": "SKS-2026-UP-000013",
@@ -69,7 +69,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Meerut",
     "first_published": "2026-09-27",
     "id": "SKS-2026-UP-000012",
@@ -96,7 +96,7 @@
     "accused_count": 2,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Lucknow",
     "fir_ref": {
       "station": "Mohanlalganj"
@@ -129,7 +129,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Amroha",
     "first_published": "2026-09-24",
     "id": "SKS-2026-UP-000010",
@@ -157,7 +157,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 47,
+    "days_since_reported": 48,
     "district": "Gautam Buddh Nagar",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000009",
@@ -184,7 +184,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-01",
     "id": "SKS-2026-UP-000007",
@@ -210,7 +210,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Noida",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000008",
@@ -236,7 +236,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Bulandshahr",
     "first_published": "2026-10-11",
     "id": "SKS-2026-UP-000014",
@@ -268,7 +268,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-08-30",
     "id": "SKS-2026-UP-000006",
@@ -297,7 +297,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 51,
+    "days_since_reported": 52,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -323,7 +323,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 53,
+    "days_since_reported": 54,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -350,7 +350,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 79,
+    "days_since_reported": 80,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -375,7 +375,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 110,
+    "days_since_reported": 111,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -404,7 +404,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 110,
+    "days_since_reported": 111,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",
