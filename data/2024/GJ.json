@@ -6,7 +6,7 @@
     "court": {
       "name": "Vadodara POCSO court"
     },
-    "days_since_reported": 748,
+    "days_since_reported": 749,
     "district": "Vadodara",
     "first_published": "2026-08-26",
     "id": "SKS-2024-GJ-000001",
@@ -34,7 +34,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 789,
+    "days_since_reported": 790,
     "district": "Rajkot",
     "first_published": "2026-08-28",
     "id": "SKS-2024-GJ-000002",

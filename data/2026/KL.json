@@ -1,29 +1,60 @@
 [
   {
-    "accused_count": 7,
-    "category": "rape",
+    "accused_count": 1,
+    "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 17,
-    "district": "Thrissur",
-    "first_published": "2026-10-02",
-    "id": "SKS-2026-KL-000001",
-    "incident_reported_date": "2026-10-02",
+    "days_since_reported": 0,
+    "district": "Thiruvananthapuram",
+    "first_published": "2026-10-20",
+    "id": "SKS-2026-KL-000002",
+    "incident_reported_date": "2026-10-20",
+    "institutional_actions": [
+      "arrest_made"
+    ],
     "minor_involved": false,
+    "offence_sections": [],
     "sources": [
       {
         "publisher": "Hindustan Times",
-        "retrieved": "2026-10-02",
+        "retrieved": "2026-10-20",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/keralam-wife-hires-men-to-abduct-husband-rape-girlfriend-101790876959944.html",
+        "url": "https://www.hindustantimes.com/india-news/british-tourist-sexually-harassed-in-keralas-varkala-dress-torn-video-helps-police-arrest-man-101792424494145.html"
+      }
+    ],
+    "state": "KL",
+    "status": "FIR_FILED",
+    "summary": "A man allegedly sexually harassed a visiting tourist and tore her dress during the night. One man was accused of committing the offence. The incident took place in Thiruvananthapuram district. Police registered a criminal case and arrested the accused with the help of video footage. The accused will be produced before a court for remand while further investigation continues.",
+    "title": "Police arrest man for sexually harassing tourist in Kerala",
+    "verification_note": "The reported sexual harassment incident in Varkala, Kerala matches the details provided in the source.",
+    "verified": true
+  },
+  {
+    "accused_count": 4,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 49,
+    "district": "Thiruvananthapuram",
+    "first_published": "2026-10-20",
+    "id": "SKS-2026-KL-000003",
+    "incident_reported_date": "2026-09",
+    "institutional_actions": [
+      "arrest_made",
+      "sit_formed"
+    ],
+    "minor_involved": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-20",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/keralam-minor-girl-s-aunt-husband-taken-into-custody-from-andhra-in-spa-assault-case-101792396902185.html",
         "url_carries_identifying_slug": true
       }
     ],
     "state": "KL",
-    "status": "UNKNOWN",
-    "summary": "A six-member gang allegedly abducted and raped a woman in Thrissur. A woman reportedly hired the gang to carry out the attack.",
-    "title": "Police report abduction and rape of woman in Thrissur",
-    "verification_note": "The source describes a genuine case of abduction and rape in Thrissur, Kerala, consistent with the candidate record.",
-    "verified": true,
-    "weapon_or_threat": true
+    "status": "FIR_FILED",
+    "summary": "In September 2026, four people were arrested in Thiruvananthapuram, Kerala for the child sexual offence. A special investigation team was formed. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Thiruvananthapuram (2026) — FIR filed",
+    "verified": true
   }
 ]

@@ -3,7 +3,7 @@
     "accused_count": 2,
     "category": "acid_attack",
     "confidence": 0.95,
-    "days_since_reported": 13,
+    "days_since_reported": 14,
     "district": "Balod",
     "first_published": "2026-10-11",
     "id": "SKS-2026-CT-000002",
@@ -37,7 +37,7 @@
     "court": {
       "name": "Fast Track Court"
     },
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Unknown",
     "first_published": "2026-09-13",
     "id": "SKS-2026-CT-000001",

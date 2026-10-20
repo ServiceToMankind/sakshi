@@ -4,6 +4,37 @@
       "possible_child_case"
     ],
     "record": {
+      "accused_count": 7,
+      "category": "rape",
+      "confidence": 0.95,
+      "days_since_reported": null,
+      "district": "Thrissur",
+      "first_published": "2026-10-02",
+      "id": "SKS-2026-KL-000001",
+      "incident_reported_date": "2026-10",
+      "minor_involved": true,
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-10-02",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/keralam-wife-hires-men-to-abduct-husband-rape-girlfriend-101790876959944.html",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "KL",
+      "status": "UNKNOWN",
+      "summary": "In October 2026, seven people were accused of the rape involving a minor in Thrissur, Kerala. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Rape involving a minor — Thrissur (2026)",
+      "verified": true,
+      "weapon_or_threat": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "accused_count": 5,
       "category": "rape",
       "confidence": 0.95,
@@ -411,6 +442,44 @@
       ],
       "verified": true,
       "verification_note": "Approved as the source describes a genuine Kerala High Court order directing a re-trial in an attempt to rape case."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JH",
+      "district": "East Singhbhum",
+      "incident_reported_date": "2026-10-19",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "CONVICTED",
+      "accused_count": 4,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Jharkhand High Court",
+        "next_hearing": null
+      },
+      "title": "Jharkhand High Court upholds 20-year sentence for four men in gang rape case",
+      "summary": "Four men committed gang rape in East Singhbhum district. Police registered an FIR following a village meeting. A trial court convicted all four accused men and sentenced them to 20 years in prison. The Jharkhand High Court dismissed their appeals and confirmed the sentence. The conviction now stands upheld.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jharkhand-high-court/jharkhand-high-court-upholds-gang-rape-conviction-555273",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-20"
+        }
+      ],
+      "verified": true,
+      "verification_note": "The source supports the record detailing a Jharkhand High Court judgment upholding a gang rape conviction from East Singhbhum."
     }
   }
 ]

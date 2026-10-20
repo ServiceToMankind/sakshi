@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-10-19T00:00:00Z",
+  "generated_at": "2026-10-20T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 12,
+        "days": 13,
         "id": "SKS-2026-DL-000044"
       },
-      "median_pending_days": 12,
+      "median_pending_days": 13,
       "pre_chargesheet": 7,
       "state": "DL",
-      "total": 27,
-      "under_trial": 8,
-      "under_trial_pct": 30
+      "total": 28,
+      "under_trial": 9,
+      "under_trial_pct": 32
     },
     {
       "acquittals": 0,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 384,
+        "days": 385,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 384,
+      "median_pending_days": 385,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -340,10 +340,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 514,
+        "days": 515,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 514,
+      "median_pending_days": 515,
       "state": "DL",
       "total": 2,
       "under_trial": 1,
@@ -354,10 +354,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1485,
+        "days": 1486,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 772,
+      "median_pending_days": 773,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -475,6 +475,18 @@
       "total": 2,
       "under_trial": 1,
       "under_trial_pct": 50
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Thiruvananthapuram",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 2,
+      "state": "KL",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -1177,17 +1189,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "JK",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Thrissur",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "KL",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
