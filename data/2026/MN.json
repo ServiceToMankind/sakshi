@@ -6,7 +6,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 14,
+    "days_since_reported": 15,
     "district": "Unknown",
     "first_published": "2026-10-06",
     "id": "SKS-2026-MN-000001",
@@ -39,7 +39,7 @@
     "accused_count": 13,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Bishnupur",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MN-000002",

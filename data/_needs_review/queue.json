@@ -481,5 +481,42 @@
       "verified": true,
       "verification_note": "The source supports the record detailing a Jharkhand High Court judgment upholding a gang rape conviction from East Singhbhum."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Lucknow",
+      "incident_reported_date": "2022-12",
+      "offence_sections": [
+        "POCSO 3",
+        "POCSO 4"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CHARGESHEETED",
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-up-mahila-samman-kosh-deny-compensation-pocso-survivor-absence-injury-555370",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-21",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Penetrative assault on a child — Lucknow (2022) — chargesheet filed",
+      "summary": "In December 2022, a case of penetrative assault on a child was registered in Lucknow, Uttar Pradesh. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
