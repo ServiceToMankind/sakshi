@@ -4,6 +4,36 @@
       "possible_child_case"
     ],
     "record": {
+      "category": "rape",
+      "confidence": 0.9,
+      "days_since_reported": null,
+      "district": "Delhi",
+      "first_published": "2026-10-03",
+      "id": "SKS-2026-DL-000039",
+      "incident_reported_date": "2026-10",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "sources": [
+        {
+          "publisher": "The Hindu",
+          "retrieved": "2026-10-03",
+          "source_type": "news_article",
+          "url": "https://www.thehindu.com/news/cities/Delhi/du-students-hold-march-against-sexual-violence-demand-safer-campuses/article71533366.ece",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "DL",
+      "status": "UNKNOWN",
+      "summary": "In October 2026, a case of rape involving a minor was registered in Delhi. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Rape involving a minor — Delhi (2026)",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "accused_count": 7,
       "category": "rape",
       "confidence": 0.95,
@@ -517,6 +547,81 @@
       "verified": true,
       "title": "Penetrative assault on a child — Lucknow (2022) — chargesheet filed",
       "summary": "In December 2022, a case of penetrative assault on a child was registered in Lucknow, Uttar Pradesh. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "RJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10-21",
+      "offence_sections": [],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "suspension_ordered"
+      ],
+      "court": {
+        "name": "Rajasthan High Court",
+        "next_hearing": null
+      },
+      "title": "Rajasthan HC reinstates suspension of official accused of workplace sexual harassment",
+      "summary": "A workplace sexual harassment complaint was filed against a medical officer in Rajasthan. The state government suspended the officer following the allegations. A service tribunal later cancelled the suspension because no formal charge sheet was served within three months. The Rajasthan High Court reversed that decision and reinstated the suspension order. Disciplinary proceedings against the official remain ongoing.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/rajasthan-high-court/rajasthan-high-court-restores-suspension-medical-officer-accused-sexual-harassment-555519",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-22"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the candidate record accurately reflects a Rajasthan High Court proceeding concerning workplace sexual harassment."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Kathua",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "IPC 376",
+        "POCSO 4",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CHARGESHEETED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "chargesheet_filed",
+        "bail_denied"
+      ],
+      "court": {
+        "name": "High Court of Jammu & Kashmir and Ladakh",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/absconding-accused-cannot-ordinarily-claim-anticipatory-bail-jk-high-court-says-rejects-rape-accuseds-plea-555467",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-22",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Kathua (2026) — chargesheet filed",
+      "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Kathua, Jammu & Kashmir. Police have filed a chargesheet. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]
