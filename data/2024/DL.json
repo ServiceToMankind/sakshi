@@ -1,8 +1,53 @@
 [
   {
+    "accused_count": 2,
+    "category": "pocso",
+    "cnr": "DLHC010036132025",
+    "confidence": 0.95,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 844,
+    "district": "North",
+    "fir_ref": {
+      "number": "0520/2024",
+      "station": "Bhalswa Dairy"
+    },
+    "first_published": "2026-10-23",
+    "id": "SKS-2024-DL-000002",
+    "incident_reported_date": "2024-07",
+    "institutional_actions": [
+      "chargesheet_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 137(2)",
+      "BNS 70(2)",
+      "BNS 351(3)",
+      "BNS 64(2)(M)",
+      "POCSO 6"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-23",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/170875163/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "In July 2024, two people were accused of the gang rape of a minor in North, Delhi. The charges also include kidnapping and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Gang rape of a minor — North (2024) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 873,
+    "days_since_reported": 874,
     "district": "Delhi",
     "first_published": "2026-09-06",
     "id": "SKS-2024-DL-000001",

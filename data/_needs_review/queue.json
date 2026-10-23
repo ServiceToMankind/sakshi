@@ -4,6 +4,38 @@
       "possible_child_case"
     ],
     "record": {
+      "category": "sexual_assault",
+      "confidence": 0.9,
+      "days_since_reported": null,
+      "district": "Delhi",
+      "first_published": "2026-10-18",
+      "id": "SKS-2026-DL-000057",
+      "incident_reported_date": "2026-10",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "offence_sections": [],
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-10-18",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/womens-groups-protest-outside-delhi-police-headquarters-against-alleged-sexual-violence-during-anti-sir-stir-101792223584345.html",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "DL",
+      "status": "UNKNOWN",
+      "summary": "In October 2026, a case of sexual assault involving a minor was registered in Delhi. A weapon was used or a threat was made. The case status is not yet known. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Sexual assault involving a minor — Delhi (2026)",
+      "verified": true,
+      "weapon_or_threat": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "category": "rape",
       "confidence": 0.9,
       "days_since_reported": null,
@@ -622,6 +654,79 @@
       "verified": true,
       "title": "Aggravated penetrative assault on a child — Kathua (2026) — chargesheet filed",
       "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Kathua, Jammu & Kashmir. Police have filed a chargesheet. Bail was denied. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unknown",
+      "category": "rape",
+      "minor_involved": false,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "weapon_or_threat": false,
+      "institutional_actions": [
+        "acquitted",
+        "appeal_filed"
+      ],
+      "offence_sections": [],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "title": "Gujarat High Court upholds acquittal in rape case involving written live-in agreement",
+      "summary": "A man faced trial for rape based on an alleged false promise of marriage. The couple had lived together under a mutually signed written agreement. A trial court in Gujarat acquitted the accused man of all charges. The High Court reviewed the case and dismissed the appeal against acquittal. The court ruled that the relationship was consensual and upheld the acquittal.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-complainant-rape-false-promise-of-marriage-living-in-agreement-555586",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-23"
+        }
+      ],
+      "incident_reported_date": "2026-10-23",
+      "verified": true,
+      "verification_note": "The record accurately reflects a Gujarat High Court judgment upholding an acquittal in a rape case."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Paravoor",
+      "incident_reported_date": "2026-10-22",
+      "offence_sections": [
+        "IPC 354",
+        "IPC 354A"
+      ],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Kerala High Court",
+        "next_hearing": null
+      },
+      "title": "Kerala High Court quashes sexual harassment FIR over eight-year delay",
+      "summary": "A sexual harassment complaint was registered against one man in Paravoor in 2018. Police filed an FIR for outraging modesty and sexual harassment. The investigation stalled for eight years because the complainant did not cooperate with police. The High Court ruled that the long delay violated the accused man's rights. The court quashed the FIR.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/kerala-high-court/kerala-high-court-delay-investigation-non-cooperation-complainant-quash-sexual-harassment-555578",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-23"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the record accurately reflects a reported sexual harassment case where the FIR was quashed by the Kerala High Court."
     }
   }
 ]

@@ -1,0 +1,40 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Tirunelveli District POCSO Special Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 691,
+    "district": "Tirunelveli",
+    "first_published": "2026-10-23",
+    "id": "SKS-2024-TN-000001",
+    "incident_reported_date": "2024-12",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Daily Thanthi",
+        "retrieved": "2026-10-23",
+        "source_type": "news_article",
+        "url": "https://www.dailythanthi.com/news/tamilnadu/sexual-assault-on-17-year-old-girl-accused-gets-10-years-in-prison",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "CONVICTED",
+    "summary": "In December 2024, one person was arrested in Tirunelveli, Tamil Nadu for the child sexual offence. Police have filed a chargesheet. The accused was convicted and sentenced to 10 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Tirunelveli (2024) — convicted, 10 years",
+    "verified": true
+  }
+]
