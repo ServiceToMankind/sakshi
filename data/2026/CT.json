@@ -3,7 +3,7 @@
     "accused_count": 2,
     "category": "acid_attack",
     "confidence": 0.95,
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Balod",
     "first_published": "2026-10-11",
     "id": "SKS-2026-CT-000002",
@@ -34,10 +34,39 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
+    "days_since_reported": 23,
+    "district": "Korba",
+    "first_published": "2026-10-24",
+    "id": "SKS-2026-CT-000003",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-24",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/chhattisgarh-man-raped-killed-7-year-old-girl-sniffer-dog-leads-to-his-house-police-101792751994781.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "CT",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, one person was arrested in Korba, Chhattisgarh for the child sexual offence. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Korba (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
     "court": {
       "name": "Fast Track Court"
     },
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Unknown",
     "first_published": "2026-09-13",
     "id": "SKS-2026-CT-000001",

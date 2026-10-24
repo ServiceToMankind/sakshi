@@ -4,6 +4,46 @@
       "possible_child_case"
     ],
     "record": {
+      "accused_count": 1,
+      "category": "harassment",
+      "confidence": 0.95,
+      "days_since_reported": null,
+      "district": "Delhi",
+      "fir_ref": {
+        "station": "Vasant Kunj North"
+      },
+      "first_published": "2026-10-13",
+      "id": "SKS-2026-DL-000054",
+      "incident_reported_date": "2026-10",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "offence_sections": [
+        "BNS 75",
+        "BNS 75(1)(I)",
+        "BNS 75(1)(IV)",
+        "BNS 79"
+      ],
+      "sources": [
+        {
+          "publisher": "The Hindu",
+          "retrieved": "2026-10-13",
+          "source_type": "news_article",
+          "url": "https://www.thehindu.com/news/cities/Delhi/jnu-sexual-harassment-case-bjp-mahila-morcha-stages-protest-outside-cong-hq-demands-mps-expulsion/article71576316.ece",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "DL",
+      "status": "FIR_FILED",
+      "summary": "In October 2026, one person was accused of the sexual harassment involving a minor in Delhi. The charges also include insulting words or gestures. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Sexual harassment involving a minor — Delhi (2026) — FIR filed",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "category": "sexual_assault",
       "confidence": 0.9,
       "days_since_reported": null,
@@ -727,6 +767,48 @@
       ],
       "verified": true,
       "verification_note": "Approved as the record accurately reflects a reported sexual harassment case where the FIR was quashed by the Kerala High Court."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "MH",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "IPC 354",
+        "POCSO 9(M)",
+        "POCSO 10",
+        "POCSO 18"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 3,
+      "court": {
+        "name": "Bombay High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/bombay-high-court/removal-of-undergarment-amounts-attempt-commit-sexual-assault-555690",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-24",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Sexual assault of a child — Maharashtra (2026) — convicted, 3 years",
+      "summary": "In October 2026, one person was accused of the sexual assault of a child in Maharashtra. The charges also include attempting the offence. The accused was convicted and sentenced to 3 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]

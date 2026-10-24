@@ -1,5 +1,51 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010304352026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 357,
+    "district": "North",
+    "fir_ref": {
+      "number": "944/2025",
+      "station": "Wazirabad"
+    },
+    "first_published": "2026-10-24",
+    "id": "SKS-2025-DL-000003",
+    "incident_reported_date": "2025-11",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 137(2)",
+      "BNS 64(2)",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-24",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59216102026BA27142026_212632.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "In November 2025, one person was arrested in North, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping. Police have filed a chargesheet. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — North (2025) — on trial",
+    "verified": true,
+    "weapon_or_threat": false
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "cnr": "DLHC010124992026",
@@ -8,7 +54,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 417,
+    "days_since_reported": 418,
     "district": "North East",
     "fir_ref": {
       "number": "461/2025",
@@ -54,7 +100,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 518,
+    "days_since_reported": 519,
     "district": "East",
     "fir_ref": {
       "number": "234/2025",
