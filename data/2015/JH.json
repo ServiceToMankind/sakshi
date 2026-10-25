@@ -1,0 +1,54 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 4072,
+    "district": "West Singhbhum",
+    "fir_ref": {
+      "number": "42/2015",
+      "station": "Noamundi"
+    },
+    "first_published": "2026-10-25",
+    "id": "SKS-2015-JH-000001",
+    "incident_reported_date": "2015-09",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 342",
+      "IPC 376",
+      "POCSO 6"
+    ],
+    "sentence_years": 14,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-25",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/97487826/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-10-25",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/103591784/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "CONVICTED",
+    "summary": "In September 2015, one person was arrested in West Singhbhum, Jharkhand for the aggravated penetrative assault on a child. The charges also include wrongful confinement. Police have filed a chargesheet. The accused was convicted and sentenced to 14 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — West Singhbhum (2015) — convicted, 14 years",
+    "verified": true
+  }
+]

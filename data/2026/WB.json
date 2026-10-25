@@ -1,9 +1,43 @@
 [
   {
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 1,
+    "district": "Kolkata",
+    "first_published": "2026-10-25",
+    "id": "SKS-2026-WB-000005",
+    "incident_reported_date": "2026-10-24",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-25",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/rg-kar-rape-victims-parents-question-bail-to-ex-principal-should-have-been-sentenced-to-life-imprisonment-101792858446894.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "WB",
+    "status": "UNDER_TRIAL",
+    "summary": "[occupation withheld] was raped and murdered at a medical college in Kolkata. Police arrested a former college principal following the incident. The Supreme Court recently granted bail to the former principal. The court noted his long period in custody and slow trial progress. The trial remains under way in court.",
+    "title": "Supreme Court grants bail to former Kolkata medical college principal",
+    "verification_note": "The reported rape case in Kolkata, West Bengal is verified and matches the core details in the source.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Kolkata",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000003",
@@ -31,7 +65,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Darjeeling",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000004",
@@ -61,7 +95,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 50,
+    "days_since_reported": 51,
     "district": "Kolkata",
     "first_published": "2026-09-04",
     "id": "SKS-2026-WB-000002",
@@ -93,7 +127,7 @@
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 71,
+    "days_since_reported": 72,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",
