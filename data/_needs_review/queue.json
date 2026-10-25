@@ -810,5 +810,159 @@
       "title": "Sexual assault of a child — Maharashtra (2026) — convicted, 3 years",
       "summary": "In October 2026, one person was accused of the sexual assault of a child in Maharashtra. The charges also include attempting the offence. The accused was convicted and sentenced to 3 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Kanpur Dehat",
+      "incident_reported_date": "2026-10",
+      "fir_ref": {
+        "station": "Moosa Nagar"
+      },
+      "offence_sections": [
+        "BNS",
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 2,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-io-pocso-case-mobile-phone-555849",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-25",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Kanpur Dehat (2026) — on trial",
+      "summary": "In October 2026, two people were accused of the child sexual offence in Kanpur Dehat, Uttar Pradesh. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-high-court-false-victim-dob-certificates-pocso-school-guidelines-555838",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-25",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Uttar Pradesh (2026) — on trial",
+      "summary": "In October 2026, one person was accused of the child sexual offence in Uttar Pradesh. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "East Khasi Hills",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO",
+        "BNSS 528"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-against-man-living-survivor-husband-wife-since-2017-555799",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-25",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — East Khasi Hills (2026) — case quashed",
+      "summary": "In October 2026, one person was accused of the child sexual offence in East Khasi Hills, Meghalaya. Police have filed a chargesheet. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO 3",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CHARGESHEETED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-high-court-up-mahila-samman-kosh-injury-report-rule-unconstitutional-555805",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-25",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Uttar Pradesh (2026) — chargesheet filed",
+      "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Uttar Pradesh. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
