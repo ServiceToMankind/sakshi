@@ -3084,6 +3084,12 @@
       "last_seen": "2026-07-16",
       "outcome": "not_a_case"
     },
+    "3444f6b7918c81e6cfb4334af479e12fa12f739085a989240f4dff094076655f": {
+      "attempts": 0,
+      "first_seen": "2026-10-26",
+      "last_seen": "2026-10-26",
+      "outcome": "staged_pending"
+    },
     "34593b27c8a9ec6c67b142acb7aba5e73d910ab70071786531dd033303e5f857": {
       "attempts": 0,
       "first_seen": "2026-09-11",
@@ -3431,6 +3437,12 @@
       "first_seen": "2026-08-02",
       "last_seen": "2026-08-02",
       "outcome": "not_a_case"
+    },
+    "39ba5e9d4ed119a4213b0ee40323c161ae41a850513a879e744c12cabfc9ddd2": {
+      "attempts": 0,
+      "first_seen": "2026-10-26",
+      "last_seen": "2026-10-26",
+      "outcome": "staged_pending"
     },
     "3a03a15c8f95bb5f727eb14189a28f1cf6e54d5e51d9c356ff2f26c6b61cf989": {
       "attempts": 0,
@@ -4811,6 +4823,12 @@
       "first_seen": "2026-10-09",
       "last_seen": "2026-10-09",
       "outcome": "not_a_case"
+    },
+    "4e4c9dc460cb71f73308d3824081d87ec9173ff8f1f3373f1521690efdbb3b94": {
+      "attempts": 0,
+      "first_seen": "2026-10-26",
+      "last_seen": "2026-10-26",
+      "outcome": "staged_pending"
     },
     "4e94ec459c2c24396f655debcdb4c84e40217ec1e4438cf58198b626ee4963cb": {
       "attempts": 0,
@@ -8568,6 +8586,12 @@
       "last_seen": "2026-08-01",
       "outcome": "not_a_case"
     },
+    "88511649eed7544cb44ff0ac51ee2e91b0ecf19b36650b773865f88a98a1447e": {
+      "attempts": 0,
+      "first_seen": "2026-10-26",
+      "last_seen": "2026-10-26",
+      "outcome": "staged_pending"
+    },
     "8859f9272584b7203e629497b887417e89710e788f4be00fd7bf083eee7f476e": {
       "attempts": 0,
       "first_seen": "2026-07-15",
@@ -9689,6 +9713,12 @@
       "first_seen": "2026-07-26",
       "last_seen": "2026-07-26",
       "outcome": "not_a_case"
+    },
+    "9cbadc5ddc973e6a18cf6c56d77b74fddc0afde7fc277889d1623b7785ff8249": {
+      "attempts": 0,
+      "first_seen": "2026-10-26",
+      "last_seen": "2026-10-26",
+      "outcome": "staged_pending"
     },
     "9cbb52d5d97756e8e2acda72f56312e398b3b9c933788d8f5f41f6e8f37d6704": {
       "attempts": 0,
