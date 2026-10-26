@@ -1,5 +1,46 @@
 [
   {
+    "accused_count": 2,
+    "category": "harassment",
+    "cnr": "DLHC010503192026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 3204,
+    "district": "Dwarka",
+    "fir_ref": {
+      "number": "11/2018",
+      "station": "Dwarka North"
+    },
+    "first_published": "2026-10-26",
+    "id": "SKS-2018-DL-000003",
+    "incident_reported_date": "2018-01-17",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 354B",
+      "IPC 323",
+      "IPC 328",
+      "IPC 34"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-26",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59215102026CRLMM78592026_205600.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "Two people were accused of physical assault and harassment in a 2018 police complaint. The case was registered in Dwarka. Charges were framed against both accused in late 2018. The parties later resolved their domestic disputes amicably and signed a settlement deed. The High Court of Delhi quashed the FIR and ended all related legal proceedings.",
+    "title": "Delhi High Court quashes 2018 assault FIR after private settlement",
+    "verification_note": "The Delhi High Court quashed the criminal proceedings under Section 354B IPC based on a settlement between the parties.",
+    "verified": true
+  },
+  {
     "category": "pocso",
     "confidence": 0.95,
     "court": {
