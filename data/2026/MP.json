@@ -8,7 +8,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Narsinghpur",
     "fir_ref": {
       "number": "154/2026",
@@ -53,7 +53,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Dewas",
     "first_published": "2026-10-12",
     "id": "SKS-2026-MP-000013",
@@ -100,7 +100,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Indore",
     "first_published": "2026-10-13",
     "id": "SKS-2026-MP-000017",
@@ -127,7 +127,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Indore",
     "first_published": "2026-10-18",
     "id": "SKS-2026-MP-000026",
@@ -153,6 +153,97 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "MPHC020388072026",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 25,
+    "district": "Ratlam",
+    "fir_ref": {
+      "number": "407/2025",
+      "station": "Industrial Area Jarora"
+    },
+    "first_published": "2026-10-26",
+    "id": "SKS-2026-MP-000028",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "BNS 65(1)",
+      "BNS 351(3)",
+      "POCSO 3",
+      "POCSO 4"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-26",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/91581784/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, one person was arrested in Ratlam, Madhya Pradesh for the rape of a minor. The charges also include criminal intimidation. A weapon was used or a threat was made. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape of a minor — Ratlam (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "MPHC020394262026",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madhya Pradesh High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 25,
+    "district": "Indore",
+    "fir_ref": {
+      "number": "147/2025",
+      "station": "Simrol, Indore"
+    },
+    "first_published": "2026-10-26",
+    "id": "SKS-2026-MP-000029",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 137(3)",
+      "BNS 87",
+      "BNS 64(2)(M)",
+      "BNS 65(1)",
+      "POCSO 3",
+      "POCSO 5L"
+    ],
+    "sources": [
+      {
+        "publisher": "Madhya Pradesh High Court",
+        "retrieved": "2026-10-26",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/96676397/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2026, one person was accused of the rape of a minor in Indore, Madhya Pradesh. The charges also include kidnapping and abduction. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape of a minor — Indore (2026) — on trial",
+    "verified": true
+  },
+  {
     "category": "rape",
     "confidence": 0.95,
     "corrected": true,
@@ -160,7 +251,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 32,
+    "days_since_reported": 33,
     "district": "Indore",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MP-000023",
@@ -191,7 +282,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Alirajpur",
     "first_published": "2026-10-13",
     "id": "SKS-2026-MP-000019",
@@ -221,7 +312,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-10-12",
     "id": "SKS-2026-MP-000012",
@@ -255,7 +346,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-10-12",
     "id": "SKS-2026-MP-000014",
@@ -285,7 +376,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Ratlam",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MP-000015",
@@ -318,7 +409,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-10-13",
     "id": "SKS-2026-MP-000018",
@@ -352,7 +443,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Ratlam",
     "first_published": "2026-10-13",
     "id": "SKS-2026-MP-000020",
@@ -385,7 +476,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MP-000022",
@@ -415,7 +506,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 54,
+    "days_since_reported": 55,
     "district": "Indore",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MP-000024",
@@ -446,7 +537,7 @@
       "name": "High Court of Madhya Pradesh at Gwalior",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Bhind",
     "fir_ref": {
       "number": "200/2024",
@@ -491,7 +582,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Bhind",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000004",
@@ -518,7 +609,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Narmadapuram",
     "first_published": "2026-08-25",
     "id": "SKS-2026-MP-000008",
@@ -549,7 +640,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Indore",
     "first_published": "2026-09-03",
     "id": "SKS-2026-MP-000009",
@@ -581,7 +672,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Anuppur",
     "fir_ref": {
       "number": "210/2026",
@@ -626,7 +717,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Indore",
     "first_published": "2026-10-12",
     "id": "SKS-2026-MP-000016",
@@ -658,7 +749,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Indore",
     "first_published": "2026-10-13",
     "id": "SKS-2026-MP-000021",
@@ -692,7 +783,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Indore",
     "first_published": "2026-10-14",
     "id": "SKS-2026-MP-000025",
@@ -722,7 +813,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 116,
+    "days_since_reported": 117,
     "district": "Ratlam",
     "first_published": "2026-08-12",
     "id": "SKS-2026-MP-000003",
@@ -758,7 +849,7 @@
       "name": "High Court of Madhya Pradesh at Indore",
       "next_hearing": null
     },
-    "days_since_reported": 116,
+    "days_since_reported": 117,
     "district": "Indore",
     "first_published": "2026-08-13",
     "id": "SKS-2026-MP-000005",
@@ -786,7 +877,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 238,
+    "days_since_reported": 239,
     "district": "Bhopal",
     "fir_ref": {
       "number": "106/2026",
@@ -829,7 +920,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 238,
+    "days_since_reported": 239,
     "district": "Dindori",
     "fir_ref": {
       "number": "67/2026",
@@ -882,7 +973,7 @@
       "name": "High Court of Madhya Pradesh at Jabalpur",
       "next_hearing": null
     },
-    "days_since_reported": 266,
+    "days_since_reported": 267,
     "district": "Sagar",
     "fir_ref": {
       "number": "34 of 2026",
@@ -927,7 +1018,7 @@
       "name": "Madhya Pradesh High Court",
       "next_hearing": null
     },
-    "days_since_reported": 297,
+    "days_since_reported": 298,
     "district": "Dhar",
     "fir_ref": {
       "number": "0009/2026",

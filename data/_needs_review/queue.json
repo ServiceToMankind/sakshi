@@ -215,5 +215,79 @@
       "title": "Rape of a minor — Ujjain (2026) — convicted, 20 years",
       "summary": "In October 2026, one person was accused of the rape of a minor in Ujjain, Madhya Pradesh. The charges also include causing hurt and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Kanpur Dehat",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 2,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-io-pocso-case-mobile-phone-555849",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-26",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Kanpur Dehat (2026) — on trial",
+      "summary": "In October 2026, two people were accused of the child sexual offence in Kanpur Dehat, Uttar Pradesh. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-high-court-false-victim-dob-certificates-pocso-school-guidelines-555838",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-26",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Uttar Pradesh (2026) — on trial",
+      "summary": "In October 2026, one person was accused of the child sexual offence in Uttar Pradesh. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
