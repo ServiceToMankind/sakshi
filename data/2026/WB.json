@@ -6,7 +6,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 2,
+    "days_since_reported": 3,
     "district": "Kolkata",
     "first_published": "2026-10-25",
     "id": "SKS-2026-WB-000005",
@@ -37,7 +37,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 21,
+    "days_since_reported": 22,
     "district": "Kolkata",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000003",
@@ -65,7 +65,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Darjeeling",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000004",
@@ -92,10 +92,40 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 3,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 26,
+    "district": "Kolkata",
+    "first_published": "2026-10-27",
+    "id": "SKS-2026-WB-000006",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-27",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/father-18-year-old-son-allegedly-paraded-naked-over-relationship-with-minor-girl-in-kolkata-101793020410603.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "WB",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, three people were arrested in Kolkata, West Bengal for the sexual assault involving a minor. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Kolkata (2026) — FIR filed",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Kolkata",
     "first_published": "2026-09-04",
     "id": "SKS-2026-WB-000002",
@@ -127,7 +157,7 @@
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 73,
+    "days_since_reported": 74,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",
