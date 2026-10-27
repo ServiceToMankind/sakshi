@@ -289,5 +289,39 @@
       "title": "Child sexual offence — Uttar Pradesh (2026) — on trial",
       "summary": "In October 2026, one person was accused of the child sexual offence in Uttar Pradesh. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "RJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNKNOWN",
+      "institutional_actions": [],
+      "court": {
+        "name": "Rajasthan High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/rajasthan-high-court/rajasthan-high-court-seeks-explanation-clerk-uploading-unmasked-obscene-photos-pocso-victim-556079",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-27",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Rajasthan (2026)",
+      "summary": "In October 2026, a case of child sexual offence was registered in Rajasthan. The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
