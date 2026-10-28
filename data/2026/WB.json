@@ -6,7 +6,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Kolkata",
     "first_published": "2026-10-25",
     "id": "SKS-2026-WB-000005",
@@ -37,7 +37,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Kolkata",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000003",
@@ -65,7 +65,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Darjeeling",
     "first_published": "2026-10-05",
     "id": "SKS-2026-WB-000004",
@@ -95,7 +95,7 @@
     "accused_count": 3,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Kolkata",
     "first_published": "2026-10-27",
     "id": "SKS-2026-WB-000006",
@@ -123,9 +123,39 @@
   },
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 27,
+    "district": "North 24 Parganas",
+    "first_published": "2026-10-28",
+    "id": "SKS-2026-WB-000007",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-28",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/man-accused-in-minor-s-rape-murder-shot-dead-by-police-in-bengal-101793096341256.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "WB",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, one person was arrested in North 24 Parganas, West Bengal for the child sexual offence. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North 24 Parganas (2026) — FIR filed",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 53,
+    "days_since_reported": 54,
     "district": "Kolkata",
     "first_published": "2026-09-04",
     "id": "SKS-2026-WB-000002",
@@ -157,7 +187,7 @@
       "name": "Chinsurah Court",
       "next_hearing": null
     },
-    "days_since_reported": 74,
+    "days_since_reported": 75,
     "district": "Hooghly",
     "first_published": "2026-08-14",
     "id": "SKS-2026-WB-000001",
