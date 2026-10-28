@@ -323,5 +323,119 @@
       "title": "Child sexual offence — Rajasthan (2026)",
       "summary": "In October 2026, a case of child sexual offence was registered in Rajasthan. The case status is not yet known. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Not specified",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-pocso-acquittal-age-birth-register-source-556242",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-28",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Not specified (2026) — acquitted",
+      "summary": "In October 2026, one person was accused of the child sexual offence in Not specified, Gujarat. A weapon was used or a threat was made. The accused was acquitted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Gandhinagar",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-asaram-rape-conviction-life-sentence-556237",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-28",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-10",
+      "verified": true,
+      "title": "Rape involving a minor — Gandhinagar (2026) — appeal pending",
+      "summary": "In October 2026, one person was accused of the rape involving a minor in Gandhinagar, Gujarat. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "HP",
+      "district": "UNKNOWN",
+      "offence_sections": [
+        "BNS 64(1)",
+        "BNS 115(2)",
+        "BNS 351(2)"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "bail_denied"
+      ],
+      "court": {
+        "name": "Himachal Pradesh High Court",
+        "next_hearing": null
+      },
+      "title": "Himachal Pradesh HC denies bail to man accused of sexual assault",
+      "summary": "One man sexually and physically assaulted a person and caused burn injuries. The incident occurred in Himachal Pradesh. Police registered a criminal case for sexual assault and physical hurt. The accused person applied for anticipatory bail before the High Court. The High Court denied bail after reviewing medical reports of the injuries.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/himachal-pradesh-high-court/hp-high-court-denies-anticipatory-bail-relationship-does-not-imply-consent-sexual-acts-556189",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-28"
+        }
+      ],
+      "incident_reported_date": "2026-10-28",
+      "verified": true,
+      "verification_note": "Approved genuine sexual offence case involving anticipatory bail rejection by the Himachal Pradesh High Court."
+    }
   }
 ]
