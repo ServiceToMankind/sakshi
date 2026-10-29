@@ -1,9 +1,9 @@
 {
-  "generated": "2026-10-28",
+  "generated": "2026-10-29",
   "trackability": {
-    "total": 356,
-    "court_anchored": 84,
-    "rate": 0.236
+    "total": 361,
+    "court_anchored": 86,
+    "rate": 0.2382
   },
   "states_covered": 24,
   "states_total": 36,
@@ -46,7 +46,7 @@
     },
     "DL": {
       "active_sources": 3,
-      "records": 70,
+      "records": 72,
       "declared_gap": false
     },
     "DN": {
@@ -121,7 +121,7 @@
     },
     "MP": {
       "active_sources": 0,
-      "records": 36,
+      "records": 38,
       "declared_gap": false
     },
     "MZ": {
@@ -161,7 +161,7 @@
     },
     "TG": {
       "active_sources": 4,
-      "records": 46,
+      "records": 47,
       "declared_gap": false
     },
     "TN": {
