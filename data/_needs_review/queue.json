@@ -437,5 +437,82 @@
       "verified": true,
       "verification_note": "Approved genuine sexual offence case involving anticipatory bail rejection by the Himachal Pradesh High Court."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KA",
+      "district": "Bengaluru",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "IPC 376",
+        "IPC 506",
+        "POCSO 4",
+        "POCSO 5",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Karnataka High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/karnataka-high-court/karnataka-high-court-quashes-order-recalling-child-victim-repeated-cross-examination-556337",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-29",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Bengaluru (2026) — on trial",
+      "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Bengaluru, Karnataka. The charges also include criminal intimidation. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "MP",
+      "district": "Gwalior",
+      "incident_reported_date": "2026-01-17",
+      "offence_sections": [
+        "BNS 69"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Madhya Pradesh High Court",
+        "next_hearing": null
+      },
+      "title": "MP High Court refuses to quash deceitful-sex FIR",
+      "summary": "A man allegedly engaged in sexual intercourse after making a false promise of marriage. One man was accused in the case. The acts took place in Gwalior. Police filed a chargesheet after registering an FIR in January 2026. The High Court refused to drop the charges, and the trial is under way.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madhya-pradesh-high-court/woman-education-does-not-rule-out-consent-obtained-by-deception-false-promise-to-marry-556334",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-29",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "verification_note": "The record accurately reflects a reported sexual offence case under Section 69 BNS in Gwalior, MP, which is currently under trial."
+    }
   }
 ]

@@ -1,0 +1,37 @@
+[
+  {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Special POCSO Court, Bhopal",
+      "next_hearing": null
+    },
+    "days_since_reported": 2311,
+    "district": "Bhopal",
+    "first_published": "2026-10-29",
+    "id": "SKS-2020-MP-000001",
+    "incident_reported_date": "2020-07",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-29",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/bhopalbased-newspaper-owner-handed-10-life-terms-for-rape-of-five-minors-fined-rs-77-64-lakh-pocso-court-101793176019813.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "MP",
+    "status": "CONVICTED",
+    "summary": "In July 2020, two people were arrested in Bhopal, Madhya Pradesh for the child sexual offence. The accused is recorded as a repeat offender. The accused were convicted. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Bhopal (2020) — convicted",
+    "verified": true
+  }
+]

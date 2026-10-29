@@ -1,0 +1,40 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "L.B. Nagar Fast Track Special Court for Rape and PoCSO Cases",
+      "next_hearing": null
+    },
+    "days_since_reported": 727,
+    "district": "Hyderabad",
+    "first_published": "2026-10-29",
+    "id": "SKS-2024-TG-000001",
+    "incident_reported_date": "2024-11",
+    "institutional_actions": [
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "The Hindu",
+        "retrieved": "2026-10-29",
+        "source_type": "news_article",
+        "url": "https://www.thehindu.com/news/national/telangana/pocso-accused-sentenced-to-20-years-rigorous-imprisonment-in-hyderabad/article71635542.ece",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "CONVICTED",
+    "summary": "In November 2024, one person was accused of the child sexual offence in Hyderabad, Telangana. A weapon was used or a threat was made. The accused is recorded as a repeat offender. The accused was convicted and sentenced to 20 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Hyderabad (2024) — convicted, 20 years",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

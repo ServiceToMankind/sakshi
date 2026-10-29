@@ -1,8 +1,56 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010079272025",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 1124,
+    "district": "North Delhi",
+    "fir_ref": {
+      "number": "667/2023",
+      "station": "Swaroop Nagar"
+    },
+    "first_published": "2026-10-29",
+    "id": "SKS-2023-DL-000005",
+    "incident_reported_date": "2023-10",
+    "institutional_actions": [
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 354A",
+      "IPC 354B",
+      "IPC 506",
+      "POCSO 10"
+    ],
+    "sentence_years": 6,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-29",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75528102026CRLA2092025_173544.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In October 2023, one person was accused of the sexual assault of a child in North Delhi, Delhi. The charges also include criminal intimidation and assault to disrobe. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 6 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — North Delhi (2023) — convicted, 6 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 1153,
+    "days_since_reported": 1154,
     "district": "Outer Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000002",
@@ -28,7 +76,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 1153,
+    "days_since_reported": 1154,
     "district": "Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000003",
@@ -68,7 +116,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 1184,
+    "days_since_reported": 1185,
     "district": "South Delhi",
     "fir_ref": {
       "number": "226/2023",
@@ -111,7 +159,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1215,
+    "days_since_reported": 1216,
     "district": "North-West",
     "fir_ref": {
       "number": "381/2023",
