@@ -1,9 +1,47 @@
 [
   {
+    "accused_count": 11,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 0,
+    "district": "Godhra",
+    "first_published": "2026-10-30",
+    "id": "SKS-2026-GJ-000007",
+    "incident_reported_date": "2026-10-30",
+    "institutional_actions": [
+      "convicted",
+      "bail_granted",
+      "appeal_filed"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 302"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-30",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/bilkis-bano-gang-rape-case-supreme-court-grants-bail-to-2-convicts-101793333700755.html"
+      }
+    ],
+    "state": "GJ",
+    "status": "APPEAL_PENDING",
+    "summary": "Eleven men committed gang rape during communal riots in Godhra. A trial court convicted the eleven men in 2008 and sentenced them to life imprisonment. The Supreme Court later set aside an early release order granted by state authorities. The top court has now granted bail to two convicts who served over seventeen years. Their appeals against conviction remain pending.",
+    "title": "Supreme Court grants bail to two convicts in 2002 gang rape case",
+    "verification_note": "Approved as the source confirms the Supreme Court granted bail to convicts pending appeal in a reported sexual offence case.",
+    "verified": true
+  },
+  {
     "accused_count": 9,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Surendranagar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-GJ-000005",
@@ -32,7 +70,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Amreli",
     "fir_ref": {
       "station": "Jafrabad Police Station"
@@ -66,7 +104,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Surat",
     "first_published": "2026-09-02",
     "id": "SKS-2026-GJ-000003",
@@ -95,7 +133,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 58,
+    "days_since_reported": 59,
     "district": "UNKNOWN",
     "first_published": "2026-09-01",
     "id": "SKS-2026-GJ-000002",
@@ -123,7 +161,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 58,
+    "days_since_reported": 59,
     "district": "Unknown",
     "first_published": "2026-09-27",
     "id": "SKS-2026-GJ-000004",
@@ -150,7 +188,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 89,
+    "days_since_reported": 90,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",

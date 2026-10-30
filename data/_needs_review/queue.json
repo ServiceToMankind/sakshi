@@ -514,5 +514,124 @@
       "verified": true,
       "verification_note": "The record accurately reflects a reported sexual offence case under Section 69 BNS in Gwalior, MP, which is currently under trial."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "SK",
+      "district": "Pakyong",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "POCSO 9(L)",
+        "POCSO 10",
+        "POCSO 7"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 5,
+      "court": {
+        "name": "Sikkim High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/sikkim-high-court/two-separate-acts-of-touching-childs-breasts-during-same-occurrence-constitute-aggravated-sexual-assault-556569",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-30",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": false,
+      "title": "Sexual assault of a child — Pakyong (2026) — convicted, 5 years",
+      "summary": "In October 2026, one person was accused of the sexual assault of a child in Pakyong, Sikkim. The accused was convicted and sentenced to 5 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Madhepura",
+      "incident_reported_date": "2026-10-29",
+      "offence_sections": [
+        "IPC 376",
+        "IPC 504",
+        "IPC 34",
+        "3",
+        "4"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "QUASHED",
+      "institutional_actions": [],
+      "court": {
+        "name": "Patna High Court",
+        "next_hearing": null
+      },
+      "title": "Patna HC closes rape case after police find allegations untrue",
+      "summary": "Police investigated allegations of sexual assault and dowry demands in Madhepura district. The police submitted a final report finding the allegations against the accused persons untrue. A magistrate court decided to proceed with the trial despite the police finding. The parties later settled their dispute outside court. The Patna High Court closed the case after reviewing the police report and settlement.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/patna-high-court/patna-high-court-quashes-proceedings-proposed-inlaws-police-finds-allegations-untrue-556508",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-30"
+        }
+      ],
+      "verified": true,
+      "verification_note": "The record accurately reflects a Patna High Court ruling quashing proceedings in a reported rape case."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "JK",
+      "district": "Srinagar",
+      "offence_sections": [
+        "BNS 64",
+        "POCSO 3",
+        "POCSO 4"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "arrest_made",
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "High Court of Jammu & Kashmir and Ladakh",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/jammu-kashmir/mitigating-factors-can-at-best-entitle-accused-to-bail-but-cannot-be-ground-to-quash-charge-sheet-under-pocso-act-jk-high-court-556522",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-30",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-10",
+      "verified": true,
+      "title": "Penetrative assault on a child — Srinagar (2026) — on trial",
+      "summary": "In October 2026, one person was arrested in Srinagar, Jammu & Kashmir for the penetrative assault on a child. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
