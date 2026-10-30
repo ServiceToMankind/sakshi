@@ -1,5 +1,35 @@
 [
   {
+    "accused_count": 2,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 1,
+    "district": "Bengaluru",
+    "first_published": "2026-10-30",
+    "id": "SKS-2026-KA-000008",
+    "incident_reported_date": "2026-10-29",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-10-30",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/bengaluru-techies-kidnapper-woman-accuses-him-of-rape-both-arrested-2547766",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "FIR_FILED",
+    "summary": "Police in Bengaluru registered a case against two men following a rape complaint. A woman accused the two men of sexually assaulting her in the district. Officers subsequently arrested both accused men based on the complaint. The police investigation into the alleged assault is currently under way.",
+    "title": "Bengaluru police arrest two men following rape complaint",
+    "verification_note": "Approved as the source details a reported rape complaint registered by the Marathahalli police in Bengaluru.",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
@@ -7,7 +37,7 @@
       "name": "Additional Chief Metropolitan Magistrate Court",
       "next_hearing": null
     },
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Bengaluru",
     "first_published": "2026-10-13",
     "id": "SKS-2026-KA-000006",
@@ -45,7 +75,7 @@
       "name": "Fast Track Special Court-1",
       "next_hearing": null
     },
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Mysuru",
     "first_published": "2026-10-18",
     "id": "SKS-2026-KA-000007",
@@ -81,7 +111,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 49,
+    "days_since_reported": 50,
     "district": "Unknown",
     "first_published": "2026-09-10",
     "id": "SKS-2026-KA-000004",
@@ -107,7 +137,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 53,
+    "days_since_reported": 54,
     "district": "Bengaluru",
     "first_published": "2026-09-06",
     "id": "SKS-2026-KA-000003",
@@ -136,7 +166,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 58,
+    "days_since_reported": 59,
     "district": "Bengaluru",
     "first_published": "2026-09-21",
     "id": "SKS-2026-KA-000005",
@@ -165,7 +195,7 @@
     "accused_count": 7,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 73,
+    "days_since_reported": 74,
     "district": "Unknown",
     "first_published": "2026-08-17",
     "id": "SKS-2026-KA-000002",
@@ -194,7 +224,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 76,
+    "days_since_reported": 77,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",
