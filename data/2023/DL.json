@@ -8,7 +8,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1125,
+    "days_since_reported": 1126,
     "district": "North Delhi",
     "fir_ref": {
       "number": "667/2023",
@@ -50,7 +50,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 1155,
+    "days_since_reported": 1156,
     "district": "Outer Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000002",
@@ -76,7 +76,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 1155,
+    "days_since_reported": 1156,
     "district": "Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000003",
@@ -116,7 +116,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 1186,
+    "days_since_reported": 1187,
     "district": "South Delhi",
     "fir_ref": {
       "number": "226/2023",
@@ -159,7 +159,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1217,
+    "days_since_reported": 1218,
     "district": "North-West",
     "fir_ref": {
       "number": "381/2023",

@@ -1,9 +1,45 @@
 [
   {
     "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 1,
+    "district": "Not specified",
+    "first_published": "2026-10-31",
+    "id": "SKS-2026-KL-000004",
+    "incident_reported_date": "2026-10-30",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-10-31",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/physical-intimacy-cannot-be-branded-as-rape-after-consensual-relationship-sours-sc-101793355232469.html"
+      }
+    ],
+    "state": "KL",
+    "status": "QUASHED",
+    "summary": "A man was accused of rape and cheating after a consensual relationship ended. The complainant alleged that sexual consent was obtained through deceit regarding marriage. The Supreme Court reviewed the case originating from Kerala. The court discharged the man of all criminal charges. It ruled that physical intimacy during a consensual relationship cannot later be branded as rape.",
+    "title": "Supreme Court discharges man of rape charges after relationship sours",
+    "unparsed_sections": [
+      "Rape",
+      "Cheating"
+    ],
+    "verification_note": "Approved case where the Supreme Court discharged/quashed rape and cheating charges in a Kerala matter.",
+    "verified": true,
+    "weapon_or_threat": false
+  },
+  {
+    "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -32,7 +68,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",

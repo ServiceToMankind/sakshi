@@ -633,5 +633,166 @@
       "title": "Penetrative assault on a child — Srinagar (2026) — on trial",
       "summary": "In October 2026, one person was arrested in Srinagar, Jammu & Kashmir for the penetrative assault on a child. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Kottarakkara",
+      "incident_reported_date": "2026-10",
+      "offence_sections": [
+        "BNS 115(2)",
+        "BNS 118(1)",
+        "BNS 64(1)",
+        "BNS 74",
+        "BNS 75",
+        "BNS 76",
+        "POCSO 3(B)",
+        "POCSO 4",
+        "POCSO 7",
+        "POCSO 8",
+        "POCSO 5(L)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Kerala High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/kerala-high-court/kerala-high-court-cctv-footage-permit-view-not-furnish-556730",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-31",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Kottarakkara (2026) — on trial",
+      "summary": "In October 2026, one person was accused of the aggravated penetrative assault on a child in Kottarakkara, Kerala. The charges also include causing hurt with a weapon, causing hurt and assault to disrobe. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "Shillong",
+      "incident_reported_date": "2025-06",
+      "offence_sections": [
+        "POCSO 5(J)(II)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-against-man-living-with-survivor-556624",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-31",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Shillong (2025) — case quashed",
+      "summary": "In June 2025, one person was accused of the aggravated penetrative assault on a child in Shillong, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Bahuakbarpur"
+      },
+      "state": "HR",
+      "district": "Rohtak",
+      "incident_reported_date": "2024-12",
+      "offence_sections": [
+        "POCSO 12",
+        "BNS 126",
+        "BNS 75(2)",
+        "BNS 79"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Punjab and Haryana High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/punjab-and-haryana-high-court/pocso-compromise-rejected-man-accused-of-offering-money-making-obscene-gestures-556653",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-31",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Sexual assault of a child — Rohtak (2024) — on trial",
+      "summary": "In December 2024, one person was accused of the sexual assault of a child in Rohtak, Haryana. The charges also include wrongful restraint and insulting words or gestures. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Ahmedabad",
+      "incident_reported_date": "2026-03",
+      "offence_sections": [
+        "POCSO 33(2)",
+        "POCSO 36",
+        "POCSO 37"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "institutional_actions": [],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-in-camera-deposition-pocso-trial-556617",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-10-31",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Ahmedabad (2026) — on trial",
+      "summary": "In March 2026, a case of child sexual offence was registered in Ahmedabad, Gujarat. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
