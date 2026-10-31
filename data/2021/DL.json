@@ -2,13 +2,70 @@
   {
     "accused_count": 1,
     "category": "pocso",
+    "cnr": "DLHC010154512024",
+    "confidence": 0.95,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1948,
+    "district": "South-East",
+    "fir_ref": {
+      "number": "358/2021",
+      "station": "Jaitpur"
+    },
+    "first_published": "2026-10-31",
+    "id": "SKS-2021-DL-000002",
+    "incident_reported_date": "2021-07",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376AB",
+      "IPC 354A",
+      "IPC 506",
+      "POCSO 6",
+      "POCSO 10"
+    ],
+    "sentence_years": 5,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-31",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/74151919/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-10-31",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75530102026CRLA2692024_170722.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In July 2021, one person was arrested in South-East, Delhi for the aggravated penetrative assault on a child. The charges also include criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was first acquitted, and later convicted on appeal and sentenced to 5 years in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South-East (2021) — convicted, 5 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
     "cnr": "DLHC010419992026",
     "confidence": 0.95,
     "court": {
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 2038,
+    "days_since_reported": 2039,
     "district": "Outer District",
     "fir_ref": {
       "number": "129/2021",
