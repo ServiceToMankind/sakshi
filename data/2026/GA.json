@@ -1,5 +1,37 @@
 [
   {
+    "accused_count": 2,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 31,
+    "district": "North Goa",
+    "first_published": "2026-11-01",
+    "id": "SKS-2026-GA-000004",
+    "incident_reported_date": "2026-10",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 75",
+      "BNS 127",
+      "POCSO 10",
+      "POCSO 12"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-01",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/minor-girl-sexually-assaulted-at-crime-branch-office-in-goa-female-aide-cop-booked-under-pocso-101793430291794.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GA",
+    "status": "FIR_FILED",
+    "summary": "In October 2026, two people were accused of the sexual assault of a child in North Goa, Goa. The charges also include wrongful confinement. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — North Goa (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
@@ -7,7 +39,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 35,
+    "days_since_reported": 36,
     "district": "Unknown",
     "first_published": "2026-09-26",
     "id": "SKS-2026-GA-000003",
@@ -41,7 +73,7 @@
       "name": "Goa court",
       "next_hearing": null
     },
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000001",
@@ -70,7 +102,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "North Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000002",

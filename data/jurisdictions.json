@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-31T00:00:00Z",
+  "generated_at": "2026-11-01T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 302,
+        "days": 303,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 20,
+      "median_pending_days": 21,
       "pre_chargesheet": 7,
       "state": "DL",
       "total": 31,
@@ -141,10 +141,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 396,
+        "days": 397,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 396,
+      "median_pending_days": 397,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -269,6 +269,18 @@
     },
     {
       "acquittals": 0,
+      "convictions": 2,
+      "district": "North Goa",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "GA",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
       "convictions": 1,
       "district": "Chatra",
       "longest_pending": null,
@@ -371,14 +383,25 @@
       "under_trial_pct": 0
     },
     {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Central",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "DL",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 1,
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 526,
+        "days": 527,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 526,
+      "median_pending_days": 527,
       "state": "DL",
       "total": 2,
       "under_trial": 1,
@@ -411,10 +434,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1497,
+        "days": 1498,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 784,
+      "median_pending_days": 785,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -430,17 +453,6 @@
       "total": 2,
       "under_trial": 1,
       "under_trial_pct": 50
-    },
-    {
-      "acquittals": 0,
-      "convictions": 2,
-      "district": "North Goa",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "GA",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -958,17 +970,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "CT",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Central",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
