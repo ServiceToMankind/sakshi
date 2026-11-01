@@ -13786,7 +13786,7 @@
       "attempts": 0,
       "first_seen": "2026-11-01",
       "last_seen": "2026-11-01",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "de26140f9a60d3629764a71008fdcdaace2de2f02bbfc3f245645d6765c9a566": {
       "attempts": 0,
@@ -13798,7 +13798,7 @@
       "attempts": 0,
       "first_seen": "2026-11-01",
       "last_seen": "2026-11-01",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "de4d1503a58172074c58a37ab46e89990d78a70a6bd20baa4a6039af4e383dfb": {
       "attempts": 0,
