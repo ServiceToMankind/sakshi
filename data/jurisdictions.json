@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-01T00:00:00Z",
+  "generated_at": "2026-11-02T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 303,
+        "days": 304,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 21,
+      "median_pending_days": 22,
       "pre_chargesheet": 7,
       "state": "DL",
-      "total": 31,
+      "total": 32,
       "under_trial": 12,
-      "under_trial_pct": 39
+      "under_trial_pct": 38
     },
     {
       "acquittals": 0,
@@ -141,10 +141,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 397,
+        "days": 398,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 397,
+      "median_pending_days": 398,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -398,10 +398,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 527,
+        "days": 528,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 527,
+      "median_pending_days": 528,
       "state": "DL",
       "total": 2,
       "under_trial": 1,
@@ -434,10 +434,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1498,
+        "days": 1499,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 785,
+      "median_pending_days": 786,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -521,6 +521,18 @@
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Seraikela Kharsawan",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "JH",
+      "total": 2,
+      "under_trial": 1,
+      "under_trial_pct": 50
     },
     {
       "acquittals": 0,
@@ -646,6 +658,18 @@
       "total": 2,
       "under_trial": 2,
       "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Cuttack",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 2,
+      "state": "OD",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -1313,17 +1337,6 @@
     {
       "acquittals": 0,
       "convictions": 0,
-      "district": "Seraikela Kharsawan",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "JH",
-      "total": 1,
-      "under_trial": 1,
-      "under_trial_pct": 100
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
       "district": "Kishtwar",
       "longest_pending": null,
       "median_pending_days": null,
@@ -1543,18 +1556,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "MP",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Cuttack",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
-      "state": "OD",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0
