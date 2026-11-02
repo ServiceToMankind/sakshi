@@ -1,9 +1,41 @@
 [
   {
+    "accused_count": 2,
+    "category": "harassment",
+    "confidence": 0.95,
+    "days_since_reported": 2,
+    "district": "Cuttack",
+    "fir_ref": {
+      "station": "Choudwar"
+    },
+    "first_published": "2026-11-02",
+    "id": "SKS-2026-OD-000004",
+    "incident_reported_date": "2026-10-31",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-02",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/senior-ips-officer-susanta-kumar-nath-removed-as-odisha-dg-prisons-after-woman-jailor-alleges-sexual-harassment-101793542653124.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "OD",
+    "status": "FIR_FILED",
+    "summary": "Two men allegedly sexually harassed and intimidated a subordinate official. The accused include a senior police officer and a private individual. The incident occurred in Cuttack district. Police registered a case under relevant statutory provisions following a written complaint. The state government transferred the senior officer while an investigation continues.",
+    "title": "Odisha DG Prisons transferred following sexual harassment complaint",
+    "verification_note": "The record accurately reflects a reported sexual harassment case registered at Choudwar police station in Cuttack district, Odisha.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Unknown",
     "first_published": "2026-09-05",
     "id": "SKS-2026-OD-000002",
@@ -29,7 +61,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 61,
+    "days_since_reported": 62,
     "district": "Unknown",
     "first_published": "2026-09-09",
     "id": "SKS-2026-OD-000003",
@@ -57,7 +89,7 @@
     "accused_count": 6,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 81,
+    "days_since_reported": 82,
     "district": "Cuttack",
     "first_published": "2026-08-12",
     "id": "SKS-2026-OD-000001",
