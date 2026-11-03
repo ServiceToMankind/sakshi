@@ -1,0 +1,51 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010117152025",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 4355,
+    "district": "South East",
+    "fir_ref": {
+      "number": "902/2014",
+      "station": "Jaitpur"
+    },
+    "first_published": "2026-11-03",
+    "id": "SKS-2014-DL-000001",
+    "incident_reported_date": "2014-12",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 363",
+      "IPC 376",
+      "IPC 506",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sentence_years": 15,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-03",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75502112026CRLA2762025_183345.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In December 2014, one person was arrested in South East, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 15 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South East (2014) — convicted, 15 years",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]

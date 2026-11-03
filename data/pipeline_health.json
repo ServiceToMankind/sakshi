@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-02",
+  "generated": "2026-11-03",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
@@ -39,23 +39,23 @@
     },
     "Dainik Bhaskar": {
       "documents": 20,
-      "prefilter_skipped": 16,
+      "prefilter_skipped": 17,
       "extracted": 0,
-      "out_of_scope": 1,
+      "out_of_scope": 0,
       "failed": 0,
       "published": 7,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.2
+      "prefilter_pass_rate": 0.15
     },
     "Delhi High Court": {
-      "documents": 4,
+      "documents": 3,
       "prefilter_skipped": 0,
-      "extracted": 0,
+      "extracted": 2,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 31,
+      "published": 33,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
@@ -86,8 +86,8 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 37,
-      "prefilter_skipped": 37,
+      "documents": 33,
+      "prefilter_skipped": 33,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -101,13 +101,13 @@
       "documents": 100,
       "prefilter_skipped": 97,
       "extracted": 2,
-      "out_of_scope": 1,
-      "failed": 0,
-      "published": 97,
+      "out_of_scope": 0,
+      "failed": 1,
+      "published": 98,
       "needs_review": 3,
       "quarantined": 1,
       "quarantine_reasons": {
-        "schema_invalid": 1
+        "ambiguous_match": 1
       },
       "prefilter_pass_rate": 0.03
     },
@@ -125,15 +125,18 @@
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 60,
-      "extracted": 0,
+      "prefilter_skipped": 57,
+      "extracted": 3,
       "out_of_scope": 0,
       "failed": 0,
       "published": 2,
-      "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "needs_review": 1,
+      "quarantined": 2,
+      "quarantine_reasons": {
+        "identity_detail_present": 1,
+        "schema_invalid": 1
+      },
+      "prefilter_pass_rate": 0.05
     },
     "Lokmat": {
       "documents": 10,
@@ -185,15 +188,15 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 199,
-      "extracted": 1,
+      "prefilter_skipped": 200,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 54,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.005
+      "prefilter_pass_rate": 0.0
     },
     "Punjab-Haryana High Court": {
       "documents": 0,
@@ -233,15 +236,15 @@
     },
     "The Hindu": {
       "documents": 120,
-      "prefilter_skipped": 119,
+      "prefilter_skipped": 118,
       "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 31,
+      "published": 32,
       "needs_review": 2,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.008
+      "prefilter_pass_rate": 0.017
     },
     "The Indian Express": {
       "documents": 0,
@@ -256,26 +259,28 @@
       "prefilter_pass_rate": null
     },
     "The Times of India": {
-      "documents": 43,
-      "prefilter_skipped": 43,
-      "extracted": 0,
+      "documents": 47,
+      "prefilter_skipped": 46,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
       "published": 23,
       "needs_review": 0,
-      "quarantined": 0,
-      "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.0
+      "quarantined": 1,
+      "quarantine_reasons": {
+        "unknown_state": 1
+      },
+      "prefilter_pass_rate": 0.021
     }
   },
   "court_prefilter": [
     {
       "source": "Delhi High Court",
-      "listed": 343,
+      "listed": 367,
       "fetched": 40,
       "pdf_text_empty": 0,
-      "not_qualifying": 36,
-      "qualifying": 4
+      "not_qualifying": 37,
+      "qualifying": 3
     },
     {
       "source": "High Court of Jammu & Kashmir and Ladakh",
@@ -301,7 +306,7 @@
       "search_errors": 0,
       "doc_errors": 0,
       "error_status": 0,
-      "already_seen": 25,
+      "already_seen": 23,
       "pages": 7
     }
   ]

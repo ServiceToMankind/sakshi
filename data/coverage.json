@@ -1,9 +1,9 @@
 {
-  "generated": "2026-11-02",
+  "generated": "2026-11-03",
   "trackability": {
-    "total": 377,
-    "court_anchored": 91,
-    "rate": 0.2414
+    "total": 381,
+    "court_anchored": 93,
+    "rate": 0.2441
   },
   "states_covered": 24,
   "states_total": 36,
@@ -46,7 +46,7 @@
     },
     "DL": {
       "active_sources": 3,
-      "records": 76,
+      "records": 80,
       "declared_gap": false
     },
     "DN": {

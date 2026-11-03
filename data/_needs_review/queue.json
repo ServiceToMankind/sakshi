@@ -215,5 +215,40 @@
       "title": "Rape of a minor — Ujjain (2026) — convicted, 20 years",
       "summary": "In October 2026, one person was accused of the rape of a minor in Ujjain, Madhya Pradesh. The charges also include causing hurt and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11-03",
+      "offence_sections": [
+        "IPC 376"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Supreme Court issues notice on plea to remove POCSO judge accused of rape",
+      "summary": "A judicial officer faces a rape charge registered under the Indian Penal Code in 2022. One judicial officer is accused in the case. The matter originates from Uttar Pradesh. The Supreme Court issued notice to the High Court administration regarding his judicial duties. The top court will hear the plea again in December.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/supreme-court-rape-fir-against-judicial-officer-plea-against-discharge-of-duties-as-pocso-judge-notice-to-allahabad-high-court-556991",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-03"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the source details Supreme Court proceedings concerning a judicial officer facing a rape charge under IPC Section 376 in Uttar Pradesh."
+    }
   }
 ]
