@@ -1,5 +1,40 @@
 [
   {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": "2026-12-11"
+    },
+    "days_since_reported": 1426,
+    "district": "Delhi",
+    "first_published": "2026-11-03",
+    "id": "SKS-2022-DL-000004",
+    "incident_reported_date": "2022-12-08",
+    "institutional_actions": [
+      "chargesheet_filed"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-03",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/supreme-court-agrees-to-examine-plea-seeking-removal-of-judge-facing-rape-prosecution-from-pocso-court-101793685367716.html"
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "Police registered a rape case against one judge in Delhi. Investigators completed their inquiry and submitted a charge-sheet against the official. The accused official received interim protection from arrest while trial court proceedings continued. A high court previously declined to restrain him from judicial duties. The Supreme Court agreed to hear a plea seeking his removal from hearing cases.",
+    "title": "Supreme Court considers plea to remove judge facing rape charges",
+    "verification_note": "The candidate record is consistent with the source report regarding a rape FIR registered under IPC Section 376 in Delhi.",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "rape",
     "confidence": 0.95,
@@ -7,7 +42,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1499,
+    "days_since_reported": 1500,
     "district": "South West",
     "fir_ref": {
       "number": "377/2022",
@@ -48,13 +83,59 @@
   {
     "accused_count": 1,
     "category": "pocso",
+    "cnr": "DLHC010213362025",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 1616,
+    "district": "West",
+    "fir_ref": {
+      "number": "471/2022",
+      "station": "Tilak Nagar"
+    },
+    "first_published": "2026-11-03",
+    "id": "SKS-2022-DL-000003",
+    "incident_reported_date": "2022-06",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 6"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-03",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75502112026CRLA5022025_183442.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In June 2022, one person was arrested in West, Delhi for the aggravated penetrative assault on a child. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — West (2022) — convicted, 20 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
     "cnr": "DLHC010045962026",
     "confidence": 0.98,
     "court": {
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 1707,
+    "days_since_reported": 1708,
     "district": "Central",
     "fir_ref": {
       "number": "290/2022",
