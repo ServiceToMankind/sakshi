@@ -6,7 +6,7 @@
       "name": "Punjab and Haryana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Kapurthala",
     "first_published": "2026-10-30",
     "id": "SKS-2026-PB-000004",
@@ -33,7 +33,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 36,
+    "days_since_reported": 37,
     "district": "Kapurthala",
     "first_published": "2026-09-28",
     "id": "SKS-2026-PB-000003",
@@ -59,7 +59,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 37,
+    "days_since_reported": 38,
     "district": "Jalandhar",
     "first_published": "2026-09-27",
     "id": "SKS-2026-PB-000002",
@@ -86,7 +86,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 63,
+    "days_since_reported": 64,
     "district": "Patiala",
     "first_published": "2026-09-23",
     "id": "SKS-2026-PB-000001",

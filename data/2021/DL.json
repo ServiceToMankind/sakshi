@@ -8,7 +8,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 1951,
+    "days_since_reported": 1952,
     "district": "South-East",
     "fir_ref": {
       "number": "358/2021",
@@ -65,7 +65,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 2042,
+    "days_since_reported": 2043,
     "district": "Outer District",
     "fir_ref": {
       "number": "129/2021",
@@ -97,6 +97,61 @@
     "status": "QUASHED",
     "summary": "In April 2021, one person was accused of the penetrative assault on a child in Outer District, Delhi. The charges also include drugging and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The case was quashed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Penetrative assault on a child — Outer District (2021) — case quashed",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010477632025",
+    "confidence": 0.98,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 2074,
+    "district": "North West",
+    "fir_ref": {
+      "number": "122/2021",
+      "station": "Bharat Nagar"
+    },
+    "first_published": "2026-11-04",
+    "id": "SKS-2021-DL-000003",
+    "incident_reported_date": "2021-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 363",
+      "IPC 506",
+      "POCSO 6"
+    ],
+    "sentence_years": 20,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-04",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/159901519/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-04",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75503112026CRLA10122025_175853.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In March 2021, one person was arrested in North West, Delhi for the aggravated penetrative assault on a child. The charges also include kidnapping and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — North West (2021) — convicted, 20 years",
     "verified": true,
     "weapon_or_threat": true
   }
