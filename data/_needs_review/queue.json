@@ -250,5 +250,119 @@
       "verified": true,
       "verification_note": "Approved as the source details Supreme Court proceedings concerning a judicial officer facing a rape charge under IPC Section 376 in Uttar Pradesh."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KA",
+      "district": "Bidar",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Karnataka High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/karnataka-high-court/karnataka-high-court-orders-maximum-compensation-sexual-assault-victim-557234",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-04",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Bidar (2026) — convicted",
+      "summary": "In November 2026, one person was accused of the child sexual offence in Bidar, Karnataka. The accused was convicted. An appeal was filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "New Delhi",
+      "incident_reported_date": "2026-11-03",
+      "offence_sections": [],
+      "category": "sexual_assault",
+      "minor_involved": false,
+      "status": "UNKNOWN",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Patiala House Courts",
+        "next_hearing": "2026-12-01"
+      },
+      "title": "Delhi court seeks police report on sexual assault plea against police officer",
+      "summary": "A police officer was accused of committing sexual assault. One senior police official was named in the complaint. The alleged incident occurred in New Delhi. A court directed the police to submit an action-taken report and preserve video evidence. The case remains under preliminary review by the court.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/news-updates/delhi-court-seeks-action-taken-report-on-woman-journalists-plea-for-fir-against-acp-vivek-bhagat-over-alleged-sexual-assault-557197",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-04",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the source describes a specific court proceeding seeking an action taken report regarding an alleged sexual assault complaint in New Delhi."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GA",
+      "district": "Goa",
+      "incident_reported_date": "2026-11-03",
+      "offence_sections": [
+        "IPC 376",
+        "IPC 354",
+        "IPC 354B"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "repeat_offence": false,
+      "weapon_or_threat": false,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 10,
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": "2026-11-05"
+      },
+      "title": "Supreme Court sets hearing on interim bail plea in Goa rape case",
+      "summary": "A former magazine editor committed sexual assault in Goa. The high court convicted one man and sentenced him to ten years in prison. The high court overturned a trial court acquittal from an earlier trial. The Supreme Court scheduled a hearing on an interim bail plea for November 5. The appeal against the ten-year sentence remains pending before the court.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/tarun-tejpal-urges-supreme-court-to-grant-interim-bail-in-rape-case-for-diwali-557158",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-04"
+        }
+      ],
+      "verified": true,
+      "verification_note": "The record accurately reflects a reported rape conviction and ongoing appeal proceedings in the Supreme Court."
+    }
   }
 ]
