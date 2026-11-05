@@ -1,6 +1,6 @@
 {
   "aggravated_total": 88,
-  "generated_at": "2026-11-04T00:00:00Z",
+  "generated_at": "2026-11-05T00:00:00Z",
   "monthly_trend": [
     {
       "count": 1,
@@ -83,7 +83,7 @@
       "month": "2026-07"
     },
     {
-      "count": 58,
+      "count": 59,
       "month": "2026-08"
     },
     {
@@ -95,17 +95,13 @@
       "month": "2026-10"
     },
     {
-      "count": 4,
+      "count": 8,
       "month": "2026-11"
     }
   ],
   "scale": {
-    "cumulative_total": 383,
+    "cumulative_total": 388,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-07-08"
-      },
       {
         "count": 0,
         "date": "2026-07-09"
@@ -581,6 +577,10 @@
       {
         "count": 2,
         "date": "2026-11-04"
+      },
+      {
+        "count": 5,
+        "date": "2026-11-05"
       }
     ],
     "this_week": 27
@@ -588,11 +588,11 @@
   "severity_counts": {
     "Aggravated penetrative assault on a child": 60,
     "Assault to outrage modesty": 6,
-    "Child sexual offence": 74,
+    "Child sexual offence": 75,
     "Gang rape": 7,
     "Gang rape of a minor": 4,
     "Penetrative assault on a child": 10,
-    "Rape": 13,
+    "Rape": 14,
     "Rape of a minor": 6,
     "Rape resulting in death or persistent vegetative state": 1,
     "Sexual assault of a child": 10
@@ -602,7 +602,7 @@
     "AS": 5,
     "BR": 13,
     "CT": 4,
-    "DL": 81,
+    "DL": 83,
     "GA": 5,
     "GJ": 9,
     "HR": 18,
@@ -617,8 +617,8 @@
     "OD": 4,
     "PB": 6,
     "RJ": 4,
-    "TG": 47,
-    "TN": 61,
+    "TG": 49,
+    "TN": 62,
     "TR": 2,
     "UP": 20,
     "WB": 8
@@ -629,60 +629,66 @@
     "CHARGESHEETED": 4,
     "CLOSED": 4,
     "CONVICTED": 63,
-    "FIR_FILED": 130,
+    "FIR_FILED": 134,
     "QUASHED": 6,
     "UNDER_TRIAL": 76,
-    "UNKNOWN": 64
+    "UNKNOWN": 65
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 1501,
+      "days_since_reported": 1502,
       "district": "South West",
       "id": "SKS-2022-DL-000001",
       "incident_reported_date": "2022-09-25"
     },
     {
-      "days_since_reported": 530,
+      "days_since_reported": 531,
       "district": "East",
       "id": "SKS-2025-DL-000002",
       "incident_reported_date": "2025-05-23"
     },
     {
-      "days_since_reported": 400,
+      "days_since_reported": 401,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 306,
+      "days_since_reported": 307,
       "district": "Delhi",
       "id": "SKS-2026-DL-000066",
       "incident_reported_date": "2026-01-02"
     },
     {
-      "days_since_reported": 76,
+      "days_since_reported": 86,
+      "district": "East",
+      "id": "SKS-2026-DL-000071",
+      "incident_reported_date": "2026-08-11"
+    },
+    {
+      "days_since_reported": 77,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     },
     {
-      "days_since_reported": 28,
+      "days_since_reported": 29,
       "district": "Delhi",
       "id": "SKS-2026-DL-000044",
       "incident_reported_date": "2026-10-07"
     },
     {
-      "days_since_reported": 20,
+      "days_since_reported": 21,
       "district": "Delhi",
       "id": "SKS-2026-DL-000064",
       "incident_reported_date": "2026-10-15"
     },
     {
-      "days_since_reported": 11,
+      "days_since_reported": 12,
       "district": "Delhi",
       "id": "SKS-2026-DL-000062",
       "incident_reported_date": "2026-10-24"
     }
   ],
-  "total": 383
+  "total": 388
 }
