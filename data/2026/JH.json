@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 3,
+    "days_since_reported": 4,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "station": "Gamharia"
@@ -37,7 +37,7 @@
     "accused_count": 6,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Latehar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-JH-000009",
@@ -72,7 +72,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Latehar",
     "fir_ref": {
       "number": "08/2017",
@@ -121,7 +121,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -165,7 +165,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Chatra",
     "fir_ref": {
       "number": "10/2026",
@@ -214,7 +214,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -261,7 +261,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -301,7 +301,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Chatra",
     "first_published": "2026-10-19",
     "id": "SKS-2026-JH-000019",
@@ -337,7 +337,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 64,
+    "days_since_reported": 65,
     "district": "West Singhbhum",
     "fir_ref": {
       "number": "19/2018",
@@ -380,7 +380,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 64,
+    "days_since_reported": 65,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -427,7 +427,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 64,
+    "days_since_reported": 65,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000015",
@@ -468,7 +468,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 95,
+    "days_since_reported": 96,
     "district": "Dumka",
     "fir_ref": {
       "number": "198/2025",
@@ -509,7 +509,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 126,
+    "days_since_reported": 127,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000016",
@@ -544,7 +544,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 248,
+    "days_since_reported": 249,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -588,7 +588,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 248,
+    "days_since_reported": 249,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -632,7 +632,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 248,
+    "days_since_reported": 249,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -671,7 +671,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 248,
+    "days_since_reported": 249,
     "district": "Garhwa",
     "fir_ref": {
       "number": "103/2025",
@@ -717,7 +717,7 @@
     "court": {
       "name": "High Court of Jharkhand at Ranchi"
     },
-    "days_since_reported": 248,
+    "days_since_reported": 249,
     "district": "Ranchi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-JH-000008",
@@ -755,7 +755,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 276,
+    "days_since_reported": 277,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -799,7 +799,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 276,
+    "days_since_reported": 277,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",
