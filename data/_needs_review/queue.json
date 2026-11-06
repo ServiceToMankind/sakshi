@@ -364,5 +364,121 @@
       "verified": true,
       "verification_note": "The record accurately reflects a reported rape conviction and ongoing appeal proceedings in the Supreme Court."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Madhepura",
+      "incident_reported_date": "2010-09",
+      "offence_sections": [
+        "IPC 366A",
+        "IPC 376"
+      ],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "acquitted"
+      ],
+      "sentence_years": 5,
+      "court": {
+        "name": "Patna High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/patna-high-court/patna-high-court-acquits-man-rape-case-noting-material-contradictions-557431",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-06",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Rape involving a minor — Madhepura (2010) — acquitted",
+      "summary": "In September 2010, one person was accused of the rape involving a minor in Madhepura, Bihar. The charges also include procuring a minor. The accused was convicted and sentenced to 5 years in prison, and later acquitted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "RJ",
+      "district": "Jaipur",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "IPC 376(2)(F)",
+        "IPC 377",
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "court": {
+        "name": "Rajasthan High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/rajasthan-high-court/rajasthan-high-court-seeks-administrative-decision-full-bench-ruling-rape-pocso-convicts-eligibility-557590",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-06",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Rape involving a minor — Jaipur (2026) — convicted",
+      "summary": "In November 2026, one person was accused of the rape involving a minor in Jaipur, Rajasthan. The accused was convicted. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Jehanabad",
+      "incident_reported_date": "2017-01",
+      "offence_sections": [
+        "IPC 376D",
+        "IPC 34",
+        "POCSO 4"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 4,
+      "institutional_actions": [],
+      "court": {
+        "name": "Patna High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/patna-high-court/patna-high-court-refuses-quash-cognizance-minor-alleged-gang-rape-case-557429",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-06",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Gang rape involving a minor — Jehanabad (2017) — on trial",
+      "summary": "In January 2017, four people were accused of the gang rape involving a minor in Jehanabad, Bihar. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
