@@ -7,7 +7,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 4733,
+    "days_since_reported": 4734,
     "district": "North Goa",
     "first_published": "2026-08-26",
     "id": "SKS-2013-GA-000001",
@@ -17,7 +17,11 @@
       "convicted",
       "appeal_filed"
     ],
+    "last_status_change": "2026-11-07",
     "minor_involved": false,
+    "offence_sections": [
+      "IPC 376"
+    ],
     "sentence_years": 10,
     "sources": [
       {
@@ -31,6 +35,12 @@
         "retrieved": "2026-08-26",
         "source_type": "news_article",
         "url": "https://www.thehindu.com/news/national/tarun-tejpal-case-supreme-court-refuses-to-stay-bombay-hc-ruling/article68571024.ece"
+      },
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-07",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/2013-rape-cae-sc-refuses-to-suspend-tarun-tejpal-s-sentence-101793954762384.html"
       }
     ],
     "state": "GA",

@@ -1,0 +1,49 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010480572024",
+    "confidence": 0.98,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 2808,
+    "district": "South-East",
+    "fir_ref": {
+      "number": "88/2019",
+      "station": "Kotla Mubarakpur"
+    },
+    "first_published": "2026-11-07",
+    "id": "SKS-2019-DL-000001",
+    "incident_reported_date": "2019-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 377",
+      "IPC 506",
+      "POCSO 6"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-07",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75506112026CRLA6992024_183245.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In March 2019, one person was arrested in South-East, Delhi for the aggravated penetrative assault on a child. The charges also include criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 10 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South-East (2019) — convicted, 10 years",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
