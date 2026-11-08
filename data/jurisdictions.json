@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-07T00:00:00Z",
+  "generated_at": "2026-11-08T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 309,
+        "days": 310,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 27,
+      "median_pending_days": 28,
       "pre_chargesheet": 8,
       "state": "DL",
       "total": 34,
@@ -24,9 +24,9 @@
       "median_pending_days": null,
       "pre_chargesheet": 10,
       "state": "TG",
-      "total": 18,
+      "total": 19,
       "under_trial": 3,
-      "under_trial_pct": 17
+      "under_trial_pct": 16
     },
     {
       "acquittals": 0,
@@ -153,10 +153,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 403,
+        "days": 404,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 403,
+      "median_pending_days": 404,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -272,10 +272,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 533,
+        "days": 534,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 310,
+      "median_pending_days": 311,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -493,10 +493,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1504,
+        "days": 1505,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 791,
+      "median_pending_days": 792,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -1376,6 +1376,18 @@
       "longest_pending": null,
       "median_pending_days": null,
       "state": "JK",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Ernakulam",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "KL",
       "total": 1,
       "under_trial": 0,
       "under_trial_pct": 0

@@ -1,6 +1,6 @@
 {
   "aggravated_total": 89,
-  "generated_at": "2026-11-07T00:00:00Z",
+  "generated_at": "2026-11-08T00:00:00Z",
   "monthly_trend": [
     {
       "count": 1,
@@ -95,17 +95,13 @@
       "month": "2026-10"
     },
     {
-      "count": 13,
+      "count": 15,
       "month": "2026-11"
     }
   ],
   "scale": {
-    "cumulative_total": 394,
+    "cumulative_total": 396,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-07-11"
-      },
       {
         "count": 0,
         "date": "2026-07-12"
@@ -581,6 +577,10 @@
       {
         "count": 2,
         "date": "2026-11-07"
+      },
+      {
+        "count": 2,
+        "date": "2026-11-08"
       }
     ],
     "this_week": 22
@@ -609,7 +609,7 @@
     "JH": 27,
     "JK": 2,
     "KA": 9,
-    "KL": 3,
+    "KL": 4,
     "MH": 9,
     "ML": 1,
     "MN": 2,
@@ -617,7 +617,7 @@
     "OD": 4,
     "PB": 6,
     "RJ": 4,
-    "TG": 51,
+    "TG": 52,
     "TN": 65,
     "TR": 2,
     "UP": 20,
@@ -629,66 +629,66 @@
     "CHARGESHEETED": 4,
     "CLOSED": 4,
     "CONVICTED": 66,
-    "FIR_FILED": 137,
+    "FIR_FILED": 138,
     "QUASHED": 6,
     "UNDER_TRIAL": 76,
-    "UNKNOWN": 65
+    "UNKNOWN": 66
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 1504,
+      "days_since_reported": 1505,
       "district": "South West",
       "id": "SKS-2022-DL-000001",
       "incident_reported_date": "2022-09-25"
     },
     {
-      "days_since_reported": 533,
+      "days_since_reported": 534,
       "district": "East",
       "id": "SKS-2025-DL-000002",
       "incident_reported_date": "2025-05-23"
     },
     {
-      "days_since_reported": 403,
+      "days_since_reported": 404,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 309,
+      "days_since_reported": 310,
       "district": "Delhi",
       "id": "SKS-2026-DL-000066",
       "incident_reported_date": "2026-01-02"
     },
     {
-      "days_since_reported": 88,
+      "days_since_reported": 89,
       "district": "East",
       "id": "SKS-2026-DL-000071",
       "incident_reported_date": "2026-08-11"
     },
     {
-      "days_since_reported": 79,
+      "days_since_reported": 80,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     },
     {
-      "days_since_reported": 31,
+      "days_since_reported": 32,
       "district": "Delhi",
       "id": "SKS-2026-DL-000044",
       "incident_reported_date": "2026-10-07"
     },
     {
-      "days_since_reported": 23,
+      "days_since_reported": 24,
       "district": "Delhi",
       "id": "SKS-2026-DL-000064",
       "incident_reported_date": "2026-10-15"
     },
     {
-      "days_since_reported": 14,
+      "days_since_reported": 15,
       "district": "Delhi",
       "id": "SKS-2026-DL-000062",
       "incident_reported_date": "2026-10-24"
     }
   ],
-  "total": 394
+  "total": 396
 }
