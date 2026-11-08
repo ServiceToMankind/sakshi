@@ -533,7 +533,8 @@
       "incident_reported_date": "2026-11-07",
       "offence_sections": [
         "BNS 75",
-        "BNS 296"
+        "BNS 296",
+        "18(D)"
       ],
       "category": "sexual_assault",
       "minor_involved": false,
@@ -642,6 +643,126 @@
       ],
       "verified": true,
       "verification_note": "Approved as the record accurately reflects a genuine rape case from Goa currently pending appeal in the Supreme Court."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "SK",
+      "district": "Unspecified",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 5(J)(II)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed",
+        "bail_granted"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Sikkim High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/sikkim-high-court/sikkim-high-court-grants-bail-pocso-convict-557757",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-08",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Unspecified (2026) — appeal pending",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Unspecified, Sikkim. Bail was granted. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Khliehriat Women Police Station"
+      },
+      "state": "ML",
+      "district": "Khliehriat",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO",
+        "BNSS 528"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-citing-survivor-noobjection-quashing-live-together-557763",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-08",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Khliehriat (2026) — case quashed",
+      "summary": "In November 2026, one person was accused of the child sexual offence in Khliehriat, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KA",
+      "district": "Unknown",
+      "incident_reported_date": "2025-06-04",
+      "offence_sections": [
+        "BNS 75(1)(II)",
+        "BNS 351(2)"
+      ],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "weapon_or_threat": false,
+      "institutional_actions": [
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Karnataka High Court",
+        "next_hearing": null
+      },
+      "title": "Karnataka High Court quashes sexual harassment chargesheet",
+      "summary": "A man was accused of sexual harassment and criminal intimidation following a financial dispute. One man was named as the accused. The incident was reported in Karnataka. Police filed a chargesheet even though the complainant disowned key allegations. The High Court quashed the chargesheet because no evidence showed a demand for sexual favours.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/karnataka-high-court/karnataka-high-court-looking-inappropriately-woman-amount-demand-sexual-favours-557713",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-08",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the record accurately reflects the quashing of BNS sexual harassment charges by the Karnataka High Court based on reported facts."
     }
   }
 ]

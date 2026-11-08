@@ -4,10 +4,45 @@
     "category": "rape",
     "confidence": 0.95,
     "court": {
+      "name": "Ernakulam Judicial First Class Magistrate Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 1,
+    "district": "Ernakulam",
+    "fir_ref": {
+      "station": "Infopark"
+    },
+    "first_published": "2026-11-08",
+    "id": "SKS-2026-KL-000005",
+    "incident_reported_date": "2026-11-07",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-08",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/kochi-doctors-phone-reveals-sexual-abuse-of-several-women-after-he-alleges-assault-by-malayalam-actors-101794044422940.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KL",
+    "status": "FIR_FILED",
+    "summary": "Police registered a rape case against [occupation withheld] for sexually assaulting a woman and recording the act on his mobile phone. One man is accused in the case. The alleged offence took place in Ernakulam district. Police filed an FIR after receiving a formal complaint and examining recovered digital devices. The accused doctor remains absconding while police conduct further investigation.",
+    "title": "Kochi police register rape case against [occupation withheld]",
+    "verification_note": "The source confirms an FIR for rape was registered at Infopark police station in Ernakulam, Kerala.",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "court": {
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Not specified",
     "first_published": "2026-10-31",
     "id": "SKS-2026-KL-000004",
@@ -39,7 +74,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 18,
+    "days_since_reported": 19,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -68,7 +103,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 67,
+    "days_since_reported": 68,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",
