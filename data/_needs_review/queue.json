@@ -215,5 +215,117 @@
       "title": "Rape of a minor — Ujjain (2026) — convicted, 20 years",
       "summary": "In October 2026, one person was accused of the rape of a minor in Ujjain, Madhya Pradesh. The charges also include causing hurt and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "West Khasi Hills",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 5(J)(II)(L)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-informed-consent-review-survivor-living-with-accused-557772",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-09",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — West Khasi Hills (2026) — case quashed",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in West Khasi Hills, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "SK",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 5(J)(II)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Sikkim High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/sikkim-high-court/sikkim-high-court-grants-bail-pocso-convict-557757",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-09",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Sikkim (2026) — appeal pending",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Sikkim. Bail was granted. The accused was convicted and sentenced to 20 years in prison. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "Khliehriat",
+      "offence_sections": [
+        "POCSO",
+        "BNSS 528"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-citing-survivor-noobjection-quashing-live-together-557763",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-09",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-11",
+      "verified": true,
+      "title": "Child sexual offence — Khliehriat (2026) — case quashed",
+      "summary": "In November 2026, one person was accused of the child sexual offence in Khliehriat, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

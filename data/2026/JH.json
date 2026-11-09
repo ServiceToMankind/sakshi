@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "station": "Gamharia"
@@ -34,10 +34,55 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Jharkhand",
+      "next_hearing": null
+    },
+    "days_since_reported": 8,
+    "district": "Latehar",
+    "fir_ref": {
+      "number": "22/2026",
+      "station": "Chhipadohar"
+    },
+    "first_published": "2026-11-09",
+    "id": "SKS-2026-JH-000021",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_denied"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 64(1)",
+      "POCSO 4",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-09",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/11528980/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "UNDER_TRIAL",
+    "summary": "In November 2026, one person was arrested in Latehar, Jharkhand for the aggravated penetrative assault on a child. A weapon was used or a threat was made. Police have filed a chargesheet. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Latehar (2026) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 6,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 30,
+    "days_since_reported": 31,
     "district": "Latehar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-JH-000009",
@@ -72,7 +117,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Latehar",
     "fir_ref": {
       "number": "08/2017",
@@ -121,7 +166,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -165,7 +210,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Chatra",
     "fir_ref": {
       "number": "10/2026",
@@ -214,7 +259,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -261,7 +306,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -301,7 +346,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Chatra",
     "first_published": "2026-10-19",
     "id": "SKS-2026-JH-000019",
@@ -337,7 +382,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 68,
+    "days_since_reported": 69,
     "district": "West Singhbhum",
     "fir_ref": {
       "number": "19/2018",
@@ -380,7 +425,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 68,
+    "days_since_reported": 69,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -427,7 +472,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 68,
+    "days_since_reported": 69,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000015",
@@ -468,7 +513,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 99,
+    "days_since_reported": 100,
     "district": "Dumka",
     "fir_ref": {
       "number": "198/2025",
@@ -509,7 +554,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 130,
+    "days_since_reported": 131,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000016",
@@ -544,7 +589,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 252,
+    "days_since_reported": 253,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -588,7 +633,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 252,
+    "days_since_reported": 253,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -632,7 +677,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 252,
+    "days_since_reported": 253,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -671,7 +716,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 252,
+    "days_since_reported": 253,
     "district": "Garhwa",
     "fir_ref": {
       "number": "103/2025",
@@ -717,7 +762,7 @@
     "court": {
       "name": "High Court of Jharkhand at Ranchi"
     },
-    "days_since_reported": 252,
+    "days_since_reported": 253,
     "district": "Ranchi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-JH-000008",
@@ -755,7 +800,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 280,
+    "days_since_reported": 281,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -799,7 +844,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 280,
+    "days_since_reported": 281,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",

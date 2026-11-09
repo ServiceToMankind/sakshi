@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-08T00:00:00Z",
+  "generated_at": "2026-11-09T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 310,
+        "days": 311,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 28,
+      "median_pending_days": 29,
       "pre_chargesheet": 8,
       "state": "DL",
       "total": 34,
@@ -36,9 +36,9 @@
       "median_pending_days": null,
       "pre_chargesheet": 9,
       "state": "MP",
-      "total": 16,
+      "total": 17,
       "under_trial": 4,
-      "under_trial_pct": 25
+      "under_trial_pct": 24
     },
     {
       "acquittals": 0,
@@ -46,11 +46,11 @@
       "district": "Chennai",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 9,
+      "pre_chargesheet": 10,
       "state": "TN",
-      "total": 12,
+      "total": 13,
       "under_trial": 3,
-      "under_trial_pct": 25
+      "under_trial_pct": 23
     },
     {
       "acquittals": 1,
@@ -153,10 +153,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 404,
+        "days": 405,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 404,
+      "median_pending_days": 405,
       "state": "TN",
       "total": 5,
       "under_trial": 1,
@@ -272,10 +272,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 534,
+        "days": 535,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 311,
+      "median_pending_days": 312,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -312,6 +312,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
+      "state": "JH",
+      "total": 3,
+      "under_trial": 1,
+      "under_trial_pct": 33
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Latehar",
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "JH",
       "total": 3,
       "under_trial": 1,
@@ -493,10 +504,10 @@
       "convictions": 0,
       "district": "South West",
       "longest_pending": {
-        "days": 1505,
+        "days": 1506,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 792,
+      "median_pending_days": 793,
       "state": "DL",
       "total": 2,
       "under_trial": 2,
@@ -547,17 +558,6 @@
       "total": 2,
       "under_trial": 2,
       "under_trial_pct": 100
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Latehar",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "JH",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
     },
     {
       "acquittals": 2,
@@ -1508,6 +1508,17 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Datia",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "MP",
+      "total": 1,
+      "under_trial": 1,
+      "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Dhar",
       "longest_pending": null,
       "median_pending_days": null,
@@ -1905,6 +1916,18 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Viluppuram",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TN",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Gomati",
       "longest_pending": null,
       "median_pending_days": null,
@@ -2090,6 +2113,17 @@
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
+      "state": "WB",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Uttar Dinajpur",
+      "longest_pending": null,
+      "median_pending_days": null,
       "state": "WB",
       "total": 1,
       "under_trial": 0,
