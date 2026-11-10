@@ -573,8 +573,8 @@
     "09c5fa1dc06a6251e48282c6b5643b8c4d7ed0387b8747a46137985375c9c3da": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "09cabd79d0771d95b4bace6a7819aa7361e18df0fa35d975cc464d27b5177e3f": {
       "attempts": 0,
@@ -3294,6 +3294,12 @@
       "last_seen": "2026-07-19",
       "outcome": "not_a_case"
     },
+    "357fe4169b3c007050738b876f89b9a7925b5c0e94a7e5cf4ddfebb46a650df5": {
+      "attempts": 0,
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "outcome": "staged_pending"
+    },
     "358d0390cc301e3e552856fe3973ddeaa5a8e3ba59b02a95397981d684e0894b": {
       "attempts": 0,
       "first_seen": "2026-07-16",
@@ -3717,8 +3723,8 @@
     "3bc35dada6c4c2862b69be126c162e70344f79a54cf9925baf787607621275dd": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "3bc98b3f3fcb20cfcd34c20bc9c1d660725471d0abd67a5e84cb07a86644d570": {
       "attempts": 0,
@@ -4326,6 +4332,12 @@
       "last_seen": "2026-11-08",
       "outcome": "not_a_case"
     },
+    "4367b07c8c19a33e39574d502bab1d852b49ede4f6fde54fa97ab62f98adf53e": {
+      "attempts": 0,
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "outcome": "staged_pending"
+    },
     "436c5fb4ccfcdb4e21794c80d3122e84658b004a96988044250e61aecfb0f5a9": {
       "attempts": 0,
       "first_seen": "2026-08-01",
@@ -4563,8 +4575,8 @@
     "469b2099ce0a308c4ba4d2b1a45d24616cc6c65aede75822b2eeceb7644e5e40": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "46b65fa8e0d91925b85f6020fdc68681b29d6732c50f41b7cb43e44ea281a190": {
       "attempts": 0,
@@ -6429,8 +6441,8 @@
     "61cdc1b1e30da33684e7c26fce548383f4765d054a4532eba376696e51854753": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "61d877a43ccfbda7689e2c647b00447ae6b4b0b411ea4aa2c127f942fd5a171c": {
       "attempts": 0,
@@ -6743,6 +6755,12 @@
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
+    },
+    "6757c5d326224c0c02816f0bc8ec4812089d108fa548eb75bac907147f52f6e0": {
+      "attempts": 0,
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "outcome": "staged_pending"
     },
     "6767bf9d3db9302365ca71fcb4302ba9a16b34fdf97fd1110036f4ca8ec64e92": {
       "attempts": 0,
@@ -10086,6 +10104,12 @@
       "last_seen": "2026-09-15",
       "outcome": "published"
     },
+    "9d2da9431f7953f8ad3784849ce462f98c9c335cf979a47c7a80ffbe02b935fb": {
+      "attempts": 0,
+      "first_seen": "2026-11-10",
+      "last_seen": "2026-11-10",
+      "outcome": "staged_pending"
+    },
     "9d529b0503aad049fdd2bdb8f995f22cae7b516070f839242a1d13c9697aeabe": {
       "attempts": 0,
       "first_seen": "2026-10-06",
@@ -11145,8 +11169,8 @@
     "aee4eba9d499d50780760d0aaccc399b7e9933f758cb98956d0837b27261db40": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "aeea6fa20ed96496950240083c1b461e7121b105e803caa00f2745ee1ecb8580": {
       "attempts": 0,
@@ -15543,8 +15567,8 @@
     "f79abfb8d5fd8e62b3b5c08eb03a80f489d3894711dd15a43b47ef733c26aafa": {
       "attempts": 0,
       "first_seen": "2026-11-09",
-      "last_seen": "2026-11-09",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-10",
+      "outcome": "published"
     },
     "f79d90bce9b31fccdbfc96c3f7767b509fd8ae3ea6dae7e7aac9937b7a7260bf": {
       "attempts": 0,
