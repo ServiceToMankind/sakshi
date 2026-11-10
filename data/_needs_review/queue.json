@@ -327,5 +327,44 @@
       "title": "Child sexual offence — Khliehriat (2026) — case quashed",
       "summary": "In November 2026, one person was accused of the child sexual offence in Khliehriat, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "fir_ref": {
+        "station": "Sadar Police Station"
+      },
+      "state": "ML",
+      "district": "East Khasi Hills",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO",
+        "BNSS 528"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-quashes-pocso-case-finding-survivor-consent-informed-557880",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-10",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — East Khasi Hills (2026) — case quashed",
+      "summary": "In November 2026, one person was accused of the child sexual offence in East Khasi Hills, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

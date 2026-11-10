@@ -1,5 +1,5 @@
 {
-  "generated": "2026-11-09",
+  "generated": "2026-11-10",
   "by_publisher": {
     "Amar Ujala": {
       "documents": 11,
@@ -31,7 +31,7 @@
       "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 32,
+      "published": 33,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
@@ -88,8 +88,8 @@
       "prefilter_pass_rate": 1.0
     },
     "Hindu Tamil Thisai": {
-      "documents": 11,
-      "prefilter_skipped": 11,
+      "documents": 29,
+      "prefilter_skipped": 29,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -105,37 +105,37 @@
       "extracted": 4,
       "out_of_scope": 0,
       "failed": 0,
-      "published": 102,
+      "published": 105,
       "needs_review": 3,
-      "quarantined": 2,
+      "quarantined": 1,
       "quarantine_reasons": {
-        "scope_review": 2
+        "unverified": 1
       },
       "prefilter_pass_rate": 0.05
     },
     "Jharkhand High Court": {
-      "documents": 1,
+      "documents": 0,
       "prefilter_skipped": 0,
-      "extracted": 1,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 25,
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 1.0
+      "prefilter_pass_rate": null
     },
     "LiveLaw": {
       "documents": 60,
-      "prefilter_skipped": 57,
-      "extracted": 3,
+      "prefilter_skipped": 59,
+      "extracted": 1,
       "out_of_scope": 0,
       "failed": 0,
       "published": 2,
-      "needs_review": 3,
+      "needs_review": 4,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.05
+      "prefilter_pass_rate": 0.017
     },
     "Lokmat": {
       "documents": 10,
@@ -150,16 +150,16 @@
       "prefilter_pass_rate": 0.0
     },
     "Madhya Pradesh High Court": {
-      "documents": 2,
+      "documents": 0,
       "prefilter_skipped": 0,
-      "extracted": 2,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 37,
       "needs_review": 1,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 1.0
+      "prefilter_pass_rate": null
     },
     "Madras High Court": {
       "documents": 0,
@@ -187,7 +187,7 @@
     },
     "Namasthe Telangana": {
       "documents": 200,
-      "prefilter_skipped": 199,
+      "prefilter_skipped": 200,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -195,7 +195,7 @@
       "needs_review": 0,
       "quarantined": 0,
       "quarantine_reasons": {},
-      "prefilter_pass_rate": 0.005
+      "prefilter_pass_rate": 0.0
     },
     "Punjab-Haryana High Court": {
       "documents": 0,
@@ -223,18 +223,15 @@
     },
     "The Hindu": {
       "documents": 120,
-      "prefilter_skipped": 118,
-      "extracted": 2,
+      "prefilter_skipped": 120,
+      "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
       "published": 34,
       "needs_review": 2,
-      "quarantined": 2,
-      "quarantine_reasons": {
-        "scope_review": 1,
-        "schema_invalid": 1
-      },
-      "prefilter_pass_rate": 0.017
+      "quarantined": 0,
+      "quarantine_reasons": {},
+      "prefilter_pass_rate": 0.0
     },
     "The Indian Express": {
       "documents": 0,
@@ -249,8 +246,8 @@
       "prefilter_pass_rate": null
     },
     "The Times of India": {
-      "documents": 46,
-      "prefilter_skipped": 46,
+      "documents": 47,
+      "prefilter_skipped": 47,
       "extracted": 0,
       "out_of_scope": 0,
       "failed": 0,
@@ -264,7 +261,7 @@
   "court_prefilter": [
     {
       "source": "Delhi High Court",
-      "listed": 369,
+      "listed": 372,
       "fetched": 40,
       "pdf_text_empty": 0,
       "not_qualifying": 39,
@@ -288,14 +285,14 @@
     },
     {
       "source": "Indian Kanoon",
-      "hits": 77,
-      "qualifying": 3,
-      "fetched": 3,
+      "hits": 67,
+      "qualifying": 0,
+      "fetched": 0,
       "search_errors": 0,
       "doc_errors": 0,
       "error_status": 0,
       "already_seen": 21,
-      "pages": 8
+      "pages": 7
     }
   ]
 }

@@ -1,9 +1,63 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 9,
+    "district": "North Goa",
+    "first_published": "2026-11-10",
+    "id": "SKS-2026-GA-000005",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-10",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/goa-3-year-old-raped-inside-abandoned-building-police-launch-manhunt-to-nab-the-accused-101794233091409.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GA",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, one person was accused of the child sexual offence in North Goa, Goa. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Goa (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 9,
+    "district": "North Goa",
+    "first_published": "2026-11-10",
+    "id": "SKS-2026-GA-000006",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-10",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/3-year-old-girl-allegedly-sexually-assaulted-in-goa-manhunt-launched-to-trace-culprit-101794202515695.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "GA",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, one person was accused of the child sexual offence in North Goa, Goa. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — North Goa (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 39,
+    "days_since_reported": 40,
     "district": "North Goa",
     "first_published": "2026-11-01",
     "id": "SKS-2026-GA-000004",
@@ -39,7 +93,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Unknown",
     "first_published": "2026-09-26",
     "id": "SKS-2026-GA-000003",
@@ -73,7 +127,7 @@
       "name": "Goa court",
       "next_hearing": null
     },
-    "days_since_reported": 55,
+    "days_since_reported": 56,
     "district": "Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000001",
@@ -102,7 +156,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 55,
+    "days_since_reported": 56,
     "district": "North Goa",
     "first_published": "2026-09-15",
     "id": "SKS-2026-GA-000002",
