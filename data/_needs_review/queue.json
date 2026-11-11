@@ -366,5 +366,51 @@
       "title": "Child sexual offence — East Khasi Hills (2026) — case quashed",
       "summary": "In November 2026, one person was accused of the child sexual offence in East Khasi Hills, Meghalaya. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TR",
+      "district": "Unknown",
+      "incident_reported_date": "2021-05",
+      "offence_sections": [
+        "POCSO 6",
+        "POCSO 7",
+        "POCSO 8",
+        "IPC 376(3)",
+        "IPC 506",
+        "IPC 449",
+        "IPC 342"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 5,
+      "court": {
+        "name": "Tripura High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/tripura-high-court/tripura-high-court-reduces-pocso-conviction-aggravated-penetrative-sexual-assault-558000",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-11",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Tripura (2021) — convicted, 5 years",
+      "summary": "In May 2021, one person was accused of the aggravated penetrative assault on a child in Tripura. The charges also include wrongful confinement and criminal intimidation. A weapon was used or a threat was made. The accused was convicted and sentenced to 5 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
