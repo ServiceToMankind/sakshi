@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-11T00:00:00Z",
+  "generated_at": "2026-11-12T00:00:00Z",
   "shards": [
     {
       "bytes": 1750,
@@ -394,9 +394,9 @@
       "year": "2026"
     },
     {
-      "bytes": 75628,
+      "bytes": 77218,
       "path": "2026/DL.json",
-      "records": 60,
+      "records": 61,
       "state": "DL",
       "year": "2026"
     },
@@ -450,9 +450,9 @@
       "year": "2026"
     },
     {
-      "bytes": 8852,
+      "bytes": 10397,
       "path": "2026/MH.json",
-      "records": 8,
+      "records": 9,
       "state": "MH",
       "year": "2026"
     },
@@ -492,9 +492,9 @@
       "year": "2026"
     },
     {
-      "bytes": 56517,
+      "bytes": 57762,
       "path": "2026/TG.json",
-      "records": 49,
+      "records": 50,
       "state": "TG",
       "year": "2026"
     },
