@@ -412,5 +412,129 @@
       "title": "Aggravated penetrative assault on a child — Tripura (2021) — convicted, 5 years",
       "summary": "In May 2021, one person was accused of the aggravated penetrative assault on a child in Tripura. The charges also include wrongful confinement and criminal intimidation. A weapon was used or a threat was made. The accused was convicted and sentenced to 5 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "ML",
+      "district": "Ri-Bhoi",
+      "incident_reported_date": "2019-01",
+      "offence_sections": [
+        "POCSO 5(L)(M)",
+        "POCSO 5(L)(N)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "repeat_offence": true,
+      "institutional_actions": [
+        "arrest_made",
+        "bail_denied",
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 25,
+      "court": {
+        "name": "Meghalaya High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/meghalaya-high-court/meghalaya-high-court-upholds-father-conviction-aggravated-penetrative-sexual-assault-minor-daughter-558307",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-13",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Ri-Bhoi (2019) — convicted, 25 years",
+      "summary": "In January 2019, one person was arrested in Ri-Bhoi, Meghalaya for the aggravated penetrative assault on a child. The accused is recorded as a repeat offender. Police have filed a chargesheet. Bail was denied. The accused was convicted and sentenced to 25 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Lakhimpur",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "IPC 366",
+        "POCSO 6",
+        "POCSO 5(L)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 20,
+      "court": {
+        "name": "Gauhati High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gauhati-high-court/gauhati-high-court-holds-minor-cannot-give-valid-consent-558274",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-13",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Lakhimpur (2026) — convicted, 20 years",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Lakhimpur, Assam. The charges also include abduction. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Unspecified",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CHARGESHEETED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "sit_formed",
+        "chargesheet_filed"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-veeramani-pocso-case-first-chargesheet-filed-sit-tells-558242",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-13",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Unspecified (2026) — chargesheet filed",
+      "summary": "In November 2026, one person was accused of the child sexual offence in Unspecified, Tamil Nadu. A special investigation team was formed. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

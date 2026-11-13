@@ -1,0 +1,29 @@
+[
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 1,
+    "district": "Unspecified",
+    "first_published": "2026-11-13",
+    "id": "SKS-2026-UT-000001",
+    "incident_reported_date": "2026-11-12",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-13",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/uttarakhand-police-write-to-cbi-for-2003-case-files-in-fresh-rape-complaint-against-congress-leader-101794470949611.html"
+      }
+    ],
+    "state": "UT",
+    "status": "UNKNOWN",
+    "summary": "A woman filed a fresh rape complaint against a politician in Uttarakhand. The complaint accuses one male political leader of sexual assault. Uttarakhand Police initiated an inquiry into the matter. Officers requested past case files from central investigative agencies to assist the probe. The police inquiry is currently under way.",
+    "title": "Uttarakhand Police seek past files in fresh rape complaint against politician",
+    "verification_note": "The source describes a fresh rape complaint lodged with the Uttarakhand Police against a politician.",
+    "verified": true
+  }
+]
