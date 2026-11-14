@@ -536,5 +536,38 @@
       "title": "Child sexual offence — Unspecified (2026) — chargesheet filed",
       "summary": "In November 2026, one person was accused of the child sexual offence in Unspecified, Tamil Nadu. A special investigation team was formed. Police have filed a chargesheet. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "South West Delhi",
+      "offence_sections": [],
+      "category": "harassment",
+      "minor_involved": true,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "repeat_offence": true,
+      "weapon_or_threat": false,
+      "institutional_actions": [
+        "suspension_ordered"
+      ],
+      "title": "Sexual harassment involving a minor — South West Delhi (2026) — FIR filed",
+      "summary": "In November 2026, one person was accused of the sexual harassment involving a minor in South West Delhi, Delhi. The accused is recorded as a repeat offender. An official was suspended over the case. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.bhaskar.com/db-original/news/jnu-professor-bimol-akoijam-sexual-harassment-case-ground-report-139607260.html",
+          "publisher": "Dainik Bhaskar",
+          "source_type": "news_article",
+          "retrieved": "2026-11-14",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-11",
+      "verified": true
+    }
   }
 ]

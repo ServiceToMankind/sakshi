@@ -1,9 +1,37 @@
 [
   {
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 1,
+    "district": "Banswara",
+    "first_published": "2026-11-14",
+    "id": "SKS-2026-RJ-000005",
+    "incident_reported_date": "2026-11-13",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-14",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/nmc-seeks-report-over-ragging-sexual-assault-allegations-at-rajasthan-s-banswara-medical-college-101794557440475.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "RJ",
+    "status": "UNKNOWN",
+    "summary": "Senior medical students allegedly ragged and sexually assaulted first-year medical students. Multiple senior students were accused of coercing freshers into attending private gatherings. The reported incidents took place in Banswara district. The National Medical Commission ordered the medical college administration to investigate and report back. The internal inquiry into the allegations is currently under way.",
+    "title": "NMC seeks report on sexual assault allegations at Banswara medical college",
+    "verification_note": "Approved genuine sexual assault and ragging allegations at Banswara Medical College in Rajasthan.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 32,
+    "days_since_reported": 33,
     "district": "Jaipur",
     "first_published": "2026-10-13",
     "id": "SKS-2026-RJ-000004",
@@ -33,7 +61,7 @@
   {
     "category": "other",
     "confidence": 0.95,
-    "days_since_reported": 69,
+    "days_since_reported": 70,
     "district": "Banswara",
     "first_published": "2026-09-05",
     "id": "SKS-2026-RJ-000002",
@@ -60,7 +88,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 73,
+    "days_since_reported": 74,
     "district": "Kota",
     "first_published": "2026-09-10",
     "id": "SKS-2026-RJ-000003",
@@ -87,7 +115,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 104,
+    "days_since_reported": 105,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",

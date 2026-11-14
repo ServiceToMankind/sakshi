@@ -7,7 +7,7 @@
       "name": "Ernakulam Judicial First Class Magistrate Court",
       "next_hearing": null
     },
-    "days_since_reported": 6,
+    "days_since_reported": 7,
     "district": "Ernakulam",
     "fir_ref": {
       "station": "Infopark"
@@ -42,7 +42,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 14,
+    "days_since_reported": 15,
     "district": "Not specified",
     "first_published": "2026-10-31",
     "id": "SKS-2026-KL-000004",
@@ -74,7 +74,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -103,7 +103,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 73,
+    "days_since_reported": 74,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",
