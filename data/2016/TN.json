@@ -1,0 +1,48 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "HCMD010796172019",
+    "confidence": 0.95,
+    "court": {
+      "name": "Madras High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 3696,
+    "district": "Pudukottai",
+    "fir_ref": {
+      "number": "8/2016",
+      "station": "Keeranur All Women Police Station"
+    },
+    "first_published": "2026-11-14",
+    "id": "SKS-2016-TN-000001",
+    "incident_reported_date": "2016-10",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 341",
+      "IPC 506(II)",
+      "POCSO 5(J)(II)",
+      "POCSO 6",
+      "POCSO 5(N)"
+    ],
+    "sources": [
+      {
+        "publisher": "Madras High Court",
+        "retrieved": "2026-11-14",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/163048059/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TN",
+    "status": "UNDER_TRIAL",
+    "summary": "In October 2016, one person was arrested in Pudukottai, Tamil Nadu for the aggravated penetrative assault on a child. The charges also include wrongful restraint and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — Pudukottai (2016) — on trial",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
