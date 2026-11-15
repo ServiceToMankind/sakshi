@@ -742,7 +742,7 @@
       "attempts": 0,
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-15",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "0c037b29fc783679bce207dd8005408247bc7e6a57e4bb8730828fc7283140a9": {
       "attempts": 0,
@@ -8692,7 +8692,7 @@
       "attempts": 0,
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-15",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "8390dbfb40c7276ba0d725493288c1a8e62f10b57fc3a138455dfe5e15d653a2": {
       "attempts": 0,
@@ -8998,7 +8998,7 @@
       "attempts": 0,
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-15",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "8831ac555e26146b055119bd437d53f859a56c3b2f355f0c4bd3e19a9abe605f": {
       "attempts": 0,
@@ -11380,7 +11380,7 @@
       "attempts": 0,
       "first_seen": "2026-11-15",
       "last_seen": "2026-11-15",
-      "outcome": "staged_pending"
+      "outcome": "published"
     },
     "b05a5890a83caffebeea50980771121de937a470af2541c2721525afc4230fe1": {
       "attempts": 0,
