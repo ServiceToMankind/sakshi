@@ -1,9 +1,37 @@
 [
   {
+    "accused_count": 19,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 1,
+    "district": "Ranchi",
+    "first_published": "2026-11-15",
+    "id": "SKS-2026-JH-000024",
+    "incident_reported_date": "2026-11-14",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-11-15",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/male-prisoner-made-to-wear-saree-raped-by-jail-inmates-in-ranchi-2560262"
+      }
+    ],
+    "state": "JH",
+    "status": "FIR_FILED",
+    "summary": "Fellow inmates drugged and sexually assaulted a remanded prisoner inside a jail on multiple occasions. Prison staff allegedly ignored complaints and denied required medical care to the person. Nineteen people, including fellow prisoners and jail officials, were accused in the matter. The incident occurred in Ranchi district. Police registered a case and are currently investigating the matter.",
+    "title": "Police register FIR against 19 people for sexual assault inside Ranchi jail",
+    "verification_note": "The source confirms an FIR was filed regarding the sexual assault and rape of an inmate in Hotwar Jail, Ranchi.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 13,
+    "days_since_reported": 14,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "station": "Gamharia"
@@ -41,7 +69,7 @@
       "name": "High Court of Jharkhand",
       "next_hearing": null
     },
-    "days_since_reported": 13,
+    "days_since_reported": 14,
     "district": "Latehar",
     "fir_ref": {
       "number": "22/2026",
@@ -82,7 +110,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 13,
+    "days_since_reported": 14,
     "district": "Simdega",
     "first_published": "2026-11-14",
     "id": "SKS-2026-JH-000022",
@@ -109,10 +137,40 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 3,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 14,
+    "district": "Ranchi",
+    "first_published": "2026-11-15",
+    "id": "SKS-2026-JH-000023",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-11-15",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/national/pocso-case-filed-against-jharkhand-congress-mla-over-alleged-assault-of-14-year-girl-2560506",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, three people were accused of the child sexual offence in Ranchi, Jharkhand. A weapon was used or a threat was made. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Ranchi (2026) — FIR filed",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 6,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 36,
+    "days_since_reported": 37,
     "district": "Latehar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-JH-000009",
@@ -147,7 +205,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Latehar",
     "fir_ref": {
       "number": "08/2017",
@@ -196,7 +254,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -240,7 +298,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Chatra",
     "fir_ref": {
       "number": "10/2026",
@@ -289,7 +347,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -336,7 +394,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Garhwa",
     "fir_ref": {
       "number": "07/2023",
@@ -376,7 +434,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 44,
+    "days_since_reported": 45,
     "district": "Chatra",
     "first_published": "2026-10-19",
     "id": "SKS-2026-JH-000019",
@@ -412,7 +470,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 74,
+    "days_since_reported": 75,
     "district": "West Singhbhum",
     "fir_ref": {
       "number": "19/2018",
@@ -455,7 +513,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 74,
+    "days_since_reported": 75,
     "district": "Godda",
     "fir_ref": {
       "number": "17/2026",
@@ -502,7 +560,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 74,
+    "days_since_reported": 75,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000015",
@@ -543,7 +601,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 105,
+    "days_since_reported": 106,
     "district": "Dumka",
     "fir_ref": {
       "number": "198/2025",
@@ -584,7 +642,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 136,
+    "days_since_reported": 137,
     "district": "Ranchi",
     "first_published": "2026-10-12",
     "id": "SKS-2026-JH-000016",
@@ -619,7 +677,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 258,
+    "days_since_reported": 259,
     "district": "Giridih",
     "fir_ref": {
       "number": "91/2025",
@@ -663,7 +721,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 258,
+    "days_since_reported": 259,
     "district": "Garhwa",
     "fir_ref": {
       "number": "53/2025",
@@ -707,7 +765,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 258,
+    "days_since_reported": 259,
     "district": "Ranchi",
     "first_published": "2026-08-12",
     "id": "SKS-2026-JH-000005",
@@ -746,7 +804,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 258,
+    "days_since_reported": 259,
     "district": "Garhwa",
     "fir_ref": {
       "number": "103/2025",
@@ -792,7 +850,7 @@
     "court": {
       "name": "High Court of Jharkhand at Ranchi"
     },
-    "days_since_reported": 258,
+    "days_since_reported": 259,
     "district": "Ranchi",
     "first_published": "2026-08-14",
     "id": "SKS-2026-JH-000008",
@@ -830,7 +888,7 @@
     "court": {
       "name": "High Court of Jharkhand"
     },
-    "days_since_reported": 286,
+    "days_since_reported": 287,
     "district": "Simdega",
     "fir_ref": {
       "number": "18 of 2025",
@@ -874,7 +932,7 @@
       "name": "High Court of Jharkhand at Ranchi",
       "next_hearing": null
     },
-    "days_since_reported": 286,
+    "days_since_reported": 287,
     "district": "Seraikela Kharsawan",
     "fir_ref": {
       "number": "79 of 2024",
