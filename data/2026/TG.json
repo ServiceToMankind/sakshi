@@ -3,7 +3,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 4,
+    "days_since_reported": 5,
     "district": "Mulugu",
     "first_published": "2026-11-12",
     "id": "SKS-2026-TG-000052",
@@ -32,7 +32,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 7,
+    "days_since_reported": 8,
     "district": "Hyderabad",
     "first_published": "2026-11-08",
     "id": "SKS-2026-TG-000051",
@@ -61,7 +61,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 8,
+    "days_since_reported": 9,
     "district": "Medchal-Malkajgiri",
     "fir_ref": {
       "station": "Dundigal"
@@ -98,7 +98,7 @@
       "name": "Khammam 3rd Additional Judicial First Class Magistrate Court",
       "next_hearing": null
     },
-    "days_since_reported": 10,
+    "days_since_reported": 11,
     "district": "Khammam",
     "first_published": "2026-11-06",
     "id": "SKS-2026-TG-000049",
@@ -130,7 +130,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Hyderabad",
     "first_published": "2026-11-05",
     "id": "SKS-2026-TG-000048",
@@ -158,7 +158,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 14,
+    "days_since_reported": 15,
     "district": "Hyderabad",
     "first_published": "2026-11-05",
     "id": "SKS-2026-TG-000047",
@@ -184,10 +184,41 @@
     "verified": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 15,
+    "district": "Siddipet",
+    "first_published": "2026-11-16",
+    "id": "SKS-2026-TG-000053",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-11-16",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/telangana/pocso-case-registered-against-veterinary-polytechnic-college-principal-in-siddipet-2561152",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TG",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, one person was accused of the child sexual offence in Siddipet, Telangana. An official was suspended over the case. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Siddipet (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Hyderabad",
     "first_published": "2026-10-27",
     "id": "SKS-2026-TG-000045",
@@ -216,7 +247,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 19,
+    "days_since_reported": 20,
     "district": "Medchal-Malkajgiri",
     "first_published": "2026-10-27",
     "id": "SKS-2026-TG-000046",
@@ -247,7 +278,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 23,
+    "days_since_reported": 24,
     "district": "Medchal",
     "fir_ref": {
       "station": "Pocharam IT Corridor"
@@ -281,7 +312,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 29,
+    "days_since_reported": 30,
     "district": "Hyderabad",
     "first_published": "2026-10-18",
     "id": "SKS-2026-TG-000039",
@@ -309,7 +340,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 35,
+    "days_since_reported": 36,
     "district": "Hyderabad",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TG-000035",
@@ -336,7 +367,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 40,
+    "days_since_reported": 41,
     "district": "Karimnagar",
     "first_published": "2026-10-06",
     "id": "SKS-2026-TG-000033",
@@ -362,7 +393,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Rangareddy",
     "first_published": "2026-10-04",
     "id": "SKS-2026-TG-000031",
@@ -388,7 +419,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Warangal",
     "first_published": "2026-10-06",
     "id": "SKS-2026-TG-000034",
@@ -414,7 +445,7 @@
     "accused_count": 8,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Hyderabad",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TG-000037",
@@ -447,7 +478,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.92,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Medchal-Malkajgiri",
     "fir_ref": {
       "station": "Medipalli"
@@ -483,7 +514,7 @@
       "name": "Special POCSO Court, Warangal",
       "next_hearing": null
     },
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Warangal",
     "first_published": "2026-10-23",
     "id": "SKS-2026-TG-000040",
@@ -516,7 +547,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Hyderabad",
     "fir_ref": {
       "station": "Shankarpally"
@@ -550,7 +581,7 @@
     "accused_count": 7,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Siddipet",
     "first_published": "2026-10-24",
     "id": "SKS-2026-TG-000043",
@@ -582,7 +613,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Suryapet",
     "first_published": "2026-10-24",
     "id": "SKS-2026-TG-000044",
@@ -610,7 +641,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Rangareddy",
     "first_published": "2026-09-28",
     "id": "SKS-2026-TG-000030",
@@ -638,7 +669,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 53,
     "district": "Hyderabad",
     "first_published": "2026-09-24",
     "id": "SKS-2026-TG-000027",
@@ -667,7 +698,7 @@
     "category": "sexual_assault",
     "confidence": 0.9,
     "corrected": true,
-    "days_since_reported": 55,
+    "days_since_reported": 56,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Gachibowli"
@@ -698,7 +729,7 @@
     "accused_count": 6,
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Unknown",
     "first_published": "2026-09-19",
     "id": "SKS-2026-TG-000024",
@@ -726,7 +757,7 @@
     "category": "rape",
     "confidence": 0.9,
     "corrected": true,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Hyderabad",
     "first_published": "2026-09-01",
     "id": "SKS-2026-TG-000018",
@@ -755,7 +786,7 @@
     "court": {
       "name": "High Court of Telangana"
     },
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Rangareddy",
     "first_published": "2026-09-01",
     "id": "SKS-2026-TG-000019",
@@ -787,7 +818,7 @@
       "name": "Sircilla POCSO Court",
       "next_hearing": null
     },
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Sircilla",
     "first_published": "2026-09-01",
     "id": "SKS-2026-TG-000020",
@@ -817,7 +848,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Rangareddy",
     "first_published": "2026-09-01",
     "id": "SKS-2026-TG-000021",
@@ -856,7 +887,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Unknown",
     "first_published": "2026-09-12",
     "id": "SKS-2026-TG-000023",
@@ -884,7 +915,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Hyderabad",
     "first_published": "2026-09-23",
     "id": "SKS-2026-TG-000026",
@@ -915,7 +946,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Khammam",
     "first_published": "2026-09-27",
     "id": "SKS-2026-TG-000028",
@@ -946,7 +977,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "UNKNOWN",
     "first_published": "2026-09-27",
     "id": "SKS-2026-TG-000029",
@@ -973,7 +1004,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 80,
+    "days_since_reported": 81,
     "district": "Narayanapet",
     "first_published": "2026-08-27",
     "id": "SKS-2026-TG-000015",
@@ -1002,7 +1033,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 80,
+    "days_since_reported": 81,
     "district": "Hyderabad",
     "first_published": "2026-08-27",
     "id": "SKS-2026-TG-000016",
@@ -1030,7 +1061,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Yadadri Bhuvanagiri",
     "first_published": "2026-08-22",
     "id": "SKS-2026-TG-000014",
@@ -1061,7 +1092,7 @@
       "name": "Special court",
       "next_hearing": null
     },
-    "days_since_reported": 86,
+    "days_since_reported": 87,
     "district": "Hyderabad",
     "first_published": "2026-08-21",
     "id": "SKS-2026-TG-000013",
@@ -1093,7 +1124,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 106,
+    "days_since_reported": 107,
     "district": "Hyderabad",
     "first_published": "2026-08-01",
     "id": "SKS-2026-TG-000010",
@@ -1124,7 +1155,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 106,
+    "days_since_reported": 107,
     "district": "Rangareddy",
     "fir_ref": {
       "station": "Madhapur"
@@ -1158,7 +1189,7 @@
     "court": {
       "name": "Bhupalpally District Court"
     },
-    "days_since_reported": 106,
+    "days_since_reported": 107,
     "district": "Bhupalpally",
     "first_published": "2026-08-19",
     "id": "SKS-2026-TG-000012",
@@ -1190,7 +1221,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 106,
+    "days_since_reported": 107,
     "district": "Hyderabad",
     "first_published": "2026-08-31",
     "id": "SKS-2026-TG-000017",
@@ -1220,7 +1251,7 @@
       "name": "LB Nagar Court",
       "next_hearing": null
     },
-    "days_since_reported": 106,
+    "days_since_reported": 107,
     "district": "Rangareddy",
     "first_published": "2026-10-11",
     "id": "SKS-2026-TG-000036",
@@ -1252,7 +1283,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 115,
+    "days_since_reported": 116,
     "district": "Ranga Reddy",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000006",
@@ -1279,7 +1310,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 115,
+    "days_since_reported": 116,
     "district": "Hyderabad",
     "first_published": "2026-07-23",
     "id": "SKS-2026-TG-000007",
@@ -1306,7 +1337,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Hyderabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000001",
@@ -1335,7 +1366,7 @@
   {
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Jagtial",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000002",
@@ -1362,7 +1393,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Kothagudem",
     "first_published": "2026-07-15",
     "id": "SKS-2026-TG-000003",
@@ -1389,7 +1420,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Kothagudem",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000004",
@@ -1419,7 +1450,7 @@
       "name": "Telangana High Court",
       "next_hearing": null
     },
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Warangal",
     "first_published": "2026-07-19",
     "id": "SKS-2026-TG-000005",
@@ -1450,7 +1481,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Hyderabad",
     "first_published": "2026-07-26",
     "id": "SKS-2026-TG-000008",
@@ -1478,7 +1509,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 137,
+    "days_since_reported": 138,
     "district": "Malkajgiri",
     "first_published": "2026-07-29",
     "id": "SKS-2026-TG-000009",
