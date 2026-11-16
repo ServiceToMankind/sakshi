@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-15T00:00:00Z",
+  "generated_at": "2026-11-16T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 317,
+        "days": 318,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 35,
+      "median_pending_days": 36,
       "pre_chargesheet": 8,
       "state": "DL",
       "total": 34,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 411,
+        "days": 412,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 411,
+      "median_pending_days": 412,
       "state": "TN",
       "total": 6,
       "under_trial": 1,
@@ -309,10 +309,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 541,
+        "days": 542,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 318,
+      "median_pending_days": 319,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -324,10 +324,10 @@
       "convictions": 1,
       "district": "South West",
       "longest_pending": {
-        "days": 1512,
+        "days": 1513,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 799,
+      "median_pending_days": 800,
       "state": "DL",
       "total": 3,
       "under_trial": 2,
@@ -772,6 +772,18 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Kothagudem",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 2,
+      "state": "TG",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Siddipet",
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 2,
@@ -1807,18 +1819,6 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Ranga Reddy",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
-      "state": "TG",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Siddipet",
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
