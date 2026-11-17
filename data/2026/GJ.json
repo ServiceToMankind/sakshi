@@ -7,41 +7,39 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 17,
-    "district": "Godhra",
-    "first_published": "2026-10-30",
-    "id": "SKS-2026-GJ-000007",
-    "incident_reported_date": "2026-10-30",
+    "days_since_reported": 16,
+    "district": "Dahod",
+    "first_published": "2026-11-17",
+    "id": "SKS-2026-GJ-000008",
+    "incident_reported_date": "2026-11",
     "institutional_actions": [
       "convicted",
       "bail_granted",
       "appeal_filed"
     ],
-    "minor_involved": false,
-    "offence_sections": [
-      "IPC 376",
-      "IPC 302"
-    ],
+    "minor_involved": true,
+    "offence_sections": [],
     "sources": [
       {
-        "publisher": "Hindustan Times",
-        "retrieved": "2026-10-30",
+        "publisher": "Dainik Bhaskar",
+        "retrieved": "2026-11-17",
         "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/bilkis-bano-gang-rape-case-supreme-court-grants-bail-to-2-convicts-101793333700755.html"
+        "url": "https://www.bhaskar.com/db-original/news/bilkis-bano-convicts-bail-case-update-statement-139711076.html",
+        "url_carries_identifying_slug": true
       }
     ],
     "state": "GJ",
     "status": "APPEAL_PENDING",
-    "summary": "Eleven men committed gang rape during communal riots in Godhra. A trial court convicted the eleven men in 2008 and sentenced them to life imprisonment. The Supreme Court later set aside an early release order granted by state authorities. The top court has now granted bail to two convicts who served over seventeen years. Their appeals against conviction remain pending.",
-    "title": "Supreme Court grants bail to two convicts in 2002 gang rape case",
-    "verification_note": "Approved as the source confirms the Supreme Court granted bail to convicts pending appeal in a reported sexual offence case.",
-    "verified": true
+    "summary": "In November 2026, 11 people were accused of the rape involving a minor in Dahod, Gujarat. A weapon was used or a threat was made. Bail was granted. The accused were convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Dahod (2026) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
   },
   {
     "accused_count": 9,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 40,
+    "days_since_reported": 41,
     "district": "Surendranagar",
     "first_published": "2026-10-11",
     "id": "SKS-2026-GJ-000005",
@@ -70,7 +68,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 46,
+    "days_since_reported": 47,
     "district": "Amreli",
     "fir_ref": {
       "station": "Jafrabad Police Station"
@@ -104,7 +102,7 @@
     "accused_count": 1,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 75,
+    "days_since_reported": 76,
     "district": "Surat",
     "first_published": "2026-09-02",
     "id": "SKS-2026-GJ-000003",
@@ -133,7 +131,7 @@
     "accused_count": 5,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 76,
+    "days_since_reported": 77,
     "district": "UNKNOWN",
     "first_published": "2026-09-01",
     "id": "SKS-2026-GJ-000002",
@@ -161,7 +159,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 76,
+    "days_since_reported": 77,
     "district": "Unknown",
     "first_published": "2026-09-27",
     "id": "SKS-2026-GJ-000004",
@@ -188,7 +186,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 107,
+    "days_since_reported": 108,
     "district": "Surat",
     "first_published": "2026-08-29",
     "id": "SKS-2026-GJ-000001",

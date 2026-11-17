@@ -7,7 +7,7 @@
       "name": "Ernakulam Judicial First Class Magistrate Court",
       "next_hearing": null
     },
-    "days_since_reported": 9,
+    "days_since_reported": 10,
     "district": "Ernakulam",
     "fir_ref": {
       "station": "Infopark"
@@ -35,6 +35,36 @@
     "verified": true
   },
   {
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "court": {
+      "name": "Kerala High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 16,
+    "district": "Ernakulam",
+    "first_published": "2026-11-17",
+    "id": "SKS-2026-KL-000006",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-17",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/kerala-hc-allows-pregnancy-termination-of-15-year-old-sexual-assault-victim-101794886512117.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KL",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, a case of sexual assault involving a minor was registered in Ernakulam, Kerala. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault involving a minor — Ernakulam (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
@@ -42,7 +72,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 17,
+    "days_since_reported": 18,
     "district": "Not specified",
     "first_published": "2026-10-31",
     "id": "SKS-2026-KL-000004",
@@ -74,7 +104,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 27,
+    "days_since_reported": 28,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -103,7 +133,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 76,
+    "days_since_reported": 77,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",
