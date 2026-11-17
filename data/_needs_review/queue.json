@@ -4,6 +4,49 @@
       "possible_child_case"
     ],
     "record": {
+      "accused_count": 11,
+      "category": "rape",
+      "confidence": 0.95,
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "days_since_reported": null,
+      "district": "Godhra",
+      "first_published": "2026-10-30",
+      "id": "SKS-2026-GJ-000007",
+      "incident_reported_date": "2026-10",
+      "institutional_actions": [
+        "convicted",
+        "bail_granted",
+        "appeal_filed"
+      ],
+      "minor_involved": true,
+      "offence_sections": [
+        "IPC 376",
+        "IPC 302"
+      ],
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-10-30",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/bilkis-bano-gang-rape-case-supreme-court-grants-bail-to-2-convicts-101793333700755.html",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "GJ",
+      "status": "APPEAL_PENDING",
+      "summary": "In October 2026, 11 people were accused of the rape involving a minor in Godhra, Gujarat. The charges also include murder. Bail was granted. The accused were convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Rape involving a minor — Godhra (2026) — appeal pending",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "accused_count": 1,
       "category": "harassment",
       "confidence": 0.95,
@@ -288,6 +331,159 @@
       "verified": true,
       "title": "Aggravated penetrative assault on a child — Hooghly (2026) — on trial",
       "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Hooghly, West Bengal. The charges also include wrongful confinement and criminal intimidation. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Dahod",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 11,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Rape involving a minor — Dahod (2026) — appeal pending",
+      "summary": "In November 2026, 11 people were accused of the rape involving a minor in Dahod, Gujarat. A weapon was used or a threat was made. Bail was granted. The accused were convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/bilkis-bano-expresses-shock-over-supreme-court-order-suspending-sentences-of-men-convicted-for-gang-rape-murder-says-she-wasnt-heard-558704",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-17",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Kannur",
+      "offence_sections": [
+        "IPC 376AB",
+        "IPC 376(2)(F)",
+        "IPC 354B",
+        "POCSO 5(F)",
+        "POCSO 5(L)",
+        "POCSO 5(M)",
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/palathayi-child-rape-case-supreme-court-issues-notice-on-kerala-govts-plea-against-suspension-of-sentence-of-ex-bjp-leader-558678",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-17",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-11",
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Kannur (2026) — appeal pending",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Kannur, Kerala. The charges also include assault to disrobe. Bail was granted. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Patna",
+      "incident_reported_date": "2026-11-16",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "APPEAL_PENDING",
+      "accused_count": 1,
+      "institutional_actions": [],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Supreme Court considers directive on offensive high court remarks in sexual cases",
+      "summary": "The Supreme Court reviewed a judgment involving an alleged attempt to rape. One man was named as the accused in the underlying case. The matter arose from court proceedings in Patna. The Supreme Court issued notice and sought responses from the state advocate general. The court adjourned the hearing for one week.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/top-stories/supreme-court-mulls-judicial-academies-survey-of-high-court-decisions-objectionable-observations-sexual-offenses-expunging-remarks-558638",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-17"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the record is consistent with Supreme Court proceedings reviewing a Patna High Court ruling in a sexual offence case."
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 2,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Rape involving a minor — Gujarat (2026) — appeal pending",
+      "summary": "In November 2026, two people were accused of the rape involving a minor in Gujarat. A weapon was used or a threat was made. Bail was granted. The accused were convicted. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/national/supreme-court-grants-bail-to-two-convicts-in-bilkis-bano-case-suspends-life-sentences-2562208",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-11-17",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
     }
   }
 ]
