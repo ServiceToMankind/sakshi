@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-17T00:00:00Z",
+  "generated_at": "2026-11-18T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 319,
+        "days": 320,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 37,
+      "median_pending_days": 38,
       "pre_chargesheet": 8,
       "state": "DL",
-      "total": 34,
+      "total": 35,
       "under_trial": 13,
-      "under_trial_pct": 38
+      "under_trial_pct": 37
     },
     {
       "acquittals": 0,
@@ -42,15 +42,15 @@
     },
     {
       "acquittals": 0,
-      "convictions": 0,
+      "convictions": 1,
       "district": "Chennai",
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 10,
       "state": "TN",
-      "total": 13,
+      "total": 14,
       "under_trial": 3,
-      "under_trial_pct": 23
+      "under_trial_pct": 21
     },
     {
       "acquittals": 1,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 413,
+        "days": 414,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 413,
+      "median_pending_days": 414,
       "state": "TN",
       "total": 6,
       "under_trial": 1,
@@ -309,10 +309,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 543,
+        "days": 544,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 320,
+      "median_pending_days": 321,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -324,10 +324,10 @@
       "convictions": 1,
       "district": "South West",
       "longest_pending": {
-        "days": 1514,
+        "days": 1515,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 801,
+      "median_pending_days": 802,
       "state": "DL",
       "total": 3,
       "under_trial": 2,
@@ -509,6 +509,18 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Central Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "DL",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "North",
       "longest_pending": null,
       "median_pending_days": null,
@@ -516,6 +528,18 @@
       "total": 2,
       "under_trial": 2,
       "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "North West Delhi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "DL",
+      "total": 2,
+      "under_trial": 1,
+      "under_trial_pct": 50
     },
     {
       "acquittals": 0,
@@ -888,6 +912,18 @@
     },
     {
       "acquittals": 0,
+      "convictions": 0,
+      "district": "Tiruchirappalli",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TN",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
       "convictions": 1,
       "district": "Tiruppur",
       "longest_pending": null,
@@ -1085,17 +1121,6 @@
       "under_trial_pct": 0
     },
     {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Central Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
       "acquittals": 1,
       "convictions": 0,
       "district": "Dwarka",
@@ -1123,18 +1148,6 @@
       "district": "North West",
       "longest_pending": null,
       "median_pending_days": null,
-      "state": "DL",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "North West Delhi",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
       "state": "DL",
       "total": 1,
       "under_trial": 0,
@@ -1944,18 +1957,6 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Thanjavur",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "pre_chargesheet": 1,
-      "state": "TN",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Tiruchirappalli",
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
