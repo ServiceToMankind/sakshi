@@ -485,5 +485,201 @@
       ],
       "verified": true
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AP",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "BNS 103(1)",
+        "BNS 64(2)(M)",
+        "POCSO 5(J)(IV)(1)",
+        "POCSO 6",
+        "POCSO 5(L)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "UNDER_TRIAL",
+      "accused_count": 1,
+      "repeat_offence": true,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "arrest_made",
+        "chargesheet_filed",
+        "bail_denied"
+      ],
+      "court": {
+        "name": "Andhra Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/andhra-pradesh-high-court/ap-high-court-rejects-bail-plea-man-accused-repeatedly-raping-minor-girl-558859",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-18",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Andhra Pradesh (2026) — on trial",
+      "summary": "In November 2026, one person was arrested in Andhra Pradesh for the aggravated penetrative assault on a child. The charges also include murder. A weapon was used or a threat was made. The accused is recorded as a repeat offender. Police have filed a chargesheet. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Karimganj",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "IPC 376",
+        "POCSO 6"
+      ],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "acquitted"
+      ],
+      "court": {
+        "name": "Gauhati High Court",
+        "next_hearing": null
+      },
+      "title": "Aggravated penetrative assault on a child — Karimganj (2026) — acquitted",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Karimganj, Assam. The accused was convicted, and later acquitted. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gauhati-high-court/consensual-sexual-relationship-between-adults-not-rape-marriage-didnt-materialise-558849",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-18",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "WB",
+      "district": "Hooghly",
+      "incident_reported_date": "2024-11",
+      "offence_sections": [
+        "POCSO",
+        "BNS"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Calcutta High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/calcutta-high-court/calcutta-high-court-confirms-death-sentence-for-rape-and-murder-of-5-year-old-girl-558810",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-18",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Hooghly (2024) — convicted",
+      "summary": "In November 2024, one person was accused of the child sexual offence in Hooghly, West Bengal. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 2,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Rape involving a minor — Gujarat (2026) — convicted",
+      "summary": "In November 2026, two people were accused of the rape involving a minor in Gujarat. Bail was granted. The accused were convicted. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/national/bilkis-bano-questions-supreme-court-order-says-she-was-not-heard-before-bail-decision-2563083",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-11-18",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unspecified",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": true,
+      "status": "APPEAL_PENDING",
+      "accused_count": 2,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Rape involving a minor — Unspecified (2026) — appeal pending",
+      "summary": "In November 2026, two people were accused of the rape involving a minor in Unspecified, Gujarat. A weapon was used or a threat was made. Bail was granted. The accused were convicted. Identifying details are withheld by law (POCSO s.23).",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/national/bilkis-bano-expressed-shock-at-supreme-court-order-suspending-life-sentences-and-granting-bail-to-two-men-convicted-for-gang-raping-her-2562605",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-11-18",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true
+    }
   }
 ]
