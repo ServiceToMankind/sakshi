@@ -8,7 +8,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 3669,
+    "days_since_reported": 3670,
     "district": "New Delhi",
     "fir_ref": {
       "number": "419/2016",
@@ -48,6 +48,53 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 1,
+    "category": "harassment",
+    "cnr": "DLHC010392112026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 3726,
+    "district": "North-East",
+    "fir_ref": {
+      "number": "630/2016",
+      "station": "Bhajanpura"
+    },
+    "first_published": "2026-11-19",
+    "id": "SKS-2016-DL-000003",
+    "incident_reported_date": "2016-09-06",
+    "institutional_actions": [
+      "chargesheet_filed"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 354",
+      "IPC 354A",
+      "IPC 452",
+      "IPC 506",
+      "IPC 509",
+      "IPC 34"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-19",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/58717112026CRLMM61712026_110957.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "A man allegedly grabbed a woman's hand and issued threats during a parking dispute. One man was charged in the case. The incident took place in North-East district. Police registered an FIR and filed a chargesheet in court. The High Court quashed the FIR after the parties settled their dispute.",
+    "title": "Delhi High Court quashes sexual harassment FIR following settlement between neighbours",
+    "verification_note": "The candidate record is consistent with the source text detailing the quashing of an FIR involving IPC sections 354 and 354A.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 2,
     "category": "pocso",
     "confidence": 1.0,
@@ -55,7 +102,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 3761,
+    "days_since_reported": 3762,
     "district": "Shahdara",
     "fir_ref": {
       "number": "678/2016",
