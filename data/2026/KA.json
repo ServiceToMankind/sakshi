@@ -1,9 +1,49 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 18,
+    "district": "Dakshina Kannada",
+    "fir_ref": {
+      "number": "50/2026",
+      "station": "Mangaluru Women's Police Station"
+    },
+    "first_published": "2026-11-19",
+    "id": "SKS-2026-KA-000009",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "arrest_made",
+      "bail_granted",
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "BNS 75(2)",
+      "POCSO 8",
+      "POCSO 12"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-19",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/karnataka-mangaluru-catholic-priest-accused-of-assaulting-13-year-old-boy-held-in-second-pocso-case-in-a-month-101795017672189.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KA",
+    "status": "UNDER_TRIAL",
+    "summary": "In November 2026, one person was arrested in Dakshina Kannada, Karnataka for the sexual assault of a child. The accused is recorded as a repeat offender. An official was suspended over the case. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — Dakshina Kannada (2026) — on trial",
+    "verified": true
+  },
+  {
     "accused_count": 2,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 20,
+    "days_since_reported": 21,
     "district": "Bengaluru",
     "first_published": "2026-10-30",
     "id": "SKS-2026-KA-000008",
@@ -37,7 +77,7 @@
       "name": "Additional Chief Metropolitan Magistrate Court",
       "next_hearing": null
     },
-    "days_since_reported": 37,
+    "days_since_reported": 38,
     "district": "Bengaluru",
     "first_published": "2026-10-13",
     "id": "SKS-2026-KA-000006",
@@ -75,7 +115,7 @@
       "name": "Fast Track Special Court-1",
       "next_hearing": null
     },
-    "days_since_reported": 48,
+    "days_since_reported": 49,
     "district": "Mysuru",
     "first_published": "2026-10-18",
     "id": "SKS-2026-KA-000007",
@@ -111,7 +151,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 69,
+    "days_since_reported": 70,
     "district": "Unknown",
     "first_published": "2026-09-10",
     "id": "SKS-2026-KA-000004",
@@ -137,7 +177,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 73,
+    "days_since_reported": 74,
     "district": "Bengaluru",
     "first_published": "2026-09-06",
     "id": "SKS-2026-KA-000003",
@@ -166,7 +206,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 78,
+    "days_since_reported": 79,
     "district": "Bengaluru",
     "first_published": "2026-09-21",
     "id": "SKS-2026-KA-000005",
@@ -195,7 +235,7 @@
     "accused_count": 7,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 93,
+    "days_since_reported": 94,
     "district": "Unknown",
     "first_published": "2026-08-17",
     "id": "SKS-2026-KA-000002",
@@ -224,7 +264,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 96,
+    "days_since_reported": 97,
     "district": "Bengaluru",
     "first_published": "2026-08-14",
     "id": "SKS-2026-KA-000001",

@@ -8,7 +8,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1144,
+    "days_since_reported": 1145,
     "district": "North Delhi",
     "fir_ref": {
       "number": "667/2023",
@@ -50,7 +50,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 1174,
+    "days_since_reported": 1175,
     "district": "Outer Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000002",
@@ -76,7 +76,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 1174,
+    "days_since_reported": 1175,
     "district": "Delhi",
     "first_published": "2026-09-19",
     "id": "SKS-2023-DL-000003",
@@ -116,7 +116,7 @@
     "court": {
       "name": "High Court of Delhi"
     },
-    "days_since_reported": 1205,
+    "days_since_reported": 1206,
     "district": "South Delhi",
     "fir_ref": {
       "number": "226/2023",
@@ -159,7 +159,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 1236,
+    "days_since_reported": 1237,
     "district": "North-West",
     "fir_ref": {
       "number": "381/2023",
@@ -197,6 +197,52 @@
     "status": "UNDER_TRIAL",
     "summary": "In July 2023, police made an arrest in North-West, Delhi over the aggravated penetrative assault on a child. The charges also include kidnapping, hiding a kidnapped person, drugging and failing to report the offence. Police have filed a chargesheet. Bail was granted. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
     "title": "Aggravated penetrative assault on a child — North-West (2023) — on trial",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC010001082026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 1298,
+    "district": "South West",
+    "fir_ref": {
+      "number": "272/2023",
+      "station": "Vasant Kunj (South)"
+    },
+    "first_published": "2026-11-19",
+    "id": "SKS-2023-DL-000006",
+    "incident_reported_date": "2023-05",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_denied",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 323",
+      "POCSO 6"
+    ],
+    "repeat_offence": false,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-19",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59217112026BA432026_165415.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "UNDER_TRIAL",
+    "summary": "In May 2023, one person was arrested in South West, Delhi for the aggravated penetrative assault on a child. The charges also include causing hurt. Police have filed a chargesheet. Bail was granted. Bail was denied. The case is under trial. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — South West (2023) — on trial",
     "verified": true
   }
 ]

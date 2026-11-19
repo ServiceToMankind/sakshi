@@ -681,5 +681,88 @@
       ],
       "verified": true
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "UP",
+      "district": "Fatehpur",
+      "category": "rape",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "offence_sections": [
+        "IPC 376"
+      ],
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed",
+        "bail_granted"
+      ],
+      "sentence_years": 4,
+      "court": {
+        "name": "Allahabad High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/allahabad-high-court/allahabad-hc-partial-penetration-sufficient-rape-1982-case-559075",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-19",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-11",
+      "verified": true,
+      "title": "Rape involving a minor — Fatehpur (2026) — convicted, 4 years",
+      "summary": "In November 2026, one person was accused of the rape involving a minor in Fatehpur, Uttar Pradesh. A weapon was used or a threat was made. Bail was granted. The accused was convicted and sentenced to 4 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Barpeta",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "IPC 450",
+        "POCSO 4"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed",
+        "acquitted"
+      ],
+      "sentence_years": 7,
+      "court": {
+        "name": "Gauhati High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gauhati-high-court/gauhati-high-court-acquits-man-finds-material-contradictions-victim-statements-559035",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-19",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Penetrative assault on a child — Barpeta (2026) — acquitted on appeal",
+      "summary": "In November 2026, one person was accused of the penetrative assault on a child in Barpeta, Assam. The charges also include house trespass. A weapon was used or a threat was made. The accused was convicted and sentenced to 7 years in prison, and later acquitted on appeal. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]
