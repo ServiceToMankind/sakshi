@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T00:00:00Z",
+  "generated_at": "2026-11-21T00:00:00Z",
   "shards": [
     {
       "bytes": 1750,
@@ -170,9 +170,9 @@
       "year": "2020"
     },
     {
-      "bytes": 5255,
+      "bytes": 6798,
       "path": "2021/DL.json",
-      "records": 3,
+      "records": 4,
       "state": "DL",
       "year": "2021"
     },
@@ -394,7 +394,7 @@
       "year": "2026"
     },
     {
-      "bytes": 15898,
+      "bytes": 15899,
       "path": "2026/BR.json",
       "records": 14,
       "state": "BR",
@@ -408,9 +408,9 @@
       "year": "2026"
     },
     {
-      "bytes": 85672,
+      "bytes": 86955,
       "path": "2026/DL.json",
-      "records": 67,
+      "records": 68,
       "state": "DL",
       "year": "2026"
     },
@@ -506,7 +506,7 @@
       "year": "2026"
     },
     {
-      "bytes": 63884,
+      "bytes": 63885,
       "path": "2026/TG.json",
       "records": 55,
       "state": "TG",
@@ -520,7 +520,7 @@
       "year": "2026"
     },
     {
-      "bytes": 2160,
+      "bytes": 2161,
       "path": "2026/TR.json",
       "records": 2,
       "state": "TR",
