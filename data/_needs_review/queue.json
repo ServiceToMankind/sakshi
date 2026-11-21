@@ -764,5 +764,82 @@
       "title": "Penetrative assault on a child — Barpeta (2026) — acquitted on appeal",
       "summary": "In November 2026, one person was accused of the penetrative assault on a child in Barpeta, Assam. The charges also include house trespass. A weapon was used or a threat was made. The accused was convicted and sentenced to 7 years in prison, and later acquitted on appeal. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "GJ",
+      "district": "Unknown",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Gujarat High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gujarat-high-court/gujarat-high-court-pocso-acquittal-tip-559381",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-21",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Child sexual offence — Gujarat (2026) — acquitted",
+      "summary": "In November 2026, one person was accused of the child sexual offence in Gujarat. The accused was acquitted. An appeal against the acquittal has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TR",
+      "district": "Dhalai",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 6"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "sentence_years": 10,
+      "court": {
+        "name": "Tripura High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/tripura-high-court/tripura-high-court-corrects-trial-court-retrospective-application-2019pocso-amendment-559386",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-21",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Dhalai (2026) — convicted, 10 years",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Dhalai, Tripura. The accused was convicted and sentenced to 10 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

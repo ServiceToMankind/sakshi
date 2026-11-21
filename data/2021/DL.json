@@ -8,7 +8,7 @@
       "name": "Delhi High Court",
       "next_hearing": null
     },
-    "days_since_reported": 1968,
+    "days_since_reported": 1969,
     "district": "South-East",
     "fir_ref": {
       "number": "358/2021",
@@ -65,7 +65,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 2059,
+    "days_since_reported": 2060,
     "district": "Outer District",
     "fir_ref": {
       "number": "129/2021",
@@ -109,7 +109,7 @@
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 2090,
+    "days_since_reported": 2091,
     "district": "North West",
     "fir_ref": {
       "number": "122/2021",
@@ -154,5 +154,45 @@
     "title": "Aggravated penetrative assault on a child — North West (2021) — convicted, 20 years",
     "verified": true,
     "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "rape",
+    "cnr": "DLHC010485832026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 2121,
+    "district": "West",
+    "fir_ref": {
+      "number": "626/2021",
+      "station": "Hari Nagar"
+    },
+    "first_published": "2026-11-21",
+    "id": "SKS-2021-DL-000004",
+    "incident_reported_date": "2021-01-30",
+    "institutional_actions": [],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 406",
+      "IPC 506"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-21",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59219112026CRLMM75752026_101149.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "QUASHED",
+    "summary": "A police complaint was registered alleging rape and criminal intimidation. One man was accused in the case in West district, Delhi. The parties later resolved their personal dispute through a mutual financial settlement. The Delhi High Court noted the settlement and directed the accused to pay costs. The court cancelled the police complaint and ended all legal action.",
+    "title": "Delhi High Court quashes rape FIR following settlement",
+    "verification_note": "Approved as the Delhi High Court order confirming the quashing of FIR No. 626/2021 under IPC 376/406/506 matches the candidate record details.",
+    "verified": true
   }
 ]
