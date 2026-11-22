@@ -841,5 +841,85 @@
       "title": "Aggravated penetrative assault on a child — Dhalai (2026) — convicted, 10 years",
       "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Dhalai, Tripura. The accused was convicted and sentenced to 10 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "BR",
+      "district": "Bhagalpur",
+      "incident_reported_date": "2023-09",
+      "offence_sections": [
+        "IPC 342",
+        "IPC 354A",
+        "IPC 354B",
+        "IPC 506",
+        "POCSO 4",
+        "POCSO 8",
+        "POCSO 17",
+        "POCSO 19",
+        "POCSO 21",
+        "75"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "QUASHED",
+      "accused_count": 3,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "chargesheet_filed",
+        "suspension_ordered"
+      ],
+      "court": {
+        "name": "Patna High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/patna-high-court/patna-high-court-school-principal-liability-pocso-act-without-proof-of-knowledge-559398",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-22",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Penetrative assault on a child — Bhagalpur (2023) — case quashed",
+      "summary": "In September 2023, three people were accused of the penetrative assault on a child in Bhagalpur, Bihar. The charges also include wrongful confinement, criminal intimidation, assault to disrobe, abetment and failing to report the offence. A weapon was used or a threat was made. An official was suspended over the case. Police have filed a chargesheet. The case was quashed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "verify_incomplete"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Kanyakumari",
+      "incident_reported_date": "2026-11-21",
+      "offence_sections": [],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "arrest_made"
+      ],
+      "title": "Tamil Nadu police arrest man for rape and murder in Kanyakumari train coach",
+      "summary": "A woman was sexually assaulted and killed inside a parked train coach. Police arrested one accused man after tracing clues from a gold ring found on the deceased. The incident took place in Kanyakumari district. Railway police registered a case and took the suspect into custody. The investigation is currently under way.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.ntnews.com/crime/crime-news-54-year-old-woman-raped-killed-in-train-coach-gold-ring-helps-solve-case-2565799",
+          "publisher": "Namasthe Telangana",
+          "source_type": "news_article",
+          "retrieved": "2026-11-22",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": false
+    }
   }
 ]
