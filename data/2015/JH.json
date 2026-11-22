@@ -7,7 +7,7 @@
       "name": "Jharkhand High Court",
       "next_hearing": null
     },
-    "days_since_reported": 4099,
+    "days_since_reported": 4100,
     "district": "West Singhbhum",
     "fir_ref": {
       "number": "42/2015",
@@ -50,5 +50,168 @@
     "summary": "In September 2015, one person was arrested in West Singhbhum, Jharkhand for the aggravated penetrative assault on a child. The charges also include wrongful confinement. Police have filed a chargesheet. The accused was convicted and sentenced to 14 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
     "title": "Aggravated penetrative assault on a child — West Singhbhum (2015) — convicted, 14 years",
     "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.98,
+    "court": {
+      "name": "High Court of Jharkhand",
+      "next_hearing": null
+    },
+    "days_since_reported": 4284,
+    "district": "Hazaribag",
+    "fir_ref": {
+      "number": "318/2015",
+      "station": "Hazaribag Sadar"
+    },
+    "first_published": "2026-11-22",
+    "id": "SKS-2015-JH-000002",
+    "incident_reported_date": "2015-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 4",
+      "3(1)(XI)",
+      "3(1)(XII)"
+    ],
+    "sentence_years": 16,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/186059231/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/93511192/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "CONVICTED",
+    "summary": "In March 2015, one person was arrested in Hazaribag, Jharkhand for the penetrative assault on a child. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 16 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Hazaribag (2015) — convicted, 16 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 4284,
+    "district": "Hazaribag",
+    "fir_ref": {
+      "number": "318/2015",
+      "station": "Hazaribag Sadar P.S."
+    },
+    "first_published": "2026-11-22",
+    "id": "SKS-2015-JH-000003",
+    "incident_reported_date": "2015-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 4",
+      "3(1)(XI)",
+      "3(1)(XII)"
+    ],
+    "sentence_years": 16,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/150419692/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/95918967/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "CONVICTED",
+    "summary": "In March 2015, one person was arrested in Hazaribag, Jharkhand for the penetrative assault on a child. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 16 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Hazaribag (2015) — convicted, 16 years",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.98,
+    "court": {
+      "name": "Jharkhand High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 4284,
+    "district": "Hazaribag",
+    "fir_ref": {
+      "number": "318/2015",
+      "station": "Hazaribag Sadar Police Station"
+    },
+    "first_published": "2026-11-22",
+    "id": "SKS-2015-JH-000004",
+    "incident_reported_date": "2015-03",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "bail_denied",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO 4",
+      "3(1)(XI)",
+      "3(1)(XII)"
+    ],
+    "sentence_years": 16,
+    "sources": [
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/134427221/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Jharkhand High Court",
+        "retrieved": "2026-11-22",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/8301720/",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "JH",
+    "status": "CONVICTED",
+    "summary": "In March 2015, one person was arrested in Hazaribag, Jharkhand for the penetrative assault on a child. A weapon was used or a threat was made. Police have filed a chargesheet. Bail was denied. The accused was convicted and sentenced to 16 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Penetrative assault on a child — Hazaribag (2015) — convicted, 16 years",
+    "verified": true,
+    "weapon_or_threat": true
   }
 ]

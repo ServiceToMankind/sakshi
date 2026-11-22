@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-21T00:00:00Z",
+  "generated_at": "2026-11-22T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 323,
+        "days": 324,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 41,
+      "median_pending_days": 42,
       "pre_chargesheet": 8,
       "state": "DL",
       "total": 37,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 417,
+        "days": 418,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 417,
+      "median_pending_days": 418,
       "state": "TN",
       "total": 6,
       "under_trial": 1,
@@ -215,10 +215,10 @@
       "convictions": 1,
       "district": "South West",
       "longest_pending": {
-        "days": 1518,
+        "days": 1519,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 805,
+      "median_pending_days": 806,
       "state": "DL",
       "total": 4,
       "under_trial": 3,
@@ -335,10 +335,10 @@
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 547,
+        "days": 548,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 324,
+      "median_pending_days": 325,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -367,6 +367,17 @@
       "total": 3,
       "under_trial": 1,
       "under_trial_pct": 33
+    },
+    {
+      "acquittals": 0,
+      "convictions": 3,
+      "district": "Hazaribag",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "JH",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -716,6 +727,18 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Thane",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "MH",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Anuppur",
       "longest_pending": null,
       "median_pending_days": null,
@@ -931,6 +954,18 @@
       "total": 2,
       "under_trial": 1,
       "under_trial_pct": 50
+    },
+    {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Thanjavur",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TN",
+      "total": 2,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
@@ -1513,6 +1548,17 @@
       "under_trial_pct": 100
     },
     {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Haveri",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "state": "KA",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 1,
       "convictions": 0,
       "district": "Not specified",
@@ -1564,17 +1610,6 @@
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
-      "state": "MH",
-      "total": 1,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 0,
-      "district": "Thane",
-      "longest_pending": null,
-      "median_pending_days": null,
       "state": "MH",
       "total": 1,
       "under_trial": 0,
@@ -1944,6 +1979,18 @@
     {
       "acquittals": 0,
       "convictions": 0,
+      "district": "Madurai",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TN",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
       "district": "Not Stated",
       "longest_pending": null,
       "median_pending_days": null,
@@ -1989,11 +2036,10 @@
     },
     {
       "acquittals": 0,
-      "convictions": 0,
-      "district": "Thanjavur",
+      "convictions": 1,
+      "district": "Theni",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 1,
       "state": "TN",
       "total": 1,
       "under_trial": 0,
@@ -2090,6 +2136,18 @@
       "total": 1,
       "under_trial": 1,
       "under_trial_pct": 100
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "Bhadohi",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "UP",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
     },
     {
       "acquittals": 0,
