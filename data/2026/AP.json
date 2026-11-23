@@ -3,7 +3,38 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 52,
+    "days_since_reported": 22,
+    "district": "YSR Kadapa",
+    "first_published": "2026-11-23",
+    "id": "SKS-2026-AP-000003",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "suspension_ordered"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-11-23",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/andhrapradesh-news/pocso-case-filed-against-a-government-teacher-in-proddatur-2566503",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "AP",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, one person was accused of the child sexual offence in YSR Kadapa, Andhra Pradesh. An official was suspended over the case. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — YSR Kadapa (2026) — FIR filed",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 53,
     "district": "Prakasam",
     "first_published": "2026-10-27",
     "id": "SKS-2026-AP-000002",
@@ -35,7 +66,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 113,
+    "days_since_reported": 114,
     "district": "Unknown",
     "first_published": "2026-08-20",
     "id": "SKS-2026-AP-000001",
