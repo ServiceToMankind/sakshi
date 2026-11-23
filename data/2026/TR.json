@@ -1,8 +1,38 @@
 [
   {
+    "accused_count": 2,
+    "category": "rape",
+    "confidence": 0.95,
+    "days_since_reported": 0,
+    "district": "South Tripura",
+    "first_published": "2026-11-23",
+    "id": "SKS-2026-TR-000003",
+    "incident_reported_date": "2026-11-23",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-23",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/tripura-woman-dies-after-setting-herself-on-fire-following-gangrape-one-arrested-police-101795410315432.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "TR",
+    "status": "FIR_FILED",
+    "summary": "Two men allegedly gangraped a woman in South Tripura district in November 2026. She later set herself on fire and died during treatment at a hospital. Police registered a criminal case four days after the incident. Officers subsequently arrested one suspect in connection with the crime. The police investigation is currently under way.",
+    "title": "One arrested after woman dies following gangrape in South Tripura",
+    "verification_note": "Approved as the source describes a reported gangrape case in South Tripura with consistent details.",
+    "verified": true
+  },
+  {
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 101,
+    "days_since_reported": 102,
     "district": "West Tripura",
     "first_published": "2026-08-13",
     "id": "SKS-2026-TR-000001",
@@ -30,7 +60,7 @@
     "accused_count": 6,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 113,
+    "days_since_reported": 114,
     "district": "Gomati",
     "first_published": "2026-08-17",
     "id": "SKS-2026-TR-000002",

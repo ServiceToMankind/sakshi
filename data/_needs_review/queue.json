@@ -258,5 +258,44 @@
       "title": "Rape of a minor — Ujjain (2026) — convicted, 20 years",
       "summary": "In October 2026, one person was accused of the rape of a minor in Ujjain, Madhya Pradesh. The charges also include causing hurt and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 20 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
     }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Unknown",
+      "offence_sections": [
+        "POCSO 6",
+        "POCSO 10"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "convicted"
+      ],
+      "sentence_years": 7,
+      "court": {
+        "name": "Gauhati High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/gauhati-high-court/genital-manipulation-doesnt-establish-penetrative-sexual-assault-pocso-559524",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-23",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "incident_reported_date": "2026-11",
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Assam (2026) — convicted, 7 years",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Assam. The accused was convicted and sentenced to 7 years in prison. Identifying details are withheld by law (POCSO s.23)."
+    }
   }
 ]

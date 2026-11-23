@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-22T00:00:00Z",
+  "generated_at": "2026-11-23T00:00:00Z",
   "jurisdictions": [
     {
       "acquittals": 2,
       "convictions": 0,
       "district": "Delhi",
       "longest_pending": {
-        "days": 324,
+        "days": 325,
         "id": "SKS-2026-DL-000066"
       },
-      "median_pending_days": 42,
+      "median_pending_days": 43,
       "pre_chargesheet": 8,
       "state": "DL",
-      "total": 37,
+      "total": 38,
       "under_trial": 14,
-      "under_trial_pct": 38
+      "under_trial_pct": 37
     },
     {
       "acquittals": 0,
@@ -22,11 +22,11 @@
       "district": "Hyderabad",
       "longest_pending": null,
       "median_pending_days": null,
-      "pre_chargesheet": 10,
+      "pre_chargesheet": 11,
       "state": "TG",
-      "total": 19,
+      "total": 20,
       "under_trial": 3,
-      "under_trial_pct": 16
+      "under_trial_pct": 15
     },
     {
       "acquittals": 0,
@@ -117,10 +117,10 @@
       "convictions": 2,
       "district": "Tiruvannamalai",
       "longest_pending": {
-        "days": 418,
+        "days": 419,
         "id": "SKS-2025-TN-000001"
       },
-      "median_pending_days": 418,
+      "median_pending_days": 419,
       "state": "TN",
       "total": 6,
       "under_trial": 1,
@@ -215,10 +215,10 @@
       "convictions": 1,
       "district": "South West",
       "longest_pending": {
-        "days": 1519,
+        "days": 1520,
         "id": "SKS-2022-DL-000001"
       },
-      "median_pending_days": 806,
+      "median_pending_days": 807,
       "state": "DL",
       "total": 4,
       "under_trial": 3,
@@ -331,14 +331,26 @@
       "under_trial_pct": 0
     },
     {
+      "acquittals": 0,
+      "convictions": 1,
+      "district": "Central",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "DL",
+      "total": 3,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
       "acquittals": 1,
       "convictions": 0,
       "district": "East",
       "longest_pending": {
-        "days": 548,
+        "days": 549,
         "id": "SKS-2025-DL-000002"
       },
-      "median_pending_days": 325,
+      "median_pending_days": 326,
       "pre_chargesheet": 1,
       "state": "DL",
       "total": 3,
@@ -502,17 +514,6 @@
       "median_pending_days": null,
       "pre_chargesheet": 1,
       "state": "BR",
-      "total": 2,
-      "under_trial": 0,
-      "under_trial_pct": 0
-    },
-    {
-      "acquittals": 0,
-      "convictions": 1,
-      "district": "Central",
-      "longest_pending": null,
-      "median_pending_days": null,
-      "state": "DL",
       "total": 2,
       "under_trial": 0,
       "under_trial_pct": 0
@@ -1032,6 +1033,18 @@
       "district": "Unknown",
       "longest_pending": null,
       "median_pending_days": null,
+      "state": "AP",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "YSR Kadapa",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
       "state": "AP",
       "total": 1,
       "under_trial": 0,
@@ -2084,6 +2097,18 @@
       "acquittals": 0,
       "convictions": 0,
       "district": "Gomati",
+      "longest_pending": null,
+      "median_pending_days": null,
+      "pre_chargesheet": 1,
+      "state": "TR",
+      "total": 1,
+      "under_trial": 0,
+      "under_trial_pct": 0
+    },
+    {
+      "acquittals": 0,
+      "convictions": 0,
+      "district": "South Tripura",
       "longest_pending": null,
       "median_pending_days": null,
       "pre_chargesheet": 1,
