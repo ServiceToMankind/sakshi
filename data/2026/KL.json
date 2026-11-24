@@ -1,47 +1,12 @@
 [
   {
-    "accused_count": 1,
-    "category": "rape",
-    "confidence": 0.95,
-    "court": {
-      "name": "Ernakulam Judicial First Class Magistrate Court",
-      "next_hearing": null
-    },
-    "days_since_reported": 16,
-    "district": "Ernakulam",
-    "fir_ref": {
-      "station": "Infopark"
-    },
-    "first_published": "2026-11-08",
-    "id": "SKS-2026-KL-000005",
-    "incident_reported_date": "2026-11-07",
-    "institutional_actions": [],
-    "minor_involved": false,
-    "offence_sections": [],
-    "sources": [
-      {
-        "publisher": "Hindustan Times",
-        "retrieved": "2026-11-08",
-        "source_type": "news_article",
-        "url": "https://www.hindustantimes.com/india-news/kochi-doctors-phone-reveals-sexual-abuse-of-several-women-after-he-alleges-assault-by-malayalam-actors-101794044422940.html",
-        "url_carries_identifying_slug": true
-      }
-    ],
-    "state": "KL",
-    "status": "FIR_FILED",
-    "summary": "Police registered a rape case against [occupation withheld] for sexually assaulting a woman and recording the act on his mobile phone. One man is accused in the case. The alleged offence took place in Ernakulam district. Police filed an FIR after receiving a formal complaint and examining recovered digital devices. The accused doctor remains absconding while police conduct further investigation.",
-    "title": "Kochi police register rape case against [occupation withheld]",
-    "verification_note": "The source confirms an FIR for rape was registered at Infopark police station in Ernakulam, Kerala.",
-    "verified": true
-  },
-  {
     "category": "sexual_assault",
     "confidence": 0.95,
     "court": {
       "name": "Kerala High Court",
       "next_hearing": null
     },
-    "days_since_reported": 22,
+    "days_since_reported": 23,
     "district": "Ernakulam",
     "first_published": "2026-11-17",
     "id": "SKS-2026-KL-000006",
@@ -66,13 +31,50 @@
   },
   {
     "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Fast Track Special Court, Thrissur",
+      "next_hearing": null
+    },
+    "days_since_reported": 23,
+    "district": "Thrissur",
+    "first_published": "2026-11-24",
+    "id": "SKS-2026-KL-000007",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "arrest_made",
+      "convicted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sentence_years": 1,
+    "sources": [
+      {
+        "publisher": "Namasthe Telangana",
+        "retrieved": "2026-11-24",
+        "source_type": "news_article",
+        "url": "https://www.ntnews.com/cinema/malayalam-actor-sreejith-ravi-sentenced-to-one-year-rigorous-imprisonment-in-2022-pocso-case-2567889",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "KL",
+    "status": "CONVICTED",
+    "summary": "In November 2026, one person was arrested in Thrissur, Kerala for the child sexual offence. The accused was convicted and sentenced to 1 year in prison. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Thrissur (2026) — convicted, 1 year",
+    "verified": true
+  },
+  {
+    "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
     "court": {
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Not specified",
     "first_published": "2026-10-31",
     "id": "SKS-2026-KL-000004",
@@ -104,7 +106,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 34,
+    "days_since_reported": 35,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -133,7 +135,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 83,
+    "days_since_reported": 84,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",

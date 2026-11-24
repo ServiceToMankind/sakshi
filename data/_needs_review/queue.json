@@ -4,6 +4,45 @@
       "possible_child_case"
     ],
     "record": {
+      "accused_count": 1,
+      "category": "rape",
+      "confidence": 0.95,
+      "court": {
+        "name": "Ernakulam Judicial First Class Magistrate Court",
+        "next_hearing": null
+      },
+      "days_since_reported": null,
+      "district": "Ernakulam",
+      "fir_ref": {
+        "station": "Infopark"
+      },
+      "first_published": "2026-11-08",
+      "id": "SKS-2026-KL-000005",
+      "incident_reported_date": "2026-11",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "offence_sections": [],
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-11-08",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/kochi-doctors-phone-reveals-sexual-abuse-of-several-women-after-he-alleges-assault-by-malayalam-actors-101794044422940.html",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "KL",
+      "status": "FIR_FILED",
+      "summary": "In November 2026, one person was accused of the rape involving a minor in Ernakulam, Kerala. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Rape involving a minor — Ernakulam (2026) — FIR filed",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
       "accused_count": 11,
       "category": "rape",
       "confidence": 0.95,
@@ -296,6 +335,92 @@
       "verified": true,
       "title": "Aggravated penetrative assault on a child — Assam (2026) — convicted, 7 years",
       "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Assam. The accused was convicted and sentenced to 7 years in prison. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "MP",
+      "district": "Indore",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 7",
+        "POCSO 8",
+        "IPC 354",
+        "IPC 506"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "chargesheet_filed",
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Madhya Pradesh High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madhya-pradesh-high-court/madhya-pradesh-high-court-section-7-pocso-act-holding-hand-of-minor-with-sexual-intent-is-sexual-assault-559764",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-24",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Sexual assault of a child — Indore (2026) — convicted",
+      "summary": "In November 2026, one person was accused of the sexual assault of a child in Indore, Madhya Pradesh. The charges also include criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "KL",
+      "district": "Thrissur",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "IPC 509",
+        "POCSO 11(I)",
+        "POCSO 12"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "repeat_offence": false,
+      "weapon_or_threat": false,
+      "institutional_actions": [
+        "convicted",
+        "bail_granted"
+      ],
+      "sentence_years": 1,
+      "court": {
+        "name": "Fast Track Special Court-II, Thrissur",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/news-updates/kerala-court-actor-sreejith-ravi-pocso-convicted-559697",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-24",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Sexual assault of a child — Thrissur (2026) — convicted, 1 year",
+      "summary": "In November 2026, one person was accused of the sexual assault of a child in Thrissur, Kerala. The charges also include insulting words or gestures. Bail was granted. The accused was convicted and sentenced to 1 year in prison. Identifying details are withheld by law (POCSO s.23)."
     }
   }
 ]
