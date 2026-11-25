@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-24T00:00:00Z",
+  "generated_at": "2026-11-25T00:00:00Z",
   "shards": [
     {
       "bytes": 1750,
@@ -408,9 +408,9 @@
       "year": "2026"
     },
     {
-      "bytes": 91448,
+      "bytes": 92739,
       "path": "2026/DL.json",
-      "records": 71,
+      "records": 72,
       "state": "DL",
       "year": "2026"
     },
@@ -450,7 +450,7 @@
       "year": "2026"
     },
     {
-      "bytes": 12616,
+      "bytes": 12617,
       "path": "2026/KA.json",
       "records": 10,
       "state": "KA",
@@ -478,9 +478,9 @@
       "year": "2026"
     },
     {
-      "bytes": 44413,
+      "bytes": 47176,
       "path": "2026/MP.json",
-      "records": 37,
+      "records": 39,
       "state": "MP",
       "year": "2026"
     },
@@ -499,23 +499,23 @@
       "year": "2026"
     },
     {
-      "bytes": 5959,
+      "bytes": 7275,
       "path": "2026/RJ.json",
-      "records": 5,
+      "records": 6,
       "state": "RJ",
       "year": "2026"
     },
     {
-      "bytes": 66661,
+      "bytes": 69459,
       "path": "2026/TG.json",
-      "records": 57,
+      "records": 59,
       "state": "TG",
       "year": "2026"
     },
     {
-      "bytes": 77192,
+      "bytes": 78285,
       "path": "2026/TN.json",
-      "records": 64,
+      "records": 65,
       "state": "TN",
       "year": "2026"
     },

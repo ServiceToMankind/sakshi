@@ -2,7 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 11,
+    "days_since_reported": 12,
     "district": "Banswara",
     "first_published": "2026-11-14",
     "id": "SKS-2026-RJ-000005",
@@ -28,10 +28,48 @@
     "weapon_or_threat": true
   },
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "court": {
+      "name": "Supreme Court of India",
+      "next_hearing": null
+    },
+    "days_since_reported": 24,
+    "district": "Jodhpur",
+    "first_published": "2026-11-25",
+    "id": "SKS-2026-RJ-000006",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "POCSO"
+    ],
+    "repeat_offence": true,
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-25",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/sc-defers-asaram-s-rape-conviction-appeal-hearing-to-jan-19-2027-101795534840729.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "RJ",
+    "status": "APPEAL_PENDING",
+    "summary": "In November 2026, one person was accused of the rape involving a minor in Jodhpur, Rajasthan. The accused is recorded as a repeat offender. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Rape involving a minor — Jodhpur (2026) — appeal pending",
+    "verified": true
+  },
+  {
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 43,
+    "days_since_reported": 44,
     "district": "Jaipur",
     "first_published": "2026-10-13",
     "id": "SKS-2026-RJ-000004",
@@ -61,7 +99,7 @@
   {
     "category": "other",
     "confidence": 0.95,
-    "days_since_reported": 80,
+    "days_since_reported": 81,
     "district": "Banswara",
     "first_published": "2026-09-05",
     "id": "SKS-2026-RJ-000002",
@@ -88,7 +126,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 84,
+    "days_since_reported": 85,
     "district": "Kota",
     "first_published": "2026-09-10",
     "id": "SKS-2026-RJ-000003",
@@ -115,7 +153,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 115,
+    "days_since_reported": 116,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",
