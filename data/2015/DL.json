@@ -1,0 +1,44 @@
+[
+  {
+    "accused_count": 3,
+    "category": "rape",
+    "cnr": "DLHC010447922019",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 4093,
+    "district": "Delhi",
+    "first_published": "2026-11-26",
+    "id": "SKS-2015-DL-000001",
+    "incident_reported_date": "2015-09-12",
+    "institutional_actions": [
+      "acquitted",
+      "appeal_filed"
+    ],
+    "minor_involved": false,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 328",
+      "IPC 376D",
+      "IPC 506",
+      "IPC 376(2)(N)"
+    ],
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-26",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/PMS23112026CRLA12952019_181815.pdf"
+      }
+    ],
+    "state": "DL",
+    "status": "ACQUITTED",
+    "summary": "A woman alleged that three men sexually assaulted and blackmailed her over several years. The trial court acquitted the accused man after finding an unexplained ten-year delay in filing the complaint. The complainant appealed the verdict in the Delhi High Court but later withdrew the petition. The High Court dismissed the appeal and affirmed the acquittal. The legal proceedings are now closed.",
+    "title": "Delhi High Court upholds acquittal in 2015 rape case after appeal withdrawn",
+    "verification_note": "The core facts in the candidate record are consistent with the High Court judgment confirming an acquittal in a reported rape case.",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
