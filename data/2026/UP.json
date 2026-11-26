@@ -1,9 +1,43 @@
 [
   {
+    "accused_count": 1,
+    "category": "sexual_assault",
+    "confidence": 0.95,
+    "days_since_reported": 1,
+    "district": "Meerut",
+    "fir_ref": {
+      "station": "Sadar Bazar"
+    },
+    "first_published": "2026-11-26",
+    "id": "SKS-2026-UP-000018",
+    "incident_reported_date": "2026-11-25",
+    "institutional_actions": [
+      "arrest_made"
+    ],
+    "minor_involved": false,
+    "offence_sections": [],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-26",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/ghaziabad-woman-held-captive-sexually-assaulted-inside-meerut-hotel-accused-arrested-101795607097788.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "UP",
+    "status": "FIR_FILED",
+    "summary": "A man allegedly held a person captive in a hotel and committed sexual assault. One man was accused and arrested by the police following a brief chase. The incident occurred in Meerut district. Authorities sealed the hotel to preserve evidence and registered a case. Further investigation into the incident is under way.",
+    "title": "Police arrest man for sexual assault and illegal confinement in Meerut",
+    "verification_note": "Approved as the source confirms a sexual assault case reported in Meerut with an FIR registered at Sadar Bazar police station.",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 24,
+    "days_since_reported": 25,
     "district": "Bhadohi",
     "fir_ref": {
       "station": "Gopiganj"
@@ -42,7 +76,7 @@
       "name": "Allahabad High Court",
       "next_hearing": null
     },
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Bareilly",
     "fir_ref": {
       "station": "Izzatnagar"
@@ -77,7 +111,7 @@
     "accused_count": 3,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 55,
+    "days_since_reported": 56,
     "district": "Kanpur",
     "first_published": "2026-10-25",
     "id": "SKS-2026-UP-000016",
@@ -107,7 +141,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 56,
+    "days_since_reported": 57,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-30",
     "id": "SKS-2026-UP-000013",
@@ -135,7 +169,7 @@
   {
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 59,
+    "days_since_reported": 60,
     "district": "Meerut",
     "first_published": "2026-09-27",
     "id": "SKS-2026-UP-000012",
@@ -162,7 +196,7 @@
     "accused_count": 2,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 60,
+    "days_since_reported": 61,
     "district": "Lucknow",
     "fir_ref": {
       "station": "Mohanlalganj"
@@ -195,7 +229,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 62,
+    "days_since_reported": 63,
     "district": "Amroha",
     "first_published": "2026-09-24",
     "id": "SKS-2026-UP-000010",
@@ -223,7 +257,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 84,
+    "days_since_reported": 85,
     "district": "Gautam Buddh Nagar",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000009",
@@ -250,7 +284,7 @@
     "accused_count": 2,
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-09-01",
     "id": "SKS-2026-UP-000007",
@@ -276,7 +310,7 @@
   {
     "category": "rape",
     "confidence": 0.9,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Noida",
     "first_published": "2026-09-02",
     "id": "SKS-2026-UP-000008",
@@ -302,7 +336,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 85,
+    "days_since_reported": 86,
     "district": "Bulandshahr",
     "first_published": "2026-10-11",
     "id": "SKS-2026-UP-000014",
@@ -334,7 +368,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 87,
+    "days_since_reported": 88,
     "district": "Gautam Buddha Nagar",
     "first_published": "2026-08-30",
     "id": "SKS-2026-UP-000006",
@@ -363,7 +397,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 88,
+    "days_since_reported": 89,
     "district": "Firozabad",
     "first_published": "2026-08-29",
     "id": "SKS-2026-UP-000005",
@@ -389,7 +423,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 90,
+    "days_since_reported": 91,
     "district": "Hathras",
     "first_published": "2026-08-27",
     "id": "SKS-2026-UP-000004",
@@ -416,7 +450,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 116,
+    "days_since_reported": 117,
     "district": "Prayagraj",
     "first_published": "2026-08-16",
     "id": "SKS-2026-UP-000003",
@@ -441,7 +475,7 @@
   {
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 147,
+    "days_since_reported": 148,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000001",
@@ -470,7 +504,7 @@
   {
     "category": "pocso",
     "confidence": 1.0,
-    "days_since_reported": 147,
+    "days_since_reported": 148,
     "district": "Ghaziabad",
     "first_published": "2026-07-15",
     "id": "SKS-2026-UP-000002",

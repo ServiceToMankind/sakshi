@@ -5,6 +5,42 @@
     ],
     "record": {
       "accused_count": 1,
+      "category": "harassment",
+      "confidence": 0.95,
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "days_since_reported": null,
+      "district": "Kallakurichi",
+      "first_published": "2026-11-24",
+      "id": "SKS-2026-TN-000064",
+      "incident_reported_date": "2026-11",
+      "institutional_actions": [],
+      "minor_involved": true,
+      "offence_sections": [],
+      "sources": [
+        {
+          "publisher": "Hindustan Times",
+          "retrieved": "2026-11-24",
+          "source_type": "news_article",
+          "url": "https://www.hindustantimes.com/india-news/fir-filed-against-tvk-legislator-in-sexual-harassment-case-madras-hc-told-101795505014416.html",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "state": "TN",
+      "status": "FIR_FILED",
+      "summary": "In November 2026, one person was accused of the sexual harassment involving a minor in Kallakurichi, Tamil Nadu. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+      "title": "Sexual harassment involving a minor — Kallakurichi (2026) — FIR filed",
+      "verified": true
+    }
+  },
+  {
+    "reasons": [
+      "possible_child_case"
+    ],
+    "record": {
+      "accused_count": 1,
       "category": "rape",
       "confidence": 0.95,
       "court": {
@@ -421,6 +457,125 @@
       "verified": true,
       "title": "Sexual assault of a child — Thrissur (2026) — convicted, 1 year",
       "summary": "In November 2026, one person was accused of the sexual assault of a child in Thrissur, Kerala. The charges also include insulting words or gestures. Bail was granted. The accused was convicted and sentenced to 1 year in prison. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "TN",
+      "district": "Madurai",
+      "incident_reported_date": "2026-11",
+      "offence_sections": [
+        "POCSO 5(J)(II)",
+        "POCSO 5(L)",
+        "POCSO 5(N)",
+        "POCSO 6",
+        "IPC 506(I)"
+      ],
+      "category": "pocso",
+      "minor_involved": true,
+      "status": "CONVICTED",
+      "accused_count": 1,
+      "weapon_or_threat": true,
+      "institutional_actions": [
+        "convicted",
+        "appeal_filed"
+      ],
+      "court": {
+        "name": "Madras High Court",
+        "next_hearing": null
+      },
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/madras-high-court/madras-high-court-pocso-court-not-mute-spectator-insensitive-questioning-defence-560082",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-26",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "title": "Aggravated penetrative assault on a child — Madurai (2026) — convicted",
+      "summary": "In November 2026, one person was accused of the aggravated penetrative assault on a child in Madurai, Tamil Nadu. The charges also include criminal intimidation. A weapon was used or a threat was made. The accused was convicted. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23)."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "AS",
+      "district": "Unspecified",
+      "incident_reported_date": "2026-11-26",
+      "offence_sections": [
+        "IPC 376(1)"
+      ],
+      "category": "rape",
+      "minor_involved": false,
+      "status": "ACQUITTED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "acquitted"
+      ],
+      "court": {
+        "name": "Supreme Court of India",
+        "next_hearing": null
+      },
+      "title": "Supreme Court acquits man in rape case citing lack of medical evidence",
+      "summary": "The Supreme Court acquitted a man who was previously convicted of rape. A single accused was charged with assaulting a woman inside a car in Assam. The court noted that medical evidence did not support the allegations of physical assault or rape. It found the testimony unreliable and lacking necessary corroboration. The court set aside the conviction and ordered his release.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/supreme-court/allegations-of-sexual-assault-3-times-in-car-not-supported-by-medical-evidence-supreme-court-acquits-rape-accused-560043",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-26"
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved genuine rape case acquittal by the Supreme Court consistent with source text."
+    }
+  },
+  {
+    "reasons": [
+      "live_blog_only"
+    ],
+    "record": {
+      "state": "DL",
+      "district": "Delhi",
+      "incident_reported_date": "2026-11-25",
+      "offence_sections": [
+        "BNS 74",
+        "BNS 75"
+      ],
+      "category": "harassment",
+      "minor_involved": false,
+      "status": "FIR_FILED",
+      "accused_count": 1,
+      "institutional_actions": [
+        "bail_granted"
+      ],
+      "court": {
+        "name": "Delhi High Court",
+        "next_hearing": null
+      },
+      "title": "Delhi HC grants anticipatory bail to lawyer in sexual harassment case",
+      "summary": "A lawyer was accused of committing sexual harassment inside a vehicle. Police in Delhi registered a case following the incident. The investigating officer failed to collect relevant CCTV footage and digital evidence during probe. The Delhi High Court granted anticipatory bail to the accused lawyer due to these investigation lapses. The investigation into the case remains ongoing.",
+      "confidence": 0.95,
+      "sources": [
+        {
+          "url": "https://www.livelaw.in/high-court/delhi-high-court/delhi-high-court-grants-anticipatory-bail-to-lawyer-accused-of-molesting-woman-on-pretext-of-offering-job-cites-investigation-lapses-560022",
+          "publisher": "LiveLaw",
+          "source_type": "legal_press",
+          "retrieved": "2026-11-26",
+          "url_carries_identifying_slug": true
+        }
+      ],
+      "verified": true,
+      "verification_note": "Approved as the report details a specific sexual harassment and assault case under BNS 74 and 75 where the Delhi High Court granted anticipatory bail."
     }
   }
 ]
