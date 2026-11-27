@@ -2,7 +2,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 13,
+    "days_since_reported": 14,
     "district": "Banswara",
     "first_published": "2026-11-14",
     "id": "SKS-2026-RJ-000005",
@@ -35,7 +35,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 25,
+    "days_since_reported": 26,
     "district": "Jodhpur",
     "first_published": "2026-11-25",
     "id": "SKS-2026-RJ-000006",
@@ -69,7 +69,7 @@
     "accused_count": 4,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 45,
+    "days_since_reported": 46,
     "district": "Jaipur",
     "first_published": "2026-10-13",
     "id": "SKS-2026-RJ-000004",
@@ -99,7 +99,7 @@
   {
     "category": "other",
     "confidence": 0.95,
-    "days_since_reported": 82,
+    "days_since_reported": 83,
     "district": "Banswara",
     "first_published": "2026-09-05",
     "id": "SKS-2026-RJ-000002",
@@ -126,7 +126,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 86,
+    "days_since_reported": 87,
     "district": "Kota",
     "first_published": "2026-09-10",
     "id": "SKS-2026-RJ-000003",
@@ -153,7 +153,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.9,
-    "days_since_reported": 117,
+    "days_since_reported": 118,
     "district": "Unknown",
     "first_published": "2026-08-18",
     "id": "SKS-2026-RJ-000001",

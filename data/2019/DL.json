@@ -2,13 +2,62 @@
   {
     "accused_count": 1,
     "category": "pocso",
+    "cnr": "DLHC010373682026",
+    "confidence": 0.95,
+    "court": {
+      "name": "High Court of Delhi",
+      "next_hearing": null
+    },
+    "days_since_reported": 2797,
+    "district": "East",
+    "fir_ref": {
+      "number": "141/2019",
+      "station": "Mayur Vihar"
+    },
+    "first_published": "2026-11-27",
+    "id": "SKS-2019-DL-000002",
+    "incident_reported_date": "2019-04",
+    "institutional_actions": [
+      "convicted",
+      "appeal_filed",
+      "bail_granted"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 323",
+      "IPC 34",
+      "IPC 341",
+      "IPC 354",
+      "IPC 506",
+      "POCSO 8"
+    ],
+    "sentence_years": 3,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-27",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/59226112026CRLA7732026_211437.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "APPEAL_PENDING",
+    "summary": "In April 2019, one person was accused of the sexual assault of a child in East, Delhi. The charges also include wrongful restraint, causing hurt and criminal intimidation. A weapon was used or a threat was made. Bail was granted. The accused was convicted and sentenced to 3 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Sexual assault of a child — East (2019) — appeal pending",
+    "verified": true,
+    "weapon_or_threat": true
+  },
+  {
+    "accused_count": 1,
+    "category": "pocso",
     "cnr": "DLHC010480572024",
     "confidence": 0.98,
     "court": {
       "name": "High Court of Delhi",
       "next_hearing": null
     },
-    "days_since_reported": 2827,
+    "days_since_reported": 2828,
     "district": "South-East",
     "fir_ref": {
       "number": "88/2019",

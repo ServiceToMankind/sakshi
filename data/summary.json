@@ -1,6 +1,6 @@
 {
   "aggravated_total": 108,
-  "generated_at": "2026-11-26T00:00:00Z",
+  "generated_at": "2026-11-27T00:00:00Z",
   "monthly_trend": [
     {
       "count": 1,
@@ -71,7 +71,7 @@
       "month": "2026-04"
     },
     {
-      "count": 1,
+      "count": 2,
       "month": "2026-05"
     },
     {
@@ -95,17 +95,13 @@
       "month": "2026-10"
     },
     {
-      "count": 75,
+      "count": 79,
       "month": "2026-11"
     }
   ],
   "scale": {
-    "cumulative_total": 471,
+    "cumulative_total": 477,
     "daily": [
-      {
-        "count": 0,
-        "date": "2026-07-30"
-      },
       {
         "count": 0,
         "date": "2026-07-31"
@@ -581,28 +577,32 @@
       {
         "count": 7,
         "date": "2026-11-26"
+      },
+      {
+        "count": 6,
+        "date": "2026-11-27"
       }
     ],
-    "this_week": 38
+    "this_week": 40
   },
   "severity_counts": {
     "Aggravated penetrative assault on a child": 73,
     "Assault to outrage modesty": 9,
-    "Child sexual offence": 95,
+    "Child sexual offence": 98,
     "Gang rape": 9,
     "Gang rape of a minor": 5,
     "Penetrative assault on a child": 14,
     "Rape": 18,
     "Rape of a minor": 6,
     "Rape resulting in death or persistent vegetative state": 1,
-    "Sexual assault of a child": 11
+    "Sexual assault of a child": 12
   },
   "state_counts": {
     "AP": 3,
     "AS": 5,
     "BR": 14,
     "CT": 4,
-    "DL": 102,
+    "DL": 106,
     "GA": 7,
     "GJ": 9,
     "HR": 18,
@@ -610,14 +610,14 @@
     "JK": 2,
     "KA": 11,
     "KL": 6,
-    "MH": 13,
+    "MH": 14,
     "ML": 1,
     "MN": 2,
     "MP": 46,
     "OD": 4,
     "PB": 6,
     "RJ": 6,
-    "TG": 63,
+    "TG": 64,
     "TN": 79,
     "TR": 3,
     "UP": 22,
@@ -626,76 +626,76 @@
   },
   "status_counts": {
     "ACQUITTED": 12,
-    "APPEAL_PENDING": 29,
+    "APPEAL_PENDING": 30,
     "CHARGESHEETED": 6,
     "CLOSED": 7,
     "CONVICTED": 76,
-    "FIR_FILED": 171,
+    "FIR_FILED": 175,
     "QUASHED": 9,
-    "UNDER_TRIAL": 88,
+    "UNDER_TRIAL": 89,
     "UNKNOWN": 73
   },
   "top_longest_pending": [
     {
-      "days_since_reported": 1523,
+      "days_since_reported": 1524,
       "district": "South West",
       "id": "SKS-2022-DL-000001",
       "incident_reported_date": "2022-09-25"
     },
     {
-      "days_since_reported": 552,
+      "days_since_reported": 553,
       "district": "East",
       "id": "SKS-2025-DL-000002",
       "incident_reported_date": "2025-05-23"
     },
     {
-      "days_since_reported": 422,
+      "days_since_reported": 423,
       "district": "Tiruvannamalai",
       "id": "SKS-2025-TN-000001",
       "incident_reported_date": "2025-09-30"
     },
     {
-      "days_since_reported": 328,
+      "days_since_reported": 329,
       "district": "Delhi",
       "id": "SKS-2026-DL-000066",
       "incident_reported_date": "2026-01-02"
     },
     {
-      "days_since_reported": 225,
+      "days_since_reported": 226,
       "district": "Delhi",
       "id": "SKS-2026-DL-000085",
       "incident_reported_date": "2026-04-15"
     },
     {
-      "days_since_reported": 107,
+      "days_since_reported": 108,
       "district": "East",
       "id": "SKS-2026-DL-000071",
       "incident_reported_date": "2026-08-11"
     },
     {
-      "days_since_reported": 98,
+      "days_since_reported": 99,
       "district": "South West",
       "id": "SKS-2026-DL-000014",
       "incident_reported_date": "2026-08-20"
     },
     {
-      "days_since_reported": 50,
+      "days_since_reported": 51,
       "district": "Delhi",
       "id": "SKS-2026-DL-000044",
       "incident_reported_date": "2026-10-07"
     },
     {
-      "days_since_reported": 42,
+      "days_since_reported": 43,
       "district": "Delhi",
       "id": "SKS-2026-DL-000064",
       "incident_reported_date": "2026-10-15"
     },
     {
-      "days_since_reported": 33,
+      "days_since_reported": 34,
       "district": "Delhi",
       "id": "SKS-2026-DL-000062",
       "incident_reported_date": "2026-10-24"
     }
   ],
-  "total": 471
+  "total": 477
 }
