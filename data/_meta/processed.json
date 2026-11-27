@@ -1848,6 +1848,12 @@
       "last_seen": "2026-08-05",
       "outcome": "not_a_case"
     },
+    "1aaab8bce80d25b1e1b0f232983a2ad2a82bde33a0bfbbb55800fc36a3041d41": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
+    },
     "1ab3c4b0e9abd0d388d5fede77bbb7cbcfbabe7378faf293214c496da7ffe588": {
       "attempts": 0,
       "first_seen": "2026-10-10",
@@ -3147,14 +3153,14 @@
     "30b1dd4680fa7072ad6d5d020d74934dcf81eda928829a204ddd1b66441c268e": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "30e69e7122874a664faa37fa08779c4e5644ed4057d9abfed443fe45615574b6": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "30ef6e054edf8decd90201c4bfe31f6ced4a6cb49d4415593f4d4d2484686164": {
       "attempts": 0,
@@ -5907,8 +5913,8 @@
     "57406ffee186fbeae3a2058464d2989548e3fdee27c4d19b1089e555047630e4": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "5743357e3a4b24f7e0613921d455fe6b8833cd1e3f8fb3154b91fc36979613a6": {
       "attempts": 0,
@@ -6645,8 +6651,8 @@
     "62242ab961675609fad1a4dc5baa6104078c2386ad741e4fedc173c5a9e7a8e5": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "6225e1220177ff6a81d861a5f7b660801b743dd382d1202d2125466b59dafd51": {
       "attempts": 0,
@@ -7557,8 +7563,8 @@
     "6f6f7a16a39f8d1296a352689e82257eefa8745fb10a5965955b93d3f4e7715f": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "6fa668796d2977cab90d5a282428072d65d755891f7be81c48580a5f0368b4d3": {
       "attempts": 0,
@@ -8109,8 +8115,8 @@
     "777b3e8170b1371a537af8c52191526d8f9c0c8277d3158f939550a007a34d3d": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "777f2e4970bc7284db4e02aa2db71fefc4ead911ba59400f89eb923a71320198": {
       "attempts": 0,
@@ -8382,6 +8388,12 @@
       "last_seen": "2026-07-15",
       "outcome": "not_a_case"
     },
+    "7b64e98de8ada6644d9ad5f80ccf8d38cd0947c962d1d09f3b90c69c12a964ce": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "not_a_case"
+    },
     "7bace526d325b0f4e05c81b3680a373548b280cb004c5ba056470011ec6cc7c4": {
       "attempts": 0,
       "first_seen": "2026-08-10",
@@ -8499,8 +8511,8 @@
     "7d7fafc84b4f158da89ad671cc944dab654251b0a8b12f234b311c689ec7050d": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "7daaee1dcc88d7501900b873119c125a4b6e94f8cd58818090c5f6d125dc8cb5": {
       "attempts": 0,
@@ -9648,6 +9660,12 @@
       "last_seen": "2026-09-29",
       "outcome": "published"
     },
+    "8e503bc4862f0e104ed71f128996a7a8c75610e70c00afb1d63938f1f4b0a582": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
+    },
     "8e50bc8d16a765774de59de362091fd1072b9aa9561838fbf989f63275c02b2e": {
       "attempts": 0,
       "first_seen": "2026-07-29",
@@ -10548,6 +10566,12 @@
       "last_seen": "2026-08-01",
       "outcome": "not_a_case"
     },
+    "9ddb56d3a892bd8e5d8f6df81ef38aaae1ea563808e998b090b305cf2fdbad24": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
+    },
     "9de8223bb339bef082845f55c4891a9d3f69e04d223bd72fc3685137ed20ad3f": {
       "attempts": 0,
       "first_seen": "2026-07-31",
@@ -11321,6 +11345,12 @@
       "first_seen": "2026-09-30",
       "last_seen": "2026-09-30",
       "outcome": "not_a_case"
+    },
+    "ab18632292350ba96a2d2368c636cdf86c84fd88733f62b142a641d85906cb7f": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
     },
     "ab44f1f53c36b872d844a7945d6491259ac53877a814a12a1d09fb341758fc00": {
       "attempts": 0,
@@ -13578,6 +13608,12 @@
       "last_seen": "2026-08-06",
       "outcome": "not_a_case"
     },
+    "ced4111cdbdb5c1d8a4eda49b04c85ed1fb1fe2f436c87ea7beb0117ab518e45": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
+    },
     "cef1aacab7a7cfdbc622c5b5a3400370a4908df0608a340740bee1f7b9fc6865": {
       "attempts": 0,
       "first_seen": "2026-08-11",
@@ -14003,6 +14039,12 @@
       "first_seen": "2026-10-13",
       "last_seen": "2026-10-19",
       "outcome": "published"
+    },
+    "d6410aee335bd68469dfebc148fa165f9df69683d42e7af632e4c8ab8e1363b8": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
+      "outcome": "staged_pending"
     },
     "d67b5df08094cf5154d9cb4f9670a83bfb6444121453c43c58299a70313005ba": {
       "attempts": 0,
@@ -14865,8 +14907,8 @@
     "e30987f1145151a1480da545e1679016c3493f757a80548a495c32f32f75a604": {
       "attempts": 0,
       "first_seen": "2026-11-26",
-      "last_seen": "2026-11-26",
-      "outcome": "staged_pending"
+      "last_seen": "2026-11-27",
+      "outcome": "published"
     },
     "e327802ea355b3e58693a3daba19ba8baf30f1561c04bdcbe01db3349d87687c": {
       "attempts": 0,
@@ -15214,6 +15256,12 @@
       "attempts": 0,
       "first_seen": "2026-07-15",
       "last_seen": "2026-07-15",
+      "outcome": "not_a_case"
+    },
+    "e806d0132ec922c70c8247786d43e98af56bbc5cc293380fe92fbf3d855f7f6d": {
+      "attempts": 0,
+      "first_seen": "2026-11-27",
+      "last_seen": "2026-11-27",
       "outcome": "not_a_case"
     },
     "e837d166f7c795c3787e74dbf7060e938b89882776339ea867ae92df701bec5e": {
