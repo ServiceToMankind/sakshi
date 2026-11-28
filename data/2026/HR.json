@@ -1,9 +1,38 @@
 [
   {
+    "accused_count": 1,
+    "category": "pocso",
+    "confidence": 0.95,
+    "days_since_reported": 27,
+    "district": "Faridabad",
+    "first_published": "2026-11-28",
+    "id": "SKS-2026-HR-000008",
+    "incident_reported_date": "2026-11",
+    "institutional_actions": [],
+    "minor_involved": true,
+    "offence_sections": [
+      "POCSO"
+    ],
+    "sources": [
+      {
+        "publisher": "Hindustan Times",
+        "retrieved": "2026-11-28",
+        "source_type": "news_article",
+        "url": "https://www.hindustantimes.com/india-news/55yearold-neighbour-molests-6-year-old-girl-in-faridabad-booked-under-pocso-after-victims-mother-files-complaint-101795781037392.html",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "HR",
+    "status": "FIR_FILED",
+    "summary": "In November 2026, one person was accused of the child sexual offence in Faridabad, Haryana. An FIR has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Child sexual offence — Faridabad (2026) — FIR filed",
+    "verified": true
+  },
+  {
     "accused_count": 6,
     "category": "sexual_assault",
     "confidence": 0.95,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Faridabad",
     "first_published": "2026-10-03",
     "id": "SKS-2026-HR-000006",
@@ -32,7 +61,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 57,
+    "days_since_reported": 58,
     "district": "Gurugram",
     "first_published": "2026-10-18",
     "id": "SKS-2026-HR-000007",
@@ -61,7 +90,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 1.0,
-    "days_since_reported": 65,
+    "days_since_reported": 66,
     "district": "Sirsa",
     "first_published": "2026-09-23",
     "id": "SKS-2026-HR-000004",
@@ -91,7 +120,7 @@
     "accused_count": 1,
     "category": "rape",
     "confidence": 0.95,
-    "days_since_reported": 71,
+    "days_since_reported": 72,
     "district": "Rohtak",
     "first_published": "2026-09-17",
     "id": "SKS-2026-HR-000003",
@@ -119,7 +148,7 @@
   {
     "category": "pocso",
     "confidence": 0.9,
-    "days_since_reported": 87,
+    "days_since_reported": 88,
     "district": "Faridabad",
     "first_published": "2026-09-23",
     "id": "SKS-2026-HR-000005",
@@ -146,7 +175,7 @@
     "accused_count": 1,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 118,
+    "days_since_reported": 119,
     "district": "Palwal",
     "first_published": "2026-08-30",
     "id": "SKS-2026-HR-000002",
@@ -173,7 +202,7 @@
   {
     "category": "sexual_assault",
     "confidence": 0.9,
-    "days_since_reported": 149,
+    "days_since_reported": 150,
     "district": "Gurugram",
     "first_published": "2026-07-14",
     "id": "SKS-2026-HR-000001",

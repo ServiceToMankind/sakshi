@@ -1,0 +1,58 @@
+[
+  {
+    "accused_count": 1,
+    "category": "pocso",
+    "cnr": "DLHC013279202017",
+    "confidence": 0.95,
+    "court": {
+      "name": "Delhi High Court",
+      "next_hearing": null
+    },
+    "days_since_reported": 5079,
+    "district": "North Delhi",
+    "fir_ref": {
+      "number": "08/2013",
+      "station": "Narela"
+    },
+    "first_published": "2026-11-28",
+    "id": "SKS-2013-DL-000001",
+    "incident_reported_date": "2013-01",
+    "institutional_actions": [
+      "arrest_made",
+      "chargesheet_filed",
+      "convicted",
+      "appeal_filed"
+    ],
+    "minor_involved": true,
+    "offence_sections": [
+      "IPC 376",
+      "IPC 342",
+      "IPC 506",
+      "IPC 376(2)(F)",
+      "POCSO 6"
+    ],
+    "sentence_years": 10,
+    "sources": [
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-28",
+        "source_type": "court",
+        "url": "https://indiankanoon.org/doc/173807272/",
+        "url_carries_identifying_slug": true
+      },
+      {
+        "publisher": "Delhi High Court",
+        "retrieved": "2026-11-28",
+        "source_type": "court",
+        "url": "https://delhihighcourt.nic.in/app/showFileJudgment/75527112026CRLA7442017_211826.pdf",
+        "url_carries_identifying_slug": true
+      }
+    ],
+    "state": "DL",
+    "status": "CONVICTED",
+    "summary": "In January 2013, one person was arrested in North Delhi, Delhi for the aggravated penetrative assault on a child. The charges also include wrongful confinement and criminal intimidation. A weapon was used or a threat was made. Police have filed a chargesheet. The accused was convicted and sentenced to 10 years in prison. An appeal against the verdict has been filed. Identifying details are withheld by law (POCSO s.23).",
+    "title": "Aggravated penetrative assault on a child — North Delhi (2013) — convicted, 10 years",
+    "verified": true,
+    "weapon_or_threat": true
+  }
+]
