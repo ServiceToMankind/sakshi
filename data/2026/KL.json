@@ -6,7 +6,7 @@
       "name": "Kerala High Court",
       "next_hearing": null
     },
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Ernakulam",
     "first_published": "2026-11-17",
     "id": "SKS-2026-KL-000006",
@@ -37,7 +37,7 @@
       "name": "Fast Track Special Court, Thrissur",
       "next_hearing": null
     },
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Thrissur",
     "first_published": "2026-11-24",
     "id": "SKS-2026-KL-000007",
@@ -73,7 +73,7 @@
       "name": "Kerala High Court",
       "next_hearing": null
     },
-    "days_since_reported": 26,
+    "days_since_reported": 27,
     "district": "Ernakulam",
     "first_published": "2026-11-26",
     "id": "SKS-2026-KL-000008",
@@ -104,7 +104,7 @@
       "name": "Supreme Court of India",
       "next_hearing": null
     },
-    "days_since_reported": 28,
+    "days_since_reported": 29,
     "district": "Not specified",
     "first_published": "2026-10-31",
     "id": "SKS-2026-KL-000004",
@@ -136,7 +136,7 @@
     "accused_count": 1,
     "category": "harassment",
     "confidence": 0.95,
-    "days_since_reported": 38,
+    "days_since_reported": 39,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000002",
@@ -165,7 +165,7 @@
     "accused_count": 4,
     "category": "pocso",
     "confidence": 0.95,
-    "days_since_reported": 87,
+    "days_since_reported": 88,
     "district": "Thiruvananthapuram",
     "first_published": "2026-10-20",
     "id": "SKS-2026-KL-000003",
